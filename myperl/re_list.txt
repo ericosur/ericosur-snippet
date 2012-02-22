@@ -1,0 +1,32 @@
+ue %^([a-zA-Z_0-9]+^)[ ^t]+([^p*, ^t^[^]a-zA-Z_0-9.]++)[~;]
+re ^([a-zA-Z_0-9]+)\s+\([\n*, \t\[\]a-zA-Z_0-9\.]*)[^;]
+
+ue "%[a-zA-Z_0-9]*::^([a-zA-Z_0-9]+^)[ ^t]++([^p*, ^t^[^]/*=:&a-zA-Z_0-9.]++)[~;]"
+re ^[a-zA-Z_0-9]*::([a-zA-Z_0-9]+)\s*\([\p*, \t\[\]\/*=:&a-zA-Z_0-9.]*\)[^;]
+
+"%[a-zA-Z_0-9]+[ ^t]+^([a-zA-Z_0-9]+^)[ ^t]++([^p*, ^t^[^]a-zA-Z_0-9.]++)[~;]"
+"%[a-zA-Z_0-9"]* ^([a-zA-Z_0-9"]+^)[ ^t]++([^p*, ^t^[^]a-zA-Z_0-9.]++)[~;]"
+"%[a-zA-Z_0-9*&$]+[ ^t]+[a-zA-Z_0-9*&$]+[ ^t]+^([a-zA-Z_0-9]+^)[ ^t]++([^p*, ^t^[^]a-zA-Z_0-9.]++)[~;]"
+"%^([a-zA-Z_0-9]+^)[ ^t]++([^p*, ^t^[^]a-zA-Z_0-9.]++)[~;]"
+
+
+
+
+
+
+
+%               ^
+$               $
+?               .  any single char except newline
+*               *  any number of any char???
++               +  1 or more
+++              *  zero or more
+^b                 page break
+^p                 newline
+^r                 newline
+^n                 newline
+^t                 tab
+[]                 char set
+^(A^)^(B^)   [A|B] expr A or B
+^               \
+^(...^)      (...)

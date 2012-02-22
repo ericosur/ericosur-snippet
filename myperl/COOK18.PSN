@@ -1,0 +1,42 @@
+;*********************************
+;* ƒRƒbƒN
+;*********************************
+
+[class]
+cook
+[end]
+
+[preview]
+*name "¥~§ø¡@¶®¨q"
+*age 51
+*nensu 0
+*supply 490
+*sex    0
+face55.dar
+[end]
+
+[comment]
+§A¤]³\»{ÃÑ¬ü­¹µû½×®a¡u¥~§ø¶®¨q¡v¡A¤£¹L§Ú°£¤Fµû½×¬ü­¹¥~¡AÁÙ·Q­n³Ğ³y¬ü­¹¡C§A¬İ¸q¤j§QÄÑ®Æ²zÁÙ¦³½Ö¯à°µ±o¤ñ§Ú¦n©O¡HÖK¯N¤§Ãşªº®Æ²z§Ú¤]«Ü¦b¦æ³á¡I
+[end]
+
+[image]
+person1.dar
+@ 3 60
+*animation 0 1 0 2
+[end]
+
+[setting]
+*power     10 ; ‹@“®—Í
+*pa        0 ; ƒvƒ‰ƒXƒ¿‘f¿(-20`20)
+*love      15 ; ˆ¤î
+*bear      30 ; ”E‘Ï—Í
+*study     40 ; K“¾—¦
+*quality   70 ; ‘f¿
+*tech      35 ; ’²—‹Zp
+*tenacity  20 ; ’è’…—¦
+*tj       "¸q¤j§QÄÑ"
+*fj       "º~³ù¦×»æ"
+*jtec      J2 15
+*jtec      J6  8
+*jtec      J7 0
+[end]

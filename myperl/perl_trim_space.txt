@@ -1,0 +1,38 @@
+標  題: Re: 如何清除空格?
+
+: >PERL CGI程式
+: >print "中 文 字    空格";
+: >如何清除空格, 令結果
+: >"中文字空格"呢?
+: 如果不考慮中文字元內的空格字元，或全行空白 "　", 下面的程式應該就行了
+
+#!/usr/bin/perl
+$a = "中 文 字    空格";
+$a = trim($a);
+print $a, "\n";
+
+sub trim
+{
+        local($a) = @_;
+        local($i);
+        for ($i = 0; $i < length $a; )
+        {
+                if (substr($a, $i, 1) eq ' ')
+                {
+                        substr($a, $i, 1) = '';
+                }
+                else
+                {
+                        $i++;
+                }
+        }
+        $a;
+}
+//---------------------------------------------------------
+有那麼複雜嗎?
+try this.
+
+#!/usr/bin/perl -w
+$a = "中 文 字    空格";
+$a =~ s/ //g;    # replace ' ' to '' search to end of string
+print $a, "\n";

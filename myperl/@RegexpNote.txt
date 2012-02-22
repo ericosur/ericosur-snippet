@@ -1,0 +1,180 @@
+p57
+Modifier    Meaning
+i           Do case-insensitive pattern matching
+m           Treat string as multiple lines (^ and $ match internal \n)
+s           Treat string as single line (^ and $ ignore \n, but . matches \n)
+x           Extend your pattern's legibility with whitespace and comments
+
+p59
+Metacharacters:
+  \ | ( ) [ { ^ $ * + ? .
+
+\b \D \t \3 \s
+
+\b a word boundary (zero char width)
+\t an ordinary tab character (one char width)
+
+eg:
+/Fred|Wilma|Barney|Betty/
+/(Fred|Wilma|Pebbles) Flintstone/
+
+Quantifiers:
+* + ? *? {2,5}
+
+p60-64
+The rules of regular expression matching
+
+p62
+Assertion   Meaning
+^           Matches at the beginning of the string (or line, if /m used)
+$           Matches at the end of the string (or line, if /m used)
+\b          Matches at word boundary (between \w and \W)
+\B          Matches except at word boundary
+\A          Matches at the beginning of the string
+\Z          Matches at the end of the string
+\G          Matches where previous m//g left off
+(?=...)     Matches if engine would match ... next
+(?!...)     Matches if engine wouldn't match ... next
+
+p63
+Quantifiers:
+Maximal Mininal Allowed Range
+{n,m}   {n,m}?  Must occur at leaast n times but no more than m times
+{n,}    {n,}?   Must occur at least n times
+{n}     {n}?    Must match exactly n times
+*       *?      0 or more times (same as {0,})
++       +?      1 or more times (same as {1,})
+?       ??      0 or 1 time (same as {0,1})
+
+.       any char except \n (matches if /s used)
+.*      matches maximal number of don't-care characters
+.*?     matches minimal number of don't-care characters
+
+p64
+A backslashed letter matches a speciaal character or character class:
+Code    Matches
+\a      Alarm (beep)
+\n      Newline
+\r      Carriage return
+\t      Tab
+\f      Formfeed
+\e      Escape
+\d      A digit, same as [0-9]
+\D      A nondigit
+\w      A word character (alphanumeric), same as [a-zA-Z_0-9]
+\W      A nonword character
+\s      A whitespace character, same as [ \t\n\r\f]
+\S      A non-whitespace character
+
+p68
+Regular expression extension:
+(?#text)    A comment. The text is ignored. If the /x switch is used to
+            enable whitespace formatting, a simple # will suffice.
+(?:...)     This group thins like "(...)" but doesn't make backreferences
+            like "(...)" does. eg: split(/\b(?:a|b|c)\b/)
+(?=...)     A zero-width positive lookahead assertion. eg: /\w+(?=\t)/
+            matches a word followed by a tab, without including the tab in
+            $&.
+(?!...)     A zero-width negative lookahead assertion. eg: /foo(?!bar)/
+            matches any occurrence of "foo" that isn't followed by "bar".
+            Note, however, that lookahead and lookbehind are not the same
+            thing. You cannot use this for lookbehind. /(?!foo)bar/ will
+            not find an occurrence of "bar" that is preceded by something
+            that is not "foo". ...[deleted]...
+(?imsx)     One or more embedded pattern-match modifiers. This is
+            particularly useful for patterns that are specified in a table
+            somewhere, some of which want to be case-sensitive, and some of
+            which don't. The case-sensitive ones merely need to include (?i)
+            at the front of the pattern.
+
+p69
+Pattern Matching Operators
+
+m/PATTERN/gimosx
+/PATTERN/gimosx
+
+Modifiers   Meaning
+g           Match globally, this is, find all occurrences.
+i           Do case-insensitive pattern matching.
+m           Treat string as multiple lines
+o           Only compile pattern once.
+s           Treat string as single line
+x           Use extended regular expressions.
+
+p72
+?PATTERN?
+
+s/PATTERN/REPLACEMENT/egimosx
+
+Modifiers   Meaning
+e           Evaluate the right side as an expression
+g           Replace globally, that is all occurrences
+i           Do case-insensitive pattern matching
+m           Treat string as multiple lines
+o           Only compile pattern once
+s           Treat string as single line
+x           Use extended regular expressions
+
+p74
+tr/SEARCHLIST/REPLACEMENTLIST/cds
+y/SEARCHLIST/REPLACEMENTLIST/cds
+Modifiers   Meaning
+c           Complement the SEARCHLIST
+d           Delete found but unreplaced chracters
+s           Sqush duplicate replaced characters
+
+p128-129
+Regular Expression Special Variables
+$digit  (eg: $1, $2) (Mnemonic: like \digit, \1, \2)
+
+$&
+$MATCH
+
+$`
+$PREMATCH
+
+$'
+$POSTMATCH
+
+$+
+$LAST_PAREN_MATCH
+
+$*
+$MULTILINE_MATCHING
+
+p85
+file test operator:
+op  Meaning
+-r  readable by effective uid/gid
+-w  writable by effective uid/gid
+-x  executable by effective uid/gid
+-o  owned by effective uid
+
+-R  readable by real uid/gid
+-W  writable by real uid/gid
+-X  executable by real uid/gid
+-O  owned by real uid
+
+-e  exists
+-z  zero size
+-s  non-zero size (returns size)
+
+-f  plain file
+-d  directory
+-l  symbolic link
+-p  named pipe (FIFO)
+-S  socket
+-b  block special file
+-c  character special file
+-t  Filehandle is opened to a tty
+
+-u  setuid bit set
+-g  setgid bit set
+-k  sticky bit set
+
+-T  text file
+-B  binary file (oppocite of -T)
+
+-M  Age of file (at startup) in days since modification
+-A  Age of file (at startup) in days since last access
+-C  Age of file (at startup) in days since inode change
