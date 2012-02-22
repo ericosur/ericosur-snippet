@@ -1,0 +1,122 @@
+﻿Expect-1.15
+http://search.cpan.org/~rgiersig/Expect-1.15/Expect.pod
+
+ THE PERL DATA STRUCTURES COOKBOOK
+
+ptt regexp 版
+
+Linux::Inotify2 - scalable directory/file change notification
+
+Regexp Quote-Like Operators
+http://perldoc.perl.org/perlop.html#Regexp-Quote-Like-Operators
+
+這個問題可以先簡化一下，首先先看一下這個原本的 perlre 文件上寫的
+
+m{ ( \( )?
+               [^()]+
+               (?(1) \) )
+           }x
+
+這邊的 x 就是忽略正規表示中的注解與空白，所以可以轉換為
+
+/(\()?[^()]+(?(1)\))/
+
+分成三部份來看:
+
+黃色部份: 用來 match 左括號用，後面用?，表示可不出現或者出現1次
+紅色部分: 用來 match 不是左括號或者右括號，而且出現至少一次以上
+
+綠色部分: 子條件正規表示，這邊是我們的重點 (?(condition)yes-pattern)
+          此處的 condition 寫1表示用來 match \1，也就是黃色部份的內容
+          如果黃色部份有被 match 到，表示被 match 成功，意即右邊會出現右括號)
+
+
+這樣寫相信很多人還是搞不太清楚，我們用 sample 來看看
+
+# 有 match 成功
+$str = '(test)';
+
+if($str =~ /(\()?[^()]+(?(1)\))/) {
+   print &quotMatch"
+}
+
+# 沒有 match 成功
+$str = '()';
+
+if($str =~ /(\()?[^()]+(?(1)\))/) {
+   print &quotMatch"
+}
+
+# 透過 condition 來判斷，假設開頭沒有( 但是中間有資料，結尾出現 ]，所以 Match
+# 此時表示落在子條件判斷式的，判斷失敗，跳到後端的\]來看
+$str = 'test]';
+
+if($str =~ /(\()?[^()]+(?(1)\)|\])/) {
+   print &quotMatch"
+}
+
+# 透過 condition 來判斷，假設開頭沒有( 但是中間有資料，結尾沒出現 ]，沒 Match
+$str = 'test=';
+
+if($str =~ /(\()?[^()]+(?(1)\)|\])/) {
+   print &quotMatch"
+}
+
+[心得] 一些好用的 Debug 模組
+
+如果說想要知道撰寫程式中，某變數或者陣列使用的資料大小可以使用
+http://search.cpan.org/~tels/Devel-Size-0.69/lib/Devel/Size.pm
+
+如果說想要知道撰寫程式中，某變數或者陣列使用的資料配置可以使用
+http://search.cpan.org/~ilyaz/Devel-Peek-0.96/Peek.pm
+
+
+擅用這兩個模組的話，對於撰寫時應該能夠有一定的幫助 :)
+
+
+Internals 模組可以把修改變數唯讀與否，並且讀取RefCount還有SetRefCount
+http://search.cpan.org/~stbey/Internals-1.1/Internals.pm
+
+: 假如有一個字串 abcadeceaacbb
+: 要找aa、ab、ac、...、ba、bb、bc...等 ，出現之機率，
+aa的機率 = scalar(@m1=$str=~m/(?=(aa))/g)/scalar(@m2=$str=~m/(?=(a.))/g)
+
+題: Re: [問題] 把中文字切出來
+時間: Fri Nov 23 10:19:33 2007
+
+※ 引述《Dreamer77 (追夢)》之銘言：
+: 請問
+: 要如何把中文一個字一個字切出來
+: (輸入的可能是utf8 or big5 都有可能)
+: p,s 前面提供的方法 split(//,$string)
+: 我試了之後是 不僅連英文都變成一個字母一個字母@@"
+: 而且 中文會有亂碼..
+: 不知道有沒有人知道方法 thanks
+1. regular exp
+$lines="輸出的可能是utf8 or big5 都有可能"
+my $big5 = "[\xA1-\xF9][\x40-\x7E\xA1-\xFE]"
+my @words=$lines=~/($big5|\x0d\x0a|[\x21-\x7e]|\s+)/g;
+
+2.decode<=>encode
+#用以下的話 中文字length仍是 2
+
+$lines=decode('big5',$lines);
+@words=split //,$lines; #中文字算是一個字元，所以會被切開
+map {$_=encode('big5',$_)} @words; #切回去之前的模式，中文字兩個字元
+
+3.other
+#用這招的話，中文字length會變成 1
+use encoding 'big5', STDIN => 'big5', STDOUT => 'big5';
+@words=split //,$lines;
+
+用這三個方法，就可以隨意切換中文字的控制了
+要看要處理的內容來看用哪種比較好，我這三種都用過，各有各的好處跟壞處
+
+#英文如果不要一個字一個字切開 那就用第一條
+my $big5 = "[\xA1-\xF9][\x40-\x7E\xA1-\xFE]"
+my @words=$lines=~/($big5|\x0d\x0a|[\x21-\x7e]+  |\s+)/g;
+                                   ～～～～～～多一個+
+應該是這樣 我沒仔細去測試:p
+
+-----------------------------------------------------------------------
+print ${[A,C..I,K..N,P..T,V,W,Y]}[int(rand(20))] for(1..240);

@@ -1,0 +1,22 @@
+#!/usr/bin/env perl
+
+use strict;
+use 5.010;
+
+my $file = "/home/rasmus/Dropbox/Private/Pegatron.txt";
+my $pat = qr(([a-fA-F0-9]{2}[:-]){5});
+
+open my $fh, $file or die;
+
+my $ln = 0;
+while (<$fh>)  {
+	$ln ++;
+	if (m/$pat/)  {
+		s/[\r\n]//;
+		say "$ln: $_";
+	}
+}
+
+
+close $fh;
+

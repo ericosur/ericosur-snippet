@@ -1,0 +1,383 @@
+底下利用一些例子，逐步介紹 Perl 的使用
+從變數的定義到流程、迴圈的控制..
+-----------------------------------------------------------------------
+1. array 的定義
+   perl 敘述式均得以 ; 分號結尾
+
+@command = ("start", "stop", "draw", "exit");
+
+-----------------------------------------------------------------------
+2. 數字的定義
+
+$num = @command;
+$number = 30;
+
+-----------------------------------------------------------------------
+3. 簡單的列印字串
+   $command[0] 第一個array的值
+
+print "There are $num commands. The first command is : $command[0]\n";
+
+-----------------------------------------------------------------------
+4. @command 代表整個 array
+
+print "@command\n";
+
+-----------------------------------------------------------------------
+5. 用 $ENV{variable} 可以取得目前的變數名稱
+
+print "your shell is $ENV{SHELL}\n";
+
+-----------------------------------------------------------------------
+6. $$ 代表目前的 PID
+
+print "\$\$ = $$\n";
+
+-----------------------------------------------------------------------
+7. @ARGV 是全部的參數   @ARGV[0] 是第一個參數 , @ARGV[1] 是第二個參數
+
+print "\@ARGV = @ARGV \n";
+
+-----------------------------------------------------------------------
+8. $< 是該使用者的 UID
+
+print "\$\< = $<\n";
+
+-----------------------------------------------------------------------
+9. $? 代表傳回來的 status 值  0 表示成功, 其他都是失敗
+
+print "\$\? = $?\n";
+
+-----------------------------------------------------------------------
+10. 簡單的 if 語法，與比較
+
+if ($ENV{LOGNAME} eq "xfish")
+ { print "ok. \n"; }
+
+-----------------------------------------------------------------------
+11. 幾個簡單的計算
+    + - * / 四則運算
+
+$x = 2;
+$y = 3;
+$z = $x**$y;
+print "$z\n";
+$y**=2;
+print "$y\n";
+
+-----------------------------------------------------------------------
+12. 將 commands 這個 array 的值都清除
+
+@commands = ();
+
+-----------------------------------------------------------------------
+13. 連接兩個字串，使用 .  （一點）, 如下， message = Hello, World!
+
+$part1 = "Hello, ";
+$part2 = "World! ";
+$message = $part1.$part2;
+print "$message\n";
+
+-----------------------------------------------------------------------
+14. 不懂，但是最後會印出 65 個 * 號
+
+$marker = "*";
+$marker x= 65;
+print "$marker\n";
+
+-----------------------------------------------------------------------
+15. 兩個宣告 array 的表示
+
+底下會印出 0 1 2 3 4 5 6 7 8 9
+@numberall = (0..9);
+print "@numberall\n";
+
+底下會印出 A B C D E F ..........  Z
+@captial = ('A'..'Z');
+print "@captial\n";
+
+-----------------------------------------------------------------------
+16. 利用 <STDIN> 讀取使用者輸入
+    數字的比較 >  <  ==  >=  <=
+    字串的比較 <STDIN> eq "xfish"
+
+print "Input one integer: ";
+if ( <STDIN> > 20 )
+{ print "gt 20\n"; }
+
+
+-----------------------------------------------------------------------
+17. 讀取 stand input 並且利用 chop 將輸入的字串之後刪除
+    取得完整且精簡的 os_version
+
+print "Enter version number:";
+$os_version = <STDIN>;
+chop $os_version;
+
+-----------------------------------------------------------------------
+18. 承接 17, 作更多層的比較   && = or , || = and
+
+if ($os_version >= 10) { print "No upgrade necessary \n"; }
+elsif ($os_version >= 6 && $os_version < 9) {print "Standard upgrade \n";}
+elsif ($os_version > 3 && $os_version < 6) {print "Reinstall \n";}
+else { print "Sorry, can't upgrade \n";}
+
+-----------------------------------------------------------------------
+19. 簡單的 while 語法使用，從 stand input 讀入輸入，存入 $in
+    若輸入的字串【類似】 exit 或 Exit 則跳出程式
+    應該也可以改成 第 20 項, 順便說明 $_ 的妙用
+    =~ 相似
+    =! 不相似
+    [eE] 表示 e 或 E 都可以
+
+while ($in = <STDIN>)
+{
+  if ($in =~ /[eE]xit/)
+  {
+    print "Ok. exit\n";
+    exit;
+  }
+  print $in;
+}
+
+-----------------------------------------------------------------------
+20. 應該與 19 有相同的結果, 主要不同在於變數的不同 $in 與 $_
+
+while (<STDIN>)
+{
+  if ($_ =~ /[eE]xit/)
+  {
+    print "Ok. exit\n";
+    exit;
+  }
+  print $_;
+}
+
+-----------------------------------------------------------------------
+21. 再看一個 $_ 及 STDIN 的例子
+
+while (<STDIN>)
+{
+  print $_;
+  if ( $_ > 10 )
+  {
+    print "large than 10\n";
+  }
+}
+-----------------------------------------------------------------------
+22. shift 的用法，將 @cmdarg 一個一個印出後，捨去
+
+@cmdarg = ("xfish", "dino", "carrie");
+while (@cmdarg)
+{
+  $arg = shift @cmdarg;
+  print "$arg\n";
+}
+
+-----------------------------------------------------------------------
+23. while (1) 使得程式執行不斷
+    並從事計算工作，當 $i == 5 時用 next 從頭執行
+    $i > 10 時用 last 跳出回圈
+    next 用法同 continue , last 用法同 break
+    所以從 1+2+3+4+6+7+8+9+10 = 50
+
+while (1)
+{
+  $i=$i+1;
+  if ($i == 5) { next; }
+  if ($i > 10)
+  { print "$i out\n";
+    last;
+  }
+  $sum=$sum+$i;
+}
+print "$sum\n";
+
+-----------------------------------------------------------------------
+24. FOR 回圈的用法，類似 C language 底下包括 25 項，都得到相同結果
+
+for ($i=0, $sum=0 ; $i <= 5 ; $sum = $sum + $i , $i = $i + 1)
+{ print "$i:$sum |"; }
+print "\n$sum\n";
+
+for ($i=0, $sum=0 ; $i <= 5 ; $i = $i + 1)
+{ $sum = $sum + $i; }
+print "$sum\n";
+
+-----------------------------------------------------------------------
+25. FOREACH 回圈的用法，類似 FOR, 得到與 24 項相同的結果
+
+foreach $j (1..10)
+{ $sum1 = $sum1 + $j; }
+print "$sum1\n";
+
+foreach (1..10)
+{ $sum2 = $sum2 + $_ ; }
+print "$sum2\n";
+
+-----------------------------------------------------------------------
+26. goto 的用法，應該很簡單, 定義一個 TAG, 然後就可以 goto TAG
+    可以嘗試一下沒有加 chop $offset 時，會多一行空白也就是 \n
+
+ReEnter:
+print "Enter offset: ";
+$offset = <STDIN>;
+chop $offset;
+unless ($offset > 0 && $offset < 512)
+{
+  print "Bad offset: $offset\n";
+  goto ReEnter;
+}
+
+-----------------------------------------------------------------------
+27. 一個更大的 while 回圈，底下的 28 也是相同的程式
+    相差在 $input 與 $_  , $_ 真的相當好用
+    並且示範簡單的 system 執行外部程式
+    還有 unless (condition){action} 的語法,  除非 condition 成立
+    否則都執行 action
+
+$prompt = "Command (or \"exit\"): ";
+print $prompt;
+
+while ($input = <STDIN>)
+{
+  chop $input;
+  if ($input eq "exit")
+  { exit 0;}
+
+  system $input;
+  unless ($? == 0)
+  { print "Error executing: $input\n";}
+  print $prompt;
+}
+
+-----------------------------------------------------------------------
+28. 可得到與 27 項相同的結果，主要差異在於變數的定義 $input , $_
+
+$prompt = "Command (or \"exit\"): ";
+print $prompt;
+
+while (<STDIN>)
+{
+  chop;
+  if ($_ eq "exit")
+  { exit 0;}
+
+  system $_;
+  unless ($? == 0)
+  { print "Error executing: $_\n";}
+  print $prompt;
+}
+
+-----------------------------------------------------------------------
+29. 再看一個 if , 字串相等 eq 的範例
+
+$user = $ENV{LOGNAME};
+
+if ( $user eq "root" ) { print "Starting simulation...\n"; }
+else
+{
+  print "Sorry $user, you must be \"root\" to run this program.\n";
+  exit;
+}
+
+-----------------------------------------------------------------------
+30. 與 29 相同的結果，只是利用 unless 來處理
+
+$user = $ENV{LOGNAME};
+unless ( $user eq "root")
+{
+  print "You must be \"root\" to run this program. \n";
+  exit;
+}
+
+-----------------------------------------------------------------------
+31. 檔案的開啟與列印
+
+open (PWDFILE, "/etc/passwd");
+while (<PWDFILE>) { print $_ ; }
+close PWDFILE;
+
+-----------------------------------------------------------------------
+32. 檔案的開啟與列印之二 , 相同的結果，不同的部份在於 $_ 與 $input
+
+open (PWDFILE, "/etc/passwd");
+while ($input = <PWDFILE>) { print $input ; }
+close PWDFILE;
+
+-----------------------------------------------------------------------
+33. 將 /etc/passwd 內沒有指定 shell 的使用者輸出到 output 檔案
+
+open (PWDFILE, "/etc/passwd");
+open (RESULT, "> output");
+
+while (<PWDFILE>)
+{
+  if ($_ =~ /:\n/) { print RESULT $_;}
+}
+
+close PWDFILE;
+close RESULT;
+
+-----------------------------------------------------------------------
+34. foreach 與 file 的操作，底下的範例會寄信給 root, xfish 一封信
+　　信的內容則為 print 哪一行
+    重要的觀念：
+  　　開啟檔案若是以 | 開頭，則表示不會產生一個檔案，
+    　而是去執行 | 之後的命令　
+
+foreach ("root", "xfish")
+{
+  open (MAILPIPE, "| mail $_");
+  print MAILPIPE "Remember to send in your weekly report today! \n";
+  close MAILPIPE;
+}
+
+-----------------------------------------------------------------------
+35. | 在前面表示這也是一個命令，但與前面不同
+　　在前面是先執行，所以有 output
+    在後面時則通常用於沒有 output 的處理
+    註解部份為進一步的變化
+
+open (PSFILE, "ps -de |");
+#open (PSFILE, " ps -de | grep inetd | ");
+while (<PSFILE>)
+{
+  print $_;
+}
+
+-----------------------------------------------------------------------
+36. Sub_routine 的使用，幾個技巧性的說明如下：
+    (1) sub 用來定義一個 sub_routine
+    (2) @_ 表示由 sub_routine 讀進來的參數 array
+        ($first, $last) = @_ ; 表示讀進來兩個參數，一個命名為 $first,
+        另一個命名為 $last.
+    (3) local 的意思表示 $first, $last 只有在 local 有用
+　　　　否則不加 local 則表示該變數為 globel 的變數
+    (4) 要執行一個 sub_routine 必須使用 &sub_routine
+
+sub hello
+{
+  ($first, $last) = @_;
+  #local ($first, $last) = @_;
+  print "Hello, $first $last \n";
+}
+
+$a = "Jane";
+$b = "Doe";
+
+&hello($a, $b);
+print "$first\n";
+
+-----------------------------------------------------------------------
+37. quickly build a ``command filename'' pair
+perl -pe "s/^(.*)/unzip \"$1\"/;" list.txt
+
+-----------------------------------------------------------------------
+perl hash howto
+http://www.cs.mcgill.ca/~abatko/computers/programming/perl/howto/hash/
+-----------------------------------------------------------------------
+* syntax check and trimmed input perl script, even from -e one-liner
+perl -MO=Deparse your_perl_script.pl
+// So I could use this trick to translate messy one-liner into multiple
+// lines perl script.
