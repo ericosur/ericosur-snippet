@@ -1,0 +1,68 @@
+sys模組：
+
+    * argv: 命令列參數。
+    * exit([arg]): 結束程式。
+    * exitfunc: 若有指定此函式，程式結束前會先呼叫此函式。
+
+
+getopt模組：
+
+    * getopt(args, options[, long_options]): 解譯命令列參數選項的工具。
+
+
+os模組：
+
+    * chdir(path): 變更目前工作目錄。
+    * getcwd(): 取得目前工作目錄。
+    * getenv(varname[, defaultValue]): 取得環境變數。
+    * putenv(varname, value): 設定或新增環境變數。
+    * popen(command[, mode[, bufsize] ]): 執行某個命令，並將結果以pipe的方式傳會此程式。
+    * tmpfile(): 傳回一個新的暫存檔案物件，此物件將以"w+b"的mode開啟。
+    * listdir(path): 傳回指定路徑的內容。
+    * remove(path): 刪除指定的檔案。
+    * removedirs(path): 以遞迴的方式刪除指定的路徑。
+    * rename(src, dst): 變更路徑或檔案名稱。
+    * renames(old, new): 遞迴的變更路徑或檔案名稱。
+    * rmdir(path): 非遞迴的方式移除目錄。
+    * stat(path): 傳回指定檔案或路徑的stat結構。
+    * walk(top[, topdown=True [, onerror=None] ]): 產生整個目錄的樹狀結構。
+    * abort(): 對目前的行程產生SIGABRT的訊號。
+    * system(command): 在sub-shell中執行命令。
+    * path.abspath(path): 傳回指定目錄的絕對路徑。
+    * path.join(a, *p): 將兩個或多個路徑名稱結合成一個路徑。並在適當的地方加上目錄分隔字元。
+    * path.exists(path): 檢查檔案或路徑是否存在。
+    * path.basename(path): 傳回路徑的最後一個部分。
+    * path.dirname(path): 傳回檔案名稱中屬於路徑的部分。
+    * path.split(path): 將路徑分割成為各部分。
+    * path.splitdrive(path): 分割出檔案名稱中，關於磁碟機的部分。
+    * path.splitext(path): 分割出檔案名稱中，關於副檔名的部分。
+    * path.splitunc(path): 分割出檔案名稱中屬於UNC的部分。
+    * path.getsize(path): 取得指定檔案的大小。
+    * path.isfile(path): 檢查指定的路徑是否指向一個檔案。
+    * path.isdir(path): 檢查指定的路徑是否為一個目錄。
+    * path.isabs(path): 檢查指定的路徑是否為一個絕對路徑。
+
+
+shutil模組：
+
+    * copy(src, dst): 拷貝src所指定的檔案到dst所指定的檔案中。
+    * copytree(src, dst[, symlinks]): 遞迴的方式將整個src所指定的目錄樹拷貝到dst所指定的地方。
+    * rmtree(path[, ignore_errors[, onerror] ]): 將整個目錄樹下的所有檔案目錄刪除。
+    * move(src, dst): 將整個檔案或目錄搬移到dst所指定的地方。
+
+
+glob模組：
+
+    * glob(pathname): 依照類似於shell在使用的檔案符合檢驗的格式來找出某個目錄下的檔案。
+
+
+re模組：
+
+    * re.compile(pattern[, flags]): 將指定的pattern字串編譯並產生RegExp物件。
+    * regexp.match(string[, pos[, endpos] ]): 若字串與pattern相符，傳回Match物件，否則傳回None。
+    * regexp.search(string[, pos[, endpos] ]): 搜尋字串便找出符合pattern的字串。
+    * regexp.split(string[, maxsplit]): 以pattern作為分割字串，將指定的字串分割成為數個部分。
+    * regexp.sub(repl, string[, count]): 將相符合的字串取得成為另一個字串。
+    * matchObj.group([group1, ...]): 傳回Match物件中的指定群組字串。
+    * matchObj.groups(): 傳回所有的Match物件中的群組。
+    * matchObj.groupdict(): 傳回所有的Match物件中有取名稱的群組。
