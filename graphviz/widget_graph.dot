@@ -1,0 +1,25 @@
+digraph g {
+
+	graph [ranksep=1.5 splines=true overlap=false];
+	node [fontsize = 10 shape = box fontname = "Arial"];
+	edge [labelfontsize="10" fontsize="8"];
+
+	f0 [ label = "fold" color = "red" ];
+	f1 [ label = "unfold" color = "green" ];
+
+	e0 [ label = "extend" ];
+	e1 [ label = "extend large" ];
+
+	f0 -> f1 [label = "1"];	// 1: touch arrow
+	f1 -> f0 [label = "2 / 3"];	// 2: touch arrow, 3: drag out widget
+
+	f1 -> e0 [ label = "4" ];	// touch normal display area widget
+	f1 -> e1 [ label = "5" ];	// touch large display area widget
+
+	e0 -> e1 [ label = "6" ]; // touch large display area widget
+	e1 -> e0 [ label = "7" ];	// touch normal display area widget
+
+	e0 -> f1 [ label = "8" ];	// drag widget and return unfold
+	e1 -> f1 [ label = "9" ];	// drag widget and return unfold
+}
+

@@ -1,0 +1,20 @@
+﻿// the flow of email init to get the mail count of each mailbox
+// 2008/04/29 not finished tracing
+digraph g {
+	graph [ fontsize = 12 fontname = "Lucida Console" overlap=false];
+	node [fontsize = 10 shape = box fontname = "Arial"];
+	edge [ fontsize = 6 fontname = "Arial" ];
+
+	label = "email init to get mail count, not finish";
+	rankdir=LR;
+
+	s [ label = "start" shape = doublecircle ];
+	task_main [ label = "email_task_main" ];
+	main [ label = "email_main" ];
+	init_req [ label = "email_init_req" ];
+	read_index_req [ label = "email_read_index_file_req" ];
+	read_index [ label = "email_read_index_file" ];
+
+	s -> task_main [ sytle = "bold" ];
+	task_main -> main ->init_req -> read_index_req -> read_index;
+}

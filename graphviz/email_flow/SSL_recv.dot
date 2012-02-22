@@ -1,0 +1,46 @@
+﻿/*
+ *
+ * This dot trying to describe the relationship of pop3
+ * receiving and SSL framework.
+ *
+ */
+
+digraph email {
+
+	node [fontname = "Arial" fontsize = 12 shape = box];
+	edge [fontname = "Arial" fontsize = 9];
+
+	rankdir = LR;
+	{ rank = same; node2; pop3_uidl_data;}
+
+	node1 [label = "1" shape = circle];
+	node2 [label = "1" shape = circle];
+	node3 [label = "2" shape = circle];
+
+	// easy flow to read data from file/tcp stream
+	{ email_parse_mail_file; pop3_recv_from_socket; pop3_get_line_for_parsing; email_get_line; } -> email_get_line;
+
+//	email_get_line -> email_getdata [label = "tcp stream"];	// email_get_line() get data from stream, either file or tcp stream
+	email_get_line -> node1 [label = "tcp stream"];	// email_get_line() get data from stream, either file or tcp stream
+	email_get_line -> node3 [label = "file stream"];
+
+	node2 -> email_getdata [label = "tcp stream"];
+	email_getdata -> email_soc_recv;	// using email_soc_recv if tcp stream
+	email_soc_recv -> { tls_read; soc_recv; }	// using tls_read if TLS mode
+	tls_read -> sec_ssl_read -> ssl_read;	// ssl_read in lib
+
+	pop3_greeting -> pop3_recv_from_socket;
+	pop3_list_data -> pop3_recv_from_socket;
+	pop3_retr_data -> pop3_recv_from_socket;
+	pop3_generic_fsm -> pop3_recv_from_socket;	// pop3 USER, PASS, STAT, LIST, RETR, DELE, QUIT, UIDL
+	pop3_uidl_data -> pop3_recv_from_socket;
+
+	subgraph cluster_ssl {
+		tls_read;
+		sec_ssl_read;
+		ssl_read;
+		color = red;
+		label = SSL;
+	}
+
+}

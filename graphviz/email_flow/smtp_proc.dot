@@ -1,0 +1,82 @@
+﻿digraph g {
+
+	graph [ranksep=1.5 splines=true overlap=false];
+	node [fontsize = 10 shape = record fontname = "Arial"];
+	edge [labelfontsize="10" fontsize="8"];
+	rankdir = "LR";
+
+	"2" [
+		label = 2
+		shape = circle
+		color = red
+	];
+
+	"3" [
+		label = 3
+		shape = circle
+		color = red
+	];
+
+	node0 [
+		label = "<0> SMTP.c | <1> smtp_process_mail"
+		color = red
+		/* width = 2.4 */
+	];
+
+	state0 [ label = "SMTP_OP_SCAN_FOLDER"
+		//color = blue
+	];
+	state1 [ label = "SMTP_OP_MAIL_SENT" ];
+	state2 [ label = "SMTP_OP_STORE_MAIL" ];
+	state3 [ label = "SMTP_OP_DELETE_MAIL" ];
+	state4 [ label = "SMTP_OP_SEND_RESPONSE"
+		//color = blue
+	];
+
+	func0 [ label = "smtp_scan_mailbox" ];
+	func1 [ label = "smtp_fsm" color = red];
+	func2 [ label = "smtp_store_mailbox" ];
+	func3 [ label = "smtp_store_sentfolder" ];
+	func4 [ label = "smtp_delete_sent_mail" ];
+/*
+	func5 [ label = "smtp_free" ];
+	func6 [ label = "smtp_save_draft_rsp" ];
+	func7 [ label = "smtp_send_from_mailbox_rsp" style=filled];
+	func8 [ label = "smtp_compose_size_rsp"];
+	func9 [ label = "smtp_send_sendnow_rsp"];
+	func10 [ label = "email_Exit_req"];
+*/
+	combo_func [
+		label = "smtp_free | smtp_save_draft_rsp | smtp_send_from_mailbox_rsp | smtp_compose_size_rsp | smtp_send_sendnow_rsp | email_Exit_req"
+		shape = "record"
+	]
+
+	"2-1" [ label = "2-1" color = red shape = circle ];
+
+	// relationship
+	"2" -> node0 [label = "smtp"];
+
+	node0:1 -> state0 [color = red];
+	node0:1 -> state1 [color = red];
+	node0:1 -> state2 [color = red];
+	node0:1 -> state3 [color = red];
+	node0:1 -> state4 [color = red];
+
+	state0 -> func0;
+	func0 -> "2-1" [label = "smtp_scan"];
+	state1 -> func1;
+	state2 -> func2;
+	state2 -> func3;
+	state3 -> func4;
+
+	state4 -> combo_func;
+/*
+	state4 -> func5;
+	state4 -> func6;
+	state4 -> func7;
+	state4 -> func8;
+	state4 -> func9;
+	state4 -> func10;
+*/
+	func1 -> "3";
+}

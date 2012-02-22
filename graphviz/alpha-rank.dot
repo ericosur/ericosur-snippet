@@ -1,0 +1,10 @@
+digraph g {
+
+	{ rank = same; a; b; c; d; e; }
+	a->b->c->d->e;
+	a->able->apple->azio;
+	b->ball->bob->bulb;
+	c->cat->car->console;
+	d->doll->duck;
+	e->egg->email;
+}

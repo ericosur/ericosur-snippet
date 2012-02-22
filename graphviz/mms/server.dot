@@ -1,0 +1,10 @@
+graph servers {
+
+	graph [
+		fontsize=24
+		ratio=2.5
+	];
+
+	"server" -- "proxy relay" [label="MMSs"];
+
+}

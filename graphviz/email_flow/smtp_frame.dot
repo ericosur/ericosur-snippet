@@ -1,0 +1,81 @@
+﻿digraph g {
+
+	graph [ranksep=1.5 splines=true overlap=false];
+	node [fontsize = 10 shape = box fontname = "Arial"];
+	edge [labelfontsize="10" fontsize="8"];
+	rankdir = LR;
+
+	begin [ shape = circle
+			/* style = filled */
+			color = red
+			label = "1"
+	];
+
+	node0 [
+		shape = record
+		label = "<0> Smtp.c | <1> smtp_frame_message"
+		color = red
+		style = dashed
+		/* width = 2.4 */
+	];
+
+	state0 [ label = "SMTP_SUBOP_WRITE_INIT"
+		color = blue
+	];
+
+	state10s [
+		label = "SMTP_SUBOP_WRITE_HEADER_TO_BUFFER | SMTP_SUBOP_WRITE_HEADER_TO_FILE"
+		shape = record
+		color = blue
+	];
+
+	state20s [
+		shape = record
+		label = "SMTP_SUBOP_FORM_BODY_HDR_INIT | SMTP_SUBOP_FORM_BODY_HDR_ENCODING | SMTP_SUBOP_WRITE_BODY_HEADER_TO_BUFFER | SMTP_SUBOP_WRITE_BODY_HEADER_TO_FILE"
+		color = blue
+	];
+
+	state30s [
+		shape = record
+		label = "SMTP_SUBOP_WRITE_CONTENT_INIT | SMTP_SUBOP_WRITE_CONTENT_TO_FILE"
+		color = blue
+	];
+
+	state40s [
+		label = "SMTP_SUBOP_WRITE_ATTACH_INIT | SMTP_SUBOP_WRITE_ATTACH_HEADER_TO_BUFFER | SMTP_SUBOP_WRITE_ATTACH_HEADER_TO_FILE | SMTP_SUBOP_ATTACH_BODY_WRITE | SMTP_SUBOP_ATTACH_BODY_BOUNDARY"
+		shape = record
+		color = blue
+	];
+
+	state50 [ label = "SMTP_SUBOP_WRITE_END_BDRY_TO_BUFFER"
+		color = blue
+	];
+
+	state60 [ label = "SMTP_SUBOP_WRITE_END_BDRY_TO_FILE"
+		color = blue
+	];
+
+	state70 [ label = "SMTP_SUBOP_FRAME_MSG_END"
+		color = blue
+	];
+
+	begin -> node0 [label = "smtp"];
+
+	state0 -> "smtp_generate_boundary";
+	state10s -> "smtp_write_rfc822_header";
+	state20s -> "smtp_write_mime_body_header";
+	state30s -> "smtp_write_message";
+	state40s -> "smtp_write_attachment";
+	state50 -> "sprintf bordary string";
+	state60 -> "email_write_file";
+	state70 -> "email_close_file";
+
+	node0 :1 -> state0;
+	node0 :1 -> state10s;
+	node0 :1 -> state20s;
+	node0 :1 -> state30s;
+	node0 :1 -> state40s;
+	node0 :1 -> state50;
+	node0 :1 -> state60;
+	node0 :1 -> state70;
+}

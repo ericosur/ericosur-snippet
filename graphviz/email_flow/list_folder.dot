@@ -1,0 +1,80 @@
+﻿digraph g {
+	graph [ fontsize = 12 fontname = "Lucida Console" overlap=false];
+	node [fontsize = 10 shape = box fontname = "Arial"];
+	edge [ fontsize = 6 fontname = "Arial" ];
+
+	label = "MMI list folders reqest";
+	rankdir=LR;
+
+	tot [ label = "folder.total_mails" ];
+
+	subgraph cluster_ui {	// ui interface
+		label = "ui interface";
+		ui_start [ label = "start" shape = doublecircle color = "red"];
+		ui_entry [ label = "mmi_email_entry_folder" ];
+		ui_getnum [ label = "mmi_email_fldr_get_num_mails" ];
+	}
+
+	subgraph cluster_ps {	// ps interface
+		label = "ps interface";
+		ps_numind [ label = "mmi_email_ps_num_msgs_sent_ind" ];
+		ps_draftrsp [ label = "mmi_email_ps_move_to_draft_rsp" ];
+		ps_listrsp [label = "mmi_email_ps_list_folders_rsp" ];	// first time here
+		ps_selrsp [ label = "mmi_email_fldr_sel_rsp_hdlr" ];	// what msg would this handle?
+		subgraph cluster_inner_ps {
+			label = "List folders";
+			color = red;
+			ps_listreq [ label = "mmi_email_ps_list_folders_req" color = red ];
+			ps_listrsp [ label = "mmi_email_ps_list_folders_rsp" ];
+		}
+	}
+
+	subgraph cluster_email {	// email
+		label = "email";
+		eml [ label = "email_main | <1> MSG_ID_MMI_EMAIL_LIST_FOLDERS_REQ" shape = record ];
+		em_lfr [ label = "email_list_folder_req" ];
+	}
+
+
+	subgraph cluster_imap {	// imap
+		label = "imap4";
+		im_listreq [ label = "imap_list_folder_req" ];
+		im_check [ label = "imap_lf_check" ];
+		im_listfsm [ label = "imap_list_folder_fsm" ];
+		im_offlist [ label = "imap_offline_list_folders" ];
+		im_sendlf [ label = "imap_send_lf_rsp" ];
+	}
+
+	subgraph cluster_pop3 {	// pop3
+		label = "pop3";
+		p3_list [ label = "pop3_list_folders" ];
+		p3_addmail [ label = "email_update_mb_for_added_mail" ];
+		p3_store [ label = "pop3_store_msg" ];
+		p3_retr [ label = "pop3_retr_data" ];
+	}
+
+
+	ui_start -> ps_listreq [ltail=cluster_ps];
+	ui_entry -> ui_getnum;
+
+	ps_listreq -> eml [ label = "MSG_ID_MMI_EMAIL_LIST_FOLDER_REQ" ];
+	ps_numind -> tot;
+	ps_draftrsp -> tot;
+	ps_selrsp -> tot;
+	tot -> ps_listrsp [style = "dotted" ] ;
+
+	eml:1 -> em_lfr -> {p3_list; im_listreq; };
+	tot -> ui_getnum [ style = "dotted" ];
+
+	im_listreq -> {im_listfsm; im_offlist; im_sendlf; };
+	{im_check; im_listfsm; im_offlist; } -> tot [ style = "dashed" ];
+	im_sendlf -> ps_listrsp [ label = "MSG_ID_MMI_EMAIL_LIST_FOLDERS_RSP" ];
+	im_listfsm -> im_check;
+
+//	p3_list -> tot;
+	p3_addmail -> tot [ style = bold ];
+	p3_list -> ps_listrsp [ label = "MSG_ID_MMI_EMAIL_LIST_FOLDERS_RSP" ];
+	p3_retr -> p3_store -> p3_addmail;
+}
+
+//c->f [ltail=cluster_ps lhead=cluser_imap];
