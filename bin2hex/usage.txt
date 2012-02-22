@@ -1,0 +1,18 @@
+1.Usage:
+    perl bin2hex.pl <input_binary_file_name> <language_id> ><output_source_code_file_name>
+
+其中<language_id>定義為:
+    language_id
+        The language identifier 
+        (source code array will be generated in this language): 
+            0 - Perl or similar language(default) 
+            1 - C / C++ / Java or similar language 
+            2 - Pascal / Delphi or similar language 
+
+
+2.Example:
+目錄中提供一個範例使用batch file(bin2CarrayEx.bat)將example.bin轉成example.c,內含一個array,其值即為bin檔內每個byte的值.
+
+3.Notes:
+For more details, please refernce to the following URL:
+http://www.chami.com/tips/delphi/052098D.html
