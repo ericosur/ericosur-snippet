@@ -1,0 +1,22 @@
+# use makefile to implement quick sort
+# from: http://blog.linux.org.tw/~jserv/archives/002035.html
+
+TRUE = 11111
+gt = $(shell if [ $1 -gt $2 ] ; then echo $(TRUE); fi)
+lt = $(shell if [ $1 -lt $2 ] ; then echo $(TRUE); fi)
+le = $(shell if [ $1 -le $2 ] ; then echo $(TRUE); fi)
+
+qsort = \
+    $(if $(call le,$(words $1),1),$1, \
+        $(call qsort, \
+            $(foreach i,$1, \
+                $(if $(call gt,$(firstword $1),$i), $i,))) \
+    $(firstword $1) \
+    $(call qsort, \
+        $(foreach i,$1, \
+            $(if $(call lt,$(firstword $1),$i), $i,))))
+
+data = $(shell od -vAn -N10 -w1 -tu1 < /dev/urandom)
+
+all:
+        @echo $(call qsort, $(data))
