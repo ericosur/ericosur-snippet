@@ -1,0 +1,82 @@
+size of key names: 41
+--------------------------------------------------------------------------------
+cnt: 14149
+--------------------------------------------------------------------------------
+one word ===> 71
+one word ===> 76
+one word ===> 61
+one word ===> 39
+one word ===> 78
+one word ===> 33
+one word ===> 35
+one word ===> 74
+one word ===> 68
+one word ===> 3b
+one word ===> 36
+one word ===> 6a
+one word ===> 6e
+one word ===> 2c
+one word ===> 2e
+one word ===> 66
+one word ===> 38
+one word ===> 32
+one word ===> 31
+one word ===> 62
+one word ===> 6d
+one word ===> 77
+one word ===> 64
+one word ===> 6c
+one word ===> 69
+one word ===> 79
+one word ===> 72
+one word ===> 7a
+one word ===> 34
+one word ===> 2f
+one word ===> 73
+one word ===> 6b
+one word ===> 67
+one word ===> 37
+one word ===> 65
+one word ===> 63
+one word ===> 2d
+one word ===> 70
+one word ===> 30
+one word ===> 75
+one word ===> 6f
+ㄝ => 1
+ㄦ => 3
+ㄡ => 3
+ㄢ => 3
+ㄅ => 56
+ㄉ => 61
+ㄓ => 62
+ㄚ => 2
+ㄞ => 3
+ㄤ => 3
+ㄇ => 59
+ㄖ => 33
+ㄏ => 68
+ㄎ => 54
+ㄍ => 60
+ㄑ => 49
+ㄕ => 60
+ㄘ => 48
+ㄛ => 1
+ㄨ => 32
+ㄜ => 3
+ㄠ => 3
+ㄩ => 17
+ㄙ => 42
+ㄣ => 1
+ㄆ => 61
+ㄐ => 47
+ㄋ => 61
+ㄔ => 65
+ㄧ => 37
+ㄒ => 52
+ㄊ => 67
+ㄌ => 84
+ㄗ => 48
+ㄈ => 33
+size of %first_key: 35
+--------------------------------------------------------------------------------
