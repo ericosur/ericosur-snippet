@@ -1,0 +1,42 @@
+use strict;
+use warnings;
+
+my $addr = $ARGV[0] || q(88843c1);
+my $file = q(.\\build\\GUCCI_09B_THAI\\GUCCI_09B_THAI_PCB01_gprs_MT6253_S00.sym);
+
+if ( -e $file )  {
+	print "using sym file: $file\n";
+}
+else  {
+	die "cannot find sym file, plz check path!";
+}
+
+$addr = hex($addr);
+printf("search: 0x%x\n", $addr);
+
+open my $fh, $file or die;
+
+my $addr1 = 0;
+my $addr2 = 0;
+my $prev;
+
+while (<$fh>)  {
+	if ( m/0x([0-9a-fA-F]+)/ )  {
+		if ( $addr1 == 0 && $addr2 == 0 )  {
+			$addr2 = hex($1);
+		}
+		else  {
+			$addr1 = $addr2;
+			$addr2 = hex($1);
+		}
+	}
+
+	if ($addr >= $addr1 && $addr <= $addr2)  {
+		printf("%x <-- %x --> %x\n%s%s", $addr1, $addr, $addr2, $prev, $_);
+		last;
+	}
+
+	$prev = $_;
+}
+
+close $fh;
