@@ -1,0 +1,8 @@
+IME	cjk	extA	extB	misc	total
+array30.cin	13260	0	26126	392	39778
+bpmf-ext.cin	13837	4453	18183	38	36511
+bpmf-Hsu.cin	17938	5814	23741	48	47541
+cj-ext.cin	20262	6088	28649	2196	57195
+LIU57.cin	13067	0	0	6	13073
+liuoff.cin	16878	0	0	7	16885
+liupat.cin	18600	0	0	7	18607
