@@ -60,8 +60,8 @@ if __name__ == '__main__':
 	storage = 1
 	cnt = 0
 	# it takes long time if upperlimit is large
-	upperlimit = 100000
-	i = 0
+	upperlimit = 1000000
+	i = int(upperlimit/2)
 	not_included_cnt = 0
 
 	print 'upperlimit:', upperlimit
