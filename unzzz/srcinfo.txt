@@ -1,0 +1,654 @@
+$ZIP = bless( {
+  "eocdOffset" => 0,
+  "fileName" => "",
+  "writeEOCDOffset" => 0,
+  "diskNumberWithStartOfCentralDirectory" => 0,
+  "writeCentralDirectoryOffset" => 0,
+  "centralDirectorySize" => 748,
+  "members" => [],
+  "numberOfCentralDirectoriesOnThisDisk" => 12,
+  "zipfileComment" => "",
+  "numberOfCentralDirectories" => 12,
+  "diskNumber" => 0,
+  "centralDirectoryOffsetWRTStartingDiskNumber" => 376273
+}, 'Archive::Zip::Archive' );
+
+Found EOCD at 377021 (0x5c0bd)
+
+Found central directory for member #12 at 376958
+$CDMEMBER12 = bless( {
+  "externalFileName" => "(src.zip)",
+  "uncompressedSize" => 3836,
+  "fileName" => "WaitAnimation.gif",
+  "versionNeededToExtract" => 20,
+  "fileAttributeFormat" => 0,
+  "diskNumberStart" => 0,
+  "compressionMethod" => 8,
+  "fileComment" => "",
+  "externalFileAttributes" => 0,
+  "internalFileAttributes" => 0,
+  "bitFlag" => 8,
+  "lastModFileDateTime" => 829798542,
+  "crc32" => "3898582936",
+  "versionMadeBy" => 20,
+  "localExtraField" => "",
+  "localHeaderRelativeOffset" => 374597,
+  "desiredCompressionMethod" => 8,
+  "compressedSize" => 1613,
+  "desiredCompressionLevel" => -1,
+  "dataOffset" => 0,
+  "fh" => $Archive::Zip::BufferedFileHandle,
+  "cdExtraField" => ""
+}, 'Archive::Zip::ZipFileMember' );
+
+Found central directory for member #11 at 376891
+$CDMEMBER11 = bless( {
+  "externalFileName" => "(src.zip)",
+  "uncompressedSize" => 11109,
+  "fileName" => "PinInputAnimation.gif",
+  "versionNeededToExtract" => 20,
+  "fileAttributeFormat" => 0,
+  "diskNumberStart" => 0,
+  "compressionMethod" => 8,
+  "fileComment" => "",
+  "externalFileAttributes" => 0,
+  "internalFileAttributes" => 0,
+  "bitFlag" => 8,
+  "lastModFileDateTime" => 829798542,
+  "crc32" => 932874767,
+  "versionMadeBy" => 20,
+  "localExtraField" => "",
+  "localHeaderRelativeOffset" => 367229,
+  "desiredCompressionMethod" => 8,
+  "compressedSize" => 7301,
+  "desiredCompressionLevel" => -1,
+  "dataOffset" => 0,
+  "fh" => $Archive::Zip::BufferedFileHandle,
+  "cdExtraField" => ""
+}, 'Archive::Zip::ZipFileMember' );
+
+Found central directory for member #10 at 376826
+$CDMEMBER10 = bless( {
+  "externalFileName" => "(src.zip)",
+  "uncompressedSize" => 38280,
+  "fileName" => "Birdy_netsearch.gif",
+  "versionNeededToExtract" => 20,
+  "fileAttributeFormat" => 0,
+  "diskNumberStart" => 0,
+  "compressionMethod" => 8,
+  "fileComment" => "",
+  "externalFileAttributes" => 0,
+  "internalFileAttributes" => 0,
+  "bitFlag" => 8,
+  "lastModFileDateTime" => 829798542,
+  "crc32" => 87410500,
+  "versionMadeBy" => 20,
+  "localExtraField" => "",
+  "localHeaderRelativeOffset" => 329099,
+  "desiredCompressionMethod" => 8,
+  "compressedSize" => 38065,
+  "desiredCompressionLevel" => -1,
+  "dataOffset" => 0,
+  "fh" => $Archive::Zip::BufferedFileHandle,
+  "cdExtraField" => ""
+}, 'Archive::Zip::ZipFileMember' );
+
+Found central directory for member #9 at 376762
+$CDMEMBER9 = bless( {
+  "externalFileName" => "(src.zip)",
+  "uncompressedSize" => 7412,
+  "fileName" => "Siemens mobile.mid",
+  "versionNeededToExtract" => 20,
+  "fileAttributeFormat" => 0,
+  "diskNumberStart" => 0,
+  "compressionMethod" => 8,
+  "fileComment" => "",
+  "externalFileAttributes" => 0,
+  "internalFileAttributes" => 0,
+  "bitFlag" => 8,
+  "lastModFileDateTime" => 829798542,
+  "crc32" => "3364508810",
+  "versionMadeBy" => 20,
+  "localExtraField" => "",
+  "localHeaderRelativeOffset" => 328112,
+  "desiredCompressionMethod" => 8,
+  "compressedSize" => 923,
+  "desiredCompressionLevel" => -1,
+  "dataOffset" => 0,
+  "fh" => $Archive::Zip::BufferedFileHandle,
+  "cdExtraField" => ""
+}, 'Archive::Zip::ZipFileMember' );
+
+Found central directory for member #8 at 376704
+$CDMEMBER8 = bless( {
+  "externalFileName" => "(src.zip)",
+  "uncompressedSize" => 915,
+  "fileName" => "Bird off.mid",
+  "versionNeededToExtract" => 20,
+  "fileAttributeFormat" => 0,
+  "diskNumberStart" => 0,
+  "compressionMethod" => 8,
+  "fileComment" => "",
+  "externalFileAttributes" => 0,
+  "internalFileAttributes" => 0,
+  "bitFlag" => 8,
+  "lastModFileDateTime" => 829798542,
+  "crc32" => 104939967,
+  "versionMadeBy" => 20,
+  "localExtraField" => "",
+  "localHeaderRelativeOffset" => 327415,
+  "desiredCompressionMethod" => 8,
+  "compressedSize" => 639,
+  "desiredCompressionLevel" => -1,
+  "dataOffset" => 0,
+  "fh" => $Archive::Zip::BufferedFileHandle,
+  "cdExtraField" => ""
+}, 'Archive::Zip::ZipFileMember' );
+
+Found central directory for member #7 at 376647
+$CDMEMBER7 = bless( {
+  "externalFileName" => "(src.zip)",
+  "uncompressedSize" => 393,
+  "fileName" => "Bird on.mid",
+  "versionNeededToExtract" => 20,
+  "fileAttributeFormat" => 0,
+  "diskNumberStart" => 0,
+  "compressionMethod" => 8,
+  "fileComment" => "",
+  "externalFileAttributes" => 0,
+  "internalFileAttributes" => 0,
+  "bitFlag" => 8,
+  "lastModFileDateTime" => 829798542,
+  "crc32" => "1562371887",
+  "versionMadeBy" => 20,
+  "localExtraField" => "",
+  "localHeaderRelativeOffset" => 327092,
+  "desiredCompressionMethod" => 8,
+  "compressedSize" => 266,
+  "desiredCompressionLevel" => -1,
+  "dataOffset" => 0,
+  "fh" => $Archive::Zip::BufferedFileHandle,
+  "cdExtraField" => ""
+}, 'Archive::Zip::ZipFileMember' );
+
+Found central directory for member #6 at 376592
+$CDMEMBER6 = bless( {
+  "externalFileName" => "(src.zip)",
+  "uncompressedSize" => 10538,
+  "fileName" => "Birdy.scs",
+  "versionNeededToExtract" => 20,
+  "fileAttributeFormat" => 0,
+  "diskNumberStart" => 0,
+  "compressionMethod" => 8,
+  "fileComment" => "",
+  "externalFileAttributes" => 0,
+  "internalFileAttributes" => 0,
+  "bitFlag" => 8,
+  "lastModFileDateTime" => 829798542,
+  "crc32" => "3344886257",
+  "versionMadeBy" => 20,
+  "localExtraField" => "",
+  "localHeaderRelativeOffset" => 316663,
+  "desiredCompressionMethod" => 8,
+  "compressedSize" => 10374,
+  "desiredCompressionLevel" => -1,
+  "dataOffset" => 0,
+  "fh" => $Archive::Zip::BufferedFileHandle,
+  "cdExtraField" => ""
+}, 'Archive::Zip::ZipFileMember' );
+
+Found central directory for member #5 at 376525
+$CDMEMBER5 = bless( {
+  "externalFileName" => "(src.zip)",
+  "uncompressedSize" => 60160,
+  "fileName" => "birdy_screensaver.gif",
+  "versionNeededToExtract" => 20,
+  "fileAttributeFormat" => 0,
+  "diskNumberStart" => 0,
+  "compressionMethod" => 8,
+  "fileComment" => "",
+  "externalFileAttributes" => 0,
+  "internalFileAttributes" => 0,
+  "bitFlag" => 8,
+  "lastModFileDateTime" => 829798542,
+  "crc32" => "3993568104",
+  "versionMadeBy" => 20,
+  "localExtraField" => "",
+  "localHeaderRelativeOffset" => 256847,
+  "desiredCompressionMethod" => 8,
+  "compressedSize" => 59749,
+  "desiredCompressionLevel" => -1,
+  "dataOffset" => 0,
+  "fh" => $Archive::Zip::BufferedFileHandle,
+  "cdExtraField" => ""
+}, 'Archive::Zip::ZipFileMember' );
+
+Found central directory for member #4 at 376458
+$CDMEMBER4 = bless( {
+  "externalFileName" => "(src.zip)",
+  "uncompressedSize" => 2595,
+  "fileName" => "SkinMenuIdleImage.jpg",
+  "versionNeededToExtract" => 20,
+  "fileAttributeFormat" => 0,
+  "diskNumberStart" => 0,
+  "compressionMethod" => 8,
+  "fileComment" => "",
+  "externalFileAttributes" => 0,
+  "internalFileAttributes" => 0,
+  "bitFlag" => 8,
+  "lastModFileDateTime" => 829798542,
+  "crc32" => "1066279692",
+  "versionMadeBy" => 20,
+  "localExtraField" => "",
+  "localHeaderRelativeOffset" => 254252,
+  "desiredCompressionMethod" => 8,
+  "compressedSize" => 2528,
+  "desiredCompressionLevel" => -1,
+  "dataOffset" => 0,
+  "fh" => $Archive::Zip::BufferedFileHandle,
+  "cdExtraField" => ""
+}, 'Archive::Zip::ZipFileMember' );
+
+Found central directory for member #3 at 376393
+$CDMEMBER3 = bless( {
+  "externalFileName" => "(src.zip)",
+  "uncompressedSize" => 60323,
+  "fileName" => "birdy_switchOFF.gif",
+  "versionNeededToExtract" => 20,
+  "fileAttributeFormat" => 0,
+  "diskNumberStart" => 0,
+  "compressionMethod" => 8,
+  "fileComment" => "",
+  "externalFileAttributes" => 0,
+  "internalFileAttributes" => 0,
+  "bitFlag" => 8,
+  "lastModFileDateTime" => 829798542,
+  "crc32" => 50775407,
+  "versionMadeBy" => 20,
+  "localExtraField" => "",
+  "localHeaderRelativeOffset" => 194063,
+  "desiredCompressionMethod" => 8,
+  "compressedSize" => 60124,
+  "desiredCompressionLevel" => -1,
+  "dataOffset" => 0,
+  "fh" => $Archive::Zip::BufferedFileHandle,
+  "cdExtraField" => ""
+}, 'Archive::Zip::ZipFileMember' );
+
+Found central directory for member #2 at 376329
+$CDMEMBER2 = bless( {
+  "externalFileName" => "(src.zip)",
+  "uncompressedSize" => 232729,
+  "fileName" => "birdy_switchon.gif",
+  "versionNeededToExtract" => 20,
+  "fileAttributeFormat" => 0,
+  "diskNumberStart" => 0,
+  "compressionMethod" => 8,
+  "fileComment" => "",
+  "externalFileAttributes" => 0,
+  "internalFileAttributes" => 0,
+  "bitFlag" => 8,
+  "lastModFileDateTime" => 829798542,
+  "crc32" => "2633882257",
+  "versionMadeBy" => 20,
+  "localExtraField" => "",
+  "localHeaderRelativeOffset" => 666,
+  "desiredCompressionMethod" => 8,
+  "compressedSize" => 193333,
+  "desiredCompressionLevel" => -1,
+  "dataOffset" => 0,
+  "fh" => $Archive::Zip::BufferedFileHandle,
+  "cdExtraField" => ""
+}, 'Archive::Zip::ZipFileMember' );
+
+Found central directory for member #1 at 376273
+$CDMEMBER1 = bless( {
+  "externalFileName" => "(src.zip)",
+  "uncompressedSize" => 1627,
+  "fileName" => "config.stc",
+  "versionNeededToExtract" => 20,
+  "fileAttributeFormat" => 0,
+  "diskNumberStart" => 0,
+  "compressionMethod" => 8,
+  "fileComment" => "",
+  "externalFileAttributes" => 0,
+  "internalFileAttributes" => 0,
+  "bitFlag" => 8,
+  "lastModFileDateTime" => 829798542,
+  "crc32" => "1638418792",
+  "versionMadeBy" => 20,
+  "localExtraField" => "",
+  "localHeaderRelativeOffset" => 0,
+  "desiredCompressionMethod" => 8,
+  "compressedSize" => 610,
+  "desiredCompressionLevel" => -1,
+  "dataOffset" => 0,
+  "fh" => $Archive::Zip::BufferedFileHandle,
+  "cdExtraField" => ""
+}, 'Archive::Zip::ZipFileMember' );
+
+
+$LHMEMBER1 = bless( {
+  "externalFileName" => "(src.zip)",
+  "uncompressedSize" => 1627,
+  "fileName" => "config.stc",
+  "versionNeededToExtract" => 20,
+  "fileAttributeFormat" => 0,
+  "diskNumberStart" => 0,
+  "compressionMethod" => 8,
+  "fileComment" => "",
+  "externalFileAttributes" => 0,
+  "internalFileAttributes" => 0,
+  "bitFlag" => 0,
+  "lastModFileDateTime" => 829798542,
+  "crc32" => "1638418792",
+  "versionMadeBy" => 20,
+  "localExtraField" => "",
+  "localHeaderRelativeOffset" => 0,
+  "desiredCompressionMethod" => 8,
+  "compressedSize" => 610,
+  "desiredCompressionLevel" => -1,
+  "dataOffset" => 40,
+  "fh" => $Archive::Zip::BufferedFileHandle,
+  "cdExtraField" => ""
+}, 'Archive::Zip::ZipFileMember' );
+
+End of member: 650, CD at 376273, next member starts at 666
+
+$LHMEMBER2 = bless( {
+  "externalFileName" => "(src.zip)",
+  "uncompressedSize" => 232729,
+  "fileName" => "birdy_switchon.gif",
+  "versionNeededToExtract" => 20,
+  "fileAttributeFormat" => 0,
+  "diskNumberStart" => 0,
+  "compressionMethod" => 8,
+  "fileComment" => "",
+  "externalFileAttributes" => 0,
+  "internalFileAttributes" => 0,
+  "bitFlag" => 0,
+  "lastModFileDateTime" => 829798542,
+  "crc32" => "2633882257",
+  "versionMadeBy" => 20,
+  "localExtraField" => "",
+  "localHeaderRelativeOffset" => 666,
+  "desiredCompressionMethod" => 8,
+  "compressedSize" => 193333,
+  "desiredCompressionLevel" => -1,
+  "dataOffset" => 714,
+  "fh" => $Archive::Zip::BufferedFileHandle,
+  "cdExtraField" => ""
+}, 'Archive::Zip::ZipFileMember' );
+
+End of member: 194047, CD at 376273, next member starts at 194063
+
+$LHMEMBER3 = bless( {
+  "externalFileName" => "(src.zip)",
+  "uncompressedSize" => 60323,
+  "fileName" => "birdy_switchOFF.gif",
+  "versionNeededToExtract" => 20,
+  "fileAttributeFormat" => 0,
+  "diskNumberStart" => 0,
+  "compressionMethod" => 8,
+  "fileComment" => "",
+  "externalFileAttributes" => 0,
+  "internalFileAttributes" => 0,
+  "bitFlag" => 0,
+  "lastModFileDateTime" => 829798542,
+  "crc32" => 50775407,
+  "versionMadeBy" => 20,
+  "localExtraField" => "",
+  "localHeaderRelativeOffset" => 194063,
+  "desiredCompressionMethod" => 8,
+  "compressedSize" => 60124,
+  "desiredCompressionLevel" => -1,
+  "dataOffset" => 194112,
+  "fh" => $Archive::Zip::BufferedFileHandle,
+  "cdExtraField" => ""
+}, 'Archive::Zip::ZipFileMember' );
+
+End of member: 254236, CD at 376273, next member starts at 254252
+
+$LHMEMBER4 = bless( {
+  "externalFileName" => "(src.zip)",
+  "uncompressedSize" => 2595,
+  "fileName" => "SkinMenuIdleImage.jpg",
+  "versionNeededToExtract" => 20,
+  "fileAttributeFormat" => 0,
+  "diskNumberStart" => 0,
+  "compressionMethod" => 8,
+  "fileComment" => "",
+  "externalFileAttributes" => 0,
+  "internalFileAttributes" => 0,
+  "bitFlag" => 0,
+  "lastModFileDateTime" => 829798542,
+  "crc32" => "1066279692",
+  "versionMadeBy" => 20,
+  "localExtraField" => "",
+  "localHeaderRelativeOffset" => 254252,
+  "desiredCompressionMethod" => 8,
+  "compressedSize" => 2528,
+  "desiredCompressionLevel" => -1,
+  "dataOffset" => 254303,
+  "fh" => $Archive::Zip::BufferedFileHandle,
+  "cdExtraField" => ""
+}, 'Archive::Zip::ZipFileMember' );
+
+End of member: 256831, CD at 376273, next member starts at 256847
+
+$LHMEMBER5 = bless( {
+  "externalFileName" => "(src.zip)",
+  "uncompressedSize" => 60160,
+  "fileName" => "birdy_screensaver.gif",
+  "versionNeededToExtract" => 20,
+  "fileAttributeFormat" => 0,
+  "diskNumberStart" => 0,
+  "compressionMethod" => 8,
+  "fileComment" => "",
+  "externalFileAttributes" => 0,
+  "internalFileAttributes" => 0,
+  "bitFlag" => 0,
+  "lastModFileDateTime" => 829798542,
+  "crc32" => "3993568104",
+  "versionMadeBy" => 20,
+  "localExtraField" => "",
+  "localHeaderRelativeOffset" => 256847,
+  "desiredCompressionMethod" => 8,
+  "compressedSize" => 59749,
+  "desiredCompressionLevel" => -1,
+  "dataOffset" => 256898,
+  "fh" => $Archive::Zip::BufferedFileHandle,
+  "cdExtraField" => ""
+}, 'Archive::Zip::ZipFileMember' );
+
+End of member: 316647, CD at 376273, next member starts at 316663
+
+$LHMEMBER6 = bless( {
+  "externalFileName" => "(src.zip)",
+  "uncompressedSize" => 10538,
+  "fileName" => "Birdy.scs",
+  "versionNeededToExtract" => 20,
+  "fileAttributeFormat" => 0,
+  "diskNumberStart" => 0,
+  "compressionMethod" => 8,
+  "fileComment" => "",
+  "externalFileAttributes" => 0,
+  "internalFileAttributes" => 0,
+  "bitFlag" => 0,
+  "lastModFileDateTime" => 829798542,
+  "crc32" => "3344886257",
+  "versionMadeBy" => 20,
+  "localExtraField" => "",
+  "localHeaderRelativeOffset" => 316663,
+  "desiredCompressionMethod" => 8,
+  "compressedSize" => 10374,
+  "desiredCompressionLevel" => -1,
+  "dataOffset" => 316702,
+  "fh" => $Archive::Zip::BufferedFileHandle,
+  "cdExtraField" => ""
+}, 'Archive::Zip::ZipFileMember' );
+
+End of member: 327076, CD at 376273, next member starts at 327092
+
+$LHMEMBER7 = bless( {
+  "externalFileName" => "(src.zip)",
+  "uncompressedSize" => 393,
+  "fileName" => "Bird on.mid",
+  "versionNeededToExtract" => 20,
+  "fileAttributeFormat" => 0,
+  "diskNumberStart" => 0,
+  "compressionMethod" => 8,
+  "fileComment" => "",
+  "externalFileAttributes" => 0,
+  "internalFileAttributes" => 0,
+  "bitFlag" => 0,
+  "lastModFileDateTime" => 829798542,
+  "crc32" => "1562371887",
+  "versionMadeBy" => 20,
+  "localExtraField" => "",
+  "localHeaderRelativeOffset" => 327092,
+  "desiredCompressionMethod" => 8,
+  "compressedSize" => 266,
+  "desiredCompressionLevel" => -1,
+  "dataOffset" => 327133,
+  "fh" => $Archive::Zip::BufferedFileHandle,
+  "cdExtraField" => ""
+}, 'Archive::Zip::ZipFileMember' );
+
+End of member: 327399, CD at 376273, next member starts at 327415
+
+$LHMEMBER8 = bless( {
+  "externalFileName" => "(src.zip)",
+  "uncompressedSize" => 915,
+  "fileName" => "Bird off.mid",
+  "versionNeededToExtract" => 20,
+  "fileAttributeFormat" => 0,
+  "diskNumberStart" => 0,
+  "compressionMethod" => 8,
+  "fileComment" => "",
+  "externalFileAttributes" => 0,
+  "internalFileAttributes" => 0,
+  "bitFlag" => 0,
+  "lastModFileDateTime" => 829798542,
+  "crc32" => 104939967,
+  "versionMadeBy" => 20,
+  "localExtraField" => "",
+  "localHeaderRelativeOffset" => 327415,
+  "desiredCompressionMethod" => 8,
+  "compressedSize" => 639,
+  "desiredCompressionLevel" => -1,
+  "dataOffset" => 327457,
+  "fh" => $Archive::Zip::BufferedFileHandle,
+  "cdExtraField" => ""
+}, 'Archive::Zip::ZipFileMember' );
+
+End of member: 328096, CD at 376273, next member starts at 328112
+
+$LHMEMBER9 = bless( {
+  "externalFileName" => "(src.zip)",
+  "uncompressedSize" => 7412,
+  "fileName" => "Siemens mobile.mid",
+  "versionNeededToExtract" => 20,
+  "fileAttributeFormat" => 0,
+  "diskNumberStart" => 0,
+  "compressionMethod" => 8,
+  "fileComment" => "",
+  "externalFileAttributes" => 0,
+  "internalFileAttributes" => 0,
+  "bitFlag" => 0,
+  "lastModFileDateTime" => 829798542,
+  "crc32" => "3364508810",
+  "versionMadeBy" => 20,
+  "localExtraField" => "",
+  "localHeaderRelativeOffset" => 328112,
+  "desiredCompressionMethod" => 8,
+  "compressedSize" => 923,
+  "desiredCompressionLevel" => -1,
+  "dataOffset" => 328160,
+  "fh" => $Archive::Zip::BufferedFileHandle,
+  "cdExtraField" => ""
+}, 'Archive::Zip::ZipFileMember' );
+
+End of member: 329083, CD at 376273, next member starts at 329099
+
+$LHMEMBER10 = bless( {
+  "externalFileName" => "(src.zip)",
+  "uncompressedSize" => 38280,
+  "fileName" => "Birdy_netsearch.gif",
+  "versionNeededToExtract" => 20,
+  "fileAttributeFormat" => 0,
+  "diskNumberStart" => 0,
+  "compressionMethod" => 8,
+  "fileComment" => "",
+  "externalFileAttributes" => 0,
+  "internalFileAttributes" => 0,
+  "bitFlag" => 0,
+  "lastModFileDateTime" => 829798542,
+  "crc32" => 87410500,
+  "versionMadeBy" => 20,
+  "localExtraField" => "",
+  "localHeaderRelativeOffset" => 329099,
+  "desiredCompressionMethod" => 8,
+  "compressedSize" => 38065,
+  "desiredCompressionLevel" => -1,
+  "dataOffset" => 329148,
+  "fh" => $Archive::Zip::BufferedFileHandle,
+  "cdExtraField" => ""
+}, 'Archive::Zip::ZipFileMember' );
+
+End of member: 367213, CD at 376273, next member starts at 367229
+
+$LHMEMBER11 = bless( {
+  "externalFileName" => "(src.zip)",
+  "uncompressedSize" => 11109,
+  "fileName" => "PinInputAnimation.gif",
+  "versionNeededToExtract" => 20,
+  "fileAttributeFormat" => 0,
+  "diskNumberStart" => 0,
+  "compressionMethod" => 8,
+  "fileComment" => "",
+  "externalFileAttributes" => 0,
+  "internalFileAttributes" => 0,
+  "bitFlag" => 0,
+  "lastModFileDateTime" => 829798542,
+  "crc32" => 932874767,
+  "versionMadeBy" => 20,
+  "localExtraField" => "",
+  "localHeaderRelativeOffset" => 367229,
+  "desiredCompressionMethod" => 8,
+  "compressedSize" => 7301,
+  "desiredCompressionLevel" => -1,
+  "dataOffset" => 367280,
+  "fh" => $Archive::Zip::BufferedFileHandle,
+  "cdExtraField" => ""
+}, 'Archive::Zip::ZipFileMember' );
+
+End of member: 374581, CD at 376273, next member starts at 374597
+
+$LHMEMBER12 = bless( {
+  "externalFileName" => "(src.zip)",
+  "uncompressedSize" => 3836,
+  "fileName" => "WaitAnimation.gif",
+  "versionNeededToExtract" => 20,
+  "fileAttributeFormat" => 0,
+  "diskNumberStart" => 0,
+  "compressionMethod" => 8,
+  "fileComment" => "",
+  "externalFileAttributes" => 0,
+  "internalFileAttributes" => 0,
+  "bitFlag" => 0,
+  "lastModFileDateTime" => 829798542,
+  "crc32" => "3898582936",
+  "versionMadeBy" => 20,
+  "localExtraField" => "",
+  "localHeaderRelativeOffset" => 374597,
+  "desiredCompressionMethod" => 8,
+  "compressedSize" => 1613,
+  "desiredCompressionLevel" => -1,
+  "dataOffset" => 374644,
+  "fh" => $Archive::Zip::BufferedFileHandle,
+  "cdExtraField" => ""
+}, 'Archive::Zip::ZipFileMember' );
+
+End of member: 376257, CD at 376273
+
