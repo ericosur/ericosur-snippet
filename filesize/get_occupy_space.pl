@@ -7,50 +7,18 @@
 #
 # Jun 9 2005 by ericosur
 
+#
+# in CMD, 'dir /q' looks like:
+# 2005/06/09  10:57                  200 BUILTIN\Administrators sortlist.pl
+# 2005/06/09  10:53                  221 BUILTIN\Administrators sp.pl
+#
+
 use strict;
 use warnings;
 
-sub parse_line($);
-
-my $total_bytes = 0;
-my $name = $ARGV[0] || 'Administrator';
-my $count = 0;
-my $in_file = '_dir_list.txt';
-my $file_pattern = $ARGV[1] || '*pl';
-
-printf "..... search files belong to %s\n", $name;
-
-if (-e $in_file )
-{
-	print "..... open $in_file for reading\n";
-	open FH, "< $in_file" or die "opening $!\n";
-
-	while (<FH>)
-	{
-		my ($gotname, $size) = parse_line($_);
-		$count ++ if $gotname;
-		$total_bytes += $size;
-	}
-
-	close FH;
-}
-else
-{
-	print "..... Take current working directory for processing [$file_pattern]\n";
-	my $res = `cmd /c dir /q $file_pattern`;
-	my @lines = split /\n/, $res;
-
-	foreach (@lines)
-	{
-		my ($gotname, $size) = parse_line($_);
-		$count ++ if $gotname;
-		$total_bytes += $size;
-	}
-}
-
-print "Total $count files belong to $name\n";
-printf "total count = %d Bytes", $total_bytes;
-
+my $name = $ARGV[0] || $ENV{'USERNAME'};
+my $file_pattern = $ARGV[1] // '*pl';
+my $debug = 0;
 
 sub parse_line($)
 {
@@ -68,12 +36,47 @@ sub parse_line($)
 		$fsize =~ s/,//g;
 	}
 
-#	print "($got, $fsize, $fname)\n";
+	print "($got, $fsize, $fname)\n" if $debug;
 	return ($got, $fsize);
 }
 
-#
-# in CMD, 'dir /q' looks like:
-# 2005/06/09  10:57                  200 BUILTIN\Administrators sortlist.pl
-# 2005/06/09  10:53                  221 BUILTIN\Administrators sp.pl
-#
+sub main()
+{
+	my $total_bytes = 0;
+	my $count = 0;
+	my $in_file = '_dir_list.txt';
+
+	printf("..... search file pattern [%s] belong to [%s]\n", $file_pattern, $name);
+
+	if (-e $in_file )
+	{
+		print "..... open $in_file for reading\n";
+		open my $fh, "< $in_file" or die "opening $!\n";
+
+		while (<$fh>)
+		{
+			my ($gotname, $size) = parse_line($_);
+			$count ++ if $gotname;
+			$total_bytes += $size;
+		}
+
+		close $fh;
+	}
+	else
+	{
+		print "..... Take current working directory to process\n";
+		my $res = `cmd /c dir /q $file_pattern`;
+		my @lines = split /\n/, $res;
+
+		foreach (@lines) {
+			my ($gotname, $size) = parse_line($_);
+			$count ++ if $gotname;
+			$total_bytes += $size;
+		}
+	}
+
+	print "Total $count files belong to $name\n";
+	printf "total count = %d Bytes", $total_bytes;
+}
+
+main;

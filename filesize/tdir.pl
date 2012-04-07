@@ -4,7 +4,7 @@
 # and parse the file size column
 # and sum the sizes up
 #
-# refer to space.pl
+# refer to get_occupy_space.pl
 #
 # Jun 9 2005 by ericosur
 
