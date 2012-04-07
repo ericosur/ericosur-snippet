@@ -1,4 +1,4 @@
-﻿#!/usr/bin/perl
+#!/usr/bin/perl
 # generate a EMN content by using the current time stamp
 #
 # refer to the tool from libwbxml: xml2wbxml

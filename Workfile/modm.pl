@@ -1,4 +1,4 @@
-﻿#!/usr/bin/perl
+#!/usr/bin/perl
 # modm.pl
 #
 # insert timer.exe into the beginning and ending of M.bat

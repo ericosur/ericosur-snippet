@@ -1,4 +1,4 @@
-﻿#!/usr/bin/perl
+#!/usr/bin/perl
 #
 # This script helps me to rename images in modis repository with
 # incorrect file extension. For example, many ''pbm'' files are
