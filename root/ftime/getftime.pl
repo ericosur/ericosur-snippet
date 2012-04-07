@@ -1,4 +1,4 @@
-﻿#!/usr/bin/perl
+#!/usr/bin/perl
 #
 # code snippet from
 # http://www.perlmonks.org/?node_id=410615
