@@ -1,4 +1,4 @@
-﻿#!/usr/bin/perl
+#!/usr/bin/perl
 #
 # to find the "use <???>;" from *.pl files
 # the duplicated items would be ignored
