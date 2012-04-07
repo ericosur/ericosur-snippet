@@ -1,15 +1,21 @@
 #!/usr/bin/perl
-#
-# ¥ı¨Ï¥Î friendly flickr §â large ©M thumb ªº¹Ï¤À§O©ñ
-# ¦b¹ïÀ³ªº¤l¥Ø¿ú¸Ì
-#
-# folder \
-#		+-- large \
-#		+-- thumb \
-# ³o­Ó script ©ñ¦b folder ¤U¡A°õ¦æ¤§«á·|§â
-# µu¯ÊªºÀÉ®×¦C¥X¨Ó¡C(¹w´Á¬O thumb ¤Uªº jpg ¤ñ large ¦h)
-#
-# 2007/10/15 by ericosur
+use utf8;
+=encoding utf-8
+
+=head1 DESCRIPTION
+
+å…ˆä½¿ç”¨ friendly flickr æŠŠ large å’Œ thumb çš„åœ–åˆ†åˆ¥æ”¾
+åœ¨å°æ‡‰çš„å­ç›®éŒ¢è£¡
+
+folder \
+	+-- large \
+	+-- thumb \
+é€™å€‹ script æ”¾åœ¨ folder ä¸‹ï¼ŒåŸ·è¡Œä¹‹å¾ŒæœƒæŠŠ
+çŸ­ç¼ºçš„æª”æ¡ˆåˆ—å‡ºä¾†ã€‚(é æœŸæ˜¯ thumb ä¸‹çš„ jpg æ¯” large å¤š)
+
+2007/10/15 by ericosur
+
+=cut
 
 use strict;
 use warnings;
