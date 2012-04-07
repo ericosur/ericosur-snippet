@@ -1,8 +1,13 @@
 #!/usr/bin/perl
-#
-# opendir test
-#
-# 2006/12/27 by ericosur
+
+=pod
+
+=head1 DESCRIPTION
+
+opendir test
+2006/12/27 by ericosur
+
+=cut
 
 use strict;
 use warnings;
