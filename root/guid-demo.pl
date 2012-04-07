@@ -1,20 +1,25 @@
 #!/usr/bin/perl
-﻿use Data::GUID;
+=pod
 
-for (1..2)  {
+=head1 DESCRIPTION
 
-my $guid = Data::GUID->new;
+demo to use Data::UUID to generate UUID
 
-my $string = $guid->as_string; # or "$guid"
-print $string,"\n";
+=cut
 
-my $other_guid = Data::GUID->from_string($string);
-print $other_guid,"\n";
+use strict;
+use warnings;
+use 5.010;
+use Data::UUID;
 
-if (($guid <=> $other_guid) == 0) {
-	print "They're the same!\n";
-}
+my $ug = new Data::UUID;
+my $uuid1 = $ug->create();
+my $uuid2 = $ug->create_from_name("home", "ericosur");
+my $res = $ug->compare($uuid1, $uuid2);
+say "compare uuid1 and uuid2: $res";
+my $str = $ug->to_string($uuid1);
+say $str;
+my $uuid = $ug->from_string($str);
 
-undef $guid;
+say $ug->to_string($uuid2);
 
-}
