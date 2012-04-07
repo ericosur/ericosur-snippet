@@ -1,4 +1,4 @@
-﻿#!/usr/bin/perl -w
+#!/usr/bin/perl -w
 #
 # Pack/Unpack Tutorial (aka How the System Stores Data)
 # http://www.perlmonks.org/?node_id=224666

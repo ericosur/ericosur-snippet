@@ -1,4 +1,4 @@
-﻿#!/usr/bin/perl
+#!/usr/bin/perl
 #
 # process hex byte text dumped from catcher
 # here is a demo data attached after this script line 91

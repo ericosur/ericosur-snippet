@@ -1,4 +1,4 @@
-﻿use strict;
+use strict;
 use Storable;
 
 sub show_scr($$)

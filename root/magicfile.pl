@@ -1,4 +1,4 @@
-﻿#!/usr/bin/perl
+#!/usr/bin/perl
 #
 # using simple magic number from file to recognize file type
 # support wildcard

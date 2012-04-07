@@ -1,4 +1,4 @@
-﻿#!/usr/bin/perl
+#!/usr/bin/perl
 
 #
 # Sum up the time length of mp3 files with MP3-Info

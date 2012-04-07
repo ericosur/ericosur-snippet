@@ -1,4 +1,4 @@
-﻿#!/usr/bin/perl -w
+#!/usr/bin/perl -w
 
 #
 # copy from http://www.jeffhung.net/blog/articles/jeffhung/89/
