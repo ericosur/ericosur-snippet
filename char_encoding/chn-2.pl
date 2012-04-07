@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-﻿use strict;
+use strict;
 use warnings;
 
 use Encode;

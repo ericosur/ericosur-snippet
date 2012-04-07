@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-﻿use strict;
+use strict;
 
 my @files = qw(gb2312_to_ucs2_table.txt ucs2_to_gb2312_table.txt);
 my @ofiles = qw(g2u.txt u2g.txt);

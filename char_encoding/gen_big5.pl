@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-﻿#
+#
 # gen_big5.pl
 # generate a table with big5 chars
 #

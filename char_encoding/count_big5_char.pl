@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env perl
+#!/usr/bin/env perl
 # note: this file saved as UTF-8 format
 use Data::Dump qw(dump);
 

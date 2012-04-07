@@ -1,4 +1,4 @@
-﻿#!/usr/bin/perl
+#!/usr/bin/perl
 #
 # 在 data section 是 big5 範圍和筆劃的對應表,
 # build_table() 會讀取 data 並將資料存在 @array 這個表格內

@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-﻿#
+#
 # unicode in the string
 # 2006/12/27 by ericosur
 #

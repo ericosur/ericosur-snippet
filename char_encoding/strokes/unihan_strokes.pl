@@ -1,4 +1,4 @@
-﻿#!/usr/bin/perl
+#!/usr/bin/perl
 #
 # data section: stroke data from unihan.txt
 # read from stroke_range.txt (the output from stroke_range.pl

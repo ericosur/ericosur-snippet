@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-﻿#
+#
 # extract big5 items from:
 # http://www.unicode.org/Public/UNIDATA/Unihan.zip
 #
