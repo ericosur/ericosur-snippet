@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-#﻿
+#
 # rename all subdir with '_' to '-' in the current sub folder
 # the pattern: ``^(\d+)_(\d+)_(\d+)(.*)$''
 #
