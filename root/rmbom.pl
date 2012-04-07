@@ -1,5 +1,13 @@
 #!/usr/bin/perl
 
+=pod
+
+=head1 DESCRIPTION
+
+remove 0xef 0xbb 0xbf from beginning of text file
+
+=cut
+
 my $bom = pack("CCC",0xef,0xbb,0xbf);
 
 sub remove_bom($)
