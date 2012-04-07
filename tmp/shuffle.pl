@@ -1,4 +1,4 @@
-﻿use Data::Dump qw(dump);
+use Data::Dump qw(dump);
 
 sub shuffle (@) {
 	my @a=\(@_);

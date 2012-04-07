@@ -1,4 +1,4 @@
-﻿$a =<<EOF;
+$a =<<EOF;
 an apple a day,
 keeps a doctor away
 EOF
