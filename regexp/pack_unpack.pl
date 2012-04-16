@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-﻿#
+#
 # some pack and unpack usage
 #
 
