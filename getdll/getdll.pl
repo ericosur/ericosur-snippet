@@ -1,4 +1,4 @@
-﻿#!/usr/bin/perl
+#!/usr/bin/perl
 
 #
 # get dll files from http://trouchelle.com/ppm/dll/
@@ -64,15 +64,21 @@ sub fetch($)
 	print "$count file fetched\n";
 }
 
-my @list = ();
+sub main()
+{
+	my @list = ();
 
-if (not -e $file)  {
-	print "call get_index()\n";
-	get_index();
+	if (not -e $file)  {
+		print "call get_index()\n";
+		get_index();
+	}
+	else  {
+		print "nothing...\n";
+	}
 }
-else  {
-	print "nothing...\n";
-}
+
+main;
+
 __END__;
 
 parse(\@list);
