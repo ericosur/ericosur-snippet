@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-﻿#
+#
 # simple demo for SMTP via perl script
 #
 
