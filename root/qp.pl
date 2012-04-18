@@ -7,6 +7,7 @@
 #@
 #@ Oct 11 2004 by ericosur
 
+use strict;
 use MIME::QuotedPrint;
 
 my $infile;
@@ -17,15 +18,15 @@ die "$0 <infile> <outfile>\n" unless ($infile && $outfile);
 
 printf "infile = [%s], outfile = [%s]\n", $infile, $outfile;
 
-open INFILE, "< $infile" or die "open error\n";
-open OUTFILE, "> $outfile" or die "write error\n";
+open my $inf, "< $infile" or die "open error\n";
+open my $otf, "> $outfile" or die "write error\n";
 
-while (<INFILE>)
+while (<$inf>)
 {
 	my $tmp = encode_qp($_);
-	print OUTFILE "$tmp";
+	print $otf "$tmp";
 }
 
-close INFILE;
-close OUTFILE;
+close $inf;
+close $otf;
 
