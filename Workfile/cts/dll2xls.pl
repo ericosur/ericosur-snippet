@@ -1,4 +1,11 @@
 #!/usr/bin/perl
+=pod
+
+=head1 DESCRIPTION
+The exported bug list from TT is excel XML format named 'tmtrack.dll'.
+This script will parse the title in the xml and rename to readable file name.
+
+=cut
 
 use strict;
 use warnings;
