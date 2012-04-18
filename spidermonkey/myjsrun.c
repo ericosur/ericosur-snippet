@@ -1,4 +1,4 @@
-﻿void test_spider_monkey()
+void test_spider_monkey()
 {
 	JSRuntime *rt;
 	JSContext *cx;

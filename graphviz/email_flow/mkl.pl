@@ -1,4 +1,4 @@
-﻿#!/usr/bin/perl
+#!/usr/bin/perl
 
 $files = `cmd /c dir /b *.dot`;
 @array = split /\n/,$files;
