@@ -7,13 +7,19 @@ use strict;
 use warnings;
 
 use File::Basename;
-use lib 'd:/ericosur-google';
+use lib 'd:/gcode/ericosur';
 use Ericosur;
 
+# main procedure here
 sub main()
 {
-	my $input_fname = $ARGV[0] or die "please specify a filename to rename";
-	do_rename($input_fname);
+	if (@ARGV)  {
+		my $input_fname = $ARGV[0] or die "please specify a filename to rename";
+		do_rename($input_fname);
+	}
+	else  {
+		from_list();
+	}
 }
 
 sub from_list()
@@ -69,12 +75,4 @@ sub do_rename()
 }
 
 
-#
-# main procedure here
-#
-if (@ARGV)  {
-	main();
-}
-else  {
-	from_list();
-}
+main;

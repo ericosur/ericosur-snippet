@@ -12,20 +12,33 @@
 use strict;
 use Storable;
 
-my $dfile = 'store.dat';
+sub gen_data_file($)
+{
+	my $file = shift;
+	my %hash = ('b', 'ball', 'z', 'zebra', 'g', 'goat',
+		'a', 'apple', 'c', 'cat');
 
-my %hash = ('a', 'apple', 'b', 'ball', 'c', 'cat');
-
-store(\%hash, $dfile);
-
-%hash = ();
-
-# later on...
-my $href = retrieve($dfile);        # by ref
-#%hash = %{ retrieve($dfile) };   # direct to hash
-
-foreach (keys %{$href})  {
-	print $_," => ",$href->{$_},"\n";
+	store(\%hash, $file);
+	undef %hash;
 }
 
-# maybe you should delete the 'store.dat'
+sub main()
+{
+	my $dfile = 'storable.dat';
+	gen_data_file($dfile);
+
+	# later on...
+	my $href = retrieve($dfile);        # by ref
+	#my %hash = %{ retrieve($dfile) };   # direct to hash
+
+	# sort hash by key or by value
+	#foreach ( sort { $href->{$a} <=> $href->{$b} } (keys %{$href}) )  {
+	foreach ( sort { $a cmp $b } (keys %{$href}) )  {
+		print $_," => ",$href->{$_},"\n";
+	}
+
+	# delete the data file
+	unlink $dfile;
+}
+
+main;

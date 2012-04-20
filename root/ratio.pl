@@ -17,23 +17,26 @@ sub get_exif($);
 sub parse_exif($);
 sub get_aparture_exposure($);
 
-my @files;
+sub main()
+{
+	my @files;
 
-if (@ARGV)  {
-	@files = @ARGV;
-}
-else {
-	@files = glob("*.jpg");
-	#@files = ('IMG_5391.JPG' );
-}
+	if (@ARGV)  {
+		@files = @ARGV;
+	}
+	else {
+		@files = glob("*.jpg");
+		#@files = ('IMG_5391.JPG' );
+	}
 
-foreach (@files)  {
-	my $res = get_exif($_);
+	foreach (@files)  {
+		my $res = get_exif($_);
 
-	print "$_:\n";	# filename
+		print "$_:\n";	# filename
 
-	parse_exif($res);
-	get_aparture_exposure($res);
+		parse_exif($res);
+		get_aparture_exposure($res);
+	}
 }
 
 #
@@ -107,3 +110,5 @@ sub get_aparture_exposure($)
 		}
 	}
 }
+
+main;
