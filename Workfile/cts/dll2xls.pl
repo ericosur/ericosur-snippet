@@ -15,7 +15,7 @@ sub get_date()
 
 sub get_filename()
 {
-	my @farr = glob("tmtrack*.dll");
+	my @farr = glob("tmtrack*.xls");
 	my $ofn;
 	my $nfn;
 	foreach my $ofn (@farr) {
