@@ -28,25 +28,30 @@ sub dec_str
 }
 
 
-#
-# only stdin, stdout currently
-#
-my $ifh = \*STDIN;
-binmode $ifh;
-my $ofh = \*STDOUT;
-binmode $ofh;
-my $ret;
+sub main()
+{
+	#
+	# only stdin, stdout currently
+	#
+	my $ifh = \*STDIN;
+	binmode $ifh;
+	my $ofh = \*STDOUT;
+	binmode $ofh;
+	my $ret;
 
-LINE:
-while (<$ifh>)  {
-	s/(\r|\n)//;
-	s[#.*$][];	# strip perl style comment
-	s[//.*$][];	# strip c++ style comment
-	next LINE if /^$/;	# skip empty line
-	#$ret = $_;
-	$ret = dec_str($_);
-	print $ofh $ret;
+	LINE:
+	while (<$ifh>)  {
+		s/(\r|\n)//;
+		s[#.*$][];	# strip perl style comment
+		s[//.*$][];	# strip c++ style comment
+		next LINE if /^$/;	# skip empty line
+		#$ret = $_;
+		$ret = dec_str($_);
+		print $ofh $ret;
+	}
+
+	close $ifh;
+	close $ofh;
 }
 
-close $ifh;
-close $ofh;
+main;

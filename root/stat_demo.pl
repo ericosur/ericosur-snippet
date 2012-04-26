@@ -3,7 +3,7 @@
 # simple demo for stat()
 #
 
-$filename = $ARGV[0] || $0;
+$filename = $ARGV[0] // $0;
 
     ($dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$size,
        $atime,$mtime,$ctime,$blksize,$blocks)
