@@ -22,19 +22,31 @@ sub get_date()
 
 sub get_filename()
 {
-	my @farr = glob("tmtrack*.dll");
+	my @farr = glob("tmtrack*.xls");
 	my $ofn;
 	my $nfn;
 	foreach my $ofn (@farr) {
 		#print $ofn,"\n";
 		open my $fh, $ofn or die;
 		while ( <$fh> ) {
+			# to match avalon, sphinx, titan
 			# [Avalon]All Active Bug List&nbsp;</td>
 			if (m/\[(\w+)\]All Active Bug List/) {
 				$nfn = $1;
 				last;
 			}
-
+			# to match duke
+			# 04.[PEGATRON] Duke-HC All Bugs List &nbsp;</td>
+			if ( m/\[PEGATRON] ([\w+-]+) All Bugs List/ ) {
+				$nfn = $1;
+				last;
+			}
+			# to match chagall
+			#(Chagall-ICS)BugReport-All Bugs List &nbsp;</td>
+			if ( m/\(([\w+-]+)\)BugReport-All Bugs List/ ) {
+				$nfn = $1;
+				last;
+			}
 		}
 		close $fh;
 		my $nd = get_date();
