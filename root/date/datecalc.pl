@@ -21,7 +21,7 @@ sub main
 {
 	#  Today
 	my ($year,$month,$day) = Today();
-	printf "%d/%d/%d\n", $year, $month, $day;
+	printf "today is: %d/%d/%d\n", $year, $month, $day;
 
 	$_ = Days_in_Year($year, $month);
 	show_msg("Days_in_Year", $_);
