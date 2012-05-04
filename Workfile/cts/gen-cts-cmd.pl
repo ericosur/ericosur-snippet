@@ -18,16 +18,39 @@ my %known = (
 	testAccessAllowFileAccess => 1,
 	testScrollTo => 1,
 );
+my $defile = 'failcase.txt';
+my $prefix = './cts-tradefed ';	# default with prefix
+my $magic = qr(nohead);
+
+sub help()
+{
+	print<<EOL;
+
+Usage: $0 [-n] [filename]
+
+-n	no prefix string [$prefix]
+
+if no filename is specified, use default name [$defile]
+if script name contains [$magic], no prefix would be used
+
+EOL
+
+}
 
 sub main()
 {
 	my %myopt = ();
-	getopts('n', \%myopt);
+	getopts('nh', \%myopt);
 
-	my $file = $ARGV[0] // "failcase.txt";
-	my $prefix = './cts-tradefed ';	# default with prefix
+	if ( $myopt{'h'} ) {
+		help();
+		return;
+	}
 
-	if ( $myopt{'n'} ) {
+	my $file = $ARGV[0] // $defile;
+
+	# no prefix if option '-n', or script name with 'nohead'
+	if ( $myopt{'n'} || ($0 =~ $magic) ) {
 		$prefix = '';
 	}
 
