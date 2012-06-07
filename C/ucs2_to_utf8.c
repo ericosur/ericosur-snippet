@@ -1,4 +1,4 @@
-﻿void ucs2_to_utf8(unsigned short /*unicode*/ c, char* utf) /* uses max 4 chars from utf (including the trailing 0) */
+void ucs2_to_utf8(unsigned short /*unicode*/ c, char* utf) /* uses max 4 chars from utf (including the trailing 0) */
 {
 	if (c < 0x80)
 	{
