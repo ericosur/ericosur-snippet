@@ -69,6 +69,8 @@ sub test()
 	}
 }
 
+# $url: url of chartapi
+# $ofile: output fname
 sub get_qr_image($$)
 {
 	my $url = shift;
