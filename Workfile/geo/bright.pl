@@ -26,10 +26,10 @@ sub list_country($)
     	say "max col: ", $sheet->{MaxCol};
     }
 	# list col #1
-	my $row = 0;
-	my $col = 1;
+	my $row = 2;
+	my $col = 2;
 	my $max_row = $sheet->{MaxRow};
-	for (my $i=0; $i < $max_row; ++$i) {
+	for (my $i=$row; $i < $max_row; ++$i) {
 		next unless (defined $sheet->{Cells}[$i][$col]);
 		my $val = $sheet->{Cells}[$i][$col]->Value;
 		push @country_arr, $val;
@@ -125,14 +125,15 @@ sub read_iso31661alpha2()
 
 sub main()
 {
-	my $file = 'tods.xls';
+	my $file = 'bright.xls';
 	my $geo = 'geo.xls';
 
 	my @arr = list_country($file);
 	my %geo = read_geo($geo);
-    my %full = read_iso3166();
     my @geo_not_found = ();
-    my @alpha2_not_found = ();
+
+   	my %full;# = read_iso3166();
+   	my @alpha2_not_found = ();
 
 	my $found_cnt = 0;
 	foreach my $n (@arr) {
@@ -142,34 +143,37 @@ sub main()
 		} else {
 			$found_cnt ++;
 		}
-
-		my $alpha2 = $full{uc($n)};
-		if ( defined($alpha2) ) {
-		    say $n, " => ", $alpha2;
-		} else {
-		    # try using partial match
-		    my $flag = 0;
-		    foreach my $fn (keys(%full)) {
-		        my $m = uc($n);
-		        if ( $fn =~ m/$m/ ) {
-		            say $n, " => ", $alpha2;
-		            $flag = 1;
-		        }
-		    }
-		    if ($flag == 0) {
-		        push(@alpha2_not_found, $n);
-		    }
+		if ( defined(@alpha2_not_found) ) {
+			my $alpha2 = $full{uc($n)};
+			if ( defined($alpha2) ) {
+		    	say $n, " => ", $alpha2;
+			} else {
+		    	# try using partial match
+		    	my $flag = 0;
+		    	foreach my $fn (keys(%full)) {
+		        	my $m = uc($n);
+		        	if ( $fn =~ m/$m/ ) {
+		            	say $n, " => ", $alpha2;
+		            	$flag = 1;
+		        	}
+		    	}
+		    	if ($flag == 0) {
+		        	push(@alpha2_not_found, $n);
+		    	}
+			}
 		}
 	}
 	say STDERR scalar(@geo_not_found), " countries not found at geo table";
 	foreach (@geo_not_found) {
 	    say "geo not found: ", $_;
     }
-	say scalar(@alpha2_not_found), " countries iso3166 alpha2 not match";
-	foreach (@alpha2_not_found) {
-	    say "alpha2 not found: ", $_;
+	if ( defined(@alpha2_not_found) ) {
+		say scalar(@alpha2_not_found), " countries iso3166 alpha2 not match";
+		foreach (@alpha2_not_found) {
+	    	say "alpha2 not found: ", $_;
+		}
+		say STDERR $found_cnt, " country names matches";
 	}
-	say STDERR $found_cnt, " country names matches";
 }
 
 main;
