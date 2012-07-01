@@ -3,7 +3,7 @@
 # problem: http://projecteuler.net/problem=1
 
 use strict;
-use 5.010;
+use v5.10;
 
 sub assert($$$)
 {

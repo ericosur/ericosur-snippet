@@ -2,7 +2,7 @@
 
 
 use strict;
-use 5.010;
+use v5.10;
 use Storable;
 
 my $cinfile = 'bpmf.cin';

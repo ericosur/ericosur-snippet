@@ -3,7 +3,7 @@
 # translate geo.xls into ini format
 
 use strict;
-use 5.010;
+use v5.10;
 use Spreadsheet::Read;
 # Data::Dump for debugging
 use Data::Dump qw(dump);

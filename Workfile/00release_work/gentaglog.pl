@@ -2,7 +2,7 @@
 
 use strict;
 use warnings;
-use 5.010;
+use v5.10;
 use Getopt::Std;
 
 my $g_opt_short = 0;

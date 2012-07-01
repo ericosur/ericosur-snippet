@@ -2,7 +2,7 @@
 
 use strict;
 use warnings;
-use 5.010;
+use v5.10;
 use Image::Magick;
 
 my ($maxx, $maxy) = (640, 640);

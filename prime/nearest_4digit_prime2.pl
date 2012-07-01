@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 use Storable;
-use 5.010;
+use v5.10;
 
 # arg1: file name with prime numbers
 # file format: one prime number each line

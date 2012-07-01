@@ -9,7 +9,7 @@ remove from_to() and clipboard to support linux
 
 use strict;
 use warnings;
-use 5.010;
+use v5.10;
 
 use Encode qw(from_to);
 use URI::Escape::XS;

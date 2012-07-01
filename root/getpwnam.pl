@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-use 5.010;
+use v5.10;
 
 # http://www.builderau.com.au/program/perl/soa/Obtain-user-group-and-process-information-in-Perl/0,339028313,339222142,00.htm
 

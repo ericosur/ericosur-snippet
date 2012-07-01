@@ -9,7 +9,7 @@ demo to use Data::UUID to generate UUID
 
 use strict;
 use warnings;
-use 5.010;
+use v5.10;
 use Data::UUID;
 
 my $ug = new Data::UUID;

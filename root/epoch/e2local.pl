@@ -5,7 +5,7 @@
 
 use strict;
 use Time::Local;
-#use 5.010;
+#use v5.10;
 
 #my $epoch = 1305617116;
 my $epoch = `date +%s`;

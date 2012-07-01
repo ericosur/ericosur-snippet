@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use 5.010;
+use v5.10;
 use Perl6::Junction qw(all);
 use Data::Dump qw(dump);
 

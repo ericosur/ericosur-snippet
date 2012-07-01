@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-use 5.010;
+use v5.10;
 use Win32::Clipboard;
 
 my $file = 'rand1234.txt';

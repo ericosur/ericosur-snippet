@@ -3,7 +3,7 @@
 # gen cmd from txt
 
 use strict;
-use 5.010;
+use v5.10;
 use Getopt::Std;
 
 my %known = (

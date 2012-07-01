@@ -4,7 +4,7 @@
 
 use strict;
 use warnings;
-use 5.010;
+use v5.10;
 
 # birthday from 1 to 365
 my $min = 1;

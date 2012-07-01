@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use 5.010;
+use v5.10;
 use Encode::Base58;
 
 # use if win32

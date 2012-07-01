@@ -5,7 +5,7 @@
 # file:///D:/download/STQB64.BAS
 #
 
-use 5.010;
+use v5.10;
 
 my $path = $ARGV[0] || q(D:\\test.txt);
 $path =~ s/\\/\//g;

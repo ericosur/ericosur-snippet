@@ -1,5 +1,5 @@
 use strict;
-use 5.010;
+use v5.10;
 #http://www.slideshare.net/acme/whats-new-in-perl-510
 
 my @items = qw(apple ball cat dog egg);

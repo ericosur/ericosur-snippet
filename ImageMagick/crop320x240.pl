@@ -16,7 +16,7 @@ thumbnail within ''input.jpg''.
 
 
 use strict;
-use 5.010;
+use v5.10;
 use warnings;
 use Image::Magick;
 

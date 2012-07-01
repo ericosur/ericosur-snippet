@@ -10,7 +10,7 @@ string form.
 
 use strict;
 use MIME::Base64;
-use 5.010;
+use v5.10;
 
 my $cmd;
 

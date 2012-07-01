@@ -1,5 +1,5 @@
 use strict;
-use 5.010;
+use v5.10;
 
 #
 # ddd.ddddd		25.06367

@@ -6,7 +6,7 @@
 use strict;
 use warnings;
 use Storable;
-use 5.010;
+use v5.10;
 
 my $plain_file = "prime_100k.txt";	# prime_(100k|1M).txt
 my $store_file = "prime.dat";

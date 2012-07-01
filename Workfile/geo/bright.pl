@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
 use strict;
-use 5.010;
+use v5.10;
 
 use Spreadsheet::ParseExcel;
 use Spreadsheet::WriteExcel;
