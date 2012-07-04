@@ -7,22 +7,28 @@
 
 use strict;
 use warnings;
+use v5.10;
 
-
-sub test_func($)
+sub test_str($)
 {
 	my $str = shift;
 
 	if ( defined $str ) {
-		print "str = $str\n";
+		say "str = <$str>";
 	} else  {
-		print "str is undef\n";
+		say "str is undef";
 	}
 }
 
-my $foo;
-my $bar = "bar";
+sub main()
+{
+	my $foo;
+	my $bar = "bar";
 
-test_func($foo);
-test_func($bar);
+	test_str("");
+	test_str($foo);
+	test_str($bar);
+}
+
+main;
 
