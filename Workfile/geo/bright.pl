@@ -4,7 +4,7 @@ use strict;
 use v5.10;
 
 use Spreadsheet::ParseExcel;
-use Spreadsheet::WriteExcel;
+#use Spreadsheet::WriteExcel;
 use Data::Dump qw(dump);
 
 my $debug = 0;
