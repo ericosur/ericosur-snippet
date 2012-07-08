@@ -1,13 +1,15 @@
 #!/usr/bin/perl
 
+# to demo a simple hash usage
+
 use strict;
 use warnings;
 
 my %hash = ();
 my $ch = 'A';
 
-foreach (1..6)  {
-	$hash{$ch} = $_ ** 3;
+foreach my $n (1..6)  {
+	$hash{$ch} = $n ** 3;
 	$ch ++;
 }
 
@@ -30,3 +32,4 @@ my @values = values(%hash);
 for (@values)  {
 	print "$_\n";
 }
+
