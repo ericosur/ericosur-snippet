@@ -1,5 +1,7 @@
 #!/usr/bin/perl
 
+# use map to associate two array into hash
+
 @array = qw( 5 10 15 20 25 30 );
 
 #@newarray = map { $_ => $_*2 } @array;

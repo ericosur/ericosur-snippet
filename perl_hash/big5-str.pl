@@ -1,5 +1,6 @@
 #!/usr/bin/perl
 
+# $str is a big-5 encoding string
 $str = "¤¤¤å¦r";
 
 print "$str\n";

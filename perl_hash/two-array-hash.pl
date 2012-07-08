@@ -2,6 +2,8 @@
 
 use strict;
 
+# demo to associate two array to a hash
+
 my @key = qw( kitty mouse pony goat );
 my @value = qw( 61 11 37 49 83 );
 my %hash;
