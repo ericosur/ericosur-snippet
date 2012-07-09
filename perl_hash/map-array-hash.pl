@@ -2,18 +2,36 @@
 
 # use map to associate two array into hash
 
-@array = qw( 5 10 15 20 25 30 );
+use strict;
+use v5.10;
 
-#@newarray = map { $_ => $_*2 } @array;
-%hash = map { $_ => $_*2 } @array;
-@newarray = map { $_*2 } @array;		# syntax error???
-
-print "\n print out new array\n";
-while ( ($k, $v) = each (%hash) )  {
-	print "$k => $v\n";
+sub show($)
+{
+    my $rarr = shift;
+    my @arr = @$rarr;
+    foreach (@arr) {
+        say $_;
+    }
 }
 
-print "\n print out new array\n";
-foreach (@newarry) {
-	print "$_\n";
+sub main()
+{
+    my @array = qw( 2 3 5 7 11);
+
+    my %hash = map { $_ => $_*2 } @array;
+    say "print out new hash:";
+    while ( my ($k, $v) = each (%hash) )  {
+    	say "$k => $v";
+    }
+
+    my @newarray = map { $_ * 2 } @array;
+    say "print out new array:";
+    show(\@newarray);
+
+    # you may see the array become double size
+    my @newarray2 = map { $_ => $_ * 2 } @array;
+    say "print out new array2:";
+    show(\@newarray2);
 }
+
+main;
