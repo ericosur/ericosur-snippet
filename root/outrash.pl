@@ -28,6 +28,7 @@ sub fill_block;
 #
 my $KB = 1024;
 my $MB = 1024 * 1024;
+my $GB = 1024 * 1024 * 1024;
 #
 # here to define the output range
 #
@@ -35,7 +36,7 @@ my $MB = 1024 * 1024;
 #my $lower = ord('a');
 my $upper = 0xff;
 my $lower = 0;
-my $block_size = 4 * $MB;
+my $block_size = 16 * $MB;
 
 
 #
@@ -53,14 +54,19 @@ my $file_name = $opts{o} || undef;
 
 help_message() if ($opts{h});
 
-if ($file_size =~ m/(\d+)([kKmM])[bB]?/)  {
+if ($file_size =~ m/(\d+)([kKmMgG])[bB]?/)  {
 	#print STDERR "1: $1\n2: $2\n";
 	my $foo = $1;
-	if ($2 =~ m/m/i)  {
+	if ($2 =~ m/g/i)  {
+		$file_size = $foo * $GB;
+	} elsif ($2 =~ m/m/i)  {
 		$file_size = $foo * $MB;
 	} elsif ($2 =~ m/k/i)  {
 		$file_size = $foo * $KB;
 	}
+} else {
+	print "pattern not match";
+	exit(1);
 }
 
 printf STDERR "Output to <%s>, %s (-h to see options)\n", $tmp_file, show_size($file_size);
