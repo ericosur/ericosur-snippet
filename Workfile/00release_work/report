@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# rasmus@pega 2011/7/15
+# a preset git log script to show git log one commit one line
+# look like:
+#7f1da8b( (HEAD, pega/duke_gingerbread-bsp-1.36.0.110711, 0.H04501.00501GEN-enFR.
+#429f472() 2011-07-07 10:28:28 +0800,Onegin Liang,[bsp] MI2031: modify solarize t
+#
+# help to see the HEAD/tag/branch
+# 
+#git log --pretty=oneline $@
+git log --date=iso --format='%h%d %ad,%an,%s' $@
+
