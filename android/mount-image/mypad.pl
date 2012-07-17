@@ -2,15 +2,18 @@
 
 use strict;
 
+my $KB = 1024;
+my $MB = 1024*1024;
+
 sub main()
 {
 	my $inf = 'system.img';
 	my $outf = 'pad.img';
-	my $total_len = 536870912;
+	my $total_len = 128*$MB;
 	my $ret;
 	my $write_len = 0;
 	my $buf;
-	my $bufsize = 500*1024;
+	my $bufsize = 500 * $KB;
 
 	open my $ifh, $inf or die;
 	binmode $ifh;
