@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # this script is to do copy/paste cells to another work sheet
-# to deal with brain damage ¤¤¥¡°·«O§½ DRG excel table
+# to deal with brain damage ä¸­å¤®å¥ä¿å±€ DRG excel table
 #
 # MUST:
 # necessary module installed like Win32::*
