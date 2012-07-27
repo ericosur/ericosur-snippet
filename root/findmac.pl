@@ -3,7 +3,8 @@
 use strict;
 use v5.10;
 
-my $file = "/home/rasmus/Dropbox/Private/Pegatron.txt";
+my $home = $ENV{'HOME'};
+my $file = $home . "/Dropbox/Private/Pegatron.txt";
 my $pat = qr(([a-fA-F0-9]{2}[:-]){5});
 
 open my $fh, $file or die;
