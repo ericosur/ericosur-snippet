@@ -8,6 +8,7 @@ sub 馬  { "馬函式" }
 
 print 馬(),"\n";
 
+# 指鹿為馬
 *鹿 = *馬;
 print "call deer...\n";
 print 鹿(),"\n";
