@@ -1,0 +1,1 @@
+convert -size 100x100 xc: -sparse-color  Barycentric "30,10 red   10,80 blue   90,90 lime" -fill white -stroke black -draw "circle 30,10 30,12  circle 10,80 10,82  circle 90,90 90,92" sparse_barycentric.png
