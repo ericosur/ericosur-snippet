@@ -8,7 +8,7 @@ http://en.wikipedia.org/wiki/Vampire_number
 
 from itertools import permutations
 
-def main_proc(num):
+def find_vampire(num):
 	nl = list(str(num))
 	if len(nl) % 2 != 0:
 		print("length is not even!")
@@ -19,8 +19,8 @@ def main_proc(num):
 		n1 = int(cc[0] + cc[1])
 		n2 = int(cc[2] + cc[3])
 		if n1 * n2 == num:
-			print(str(num) + "is a vampire number!" + str(n1) + " x " + str(n2))
+			print(str(num) + " is a vampire number! " + str(n1) + " x " + str(n2))
 
 if __name__ == '__main__':
 	for val in range(1000, 9999):
-		main_proc(val)
+		find_vampire(val)
