@@ -1,14 +1,14 @@
 #!/usr/bin/perl
 #!/bin/perl
 
-# ¤ñ¹ï¨â­Ó file list §â¨ä¥L®t²§ªº element ¦L¥X¨Ó
+# æ¯”å°å…©å€‹ file list æŠŠå…¶ä»–å·®ç•°çš„ element å°å‡ºä¾†
 #
-# ¥Î friendly flickr ¤U¸ü big ¹Ï¡A¦C¥X file list => big.txt
-# ¤U¸ü thumbnail ¹Ï¡A¦C¥X th.txt
-# ¥Ñ©ó¦³ªº¹Ï³QÁY¤p¡A©Ò¥H¨S¦³ big format ªº¹Ï
+# ç”¨ friendly flickr ä¸‹è¼‰ big åœ–ï¼Œåˆ—å‡º file list => big.txt
+# ä¸‹è¼‰ thumbnail åœ–ï¼Œåˆ—å‡º th.txt
+# ç”±æ–¼æœ‰çš„åœ–è¢«ç¸®å°ï¼Œæ‰€ä»¥æ²’æœ‰ big format çš„åœ–
 #
 #
-# °Ñ¦Ò http://www.rocketaware.com/perl/perlfaq4/How_do_I_compute_the_difference_.htm
+# åƒè€ƒ http://www.rocketaware.com/perl/perlfaq4/How_do_I_compute_the_difference_.htm
 #
 # 2007/10/03 by ericosur
 
