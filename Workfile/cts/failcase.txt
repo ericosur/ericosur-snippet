@@ -1,12 +1,3 @@
-libcore.java.lang.FloatTest testExponentParsing
-libcore.java.lang.FloatTest testNamedFloats
-libcore.java.lang.FloatTest testSuffixParsing
-libcore.java.lang.FloatTest testVerifierTyping
-libcore.java.lang.FloatTest test_valueOf_String1
-libcore.java.lang.FloatTest test_valueOf_String2
-libcore.java.net.URLConnectionTest testInspectSslAfterConnect
-libcore.net.http.HttpResponseCacheTest testClientPrematureDisconnectWithContentLengthHeader
-android.graphics.cts.PaintTest testMeasureTextWithLongText
-android.text.method.cts.TouchTest testScrollTo
-android.webkit.cts.WebSettingsTest testAccessAllowFileAccess
-android.widget.cts.ScrollViewTest testDispatchKeyEvent
+# CTS total failed cases: 2
+android.widget.cts.AbsListViewTest	testSetOnScrollListener
+android.widget.cts.ToastTest	testAccessMargin
