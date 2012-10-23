@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# at new-built codebase
+# modify the build.prop
+# and re-pack the system.img
+
 PATH=out/target/product/avalon/system
 FILE=build.prop
 
