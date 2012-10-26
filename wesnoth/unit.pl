@@ -10,6 +10,9 @@ my $unit_count = 0;
 my $error_count = 0;
 my $output_count = 0;
 
+my @token = ("name", "type", "experience", "side",
+    "hitpoints", "max_experience", "max_hitpoints", "moves", "max_moves");
+
 sub list_unit($)
 {
     my $f = shift;
@@ -66,18 +69,30 @@ sub list_unit($)
     say '-' x 40;
 }
 
+sub suggest_value($)
+{
+	my $val = shift;
+	while ($val < 10) {
+		$val += 5;
+	}
+	return $val;
+}
+
 sub dump_value($) {
     my $rr = shift;
-	if ( scalar(keys(%$rr)) != 7 ) {
+	if ( scalar(keys(%$rr)) != scalar(@token) ) {
 		$error_count ++;
 		dump(%$rr);
 	} else {
 		say "name: ",$rr->{"name"}->[0];
 		say "type: ",$rr->{"type"}->[0];
 		#say "side: ",$rr->{"side"}->[0];
-		say "exp: ", $rr->{"experience"}->[0], " / ", $rr->{"max_experience"}->[0], "\t\tline: ", $rr->{"experience"}->[1];
-		say "hp: ", $rr->{"hitpoints"}->[0], " / ", $rr->{"max_hitpoints"}->[0], "\t\tline: ", $rr->{"hitpoints"}->[1];
-
+		print "exp: ", $rr->{"experience"}->[0], " / ", $rr->{"max_experience"}->[0], "\t\tline: ", $rr->{"max_experience"}->[1];
+		printf "\tfrom %s to %s\n", $rr->{"max_experience"}->[0], 8;
+		print "hp: ", $rr->{"hitpoints"}->[0], " / ", $rr->{"max_hitpoints"}->[0], "\t\tline: ", $rr->{"hitpoints"}->[1];
+		printf "\tfrom %s to %s\n", $rr->{"hitpoints"}->[0], $rr->{"max_hitpoints"}->[0];
+		print "mp: ", $rr->{"moves"}->[0], " / ", $rr->{"max_moves"}->[0], "\t\tline: ", $rr->{"max_moves"}->[1];
+		printf "\tfrom %s to %s\n", $rr->{"max_moves"}->[0], suggest_value($rr->{"max_moves"}->[0]);
 	}
 }
 
@@ -86,8 +101,6 @@ sub get_value($$$) {
     my $lineno = shift;
     my $rr = shift;
     my $found = "";
-    my @token = ("name", "type", "experience", "side",
-        "hitpoints", "max_experience", "max_hitpoints");
 
     #print "gv: [$ln] => ";
     foreach my $tt (@token) {
