@@ -74,4 +74,17 @@ http://www-h.eng.cam.ac.uk/help/tpl/unix/sed.html
     sed -e 's/Giga/GigaRama/' -e 's/^/Hi../' file
 
 ---------------------------------------------------------------
+---------------------------------------------------------------
+14. 把空白行去除
+# file 的內容會被更動
+$ sed -i "/^$/d" file
 
+# file1 to file2
+$ sed "/^$/d" file1 > file2
+$ grep -v "^$" file1 > file2
+
+15. 把空白行
+$ sed -i "/^\s*$/d" file
+
+$ sed "/^\s*$/d" file1 > file2
+$ grep -v "^\s*$" file1 > file2

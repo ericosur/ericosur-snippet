@@ -5,10 +5,12 @@ use warnings;
 
 use Image::Magick;
 
-my $debug_out_image = 0;
-my $CORRECT_RESOLUTION = "9991";
-my $maxx = 2720;
-my $maxy = 1024;
+my $debug_out_image = 1;
+#my $CORRECT_RESOLUTION = "9991";
+# maxx = lhs(max(x)) + rhs(max(x) = 1440 + 1920 = 3360
+my $maxx = 3360;
+# maxy = max( lhs(y), rhs(y) ) = max(900, 1080) = 1080
+my $maxy = 1080;
 
 # compose imagick geometry string
 sub get_crop_center($$$$)
@@ -87,6 +89,40 @@ sub make_5v4($$)
 	}
 }
 
+# try to crop & resize to 16:9
+# [in] input file
+# [in] output file
+sub make_16v9($$)
+{
+	my ($ifile, $ofile) = @_;
+	my ($imgw, $imgh) = (0, 0);
+	my ($target_w, $target_h) = (1920, 1080);
+	my $geo;
+	my $im = Image::Magick->new();
+	my $rc;
+
+	if ( -f $ifile )  {
+		($imgw, $imgh) = $im->Ping($ifile);
+		$im->Read($ifile);
+	}
+
+	my $neww = 0;
+	if ( ($imgw == 1024 && $imgh == 768)
+		|| ($imgw == 1280 && $imgh == 960 )
+		|| ($imgw == 1600 && $imgh == 1200) )
+	{
+		$neww = $target_w * $imgh / $target_h;	# keep image height
+		$geo = get_crop_center($imgw,$imgh,$neww,$imgh);
+		return crop_and_resize($im, $geo, $target_w, $target_h, $ofile);
+	}
+	elsif ($imgw == $target_w && $imgh == $target_h )
+	{
+		return $im;
+	}
+	else  {
+		print "size ($imgw, $imgh) not implement yes!\n";
+	}
+}
 
 # try to crop & resize to 8:5
 # [in] input file
@@ -169,12 +205,12 @@ sub compose_wallpaper($$$)
 	$rc = $im->Read('xc:black');
 	warn $rc if $rc;
 
-#1440x900
+# lhs
 	if ($im_left)  {
 		$rc = $im->Composite(image => $im_left, x => 0, y => 0);
 		warn $rc if $rc;
 	}
-#1280x1024
+# be rhs of 1440x900 so x=1440
 	if ($im_right)  {
 		$rc = $im->Composite(image => $im_right, x => 1440, y => 0);
 		warn $rc if $rc;
@@ -250,7 +286,8 @@ sub main()
 	}
 	if (-f $imgs[1])  {
 		print "in: $imgs[1]\n";
-		$rightimg = make_5v4($imgs[1], 'rhs.jpg');
+		#$rightimg = make_5v4($imgs[1], 'rhs.jpg');
+		$rightimg = make_16v9($imgs[1], 'rhs.jpg');
 	}
 	# suggest using bitmap format for wallpaper
 	compose_wallpaper('myngc.bmp', $leftimg, $rightimg);
