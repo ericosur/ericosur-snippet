@@ -219,7 +219,7 @@ sub main()
 {
 	my $rrh;
 
-	my $ifile = 'littleprince.txt';
+	my $ifile = $ARGV[0] // 'littleprince.txt';
 	my $ofile = 'code.txt';
 	my $cin = 'boshiamy_t.cin';
 
