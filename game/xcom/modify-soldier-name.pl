@@ -21,8 +21,8 @@ sub show_attr($)
 
 sub parse_soldier()
 {
-	my $file = "soldier.dat";
-	my $ofile = "sold-hack.dat";
+	my $file = "SOLDIER.DAT";
+	my $ofile = "SOLDIER-HACK.DAT";
 	my $start_offset = 0;
 	my $mission_offset = 8;
 	my $kill_offset = 10;

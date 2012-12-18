@@ -83,9 +83,9 @@ sub show_rank($$$)
 	} elsif ($real_rank >= 1) {
 		$rank_name = "SGT";
 	} elsif ($kills > 0) {
-		$rank_name = "Squ";
+		$rank_name = "SQD";
 	} elsif ($real_rank >= 0) {
-		$rank_name = "Rec";
+		$rank_name = "ROK";
 	}
 
 	printf("\"%s\",", $rank_name);
