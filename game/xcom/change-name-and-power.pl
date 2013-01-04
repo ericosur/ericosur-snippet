@@ -139,9 +139,14 @@ sub alter_power($)
     my $in = shift;
     my @toks = split(/ /, $in);
     my $ret;
+    my $SET_TU = 199;
+    my $cnt = 0;
     my $debug = 0;
 
     foreach my $tt (@toks) {
+        if ($cnt == 0) {
+            $tt = sprintf("%02x", $SET_TU);  # TU
+        }
         my $vv = hex($tt);
         if ($vv > 100) {
             $ret = $ret . $tt;
@@ -155,6 +160,7 @@ sub alter_power($)
         if ($debug) {
             $ret = $ret . ' ';
         }
+        ++ $cnt;
     }
     if ($debug) {
         print " $ret\n";
