@@ -1,4 +1,6 @@
-from common import *
+#!python
+#from common import *
+
 from struct import *
 from optparse import OptionParser
 import sys
@@ -9,6 +11,10 @@ import shutil
 import struct
 import zlib
 
+from subprocess import *
+import atexit
+import codecs
+import re
 
 #------------------------------------------
 # OpenSSL configuration  :
@@ -16,9 +22,10 @@ import zlib
 # Open SSL Path
 # Please Choose here either use the openssl tool in the product package or your local installed openssl # For the second case, please uncomment the second line, replace the example path with
 #    hard-coded openssl executable path and then comment the first line.
-openssl =   FindOpenSSL()
+#openssl =   FindOpenSSL()
 #openssl =  "~/system/bin/openssl"
 #openssl =  "/usr/bin/openssl"
+openssl =  "openssl"
 
 #------------------------------------------
 # Slots management
@@ -88,48 +95,48 @@ def ParseCmd():
     if gOptions.sbk == None:
         print "Error -> ParseCmd: the SBK is a mandatory argument, should not be void."
         parser.print_help(file = sys.stderr)
-        exit(1)
+        sys.exit(1)
     # Input path of wmdrm key should not be void
     if gOptions.wmdrmpd_key != None or gOptions.wmdrmpd_cert != None \
        or gOptions.prdy_key != None or gOptions.prdy_cert != None:
         if gOptions.wmdrmpd_key == None or gOptions.wmdrmpd_key.strip() == None:
             print "Error -> ParseCmd: the path of wmdrm key should not be void."
             parser.print_help(file = sys.stderr)
-            exit(1)
+            sys.exit(1)
         elif not os.path.isfile(gOptions.wmdrmpd_key):
             print "Error -> ParseCmd: the indicated wmdrm key does't exist:"
             print "        " + gOptions.wmdrmpd_key
             parser.print_help(file = sys.stderr)
-            exit(1)
+            sys.exit(1)
         # Input path of wmdrm certificate should not be void
         if gOptions.wmdrmpd_cert == None or gOptions.wmdrmpd_cert.strip() == None:
             print "Error -> ParseCmd: the path of wmdrm certificate should not be void."
-            exit(1)
+            sys.exit(1)
         elif not os.path.isfile(gOptions.wmdrmpd_cert):
             print "Error -> ParseCmd: the indicated wmdrm certificate does't exist:"
             print "        " + gOptions.wmdrmpd_cert
             parser.print_help(file = sys.stderr)
-            exit(1)
+            sys.exit(1)
         # Input path of playready key should not be void
         if gOptions.prdy_key == None or gOptions.prdy_key.strip() == None:
             print "Error -> ParseCmd: the path of play ready key should not be void."
             parser.print_help(file = sys.stderr)
-            exit(1)
+            sys.exit(1)
         elif not os.path.isfile(gOptions.prdy_key):
             print "Error -> ParseCmd: the indicated play ready key does't exist:"
             print "        " + gOptions.prdy_key
             parser.print_help(file = sys.stderr)
-            exit(1)
+            sys.exit(1)
         # Input path of model certificate should not be void
         if gOptions.prdy_cert == None or gOptions.prdy_cert.strip() == None:
             print "Error -> ParseCmd: the path of prdy cert should not be void."
             parser.print_help(file = sys.stderr)
-            exit(1)
+            sys.exit(1)
         elif not os.path.isfile(gOptions.prdy_cert):
             print "Error -> ParseCmd: the indicated play ready certificate does't exist:"
             print "        " + gOptions.prdy_cert
             parser.print_help(file = sys.stderr)
-            exit(1)
+            sys.exit(1)
 
     # Input path of HDCP should not be void
     if gOptions.hdcp_key != None:
@@ -367,6 +374,9 @@ def GetEncryptedSBK():
 
     format = "i"
     crcData = struct.pack(format, crc)
+
+    hEncDataFile.seek( hEncDataFile.tell() )
+
     hEncDataFile.write(crcData)
     hEncDataFile.close()
 
@@ -384,6 +394,30 @@ def GetEncryptedSBK():
 
     os.remove("eks_temp.dat")
 
+#
+# Utility function to launch a program
+#
+STDOUT=-1
+RETURN=-2
+def Exec(cmd, input=None, output=RETURN):
+   if input is None:
+      stdin = None
+   else:
+      stdin = PIPE
+   if output == STDOUT:
+      stdout = None
+   elif output == RETURN:
+      stdout = PIPE
+   else:
+      stdout = output
+   p = Popen(cmd, stdin=stdin, stdout=stdout)
+   output = p.communicate(input=input)[0]
+   errorcode = p.wait()
+   if errorcode != 0:
+      raise Exception("%s returned error %d" % (cmd, errorcode))
+   return output
+
+
 #------------------------------------------
 # Main function, script entry point
 #------------------------------------------
@@ -394,4 +428,5 @@ def main():
     GetEncryptedSBK()
 
     print "Encrypted data file created."
+
 main()
