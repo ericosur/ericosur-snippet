@@ -1,9 +1,36 @@
 #!/usr/bin/perl
 
 use strict;
-use v5.10;
+use v5.010;
 
-my $SAVEFILE = "DRIVERS";
+my $file = "DRIVERS";
+my $ofile = "DRIVERS-HACK";
+my $bfile = "DRIVERS.BAK";
+
+sub get_date()
+{
+	# compose date/time string for subject
+	my ($sec,$min,$hour,$mday,$mon,$year,undef,undef,undef) = localtime;
+	my $date = sprintf "%02d%02d%02d-%02d%02d-", $year+1900, $mon + 1, $mday, $hour, $min;
+	return $date;
+}
+
+sub open_savefile($)
+{
+	my $file = shift;
+	my $fsize = -s $file;
+	my $buffer;
+
+	die "zero file size?" if ($fsize <= 0);
+	say "fsize = ", $fsize;
+	open my $fh, $file or die "file not found?";
+    binmode($fh);
+    read($fh, $buffer, $fsize);
+	close $fh;
+
+	return ($buffer, $fsize);
+}
+
 #
 # hexdump()
 #
@@ -28,6 +55,9 @@ sub hexdump($)
 	return $ret;
 }
 
+# in: buffer
+# in: position
+# in: len
 sub mypeek($$$)
 {
 	my ($buf,$psi, $len) = @_;
@@ -35,119 +65,88 @@ sub mypeek($$$)
 	return $ret;
 }
 
-sub parse_soldier()
+#
+#
+#
+sub mybyte($)
 {
-	my $file = $SAVEFILE;
-#	my $ofile = "SOLDIER-HACK.DAT";
-    my $buf_size = 200;
-	my $start_offset = 0x3778;	# start offset
-	my ($battery1, $battery2) = (34, 35);
-    my $armor = 37;
-    my $content;
-# 0x379d
-	open my $fh, $file or die;
-	binmode $fh;
-	seek($fh, $start_offset, 0);
-	my $ret = read($fh, $content, $buf_size);
-	close $fh;
-
-    printf("ret = %d\nsize=%d\n", $ret, length($content));
-
-    print hexdump($content);
-
-    for (my $i=0; $i<13; $i++) {
-		print mypeek($content, $armor+8*$i, 1), "\n";
-    }
-=pod
-	#say "fsize: ", $fsize;
-
-	open my $fh, $file or die;
-	binmode $fh;
-	read($fh, $content, $fsize);
-	close $fh;
-	my $buf;
-	#say "len of content: ", length($content);
-
-	#my $num_of_soldier = ord(substr($content, 0x0e, 1));
-	#say "num: ", $num_of_soldier;
-	for (my $i=0; $i<$MAX_SOLDIER; ++$i) {
-		my $addr = $start_offset + $BLOCK_SIZE * $i;
-		my $block = substr($content, $addr, $BLOCK_SIZE);
-		#say "len of peice: ", length($block);
-		my $soldier_name = substr($block, $NAME_OFFSET, $NAME_LEN);
-
-		if ( ord(substr($soldier_name, 0, 1)) != 0 ) {
-			#$soldier_name =~ s/\x00//g;
-			#printf("[%-27s]", $soldier_name);
-
-			my $mission = ord(substr($block, $mission_offset, 1));
-			my $rank = ord(substr($block, $rank_offset, 1));
-			my $kills = ord(substr($block, $kill_offset, 1));
-			my $rank = get_rank($mission, $rank, $kills);
-
-            #my $real_name = $soldier_name;
-            #$real_name =~ s/(CDR |COL |CPT |SGT |SQD |ROK )+//;
-            $soldier_name =~ m/([A-Z][a-z]+ [A-Z][a-z]+)/;
-            my $real_name = $1;
-            my $proc_name = sprintf("%s %s", $rank, $real_name);
-
-            my $dif_len = $NAME_LEN - length($proc_name);
-            if ($dif_len > 0) {
-                $proc_name = $proc_name . "\x00" x $dif_len;
-            } else {
-                print "\n";
-            }
-
-            # check name length
-            if ( length($proc_name) != $NAME_LEN ) {
-                printf("=> (%d) [%-27s]\n", length($proc_name), $proc_name);
-            }
-
-            #printf("=> [%-27s] ", $proc_name);
-			#printf("%-30s", $rank);
-
-            substr($block, $NAME_OFFSET, $NAME_LEN) = $proc_name;
-            die if (length($block) != $BLOCK_SIZE);
-
-            # read it out again
-            #my $nn = substr($block, $NAME_OFFSET, $NAME_LEN);
-            #printf("=> [%-27s]\n", $nn);
-
-            # modify power values
-            my @attr_name = qw(TimeUnit Health Stamina Reaction Strength
-                    FiringAcc ThrowingAcc MeleeAcc PsiStrength);
-            my $num_attr = scalar(@attr_name);
-            my $powers = substr($block, $ATTR_OFFSET, $num_attr);
-            my $ret = hexdump($powers);
-            #print "$ret\n";
-            my $new_power = alter_power($ret);
-            #print "$new_power\n";
-            my $cmd = sprintf("H%d", $num_attr*2);
-            $powers = pack($cmd, $new_power);
-            #say hexdump($power_bin);
-            substr($block, $ATTR_OFFSET, $num_attr) = $powers;
-
-			#show_attr( substr($block, $attr_offset, scalar(@attr_name)) );
-		} else {
-		    #print "none\n";
-			#last;
-		}
-        $buf = $buf . $block;
-	}
-
-	open my $ofh, "> $ofile" or die;
-	binmode $ofh;
-	print $ofh $buf;
-	close $ofh;
-=cut
+	my $inval = shift;
+    my $val = pack("H02", $inval);
+    return $val;
 }
 
+# in: buffer
+# current use absolute offset to fix, it may change if add new
+# player/car
+sub fix_mycar()
+{
 
+	my ($buf, $bufsize) = open_savefile($file);
+
+	my $carhead = 0x3778;
+	my $armor = 0x379d;
+	my $field = 8;
+    my $armor_count = 10;
+    my $i;
+    my $wep_cnt = 0x3802;
+
+    #my $tmp = substr($buf, $carhead, 128);
+    #print hexdump($tmp);
+    #print "\n";
+
+    # fix armors
+    for ($i=0; $i<$armor_count; $i++) {
+        substr($buf, $armor+$i*$field, 1) = mybyte(63);
+    }
+    # refill
+    substr($buf, $wep_cnt, 1) = mybyte(63);
+
+    #my $tmp = substr($buf, $carhead, 128);
+    #print hexdump($tmp);
+    #print "\n";
+
+    # write to file
+    my $ofh;
+    open $ofh, "> $ofile" or die;
+    binmode($ofh);
+    print $ofh $buf;
+    close $ofh;
+}
 
 sub main()
 {
-	parse_soldier();
+	my $daily_backup = get_date() . $file;
+    my $cmd;
+
+    # backup first
+    $cmd = sprintf("copy /y %s %s", $file, $daily_backup);
+    say $cmd;
+    system($cmd);
+
+    # do hacking
+    fix_mycar();
+
+    # rotate
+    unlink $bfile if (-e $bfile);
+    rename $file, $bfile;
+    rename $ofile, $file;
+
+    my $money = "291826";
+    say pack("H02", substr($money, 0, 2));
 }
 
-main;
 
+sub change_money_format()
+{
+    my $money = "291826";
+
+    print "money: $money (big endian) => ";
+    for (my $i=length($money)/2-1; $i>=0; --$i) {
+	    my $p1 = substr($money, 0+2*$i, 2);
+	    printf("%02x ", $p1);
+	}
+	print "\n";
+}
+
+change_money_format;
+#main;
