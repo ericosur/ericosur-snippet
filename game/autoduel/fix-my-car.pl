@@ -130,9 +130,6 @@ sub main()
     unlink $bfile if (-e $bfile);
     rename $file, $bfile;
     rename $ofile, $file;
-
-    my $money = "291826";
-    say pack("H02", substr($money, 0, 2));
 }
 
 
@@ -148,5 +145,5 @@ sub change_money_format()
 	print "\n";
 }
 
-change_money_format;
-#main;
+#change_money_format;
+main;
