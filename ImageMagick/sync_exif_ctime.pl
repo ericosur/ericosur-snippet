@@ -11,7 +11,8 @@ use DateTime;
 
 my $debug = 0;
 my $verbose = 0;
-my $count = 0;
+my $count_change = 0;
+my $count_scan = 0;
 
 sub sep()
 {
@@ -82,27 +83,31 @@ sub process($)
 	return unless ( -e $file );
 
 	# get CreateDate from exif
-	print "file => $file\n";
-
 	my $exif_time = get_exif_createdate($file);
-	print("exif createdate: ", $exif_time, "\n") if $verbose;
-	show_epoch_in_str($exif_time);
-
 	# get mtime of file
 	my $n = get_mtime($file);
-	print("ctime: ", $n,"\n") if $verbose;
-	show_epoch_in_str($n);
+	my $is_equal = ($exif_time == $n);
 
-	# chage atime, mtime of specified file
-	if ($exif_time)  {
-		my $rr = utime $exif_time, $exif_time, $file;
-		if ($rr)  {
-			print("rr = $rr\nutimed\n") if $verbose;
-			$count ++;
-		}
-	}
-	else  {
-		print("nothing done\n") if $verbose;
+    $count_scan ++;
+    if ($verbose) {
+        print "file: $file\n";
+
+	    print("exif createdate: ", $exif_time, "\n") if $verbose;
+	    show_epoch_in_str($exif_time) unless $is_equal;
+
+	    print("ctime: ", $n,"\n") if $verbose;
+	    show_epoch_in_str($n) unless $is_equal;
+    }
+
+    if ($is_equal) {
+        print "$file exif_time equal to mtime, skip...\n";
+    } else {
+        # chage atime, mtime of specified file
+		if ( utime($exif_time, $exif_time, $file) ) {
+            warn "couldn't touch $file: $!";
+        } else {
+            $count_change ++;
+        }
 	}
 }
 
@@ -145,7 +150,8 @@ sub main()
 			}
 		}
 
-		printf "%d files processed\n", $count;
+		printf("%d files changed\n", $count_change);
+		printf("%d files scanned\n", $count_scan);
 	}
 	else  {
 		print "sync file ctime from exif CreateDateTime\n\n";
