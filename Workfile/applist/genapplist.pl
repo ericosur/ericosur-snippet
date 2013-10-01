@@ -4,6 +4,8 @@ use strict;
 
 my %applist = ();
 my %geolist = ();
+my %geover = ();
+my $pm_have_ver = 1;
 
 sub is_device_ok()
 {
@@ -50,14 +52,14 @@ sub parse_attr_list($)
     my $type = shift;
 	my $fn = $type . '.txt';
 
-	my ($apk) = ();
+	my ($pkg) = ();
 	open my $fh, $fn or die;
 	while (<$fh>) {
 		s/[\r\n]//;
 		s/^package://;
 		if (m/(^(.*)$)/) {
-			$apk = $1;
-			my $hh = $applist{$apk};
+			$pkg = $1;
+			my $hh = $applist{$pkg};
 			if (ref $hh eq 'HASH') {
 				$hh->{$type} = $type;
 #				print STDERR "$apk - $type\n";
@@ -72,14 +74,34 @@ sub parse_attr_list($)
 sub parse_geo_list()
 {
     my $apk;
+    my $res;
     foreach my $kk (keys(%applist)) {
         if ( $geolist{$kk} ) {
-            print "$kk match geo\n";
-            $applist{$kk}->{'geo'} = 'geo';
+            #print "$kk match geo\n";
+            #print "ver: ", $geover{$kk}, "\t";
+            $res = sprintf("GMS %s", $geover{$kk});
+            #print "$res\n";
+            $applist{$kk}->{'geo'} = $res;
         } else {
-            print "$kk not match\n";
+            #print "$kk not match\n";
         }
     }
+}
+
+sub parse_ver_list()
+{
+    my $fn = 'ver.txt';
+    my ($pkg,$ver) = ();
+    open my $fh, $fn or die;
+    while (<$fh>) {
+        s/[\r\n]//;
+        s/^package://;
+        if (m/^(\S+)  version=(.*)$/) {
+            ($pkg,$ver) = ($1,$2);
+            $applist{$pkg}->{'ver'} = $ver;
+        }
+    }
+    close $fh;
 }
 
 sub get_full_apk_list()
@@ -97,6 +119,11 @@ sub get_full_apk_list()
 		system($cmd);
         $cmd = q(adb shell pm list package -3 > 3rd.txt);
 		system($cmd);
+        # need use hacked Pm.jar
+        if ($pm_have_ver) {
+            $cmd = q(adb shell pm list package -n > ver.txt);
+            system($cmd);
+        }
 	} else {
 		print "did not call adb to get list\n";
 	}
@@ -105,6 +132,10 @@ sub get_full_apk_list()
 	parse_geo_list();
 	parse_attr_list('dis');
 	parse_attr_list('3rd');
+
+	if ($pm_have_ver) {
+	    parse_ver_list();
+	}
 }
 
 
@@ -116,7 +147,11 @@ sub output_csv($)
     my $cnt = 0;
 
     # print title
-    print $ofh "apk,package,full_path,path,ATTR1,ATTR2,ATTR3\n";
+    print $ofh "apk,package,";
+    if ($pm_have_ver) {
+        print $ofh "version,";
+    }
+    print $ofh "full_path,path,ATTR1,ATTR2,ATTR3\n";
 
 	foreach my $kk ( sort keys %applist) {
         $cnt ++;
@@ -124,7 +159,19 @@ sub output_csv($)
 #		print $kk,"\n";
 #		print $fp,"\n";
         #print $ofh "$kk,$fp->{'full'},$fp->{'path'},$fp->{'apk'}";
-        print $ofh "$fp->{'apk'},$kk,$fp->{'full'},$fp->{'path'}";
+
+        # apk, package
+        print $ofh "$fp->{'apk'},$kk,";
+
+        # version
+        if ($pm_have_ver && $fp->{'ver'} ) {
+            print $ofh "\"V $fp->{'ver'}\",";
+        }
+
+        # full path, path
+        print $ofh "$fp->{'full'},$fp->{'path'}";
+
+        # attributes
 		if ( $fp->{'sys'} ) {
 			print $ofh ",SYS";
 		}
@@ -135,7 +182,7 @@ sub output_csv($)
 			print $ofh ",3RD";
 		}
 		if ( $fp->{'geo'} ) {
-		    print $ofh ",GEO";
+		    print $ofh ",\"", $fp->{'geo'}, "\"";
 		}
 		print $ofh "\n";
 	}
@@ -146,16 +193,20 @@ sub output_csv($)
 sub load_geo($)
 {
     my $f = shift;
-    my ($apk, $pkg) = ();
+    my ($apk, $pkg, $ver) = ();
     my $cnt = 0;
 
     open my $fh, $f or die;
     while (<$fh>) {
         s/[\r\n]//g;
-        if ( m/^([^,]+),([^,]+)/ ) {
+        if ( m/^([^,]+),([^,]*),[^,]*,[^,]*,([^,]*),/ ) {
             ++ $cnt;
-            ($apk, $pkg) = ($1, $2);
+            ($apk, $pkg, $ver) = ($1, $2, $3);
             $geolist{$pkg} = $apk;
+            if ($ver) {
+#                print "$pkg\t$ver\n";
+                $geover{$pkg} = $ver;
+            }
             #printf("%s - %s\n", $apk, $pkg);
         }
     }
