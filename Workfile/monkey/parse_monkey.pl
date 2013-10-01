@@ -12,8 +12,9 @@ sub process_file($)
 	my $val = 0;
 	my $subcnt = 0;
 	my $bakline;
-	my ($ct, $ut) = (0, 0);
-	my ($pct, $put) = (0, 0);
+	my ($ct, $ut) = ();
+	my ($pct, $put) = ();
+	my ($yy, $MM, $dd, $hh, $mm, $ss) = ();
 
 	open my $fh, $file or die;
 	while (<$fh>) {
@@ -26,10 +27,16 @@ sub process_file($)
 			$val = $1;
 			$bakline =~ m/calendar_time:(.+)  system_uptime:(\d+)/;
 			($ct, $ut) = ($1, $2);
+
+			# parse: 2013-07-26 09:35:33.851
+			$ct =~ m/(\d+)-(\d+)-(\d+) (\d+):(\d+):(\d+\.\d+)/;
+			($yy, $MM, $dd, $hh, $mm, $ss) = ($1, $2, $3, $4, $5, $6);
+
 			#print "prev: $bakline";
 			#printf "line(%d) // Sending event %d, subcnt(%d)\n", $lcnt, $val, $subcnt;
-			printf "%s\t%s\t%s\t%s\n", $lcnt, $val, $ct, $ut;
 			printf "diff: %d\n", ($ut-$put) if $put != 0;
+			printf "ln(%s)\tevent(%s)\t%s\t%s\n", $lcnt, $val, $ct, $ut;
+			printf "%s_%s_%s  %s_%s_%s\n", $yy, $MM, $dd, $hh, $mm, $ss;
 			$subcnt = 0;
 			($pct, $put) = ($ct, $ut);
 		}
@@ -43,7 +50,15 @@ sub process_file($)
 
 sub main()
 {
-	process_file($myfile);
+
+    if (-e $myfile) {
+	    process_file($myfile);
+	} else {
+	    my @ff = glob("*monkey.txt");
+	    foreach (@ff) {
+	        process_file($_);
+	    }
+	}
 }
 
 main;
