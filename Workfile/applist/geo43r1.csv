@@ -1,0 +1,47 @@
+Books.apk,com.google.android.apps.books,Books,,2.9.21,Google Books application
+BrowserProviderProxy.apk,com.android.browser.provider,,,4.3,THIS MUST BE SIGNED BY PARTNER - Needed if Chrome is the only pre-loaded Browser (see Chrome Integration Instructions)
+CalendarGoogle.apk,com.google.android.calendar,Calendar,,201306302,Google version of platform calendar app
+Chrome.apk,com.android.chrome,Chrome,,28.0.1500.94,Chrome Browser
+Chrome_x86.apk,com.android.chrome,Chrome,,28.0.1500.94,Chrome Browser for x86
+ChromeBookmarksSyncAdapter.apk,com.google.android.syncadapters.bookmarks,Bookmarks Sync,,4.2.2,A sync adapter for the Chrome bookmark service
+DeskClockGoogle.apk,com.google.android.deskclock,Clock,,2.0.3,Google version of platform desk clock app
+Ears.apk,com.google.android.ears,Sound Search,,1.1.7,Sound Search for Google Play
+FaceLock.apk,com.android.facelock,FaceLock,X,4.2.2,Used for unlocking device using facial recognition
+GalleryGoogle.apk,com.google.android.gallery3d,Camera & Gallery,X,1.1.40012,Google version of platform Gallery 3D and Camera app
+GenieWidget.apk,com.google.android.apps.genie.geniewidget,News & Weather,,1.3.11,News & Weather app - NOT FOR TABLETS
+Gmail.apk,com.google.android.gm,Gmail,,4.5.2-714156,Gmail client application
+GmsCore.apk,com.google.android.gms,GMS Core Services,X,3.1.59,GMS Core
+GoogleBackupTransport.apk,com.google.android.backup,Backup,,4.2.2,Allows backup of user's personal data to Googler servers with Google account. (Details)
+GoogleCalendarSyncAdapter.apk,com.google.android.syncadapters.calendar,Calendar Sync,,4.3,Provides sync adapter for Google calendar sync - folded into CalendarGoogle
+GoogleContactsSyncAdapter.apk,com.google.android.syncadapters.contacts,Contacts Sync,,4.3,Provides sync adapter for Google contacts sync
+GoogleFeedback.apk,com.google.android.feedback,Google Feedback,,4.3,Collects data for developers whenever a running Market application freezes or crashes. (Details)
+GoogleLoginService.apk,com.google.android.gsf.login,Google Login Service,,4.3,Service used by Google apps to acquire login credentials
+GooglePartnerSetup.apk,com.google.android.partnersetup,Google Partner Setup,,4.3,A set of shared components used by Google applications to configure partner-specific parameters
+GoogleServicesFramework.apk,com.google.android.gsf,GSF,,4.3,Google checkin service which retrieves application configuration parameters
+GoogleTTS.apk,com.google.android.tts,Text-To-Speech,,4.3,Provides Text-to-Speech functionality - new engine from Phonetic Arts
+Hangouts.apk,com.google.android.talk,Hangouts,,1.1.1.753199,
+LatinImeDictionaryPack.apk,com.google.android.inputmethod.latin.dictionarypack,Dictionary Pack,,4.3,Latin Dictionary Pack
+LatinImeGoogle.apk,com.google.android.inputmethod.latin,Latin IME,X,1.0.1870.703320,Latin IME
+Maps.apk,com.google.android.apps.maps,Maps,,7.0.2,"Google Maps application, including Latitude, Places and Navigation"
+MapView API,"com.google.android.maps.jar
+com.google.android.maps.xml",MapView v1 API,,,Libraries for Mapping related applications
+Magazines.apk,com.google.android.apps.magazines,Play Magazines,,2.0.0,Play Magazines
+Media Effects Libs,"com.google.android.media.effects.jar
+com.google.android.media.effects.xml",Media Effects,,,Libraries for processing images and video with special effects
+MediaUploader.apk,com.google.android.apps.uploader,Media Uploader,,1.3.242047,YouTube and Picasa media upload service
+Music2.apk,com.google.android.music,Music,,5.1.1107K.753159,Google Music app
+NetworkLocation.apk,com.google.android.location,NLP,,1.1.10,Google Location Service network-based location provider
+OneTimeInitializer.apk,com.google.android.onetimeinitializer,One Time Initializer,,4.3,One-time initialization after installation
+PartnerBookmarksProvider.apk,,,,,"NOT PART OF GMS, USE AOSP VERSION"
+PlayGames.apk,com.google.android.play.games,Play Games,X,1.0.6,Play Games application
+Phonesky.apk,com.android.vending,Play Store,,4.3.10,The Android Play Store application
+PlusOne.apk,com.google.android.apps.plus,Google+,X,4.0.2.48854689,Google+ app
+SetupWizard.apk,com.google.android.setupwizard,Setup Wizard,,1.3,Google Account setup wizard.
+Street.apk,com.google.android.street,StreetView,,1.8.1.2,StreetView apk that is part of the Maps application
+TagGoogle.apk,com.google.android.tag,NFC Tag,,1.1,Tag is a sample app to test NFC functionality
+talkback.apk,com.google.android.marvin.talkback,TalkBack,,3.4.0,TalkBack is an app for the Android Accessibility Service to help vision-impaired users
+Velvet.apk,com.google.android.googlequicksearchbox,QSB,X,2.6.7.721924.arm,Google search provider for enhanced Google search results
+VideoEditorGoogle.apk,com.google.android.videoeditor,Video Editor,,1.1,Google version of platform video editor app
+Videos.apk,com.google.android.videos,Videos,X,2.6.9,Google Videos app
+VoiceSearchStub.apk,com.google.android.voicesearch,Voice Search Stub,,4.0.0,Voice Search Stub for devices upgrading from pre-JB release
+YouTube.apk,com.google.android.youtube,YouTube,,4.5.17,The YouTube application
