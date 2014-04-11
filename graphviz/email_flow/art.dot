@@ -1,0 +1,13 @@
+﻿digraph g {
+
+	graph [ranksep=1.5 splines=true overlap=false];
+	node [fontsize = 10 shape = box fontname = "Arial"];
+	edge [labelfontsize="10" fontsize="8"];
+
+    rankdir=LR;
+
+	"java" -> "jar" [label = "javac"];
+	"jar" -> "dex" [label = "dx"];
+	"dex" -> "odex" [label = "run on target"];
+    "dex" -> "oat" [label = "dex2oat on target"];
+}

@@ -1,68 +1,68 @@
-sys¼Ò²Õ¡G
+sysæ¨¡çµ„ï¼š
 
-    * argv: ©R¥O¦C°Ñ¼Æ¡C
-    * exit([arg]): µ²§ôµ{¦¡¡C
-    * exitfunc: ­Y¦³«ü©w¦¹¨ç¦¡¡Aµ{¦¡µ²§ô«e·|¥ı©I¥s¦¹¨ç¦¡¡C
-
-
-getopt¼Ò²Õ¡G
-
-    * getopt(args, options[, long_options]): ¸ÑÄ¶©R¥O¦C°Ñ¼Æ¿ï¶µªº¤u¨ã¡C
+    * argv: å‘½ä»¤åˆ—åƒæ•¸ã€‚
+    * exit([arg]): çµæŸç¨‹å¼ã€‚
+    * exitfunc: è‹¥æœ‰æŒ‡å®šæ­¤å‡½å¼ï¼Œç¨‹å¼çµæŸå‰æœƒå…ˆå‘¼å«æ­¤å‡½å¼ã€‚
 
 
-os¼Ò²Õ¡G
+getoptæ¨¡çµ„ï¼š
 
-    * chdir(path): ÅÜ§ó¥Ø«e¤u§@¥Ø¿ı¡C
-    * getcwd(): ¨ú±o¥Ø«e¤u§@¥Ø¿ı¡C
-    * getenv(varname[, defaultValue]): ¨ú±oÀô¹ÒÅÜ¼Æ¡C
-    * putenv(varname, value): ³]©w©Î·s¼WÀô¹ÒÅÜ¼Æ¡C
-    * popen(command[, mode[, bufsize] ]): °õ¦æ¬Y­Ó©R¥O¡A¨Ã±Nµ²ªG¥Hpipeªº¤è¦¡¶Ç·|¦¹µ{¦¡¡C
-    * tmpfile(): ¶Ç¦^¤@­Ó·sªº¼È¦sÀÉ®×ª«¥ó¡A¦¹ª«¥ó±N¥H"w+b"ªºmode¶}±Ò¡C
-    * listdir(path): ¶Ç¦^«ü©w¸ô®|ªº¤º®e¡C
-    * remove(path): §R°£«ü©wªºÀÉ®×¡C
-    * removedirs(path): ¥H»¼°jªº¤è¦¡§R°£«ü©wªº¸ô®|¡C
-    * rename(src, dst): ÅÜ§ó¸ô®|©ÎÀÉ®×¦WºÙ¡C
-    * renames(old, new): »¼°jªºÅÜ§ó¸ô®|©ÎÀÉ®×¦WºÙ¡C
-    * rmdir(path): «D»¼°jªº¤è¦¡²¾°£¥Ø¿ı¡C
-    * stat(path): ¶Ç¦^«ü©wÀÉ®×©Î¸ô®|ªºstatµ²ºc¡C
-    * walk(top[, topdown=True [, onerror=None] ]): ²£¥Í¾ã­Ó¥Ø¿ıªº¾ğª¬µ²ºc¡C
-    * abort(): ¹ï¥Ø«eªº¦æµ{²£¥ÍSIGABRTªº°T¸¹¡C
-    * system(command): ¦bsub-shell¤¤°õ¦æ©R¥O¡C
-    * path.abspath(path): ¶Ç¦^«ü©w¥Ø¿ıªºµ´¹ï¸ô®|¡C
-    * path.join(a, *p): ±N¨â­Ó©Î¦h­Ó¸ô®|¦WºÙµ²¦X¦¨¤@­Ó¸ô®|¡C¨Ã¦b¾A·íªº¦a¤è¥[¤W¥Ø¿ı¤À¹j¦r¤¸¡C
-    * path.exists(path): ÀË¬dÀÉ®×©Î¸ô®|¬O§_¦s¦b¡C
-    * path.basename(path): ¶Ç¦^¸ô®|ªº³Ì«á¤@­Ó³¡¤À¡C
-    * path.dirname(path): ¶Ç¦^ÀÉ®×¦WºÙ¤¤Äİ©ó¸ô®|ªº³¡¤À¡C
-    * path.split(path): ±N¸ô®|¤À³Î¦¨¬°¦U³¡¤À¡C
-    * path.splitdrive(path): ¤À³Î¥XÀÉ®×¦WºÙ¤¤¡AÃö©óºÏºĞ¾÷ªº³¡¤À¡C
-    * path.splitext(path): ¤À³Î¥XÀÉ®×¦WºÙ¤¤¡AÃö©ó°ÆÀÉ¦Wªº³¡¤À¡C
-    * path.splitunc(path): ¤À³Î¥XÀÉ®×¦WºÙ¤¤Äİ©óUNCªº³¡¤À¡C
-    * path.getsize(path): ¨ú±o«ü©wÀÉ®×ªº¤j¤p¡C
-    * path.isfile(path): ÀË¬d«ü©wªº¸ô®|¬O§_«ü¦V¤@­ÓÀÉ®×¡C
-    * path.isdir(path): ÀË¬d«ü©wªº¸ô®|¬O§_¬°¤@­Ó¥Ø¿ı¡C
-    * path.isabs(path): ÀË¬d«ü©wªº¸ô®|¬O§_¬°¤@­Óµ´¹ï¸ô®|¡C
+    * getopt(args, options[, long_options]): è§£è­¯å‘½ä»¤åˆ—åƒæ•¸é¸é …çš„å·¥å…·ã€‚
 
 
-shutil¼Ò²Õ¡G
+osæ¨¡çµ„ï¼š
 
-    * copy(src, dst): «ş¨©src©Ò«ü©wªºÀÉ®×¨ìdst©Ò«ü©wªºÀÉ®×¤¤¡C
-    * copytree(src, dst[, symlinks]): »¼°jªº¤è¦¡±N¾ã­Ósrc©Ò«ü©wªº¥Ø¿ı¾ğ«ş¨©¨ìdst©Ò«ü©wªº¦a¤è¡C
-    * rmtree(path[, ignore_errors[, onerror] ]): ±N¾ã­Ó¥Ø¿ı¾ğ¤Uªº©Ò¦³ÀÉ®×¥Ø¿ı§R°£¡C
-    * move(src, dst): ±N¾ã­ÓÀÉ®×©Î¥Ø¿ı·h²¾¨ìdst©Ò«ü©wªº¦a¤è¡C
+    * chdir(path): è®Šæ›´ç›®å‰å·¥ä½œç›®éŒ„ã€‚
+    * getcwd(): å–å¾—ç›®å‰å·¥ä½œç›®éŒ„ã€‚
+    * getenv(varname[, defaultValue]): å–å¾—ç’°å¢ƒè®Šæ•¸ã€‚
+    * putenv(varname, value): è¨­å®šæˆ–æ–°å¢ç’°å¢ƒè®Šæ•¸ã€‚
+    * popen(command[, mode[, bufsize] ]): åŸ·è¡ŒæŸå€‹å‘½ä»¤ï¼Œä¸¦å°‡çµæœä»¥pipeçš„æ–¹å¼å‚³æœƒæ­¤ç¨‹å¼ã€‚
+    * tmpfile(): å‚³å›ä¸€å€‹æ–°çš„æš«å­˜æª”æ¡ˆç‰©ä»¶ï¼Œæ­¤ç‰©ä»¶å°‡ä»¥"w+b"çš„modeé–‹å•Ÿã€‚
+    * listdir(path): å‚³å›æŒ‡å®šè·¯å¾‘çš„å…§å®¹ã€‚
+    * remove(path): åˆªé™¤æŒ‡å®šçš„æª”æ¡ˆã€‚
+    * removedirs(path): ä»¥éè¿´çš„æ–¹å¼åˆªé™¤æŒ‡å®šçš„è·¯å¾‘ã€‚
+    * rename(src, dst): è®Šæ›´è·¯å¾‘æˆ–æª”æ¡ˆåç¨±ã€‚
+    * renames(old, new): éè¿´çš„è®Šæ›´è·¯å¾‘æˆ–æª”æ¡ˆåç¨±ã€‚
+    * rmdir(path): ééè¿´çš„æ–¹å¼ç§»é™¤ç›®éŒ„ã€‚
+    * stat(path): å‚³å›æŒ‡å®šæª”æ¡ˆæˆ–è·¯å¾‘çš„statçµæ§‹ã€‚
+    * walk(top[, topdown=True [, onerror=None] ]): ç”¢ç”Ÿæ•´å€‹ç›®éŒ„çš„æ¨¹ç‹€çµæ§‹ã€‚
+    * abort(): å°ç›®å‰çš„è¡Œç¨‹ç”¢ç”ŸSIGABRTçš„è¨Šè™Ÿã€‚
+    * system(command): åœ¨sub-shellä¸­åŸ·è¡Œå‘½ä»¤ã€‚
+    * path.abspath(path): å‚³å›æŒ‡å®šç›®éŒ„çš„çµ•å°è·¯å¾‘ã€‚
+    * path.join(a, *p): å°‡å…©å€‹æˆ–å¤šå€‹è·¯å¾‘åç¨±çµåˆæˆä¸€å€‹è·¯å¾‘ã€‚ä¸¦åœ¨é©ç•¶çš„åœ°æ–¹åŠ ä¸Šç›®éŒ„åˆ†éš”å­—å…ƒã€‚
+    * path.exists(path): æª¢æŸ¥æª”æ¡ˆæˆ–è·¯å¾‘æ˜¯å¦å­˜åœ¨ã€‚
+    * path.basename(path): å‚³å›è·¯å¾‘çš„æœ€å¾Œä¸€å€‹éƒ¨åˆ†ã€‚
+    * path.dirname(path): å‚³å›æª”æ¡ˆåç¨±ä¸­å±¬æ–¼è·¯å¾‘çš„éƒ¨åˆ†ã€‚
+    * path.split(path): å°‡è·¯å¾‘åˆ†å‰²æˆç‚ºå„éƒ¨åˆ†ã€‚
+    * path.splitdrive(path): åˆ†å‰²å‡ºæª”æ¡ˆåç¨±ä¸­ï¼Œé—œæ–¼ç£ç¢Ÿæ©Ÿçš„éƒ¨åˆ†ã€‚
+    * path.splitext(path): åˆ†å‰²å‡ºæª”æ¡ˆåç¨±ä¸­ï¼Œé—œæ–¼å‰¯æª”åçš„éƒ¨åˆ†ã€‚
+    * path.splitunc(path): åˆ†å‰²å‡ºæª”æ¡ˆåç¨±ä¸­å±¬æ–¼UNCçš„éƒ¨åˆ†ã€‚
+    * path.getsize(path): å–å¾—æŒ‡å®šæª”æ¡ˆçš„å¤§å°ã€‚
+    * path.isfile(path): æª¢æŸ¥æŒ‡å®šçš„è·¯å¾‘æ˜¯å¦æŒ‡å‘ä¸€å€‹æª”æ¡ˆã€‚
+    * path.isdir(path): æª¢æŸ¥æŒ‡å®šçš„è·¯å¾‘æ˜¯å¦ç‚ºä¸€å€‹ç›®éŒ„ã€‚
+    * path.isabs(path): æª¢æŸ¥æŒ‡å®šçš„è·¯å¾‘æ˜¯å¦ç‚ºä¸€å€‹çµ•å°è·¯å¾‘ã€‚
 
 
-glob¼Ò²Õ¡G
+shutilæ¨¡çµ„ï¼š
 
-    * glob(pathname): ¨Ì·ÓÃş¦ü©óshell¦b¨Ï¥ÎªºÀÉ®×²Å¦XÀËÅçªº®æ¦¡¨Ó§ä¥X¬Y­Ó¥Ø¿ı¤UªºÀÉ®×¡C
+    * copy(src, dst): æ‹·è²srcæ‰€æŒ‡å®šçš„æª”æ¡ˆåˆ°dstæ‰€æŒ‡å®šçš„æª”æ¡ˆä¸­ã€‚
+    * copytree(src, dst[, symlinks]): éè¿´çš„æ–¹å¼å°‡æ•´å€‹srcæ‰€æŒ‡å®šçš„ç›®éŒ„æ¨¹æ‹·è²åˆ°dstæ‰€æŒ‡å®šçš„åœ°æ–¹ã€‚
+    * rmtree(path[, ignore_errors[, onerror] ]): å°‡æ•´å€‹ç›®éŒ„æ¨¹ä¸‹çš„æ‰€æœ‰æª”æ¡ˆç›®éŒ„åˆªé™¤ã€‚
+    * move(src, dst): å°‡æ•´å€‹æª”æ¡ˆæˆ–ç›®éŒ„æ¬ç§»åˆ°dstæ‰€æŒ‡å®šçš„åœ°æ–¹ã€‚
 
 
-re¼Ò²Õ¡G
+globæ¨¡çµ„ï¼š
 
-    * re.compile(pattern[, flags]): ±N«ü©wªºpattern¦r¦ê½sÄ¶¨Ã²£¥ÍRegExpª«¥ó¡C
-    * regexp.match(string[, pos[, endpos] ]): ­Y¦r¦ê»Ppattern¬Û²Å¡A¶Ç¦^Matchª«¥ó¡A§_«h¶Ç¦^None¡C
-    * regexp.search(string[, pos[, endpos] ]): ·j´M¦r¦ê«K§ä¥X²Å¦Xpatternªº¦r¦ê¡C
-    * regexp.split(string[, maxsplit]): ¥Hpattern§@¬°¤À³Î¦r¦ê¡A±N«ü©wªº¦r¦ê¤À³Î¦¨¬°¼Æ­Ó³¡¤À¡C
-    * regexp.sub(repl, string[, count]): ±N¬Û²Å¦Xªº¦r¦ê¨ú±o¦¨¬°¥t¤@­Ó¦r¦ê¡C
-    * matchObj.group([group1, ...]): ¶Ç¦^Matchª«¥ó¤¤ªº«ü©w¸s²Õ¦r¦ê¡C
-    * matchObj.groups(): ¶Ç¦^©Ò¦³ªºMatchª«¥ó¤¤ªº¸s²Õ¡C
-    * matchObj.groupdict(): ¶Ç¦^©Ò¦³ªºMatchª«¥ó¤¤¦³¨ú¦WºÙªº¸s²Õ¡C
+    * glob(pathname): ä¾ç…§é¡ä¼¼æ–¼shellåœ¨ä½¿ç”¨çš„æª”æ¡ˆç¬¦åˆæª¢é©—çš„æ ¼å¼ä¾†æ‰¾å‡ºæŸå€‹ç›®éŒ„ä¸‹çš„æª”æ¡ˆã€‚
+
+
+reæ¨¡çµ„ï¼š
+
+    * re.compile(pattern[, flags]): å°‡æŒ‡å®šçš„patternå­—ä¸²ç·¨è­¯ä¸¦ç”¢ç”ŸRegExpç‰©ä»¶ã€‚
+    * regexp.match(string[, pos[, endpos] ]): è‹¥å­—ä¸²èˆ‡patternç›¸ç¬¦ï¼Œå‚³å›Matchç‰©ä»¶ï¼Œå¦å‰‡å‚³å›Noneã€‚
+    * regexp.search(string[, pos[, endpos] ]): æœå°‹å­—ä¸²ä¾¿æ‰¾å‡ºç¬¦åˆpatternçš„å­—ä¸²ã€‚
+    * regexp.split(string[, maxsplit]): ä»¥patternä½œç‚ºåˆ†å‰²å­—ä¸²ï¼Œå°‡æŒ‡å®šçš„å­—ä¸²åˆ†å‰²æˆç‚ºæ•¸å€‹éƒ¨åˆ†ã€‚
+    * regexp.sub(repl, string[, count]): å°‡ç›¸ç¬¦åˆçš„å­—ä¸²å–å¾—æˆç‚ºå¦ä¸€å€‹å­—ä¸²ã€‚
+    * matchObj.group([group1, ...]): å‚³å›Matchç‰©ä»¶ä¸­çš„æŒ‡å®šç¾¤çµ„å­—ä¸²ã€‚
+    * matchObj.groups(): å‚³å›æ‰€æœ‰çš„Matchç‰©ä»¶ä¸­çš„ç¾¤çµ„ã€‚
+    * matchObj.groupdict(): å‚³å›æ‰€æœ‰çš„Matchç‰©ä»¶ä¸­æœ‰å–åç¨±çš„ç¾¤çµ„ã€‚
