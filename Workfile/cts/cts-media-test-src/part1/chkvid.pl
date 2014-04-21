@@ -57,6 +57,22 @@ $0 -h -d <dir> -f <file list>
 EOL
 }
 
+sub check_dir($)
+{
+    my $dir = shift;
+	if (-d $dir) {
+        chdir $dir;
+        my @fs = glob("*.*");
+#        printf "count: %d\n", scalar(@fs);
+        foreach my $ff (@fs) {
+            check_file($ff);
+        }
+	} else {
+        print "dir not found!\n";
+        die;
+	}
+}
+
 sub main()
 {
     my %opts = ();
@@ -72,6 +88,8 @@ sub main()
 
 	if ($opts{d})  {
 		print $opts{d},"\n";
+        my $dir = $opts{d};
+        check_dir($dir);
 	} elsif ($opts{f}) {
 		print $opts{f},"\n";
 	} elsif ($opts{l}) {
