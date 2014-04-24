@@ -84,7 +84,8 @@ sub gen_testcase()
         gen_body();
         gen_footer();
     } else {
-        print "$filelist not found\n";
+        print STDERR "$filelist not found\n";
+        print STDERR "please specify full path to filelist.txt\n";
     }
 }
 
@@ -93,7 +94,7 @@ sub main()
     $filelist = "filelist.txt";
 
     if ($ARGV[0]) {
-        print $ARGV[0],"\n";
+        print STDERR $ARGV[0],"\n";
         $filelist = $ARGV[0];
     }
 
