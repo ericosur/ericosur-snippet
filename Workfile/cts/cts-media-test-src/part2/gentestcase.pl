@@ -58,7 +58,7 @@ EOC
 
     for (my $ii=0; $ii<$cnt; $ii++) {
         printf("    public void testPlay%02d() throws Exception {\n", $ii);
-        printf("        doTestVideoPlaybackShort(%d);\n", $ii);
+        printf("        doTestVideoPlaybackLong(%d);\n", $ii);
         printf("    }\n\n");
     }
 
