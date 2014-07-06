@@ -12,12 +12,15 @@ sub check_val($)
     my $val = shift;
     my @v = ();
 
-    if ($val =~ m/(\d+)\.(\d\d)(\d\d)/) {
+    if ($val =~ m/(\d+)\.(\d\d)(\d\d(\d\d\d)?)/) {
         $v[0] = $1;
         $v[1] = $2;
         #warn "exceed range" if $v[1] > 59;
         $v[2] = $3;
-        #warn "exceed range" if $v[2] > 59;
+        if ($v[2] >= 1000) {
+            $v[2] = $v[2] / 1000;
+        }
+
     }
     #print ">> @v <<\n";
     return @v;
@@ -28,7 +31,7 @@ sub show_val($)
     my $rr = shift;
     my @vv = @$rr;
     #print ">> @vv <<\n";
-    printf "%d:%02d:%02d\n", $vv[0], $vv[1], $vv[2];
+    printf "%d:%02d:%02.3f\n", $vv[0], $vv[1], $vv[2];
 }
 
 sub add_val($$)
@@ -91,7 +94,7 @@ sub addv($$)
     my @mm = check_val($m);
     my @nn = check_val($n);
     my @rr = add_val(\@mm, \@nn);
-    my $res = sprintf("%d:%02d:%02d", $rr[0], $rr[1], $rr[2]);
+    my $res = sprintf("%d:%02d:%02.3f", $rr[0], $rr[1], $rr[2]);
     return $res;
 }
 
@@ -110,7 +113,7 @@ sub subv($$)
     #print "mm:",@mm,"\n";
     #print "nn:",@nn,"\n";
     my @rr = sub_val(\@mm, \@nn);
-    my $res = sprintf("%d:%02d:%02d", $rr[0], $rr[1], $rr[2]);
+    my $res = sprintf("%d:%02d:%02.3f", $rr[0], $rr[1], $rr[2]);
     if ($swapped) {
         $res = '-' . $res;
     }
