@@ -22,8 +22,9 @@ sub is_device_ok()
 sub parse_full_list()
 {
 	my ($fullpath,$path,$package,$apk) = ();
+	my $fn = "ful.txt";
 
-    open my $fh, "ful.txt" or die;
+    open my $fh, $fn or die;
 	while (<$fh>) {
 		s/[\r\n]//;
 		s/^package://;
@@ -45,6 +46,7 @@ sub parse_full_list()
 		}
 	}
     close $fh;
+    unlink $fn;
 }
 
 sub parse_attr_list($)
@@ -69,6 +71,7 @@ sub parse_attr_list($)
 		}
 	}
 	close $fh;
+	unlink $fn;
 }
 
 sub parse_geo_list()
@@ -102,6 +105,7 @@ sub parse_ver_list()
         }
     }
     close $fh;
+    unlink $fn;
 }
 
 sub get_full_apk_list()
@@ -216,7 +220,8 @@ sub load_geo($)
 
 sub main()
 {
-    load_geo("geo43r1.csv");
+#    load_geo("geo43r1.csv");
+    load_geo("geo44r1.csv");
 	get_full_apk_list();
 	output_csv("result.csv");
 }
