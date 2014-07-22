@@ -19,8 +19,8 @@ my $file = $ARGV[0];
 
 sub main()
 {
-	if ($^O eq 'linux')  {
-		die "cannot run under linux\n";
+	unless ($^O eq 'MSWin32')  {
+		die "Only run under MSWin32\n";
 	}
 
     my $basedir = Win32::GetCwd();
