@@ -199,8 +199,12 @@ sub load_geo($)
     my $f = shift;
     my ($apk, $pkg, $ver) = ();
     my $cnt = 0;
+    my $fh;
 
-    open my $fh, $f or die;
+    unless (open($fh, $f))  {
+        warn "cannot open $f\n";
+        return;
+    }
     while (<$fh>) {
         s/[\r\n]//g;
         if ( m/^([^,]+),([^,]*),[^,]*,[^,]*,([^,]*),/ ) {
