@@ -12,9 +12,12 @@ I extended it to:
 
 use strict;
 use v5.10;
+use Storable;
 use Encode qw(from_to);
 use Data::Dump qw(dump);
 use utf8;
+
+my $storage_file = "hashvalue.dat";
 
 sub sep()
 {
@@ -97,6 +100,7 @@ if (1) {
     	}
     }
 
+    store(\%right, $storage_file);
     return \%right;
 }
 
@@ -144,9 +148,10 @@ sub process_file($$$)
 	my ($rrh, $ifile, $ofile) = @_;
 	my $linecnt = 0;
 	my $chrcnt = 0;
+    my @longseq = ();
+
 	open my $fh, $ifile or die;
 	open my $ofh, "> $ofile" or die;
-
 	binmode( $fh, ':utf8' );
 	binmode( $ofh, ':utf8' );
 
@@ -155,14 +160,28 @@ sub process_file($$$)
 		s/[\r\n]//;
 		my $len = length($_);
 		say "len: $len, $_" if $debug_pf;
-		print $ofh $_,"\n";
+
+        # print original text
+		#print $ofh $_,"\n";
+
 		my @liner = unpack("U*", $_);
+
+        # print original text with spacing
+		foreach my $uu (@liner)  {
+			printf $ofh "%3s", chr($uu);
+		}
+        print $ofh "\n";
+
+        # lookup cin table and print codes
 		foreach my $ww (@liner) {
 			my $res = lookup_table($rrh, $ww);
 			if ($res) {
-				print $ofh $res, " ";
+				printf $ofh "%4s", $res;
+                if (length($res) >= 4)  {
+                    push(@longseq, $res);
+                }
 			} else {
-				print $ofh chr($ww);
+				printf $ofh "%3s", chr($ww);
 			}
 		}
 		$chrcnt += $len;
@@ -174,6 +193,13 @@ sub process_file($$$)
 	}
 	close($fh);
 	close($ofh);
+
+    sep();
+    print "In this article, there 4-code characters:\n";
+    foreach my $ss (@longseq) {
+        printf "%5s", $ss;
+    }
+    print "\n";
 }
 
 # in: ref of word hash
@@ -220,10 +246,14 @@ sub main()
 	my $rrh;
 
 	my $ifile = $ARGV[0] // 'littleprince.txt';
-	my $ofile = 'code.txt';
+	my $ofile = 'output.txt';
 	my $cin = 'boshiamy_t.cin';
 
-    $rrh = parse_cin($cin);
+    if (-e $storage_file) {
+		$rrh = retrieve($storage_file);
+    } else {
+        $rrh = parse_cin($cin);
+    }
 
 =pod
 if (1) {
