@@ -19,6 +19,11 @@ use utf8;
 
 my $storage_file = "hashvalue.dat";
 
+# array to store characters which need 4 press to combine
+my @longseq = ();
+# character count
+my $chc = 0;
+
 sub sep()
 {
 	say '-' x 50;
@@ -148,7 +153,6 @@ sub process_file($$$)
 	my ($rrh, $ifile, $ofile) = @_;
 	my $linecnt = 0;
 	my $chrcnt = 0;
-    my @longseq = ();
 
 	open my $fh, $ifile or die;
 	open my $ofh, "> $ofile" or die;
@@ -168,20 +172,21 @@ sub process_file($$$)
 
         # print original text with spacing
 		foreach my $uu (@liner)  {
-			printf $ofh "%3s", chr($uu);
+			printf $ofh "%-4s", chr($uu);
 		}
         print $ofh "\n";
 
         # lookup cin table and print codes
 		foreach my $ww (@liner) {
+            $chc ++;
 			my $res = lookup_table($rrh, $ww);
 			if ($res) {
-				printf $ofh "%4s", $res;
-                if (length($res) >= 4)  {
+				printf $ofh "%-5s", $res;
+                if (length($res) > 3)  {
                     push(@longseq, $res);
                 }
 			} else {
-				printf $ofh "%3s", chr($ww);
+				printf $ofh "%-4s", chr($ww);
 			}
 		}
 		$chrcnt += $len;
@@ -194,12 +199,6 @@ sub process_file($$$)
 	close($fh);
 	close($ofh);
 
-    sep();
-    print "In this article, there 4-code characters:\n";
-    foreach my $ss (@longseq) {
-        printf "%5s", $ss;
-    }
-    print "\n";
 }
 
 # in: ref of word hash
@@ -264,6 +263,19 @@ if (1) {
 	say "out: $ofile";
     process_file($rrh, $ifile, $ofile);
 
+    sep();
+    print "char count: $chc\n";
+    sep();
+    my $szseq = scalar(@longseq);
+    printf "In this article, there are %d four-code characters:\n", $szseq;
+    my $ii = 0;
+    foreach my $ss (@longseq) {
+        printf "%-5s", $ss;
+        if ((++$ii) % 10 == 0)  {
+            print "\n";
+        }
+    }
+    print "\n";
 }
 
 main();
