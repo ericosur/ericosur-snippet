@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Button
+        android:id="@+id/btnOpenSettingsMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:onClick="onButtonClick"
+        android:text="@string/str_opensettingmenu" />
+
+    <Button
+        android:id="@+id/btnSoundSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btnOpenSettingsMenu"
+        android:onClick="onButtonClick"
+        android:text="@string/str_soundsetting" />
+
+    <Button
+        android:id="@+id/btnDisplaySettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btnSoundSettings"
+        android:onClick="onButtonClick"
+        android:text="@string/str_displaysetting" />
+
+    <Button
+        android:id="@+id/btnWifiSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btnDisplaySettings"
+        android:onClick="launchWifi"
+        android:text="@string/str_wifisetting" />
+
+    <Button
+        android:id="@+id/btnDateSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btnWifiSettings"
+        android:onClick="launchDate"
+        android:text="@string/str_datesetting" />
+
+    <Button
+        android:id="@+id/btnEthernetSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btnDateSettings"
+        android:onClick="launchEthernet"
+        android:text="@string/str_ethernetsetting" />
+
+    <TextView
+        android:id="@+id/tvState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/str_textview"
+        android:textSize="50sp" />
+
+    <Button
+        android:id="@+id/btnAdbDisable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:text="@string/str_adbdisable"
+        android:onClick="onButtonClick" />
+
+    <Button
+        android:id="@+id/btnAdbEnable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnAdbDisable"
+        android:layout_alignParentLeft="true"
+        android:text="@string/str_adbenable"
+        android:onClick="onButtonClick" />
+
+</RelativeLayout>
