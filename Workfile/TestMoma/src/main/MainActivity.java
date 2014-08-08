@@ -7,11 +7,14 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.os.UserHandle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.pegatron.android.net.ethernet.EthernetManager;
 
 public class MainActivity extends Activity {
 
@@ -57,26 +60,20 @@ public class MainActivity extends Activity {
 
 	public void onButtonClick(View v){
 
-		switch (v.getId()) {
-			case R.id.btnOpenSettingsMenu:
-				startActivity(new Intent(Settings.ACTION_SETTINGS));
-				break;
-			case R.id.btnSoundSettings:
-				startActivity(new Intent(Settings.ACTION_SOUND_SETTINGS));
-				break;
-			case R.id.btnDisplaySettings:
-				startActivity(new Intent(Settings.ACTION_DISPLAY_SETTINGS));
-				break;
-			case R.id.btnAdbEnable:
-				System.setProperty("persist.sys.usb.config", "mtp,adb");
-				Toast.makeText(this, "Now property (persist.sys.usb.config) = "+System.getProperty("persist.sys.usb.config"), Toast.LENGTH_SHORT).show();
-				break;
-			case R.id.btnAdbDisable:
-				System.setProperty("persist.sys.usb.config", "mtp");
-				Toast.makeText(this, "Now property (persist.sys.usb.config) = "+System.getProperty("persist.sys.usb.config"), Toast.LENGTH_SHORT).show();
-				break;
-			default:
-			    break;
+		switch(v.getId()){
+		case R.id.btnOpenSettingsMenu:
+			startActivity(new Intent(Settings.ACTION_SETTINGS));
+			break;
+		case R.id.btnAdbEnable:
+			System.setProperty("persist.sys.usb.config", "mtp,adb");
+			Toast.makeText(this, "Now property (persist.sys.usb.config) = "+System.getProperty("persist.sys.usb.config"), Toast.LENGTH_SHORT).show();
+			break;
+		case R.id.btnAdbDisable:
+			System.setProperty("persist.sys.usb.config", "mtp");
+			Toast.makeText(this, "Now property (persist.sys.usb.config) = "+System.getProperty("persist.sys.usb.config"), Toast.LENGTH_SHORT).show();
+			break;
+		default:
+			break;
 		}
 	}
 
@@ -86,23 +83,62 @@ public class MainActivity extends Activity {
 		Toast.makeText(this, "Test Launcher onBackPressed."+this.hashCode(), Toast.LENGTH_SHORT).show();
 	}
 
-    public void launchWifi(View view) {
-    	Log.i(TAG, "launchWifi");
+	public void launchModSound(View view) {
+        Log.i(TAG, "Launch Sound setting w/ extra");
+        Intent intent = new Intent();
+        intent.setClassName("com.android.settings", "com.android.settings.SoundSettings");
+        intent.putExtra("enablehome", "1");
+        startActivity(intent);
+	}
+
+	public void launchModDisplay(View view) {
+        Log.i(TAG, "Launch Display setting w/ extra");
+        Intent intent = new Intent();
+        intent.setClassName("com.android.settings", "com.android.settings.DisplaySettings");
+        intent.putExtra("enablehome", "1");
+        startActivity(intent);
+	}
+
+	public void launchModWifi(View view) {
+        Log.i(TAG, "Launch Wifi setting w/ extra");
+        Intent intent = new Intent();
+        intent.setClassName("com.android.settings", "com.android.settings.wifi.WifiSettings");
+        intent.putExtra("enablehome", "1");
+        startActivity(intent);
+	}
+
+    public void launchModDate(View view) {
+    	Log.i(TAG, "launch Mod Date w/ extra");
     	Intent intent = new Intent();
-    	intent.setClassName("com.android.settings", "com.android.settings.wifi.WifiSetupActivity");
-    	intent.putExtra("firstRun", true);
+    	intent.setClassName("com.android.settings", "com.android.settings.Settings$DateTimeSettingsActivity");
+    	intent.putExtra("enablehome", true);
         startActivity(intent);
     }
-    
+
+    public void launchWifi(View view) {
+        Log.i(TAG, "launchWifi");
+        Intent intent = new Intent();
+        intent.setClassName("com.android.settings", "com.android.settings.wifi.WifiSetupActivity");
+        intent.putExtra("firstRun", true);
+        startActivity(intent);
+    }
+
     public void launchDate(View view) {
     	Log.i(TAG, "launchDate");
     	Intent intent = new Intent();
     	intent.setClassName("com.android.settings", "com.android.settings.DateTimeSettingsSetupWizard");
         startActivity(intent);
     }
-    
+
     public void launchEthernet(View view) {
     	Log.i(TAG, "launchEthernet");
+
+        Log.i(TAG, "before editing ethernet, enable it first");
+        Intent enableIntent = new Intent(EthernetManager.ETHERNET_STATE_SWITCHED_ACTION);
+        enableIntent.putExtra("state", true);
+        getApplicationContext().sendBroadcastAsUser(enableIntent, UserHandle.ALL);
+
+        Log.i(TAG, "and then bring up ethernet setting dialog");
     	Intent intent = new Intent();
     	intent.setClassName("com.android.settings", "com.android.settings.ethernet.EthernetSettings");
         startActivity(intent);
