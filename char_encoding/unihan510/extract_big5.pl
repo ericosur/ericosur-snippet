@@ -13,6 +13,7 @@
 
 use strict;
 use warnings;
+use Compress::Zlib;
 
 require "../charutil.pl";
 
@@ -22,7 +23,7 @@ sub main()
 
     # USE q(Unihan_OtherMappings.txt) FOR UNIHAN 7.0.0 data file
     # it is smaller and quick to parse
-    my $ifile = q(../Unihan700/Unihan_OtherMappings.txt);
+    my $ifile = q(../Unihan700/Unihan_OtherMappings.txt.gz);
     # Unihan510.txt is big and slower
     #my $ifile = q(Unihan510.txt);
     my $ofile = q(extract_big5.txt);
@@ -30,7 +31,12 @@ sub main()
     print "input: $ifile\n";
     print "output: $ofile\n";
 
-    open my $ifh, "<:utf8", $ifile or die;
+    print "read data from $ifile\n";
+    my $gz = gzopen($ifile, "rb")
+         or (print "Cannot open $ifile: $gzerrno\n"
+            && next);
+
+    #open my $ifh, "<:utf8", $ifile or die;
     open my $ofh, ">", $ofile or die;
 
     binmode $ofh;
@@ -39,7 +45,7 @@ sub main()
     my $big5 = 0;
     my $total = 0;
 
-    while (<$ifh>)  {
+    while ($gz->gzreadline($_))  {
     	next if ( m/^#/ or m/^$/ );
     	++ $total;
     	s/\n//;
@@ -55,7 +61,11 @@ sub main()
     	print STDERR "$big5 / $total\r";
     }
 
-    close $ifh;
+    die "Error reading from $ifile: $gzerrno\n"
+        if $gzerrno != Z_STREAM_END ;
+
+    $gz->gzclose() ;
+
     close $ofh;
 
     print STDERR "\n";
