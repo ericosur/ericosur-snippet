@@ -18,4 +18,21 @@ sub write_char($)
 	return chr(hex($hh)) . chr(hex($ll));
 }
 
+
+#
+# input the gb0 code
+#
+sub write_hex($)
+{
+	my $in = shift;
+	my $rr;
+
+	my ($hh, $ll) = ( $in =~ m/(..)(..)/ );
+	$hh += 0xa0;
+	$ll += 0xa0;
+
+	$rr = sprintf "0x%02x%02x", $hh, $ll;
+	return $rr;
+}
+
 1;
