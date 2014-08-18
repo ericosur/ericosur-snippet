@@ -30,3 +30,16 @@ from wiki:
 *1 可由下列 URL 取得 unihan.txt
 http://www.unicode.org/Public/UNIDATA/Unihan.zip
 $ grep -i kbigfive unihan.txt > kbigfive.txt
+
+======================================================================
+2014-08-18
+After fetch unihan unicode 7.0.0, it splits into multiple files.
+
+for documentation:
+http://www.unicode.org/reports/tr44/
+
+http://zh.wikipedia.org/wiki/%E5%9B%BD%E5%AE%B6%E6%A0%87%E5%87%86%E4%BB%A3%E7%A0%81
+GB0 (GB 2312-80) (6763 han characters)
+
+http://zh.wikipedia.org/wiki/%E5%A4%A7%E4%BA%94%E7%A2%BC
+big five (13063 from unihan data)
