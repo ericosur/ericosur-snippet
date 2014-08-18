@@ -1,5 +1,3 @@
-# data extract from unihan.txt total 13063 char
-# but cp950 has 13503 chars (some symbols are not here)
 U+4E00	A440	¤@
 U+4E01	A442	¤B
 U+4E03	A443	¤C
