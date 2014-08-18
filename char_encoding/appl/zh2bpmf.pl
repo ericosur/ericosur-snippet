@@ -3,6 +3,7 @@
 use strict;
 use utf8;
 use Storable;
+use Encode;
 
 #
 # 把 中文字 轉成 注音
@@ -16,8 +17,8 @@ use Storable;
 #
 
 # 需要的表格檔：
-my $dfile = 'data/bpmf.dat';
-my $tfile = 'data/big5-bopomofo-u8.txt';
+my $dfile = '../data/bpmf.dat';
+my $tfile = '../data/big5-bopomofo-u8.txt';
 my %bpmf = ();
 
 #
@@ -33,7 +34,8 @@ sub load_table
 
 	my $cnt = 0;
 
-	open my $ifh, $tfile or die;
+	open my $ifh, "<:utf8", $tfile or die;
+	#binmode(
 	while ( <$ifh> )  {
 		++ $cnt;
 		$_ = decode("utf8", $_);
@@ -60,18 +62,18 @@ sub main
 {
 	load_table;
 
-	my $iff = $ARGV[0] || "zh.txt";
+	my $iff = $ARGV[0] || "../ime/little_prince/littleprince.txt";
 	print STDERR "read from $iff\n";
 	open my $ifh, "<:utf8", $iff or die "please specify a input file name";
 
-	binmode STDERR;
-	binmode STDOUT;
+	binmode(STDERR, ":utf8");
+	binmode(STDOUT, ":utf8");
 
 	while (<$ifh>)  {
 		foreach my $cc (split //, $_)  {
 #			print $cc," ";
 			if ($bpmf{$cc})  {
-				print $bpmf{$cc};
+				print $bpmf{$cc}, " ";
 			}
 			else  {
 				print $cc;
