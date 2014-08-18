@@ -11,7 +11,8 @@ use warnings;
 #use utf8;
 
 my $search_tag = 'kGB0';
-my $ifile = q(Unihan.txt);
+my $ifile = q(../Unihan700/Unihan_OtherMappings.txt);
+#my $ifile = q(Unihan510.txt);
 my $ofile = q(extract_gb0.txt);
 
 #

@@ -5,6 +5,11 @@
 #
 # nonsense script, use ''grep kBigFive' to extract
 # 13063 big5 han char (unicode 5.1.0)
+#
+# 2014/8/18 update: tested against unihan 7.0.0
+# Unihan_OtherMappings.txt
+# still works and will get same result
+#
 
 use strict;
 use warnings;
@@ -14,7 +19,12 @@ require "../charutil.pl";
 sub main()
 {
     my $bigfive_tag = 'kBigFive';
-    my $ifile = q(Unihan510.txt);
+
+    # USE q(Unihan_OtherMappings.txt) FOR UNIHAN 7.0.0 data file
+    # it is smaller and quick to parse
+    my $ifile = q(../Unihan700/Unihan_OtherMappings.txt);
+    # Unihan510.txt is big and slower
+    #my $ifile = q(Unihan510.txt);
     my $ofile = q(extract_big5.txt);
 
     print "input: $ifile\n";
