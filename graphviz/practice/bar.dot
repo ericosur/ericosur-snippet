@@ -1,0 +1,11 @@
+graph bar {
+	overlap = false;
+	splines = true;
+
+	apple -- ball;
+	ball -- cat;
+	apple -- duck;
+	duck -- egg;
+	cat -- egg;
+
+}

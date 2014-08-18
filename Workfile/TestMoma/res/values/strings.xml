@@ -1,0 +1,18 @@
+<resources>
+
+    <string name="app_name">TestLauncher</string>
+    <string name="str_opensettingmenu">Open Setting Menu</string>
+    <string name="str_soundsetting">Launch Mod Sound</string>
+    <string name="str_displaysetting">Launch Mod Display</string>
+    <string name="str_modwifisetting">Launch Mod Wifi</string>
+    <string name="str_moddatesetting">Launch Mod Date</string>
+
+    <string name="str_wifisetting">wizard Wifi Setting</string>
+    <string name="str_datesetting">wizard Date Setting</string>
+    <string name="str_ethernetsetting">Ethernet Setting</string>
+
+    <string name="str_textview">Text View</string>
+    <string name="str_adbdisable">ADB Disable</string>
+    <string name="str_adbenable">ADB Enable</string>
+
+</resources>

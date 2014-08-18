@@ -1,0 +1,24 @@
+First make a folder in /mnt
+
+mkdir /mnt/usbdrive
+
+open fstab
+vi /etc/fstab
+
+Insert following line
+/dev/sda1 /mnt/usbdrive vfat noauto,user,rw 0 0
+
+
+When you done this plug in your usbdrive
+
+run the following command
+
+mount /mnt/usbdrive
+
+Enter the drive
+
+cd /mnt/usbdrive
+
+run the following command to see what is on the drive
+
+ls -al

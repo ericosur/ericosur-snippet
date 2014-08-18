@@ -1,0 +1,61 @@
+#
+# one liner recipes
+#
+
+# strip out lines start with 'foo', read from STDIN
+perl -e "while(<>){print $_ unless /^foo/;}"
+
+# read from STDIN, take string after ``^''
+perl -e "while(<>){print \"$1\n\" if /\^(.*)$/;}"
+
+# perl version of dos2unix
+	$ perl -pi.bak -e 's/\r$//' textfile.txt
+
+# translate / into \
+	$ echo / |perl -pe "s/\//\\/g;"
+
+# print the 15th to 17th line of text file
+	$ perl -ne "print if 15 .. 17" file.txt
+
+# print lines between /begin/ and /end/
+	$ perl -ne "print if /begin/ .. /end/" file.txt
+
+# line.txt like:
+2886, 2737, 2796, 1326, 2254, 2270, 2909, 2915, 2914, 2879
+
+	$ cat line.txt | perl -e "$_=<>; s/, /\n/g; print;"
+
+# base64 encode / decode
+
+### decode base64
+openssl enc -d -a
+
+### encode base64
+openssl enc -a
+
+perl -MMIME::Base64 -ne 'print decode_base64($_)' <file
+
+echo 5Lit5paH5a2X5qiZ6aGM | openssl enc -base64 -d
+echo 'hello world' | openssl enc -base64
+
+echo 5Lit5paH5a2X5qiZ6aGM | base64 -d
+echo 'hello world' | base64
+
+# under command line use environment directly
+perl -e "print q(%tmp%),\"\n\""
+
+# the %ff% is user defined environment var before run this line
+perl -e "open F,'>',q(%tmp%\\%ff%) or die; print F q(hello world); close F;"
+
+perl -e "open F,'+<',q(%ff%) or die; $c=join('',<F>); $c =~ s/([aeiou])/uc($1)/eg; print $c; close F;"
+
+#################################################################################
+取代法1: perl -pe 's/<?/<?php/g' 檔名
+取代法2: perl -pe 's/<?/<?php/g' action.php > action-new.php
+取代法3: perl -i -pe 's/<?/<?php/g' `find . -iname '*htm*'`
+取代法3 後面的 find.. 可以改用其它你想改的檔名(ex: 改成 *.php)
+以上三個範例都是要將 <? 改成 <?php 的做法..
+
+# kill_ts.pl 的 oneliner
+perl -pi.bak -e "s/\s+\n$/\n/" file.txt
+

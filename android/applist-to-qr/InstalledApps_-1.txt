@@ -1,0 +1,408 @@
+TOSHIBA, tostab11BA
+
+Android version : 4.0.3
+
+[tostab11BA][TOSHIBA][armeabi-v7a][tostab11BA][tostab11BA-eng 4.0.3 IML74K eng.rasmus.20120608.090010 test-keys][TOSHIBA/tostab11BA/tostab11BA:4.0.3/IML74K/eng.rasmus.20120608.090010:eng/test-keys][kitty][IML74K][tostab11BA][test-keys][eng][rasmus]
+
+Date(D.M.Y.): 21.6. 2012    Time(24H): 11:24
+
+--- USER applications ---
+android.core.tests.runner:
+android.core.tests.runner (4.0.4-363030),(15)
+	Permissions :
+	- android.permission.INTERNET
+Adobe Flash Player 11.1:
+com.adobe.flashplayer (11.1.115.11),(111115011)
+	Permissions :
+	- android.webkit.permission.PLUGIN
+	- android.permission.ACCESS_NETWORK_STATE
+	Services :
+	- com.adobe.flashplayer.FlashPaintSurface
+Adobe Reader:
+com.adobe.reader (10.2.1),(60548)
+	Permissions :
+	- android.permission.INTERNET
+	- android.permission.WRITE_EXTERNAL_STORAGE
+	- android.permission.ACCESS_NETWORK_STATE
+	Services :
+	- com.adobe.reader.AREchoSignUploadService
+QuickPic:
+com.alensw.PicFolder (2.3),(87)
+	Permissions :
+	- android.permission.SET_WALLPAPER
+	- android.permission.WAKE_LOCK
+	- android.permission.WRITE_EXTERNAL_STORAGE
+	- com.android.launcher.permission.INSTALL_SHORTCUT
+com.android.cts.acceleration.stub:
+com.android.cts.acceleration.stub (4.0.4-363030),(15)
+com.android.cts.database:
+com.android.cts.database (4.0.4-363030),(15)
+com.android.cts.provider:
+com.android.cts.provider (4.0.4-363030),(15)
+Android TestCase:
+com.android.cts.stub (4.0.4-363030),(15)
+	Permissions :
+	- android.permission.GET_TASKS
+	- android.permission.SET_WALLPAPER
+	- android.permission.SET_TIME_ZONE
+	- android.permission.WRITE_CONTACTS
+	- android.permission.WRITE_SOCIAL_STREAM
+	- android.permission.READ_CONTACTS
+	- android.permission.READ_SOCIAL_STREAM
+	- android.permission.WRITE_CALENDAR
+	- android.permission.READ_CALENDAR
+	- android.permission.DEVICE_POWER
+	- android.permission.STATUS_BAR
+	- android.permission.EXPAND_STATUS_BAR
+	- android.permission.VIBRATE
+	- android.permission.PERSISTENT_ACTIVITY
+	- android.permission.DISABLE_KEYGUARD
+	- android.permission.INSTALL_PACKAGES
+	- android.permission.WRITE_SETTINGS
+	- android.permission.WRITE_SECURE_SETTINGS
+	- android.permission.WRITE_SYNC_SETTINGS
+	- android.permission.READ_SYNC_SETTINGS
+	- android.permission.WRITE_OWNER_DATA
+	- android.permission.READ_OWNER_DATA
+	- android.permission.ACCESS_FINE_LOCATION
+	- android.permission.ACCESS_LOCATION_EXTRA_COMMANDS
+	- android.permission.ACCESS_COARSE_LOCATION
+	- android.permission.DELETE_CACHE_FILES
+	- android.permission.MOUNT_UNMOUNT_FILESYSTEMS
+	- android.permission.ADD_SYSTEM_SERVICE
+	- android.permission.BROADCAST_STICKY
+	- android.app.cts.permission.TEST_GRANTED
+	- android.permission.INJECT_EVENTS
+	- android.permission.INTERNET
+	- android.permission.ACCESS_NETWORK_STATE
+	- android.permission.CHANGE_NETWORK_STATE
+	- android.permission.WAKE_LOCK
+	- android.permission.MODIFY_AUDIO_SETTINGS
+	- android.permission.CALL_PHONE
+	- android.permission.ACCESS_MOCK_LOCATION
+	- android.permission.RECORD_AUDIO
+	- android.permission.DUMP
+	- android.permission.NFC
+	- android.permission.SET_WALLPAPER_HINTS
+	- android.permission.ACCESS_WIFI_STATE
+	- android.permission.CHANGE_WIFI_STATE
+	- android.permission.CAMERA
+	- android.permission.SET_PREFERRED_APPLICATIONS
+	- android.permission.GET_PACKAGE_SIZE
+	- android.permission.SEND_SMS
+	- android.permission.RECEIVE_SMS
+	- android.permission.READ_PHONE_STATE
+	- com.android.browser.permission.READ_HISTORY_BOOKMARKS
+	- com.android.browser.permission.WRITE_HISTORY_BOOKMARKS
+	- android.permission.WRITE_USER_DICTIONARY
+	- android.permission.READ_USER_DICTIONARY
+	- android.permission.WRITE_EXTERNAL_STORAGE
+	- android.permission.READ_LOGS
+	- android.permission.MANAGE_ACCOUNTS
+	- android.permission.AUTHENTICATE_ACCOUNTS
+	- android.permission.GET_ACCOUNTS
+	- android.permission.USE_CREDENTIALS
+	- android.permission.READ_SYNC_STATS
+	Services :
+	- android.content.cts.MockContextWrapperService
+	- android.view.inputmethod.cts.InputMethodInfoStub
+	- android.app.cts.MockService
+	- android.app.cts.LocalService
+	- android.app.cts.LocalGrantedService
+	- android.app.cts.LocalDeniedService
+	- android.content.pm.cts.TestPmService
+	- android.app.cts.StubRemoteService
+	- android.os.cts.EmptyService
+	- android.os.cts.MessengerService
+	- android.app.cts.IntentServiceStub
+	- android.content.cts.MockSyncAdapterService
+	- android.content.cts.MockAccountService
+	- android.speech.tts.cts.StubTextToSpeechService
+Dropbox:
+com.dropbox.android (2.1.5),(21500)
+	Permissions :
+	- android.permission.INTERNET
+	- android.permission.WRITE_EXTERNAL_STORAGE
+	- android.permission.ACCESS_WIFI_STATE
+	- android.permission.ACCESS_NETWORK_STATE
+	- android.permission.WAKE_LOCK
+	- android.permission.RECEIVE_BOOT_COMPLETED
+	- android.permission.GET_ACCOUNTS
+	- android.permission.AUTHENTICATE_ACCOUNTS
+	- android.permission.MANAGE_ACCOUNTS
+	- android.permission.READ_SYNC_SETTINGS
+	- android.permission.WRITE_SYNC_SETTINGS
+	Services :
+	- com.dropbox.android.service.CameraUploadService
+	- com.dropbox.android.service.AuthenticationService
+	- com.dropbox.android.service.DummySyncService
+Evernote:
+com.evernote (4.0.4),(14041)
+	Permissions :
+	- com.android.vending.BILLING
+	- evernote.permission.READ_DATA
+	- evernote.permission.WRITE_DATA
+	- android.permission.INTERNET
+	- android.permission.RECORD_AUDIO
+	- android.permission.ACCESS_NETWORK_STATE
+	- android.permission.ACCESS_COARSE_LOCATION
+	- android.permission.ACCESS_FINE_LOCATION
+	- android.permission.READ_CONTACTS
+	- android.permission.VIBRATE
+	- android.permission.WRITE_EXTERNAL_STORAGE
+	- android.permission.READ_PHONE_STATE
+	- android.permission.WAKE_LOCK
+	- android.permission.ACCESS_WIFI_STATE
+	- android.permission.GET_ACCOUNTS
+	- com.android.launcher.permission.INSTALL_SHORTCUT
+	- android.permission.READ_LOGS
+	- android.permission.READ_CALENDAR
+	- android.permission.CAMERA
+	Services :
+	- com.evernote.client.EvernoteService
+	- com.evernote.ui.helper.WidgetProviderService
+	- com.evernote.client.SyncService
+	- com.evernote.billing.BillingService
+Facebook:
+com.facebook.katana (1.9.5),(20225)
+	Permissions :
+	- android.permission.WAKE_LOCK
+	- android.permission.INTERNET
+	- android.permission.VIBRATE
+	- android.permission.READ_CONTACTS
+	- android.permission.WRITE_CONTACTS
+	- android.permission.GET_ACCOUNTS
+	- android.permission.MANAGE_ACCOUNTS
+	- android.permission.AUTHENTICATE_ACCOUNTS
+	- android.permission.READ_SYNC_SETTINGS
+	- android.permission.WRITE_SYNC_SETTINGS
+	- android.permission.ACCESS_FINE_LOCATION
+	- com.facebook.katana.provider.ACCESS
+	- com.facebook.orca.provider.ACCESS
+	- com.android.launcher.permission.INSTALL_SHORTCUT
+	- android.permission.CAMERA
+	- android.permission.RECORD_AUDIO
+	- android.permission.WRITE_EXTERNAL_STORAGE
+	- com.facebook.katana.permission.C2D_MESSAGE
+	- com.google.android.c2dm.permission.RECEIVE
+	- android.permission.ACCESS_NETWORK_STATE
+	- android.permission.ACCESS_WIFI_STATE
+	Services :
+	- com.facebook.katana.service.FacebookService
+	- com.facebook.katana.util.logging.NotificationsLogger$NotificationsLogService
+	- com.facebook.katana.service.BackgroundDetectionService
+	- com.facebook.katana.service.BackgroundRequestService
+	- com.facebook.katana.service.MediaUploadService
+	- com.facebook.katana.RemoveRawContactsService
+	- com.facebook.katana.service.PhotoCleanupService
+	- com.facebook.katana.c2dm.PushReceiver
+	- com.facebook.katana.platform.FacebookAuthenticationService
+	- com.facebook.katana.platform.TokenRefreshService
+	- com.facebook.katana.platform.FacebookSyncAdapterService
+	- com.facebook.orca.push.mqtt.MqttPushService
+	- com.facebook.orca.push.mqtt.MqttReceiver
+	- com.facebook.orca.server.OrcaService
+Total Commander:
+com.ghisler.android.TotalCommander (1.02),(21)
+	Permissions :
+	- android.permission.WRITE_EXTERNAL_STORAGE
+	- android.permission.BLUETOOTH_ADMIN
+	- android.permission.BLUETOOTH
+	- android.permission.INTERNET
+	Services :
+	- com.ghisler.android.TotalCommander.FileOperationService
+Flickr Viewer HD:
+com.gmail.charleszq (1.2.8),(19)
+	Permissions :
+	- android.permission.INTERNET
+	- android.permission.WRITE_EXTERNAL_STORAGE
+	- android.permission.SET_WALLPAPER
+	Services :
+	- com.gmail.charleszq.services.ContactUploadService
+	- com.gmail.charleszq.services.PhotoActivityService
+Drive:
+com.google.android.apps.docs (1.0.77),(86)
+	Permissions :
+	- android.permission.ACCESS_NETWORK_STATE
+	- android.permission.ACCOUNT_MANAGER
+	- android.permission.INTERNET
+	- android.permission.GET_ACCOUNTS
+	- android.permission.USE_CREDENTIALS
+	- android.permission.MANAGE_ACCOUNTS
+	- android.permission.AUTHENTICATE_ACCOUNTS
+	- android.permission.READ_SYNC_STATS
+	- android.permission.WRITE_SYNC_STATS
+	- android.permission.READ_SYNC_SETTINGS
+	- android.permission.WRITE_SYNC_SETTINGS
+	- android.permission.WRITE_EXTERNAL_STORAGE
+	- android.permission.READ_CONTACTS
+	- android.permission.WAKE_LOCK
+	- android.permission.SUBSCRIBED_FEEDS_READ
+	- android.permission.SUBSCRIBED_FEEDS_WRITE
+	- com.google.android.googleapps.permission.GOOGLE_AUTH
+	- com.google.android.googleapps.permission.GOOGLE_AUTH.OTHER_SERVICES
+	- com.google.android.googleapps.permission.GOOGLE_AUTH.ALL_SERVICES
+	- com.google.android.googleapps.permission.GOOGLE_AUTH.writely
+	- com.google.android.googleapps.permission.GOOGLE_AUTH.wise
+	- com.google.android.providers.gsf.permission.READ_GSERVICES
+	- com.google.android.apps.docs.permission.READ_MY_DATA
+	- android.permission.CAMERA
+	- com.google.android.apps.docs.permission.SYNC_STATUS
+	- android.permission.VIBRATE
+	Services :
+	- com.google.android.apps.docs.sync.syncadapter.DocsSyncAdapterService
+	- com.google.userfeedback.android.api.SendUserFeedbackService
+	- com.google.android.apps.docs.docsuploader.UploadQueueService
+	- com.google.android.apps.docs.sync.syncadapter.ContentSyncService
+Barcode Scanner:
+com.google.zxing.client.android (4.1),(81)
+	Permissions :
+	- android.permission.CAMERA
+	- android.permission.INTERNET
+	- android.permission.VIBRATE
+	- android.permission.FLASHLIGHT
+	- android.permission.READ_CONTACTS
+	- com.android.browser.permission.READ_HISTORY_BOOKMARKS
+	- android.permission.WRITE_EXTERNAL_STORAGE
+	- android.permission.CHANGE_WIFI_STATE
+	- android.permission.ACCESS_WIFI_STATE
+IMDb:
+com.imdb.mobile (2.6.0),(800260)
+	Permissions :
+	- com.imdb.mobile.permission.C2D_MESSAGE
+	- com.google.android.c2dm.permission.RECEIVE
+	- android.permission.WAKE_LOCK
+	- android.permission.VIBRATE
+	- android.permission.INTERNET
+	- com.imdb.mobile.permissions.SHOWTIMES_UPDATE
+	- android.permission.ACCESS_COARSE_LOCATION
+	- android.permission.ACCESS_NETWORK_STATE
+	Services :
+	- com.imdb.mobile.C2DMReceiver
+	- com.imdb.mobile.IMDbNewsAppWidgetProvider$UpdateService
+	- com.imdb.mobile.metrics.IMDbMetricsService$MetricsUpdater
+ASTRO:
+com.metago.astro (ASTRO_3.1.363.std),(363)
+	Permissions :
+	- android.permission.WAKE_LOCK
+	- android.permission.GET_TASKS
+	- android.permission.RESTART_PACKAGES
+	- android.permission.INTERNET
+	- android.permission.ACCESS_NETWORK_STATE
+	- android.permission.WRITE_EXTERNAL_STORAGE
+	- android.permission.WRITE_SETTINGS
+	- com.android.launcher.permission.INSTALL_SHORTCUT
+	- com.android.launcher.permission.READ_SETTINGS
+	- com.android.launcher.permission.WRITE_SETTINGS
+	- android.permission.SET_WALLPAPER
+	- android.permission.ACCESS_WIFI_STATE
+	- com.metago.astro.permission.smb
+	- com.metago.astro.permission.bluetooth
+	Services :
+	- com.metago.astro.service.CopyService
+	- com.metago.astro.analytics.metago.MAServ
+OfficeSuite:
+com.mobisystems.editor.office_registered (6.1.853),(853)
+	Permissions :
+	- android.permission.VIBRATE
+	- android.permission.INTERNET
+	- android.permission.READ_PHONE_STATE
+	- android.permission.ACCESS_WIFI_STATE
+	- android.permission.GET_TASKS
+	- android.permission.REORDER_TASKS
+	- android.permission.RECEIVE_BOOT_COMPLETED
+	- android.permission.USE_CREDENTIALS
+	- android.permission.GET_ACCOUNTS
+	- android.permission.MANAGE_ACCOUNTS
+	- android.permission.WRITE_EXTERNAL_STORAGE
+	- com.google.android.providers.gmail.permission.READ_GMAIL
+	- android.permission.WAKE_LOCK
+	- com.android.vending.CHECK_LICENSE
+	- android.permission.ACCESS_NETWORK_STATE
+	Services :
+	- com.mobisystems.office.search.EnumerateFilesService
+	- com.mobisystems.office.fonts.FontsDownloadService
+PicSay Pro:
+com.shinycore.picsaypro (1.5.0.3),(17104899)
+	Permissions :
+	- android.permission.INTERNET
+	- android.permission.ACCESS_NETWORK_STATE
+	- android.permission.WRITE_EXTERNAL_STORAGE
+AppList:
+cz.ox.AppList (1.5.3),(15)
+	Permissions :
+	- android.permission.WRITE_EXTERNAL_STORAGE
+	- android.permission.GET_PACKAGE_SIZE
+	- android.permission.VIBRATE
+QR Droid:
+la.droid.qr (5.1),(510)
+	Permissions :
+	- android.permission.INTERNET
+	- android.permission.ACCESS_NETWORK_STATE
+	- android.permission.WRITE_EXTERNAL_STORAGE
+	- android.permission.CAMERA
+	- android.permission.FLASHLIGHT
+	- com.android.launcher.permission.INSTALL_SHORTCUT
+	- android.permission.READ_CONTACTS
+	- com.android.browser.permission.READ_HISTORY_BOOKMARKS
+	Services :
+	- la.droid.qr.wid.clock.ClockUpdater
+	- la.droid.qr.wid.clock.ClockGlowUpdater
+	- la.droid.qr.wid.clock.ClockGlow2Updater
+	- la.droid.qr.wid.UpdateBizCardWidgetService
+Picasa Tool:
+larry.zou.colorfullife (6.1),(111)
+	Permissions :
+	- android.permission.READ_PHONE_STATE
+	- android.permission.INTERNET
+	- android.permission.GET_ACCOUNTS
+	- android.permission.USE_CREDENTIALS
+	- android.permission.SET_WALLPAPER
+	- android.permission.WRITE_EXTERNAL_STORAGE
+	- android.permission.MANAGE_ACCOUNTS
+	- android.permission.ACCESS_NETWORK_STATE
+	- android.permission.ACCESS_WIFI_STATE
+	- android.permission.WAKE_LOCK
+	Services :
+	- com.colure.pictool.ui.service.CheckMyContactsPhotoService
+	- com.colure.pictool.ui.service.AlbumSyncService
+	- com.colure.pictool.ui.service.ContactSyncService
+	- com.colure.pictool.ui.service.OfflineAlbumSyncService
+	- com.colure.pictool.ui.service.UploadService
+LIME-HD:
+net.toload.main.hd (3.8.0),(307)
+	Permissions :
+	- android.permission.VIBRATE
+	- android.permission.READ_USER_DICTIONARY
+	- android.permission.WAKE_LOCK
+	- android.permission.WRITE_USER_DICTIONARY
+	- android.permission.WRITE_EXTERNAL_STORAGE
+	- android.permission.WRITE_SETTINGS
+	- android.permission.ACCESS_NETWORK_STATE
+	- android.permission.INTERNET
+	- android.permission.INSTALL_PACKAGES
+	- android.permission.MOUNT_UNMOUNT_FILESYSTEMS
+	- android.permission.GET_ACCOUNTS
+	- android.permission.USE_CREDENTIALS
+	- android.permission.MANAGE_ACCOUNTS
+	Services :
+	- net.toload.main.hd.LIMEService
+Firefox:
+org.mozilla.firefox (10.0.5),(2012053120)
+	Permissions :
+	- android.permission.ACCESS_FINE_LOCATION
+	- android.permission.ACCESS_NETWORK_STATE
+	- android.permission.INTERNET
+	- android.permission.WRITE_EXTERNAL_STORAGE
+	- com.android.launcher.permission.INSTALL_SHORTCUT
+	- android.permission.WAKE_LOCK
+	- android.permission.CAMERA
+RealCalc:
+uk.co.nickfines.RealCalcPlus (1.7.4),(28)
+	Permissions :
+	- android.permission.VIBRATE
+	- android.permission.WRITE_EXTERNAL_STORAGE
+	- com.android.vending.CHECK_LICENSE
+
+
+TOTAL Apps = 25 (User = 25)

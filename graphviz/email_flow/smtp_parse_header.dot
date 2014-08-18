@@ -1,0 +1,30 @@
+﻿digraph g {
+
+	graph [ranksep=1.5 splines=true overlap=false];
+	node [fontsize = 10 shape = box fontname = "Arial"];
+	edge [labelfontsize="10" fontsize="8"];
+
+	node0 [
+		shape = record
+		label = "<0> Smtp_Mime.c | <1> smtp_mime_parse_header"
+		style = dashed
+		/* width = 2.4 */
+	];
+
+	state0 [ label = "POP3_PS_PARSE_PART_ATTACH" color = blue];
+	state1 [ label = "POP3_PS_CONT_HDR_DECODING" color = blue ];
+
+	"2-1-1" [label = "2-1-1" shape = circle color = red];
+
+	"2-1-1" -> node0 [label = "smtp_scan"];
+
+	node0 -> state0;
+	node0 -> state1;
+
+	state0 -> "pop3_get_line_for_parsing";
+	state0 -> "email_find_header_field";
+	state0 -> "email_collect_cont_hdr_para";
+
+	state1 -> "email_mime_parse_header_field";
+
+}

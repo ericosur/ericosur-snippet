@@ -1,0 +1,37 @@
+From Ericosur.bbs@cis.nctu.edu.tw  Sun Aug  1 18:11:17 1999
+Return-Path: <Ericosur.bbs@cis.nctu.edu.tw>
+Received: from mail.cis.nctu.edu.tw (mail.cis.nctu.edu.tw [140.113.23.5])
+	by genetic.iim.nctu.edu.tw (8.9.3/8.8.7) with ESMTP id SAA06843
+	for <ericosur@genetic.iim.nctu.edu.tw>; Sun, 1 Aug 1999 18:11:17 +0800
+From: Ericosur.bbs@cis.nctu.edu.tw
+Received: from bbs.cis.nctu.edu.tw (bbs [140.113.23.3])
+	by mail.cis.nctu.edu.tw (8.9.1a/8.9.1) with SMTP id SAA14700
+	for ericosur@genetic.iim.nctu.edu.tw; Sun, 1 Aug 1999 18:06:15 +0800 (CST)
+Received: by bbs.cis.nctu.edu.tw (Apollo BBS 1.0) id AB24862; Sun, 01 Aug 1999 18:04:27 +0800
+Date: Sun, 01 Aug 1999 18:04:27 +0800
+Message-Id: <19990801991004.AB24862@cis.nctu.edu.tw>
+Subject: 加入逗號,在每三個數字之後...PERL
+To: ericosur@genetic.iim.nctu.edu.tw
+X-Forwarded-By: Ericosur (雙子座的癩子)
+X-Disclaimer:  交通大學資訊科學系 BBS  對本信內容恕不負責。
+Status: R
+
+發信人: physis.bbs@bbs.ntu.edu.tw (cg-boy(24)), 信區: programming
+標  題: 加入逗號,在每三個數字之後...PERL
+發信站: 台大計中椰林風情站 (Sun Aug  1 13:35:57 1999)
+轉信站: cis_nctu!news.cis.nctu!ctu-gate!news.nctu!news.ntu!Palmarama
+
+
+ sub commas{
+     local($_)=@_;
+     1 while s/(.*\d)(\d\d\d)/$1,$2/;
+     $_;
+ }
+ ...
+ $Result = &commas( EXPR );
+
+ okay,終於打完了...
+
+--
+☆ [Origin:椰林風情] [From: ccsun38.cc.ntu.edu.tw] [Login: **] [Post: **]
+

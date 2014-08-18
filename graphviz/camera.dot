@@ -1,0 +1,42 @@
+digraph camera_menu  {
+
+	overlap = false;
+	splines = true;
+	node [shape = box];
+	ordering=out;
+
+	// fdp -Tpng -o c.png camera.dot
+
+	// level 1
+	options -> { "shooting setting" "modes" "barcode scanner"
+		"image gallery" "image size" "scene" "picture quality"
+		"self timer" "camera settings" "help" "mobile light"
+		"default" };
+
+	// level 2
+	"shooting setting" -> { "exposure" "focus" };
+	"modes" -> { "add frame" "continue shot" "camera effects"
+		"Panorama" };
+	"image size" -> { "1200x1600" "900x1600" "900x1200" "400x640"
+		"240x400" "240x320" "128x160" };
+	"scene" -> { "auto" "night" };
+	"picture quality" -> { "super fine" "fine" "normal" };
+	"self timer" -> { "off" "10 sec" "5 sec" "2 sec" };
+	"camera settings" -> {"view finder" "shutter sound" "save location"
+		"panorama setting" };
+
+	"mobile light" -> { m1 m2 m3};
+	m1 [label="on"];
+	m2 [label="auto"];
+	m3 [label="off"];
+
+	// level 3
+	"exposure" -> { "ev-4" "ev-3" "ev-2" "ev-1" "ev0" "ev+1"
+		"ev+2" "ev+3" "ev+4" };
+	"focus" -> { "auto focus" "manual focus" };
+
+
+	// camera settings
+	"view finder" -> { "normal" "full screen" };
+
+}

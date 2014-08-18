@@ -1,0 +1,10 @@
+#!/usr/bin/python
+
+def isCond(line):
+	return line[:1]=='#'
+
+#filename = "foo.txt";
+
+#selected = filter(isCond, open(filename).readlines())
+
+print selected

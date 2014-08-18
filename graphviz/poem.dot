@@ -1,0 +1,18 @@
+// note this file is in UTF-8 format and using simsun font
+graph G {
+	// simsun, mingliu
+	node [fontname="mingliu" fontsize = 18];
+
+	n1 [ label = "1" fontname = "Arial" fontsize = 10 ];
+	n2 [ label = "2" fontname = "Arial" fontsize = 10 ];
+	n3 [ label = "3" fontname = "Arial" fontsize = 10 ];
+	n4 [ label = "4" fontname = "Arial" fontsize = 10 ];
+
+	{ rank = same; n1; n2; n3; n4 }
+	{ rank = same; "床前"; "疑似"; "舉頭"; "低頭"; }
+
+	n1 -- "床前" -- "明月" -- "光";
+	n2 -- "疑似" -- "地上" -- "霜";
+	n3 -- "舉頭" -- "望" -- "明月";
+	n4 -- "低頭" -- "思" -- "故鄉";
+}

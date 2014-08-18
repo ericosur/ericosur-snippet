@@ -1,0 +1,17 @@
+>> 自動產生多user密碼檔
+
+: 我有很多user要建立,
+: 每次輸入密碼時都要輸入二次,很麻煩,
+: 有無方法利用 script 將一般文字檔轉成密碼檔.
+
+#!/usr/bin/perl
+my $want_to_encrypt = "strings";
+@rand_string = (0 .. 9,a .. z, A .. Z);
+print crypt($want_to_encrypt, 
+	$rand_string[rand(@rand_string)].$rand_string[rand(@rand_string)]);
+
+>> adduser example:
+
+adduser test -g users -d /home/test -b /bin/bash
+passwd test
+

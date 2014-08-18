@@ -1,0 +1,36 @@
+cheat paper of python
+
+Why You Will Care: File Scanners
+In general, loops come in handy any place you need to repeat or process something more than once. Since files contain multiple characters and lines, they are one of the more typical uses for loops. To load a file's contents into a string all at once, you simply call read:
+
+file = open('test.txt', 'r')
+print file.read(  )
+But in order to load a file in pieces, it's common to code either a while loop with breaks on end-of-file, or a for. To read by characters:
+
+file = open('test.txt')
+while 1:
+    char = file.read(1)          # Read by character.
+    if not char: break
+    print char,
+
+for char in open('test.txt').read(  ):
+    print char
+The for here also processes each character, but loads the file into memory all at once. To read by lines or blocks with a while loop:
+
+file = open('test.txt')
+while 1:
+    line = file.readline(  )       # Read line by line.
+    if not line: break
+    print line,
+
+file = open('test.txt', 'rb')
+while 1:
+    chunk = file.read(10)        # Read byte chucks.
+    if not chunk: break
+    print chunk,
+To read text files line by line, though, the for loop tends to be easiest to code, and quickest to run:
+
+for line in open('test.txt').readlines(  ): print line
+for line in open('test.txt').xreadlines(  ):print line
+for line in open('test.txt'):                print line
+readlines loads a file all at once into a line-string list; xreadlines instead loads lines on demand, to avoid filling memory for large files; and the last example here relies on new file iterators, to achieve the equivalent of xreadlines (iterators will be covered in Chapter 14). The name open in all of the above can also be replaced with name file as of Python 2.2. See the library manual for more on the calls used here. As a general rule of thumb, the larger the size of data you read on each step, the quicker your program will run.

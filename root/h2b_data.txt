@@ -1,0 +1,7 @@
+; test data for h2b.pl
+
+# comment one
+00 25 00 64 52 47 00 4d 00 4d 00 53
+
+: more comments
+4D 73 52 63 66 00 02 00 00 00 44 6D 00 1B 00

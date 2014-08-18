@@ -1,0 +1,80 @@
+﻿digraph g {
+
+	graph [ranksep=1.5 splines=true overlap=false];
+	node [fontsize = 10 shape = record fontname = "Arial"];
+	edge [labelfontsize="10" fontsize="8"];
+	rankdir = "LR";
+
+	"3" [
+		label = 3
+		shape = circle
+		color = red
+	];
+
+	node0 [
+		shape = record
+		label = "<0> Smtp_fsm.c | <1> smtp_fsm"
+		color = red
+		/* width = 2.4 */
+	];
+
+	state10s [
+		label = "SMTP_INIT_STATE"
+		shape = record
+//		color = blue
+	];
+
+	state20s [
+		label = "SMTP_GET_HOST_STATE"
+		shape = record
+//		color = blue
+	];
+
+	state30s [
+		label = "SMTP_CREATE_SOCKET"
+		shape = record
+//		color = blue
+	];
+
+	state_ssl [
+		label = "SMTP_SSL_READY_STATE | SMTP_SSL_DONE_STATE | SMTP_STARTTLS_STATE"
+		shape = record
+		color = purple
+	];
+
+
+	state40s [
+		label = "SMTP_CONNECT_STATE"
+		shape = record
+		//color = blue
+	];
+
+	state50s [
+		label = "SMTP_VERSION_STATE | SMTP_MAIL_FROM_STATE | SMTP_RCPT_TO_STATE | SMTP_DATA_STATE | SMTP_DATA_END_STATE | SMTP_QUIT_STATE | SMTP_RESET_STATE | SMTP_AUTH_STATE"
+		shape = record
+		color = red
+	];
+
+	state60s [
+		label = "SMTP_VERSION_DATA_STATE"
+		shape = record
+		//color = blue
+	];
+
+	state70s [
+		label = "SMTP_DATA_SEND_MAIL_STATE"
+		shape = record
+		//color = blue
+	];
+
+	node_socket [
+		label = "smtp_receive_from_socket | smtp_send_to_socket"
+		shape = record
+		color = red
+	];
+
+	"3" -> node0: 1 -> {state10s; state20s; state30s; state40s; state60s; state70s;};
+	node0: 1 -> state50s [ color = red ];
+	node0: 1 -> state_ssl [ color = purple ];
+	state50s -> node_socket [ color = red ];
+}

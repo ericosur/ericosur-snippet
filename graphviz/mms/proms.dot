@@ -1,0 +1,10 @@
+graph proms {
+
+	graph [
+		fontsize=24
+		ratio=2.5
+	];
+
+	"MMS Proxy Relay" -- "Other MMS Systems" [label="MMSr"];
+
+}

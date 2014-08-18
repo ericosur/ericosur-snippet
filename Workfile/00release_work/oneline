@@ -1,0 +1,5 @@
+#!/bin/bash
+
+#git log --pretty=oneline $@
+git --no-pager log --format='%h %ai, %an, %s' -1 $@
+

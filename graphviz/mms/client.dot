@@ -1,0 +1,10 @@
+graph client {
+
+	graph [
+		fontsize=24
+		ratio=2.5
+	];
+
+	"client" -- "proxy relay" [label="MMSm"];
+
+}

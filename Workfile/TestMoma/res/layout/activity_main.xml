@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Button
+        android:id="@+id/btnOpenSettingsMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:onClick="onButtonClick"
+        android:text="@string/str_opensettingmenu" />
+
+    <TextView
+        android:id="@+id/tvState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/str_textview"
+        android:textSize="50sp" />
+
+    <Button
+        android:id="@+id/btnAdbDisable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:text="@string/str_adbdisable"
+        android:onClick="onButtonClick" />
+
+    <Button
+        android:id="@+id/btnAdbEnable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnAdbDisable"
+        android:layout_alignParentLeft="true"
+        android:text="@string/str_adbenable"
+        android:onClick="onButtonClick" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="126dp"
+        android:layout_toRightOf="@+id/btnOpenSettingsMenu"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/btnLaunchSound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="true"
+            android:onClick="launchModSound"
+            android:text="@string/str_soundsetting" />
+
+        <Button
+            android:id="@+id/btnLaunchDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="true"
+            android:onClick="launchModDisplay"
+            android:text="@string/str_displaysetting" />
+
+        <Button
+            android:id="@+id/btnLaunchModWifi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="true"
+            android:onClick="launchModWifi"
+            android:text="@string/str_modwifisetting" />
+
+        <Button
+            android:id="@+id/btnLaunchModDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="true"
+            android:onClick="launchModDate"
+            android:text="@string/str_moddatesetting" />
+
+        <Button
+            android:id="@+id/btnLaunchWiFi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_wifisetting"
+            android:onClick="launchWifi" />
+
+        <Button
+            android:id="@+id/btnLaunchDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_datesetting"
+            android:onClick="launchDate" />
+
+        <Button
+            android:id="@+id/btnLaunchEthernet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_ethernetsetting"
+            android:onClick="launchEthernet" />
+
+    </LinearLayout>
+
+</RelativeLayout>

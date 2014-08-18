@@ -1,0 +1,67 @@
+// this dot is engerated by D:\ericosur-google\graphviz\gen\letter-graph.pl
+digraph g {
+
+	node [fontsize = 12 shape = circle fontname = "Lucida Console Bold"];
+	edge [labelfontsize="10" fontsize="8"];
+
+	a [shape = egg style = dashed color = red label = "a"];
+	e [shape = egg style = dashed color = red label = "e"];
+	i [shape = egg style = dashed color = red label = "i"];
+	o [shape = egg style = dashed color = red label = "o"];
+	u [shape = egg style = dashed color = red label = "u"];
+
+	{ rank = same; a; e; i; o; u; }
+
+	a -> h [color = blue]
+	h -> a->l->p;
+	o -> v [color = blue]
+	v -> b->r->a;
+	e -> i [color = blue]
+	i -> c->h->a->r->l;
+	a -> t [color = blue]
+	t -> d->e->l;
+	o -> h [color = blue]
+	h -> e->c;
+	t -> o [color = blue]
+	o -> f->o->x->t->r;
+	f -> l [color = blue]
+	l -> g->o;
+	l -> e [color = blue]
+	e -> h->o->t;
+	a -> i [color = blue]
+	i -> i->n->d;
+	t -> e [color = blue]
+	e -> j->u->l->i;
+	o -> l [color = blue]
+	l -> k->i;
+	a -> m [color = blue]
+	m -> l->i;
+	e -> k [color = blue]
+	k -> m->i;
+	r -> e [color = blue]
+	e -> n->o->v->e->m->b;
+	r -> a [color = blue]
+	a -> o->s->c;
+	a -> p [color = blue]
+	p -> p->a;
+	c -> e [color = blue]
+	e -> q->u->e->b;
+	o -> e [color = blue]
+	e -> r->o->m;
+	a -> r [color = blue]
+	r -> s->i->e->r;
+	o -> g [color = blue]
+	g -> t->a->n;
+	m -> r [color = blue]
+	r -> u->n->i->f->o;
+	r -> o [color = blue]
+	o -> v->i->c->t;
+	y -> e [color = blue]
+	e -> w->h->i->s->k;
+	y -> a [color = blue]
+	a -> x->r;
+	e -> e [color = blue]
+	e -> y->a->n->k;
+	u -> l [color = blue]
+	l -> z->u;
+}

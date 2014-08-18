@@ -1,0 +1,22 @@
+digraph org  {
+
+// recommend style: dot
+
+	overlap = false;
+//	splines = true;
+	ordering=out;
+	node [shape = box];
+
+	ponson -> {andrew marcus sam} [color=blue];
+
+	clement -> {yuting charlotte fridy} [color=purple];
+
+	cheney -> {ponson clement stanley wenny jimmy karen};
+
+	stanley -> {rasmus clive candice}
+
+	wenny -> {roger steve tn jesse};
+
+	alex -> {cheney ponson stanley wenny clement} [ color = red ];
+
+}

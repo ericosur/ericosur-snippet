@@ -1,0 +1,49 @@
+﻿digraph g {
+
+	graph [ranksep=1.5 splines=true overlap=false];
+	node [fontsize = 10 shape = box fontname = "Arial"];
+	edge [labelfontsize="10" fontsize="8"];
+
+	node0 [
+		shape = record
+		label = "<0> SMTP.c | <1> smtp_scan_mailbox"
+		color = red
+		style = dashed
+		/* width = 2.4 */
+	];
+
+	state0 [ label = "SMTP_SUBOP_FOLDER_OPEN"
+		color = blue
+	];
+	state1 [ label = "SMTP_SUBOP_GET_MSG_HEADER"
+		color = blue
+	];
+
+	func0 [ label = "email_free_envelope" ];
+	func1 [ label = "email_mb_list_sort" ];
+	func2 [ label = "email_get_mail_filename" ];
+	func3 [ label = "email_parse_msg_header_init" ];
+
+	func4 [ label = "email_mime_parse_msg_header"
+		style = filled
+	];
+	func5 [ label = "email_close_file" ];
+
+	"2-1" [ label = "2-1" shape = circle color = red ];
+	"2-1-1" [label = "2-1-1" shape = circle color = red ];
+
+	"2-1" -> node0 [label = "smtp_proc"];
+
+	node0 :1 -> state0;
+	node0 :1 -> state1;
+
+	state0 -> func0;
+	state0 -> func1;
+	state0 -> func2;
+	state0 -> func3;
+	func3 -> "2-1-1" [label = "smtp_parse_header" ];
+	state1 -> func4 ;
+	func4 -> "2-1-1"  [label = "smtp_parse_header" ];
+	state1 -> func5;
+
+}

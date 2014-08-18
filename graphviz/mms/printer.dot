@@ -1,0 +1,10 @@
+graph printer {
+
+	graph [
+		fontsize=24
+		ratio=2.5
+	];
+
+	"proxy relay" -- "Internet" [label="E"];
+	"Internet" -- "Email Server";
+}

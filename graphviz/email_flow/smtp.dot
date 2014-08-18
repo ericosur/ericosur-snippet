@@ -1,0 +1,83 @@
+digraph g {
+	graph [fontsize = 14 fontname = "Arial"];
+	node [fontsize = 10 shape = record fontname = "Arial"];
+	edge [labelfontsize="10" fontsize="8" fontname = "Arial"];
+	rankdir = "LR";
+	label = "send and save request vs SMTP";
+
+	"start" [
+		label = "<0> UIInterface.c | <1> mmi_email_hilite_comp_save_n_send"
+		width = 2.5];
+	"0" [
+		label = "<0> PSInterface.c | <1> mmi_email_ps_save_and_send_req"
+		width = 2.5];
+
+	"msg" [ shape = box
+		label = "PRT_MMI_EMAIL_SEND_NOW_REQ"
+		width = 2.4];
+
+	"main" [label = "<0> Email.c | <1>email_main | <2>case MSG_ID_MMI_EMAIL_SEND_NOW_REQ"
+		width = 3];
+
+	"req" [ label = "<0> Email.c | <1> email_save_send_req"
+	];
+
+	"sendsave" [ label = "<0> smtp.c | <1> smtp_send_save"
+	];
+
+	"init" [
+		label = "SMTP_OP_INIT_STATE"
+		width=2
+		color = blue
+	];
+	"frame" [
+		label = "SMTP_OP_FRAME_MESSAGE_STATE"
+		width=2.8
+		color=red
+	];
+	"mailbox" [
+		label = "SMTP_OP_STORE_MAILBOX"
+		width=2.5
+		color = blue
+	];
+	"store" [
+		label = "SMTP_OP_STORE_OUTBOX"
+		width=2.4
+		color = blue
+	];
+	"send" [
+		label = "SMTP_OP_SEND_MAIL"
+		width=2.4
+		color=red
+	];
+
+	"1" [ label = "1" shape = circle color = red ];
+	"2" [ label = "2" shape = circle color = red ];
+
+	{ rank = same; "start"; "0"; }
+	{ rank = same; "main"; "req"; "sendsave"; "msg"; }
+
+	// relationship
+	"start" : 1 -> "0" : 0;
+	"0" : 1 -> "msg";
+
+	"msg" -> "main":0;
+	"main":2 -> "req":0;
+	"req":1 -> "sendsave":0;
+
+	"sendsave":1 -> "init";
+	"sendsave":1 -> "frame";
+	"sendsave":1 -> "mailbox";
+	"sendsave":1 -> "store";
+	"sendsave":1 -> "send";
+
+	"init" -> "smtp_init_sock";
+	"frame" -> "smtp_frame_message";
+	"smtp_frame_message" -> "1" [label = "smtp_frame"];
+	"mailbox" -> "email_free_envelope";
+	"mailbox" -> "imap_append_req";
+	"mailbox" -> "smtp_store_mailbox";
+	"store" -> "smtp_store_mailbox";
+	"send" -> "smtp_process_mail";
+	"smtp_process_mail" -> "2" [label = "smtp_proc"];
+}

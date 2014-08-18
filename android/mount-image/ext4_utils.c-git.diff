@@ -1,0 +1,15 @@
+diff --git a/ext4_utils/ext4_utils.c b/ext4_utils/ext4_utils.c
+index fa50b77..aec19ad 100644
+--- a/ext4_utils/ext4_utils.c
++++ b/ext4_utils/ext4_utils.c
+@@ -149,6 +149,10 @@ void write_ext4_image(const char *filename, int gz, int sparse, int crc,
+ 
+ 	for_each_data_block(ext4_write_data_block, ext4_write_data_file, ext4_write_fill_block, out);
+ 
++   // rasmus: here blake comment this out
++	//pad_output_file(out, info.len);
++   fprintf(stderr, "rasmus: call pad_output_file(out, %ld)\n", info.len);
++
+ 	close_output_file(out);
+ }
+ 

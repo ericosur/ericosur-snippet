@@ -1,0 +1,35 @@
+﻿// the flow char from startup to email startup
+digraph init  {
+	graph [fontname = "Arial Bold" fontsize = 16];
+	node [ fontname = "Arial" fonstsize = 10 shape = record ];
+
+	label = "Email init";
+	rankdir = LR;
+
+	start_here [ label = "start here" shape = "doublecircle" ];
+	sys_table [ label = "syscomp_config.c | sys_comp_config_tbl" ];
+	custom_email_create [ label = "syscomp_tasks_create.c | custom_email_create" ];
+	email_create [ label = "email_create.c | <a> email_create" ];
+	email_task_main [ label = "email_create.c | email_task_main" ];
+	email_init [ label = "email.c | email_init" ];
+	email_reset [ label = "email.c | email_reset" ];
+	email_main [ label = "email.c | <a> email_main" ];
+
+	init_related_req [
+		label = "email_main | MSG_ID_MMI_EMAIL_INIT_REQ | MSG_ID_MMI_EMAIL_DEINIT_REQ | MSG_ID_MMI_EMAIL_START_REQ | MSG_ID_MMI_EMAIL_STOP_REQ | MSG_ID_MMI_EMAIL_ABORT_REQ"
+		fontsize = 8
+	];
+	acct_related_req [
+		label = "email_main | MSG_ID_MMI_EMAIL_LIST_ACCT_PROFILE_REQ | MSG_ID_MMI_EMAIL_SET_ACCT_PROFILE_REQ | MSG_ID_MMI_EMAIL_GET_ACCT_PROFILE_REQ | MSG_ID_MMI_EMAIL_ACTIVATE_ACCT_REQ"
+		fontsize = 8
+	];
+
+	start_here -> sys_table -> custom_email_create;
+	custom_email_create -> email_create;
+	email_create:a -> {email_task_main; email_init; email_reset};
+	email_task_main -> email_main;
+	email_main:a -> { init_related_req; acct_related_req; };
+
+	{ rank = same; sys_table; custom_email_create; email_create; }
+	{ rank = same; email_main; init_related_req; acct_related_req; }
+}

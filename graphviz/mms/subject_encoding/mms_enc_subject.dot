@@ -1,0 +1,40 @@
+digraph g  {
+
+	graph [ fontsize = 10 fontname = Arial ];
+	node [fontsize = 10 shape = box fontname = Arial ];
+
+	rankdir = LR;
+
+	"us" [ label = "us-ascii" ];
+	"n1" [ label = "1" shape = ellipse];
+	"n2" [ label = "2" shape = ellipse];
+	"sub1" [label = "0x96"];
+	"sub2" [label = "0x96"];
+
+	begin [ shape = point ];
+	end [ label = "null 0x00" shape = doublecircle];
+
+
+	subgraph cluster1 {
+		color = brown;
+		"sub2" -> "length" -> "charset" -> "char" -> "char";
+		label = "format #2";
+	}
+
+	subgraph cluster2 {
+		node [style=filled, color=white];
+		color=darkgreen;
+		"sub1" -> "us" -> "us";
+		label = "format #1";
+	}
+
+	{ rank = same; n1; n2; }
+
+	begin -> {n1; n2;}
+	n1 -> "sub1";
+	n2 -> "sub2";
+
+	"us" -> end;
+	"char" -> end;
+
+}

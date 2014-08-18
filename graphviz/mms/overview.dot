@@ -1,0 +1,31 @@
+graph overview {
+
+	overlap = false;
+	splines = true;
+
+	subgraph client_proxy
+	{
+		node [ style = filled];
+		"Client" -- "Proxy Relay";
+	}
+
+	graph [
+		fontsize = 24
+	];
+
+	"Proxy Relay" -- { "MMS Server"  "Other MMS System" "Internet" };
+
+	"Internet" -- "Email Server";
+
+	"Proxy Relay" -- "Lagacy Wireless Messaging System";
+}
+
+/*
+	subgraph cluster_0 {
+		style=filled;
+		color=lightgrey;
+		node [style=filled,color=white];
+		a0 -> a1 -> a2 -> a3;
+		label = "process #1";
+	}
+*/

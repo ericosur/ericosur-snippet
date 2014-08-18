@@ -1,0 +1,19 @@
+
+__Programming Perl__ 3rd ed.
+31.19.1. strict 'refs'
+
+Symbolic references are suspect for various reasons. It's surprisingly
+easy for even well-meaning programmers to invoke them accidentally;
+strict 'refs' guards against that. Unlike real references, symbolic
+references can only refer to global variables. They aren't reference-counted.
+And there's often a better way to do what you're doing: instead of referencing
+a symbol in a global symbol table, use a hash as its own little mini-symbol
+table. It's more efficient, more readable, and less error prone.
+
+Nevertheless, some sorts of valid manipulation really do require direct
+access to the package's global symbol table of variables and function names.
+For example, you might want to examine the @EXPORT list or the @ISA superclass
+of a given package whose name you don't know in advance. Or you might want to
+install a whole slew of function calls that are all aliases to the same closure.
+This is just what symbolic references are best at, but to use them while use
+strict is in effect, you must first undo the "refs" stricture:

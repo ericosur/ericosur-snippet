@@ -1,0 +1,26 @@
+#!/usr/bin/env perl
+
+my %cardface = (
+	0, "**",
+	1, "SA",
+	2, "SK",
+	3, "SQ",
+	4, "SJ",
+	5, "HA",
+	6, "HK",
+	7, "HQ",
+	8, "HJ",
+	9, "CA",
+	10, "CK",
+	11, "CQ",
+	12, "CJ",
+	13, "DA",
+	14, "DK",
+	15, "DQ",
+	16, "DJ"
+);
+
+my $ifile = 'all-cmb.txt';
+open my $ifh, $file or die;
+
+close $ifh;
