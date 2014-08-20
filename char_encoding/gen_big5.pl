@@ -71,26 +71,30 @@ sub follow_range($$$$$)
 	}
 }
 
-my $ofile = "big5.txt";
-my $ofh;
+sub main()
+{
+    my $ofile = "big5.txt";
 
-open $ofh, "> $ofile" or die;
-binmode $ofh;
-print STDERR "ofile = $ofile\n";
+    open my $ofh, "> $ofile" or die;
+    binmode $ofh;
+    print STDERR "ofile: $ofile\n";
 
-# big5 range
-# high byte: A1~FE, 8E~A0, 81~8D
-# low byte: 40~7E, A1~FE
-# it seems that more characters need to be excluded
-follow_range($ofh, 0xA1, 0xFE, 0x40, 0x7E);
-follow_range($ofh, 0xA1, 0xFE, 0xA1, 0xFE);
-follow_range($ofh, 0x8E, 0xA0, 0x40, 0x7E);
-follow_range($ofh, 0x8E, 0xA0, 0xA1, 0xFE);
-follow_range($ofh, 0x81, 0x8D, 0x40, 0x7E);
-follow_range($ofh, 0x81, 0x8D, 0xA1, 0xFE);
+    # big5 range
+    # high byte: A1~FE, 8E~A0, 81~8D
+    # low byte: 40~7E, A1~FE
+    # it seems that more characters need to be excluded
+    follow_range($ofh, 0xA1, 0xFE, 0x40, 0x7E);
+    follow_range($ofh, 0xA1, 0xFE, 0xA1, 0xFE);
+    follow_range($ofh, 0x8E, 0xA0, 0x40, 0x7E);
+    follow_range($ofh, 0x8E, 0xA0, 0xA1, 0xFE);
+    follow_range($ofh, 0x81, 0x8D, 0x40, 0x7E);
+    follow_range($ofh, 0x81, 0x8D, 0xA1, 0xFE);
 
-print STDERR "\n";
-close $ofh;
+    print STDERR "\n";
+    close $ofh;
 
-my $uft8_file = "utf8-iconv.txt";
-system "iconv -f BIG5-2003 -t UTF-8 $ofile > $uft8_file";
+    my $uft8_file = "utf8-iconv.txt";
+    system "iconv -f BIG5-2003 -t UTF-8 $ofile > $uft8_file";
+}
+
+main;
