@@ -6,6 +6,11 @@
 # lookup_table() 將查詢表格，找不到傳回 0
 #
 # todo: use another source of big5 char table to cross-reference
+#
+# 2014/8/22
+# this script is only for reference
+# not useful now. I suggest using UTF-8 encoding and strokes data from unihan
+#
 
 use strict;
 use warnings;
