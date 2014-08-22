@@ -1,4 +1,5 @@
-# �q unihan.txt ���X�� kTotalStrokes �����
+# 從 unihan.txt (5.1.0) 取出有 kTotalStrokes 的欄位
+# 與新的 unihand (7.0.0) 比較發現，有許多字的筆劃有更正
 U+3400	kTotalStrokes	5
 U+3401	kTotalStrokes	6
 U+3402	kTotalStrokes	6
