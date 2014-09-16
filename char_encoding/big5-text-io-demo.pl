@@ -5,14 +5,14 @@
 
 use encoding 'big5', STDIN => 'big5', STDOUT => 'big5';
 use open ":encoding(big5)";
-use lib 'd:/ericosur-google';
+use lib '../root/';
 use Ericosur;
 
 sub main()
 {
 	my $fh;
 
-	open $fh, "big5.txt" or die;
+	open $fh, "data/big5.txt" or die "please run gen_big5.pl if you have no such data file";
 
 	my @lines = <$fh>;
 	my $whole = join '', @lines;
