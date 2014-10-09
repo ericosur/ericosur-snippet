@@ -12,7 +12,7 @@ use warnings;
 use v5.10;
 
 use Encode qw(from_to);
-use URI::Escape::XS;
+use URI::Encode qw(uri_encode uri_decode);
 use LWP::Simple;
 use Getopt::Std;
 # use if win32
@@ -24,7 +24,7 @@ sub gen_qr($)
 {
 	my $str = shift;
 	# make sure valid chars for url
-	my $safe = encodeURIComponent($str);
+    my $safe = uri_encode($str);
 
 	# to call to google char api
 	return "http://chart.apis.google.com/chart?cht=qr&chs=240x240&chl=$safe&choe=UTF-8";
@@ -121,8 +121,11 @@ sub main()
 	while (@ARGV)  {
 		my $str = shift @ARGV;
 
-		# it would be local encoding in win32, translate to utf-8
-		from_to($str, "BIG5", "UTF8");
+		if ($^O eq 'MSWin32')  {
+			# it would be local encoding in win32, translate to utf-8
+			from_to($str, "BIG5", "UTF8");
+		}
+
 		my $url = gen_qr($str);
 		say $url;
 
