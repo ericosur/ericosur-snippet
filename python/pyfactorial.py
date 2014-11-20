@@ -10,7 +10,7 @@ needed module: sympy
 from sympy import factorint
 
 while 1:	# input value <= zero to exit
-	val = input("input an postive integer: ")
+	val = input("input an postive integer (0 to quit): ")
 	if val <= 0: break
 	fdict = factorint(val)
 	print fdict
