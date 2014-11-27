@@ -16,4 +16,4 @@ function Y(outer) {
     return inner(inner);
 }
 
-print("5! is " + Y(factorial)(5));
+console.log("5! is " + Y(factorial)(5));
