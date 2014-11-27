@@ -3,6 +3,7 @@
 // return a nearest prime from given number
 // print() need to be connected or redirected
 
+function print(x) { console.log(x); }
 
 // return true if prime, false if not
 function is_prime(nn)

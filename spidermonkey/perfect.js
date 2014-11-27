@@ -1,14 +1,15 @@
 // Some simple testing of new, eval and some string stuff.
 
+function print(x) { console.log(x); }
+
 // constructor -- expression array initialization
 function ExprArray(n,v)
 {
     // Initializes n values to v coerced to a string.
     for (var i = 0; i < n; i++) {
-	this[i] = "" + v;
+        this[i] = "" + v;
     }
 }
-
 
 // Print the perfect numbers up to n and the sum expression for n's divisors.
 function perfect(n)
@@ -32,8 +33,6 @@ function perfect(n)
     print("That's all.");
 }
 
-
 print("\nA number is 'perfect' if it is equal to the sum of its")
 print("divisors (excluding itself).\n");
 perfect(500);
-
