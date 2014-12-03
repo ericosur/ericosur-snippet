@@ -1,16 +1,18 @@
 #!/usr/bin/perl
 
+# to find lunar/animal year name for specified year
+
 use strict;
 use v5.10;
 
-my @ten = qw(0 ¥Ò ¤A ¤ş ¤B ¥³ ¤v ©° ¨¯ ¤Ğ ¬Ñ);
-my @twelve = qw(0 ¤l ¤¡ ±G ¥f ¨° ¤x ¤È ¥¼ ¥Ó ¨» ¦¦ ¥è);
-my @animal = qw(0 ¹« ¤û ªê ¨ß Às ³D °¨ ¦Ï µU Âû ª¯ ½Ş);
+my @ten = qw(0 ç”² ä¹™ ä¸™ ä¸ æˆŠ å·± åºš è¾› å£¬ ç™¸);
+my @twelve = qw(0 å­ ä¸‘ å¯… å¯ è¾° å·³ åˆ æœª ç”³ é…‰ æˆŒ äº¥);
+my @animal = qw(0 é¼  ç‰› è™ å…” é¾ è›‡ é¦¬ ç¾Š çŒ´ é› ç‹— è±¬);
 
 sub lunar_to_solar($$)
 {
 	my ($x, $y) = @_;
-	my ($lower, $upper) = (1800, 1990);
+	my ($lower, $upper) = (1800, 2100);
 	my $r = ($x - $y) * 5 + $x + 1803;
 
 	if ($x - $y < 0) {
@@ -44,11 +46,17 @@ sub solar_to_lunar($$)
 
 sub main()
 {
-	my ($x, $y) = (1, 7);
-	lunar_to_solar($x, $y);
-	for (my $yy = 1900; $yy <= 2050; $yy++) {
-		solar_to_lunar($yy, 5);
+    # use default range to list animal year 7 (horse, MA)
+	lunar_to_solar(1, 7);
+
+    my ($maxy, $miny) = (2040, 1940);
+	for (my $yy = $miny; $yy <= $maxy; $yy++) {
+		solar_to_lunar($yy, 4); # rabbit (TU)
 	}
+
+	for (my $yy = $miny; $yy <= $maxy; $yy++) {
+		solar_to_lunar($yy, 5); # dragon (LON)
+    }
 }
 
 main;
