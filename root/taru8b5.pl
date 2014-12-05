@@ -8,6 +8,10 @@
 無法正常解出，此 script 會將 tar 檔內的中文字由 utf8 轉為 big5，
 並另存新檔。
 
+updated: if tar file size is giantic, I suggest another way.
+1. use ubuntu to untar it
+2. enter cygwin bash, and then untar it
+
 idea from: http://blog.roodo.com/candyz/archives/283970.html
 // it seems these articles are removed 2010/04/01
 here is a similar one: http://blog.candyz.org/20050405/29
@@ -41,7 +45,7 @@ sub main()
 	}
 
 	unless (-e $ARGV[0])  {
-		die "no input file\n";		
+		die "no input file\n";
 	}
 
 	unless ($ARGV[1])  {
@@ -52,7 +56,7 @@ sub main()
     $tar->read($ARGV[0]);
 	my @pp = ('name');
 	my @ref = $tar->list_files(\@pp);
-	
+
 	for my $fn (@ref) {
 		my $nfn = check_filename($fn);
 		if ($nfn)  {
