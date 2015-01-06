@@ -1,17 +1,22 @@
+#!/usr/bin/env python
+
+import sys
 import math
 
 def stupid_factorial(m):
-	if m <= 1:
-		return 1
-	else:
-		return m * stupid_factorial(m - 1)
+    '''
+    a trivia way to get n! recursively
+    '''
+    if m <= 1:
+        return 1
+    else:
+        return m * stupid_factorial(m - 1)
 
-def main():
-    n = 300 # try to get n!
-    ans = stupid_factorial(n)
-    print n, "! =", ans
-    print "log10(ans) = ", math.log10(ans)
-    print "string len: ", len(str(ans))
+
+def try3k():
+    # maybe too deep recursive to calculate n!
+    n = 3000 # try to get n!
+
     '''
     try to use Stirling's approximation for value of n!
     n! ~ sqrt(2*pi*n)*(n/e)^n
@@ -21,8 +26,19 @@ def main():
     log10(n!) ~ log10(sqrt(2*pi*n)) + n * log10(n/e)
 
     '''
-    val = math.log10(2*math.pi*n) + n * math.log10(n/math.e)
-    print "log(val) =", val
+    val = math.log10(2 * math.pi * n) + n * math.log10(n/math.e)
+    print "log10(%d!) = %f" % (n, val)
+
 
 if __name__ == '__main__':
-    main()
+    if len(sys.argv) > 1:
+        for v in sys.argv[1:]:
+            try:
+                n = int(v)
+                print "%d! =" % (n),
+                print stupid_factorial(n)
+            except:
+                print "shit happens for:", v
+                quit()
+    else:
+        try3k()
