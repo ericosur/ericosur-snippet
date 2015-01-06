@@ -14,3 +14,5 @@ use bigint lib => 'Math::BigInt';
 
 $vv = 104857 ** 32768 % 4294;
 print $vv;
+
+# answer is 2931
