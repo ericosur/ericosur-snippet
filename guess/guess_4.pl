@@ -22,12 +22,13 @@ sub list_all
 	}
 }
 
-sub is_duplicate
+sub is_duplicate($)
 {
 	my $value = shift;
 
 	if (length($value) ne 4)  {
-		die "length is not 4";
+		#die "length is not 4";
+        return 1;
 	}
 
 	my %dup = ();
@@ -82,15 +83,21 @@ sub get_ab
 	return $result;
 }
 
-sub main
+sub main()
 {
 	my %all_guess = ();
-	my $ans = "0123";
+    my %bguess = ();
+	my $ans;
 
-	list_all;
+    do {
+        $ans = int(rand(10000));
+    } until ( !is_duplicate($ans) );
+	list_all();
 	for (@total)  {
 		my $res = get_ab($ans, $_);
 		$all_guess{$res} ++;
+        #$bguess{$res} = ('a');
+        #push($bguess{$res}, $res);
 	}
 
 	# print out the result
@@ -101,11 +108,14 @@ sub main
 		$cnt += $all_guess{$_};
 		$foo{ $all_guess{$_} } = $_;
 	}
-	print "cnt = $cnt\n";
+    if ($#total+1 != $cnt) {
+        print "cnt = $cnt\n";
+    }
+    printf("for answer: %s\n", $ans);
 	print "total = ", $#total+1,"\n";
 
-	for (sort keys %foo)  {
-		printf "%s: %s\n", $foo{$_}, $_ ;
+	for (sort {$a <=> $b} keys %foo)  {
+		printf "%s: %s (%.2g%%)\n", $foo{$_}, $_, ($_*100/$cnt);
 	}
 }
 
