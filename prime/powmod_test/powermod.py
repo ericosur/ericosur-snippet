@@ -23,6 +23,10 @@ def modular_pow(base, exp, mod):
 def powermod(b,e,m):
     r = modular_pow(b,e,m)
     print "%d ^ %d mod %d = %d" % (b, e, m, r)
+    # there is a built-in function
+    r = pow(b,e,m)
+    print "%d ^ %d mod %d = %d" % (b, e, m, r)
+
 
 def demo():
     powermod(4,13,497)
