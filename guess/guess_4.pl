@@ -107,7 +107,8 @@ sub main()
             $bgs{$res} = [];
         }
         # push( $bgs{'1A2B'}, '1234' )
-        push($bgs{$res}, $tt);
+        my $rr = $bgs{$res};
+        push(@$rr, $tt);
     }
 
     # print out the result
@@ -119,7 +120,7 @@ sub main()
     for my $k (sort {$ags{$a} <=> $ags{$b}} keys %ags)  {
         printf "%s: %s (%.2g%%)\n", $k, $ags{$k}, ($ags{$k}*100/$cnt);
         $sum += $ags{$k};
-        if ($ags{$k} < 50) {
+        if ($ags{$k} < 20) {
             my $rr = $bgs{ $k };
             foreach ( @$rr ) {
                 print $_,", ";
