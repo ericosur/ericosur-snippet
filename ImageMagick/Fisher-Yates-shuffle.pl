@@ -11,7 +11,7 @@ use strict;
 use warnings;
 use Image::Magick;
 
-my $max_size = 20;
+my $max_size = 12;
 my $max_value = $max_size;
 my $debug = 0;
 
@@ -93,7 +93,10 @@ sub shuffle_ref(\@)
             printf "arr[%d], arr[%d] (%d,%d)\t", $n, $k, $$aref[$n], $$aref[$k];
         }
         ($$aref[$n], $$aref[$k]) = ($$aref[$k], $$aref[$n]);
-        printf "%d(%d,%d) => ", ++$cnt, $n, $k;
+
+        if ($debug) {
+            printf "%d(%d,%d) => ", ++$cnt, $n, $k;
+        }
 
         draw_array($aref, $n, $k);   #show_array(@$aref);
     }
@@ -107,7 +110,7 @@ sub shuffle_ref(\@)
 sub show_array(@)
 {
     foreach (@_)  {
-        printf "%02d  ", $_;
+        printf "%02d ", $_;
     }
     print "\n";
 }
@@ -133,7 +136,6 @@ sub get_coord($$)
 }
 
 
-
 sub draw_array(\@$$)
 {
     my @val = @{ shift @_ };
@@ -145,12 +147,20 @@ sub draw_array(\@$$)
 	warn $rc if $rc;
 
     my $array_size = $#val;
+    if ($debug) {
 #    print "array_size = ", $array_size,"\n";
-    print "$fr, $to\n";
+        print "f($fr), t($to)\n";
+    }
+
+# yellow: from, red: to, green: not moved
     my $fill_color = 'black';
     for my $ii (0..$array_size)  {
-        $fill_color = 'yellow' if ($ii == $fr);
-        $fill_color = 'red' if ($ii == $to);
+        if ($fr == $to) {
+            $fill_color = 'green' if ($ii == $fr);
+        } else {
+            $fill_color = 'yellow' if ($ii == $fr);
+            $fill_color = 'red' if ($ii == $to);
+        }
 #        print "b4 draw: $ii, $val[$ii]\n";
         $im->Draw(primitive => 'rectangle',
     		  #points	=> '0,129 199,169',
@@ -162,7 +172,7 @@ sub draw_array(\@$$)
     }
 
     my $pix_name = sprintf "arr%02d.gif", $draw_count;
-    print "output to $pix_name...\n";
+    #print "output to $pix_name...\n";
     $im->Write($pix_name);
     $draw_count ++;
 }
@@ -174,26 +184,31 @@ sub main()
 
     for (1..1)
     {
-        @foo = ();
         #@foo = gen_array_with_random_number();
         @foo = fill_array();
+
         draw_array(@foo,-1,-1);
         #show_array(@foo);
-        #suffle(@foo);
+
         shuffle_ref(@foo);
-        print "#$_: ";
-        show_array(@foo);
+        draw_array(@foo,-1,-1);
+
+        #print "#$_: ";
+        #show_array(@foo);
     }
 
     # call convert of ImageMagick to produce animated gif
-    my $cmd = "convert arr??.gif $anim_gif";
+    my $cmd = "convert -delay 150 arr??.gif $anim_gif";
     if ($^O eq "MSWin32")  {
     	$cmd = "cmd /c " . $cmd;
     }
+    print "cmd: $cmd\n" if $debug;
     system $cmd;
-    print "the result anim gif: ", $anim_gif, "\n";
+
+    print "the result animation gif: ", $anim_gif, "\n";
     sleep 1;
-    print "remove temp gif...\n";
+
+    print "remove temp gif...\n" if $debug;
     for my $ii (0..$draw_count-1)  {
         my $pix_name = sprintf "arr%02d.gif", $ii;
         if ( -e $pix_name )  {
