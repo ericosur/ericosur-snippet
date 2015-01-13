@@ -2,13 +2,16 @@
 17張牌共有 6188 種組合 C(17,5)
 有八種牌型分別是
 
-1. 5 cards	全部要鬼牌
-2. royal straight flush	全部要鬼牌
-3. 4 cards		no joker
-4. full house
-5. straight
-6. 3 cards
-7. 2 pair
+4 Aces, 4 Kings, 4 Queens, 4 Jacks and a Joker
+joker card is wild card
+
+1. 5 cards (one joker)            // five-of-a-kind
+2. royal straight flush (joker?)  // royal flush
+3. 4 cards (no joker)             // four-of-a-kind
+4. full house (3-of-1 + 1pair)
+5. straight (joker)
+6. 3 cards               // three-of-a-kind
+7. 2 pairs
 8. 1 pair
 
 在此遊戲中，至少會有 1pair 可拿，
@@ -46,3 +49,34 @@ cmb.py		list all combinations for C(17,5)
 fisher_yates_shuffle.py		provide shuffle function
 num-to-desk.pl	to determine what type of cards
 
+
+reference:
+http://blog.yam.com/mehome0619/article/28938038
+http://en.wikipedia.org/wiki/In_shuffle
+http://en.wikipedia.org/wiki/Faro_shuffle
+
+http://en.wikipedia.org/wiki/List_of_poker_hands
+
+52P5
+52C5 = 2,598,960
+
+* straight flush
+  all same suit
+  (4*10) / (2598960) = 0.0015%
+
+  5♦ 4♦ 3♦ 2♦ A♦ ==> steel wheel
+  An ace-high straight flush such as A♦ K♦ Q♦ J♦ 10♦ is known as a royal flush
+  total 4 royal flush
+
+* four of a kind
+  (13C1*4C4 * 12C1*4C1)
+  --------------------- = 0.024%
+        52C5
+
+* full house
+flush
+straight
+three of a kind
+two pair
+one pair
+high card
