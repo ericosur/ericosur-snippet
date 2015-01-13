@@ -2,4 +2,4 @@
 *.o
 *.obj
 .DS_Store
-
+*.pyc
