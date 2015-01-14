@@ -61,8 +61,8 @@ sub main
 	}
 =cut
 	# file i/o version
-	my $ifile = $ARGV[0] || "input.txt";
-	my $ofile = $ARGV[1] || "stdout";
+	my $ifile = $ARGV[0] // "-";
+	my $ofile = $ARGV[1] // "stdout";
 
 
 	process_file($ifile, $ofile);
