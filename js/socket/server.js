@@ -2,7 +2,7 @@
 var http = require('http');
 var url = require('url');
 var fs = require('fs');
-var io = require('socket.io');
+var io = require('socket.io') ();
 
 var server = http.createServer(function(req, resp) {
   console.log('connection');
@@ -12,7 +12,7 @@ var server = http.createServer(function(req, resp) {
   switch (path) {
     case '/':
       resp.writeHead(200, {'Content-Type': 'text/html'});
-      resp.write('hello, world!');
+      resp.write('it works!');
       resp.end();
       break;
     case '/socket.html':
@@ -36,5 +36,19 @@ var server = http.createServer(function(req, resp) {
 });
 
 server.listen(8001);
-io.listen(server);
+var serv_io = io.listen(server);
+serv_io.sockets.on('connection', function(socket) {
+  socket.emit('message', {'message': 'hello world'});
+  // send time to browser
+  setInterval(function() {
+    socket.emit('date', {'date': new Date()});
+  }, 500);
+
+  // recv from browser
+  socket.on('client_data', function(data) {
+    process.stdout.write(data.letter);
+  });
+
+  console.log('serv_io.sockets.on()');
+});
 
