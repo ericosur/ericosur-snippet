@@ -1,6 +1,0 @@
-Revision history for Perl extension TestMax.
-
-0.01  Thu Feb 14 15:55:03 2008
-	- original version; created by h2xs 1.23 with options
-		-A -n TestMax
-

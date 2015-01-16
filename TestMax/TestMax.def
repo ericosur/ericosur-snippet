@@ -1,4 +1,0 @@
-EXPORTS
-  boot_TestMax
-  _boot_TestMax = boot_TestMax
-  
