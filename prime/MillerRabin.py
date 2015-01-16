@@ -58,27 +58,30 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         n = long(sys.argv[1])
     else:
-    	n = 795028841
+        n = 795028841
 
     print n, "is",
     if miller_rabin(n):
-    	print "prime"
+        print "prime"
     else:
-    	print "composite"
+        print "composite"
 '''
 if __name__ == "__main__":
-    if sys.argv[1] == "test":
-        n = long(sys.argv[2])
-        print (miller_rabin(n) and "PRIME" or "COMPOSITE")
-    elif sys.argv[1] == "genprime":
-        nbits = int(sys.argv[2])
-        while True:
-            p = random.randrange(2 ** nbits)
-            if p % 2 == 0: continue
-	    if p % 3 == 0: continue
-	    if p % 5 == 0: continue
-	    if p % 7 == 0: continue
-
-            if miller_rabin(p):
-                print p
-                break
+    if len(sys.argv) > 1:
+        if sys.argv[1] == "test":
+            n = long(sys.argv[2])
+            print n, 'is', (miller_rabin(n) and "PRIME" or "COMPOSITE")
+        elif sys.argv[1] == "genprime":
+            nbits = int(sys.argv[2])
+            while True:
+                p = random.randrange(2 ** nbits)
+                if p % 2 == 0: continue
+                if p % 3 == 0: continue
+                if p % 5 == 0: continue
+                if p % 7 == 0: continue
+                if miller_rabin(p):
+                    print p
+                    break
+    else:
+        n = 795028841
+        print n, 'is', (miller_rabin(n) and "PRIME" or "COMPOSITE")
