@@ -61,24 +61,33 @@ public class MillerRabin
 		return true;
 	}
 
+    private static void try_nbits(int nbits) {
+		BigInteger p;
+		do {
+			p =	new	BigInteger(nbits, rnd);
+			if (p.mod(BigInteger.valueOf(2)).equals(BigInteger.ZERO)) continue;
+    		if (p.mod(BigInteger.valueOf(3)).equals(BigInteger.ZERO)) continue;
+	        if (p.mod(BigInteger.valueOf(5)).equals(BigInteger.ZERO)) continue;
+	        if (p.mod(BigInteger.valueOf(7)).equals(BigInteger.ZERO)) continue;
+		} while	(!miller_rabin(p));
+		System.out.println(p);
+    }
 
 	public static void main(String[] args) {
-		if (args[0].equals("test"))	{
-			BigInteger n = new BigInteger(args[1]);
-			System.out.println(miller_rabin(n) ? "PRIME" : "COMPOSITE");
-		} else if (args[0].equals("genprime")) {
-			int	nbits =	Integer.parseInt(args[1]);
-			BigInteger p;
-			do {
-				p =	new	BigInteger(nbits, rnd);
-				if (p.mod(BigInteger.valueOf(2)).equals(BigInteger.ZERO)) continue;
-        		if (p.mod(BigInteger.valueOf(3)).equals(BigInteger.ZERO)) continue;
-		        if (p.mod(BigInteger.valueOf(5)).equals(BigInteger.ZERO)) continue;
-		        if (p.mod(BigInteger.valueOf(7)).equals(BigInteger.ZERO)) continue;
-			} while	(!miller_rabin(p));
-			System.out.println(p);
+	    if (args.length == 0) {
+		    int nb = 1024;
+            System.out.println("try " + nb + " bits...");
+            try_nbits(nb);
+        } else if (args.length == 2) {
+    		if (args[0].equals("test"))	{
+    			BigInteger n = new BigInteger(args[1]);
+    			System.out.println(miller_rabin(n) ? "PRIME" : "COMPOSITE");
+    		} else if (args[0].equals("genprime")) {
+    			int	nbits =	Integer.parseInt(args[1]);
+    			try_nbits(nbits);
+		    }
 		} else {
-
+		    System.out.println("mr test 1234\nmr genprime 1024");
 		}
 	}
 }
