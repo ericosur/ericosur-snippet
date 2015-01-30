@@ -1,6 +1,6 @@
 /**
   AES encryption/decryption demo program using OpenSSL EVP apis
-  gcc -Wall openssl_aes.c -lcrypto
+  gcc -Wall aes_openssl.c -lcrypto
 
   this is public domain code.
 
@@ -10,6 +10,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <openssl/aes.h>
 #include <openssl/evp.h>
 
 /**
@@ -98,10 +99,17 @@ int main(int argc, char **argv)
   char *input[] = {"a", "abcd", "this is a test", "this is a bigger test",
                    "\nWho are you ?\nI am the 'Doctor'.\n'Doctor' who ?\nPrecisely!",
                    NULL};
+  char default_key[] = "Default key not good";
 
-  /* the key_data is read from the argument list */
-  key_data = (unsigned char *)argv[1];
-  key_data_len = strlen(argv[1]);
+  if (argc < 2) {
+    key_data = (unsigned char*)default_key;
+    key_data_len = strlen(default_key);
+    printf("use default key\n");
+  } else {
+    /* the key_data is read from the argument list */
+    key_data = (unsigned char *)argv[1];
+    key_data_len = strlen(argv[1]);
+  }
 
   /* gen key and iv. init the cipher ctx object */
   if (aes_init(key_data, key_data_len, (unsigned char *)&salt, &en, &de)) {
