@@ -11,7 +11,7 @@ public class algorithm_para {
 
     public static BigInteger P = new BigInteger("0");
     public static BigInteger G = new BigInteger("0");
-    public static final int nlen = 512;
+    public static final int PARAMETER_LEN = 512;
 
     public static void init() throws Exception {
         KeyPairGenerator gen = null;
@@ -21,7 +21,7 @@ public class algorithm_para {
             System.out.println(e.getMessage());
         }
         AlgorithmParameterGenerator algo = AlgorithmParameterGenerator.getInstance("DH");
-        algo.init(nlen, new SecureRandom());
+        algo.init(PARAMETER_LEN, new SecureRandom());
         AlgorithmParameters algopara = algo.generateParameters();
         DHParameterSpec dhpara = algopara.getParameterSpec(DHParameterSpec.class);
 
@@ -33,7 +33,7 @@ public class algorithm_para {
 
         System.out.println("P=" + P.toString());
         System.out.println("G=" + G.toString());
-        //System.out.println("L=" + dhpara.getL());
+        System.out.println("L=" + dhpara.getL());
     }
 
     public static void test() {
