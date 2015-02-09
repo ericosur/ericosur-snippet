@@ -20,7 +20,8 @@ sub readable_epoch($)
 
 sub main()
 {
-    my $epoch = 1305617116;
+    # use CLI argument if specified
+    my $epoch = $ARGV[0] // 1305617116;
     print("call localtime by assigning epoch\n");
     readable_epoch($epoch);
 

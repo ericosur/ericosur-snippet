@@ -5,13 +5,14 @@
 use strict;
 use Time::JulianDay;
 
-my $seconds_since_1970 = time;	# unix epoch time
+# you may specify epoch from CLI or current time
+my $seconds_since_1970 = $ARGV[0] // time;	# unix epoch time
 
 my $jd = local_julian_day($seconds_since_1970);
-print $jd,"\n";
+print "local_julian_day(): ", $jd,"\n";
 
 $jd = gm_julian_day($seconds_since_1970);
-print $jd,"\n";
+print "gm_julian_day(): ", $jd,"\n";
 
 my ($year, $month_1_to_12, $day) = inverse_julian_day($jd);
 print "y($year)\tm($month_1_to_12)\td($day)\n";
