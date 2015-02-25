@@ -37,7 +37,7 @@ public class apg {
         G = dhpara.getG();
 
         // both P and G are public
-        System.out.println("P=" + P.toString());
+        System.out.println("P=" + P.toString() + " len: " + P.toString().length());
         System.out.println("G=" + G.toString());
         //System.out.println("L=" + dhpara.getL());
     }
