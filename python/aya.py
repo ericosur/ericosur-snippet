@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
-s = "ßA¶n°I"
+s = "‰Ω†Â•ΩÔºÅ"
 print(s)

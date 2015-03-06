@@ -6,13 +6,13 @@ from pylab import plot, show, gcf, gca
 from math import log
 
 '''
-·Qª¾¹D¶¥­¼©M¦¸¤è¼W¥[³t«×
-¨Ò¦p 25 ªº n ¦¸¤è vs n ªº¶¥­¼
+æƒ³çŸ¥é“éšä¹˜å’Œæ¬¡æ–¹å¢åŠ é€Ÿåº¦
+ä¾‹å¦‚ 25 çš„ n æ¬¡æ–¹ vs n çš„éšä¹˜
 
-µe¹Ï¤§«á·|µo²{¶¥­¼·|¤ñ¦¸¤è¼W¥[ªº³t«×ÁÙ§Ö
-BASE ¶V¤j¥æ¤eªºÂI·|¦b¶V«á­±
+ç•«åœ–ä¹‹å¾Œæœƒç™¼ç¾éšä¹˜æœƒæ¯”æ¬¡æ–¹å¢åŠ çš„é€Ÿåº¦é‚„å¿«
+BASE è¶Šå¤§äº¤å‰çš„é»æœƒåœ¨è¶Šå¾Œé¢
 
-X ¶b¬O n, Y ¶b¬O¨ú ln() ªº­È
+X è»¸æ˜¯ n, Y è»¸æ˜¯å– ln() çš„å€¼
 '''
 
 
@@ -39,7 +39,7 @@ def get_factorial(n):
 
 def load_pickle():
     '''
-    ¸ü¤J pickle¡A­YµL«h«Ø¥ß¹w³]ªº­È
+    è¼‰å…¥ pickleï¼Œè‹¥ç„¡å‰‡å»ºç«‹é è¨­çš„å€¼
     '''
     global stepvalues
     try:
@@ -52,7 +52,7 @@ def load_pickle():
 
 def save_pickle():
     '''
-    Àx¦s stepvalues ¦Ü pickle
+    å„²å­˜ stepvalues è‡³ pickle
     '''
     global stepvalues
     # store into pickle file
@@ -75,8 +75,8 @@ if __name__ == '__main__':
         expo.append( log(BASE ** i) )
 
 #    t = xrange(1,20)
-    plot(fact, color='red')     # ¶¥­¼
-    plot(expo, color='green')   # ¦¸¤è
+    plot(fact, color='red')     # éšä¹˜
+    plot(expo, color='green')   # æ¬¡æ–¹
 
     setfig = gca()
     setfig.set_label("base 20 ")

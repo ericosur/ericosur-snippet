@@ -3,12 +3,12 @@
 
 '''
 try to calculate p ** q mod n
-¨ä¤¤ simplify() ¥i¥H°Ñ¦Ò last-digit-power.py
+å…¶ä¸­ simplify() å¯ä»¥åƒè€ƒ last-digit-power.py
 '''
 
 def powmod(p, q, n):
 	'''
-		ÅçÃÒµª®×¬O§_¥¿½T
+		é©—è­‰ç­”æ¡ˆæ˜¯å¦æ­£ç¢º
 	'''
 	return p ** q % n
 
@@ -20,7 +20,7 @@ def simplify(p, q, n):
 		v *= p
 		v = v % n
 		s -= 1
-	return v	# ±o¨ìªº¾l¼Æ
+	return v	# å¾—åˆ°çš„é¤˜æ•¸
 
 
 def test(rep):
