@@ -18,7 +18,7 @@ sub get_randomtext()
 	my $text = Text::Lorem->new();
 	my $result = $text->words(3);
 
-	print $result,"\n";
+	print $result,"\n" if $debug;
 	return $result;
 }
 
@@ -140,6 +140,7 @@ my $file;
 for my $n (1..2)  {
 	for (@ext)  {
 		$file = "tmp$n." . $_;
+		$file = sprintf("randpix_%d.%s", $n, $_);
 		draw($file);
 		print "$file\n";
 	}

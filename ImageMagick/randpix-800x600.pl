@@ -14,14 +14,16 @@ my $maxx = 800;
 my $maxy = 600;
 my $debug = 0;
 
-#sub get_randomtext()
-#{
-#	my $text = Text::Lorem->new();
-#	my $result = $text->words(3);
-#
-#	print $result,"\n";
-#	return $result;
-#}
+=pod
+sub get_randomtext()
+{
+	my $text = Text::Lorem->new();
+	my $result = $text->words(3);
+
+	print $result,"\n" if $debug;
+	return $result;
+}
+=cut
 
 sub get_date()
 {
