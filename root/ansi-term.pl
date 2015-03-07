@@ -1,9 +1,11 @@
 #!/usr/bin/env perl
 
 # demo Term::ANSIColor
+# additional Win32::Console::ANSI if win32
 
 use strict;
 use Term::ANSIColor;
+use if $^O eq "MSWin32", "Win32::Console::ANSI";
 
 print color 'bold green';
 print "This text is bold green\n";
