@@ -2,6 +2,7 @@
 #
 # some date/time functions from activeState
 #
+# ActiveState::DateTime is only for ActivatePerl
 
 use ActiveState::DateTime qw(is_leap_year
 		days_in_month
