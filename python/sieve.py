@@ -57,16 +57,16 @@ def del_elem(arr, arr_max):
 	else:
 		del_elem(arr, arr_max)
 
+if __name__ == "__main__":
+	max_number = 1000
+	g_count = 0
+	primes = [2]
+	arr = []
+	fill_array(arr, max_number)
+	#print(arr)
+	del_elem(arr, max_number)
+	print("# total pass: %d" % g_count)
+	print("# found %d primes" % len(primes))
 
-max_number = 1000
-g_count = 0
-primes = [2]
-arr = []
-fill_array(arr, max_number)
-#print(arr)
-del_elem(arr, max_number)
-print("# total pass: %d" % g_count)
-print("# found %d primes" % len(primes))
-
-for pr in primes:
-	print(pr)
+	for pr in primes:
+		print(pr)
