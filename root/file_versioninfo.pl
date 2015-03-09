@@ -7,7 +7,7 @@
 use strict;
 use warnings;
 
-use Win32::File::VersionInfo;
+use if $^O eq "MSWin32", "Win32::File::VersionInfo";
 use Getopt::Std;
 
 my $proc = \&get_version_info;
@@ -130,8 +130,8 @@ sub get_filename_from_list()
 
 sub main
 {
+	die "only work at MSWin32" if ($^O ne "MSWin32");
 	process_arg();
 }
 
 main;
-
