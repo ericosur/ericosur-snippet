@@ -7,6 +7,10 @@
 use strict;
 use warnings;
 
+if ( $^O ne 'MSWin32' ) {
+	die "only work at MSWin32";
+}
+
 my $flist = "~list~.txt";
 my $cmd;
 
