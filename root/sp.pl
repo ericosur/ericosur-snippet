@@ -17,7 +17,7 @@ my @array = split /;/, $path;
 
 foreach (@array)
 {
-	print "$_\n";
+    print "$_\n";
 }
 =cut
 
@@ -27,10 +27,10 @@ foreach (@array)
 my $foo = $ENV{"PATH"};
 
 if ($^O eq 'MSWin32')  {
-	$foo =~ s/;/\n/g;
+    $foo =~ s/;/\n/g;
 }
 else  {
-	$foo =~ s/:/\n/g;
+    $foo =~ s/:/\n/g;
 }
 
 print $foo,"\n";
