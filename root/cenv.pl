@@ -29,18 +29,19 @@ printf "@ %d entries in the PATH:\n", $len;
 #print "\n";
 foreach (@PATH)
 {
-	print $_ . "\n";
-	if (not -d $_)
-	{
-		print "path not exist??? $_\n";
-	}
+    if (-d $_)  {
+        print $_ . "\n";
+    }
+    else  {
+        print "path not exist???  $_\n";
+    }
 }
 
 if (@PATHEXT)  {
-	print '-' x 25, '@ pathext @', '-' x 25, "\n";
-	for (@PATHEXT)  {
-		print "$_\n" if $_;
-	}
+    print '-' x 25, '@ pathext @', '-' x 25, "\n";
+    for (@PATHEXT)  {
+        print "$_\n" if $_;
+    }
 }
 
 
