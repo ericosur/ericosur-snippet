@@ -30,5 +30,5 @@ remote_object = bus.get_object("org.freedesktop.DBus", # Connection name
 iface = dbus.Interface(remote_object, 'org.freedesktop.DBus')
 arr = iface.ListNames()
 for x in arr:
-    print x
-
+    if (x[0]!=":"):
+		print x
