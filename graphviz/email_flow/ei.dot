@@ -1,4 +1,4 @@
-﻿// the flow char from startup to email startup
+// the flow char from startup to email startup
 digraph init  {
 	graph [fontname = "Arial Bold" fontsize = 16];
 	node [ fontname = "Arial" fonstsize = 10 shape = record ];

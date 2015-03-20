@@ -1,4 +1,4 @@
-﻿// the flow of email init to get the mail count of each mailbox
+// the flow of email init to get the mail count of each mailbox
 // 2008/04/29 not finished tracing
 digraph g {
 	graph [ fontsize = 12 fontname = "Lucida Console" overlap=false];

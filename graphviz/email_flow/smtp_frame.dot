@@ -1,4 +1,4 @@
-﻿digraph g {
+digraph g {
 
 	graph [ranksep=1.5 splines=true overlap=false];
 	node [fontsize = 10 shape = box fontname = "Arial"];
