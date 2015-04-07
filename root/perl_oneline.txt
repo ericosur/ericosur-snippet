@@ -59,3 +59,8 @@ perl -e "open F,'+<',q(%ff%) or die; $c=join('',<F>); $c =~ s/([aeiou])/uc($1)/e
 # kill_ts.pl 的 oneliner
 perl -pi.bak -e "s/\s+\n$/\n/" file.txt
 
+#######################################
+# remove a-f from openssl random number
+
+$ openssl rand -hex 32 | perl -pe "s/[a-f]//g"
+# result string length will vary
