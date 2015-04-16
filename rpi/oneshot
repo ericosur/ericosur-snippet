@@ -1,0 +1,10 @@
+#!/bin/sh
+
+DATE=`date +%y%m%d_%H%M%S`
+FNAME=rpi-$DATE.jpg
+UPLOAD=/home/pi/apps/Dropbox-Uploader/dropbox_uploader.sh
+DEST=rpi/
+
+#echo $FNAME
+raspistill -w 1024 -h 768 -o ~/drop/$FNAME
+$UPLOAD upload ~/drop/$FNAME $DEST
