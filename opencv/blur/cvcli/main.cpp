@@ -10,14 +10,16 @@
 using namespace std;
 using namespace cv;
 
-const char window_name1[] = "Unprocessed Image";
-const char window_name2[] = "Processed Image";
+const string WINDOW_ORIGIN = "Unprocessed Image";
+const string WINDOW_PROCESS = "Processed Image";
 #if defined(__APPLE__)
 const string DEFAULT_IAMGE = "/Users/ericosur/gcode/snippet/opencv/blur/deer.jpg";
 #endif
 #if defined(__linux__)
 const string DEFAULT_IAMGE = "/home/rasmus/gcode/snippet/opencv/blur/deer.jpg";
 #endif
+
+const int GAUSSIAN_RADIUS = 29;
 
 // load image into Mat, will check file exist or not
 bool load_image(Mat& img, const string& fn)
@@ -51,14 +53,14 @@ int main( int argc, char** argv )
         return -1;
     }
 
-    namedWindow( window_name1, WINDOW_AUTOSIZE );
-    imshow("Unprocessed Image", src);
+    namedWindow( WINDOW_ORIGIN, WINDOW_AUTOSIZE );
+    imshow(WINDOW_ORIGIN, src);
 
     dst = src.clone();
-    GaussianBlur( src, dst, Size( 15, 15 ), 0, 0 );
+    GaussianBlur( src, dst, Size(GAUSSIAN_RADIUS, GAUSSIAN_RADIUS), 0, 0 );
 
-    namedWindow( window_name2, WINDOW_AUTOSIZE );
-    imshow("Processed Image", dst);
+    namedWindow( WINDOW_PROCESS, WINDOW_AUTOSIZE );
+    imshow(WINDOW_PROCESS, dst);
 
     waitKey();
     return 0;
