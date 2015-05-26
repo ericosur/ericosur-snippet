@@ -4,6 +4,8 @@ var url = require('url');
 var fs = require('fs');
 var io = require('socket.io') ();
 
+var DEFAULT_PORT = 8001;
+
 var server = http.createServer(function(req, resp) {
   console.log('connection');
   var path = url.parse(req.url).pathname;
@@ -35,7 +37,7 @@ var server = http.createServer(function(req, resp) {
   }
 });
 
-server.listen(8001);
+server.listen(DEFAULT_PORT);
 var serv_io = io.listen(server);
 serv_io.sockets.on('connection', function(socket) {
   socket.emit('message', {'message': 'hello world'});
