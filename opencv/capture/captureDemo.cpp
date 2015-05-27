@@ -114,13 +114,6 @@ void drawObject(int x, int y, Mat &frame)
 	putText(frame, intToString(x) + "," + intToString(y), Point(x, y + 30), 1, 1, Scalar(0, 255, 0), 2);
 }
 
-#if 0
-void drawSomething(Mat &mat)
-{
-
-}
-#endif
-
 void morphOps(Mat &thresh)
 {
 	//create structuring element that will be used to "dilate" and "erode" image.
@@ -263,6 +256,9 @@ int demoCapture()
 
 int demoTest()
 {
+    const string WIN_FEED = "camera feeds";
+    const string WIN_EDGE = "edges";
+
     VideoCapture cap;
     cap.open(0);
     if (!cap.isOpened()) {
@@ -273,8 +269,8 @@ int demoTest()
     Mat cameraFeed;
     Mat edges;
 
-    namedWindow("feeds", WINDOW_AUTOSIZE);
-    namedWindow("edges", WINDOW_AUTOSIZE);
+    namedWindow(WIN_FEED, WINDOW_AUTOSIZE);
+    namedWindow(WIN_EDGE, WINDOW_AUTOSIZE);
 
     //set height and width of capture frame
     cap.set(CV_CAP_PROP_FRAME_WIDTH, FRAME_WIDTH);
@@ -283,15 +279,14 @@ int demoTest()
     while (true) {
         //store image to matrix
         cap.read(cameraFeed);
-        imshow("feeds", cameraFeed);
+        imshow(WIN_FEED, cameraFeed);
 
         cvtColor(cameraFeed, edges, CV_BGR2GRAY);
         GaussianBlur(edges, edges, Size(7,7), 1.5, 1.5);
         Canny(edges, edges, 0, 30, 3);
-        imshow("edges", edges);
+        imshow(WIN_EDGE, edges);
 
-        int c = waitKey(100);
-        if (c == 'c') {
+        if ( waitKey(100) > 0 ) {
             destroyAllWindows();
             break;
         }
