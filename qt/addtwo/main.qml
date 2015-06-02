@@ -8,7 +8,7 @@ ApplicationWindow {
     width: 640
     height: 480
     visible: true
-
+/*
     menuBar: MenuBar {
         Menu {
             title: qsTr("&File")
@@ -22,11 +22,32 @@ ApplicationWindow {
             }
         }
     }
+*/
+
+    function myAdd(x, y) {
+        return x+y;
+    }
 
     MainForm {
         anchors.fill: parent
-        button1.onClicked: messageDialog.show(qsTr("Button 1 pressed"))
-        button2.onClicked: messageDialog.show(qsTr("Button 2 pressed"))
+
+        button1.onClicked: {
+            var val1 = parseInt(textInput1.text);
+            var val2 = parseInt(textInput2.text);
+            var str = textInput1.text + '+' + textInput2.text;
+            textArea1.append(str);
+            textArea1.append(myAdd(val1, val2));
+        }
+
+        button2.onClicked: {
+            var val1 = parseInt(textInput1.text);
+            var val2 = parseInt(textInput2.text);
+            var str = val1 + '* sin(' + val2 + ')';
+            textArea1.append(str);
+            var res = val1 * Math.sin(val2);
+            textArea1.append(res);
+        }
+
         button3.onClicked: messageDialog.show(qsTr("Button 3 pressed"))
     }
 
