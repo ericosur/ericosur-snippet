@@ -1,3 +1,5 @@
+// simple module js that exports one function
+
 var fs = require('fs');
 var p = require('path');
 
