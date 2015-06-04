@@ -8,28 +8,37 @@ ApplicationWindow {
     width: 640
     height: 480
     visible: true
-/*
-    menuBar: MenuBar {
-        Menu {
-            title: qsTr("&File")
-            MenuItem {
-                text: qsTr("&Open")
-                onTriggered: messageDialog.show(qsTr("Open action triggered"));
-            }
-            MenuItem {
-                text: qsTr("E&xit")
-                onTriggered: Qt.quit();
-            }
-        }
+
+    // between min (inclusive) and max (exclusive)
+    function getRandom(min, max)  {
+        return Math.random() * (max - min) + min;
     }
-*/
+
+    // not good
+    function getRandomCeil(min, max)  {
+        return Math.ceil(Math.random() * (max - min)) + min - 1;
+    }
 
     function myAdd(x, y) {
         return x+y;
     }
 
+
     MainForm {
         anchors.fill: parent
+
+        function myInit() {
+            textInput1.text = getRandomCeil(1, 9999);
+            textInput2.text = getRandomCeil(1, 9999);
+        }
+
+        Component.onCompleted: {
+            myInit();
+        }
+
+        buttonInit.onClicked: {
+            myInit();
+        }
 
         button1.onClicked: {
             var val1 = parseInt(textInput1.text);
@@ -48,7 +57,14 @@ ApplicationWindow {
             textArea1.append(res);
         }
 
-        button3.onClicked: messageDialog.show(qsTr("Button 3 pressed"))
+        button3.onClicked: {
+            var val1 = parseInt(textInput1.text);
+            var val2 = parseInt(textInput2.text);
+            var str = val1 + '* cos(' + val2 + ')';
+            textArea1.append(str);
+            var res = val1 * Math.cos(val2);
+            textArea1.append(res);
+        }
     }
 
     MessageDialog {
