@@ -1,6 +1,6 @@
 // https://gist.github.com/elpuri/3753756
 
-import QtQuick 1.1
+import QtQuick 2.0
 
 Item {
     width: 200
