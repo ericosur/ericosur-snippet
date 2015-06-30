@@ -7,7 +7,7 @@
 
 sub main()
 {
-    my $iff = q(../../Unihan700/Unihan_DictionaryLikeData.txt);
+    my $iff = q(../../Unihan800/Unihan_DictionaryLikeData.txt);
     my $off = q(extract_ktotalstrokes.txt);
     my $cnt = 0;
     my $hit = 0;
