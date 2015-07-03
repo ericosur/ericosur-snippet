@@ -1,0 +1,6 @@
+qml font laoder demo
+
+use font: kozuka mincho Pr6N
+
+$ qmlscene a.qml
+
