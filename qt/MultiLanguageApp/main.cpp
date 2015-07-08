@@ -12,6 +12,11 @@ int main(int argc, char *argv[])
     TranslatorManager* manager = TranslatorManager::instance();
     Q_UNUSED(manager)
 
+    // rasmus add
+    QTranslator translator;
+    translator.load("lang_zh_TW");
+    a.installTranslator(&translator);
+
     MainWindow w;
     w.show();
 
