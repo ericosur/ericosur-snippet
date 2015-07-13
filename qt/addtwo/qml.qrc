@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>MainForm.ui.qml</file>
+        <file>lang_zh_TW.qm</file>
+        <file>lang_en_US.qm</file>
     </qresource>
 </RCC>

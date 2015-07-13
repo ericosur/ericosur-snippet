@@ -34,6 +34,8 @@ ApplicationWindow {
 
         Component.onCompleted: {
             myInit();
+            // show system locale name at title
+            title = Qt.locale().name;
         }
 
         buttonInit.onClicked: {

@@ -27,17 +27,17 @@ Item {
 
         Button {
             id: button1
-            text: qsTr("Add")
+            text: qsTr("Add1")
         }
 
         Button {
             id: button2
-            text: qsTr("sin")
+            text: qsTr("sin1")
         }
 
         Button {
             id: button3
-            text: qsTr("cos")
+            text: qsTr("cos1")
         }
     }
 
@@ -79,20 +79,20 @@ Item {
         id: label1
         x: 101
         y: 76
-        text: qsTr("Value #2")
+        text: qsTr("Value #21")
     }
 
     Label {
         id: label2
         x: 101
         y: 43
-        text: qsTr("Value #1")
+        text: qsTr("Value #11")
     }
 
     Button {
         id: button4
         x: 100
         y: 112
-        text: qsTr("Random")
+        text: qsTr("Random1")
     }
 }
