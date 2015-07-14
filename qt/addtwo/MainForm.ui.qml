@@ -18,11 +18,11 @@ Item {
     RowLayout {
         x: 50
         y: 50
-        width: 190
+        width: 268
         height: 26
         spacing: 10
-        anchors.verticalCenterOffset: -115
-        anchors.horizontalCenterOffset: -24
+        anchors.verticalCenterOffset: -124
+        anchors.horizontalCenterOffset: -85
         anchors.centerIn: parent
 
         Button {
@@ -44,7 +44,7 @@ Item {
     TextInput {
         id: textInput1
         x: 174
-        y: 41
+        y: 18
         width: 117
         height: 20
         text: '0'
@@ -55,7 +55,7 @@ Item {
     TextInput {
         id: textInput2
         x: 174
-        y: 74
+        y: 44
         width: 117
         height: 20
         text: '0'
@@ -67,9 +67,9 @@ Item {
     TextArea {
         id: textArea1
         x: 101
-        y: 165
+        y: 155
         width: 438
-        height: 249
+        height: 307
         font.family: "Verdana"
         font.pointSize: 12
         readOnly: true
@@ -78,21 +78,21 @@ Item {
     Label {
         id: label1
         x: 101
-        y: 76
+        y: 46
         text: qsTr("Value #21")
     }
 
     Label {
         id: label2
         x: 101
-        y: 43
+        y: 20
         text: qsTr("Value #11")
     }
 
     Button {
         id: button4
-        x: 100
-        y: 112
+        x: 101
+        y: 70
         text: qsTr("Random1")
     }
 }

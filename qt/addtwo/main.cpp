@@ -11,8 +11,9 @@ int main(int argc, char *argv[])
 
     // rasmus add
     QLocale ql = QLocale::system();
-    QString locname = "en_US";
     qDebug() << "system locale: " << ql.name();
+    // try to load a specified locale translation file:
+    QString locname = "fr_FR";
     QString ts = ":/lang_" + locname + ".qm";
     qDebug() << "ts: " << ts;
     QTranslator trn;
