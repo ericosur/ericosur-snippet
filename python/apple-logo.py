@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 def show_utf8char(ch):
     uch = ch.decode('utf8')
