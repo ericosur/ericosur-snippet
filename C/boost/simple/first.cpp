@@ -1,5 +1,6 @@
 // no library need to list
 // need specify boost include file path while compiling
+// $ g++ -I../../../boost_1_58_0/ -o first.app first.cpp
 
 #include <boost/lambda/lambda.hpp>
 #include <iostream>
@@ -16,4 +17,3 @@ int main()
 
     return 0;
 }
-
