@@ -5,6 +5,9 @@
 #include <QLocale>
 #include <QTranslator>
 
+#include <QtQml>
+#include "mytranslation.hpp"
+
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
@@ -27,7 +30,11 @@ int main(int argc, char *argv[])
     }
     // rasmus add
 
+    qmlRegisterType<MyTranslation>("com.pega.rasmus", 1, 0, "MyTranslation");
+    MyTranslation mt;
+
     QQmlApplicationEngine engine;
+    //engine.rootContext()->setContextProperty("MyTranslation", &mt);
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     return app.exec();

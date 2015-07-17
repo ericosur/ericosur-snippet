@@ -3,11 +3,18 @@ import QtQuick.Controls 1.3
 import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.2
 
+import com.pega.rasmus 1.0
+
 ApplicationWindow {
-    title: qsTr("Hello World")
+    id: mainwindow
+    title: qsTr("Hello World") + trans.emptyString
     width: 640
     height: 480
     visible: true
+
+    MyTranslation {
+        id: trans;
+    }
 
     // between min (inclusive) and max (exclusive)
     function getRandom(min, max)  {
@@ -23,7 +30,6 @@ ApplicationWindow {
         return x+y;
     }
 
-
     MainForm {
         anchors.fill: parent
 
@@ -35,7 +41,7 @@ ApplicationWindow {
         Component.onCompleted: {
             myInit();
             // show system locale name at title
-            title = Qt.locale().name;
+            textArea1.append('system locale: ' + Qt.locale().name);
         }
 
         buttonInit.onClicked: {
@@ -67,14 +73,30 @@ ApplicationWindow {
             var res = val1 * Math.cos(val2);
             textArea1.append(res);
         }
+
+        button_zh.onClicked: {
+            trans.selectLanguage("zh");
+            messageDialog.show('set to zh', qsTr("May I have your attention, please?"));
+        }
+
+        button_fr.onClicked: {
+            trans.selectLanguage("fr");
+            messageDialog.show('set to french', qsTr("May I have your attention, please?"));
+        }
+
+        button_en.onClicked: {
+            trans.selectLanguage("en");
+            messageDialog.show('set to english', qsTr("May I have your attention, please?"));
+        }
     }
 
     MessageDialog {
         id: messageDialog
-        title: qsTr("May I have your attention, please?")
+        //title: 'title'
 
-        function show(caption) {
-            messageDialog.text = caption;
+        function show(inn, cap) {
+            messageDialog.text = inn;
+            messageDialog.title = cap;
             messageDialog.open();
         }
     }

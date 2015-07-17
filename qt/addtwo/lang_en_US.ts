@@ -44,7 +44,7 @@
     <message>
         <location filename="main.qml" line="74"/>
         <source>May I have your attention, please?</source>
-        <translation>Attention!</translation>
+        <translation>May I have your attention, please?</translation>
     </message>
 </context>
 </TS>

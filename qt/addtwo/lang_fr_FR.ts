@@ -26,7 +26,7 @@
     <message>
         <location filename="MainForm.ui.qml" line="89"/>
         <source>Value #11</source>
-        <translation>numérique #1</translation>
+        <translation>Numérique #1</translation>
     </message>
     <message>
         <location filename="MainForm.ui.qml" line="96"/>
