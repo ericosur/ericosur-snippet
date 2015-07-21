@@ -27,8 +27,8 @@ const string inputName = "./lena.jpg";
 int face_detect()
 {
     //default capture width and height
-    const int FRAME_WIDTH = 1280;
-    const int FRAME_HEIGHT = 720;
+    const int FRAME_WIDTH = 800;
+    const int FRAME_HEIGHT = 600;
     const int WAIT_DELAY = 100;
 
     cout << "face_detect_camera()\n";
