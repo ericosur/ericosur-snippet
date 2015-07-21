@@ -9,14 +9,37 @@ Item {
     height: 400
 
     FontLoader {
-        id: localFont;
+        id: mincho;
         source: "mincho.otf"
     }
 
+    FontLoader {
+        id: notokufi;
+        source: "notokufi.ttf"
+    }
+
     Text {
-        anchors.centerIn: parent
-        font.pointSize: 64
-        font.family: localFont.name
-        text: "我能吞下玻璃\n而不受傷\n南下經三國 東風過四方\n" + localFont.name;
+        id: text1
+        anchors.top: parent.top
+        anchors.margins: 10
+        font.pointSize: 24
+        font.family: mincho.name
+        text: "私は菜食主義者です 小塚明朝\n" + mincho.name;
+    }
+
+    Text {
+        id: text2
+        anchors.top: text1.bottom
+        font.pointSize: 24
+        font.family: notokufi.name
+        text: "وهذا هو أول مبنى مرتفع في العالم" + "\n" + font.family;
+    }
+
+    Text {
+        id: text3
+        anchors.top: text2.bottom
+        font.pointSize: 24
+        //font.family: mincho.name
+        text: "𠁙𠁚𠀳𠁀𠁟 وهذا هو أول مبنى مرتفع في العالم" + "\n" + font.family;
     }
 }

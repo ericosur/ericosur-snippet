@@ -4,3 +4,5 @@ use font: kozuka mincho Pr6N
 
 $ qmlscene a.qml
 
+add font: notokufi.ttf
+
