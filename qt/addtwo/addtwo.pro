@@ -22,6 +22,7 @@ lupdate_only {
 TRANSLATIONS = \
 	lang_zh_TW.ts \
     lang_en_US.ts \
-    lang_fr_FR.ts
+    lang_fr_FR.ts \
+    lang_ar_AR.ts
 
 DISTFILES +=

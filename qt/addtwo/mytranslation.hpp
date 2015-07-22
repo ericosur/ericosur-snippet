@@ -9,7 +9,7 @@
 class MyTranslation : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString emptyString READ getEmptyString NOTIFY languageChanged)
+    Q_PROPERTY(QString empty READ getEmptyString NOTIFY languageChanged)
 
 public:
     MyTranslation() {

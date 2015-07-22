@@ -34,17 +34,17 @@ Item {
 
         Button {
             id: button1
-            text: qsTr("Add1") + trans.emptyString
+            text: qsTr("Add1") + trans.empty
         }
 
         Button {
             id: button2
-            text: qsTr("sin1") + trans.emptyString
+            text: qsTr("sin1") + trans.empty
         }
 
         Button {
             id: button3
-            text: qsTr("cos1") + trans.emptyString
+            text: qsTr("cos1") + trans.empty
         }
     }
 
@@ -73,12 +73,16 @@ Item {
 
     TextArea {
         id: textArea1
-        x: 101
-        y: 155
-        width: 438
-        height: 307
+        anchors.right: parent.right
+        anchors.rightMargin: 20
+        anchors.left: parent.left
+        anchors.leftMargin: 20
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 20
+        anchors.top: parent.top
+        anchors.topMargin: 150
         font.family: "Tahoma"
-        font.pointSize: 12
+        font.pointSize: 14
         readOnly: true
     }
 
@@ -86,41 +90,41 @@ Item {
         id: label1
         x: 101
         y: 46
-        text: qsTr("Value #21") + trans.emptyString
+        text: qsTr("Value #21") + trans.empty
     }
 
     Label {
         id: label2
         x: 101
         y: 20
-        text: qsTr("Value #11") + trans.emptyString
+        text: qsTr("Value #11") + trans.empty
     }
 
     Button {
         id: button4
         x: 101
         y: 70
-        text: qsTr("Random1") + trans.emptyString
+        text: qsTr("Random1") + trans.empty
     }
 
     Button {
         id: button_zh
         x: 435
         y: 103
-        text: qsTr("load zh")
+        text: "load zh"
     }
 
     Button {
         id: button_en
         x: 435
         y: 20
-        text: qsTr("load en")
+        text: "load en"
     }
 
     Button {
         id: button_fr
         x: 435
         y: 60
-        text: qsTr("load fr")
+        text: "load fr"
     }
 }

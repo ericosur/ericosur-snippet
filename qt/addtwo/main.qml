@@ -7,7 +7,7 @@ import com.pega.rasmus 1.0
 
 ApplicationWindow {
     id: mainwindow
-    title: qsTr("Hello World") + trans.emptyString
+    title: qsTr("Hello World") + trans.empty
     width: 640
     height: 480
     visible: true
@@ -46,6 +46,7 @@ ApplicationWindow {
 
         buttonInit.onClicked: {
             myInit();
+            textArea1.append(qsTr("lorem"))
         }
 
         button1.onClicked: {
@@ -77,16 +78,19 @@ ApplicationWindow {
         button_zh.onClicked: {
             trans.selectLanguage("zh");
             messageDialog.show('set to zh', qsTr("May I have your attention, please?"));
+            textArea1.append(qsTr(qsTr("May I have your attention, please?")));
         }
 
         button_fr.onClicked: {
             trans.selectLanguage("fr");
             messageDialog.show('set to french', qsTr("May I have your attention, please?"));
+            textArea1.append(qsTr(qsTr("May I have your attention, please?")));
         }
 
         button_en.onClicked: {
             trans.selectLanguage("en");
             messageDialog.show('set to english', qsTr("May I have your attention, please?"));
+            textArea1.append(qsTr(qsTr("May I have your attention, please?")));
         }
     }
 
