@@ -13,14 +13,13 @@ Item {
     property alias button2: button2
     property alias button3: button3
 
-    property alias button_zh: button_zh
-    property alias button_en: button_en
-    property alias button_fr: button_fr
-
     property alias buttonInit: button4
     property alias textInput1: textInput1
     property alias textInput2: textInput2
     property alias textArea1: textArea1
+
+    property alias comboBox1: comboBox1
+    //property var combo123: comboBox1
 
     RowLayout {
         x: 50
@@ -51,7 +50,7 @@ Item {
     TextInput {
         id: textInput1
         x: 174
-        y: 18
+        y: 23
         width: 117
         height: 20
         text: '0'
@@ -62,7 +61,7 @@ Item {
     TextInput {
         id: textInput2
         x: 174
-        y: 44
+        y: 52
         width: 117
         height: 20
         text: '0'
@@ -83,48 +82,50 @@ Item {
         anchors.topMargin: 150
         font.family: "Tahoma"
         font.pointSize: 14
-        readOnly: true
+        readOnly: false
     }
 
     Label {
         id: label1
-        x: 101
-        y: 46
+        x: 40
+        y: 52
         text: qsTr("Value #21") + trans.empty
     }
 
     Label {
         id: label2
-        x: 101
-        y: 20
+        x: 40
+        y: 25
         text: qsTr("Value #11") + trans.empty
     }
 
     Button {
         id: button4
-        x: 101
-        y: 70
+        x: 365
+        y: 52
         text: qsTr("Random1") + trans.empty
     }
 
-    Button {
-        id: button_zh
-        x: 435
-        y: 103
-        text: "load zh"
-    }
-
-    Button {
-        id: button_en
-        x: 435
+    ComboBox {
+        id: comboBox1
+        x: 478
         y: 20
-        text: "load en"
+        width: 131
+        height: 26
+        model: ListModel {
+            //id: cbItems
+            ListElement { text: "French"; loc: "fr" }
+            ListElement { text: "English"; loc: "en" }
+            ListElement { text: "Chinese"; loc: "zh" }
+        }
     }
 
-    Button {
-        id: button_fr
-        x: 435
-        y: 60
-        text: "load fr"
+    Label {
+        id: label3
+        x: 381
+        y: 25
+        width: 96
+        height: 16
+        text: qsTr("Set Language")
     }
 }

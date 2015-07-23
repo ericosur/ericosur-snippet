@@ -38,6 +38,7 @@ ApplicationWindow {
             textInput2.text = getRandomCeil(1, 9999);
         }
 
+
         Component.onCompleted: {
             myInit();
             // show system locale name at title
@@ -75,22 +76,15 @@ ApplicationWindow {
             textArea1.append(res);
         }
 
-        button_zh.onClicked: {
-            trans.selectLanguage("zh");
-            messageDialog.show('set to zh', qsTr("May I have your attention, please?"));
-            textArea1.append(qsTr(qsTr("May I have your attention, please?")));
-        }
-
-        button_fr.onClicked: {
-            trans.selectLanguage("fr");
-            messageDialog.show('set to french', qsTr("May I have your attention, please?"));
-            textArea1.append(qsTr(qsTr("May I have your attention, please?")));
-        }
-
-        button_en.onClicked: {
-            trans.selectLanguage("en");
-            messageDialog.show('set to english', qsTr("May I have your attention, please?"));
-            textArea1.append(qsTr(qsTr("May I have your attention, please?")));
+        comboBox1.onCurrentIndexChanged: {
+            if (comboBox1.currentText) {
+                //textArea1.append(comboBox1.currentText + comboBox1.currentIndex.toString());
+                //textArea1.append(comboBox1.model.get(comboBox1.currentIndex).loc);
+                //textArea1.append(combo123.model.get(0).loc);  // if access via 'var'
+                trans.selectLanguage( comboBox1.model.get(comboBox1.currentIndex).loc );
+                //messageDialog.show('set to ' + comboBox1.currentText, qsTr("May I have your attention, please?"));
+                textArea1.append(qsTr("May I have your attention, please?"));
+            }
         }
     }
 
