@@ -3,8 +3,6 @@
 use strict;
 use warnings;
 
-use Win32;
-use Win32::Clipboard;
 use Env qw(@PATH $PATH);
 
 sub uniq(@)
@@ -18,27 +16,6 @@ sub uniq(@)
 	return @result;
 }
 
-sub shorten_path($)
-{
-	my $arg = shift;
-
-	$arg =~ s/[\r\n]//g;
-	if (! -e $arg || ! -d _)  {
-		print STDERR "==> <$arg> not exists ?\n";
-		return;
-	}
-
-	my $short = Win32::GetShortPathName($arg);
-
-	if ($short)  {
-		$short =~ s(\\$)();		# remove the trailing ''\''
-		return $short;
-	}
-	else  {
-		return $arg;
-	}
-}
-
 sub main
 {
 	print STDERR "==> before count: ", $#PATH+1, "\n";
@@ -50,9 +27,9 @@ sub main
 	print STDERR "==> after count: ", $#PATH+1, "\n";
 	#print $#PATH, "\n";
 
-	print STDERR "==> result has already copied into clipboard\n";
-	Win32::Clipboard()->Set($PATH);
-	print $PATH,"\n";
+	foreach (@PATH) {
+		print $_,"\n";
+	}
 }
 
 main;

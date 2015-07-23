@@ -31,11 +31,21 @@ alpha table. It will output "Hello world" if no argument input.
 
 use strict;
 use warnings;
-use Data::Dump qw(dump);
+#use Data::Dump qw(dump);
 
 my @alpha_list = qw{Alpha Bravo Charlie Delta Echo Foxtrot Golf Hotel India
 					Juliet Kilo Lima Mike November Oscar Papa Quebec Romeo
 					Sierra Tango Uniform Victor Whiskey Xray Yankee Zulu};
+
+sub show(@)
+{
+	my @lists = @_;
+	print "[\n";
+	foreach my $v (@lists) {
+		printf("\t'%s',\n", $v);
+	}
+	print "]\n";
+}
 
 #
 # input one character here
@@ -47,18 +57,18 @@ sub show_alpha($)
 	return "undef" if length($ch) != 1;
 
 	my $num = ord($ch) - ord('A');
-	return ($num > 26 || $num < 0) ? "undef" : $alpha_list[$num];
+	return ($num > 26 || $num < 0) ? "__undef__" : $alpha_list[$num];
 }
 
 sub main()
 {
 	my $str = $ARGV[0] || "Hello world";
-	print "<$str>\n";
+	print "\'$str\' = \n";
 
 	my @result = ();
 	@result = map { show_alpha($_) } split //,$str;
-	dump(@result);
+	#dump(@result);
+	show(@result);
 }
 
 main;
-
