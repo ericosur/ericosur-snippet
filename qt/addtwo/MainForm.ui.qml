@@ -9,43 +9,16 @@ Item {
     width: 640
     height: 480
 
-    property alias button1: button1
-    property alias button2: button2
-    property alias button3: button3
-
     property alias buttonInit: button4
     property alias textInput1: textInput1
     property alias textInput2: textInput2
     property alias textArea1: textArea1
 
-    property alias comboBox1: comboBox1
-    //property var combo123: comboBox1
+    property alias comboLang: comboLang
+    property alias comboAction: comboAction
 
-    RowLayout {
-        x: 50
-        y: 50
-        width: 268
-        height: 26
-        spacing: 10
-        anchors.verticalCenterOffset: -124
-        anchors.horizontalCenterOffset: -85
-        anchors.centerIn: parent
-
-        Button {
-            id: button1
-            text: qsTr("Add1") + trans.empty
-        }
-
-        Button {
-            id: button2
-            text: qsTr("sin1") + trans.empty
-        }
-
-        Button {
-            id: button3
-            text: qsTr("cos1") + trans.empty
-        }
-    }
+    property alias btnNormal: btnNormal
+    property alias btnFullscreen: btnFullScreen
 
     TextInput {
         id: textInput1
@@ -79,7 +52,7 @@ Item {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 20
         anchors.top: parent.top
-        anchors.topMargin: 150
+        anchors.topMargin: 132
         font.family: "Tahoma"
         font.pointSize: 14
         readOnly: false
@@ -89,25 +62,25 @@ Item {
         id: label1
         x: 40
         y: 52
-        text: qsTr("Value #21") + trans.empty
+        text: qsTr("Value #21") + trs.empty
     }
 
     Label {
         id: label2
         x: 40
         y: 25
-        text: qsTr("Value #11") + trans.empty
+        text: qsTr("Value #11") + trs.empty
     }
 
     Button {
         id: button4
-        x: 365
-        y: 52
-        text: qsTr("Random1") + trans.empty
+        x: 251
+        y: 84
+        text: qsTr("Random1") + trs.empty
     }
 
     ComboBox {
-        id: comboBox1
+        id: comboLang
         x: 478
         y: 20
         width: 131
@@ -126,6 +99,44 @@ Item {
         y: 25
         width: 96
         height: 16
-        text: qsTr("Set Language")
+        text: qsTr("Set Language") + trs.empty
+    }
+
+    Button {
+        id: btnNormal
+        x: 40
+        y: 84
+        text: qsTr("origin") + trs.empty
+    }
+
+    Button {
+        id: btnFullScreen
+        x: 146
+        y: 84
+        text: qsTr("fullscreen") + trs.empty
+    }
+
+    Label {
+        id: label4
+        x: 381
+        y: 56
+        width: 96
+        height: 16
+        text: qsTr("Operation") + trs.empty
+    }
+
+    ComboBox {
+        id: comboAction
+        x: 478
+        y: 52
+        width: 131
+        height: 26
+        model: ListModel {
+            ListElement { text: qsTr("n/a") }
+            ListElement { text: qsTr("Add") }
+            ListElement { text: qsTr("sin()") }
+            ListElement { text: qsTr("cos()") }
+            ListElement { text: qsTr("clear") }
+        }
     }
 }
