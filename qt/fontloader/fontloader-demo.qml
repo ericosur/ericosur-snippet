@@ -18,21 +18,26 @@ Item {
         source: "notokufi.ttf"
     }
 
+    FontLoader {
+        id: hanamin
+        source: "HanaMinB.ttf"
+    }
+
     Text {
         id: text1
         anchors.top: parent.top
-        anchors.margins: 10
         font.pointSize: 24
-        font.family: mincho.name
-        text: "私は菜食主義者です 小塚明朝\n" + mincho.name;
+        font.family: notokufi.name
+        text: "وهذا هو أول مبنى مرتفع في العالم" + "\n" + font.family;
     }
 
     Text {
         id: text2
         anchors.top: text1.bottom
+        anchors.margins: 10
         font.pointSize: 24
-        font.family: notokufi.name
-        text: "وهذا هو أول مبنى مرتفع في العالم" + "\n" + font.family;
+        font.family: mincho.name
+        text: "私は菜食主義者です 小塚明朝\n" + mincho.name;
     }
 
     Text {
@@ -41,5 +46,13 @@ Item {
         font.pointSize: 24
         //font.family: mincho.name
         text: "𠁙𠁚𠀳𠁀𠁟 وهذا هو أول مبنى مرتفع في العالم" + "\n" + font.family;
+    }
+
+    Text {
+        id: text4
+        anchors.top: text3.bottom
+        font.pointSize: 24
+        font.family: hanamin.name
+        text: "𠁙𠁚𠀳𠁀𠁟" + "\n" + font.family;
     }
 }
