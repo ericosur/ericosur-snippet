@@ -5,6 +5,7 @@
 
 use strict;
 use bignum qw(hex);
+use MIME::Base64;
 
 #my @alphanum = (0 .. 9, "a" .. "z", "A" .. "Z");
 my @alphanum = (0 .. 9, "a" .. "z");
@@ -15,12 +16,15 @@ my $divisor = scalar @alphanum;
 #print "$enc $dec\n";
 
 #my $hexstr = "0x6d9e9aba8b2e11473c947e859d6e740a";
-my $hexstr = "0xfffffffffffffffffffffffff";
+my $hexstr = "0xffffffffffffffffffffffffffffff";
 my $x = hex($hexstr);
 my $b62 = enc($x);
+my $b64 = encode_base64($x);
 
 print "hex: ", $hexstr, ", len = ", length($hexstr), "\n";
+printf("x: %x\n", $x);  # exceed the range
 print "base62: ", $b62, ", len = ", length($b62), "\n";
+print "base64: ", $b64, ", len = ", length($b64), "\n";
 
 exit 0;
 
