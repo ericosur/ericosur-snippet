@@ -16,9 +16,8 @@ EOL
 
 sub main()
 {
-  if ($^O neq "darwin") {
-    print "this script should run under MacOSX\n"
-    return;
+  if ($^O ne "darwin") {
+    print "this script should run under MacOSX\n";
   }
   my $fn = 'list.txt';
   if (not -e $fn) {
