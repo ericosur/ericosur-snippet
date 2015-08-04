@@ -16,6 +16,10 @@ EOL
 
 sub main()
 {
+  if ($^O neq "darwin") {
+    print "this script should run under MacOSX\n"
+    return;
+  }
   my $fn = 'list.txt';
   if (not -e $fn) {
     $fn = 'tmp-list.txt';
