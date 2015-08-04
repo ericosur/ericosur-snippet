@@ -1,3 +1,7 @@
+#!/usr/bin/env perl
+
+# refer to b64.pl, numbase.pl as well
+
 use strict;
 use warnings;
 use v5.10;
