@@ -4,9 +4,11 @@
 
 use strict;
 
+my $max_n = 999;
+
 sub get_rand()
 {
-    my $n = 200;
+    my $n = $max_n;
     # 0 to n-1
     my $prefix = sprintf("%04d", int(rand($n)));
     return $prefix;
@@ -14,7 +16,7 @@ sub get_rand()
 
 sub main()
 {
-    my @ar = glob("*.mp3");
+    my @ar = glob("*.mp3 *.MP3");
     my %hh = ();
 
     foreach (@ar) {
