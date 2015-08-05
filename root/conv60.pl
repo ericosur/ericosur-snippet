@@ -104,7 +104,7 @@ sub convert($)
 sub main()
 {
 	if ( scalar @ARGV == 0 )  {
-		push @ARGV, "25.06367";
+		push @ARGV, "25.06367", "25,02,00.99", "121,33,54.00";
 	}
 
 	foreach my $astr (@ARGV)  {
