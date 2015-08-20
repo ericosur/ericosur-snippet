@@ -1,7 +1,5 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>hh.png</file>
-        <file>m2.png</file>
     </qresource>
 </RCC>
