@@ -21,11 +21,23 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char** argv)
 {
-    TagLib::MPEG::File file(FNAME);
-    TagLib::ID3v2::Tag *tag = file.ID3v2Tag(true);
+    string fname;
+    if (argc == 2) {
+        fname = argv[1];
+    } else {
+        cout << "no file specified, use default...\n";
+        fname = FNAME;
+    }
+    cout << "try this: " << fname << endl;
+    TagLib::MPEG::File file(fname.c_str());
+    if (!file.isValid()) {
+        cout << "invalid!" << endl;
+        return -1;
+    }
 
+    TagLib::ID3v2::Tag *tag = file.ID3v2Tag(true);
     if (tag == NULL) {
         cout << "no tag, exit..." << endl;
         return -1;
@@ -64,7 +76,6 @@ int main()
             cout << "The picture has been written to " << PICNAME << endl;
             cout << "Remember that the file type .jpg is just assumed for simplicity" << endl;
         }
-
     }
 
     return 0;
