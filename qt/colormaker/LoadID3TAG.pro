@@ -3,7 +3,6 @@ TEMPLATE = app
 QT += qml quick dbus
 
 SOURCES += main.cpp \
-    colormaker.cpp \
     Id3Tag.cpp
 
 RESOURCES += qml.qrc
@@ -15,7 +14,6 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    colormaker.h \
     Id3Tag.h
 
 DISTFILES += \

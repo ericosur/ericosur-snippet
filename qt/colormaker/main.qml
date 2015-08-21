@@ -109,11 +109,13 @@ ApplicationWindow {
             anchors.leftMargin: 4;
             anchors.bottom: start.bottom;
             onClicked: {
-                id3tag.getMetaData("/Users/ericosur/Downloads/go/testmp3/01.mp3");
-                textarea1.append(id3tag.filename);
-                textarea1.append(id3tag.title);
-                textarea1.append(id3tag.artist);
-                textarea1.append(id3tag.album);
+                if ( id3tag.getMetaData("/Users/ericosur/Downloads/go/testmp3/01.mp3") ) {
+                    textarea1.append(id3tag.filename);
+                    textarea1.append(id3tag.title);
+                    textarea1.append(id3tag.artist);
+                    textarea1.append(id3tag.album);
+                    img.source = "file:///Users/ericosur/Downloads/tmp.jpg";
+                }
             }
         }
 
@@ -122,12 +124,6 @@ ApplicationWindow {
             colorMaker.color = Qt.rgba(255, 0, 0, 255);
             colorMaker.setAlgorithm(colorMaker.LinearIncrease);
             changeAlgorithm(colorAlgorithm, colorMaker.algorithm());
-            /*
-            console.log("QML Text\'s C++ type - ", colorMaker);
-            console.log("QML Button\'s C++ type - ", quit);
-            console.log("QML Image\'s C++ type - ", timeLabel);
-            */
-            //timeLabel.text = colorMaker.getData("Passed argument");
             mySignal();
         }
         Connections {
@@ -158,10 +154,10 @@ ApplicationWindow {
         id: area1
         anchors.left: area0.right
         width: parent.width/2; height: parent.height;
-        Image {
-            id: img;
+        Image{
             anchors.fill: parent
-            source: "prev.jpg"
+            id: img
         }
+
     }
 }
