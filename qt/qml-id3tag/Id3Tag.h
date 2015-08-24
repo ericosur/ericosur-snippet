@@ -16,6 +16,8 @@ class ID3TAG : public QObject
     Q_PROPERTY(QString artist READ getArtist)
     Q_PROPERTY(QString album READ getAlbum)
     Q_PROPERTY(QImage cover READ getCover)
+    Q_PROPERTY(QString coverpath READ getCoverPath)
+    Q_PROPERTY(QString tmppath READ gettmppath WRITE settmppath)
 
 public:
     ID3TAG(QObject *parent = 0);
@@ -26,6 +28,9 @@ public:
     QString getArtist() const;
     QString getAlbum() const;
     QImage getCover() const;
+    QString getCoverPath() const;
+    QString gettmppath() const;
+    void settmppath(const QString& p);
 
     Q_INVOKABLE bool getMetaData(const QString& fn);
 
@@ -41,6 +46,8 @@ private:
     QString m_artist;
     QString m_album;
     QImage m_cover;
+    QString m_coverpath;
+    QString m_tmppath;
 };
 
 #endif // __ID3TAG_H__

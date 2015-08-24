@@ -1,8 +1,11 @@
 #include "Id3Tag.h"
 
 #include <QDebug>
+#include <QCryptographicHash>
+
 //#include <iostream>
 #include <stdio.h>
+
 #include <tmap.h>
 #include <tstring.h>
 #include <tpropertymap.h>
@@ -10,12 +13,17 @@
 #include <id3v2frame.h>
 #include <attachedpictureframe.h>
 
+
+// TODO: mp4
+// http://stackoverflow.com/questions/4752020/how-do-i-use-taglib-to-read-write-coverart-in-different-audio-formats
+
 ID3TAG::ID3TAG(QObject *parent)
     : QObject(parent)
     , m_filename("")
     , m_title("")
     , m_artist("")
     , m_album("")
+    , m_tmppath("/tmp")
     , m_cover()
 {
 }
@@ -48,6 +56,22 @@ QImage ID3TAG::getCover() const
 {
     return m_cover;
 }
+
+QString ID3TAG::getCoverPath() const
+{
+    return m_coverpath;
+}
+
+QString ID3TAG::gettmppath() const
+{
+    return m_tmppath;
+}
+
+void ID3TAG::settmppath(const QString& p)
+{
+    m_tmppath = p;
+}
+
 bool ID3TAG::getFrame(TagLib::ID3v2::Tag* tag)
 {
      // frames
@@ -68,11 +92,19 @@ bool ID3TAG::getFrame(TagLib::ID3v2::Tag* tag)
              //coverQImg.loadFromData((const uchar *) coverImg->picture().data(), coverImg->picture().size());
              //m_cover.loadFromData((const uchar *)pictureFrame->picture().data(), pictureFrame->picture().size());
              //http://stackoverflow.com/questions/20691414/qt-qml-send-qimage-from-c-to-qml-and-display-the-qimage-on-gui
-
              //Warning. format of picture assumed to be jpg. This may be false, for example it may be png.
-             FILE *fout = fopen("/Users/ericosur/Downloads/tmp.jpg", "wb");
+
+             QCryptographicHash hash( QCryptographicHash::Md5 );
+             hash.addData(m_filename.toStdString().c_str(), m_filename.length());
+             QString str_hash = hash.result().toHex().data();
+             //qDebug() << "hash: " << str_hash;
+             m_coverpath = m_tmppath + '/' + str_hash;
+             //qDebug() << "m_coverpath: " << m_coverpath;
+
+             FILE *fout = fopen(m_coverpath.toStdString().c_str(), "wb");
              if (fout == NULL) {
                  qDebug() << "cannot output";
+                 m_coverpath = "";
                  return false;
              }
              fwrite(pictureFrame->picture().data(), pictureFrame->picture().size(), 1, fout);

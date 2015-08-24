@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT += qml quick dbus
+QT += qml quick
 
 SOURCES += main.cpp \
     Id3Tag.cpp
@@ -15,10 +15,6 @@ include(deployment.pri)
 
 HEADERS += \
     Id3Tag.h
-
-DISTFILES += \
-    libLMSListModelPlugin.so \
-    qmldir
 
 # taglib
 CONFIG += localtaglib

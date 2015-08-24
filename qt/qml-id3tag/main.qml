@@ -1,163 +1,160 @@
 import QtQuick 2.4
 import QtQuick.Window 2.2
-import QtQuick.Controls 1.2
+import QtQuick.Controls 1.3
 
 // Custom types of C++
-import an.qt.ColorMaker 1.0
 import com.pega.rasmus.ID3TAG 1.0
 
 ApplicationWindow {
-    width : 720; height: 480
+    width : 600; height: 800
     title: "main window"
     id: root;
     visible: true
 
+    property string prev_img;
+    property string next_img;
+
+    // C++ class id3tag
+    ID3TAG {
+        id: id3tag
+    }
+    function myloadmp3(fn, img) {
+        if ( id3tag.getMetaData(fn) ) {
+            filename.text = id3tag.filename;
+            title.text = 'title: ' + id3tag.title;
+            artist.text = 'artist: ' + id3tag.artist;
+            album.text = 'album: ' + id3tag.album;
+            img.source = "file://" + id3tag.coverpath;
+            img.width = 100;
+            img.height = 100;
+            return id3tag.coverpath;
+        }
+    }
+
     Rectangle {
-        id: area0
-        //anchors.fill: parent
-        x: 0; y: 0;
-        width: parent.width/2; height: parent.height;
-        Text {
-                id: timeLabel;
-                anchors.left: parent.left;
-                anchors.leftMargin: 4;
-                anchors.top: parent.top;
-                anchors.topMargin: 4;
-                font.pixelSize: 18;
-        }
-        ColorMaker {
-            id: colorMaker;
-            //color: Qt.green;
-        }
-        Rectangle {
-            id: colorRect
-            //anchors.centerIn: parent;
-            //anchors.horizontalCenter: parent;
-            x: 40; y: 40;
-            width: 40; height: 40;
-            color: "blue";
-        }
+        id: button_area
+        x: 0; y: 0
+        width: parent.width
+        height: 40
+
         Button {
             id: start;
-            text: "start";
+            text: "load and go";
             anchors.left: parent.left;
             anchors.leftMargin: 4;
             anchors.bottom: parent.bottom;
             anchors.bottomMargin: 4;
             onClicked: {
-                textarea1.append("Button start");
-                colorMaker.start();
+                var fn = "/Users/ericosur/Downloads/go/testmp3/03.mp3";
+                prev_img = "file://" + myloadmp3(fn, img0);
+                console.log(prev_img);
+                var fn = "/Users/ericosur/Downloads/go/testmp3/04.mp3";
+                next_img = "file://" + myloadmp3(fn, img1);
+
+                flipable.visible = true;
+                flipable.flipped = !flipable.flipped;
             }
         }
-        Button {
-            id: stop;
-            text: "stop";
-            anchors.left: start.right;
-            anchors.leftMargin: 4;
-            anchors.bottom: start.bottom;
-            signal mySignal;
-            onClicked: {
-                colorMaker.stop();
-            }
-        }
-        function changeAlgorithm(button, algorithm) {
-            switch(algorithm) {
-                case 0:
-                    button.text = "RandomRGB";
-                    break;
-                case 1:
-                    button.text = "RandomRed";
-                    break;
-                case 2:
-                    button.text = "RandomGreen";
-                    break;
-                case 3:
-                    button.text = "RandomBlue";
-                    break;
-                case 4:
-                    button.text = "LinearIncrease";
-                    break;
-             }
-        }
-        Button {
-            id: colorAlgorithm;
-            text: "RandomRGB";
-            anchors.left: stop.right;
-            anchors.leftMargin: 4;
-            anchors.bottom: start.bottom;
-            onClicked: {
-                var algorithm = (colorMaker.algorithm() + 1) % 5;
-                parent.changeAlgorithm(colorAlgorithm, algorithm);
-                colorMaker.setAlgorithm(algorithm);
-            }
-        }
+
         Button {
             id: quit;
             text: "Quit";
-            anchors.left: colorAlgorithm.right;
-            anchors.leftMargin: 4;
+            anchors.left: start.right
+            anchors.leftMargin: 20;
             anchors.bottom: start.bottom;
             onClicked: { Qt.quit(); }
         }
-        ID3TAG {
-            id: id3tag
-        }
-        Button {
-            id: load
-            text: "Load tag"
-            anchors.left: quit.right
+    }
+
+    Rectangle {
+        id: text_area
+        anchors.top: button_area.bottom
+        anchors.left: parent.left;
+        width: parent.width; height: 100;
+
+        Text {
+            id: filename;
+            anchors.left: parent.left;
             anchors.leftMargin: 4;
-            anchors.bottom: start.bottom;
-            onClicked: {
-                if ( id3tag.getMetaData("/Users/ericosur/Downloads/go/testmp3/01.mp3") ) {
-                    textarea1.append(id3tag.filename);
-                    textarea1.append(id3tag.title);
-                    textarea1.append(id3tag.artist);
-                    textarea1.append(id3tag.album);
-                    img.source = "file:///Users/ericosur/Downloads/tmp.jpg";
-                }
-            }
+            anchors.top: parent.top;
+            anchors.topMargin: 4;
+            font.pixelSize: 16;
         }
-
-        signal mySignal;
-        Component.onCompleted: {
-            colorMaker.color = Qt.rgba(255, 0, 0, 255);
-            colorMaker.setAlgorithm(colorMaker.LinearIncrease);
-            changeAlgorithm(colorAlgorithm, colorMaker.algorithm());
-            mySignal();
+        Text {
+            id: artist;
+            anchors.top: filename.bottom
+            anchors.leftMargin: 4;
+            font.pixelSize: 16;
         }
-        Connections {
-            target: colorMaker;
-            onCurrentTime: {
-                timeLabel.text = strTime;
-                timeLabel.color = colorMaker.timeColor;
-            }
+        Text {
+            id: album;
+            anchors.top: artist.bottom;
+            anchors.leftMargin: 4;
+            font.pixelSize: 16;
         }
-        Connections {
-            target: colorMaker;
-            onColorChanged: {
-                colorRect.color = color;
-            }
-        }
-
-        TextArea {
-            id: textarea1
-            anchors.top: colorRect.bottom
-            anchors.topMargin: 20
-            anchors.bottom: start.top
-            anchors.bottomMargin: 20
-            width: parent.width
+        Text {
+            id: title;
+            anchors.top: album.bottom;
+            anchors.leftMargin: 4;
+            font.pixelSize: 16;
         }
     }
 
     Rectangle {
         id: area1
-        anchors.left: area0.right
-        width: parent.width/2; height: parent.height;
+        anchors.top: text_area.bottom
+        width: parent.width; height: 120; //parent.height
+
         Image{
-            anchors.fill: parent
-            id: img
+            id: img0
         }
 
+        Image {
+            id: img1
+            anchors.left: img0.right
+        }
     }
+
+    Flipable {
+        id: flipable
+        x: 20; //y: 100
+        anchors.top: area1.bottom
+        width: 500; height: 500
+        visible: false;
+
+        property bool flipped: false
+
+        front: Image {
+            id: front_img
+            source: prev_img;
+            anchors.centerIn: parent;
+            width: 500; height: 500
+        }
+        back: Image {
+            id: back_img
+            source: next_img;
+            anchors.centerIn: parent;
+            width: 500; height: 500
+        }
+        transform: Rotation {
+            id: rotation
+            origin.x: flipable.width/2
+            origin.y: flipable.height/2
+            axis.x: 0; axis.y: 1; axis.z: 0     // set axis.y to 1 to rotate around y-axis
+            angle: 0    // the default angle
+        }
+        states: State {
+            name: "back"
+            PropertyChanges { target: rotation; angle: 180 }
+            when: flipable.flipped
+        }
+        transitions: Transition {
+            NumberAnimation { target: rotation; property: "angle"; duration: 3000 }
+        }
+        MouseArea {
+            anchors.fill: parent
+            onClicked: flipable.flipped = !flipable.flipped
+        }
+    }
+
 }
