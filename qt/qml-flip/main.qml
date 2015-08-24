@@ -22,9 +22,16 @@ ApplicationWindow
 
         property bool flipped: false
 
-        front: Image { source: "prev.jpg"; anchors.centerIn: parent }
-        back: Image { source: "next.jpg"; anchors.centerIn: parent }
-
+        front: Image {
+            source: "prev.jpg";
+            anchors.centerIn: parent;
+            width: 500; height: 500
+        }
+        back: Image {
+            source: "next.jpg";
+            anchors.centerIn: parent;
+            width: 500; height: 500
+        }
         transform: Rotation {
             id: rotation
             origin.x: flipable.width/2
