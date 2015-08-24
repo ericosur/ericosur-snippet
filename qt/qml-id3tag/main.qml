@@ -28,6 +28,8 @@ ApplicationWindow {
             img.width = 100;
             img.height = 100;
             return id3tag.coverpath;
+        } else {
+            console.log("getMetaData() failed")
         }
     }
 
@@ -48,7 +50,7 @@ ApplicationWindow {
                 var fn = "/Users/ericosur/Downloads/go/testmp3/03.mp3";
                 prev_img = "file://" + myloadmp3(fn, img0);
                 console.log(prev_img);
-                var fn = "/Users/ericosur/Downloads/go/testmp3/04.mp3";
+                var fn = "/Users/ericosur/Downloads/go/testmp3/11.m4a";
                 next_img = "file://" + myloadmp3(fn, img1);
 
                 flipable.visible = true;
@@ -57,9 +59,23 @@ ApplicationWindow {
         }
 
         Button {
+            id: second;
+            text: "m4a";
+            anchors.left: start.right;
+            anchors.leftMargin: 4;
+            anchors.bottom: parent.bottom;
+            anchors.bottomMargin: 4;
+            onClicked: {
+                var fn = "/Users/ericosur/Downloads/go/testmp3/11.m4a";
+                prev_img = "file://" + myloadmp3(fn, img0);
+                console.log(prev_img);
+            }
+        }
+
+        Button {
             id: quit;
             text: "Quit";
-            anchors.left: start.right
+            anchors.left: second.right
             anchors.leftMargin: 20;
             anchors.bottom: start.bottom;
             onClicked: { Qt.quit(); }

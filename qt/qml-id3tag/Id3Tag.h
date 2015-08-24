@@ -38,7 +38,8 @@ Q_SIGNALS:
     void newImage(const QImage& newImage);
 
 protected:
-    bool getFrame(TagLib::ID3v2::Tag*);
+    bool getMP3Frame(TagLib::ID3v2::Tag*);
+    QString getHashFilename(const QString& fn);
 
 private:
     QString m_filename;
