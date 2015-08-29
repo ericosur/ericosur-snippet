@@ -18,8 +18,6 @@ class ID3TAG : public QObject
     Q_PROPERTY(QString artist READ getArtist)
     Q_PROPERTY(QString album READ getAlbum)
     Q_PROPERTY(QImage cover READ getCover)
-    Q_PROPERTY(QString coverpath READ getCoverPath)
-    Q_PROPERTY(QString tmppath READ gettmppath WRITE settmppath)
 
 public:
     ID3TAG(QObject *parent = 0);
@@ -32,39 +30,19 @@ public:
     QString getAlbum() const;
     QImage getCover() const;
     QString getCoverPath() const;
-    QString gettmppath() const;
-    void settmppath(const QString& p);
 
+    // invoke this function to load/store id3 tags
     Q_INVOKABLE bool getMetaData(const QString& fn);
-
-    /*
-    static QImage& getCurrCover() {
-        return m_cover_curr;
-    }
-    static QImage& getPrevCover() {
-        return m_cover_prev;
-    }
-    */
-
-
-Q_SIGNALS:
-    void newImage(const QImage& newImage);
 
 protected:
     QString getHashFilename(const QString& fn);
     bool getdata(MyId3Data* id3);
-
-protected:
-    QImage getMp3Cover(const QString& fn);
-    QImage getM4ACover(const QString& fn);
 
 private:
     QString m_filename;
     QString m_title;
     QString m_artist;
     QString m_album;
-    QString m_coverpath;
-    QString m_tmppath;
     QImage  m_cover;
 };
 

@@ -35,6 +35,7 @@ void MyImageProvider::signalNewFrameReady(int frameNumber)
 QImage MyImageProvider::requestImage(const QString &id, QSize *size, const QSize &requestedSize)
 {
     qDebug() << "requestImage(): id: " << id;
+    (void)requestedSize;
     //qDebug() << "reequestedSize: " << requestedSize.width() << " " << requestedSize.height();
 
     //QImage res = QImage(QString("/home/ericosur/gcode/snippet/qt/qml-flip/prev.jpg"));

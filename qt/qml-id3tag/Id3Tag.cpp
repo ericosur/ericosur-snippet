@@ -4,7 +4,7 @@
 #include <QCryptographicHash>
 
 //#include <iostream>
-#include <stdio.h>
+//#include <stdio.h>
 
 // taglib headers {
 #include <taglib.h>
@@ -20,11 +20,13 @@
 #include <mp4coverart.h>
 // taglib headers }
 
+// undef this to disable cover extraction actions
 #define MY_GET_FRAME
 
-// TODO: mp4
+// how to extract cover from m4a
 // http://stackoverflow.com/questions/4752020/how-do-i-use-taglib-to-read-write-coverart-in-different-audio-formats
 
+// yeah it's global
 QCache<QString, MyId3Data> m_cache;
 
 ID3TAG::ID3TAG(QObject *parent)
@@ -33,8 +35,8 @@ ID3TAG::ID3TAG(QObject *parent)
     , m_title("")
     , m_artist("")
     , m_album("")
-    , m_tmppath("/tmp")		
 {
+    m_cover = QImage(NULL);
 }
 
 ID3TAG::~ID3TAG()
@@ -49,7 +51,6 @@ QString ID3TAG::getFilename() const
 void ID3TAG::setFilename(const QString &s)
 {
     m_filename = s;
-    //getMetaData(s);
 }
 
 QString ID3TAG::getTitle() const
@@ -67,21 +68,6 @@ QString ID3TAG::getAlbum() const
     return m_album;
 }
 
-QString ID3TAG::getCoverPath() const
-{
-    return m_coverpath;
-}
-
-QString ID3TAG::gettmppath() const
-{
-    return m_tmppath;
-}
-
-void ID3TAG::settmppath(const QString& p)
-{
-    m_tmppath = p;
-}
-
 QImage ID3TAG::getCover() const
 {
     return m_cover;
@@ -93,73 +79,6 @@ QString ID3TAG::getHashFilename(const QString& fn)
     hash.addData(fn.toStdString().c_str(), fn.length());
     QString str_hash = hash.result().toHex().data();
     return str_hash;
-}
-
-QImage ID3TAG::getMp3Cover(const QString &fn)
-{
-    return QImage(NULL);
-/*
-    qDebug("getMp3Cover:" );
-    qDebug(fn.toStdString().c_str());
-    TagLib::MPEG::File file(fn.toStdString().c_str());
-    if (!file.isValid()) {
-        qDebug("getMp3Cover: file is invalid");
-        return QImage(NULL);
-    }
-    TagLib::ID3v2::Tag *tag = file.ID3v2Tag(true);
-    if (tag == NULL) {
-        qDebug("getMp3Cover: null tag");
-        return QImage(NULL);
-    }
-    // frames
-    TagLib::ID3v2::FrameList frames;
-    //look for picture frames
-    frames = tag->frameListMap()["APIC"];
-    if (frames.isEmpty()) {
-        qDebug() << "getMp3Cover: frame is empty";
-        return QImage(NULL);
-    } else {
-        TagLib::ID3v2::FrameList::ConstIterator it = frames.begin();
-        //for(; it != frames.end() ; it++)  // only take one frame
-        {
-            //cast Frame * to AttachedPictureFrame*
-            TagLib::ID3v2::AttachedPictureFrame *pictureFrame =
-                static_cast<TagLib::ID3v2::AttachedPictureFrame *> (*it);
-
-            if (!m_cover_curr.isNull())
-                m_cover_prev = m_cover_curr;
-            //http://stackoverflow.com/questions/20691414/qt-qml-send-qimage-from-c-to-qml-and-display-the-qimage-on-gui
-            //Warning. format of picture assumed to be jpg. This may be false, for example it may be png.
-            m_cover_curr.loadFromData((const uchar *) pictureFrame->picture().data(), pictureFrame->picture().size());
-        }
-    }
-    return m_cover_curr;
-*/
-}
-
-QImage ID3TAG::getM4ACover(const QString &fn)
-{
-    return QImage(NULL);
-/*
-    // refer to: http://stackoverflow.com/questions/6542465/c-taglib-cover-art-from-mpeg-4-files
-    TagLib::MP4::File file(fn.toStdString().c_str());
-    TagLib::MP4::Tag *tag = file.tag();
-    if (tag == NULL) {
-        qDebug("getM4ACover: tag is null");
-        return QImage(NULL);
-    }
-    // get cover from m4a
-    TagLib::MP4::ItemListMap itemsListMap = tag->itemListMap();
-    TagLib::MP4::Item coverItem = itemsListMap["covr"];
-    TagLib::MP4::CoverArtList coverArtList = coverItem.toCoverArtList();
-    TagLib::MP4::CoverArt coverArt = coverArtList.front();
-
-    if (!m_cover_curr.isNull()) {
-        m_cover_prev = m_cover_curr;
-    }
-    m_cover_curr.loadFromData((const uchar *)coverArt.data().data(), coverArt.data().size());
-    return m_cover_curr;
-*/
 }
 
 bool ID3TAG::getdata(MyId3Data* id3)
@@ -195,7 +114,6 @@ bool ID3TAG::getdata(MyId3Data* id3)
         frames = tag->frameListMap()["APIC"];
         if (frames.isEmpty()) {
             qDebug() << "getMP3Frame: frame is empty";
-            m_coverpath = "";
             id3->set_img(QImage(NULL));
         } else {
             TagLib::ID3v2::FrameList::ConstIterator it = frames.begin();
@@ -222,7 +140,7 @@ bool ID3TAG::getdata(MyId3Data* id3)
         id3->set_album(m_album);
         id3->set_title(m_title);
 #ifdef MY_GET_FRAME
-        qDebug("try to load cover...");
+        qDebug("try to load m4a cover...");
         // get cover from m4a
         TagLib::MP4::ItemListMap itemsListMap = tag->itemListMap();
         TagLib::MP4::Item coverItem = itemsListMap["covr"];
@@ -232,7 +150,7 @@ bool ID3TAG::getdata(MyId3Data* id3)
         QImage _img;
         _img.loadFromData((const uchar *)coverArt.data().data(), coverArt.data().size());
         id3->set_img(_img);
-        qDebug() << _img;
+        //qDebug() << _img;
 #endif
         return true;
     }
@@ -249,8 +167,6 @@ bool ID3TAG::getMetaData(const QString& fn)
 
     QString str_hash = getHashFilename(fn);
     //qDebug() << "hash: " << str_hash;
-    m_coverpath = m_tmppath + '/' + str_hash;
-    //qDebug() << "m_coverpath: " << m_coverpath;
 
     MyId3Data *id3 = NULL;
     if ( m_cache.contains(fn) ) {
@@ -284,7 +200,5 @@ bool ID3TAG::getMetaData(const QString& fn)
             return false;
         }
     }
-
-    //if (id3)
-    //    delete id3;
+    // no need to delete *id3, let QCache handle it
 }
