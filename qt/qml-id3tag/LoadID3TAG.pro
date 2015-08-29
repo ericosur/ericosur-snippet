@@ -3,7 +3,9 @@ TEMPLATE = app
 QT += qml quick
 
 SOURCES += main.cpp \
-    Id3Tag.cpp
+    Id3Tag.cpp \
+    myimageprovider.cpp \
+    myid3data.cpp
 
 RESOURCES += qml.qrc
 
@@ -14,10 +16,12 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    Id3Tag.h
+    Id3Tag.h \
+    myimageprovider.h \
+    myid3data.h
 
 # taglib
-CONFIG += localtaglib
+#CONFIG += localtaglib
 CONFIG(localtaglib) {
     macx {
         INCLUDEPATH += /Users/ericosur/taglib/include/taglib
