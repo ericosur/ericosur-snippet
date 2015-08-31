@@ -15,6 +15,10 @@ ApplicationWindow {
     property string next_img;
     property var fn_num: 0;
 
+    // remember appending trailing slash '/' at the end of media_path
+    //property var media_path: "/home/ericosur/Music/yoseui/";          // for ubuntu
+    property var media_path: "/Users/ericosur/Downloads/go/testmp3/";   // for mac
+
     function myloadmp3(fn, img) {
         var res = id3tag.getMetaData(fn);
 
@@ -33,6 +37,7 @@ ApplicationWindow {
         }
     }
 
+    // return a number between 0 to 6
     function get_next_num() {
         if (fn_num >= 6) {
             fn_num = 0;
@@ -42,7 +47,7 @@ ApplicationWindow {
         return fn_num;
     }
 
-        // C++ class id3tag
+    // C++ class id3tag
     ID3TAG {
         id: id3tag
     }
@@ -61,15 +66,16 @@ ApplicationWindow {
             anchors.bottom: parent.bottom;
             anchors.bottomMargin: 4;
             onClicked: {
-                var path = "/home/ericosur/Music/yoseui/";
-                var fn = path + "03.mp3";
+                var fn = media_path + "02.mp3";
                 myloadmp3(fn, front_img);
                 //front_img.source = "image://myprovider/" + fn;
                 //console.log(prev_img);
-                fn = path + "11.m4a";
+
+                fn = media_path + "05.mp3";
                 myloadmp3(fn, back_img);
                 //back_img.source = "image://myprovider/" + fn;
                 //console.log(next_img);
+
                 flipable.visible = true;
                 flipable.flipped = !flipable.flipped;
             }
@@ -83,15 +89,14 @@ ApplicationWindow {
             anchors.bottom: parent.bottom;
             anchors.bottomMargin: 4;
             onClicked: {
-                //var fn = "/Users/ericosur/Downloads/go/testmp3/11.m4a";
-                var path = "/home/ericosur/Music/yoseui/";
+                // try to load 0[1-6].mp3, NOTE: some file is not existed
                 var new_num = get_next_num();
-                var fn = path + '0' + new_num + '.mp3';
+                var fn = media_path + '0' + new_num + '.mp3';
                 //console.log('button: fn: ' + fn);
                 if (new_num % 2 == 0) {
-                    myloadmp3(fn, img0);
-                } else {
                     myloadmp3(fn, img1);
+                } else {
+                    myloadmp3(fn, img0);
                 }
             }
         }
