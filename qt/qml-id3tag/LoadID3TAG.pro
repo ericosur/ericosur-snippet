@@ -21,7 +21,7 @@ HEADERS += \
     myid3data.h
 
 # taglib
-#CONFIG += localtaglib
+CONFIG += localtaglib
 CONFIG(localtaglib) {
     macx {
         INCLUDEPATH += /Users/ericosur/taglib/include/taglib
