@@ -1,8 +1,12 @@
 #ifndef MYID3DATA_H
 #define MYID3DATA_H
 
+#include <QObject>
+
+QT_BEGIN_NAMESPACE
 #include <QString>
 #include <QImage>
+QT_END_NAMESPACE
 
 class MyId3Data
 {

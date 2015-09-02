@@ -2,10 +2,11 @@
 #define __ID3TAG_H__
 
 #include <QObject>
-#include <QDebug>
-#include <QImage>
 
+QT_BEGIN_NAMESPACE
+#include <QImage>
 #include <QCache>
+QT_END_NAMESPACE
 
 #include "myid3data.h"
 

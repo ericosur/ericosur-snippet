@@ -1,5 +1,7 @@
 #include "myimageprovider.h"
 
+#include <QDebug>
+
 #include "Id3Tag.h"
 #include "myid3data.h"
 
