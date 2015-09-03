@@ -22,7 +22,6 @@ private:
 
 signals:
     void finished();
-    void workError(const QString&);
     //void workProgress(int);
 
 private slots:
@@ -38,7 +37,7 @@ class MyController : public QObject
     Q_PROPERTY(QString result READ getResult WRITE setResult NOTIFY resultChanged)
 
 public:
-    MyController(QObject *parent = 0);
+    MyController();
     ~MyController();
 
     QString getInput() const;
@@ -47,26 +46,27 @@ public:
     void setResult(const QString& s);
 
     Q_INVOKABLE bool invokeWork();
+    Q_INVOKABLE void finish();
 
 protected:
     //void doHardWork();
 
 signals:
+    void startWork();
     void resultChanged();
+    void issueCleanup();
 
 public slots:
+    void onFinishWork();
+    void onNotified(QObject* obj=0);
     void onFinished();
-    //void onProgress(int);
-    void errString(const QString&);
 
 private:
     QString m_input;
     QString m_result;
-    QString m_error;
 
     QThread *m_thread;
     Worker *m_worker;
-    QTimer *m_timer;
 };
 
 #endif // MYCONTROLLER_H

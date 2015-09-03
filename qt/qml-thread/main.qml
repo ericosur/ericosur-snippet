@@ -8,7 +8,7 @@ import com.pega.rasmus.MyController 1.0
 ApplicationWindow {
     title: qsTr("move to thread test")
     width: 640
-    height: 480
+    height: 400
     visible: true
 
     Rectangle {
@@ -22,6 +22,7 @@ ApplicationWindow {
             onResultChanged: {
                 console.log("onResultChanged...")
                 txtResult.text = worker.result
+                area0.append(worker.result)
             }
         }
         Button {
@@ -29,7 +30,11 @@ ApplicationWindow {
             anchors.left: parent.left
             anchors.top: parent.top
             text: "quit"
-            onClicked: Qt.quit()
+            onClicked:
+            {
+                //Qt.quit();
+                worker.finish();
+            }
         }
         Button {
             id: btn1
@@ -50,10 +55,18 @@ ApplicationWindow {
         anchors.leftMargin: 10
         //anchors.fill: parent
         width: parent.width
-        height: 200
+        height: parent.height - rect0.height
         Text {
             id: txtResult
             text: "null"
+        }
+        TextArea {
+            id: area0
+            width: parent.width
+            height: parent.height - txtResult.height
+            anchors.left: parent.left
+            anchors.top: txtResult.bottom
+            anchors.topMargin: 15
         }
     }
 
