@@ -4,7 +4,8 @@ QT += qml quick widgets
 
 SOURCES += main.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += qml.qrc \
+    yaqml.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator code model
 QML_IMPORT_PATH =
@@ -20,7 +21,7 @@ lupdate_only {
 }
 
 TRANSLATIONS = \
-	lang_zh_TW.ts \
+    lang_zh_TW.ts \
     lang_en_US.ts \
     lang_fr_FR.ts \
     lang_ar_AR.ts

@@ -30,9 +30,26 @@ ApplicationWindow {
         return x+y;
     }
 
-    MainForm {
+    Image {
+        id: bgm
         anchors.fill: parent
+        source: "/image/1.png"
+        z: 10
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                console.log("clicked");
+                main_form.visible = true;
+                bgm.visible = false;
+            }
+        }
+    }
 
+    MainForm {
+        id: main_form
+        anchors.fill: parent
+        visible: false
+        z: 1
         function myInit() {
             textInput1.text = getRandomCeil(1, 9999);
             textInput2.text = getRandomCeil(1, 9999);
