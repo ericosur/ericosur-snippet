@@ -2,7 +2,8 @@ TEMPLATE = app
 
 QT += qml quick widgets
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    filereader.cpp
 
 RESOURCES += qml.qrc \
     yaqml.qrc
@@ -14,7 +15,8 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    mytranslation.hpp
+    mytranslation.hpp \
+    filereader.h
 
 lupdate_only {
     SOURCES += main.qml MainForm.ui.qml

@@ -118,6 +118,10 @@ ApplicationWindow {
             mainwindow.visibility = Window.Windowed
         }
 
+        editTest.onTextChanged: {
+            labelTest.text = editTest.text
+        }
+
     }
 
     MessageDialog {
