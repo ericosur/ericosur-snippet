@@ -20,6 +20,9 @@ Item {
     property alias btnNormal: btnNormal
     property alias btnFullscreen: btnFullScreen
 
+    property alias editTest: editTest
+    property alias labelTest: labelTest
+
     TextInput {
         id: textInput1
         x: 174
@@ -46,13 +49,13 @@ Item {
     TextArea {
         id: textArea1
         anchors.right: parent.right
-        anchors.rightMargin: 20
+        anchors.rightMargin: 0
         anchors.left: parent.left
-        anchors.leftMargin: 20
+        anchors.leftMargin: 0
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 20
+        anchors.bottomMargin: 0
         anchors.top: parent.top
-        anchors.topMargin: 132
+        anchors.topMargin: 158
         font.family: "Tahoma"
         font.pointSize: 14
         readOnly: false
@@ -74,7 +77,7 @@ Item {
 
     Button {
         id: button4
-        x: 251
+        x: 397
         y: 84
         text: qsTr("Random1") + trs.empty
     }
@@ -104,14 +107,14 @@ Item {
 
     Button {
         id: btnNormal
-        x: 40
+        x: 8
         y: 84
         text: qsTr("origin") + trs.empty
     }
 
     Button {
         id: btnFullScreen
-        x: 146
+        x: 202
         y: 84
         text: qsTr("fullscreen") + trs.empty
     }
@@ -138,5 +141,24 @@ Item {
             ListElement { text: qsTr("cos()") }
             ListElement { text: qsTr("clear") }
         }
+    }
+
+    TextEdit {
+        id: editTest
+        x: 40
+        y: 127
+        width: 258
+        height: 20
+        text: qsTr("09")
+        font.pixelSize: 14
+    }
+
+    Label {
+        id: labelTest
+        x: 326
+        y: 130
+        width: 246
+        height: 17
+        text: qsTr("Label")
     }
 }

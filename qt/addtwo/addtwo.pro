@@ -2,9 +2,11 @@ TEMPLATE = app
 
 QT += qml quick widgets
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    filereader.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += qml.qrc \
+    yaqml.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator code model
 QML_IMPORT_PATH =
@@ -13,14 +15,15 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    mytranslation.hpp
+    mytranslation.hpp \
+    filereader.h
 
 lupdate_only {
     SOURCES += main.qml MainForm.ui.qml
 }
 
 TRANSLATIONS = \
-	lang_zh_TW.ts \
+    lang_zh_TW.ts \
     lang_en_US.ts \
     lang_fr_FR.ts \
     lang_ar_AR.ts
