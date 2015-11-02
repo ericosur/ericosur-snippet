@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Test Tool</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QWidget" name="gridLayoutWidget">
@@ -246,24 +246,29 @@
        <property name="title">
         <string>Terminal Output</string>
        </property>
-       <widget class="QTextBrowser" name="textBrowser">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>50</y>
-          <width>651</width>
-          <height>411</height>
-         </rect>
-        </property>
-       </widget>
        <widget class="QLineEdit" name="lineEdit">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>20</y>
-          <width>651</width>
+          <width>641</width>
           <height>27</height>
          </rect>
+        </property>
+       </widget>
+       <widget class="QTextEdit" name="textEdit">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>50</y>
+          <width>641</width>
+          <height>421</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Ubuntu Mono</family>
+         </font>
         </property>
        </widget>
       </widget>
@@ -284,6 +289,7 @@
     <property name="title">
      <string>Menu</string>
     </property>
+    <addaction name="actionClear"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -301,6 +307,11 @@
   <action name="actionQuit">
    <property name="text">
     <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionClear">
+   <property name="text">
+    <string>Clear TextArea</string>
    </property>
   </action>
  </widget>

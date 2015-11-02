@@ -24,6 +24,7 @@ public:
 private slots:
     void categoryClicked(int i);
     void functionClicked(int i);
+    void clearTextArea();
 
 private:
     void initButtonGroups();
@@ -31,7 +32,8 @@ private:
     QString composeString(const QString s, int i);
     void test();
     void initCategory();
-    void initFunctionButton();
+    void runCommand(const QString& s);
+    void addline(const QString& s);
 
 private:
     Ui::MainWindow *ui;

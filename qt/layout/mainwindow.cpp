@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QProcess>
 #include <QDebug>
 #include <QTextCodec>
 
@@ -22,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_conf->setIniCodec(codec);
 
     initCategory();
+    ui->textEdit->setReadOnly(true);
 }
 
 MainWindow::~MainWindow()
@@ -81,6 +83,7 @@ void MainWindow::initActionsConnections()
     }
     connect(signalMapperFunction, SIGNAL(mapped(int)), this, SLOT(functionClicked(int)));
 
+    connect(ui->actionClear, SIGNAL(triggered()), this, SLOT(clearTextArea()));
     connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(close()));
 }
 
@@ -88,11 +91,11 @@ void MainWindow::initActionsConnections()
 void MainWindow::categoryClicked(int i)
 {
     m_category = i;
-    qDebug() << "execCategory() " << m_category;
+    //qDebug() << "execCategory() " << m_category;
     QString cat_name = m_conf->value(QString::number(i)).toString();
     m_conf->beginGroup(cat_name);
     int t = m_conf->value("total", 0).toInt();
-    qDebug() << "t: " << t;
+    //qDebug() << "t: " << t;
     for (int i=0; i<MAX_FUNCTION; i++) {
         if (i<t) {
             QString but_name = QString("button") + QString::number(i);
@@ -116,18 +119,25 @@ void MainWindow::categoryClicked(int i)
 void MainWindow::functionClicked(int i)
 {
     m_function = i;
-    qDebug() << "execFunction() " << m_function << " of category " << m_category;
+    //qDebug() << "execFunction() " << m_function << " of category " << m_category;
     QString cat_name = m_conf->value(QString::number(m_category),"").toString();
     if (cat_name == "") {
         qDebug() << "cat_name is empty, exit...";
         return;
     }
-    qDebug() << "cat_name: " << cat_name;
+    //qDebug() << "cat_name: " << cat_name;
     m_conf->beginGroup(cat_name);
     QString act_name = "action" + QString::number(m_function);
-    QString cmd = m_conf->value(act_name, "").toString();
-    qDebug() << "action: " << act_name << " cmd: " << cmd;
+    QString act_value = m_conf->value(act_name, "").toString();
+    QString res, cmd;
+    res = "cat_name: " + cat_name + " action: " + act_name + " act_value: " + act_value;
+    cmd = act_value;
+    addline(cmd);
     m_conf->endGroup();
+
+    if (cmd != "") {
+        runCommand(cmd);
+    }
 }
 
 QString MainWindow::composeString(const QString s, int i)
@@ -146,7 +156,7 @@ void MainWindow::initCategory()
 {
     QString s;
     int total = m_conf->value("total", MAX_CATEGORY).toInt();
-    qDebug() << "total: " << total;
+    //qDebug() << "total: " << total;
     for (int i=0; i<total; i++) {
         s = m_conf->value(s.number(i)).toString();
         //qDebug() << "s: " << s;
@@ -161,8 +171,32 @@ void MainWindow::initCategory()
     }
 }
 
-void MainWindow::initFunctionButton()
+void MainWindow::runCommand(const QString& cmd)
 {
-    //QString s;
+    QProcess process;
+    process.start(cmd);
+    process.waitForFinished(-1); // will wait forever until finished
 
+    QString stdout = process.readAllStandardOutput();
+    QString stderr = process.readAllStandardError();
+
+    //qDebug() << "stdout: " << stdout;
+    //qDebug() << "stderr: " << stderr;
+
+    addline("========== stdout ==========");
+    addline(stdout);
+    if (stderr != "") {
+        addline("========== stderr ==========");
+        addline(stderr);
+    }
+}
+
+void MainWindow::addline(const QString &s)
+{
+    ui->textEdit->append(s);
+}
+
+void MainWindow::clearTextArea()
+{
+    ui->textEdit->clear();
 }
