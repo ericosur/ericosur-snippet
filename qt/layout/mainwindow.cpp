@@ -85,6 +85,7 @@ void MainWindow::initActionsConnections()
 
     connect(ui->actionClear, SIGNAL(triggered()), this, SLOT(clearTextArea()));
     connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(close()));
+    connect(ui->lineEdit, SIGNAL(editingFinished()), this, SLOT(runLineCommand()));
 }
 
 // this SLOT will know which btnCategory## is clicked
@@ -199,4 +200,13 @@ void MainWindow::addline(const QString &s)
 void MainWindow::clearTextArea()
 {
     ui->textEdit->clear();
+}
+
+void MainWindow::runLineCommand()
+{
+    QString cmd = ui->lineEdit->text();
+    if (cmd != "") {
+        addline(cmd);
+        runCommand(cmd);
+    }
 }

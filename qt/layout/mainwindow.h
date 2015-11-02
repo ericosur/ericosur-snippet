@@ -25,6 +25,7 @@ private slots:
     void categoryClicked(int i);
     void functionClicked(int i);
     void clearTextArea();
+    void runLineCommand();
 
 private:
     void initButtonGroups();
