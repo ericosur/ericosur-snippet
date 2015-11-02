@@ -85,7 +85,7 @@ void MainWindow::initActionsConnections()
 
     connect(ui->actionClear, SIGNAL(triggered()), this, SLOT(clearTextArea()));
     connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(close()));
-    connect(ui->lineEdit, SIGNAL(editingFinished()), this, SLOT(runLineCommand()));
+    connect(ui->lineEdit, SIGNAL(returnPressed()), this, SLOT(runLineCommand()));
 }
 
 // this SLOT will know which btnCategory## is clicked
