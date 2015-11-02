@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QSignalMapper>
 #include <QPushButton>
+#include <QSettings>
 
 namespace Ui {
 class MainWindow;
@@ -28,6 +29,9 @@ private:
     void initButtonGroups();
     void initActionsConnections();
     QString composeString(const QString s, int i);
+    void test();
+    void initCategory();
+    void initFunctionButton();
 
 private:
     Ui::MainWindow *ui;
@@ -38,6 +42,7 @@ private:
     QSignalMapper *signalMapperFunction;
     QPushButton *btnFunctionGroup[MAX_FUNCTION];
     int m_function;
+    QSettings *m_conf;
 };
 
 #endif // MAINWINDOW_H
