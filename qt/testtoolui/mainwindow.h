@@ -26,10 +26,12 @@ private slots:
     void functionClicked(int i);
     void clearTextArea();
     void runLineCommand();
+    void selectIniFile();
 
 private:
     void initButtonGroups();
     void initActionsConnections();
+    void loadConfig(const QString& conf_path);
     QString composeString(const QString s, int i);
     void test();
     void initCategory();
@@ -38,14 +40,16 @@ private:
 
 private:
     Ui::MainWindow *ui;
+    // ini config object
+    QSettings *m_conf;
+    // category buttons
     QSignalMapper *signalMapperCategory;
     QPushButton *btnCategoryGroup[MAX_CATEGORY];
     int m_category;
-
+    // function buttons
     QSignalMapper *signalMapperFunction;
     QPushButton *btnFunctionGroup[MAX_FUNCTION];
     int m_function;
-    QSettings *m_conf;
 };
 
 #endif // MAINWINDOW_H

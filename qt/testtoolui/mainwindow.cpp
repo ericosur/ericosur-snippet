@@ -4,6 +4,10 @@
 #include <QProcess>
 #include <QDebug>
 #include <QTextCodec>
+#include <QFileInfo>
+#include <QFileDialog>
+
+#define DEFAULT_CONFIG_PATH "./test-tool.conf"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -15,20 +19,31 @@ MainWindow::MainWindow(QWidget *parent) :
     signalMapperCategory = new QSignalMapper(this);
     signalMapperFunction = new QSignalMapper(this);
     initActionsConnections();
+
     m_category = 0;
     m_function = 0;
-
-    QTextCodec *codec = QTextCodec::codecForName("UTF-8");
-    m_conf = new QSettings("/home/rasmus/test-tool.conf", QSettings::IniFormat);
-    m_conf->setIniCodec(codec);
-
-    initCategory();
-    ui->textEdit->setReadOnly(true);
+    m_conf = NULL;
+    loadConfig(DEFAULT_CONFIG_PATH);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::loadConfig(const QString& conf_path)
+{
+    if ( QFileInfo::exists(conf_path) ) {
+        QTextCodec *codec = QTextCodec::codecForName("UTF-8");
+        m_conf = new QSettings(conf_path, QSettings::IniFormat);
+        m_conf->setIniCodec(codec);
+        addline("config loaded from: " + conf_path);
+
+        initCategory();
+        ui->textEdit->setReadOnly(true);
+    } else {
+        addline("config not exists at: " + conf_path);
+    }
 }
 
 void MainWindow::initButtonGroups()
@@ -83,8 +98,10 @@ void MainWindow::initActionsConnections()
     }
     connect(signalMapperFunction, SIGNAL(mapped(int)), this, SLOT(functionClicked(int)));
 
+    // other actions
     connect(ui->actionClear, SIGNAL(triggered()), this, SLOT(clearTextArea()));
     connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(close()));
+    connect(ui->actionLoadConfig, SIGNAL(triggered()), this, SLOT(selectIniFile()));
     connect(ui->lineEdit, SIGNAL(returnPressed()), this, SLOT(runLineCommand()));
 }
 
@@ -209,4 +226,13 @@ void MainWindow::runLineCommand()
         addline(cmd);
         runCommand(cmd);
     }
+}
+
+void MainWindow::selectIniFile()
+{
+    qDebug() << "selectIniFile()";
+    QString fileName = QFileDialog::getOpenFileName(this,
+        tr("Select Config File"), "./", tr("Config Files (*.ini *.conf)"));
+    //addline("select file: " + fileName);
+    loadConfig(fileName);
 }

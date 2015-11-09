@@ -66,7 +66,11 @@
       </widget>
      </item>
      <item row="0" column="5">
-      <widget class="QComboBox" name="cbxCategory"/>
+      <widget class="QComboBox" name="cbxCategory">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -289,6 +293,7 @@
     <property name="title">
      <string>Menu</string>
     </property>
+    <addaction name="actionLoadConfig"/>
     <addaction name="actionClear"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
@@ -312,6 +317,11 @@
   <action name="actionClear">
    <property name="text">
     <string>Clear TextArea</string>
+   </property>
+  </action>
+  <action name="actionLoadConfig">
+   <property name="text">
+    <string>Load ini config...</string>
    </property>
   </action>
  </widget>
