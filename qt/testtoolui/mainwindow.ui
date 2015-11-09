@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>600</height>
+    <height>580</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -80,7 +80,7 @@
       <x>0</x>
       <y>60</y>
       <width>791</width>
-      <height>471</height>
+      <height>461</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_2">
@@ -266,13 +266,19 @@
           <x>0</x>
           <y>50</y>
           <width>641</width>
-          <height>421</height>
+          <height>401</height>
          </rect>
         </property>
         <property name="font">
          <font>
           <family>Ubuntu Mono</family>
          </font>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOn</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOn</enum>
         </property>
        </widget>
       </widget>
