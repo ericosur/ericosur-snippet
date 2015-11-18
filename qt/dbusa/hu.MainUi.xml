@@ -1,0 +1,18 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="local.interfacedescription">
+    <signal name="somethingHappened">
+      <arg name="signalMessage" type="s" direction="out"/>
+    </signal>
+    <method name="read">
+      <arg type="s" direction="out"/>
+    </method>
+    <method name="write">
+      <arg type="s" direction="out"/>
+    </method>
+    <method name="SendMessage">
+      <arg type="s" direction="out"/>
+      <arg name="cmd" type="s" direction="in"/>
+    </method>
+  </interface>
+</node>
