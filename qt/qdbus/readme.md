@@ -2,7 +2,7 @@ $ qdbuscpp2xml -M radiocontrol.h -o radioctrl.xml
 
 # edit radioctrl.xml
 
-$ qdbusxml2cpp radioctrl.xml -i radiocontrol.h -a radioAdapter
+$ qdbusxml2cpp radioctrl.xml -i radiocontrol.h -a radioadapter
 
 # test:
 

@@ -35,6 +35,7 @@ class RadioControlAdaptor: public QDBusAbstractAdaptor
 "  <interface name=\"local.RadioControl\">\n"
 "    <method name=\"onFinishWork\"/>\n"
 "    <method name=\"onFinished\"/>\n"
+"    <method name=\"getStarted\"/>\n"
 "    <method name=\"enableRadio\">\n"
 "      <arg direction=\"in\" type=\"b\" name=\"onOff\"/>\n"
 "    </method>\n"
@@ -59,6 +60,7 @@ class RadioControlAdaptor: public QDBusAbstractAdaptor
 "    <method name=\"setRadioVol\">\n"
 "      <arg direction=\"in\" type=\"q\" name=\"vol\"/>\n"
 "    </method>\n"
+"    <signal name=\"started\"/>\n"
 "  </interface>\n"
         "")
 public:
@@ -73,6 +75,7 @@ public Q_SLOTS: // METHODS
     void enableRadio(bool onOff);
     void finish();
     QString fm_val2str(uint in0);
+    void getStarted();
     void onFinishWork();
     void onFinished();
     void readRadioInfo();
@@ -81,6 +84,7 @@ public Q_SLOTS: // METHODS
     void setFreqval(uint in0, bool in1);
     void setRadioVol(ushort vol);
 Q_SIGNALS: // SIGNALS
+    void started();
 };
 
 #endif

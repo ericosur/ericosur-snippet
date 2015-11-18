@@ -11,11 +11,10 @@ int main(int argc, char *argv[])
     RadioControlAdaptor myRadioAdaptor(&myRadio);
 
     if (!bus.registerService("local.radiocontrol")) {
-            qDebug() << bus.lastError().message();
-            exit(1);
+        qDebug() << bus.lastError().message();
+        exit(1);
     }
     bus.registerObject("/", &myRadio);
-
 
     return a.exec();
 }

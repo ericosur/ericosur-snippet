@@ -73,6 +73,12 @@ QString RadioControlAdaptor::fm_val2str(uint in0)
     return out0;
 }
 
+void RadioControlAdaptor::getStarted()
+{
+    // handle method call local.RadioControl.getStarted
+    QMetaObject::invokeMethod(parent(), "getStarted");
+}
+
 void RadioControlAdaptor::onFinishWork()
 {
     // handle method call local.RadioControl.onFinishWork

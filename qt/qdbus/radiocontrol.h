@@ -112,9 +112,13 @@ signals:
     void minFreqChanged();
     void maxFreqChanged();
 
+    void started();
+
 public slots:
     void onFinishWork();
     void onFinished();
+
+    void getStarted();
 
 private:
     Radio_InfoDef *m_info;

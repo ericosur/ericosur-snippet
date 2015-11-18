@@ -5,6 +5,8 @@
     </method>
     <method name="onFinished">
     </method>
+    <method name="getStarted">
+    </method>
     <method name="enableRadio">
       <arg name="onOff" type="b" direction="in"/>
     </method>
@@ -35,5 +37,6 @@
     <method name="setRadioVol">
       <arg name="vol" type="q" direction="in"/>
     </method>
+    <signal name="started"/>
   </interface>
 </node>

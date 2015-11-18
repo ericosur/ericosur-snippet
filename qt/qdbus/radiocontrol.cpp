@@ -5,6 +5,7 @@
 #include <QCryptographicHash>
 
 #include "tef6638_radio.h"
+#include <QDBusConnection>
 
 RadioControl::RadioControl() :
     m_enabled(false)
@@ -29,6 +30,13 @@ RadioControl::RadioControl() :
     connect( this, SIGNAL(setFreq(quint16)), m_worker, SLOT(_setFrequency(quint16)) );
 
     m_thread->start();
+
+    connect(this, SIGNAL(started()), this, SLOT(getStarted()));
+//    QDBusConnection::sessionBus().connect("local.radiocontrol", "/", "local.RadioControl",
+//                                          "started", this, SLOT(getStarted()));
+    QDBusConnection::sessionBus().connect(QString(), "/", "local.RadioControl",
+                                          "started", this, SLOT(getStarted()));
+
 }
 
 RadioControl::~RadioControl()
@@ -176,7 +184,7 @@ void RadioControl::onFinishWork()
 
 void RadioControl::onFinished()
 {
-    //qDebug() << "Get signal 'Finished'.";
+    qDebug() << "Get signal 'Finished'.";
     exit(0);
 }
 
@@ -206,6 +214,12 @@ void RadioControl::setRadioVol(quint16 vol)
     (void)vol;
 #endif
 }
+
+void RadioControl::getStarted()
+{
+    qDebug() << "getStarted()...";
+}
+
 //////////////////////////////////////////////////////////////////////////////
 
 
