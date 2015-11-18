@@ -9,6 +9,8 @@
 
 #define DEFAULT_CONFIG_PATH "./test-tool.conf"
 
+#define DEFAULT_BUFFER_SIZE 1024
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -191,22 +193,43 @@ void MainWindow::initCategory()
 
 void MainWindow::runCommand(const QString& cmd)
 {
-    QProcess process;
-    process.start(cmd);
-    process.waitForFinished(-1); // will wait forever until finished
+    connect(&m_process, SIGNAL(finished(int)), this, SLOT(slotFinished(int)));
+    connect(&m_process, SIGNAL(readyReadStandardOutput()), this, SLOT(slotReadStdout()));
 
-    QString stdout = process.readAllStandardOutput();
-    QString stderr = process.readAllStandardError();
+    m_process.start(cmd);
+    m_process.waitForFinished(-1); // will wait forever until finished
+}
 
-    //qDebug() << "stdout: " << stdout;
-    //qDebug() << "stderr: " << stderr;
+void MainWindow::slotFinished(int i)
+{
+    qDebug() << "slotFinished(): " << i;
+    disconnect(&m_process, SIGNAL(finished(int)), 0, 0);
+    disconnect(&m_process, SIGNAL(readyReadStandardOutput()), 0, 0);
+    disconnect(&m_process, SIGNAL(readyReadStandardError()), 0, 0);
+}
 
-    addline("========== stdout ==========");
-    addline(stdout);
-    if (stderr != "") {
-        addline("========== stderr ==========");
-        addline(stderr);
-    }
+void MainWindow::slotReadStdout()
+{
+    qDebug() << "slotReadStdout";
+//    char stdbuf[DEFAULT_BUFFER_SIZE];
+//    qint64 len = m_process.readLine(stdbuf, DEFAULT_BUFFER_SIZE);
+//    if (len != -1) {
+//        // the line is available in buf
+//        addline(QString::fromUtf8(stdbuf));
+//    }
+
+    QByteArray arr = m_process.read(DEFAULT_BUFFER_SIZE);
+    // the line is available in buf
+    addline(QString::fromUtf8(arr));
+
+}
+
+void MainWindow::slotReadStderr()
+{
+    qDebug() << "slotReadStderr";
+    QByteArray arr = m_process.read(DEFAULT_BUFFER_SIZE);
+    // the line is available in buf
+    addline(QString::fromUtf8(arr));
 }
 
 void MainWindow::addline(const QString &s)
@@ -235,4 +258,11 @@ void MainWindow::selectIniFile()
         tr("Select Config File"), "./", tr("Config Files (*.ini *.conf)"));
     //addline("select file: " + fileName);
     loadConfig(fileName);
+}
+
+void MainWindow::keyPressEvent(QKeyEvent* e)
+{
+    addline("key(): " + QString::number(e->key(), 16));
+    addline("nativescancode(): " + QString::number(e->nativeScanCode(), 16));
+    addline("text(): "+ e->text());
 }

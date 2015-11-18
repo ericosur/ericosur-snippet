@@ -5,6 +5,8 @@
 #include <QSignalMapper>
 #include <QPushButton>
 #include <QSettings>
+#include <QKeyEvent>
+#include <QProcess>
 
 namespace Ui {
 class MainWindow;
@@ -21,12 +23,17 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    void keyPressEvent(QKeyEvent* e);
+
 private slots:
     void categoryClicked(int i);
     void functionClicked(int i);
     void clearTextArea();
     void runLineCommand();
     void selectIniFile();
+    void slotFinished(int i);
+    void slotReadStdout();
+    void slotReadStderr();
 
 private:
     void initButtonGroups();
@@ -50,6 +57,7 @@ private:
     QSignalMapper *signalMapperFunction;
     QPushButton *btnFunctionGroup[MAX_FUNCTION];
     int m_function;
+    QProcess m_process;
 };
 
 #endif // MAINWINDOW_H
