@@ -8,6 +8,8 @@
 #include <QKeyEvent>
 #include <QProcess>
 
+#include "jobcontrol.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -57,7 +59,8 @@ private:
     QSignalMapper *signalMapperFunction;
     QPushButton *btnFunctionGroup[MAX_FUNCTION];
     int m_function;
-    QProcess m_process;
+
+    JobControl *m_job;
 };
 
 #endif // MAINWINDOW_H

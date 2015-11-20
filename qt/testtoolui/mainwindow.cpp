@@ -7,8 +7,9 @@
 #include <QFileInfo>
 #include <QFileDialog>
 
-#define DEFAULT_CONFIG_PATH "./test-tool.conf"
+#include "jobcontrol.h"
 
+#define DEFAULT_CONFIG_PATH "./test-tool.conf"
 #define DEFAULT_BUFFER_SIZE 1024
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -25,12 +26,14 @@ MainWindow::MainWindow(QWidget *parent) :
     m_category = 0;
     m_function = 0;
     m_conf = NULL;
+    m_job = new JobControl;
     loadConfig(DEFAULT_CONFIG_PATH);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete m_job;
 }
 
 void MainWindow::loadConfig(const QString& conf_path)
@@ -105,6 +108,8 @@ void MainWindow::initActionsConnections()
     connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(close()));
     connect(ui->actionLoadConfig, SIGNAL(triggered()), this, SLOT(selectIniFile()));
     connect(ui->lineEdit, SIGNAL(returnPressed()), this, SLOT(runLineCommand()));
+
+    connect(m_job, SIGNAL(resultChanged()), this, SLOT(slotReadStdout()));
 }
 
 // this SLOT will know which btnCategory## is clicked
@@ -156,7 +161,8 @@ void MainWindow::functionClicked(int i)
     m_conf->endGroup();
 
     if (cmd != "") {
-        runCommand(cmd);
+        m_job->setCmd(cmd);
+        m_job->startJob();
     }
 }
 
@@ -191,46 +197,6 @@ void MainWindow::initCategory()
     }
 }
 
-void MainWindow::runCommand(const QString& cmd)
-{
-    connect(&m_process, SIGNAL(finished(int)), this, SLOT(slotFinished(int)));
-    connect(&m_process, SIGNAL(readyReadStandardOutput()), this, SLOT(slotReadStdout()));
-
-    m_process.start(cmd);
-    m_process.waitForFinished(-1); // will wait forever until finished
-}
-
-void MainWindow::slotFinished(int i)
-{
-    qDebug() << "slotFinished(): " << i;
-    disconnect(&m_process, SIGNAL(finished(int)), 0, 0);
-    disconnect(&m_process, SIGNAL(readyReadStandardOutput()), 0, 0);
-    disconnect(&m_process, SIGNAL(readyReadStandardError()), 0, 0);
-}
-
-void MainWindow::slotReadStdout()
-{
-    qDebug() << "slotReadStdout";
-//    char stdbuf[DEFAULT_BUFFER_SIZE];
-//    qint64 len = m_process.readLine(stdbuf, DEFAULT_BUFFER_SIZE);
-//    if (len != -1) {
-//        // the line is available in buf
-//        addline(QString::fromUtf8(stdbuf));
-//    }
-
-    QByteArray arr = m_process.read(DEFAULT_BUFFER_SIZE);
-    // the line is available in buf
-    addline(QString::fromUtf8(arr));
-
-}
-
-void MainWindow::slotReadStderr()
-{
-    qDebug() << "slotReadStderr";
-    QByteArray arr = m_process.read(DEFAULT_BUFFER_SIZE);
-    // the line is available in buf
-    addline(QString::fromUtf8(arr));
-}
 
 void MainWindow::addline(const QString &s)
 {
