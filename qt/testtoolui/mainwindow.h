@@ -8,8 +8,6 @@
 #include <QKeyEvent>
 #include <QProcess>
 
-#include "jobcontrol.h"
-
 namespace Ui {
 class MainWindow;
 }
@@ -26,16 +24,27 @@ public:
     ~MainWindow();
 
     void keyPressEvent(QKeyEvent* e);
+    void runCommand(const QString& cmd);
 
 private slots:
     void categoryClicked(int i);
     void functionClicked(int i);
     void clearTextArea();
-    void runLineCommand();
     void selectIniFile();
+    void runLineCommand();
+
     void slotFinished(int i);
     void slotReadStdout();
     void slotReadStderr();
+    void slotUpdateUi();
+
+    void slotTerminate();
+    void slotInfo();
+
+signals:
+    void sigStdoutChanged();
+    void sigStderrChanged();
+    void sigRequestTerminated();
 
 private:
     void initButtonGroups();
@@ -44,7 +53,6 @@ private:
     QString composeString(const QString s, int i);
     void test();
     void initCategory();
-    void runCommand(const QString& s);
     void addline(const QString& s);
 
 private:
@@ -60,7 +68,10 @@ private:
     QPushButton *btnFunctionGroup[MAX_FUNCTION];
     int m_function;
 
-    JobControl *m_job;
+    QProcess *m_process;
+    QString m_stdout;
+    QString m_stderr;
+    int m_exitcode;
 };
 
 #endif // MAINWINDOW_H
