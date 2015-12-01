@@ -40,11 +40,14 @@ private slots:
 
     void slotTerminate();
     void slotInfo();
+    void slotCleanUp();
+    void slotAbout();
 
 signals:
     void sigStdoutChanged();
     void sigStderrChanged();
     void sigRequestTerminated();
+    void sigCleanUp();
 
 private:
     void initButtonGroups();
@@ -54,6 +57,7 @@ private:
     void test();
     void initCategory();
     void addline(const QString& s);
+    void setAllFuncButtons(bool onOff);
 
 private:
     Ui::MainWindow *ui;
