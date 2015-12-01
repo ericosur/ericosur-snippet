@@ -8,7 +8,8 @@
 #include <QFileDialog>
 
 #define DEFAULT_CONFIG_PATH "./test-tool.conf"
-#define DEFAULT_BUFFER_SIZE 1024
+#define DEFAULT_BUFFER_SIZE 2048
+#define VERSION "testtool v0.3"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -111,7 +112,8 @@ void MainWindow::initActionsConnections()
 
     connect(ui->btnTerminate, SIGNAL(clicked(bool)), this, SLOT(slotTerminate()));
     connect(ui->btnInfo, SIGNAL(clicked(bool)), this, SLOT(slotInfo()));
-    //connect(ui->btnTerminate, SIGNAL(clicked(bool)), this, SLO
+    connect(ui->btnAbout, SIGNAL(clicked(bool)), this, SLOT(slotAbout()));
+    connect(ui->btnClear, SIGNAL(clicked(bool)), this, SLOT(clearTextArea()));
 }
 
 // this SLOT will know which btnCategory## is clicked
@@ -142,6 +144,13 @@ void MainWindow::categoryClicked(int i)
     m_conf->endGroup();
 }
 
+void MainWindow::setAllFuncButtons(bool onOff)
+{
+    for (int i=0; i<MAX_FUNCTION; i++) {
+        btnFunctionGroup[i]->setEnabled(onOff);
+    }
+}
+
 // this SLOT will know which btnFunc## is clicked
 void MainWindow::functionClicked(int i)
 {
@@ -159,10 +168,11 @@ void MainWindow::functionClicked(int i)
     QString res, cmd;
     res = "cat_name: " + cat_name + " action: " + act_name + " act_value: " + act_value;
     cmd = act_value;
-    addline(cmd);
+    addline("exec: " + cmd);
     m_conf->endGroup();
 
     if (cmd != "") {
+        setAllFuncButtons(false);
         runCommand(cmd);
     }
 }
@@ -214,7 +224,7 @@ void MainWindow::runLineCommand()
     QString cmd = ui->lineEdit->text();
     if (cmd != "") {
         addline(cmd);
-        //runCommand(cmd);
+        runCommand(cmd);
     }
 }
 
@@ -245,14 +255,17 @@ void MainWindow::runCommand(const QString& cmd)
     connect(this, SIGNAL(sigStdoutChanged()), this, SLOT(slotUpdateUi()));
     connect(this, SIGNAL(sigStderrChanged()), this, SLOT(slotUpdateUi()));
     connect(this, SIGNAL(sigRequestTerminated()), m_process, SLOT(terminate()));
+    connect(this, SIGNAL(sigCleanUp()), this, SLOT(slotCleanUp()));
 
     m_process->start(cmd);
+    ui->btnTerminate->setEnabled(true);
+    ui->btnInfo->setEnabled(true);
     //m_process->waitForFinished(-1); // will wait forever until finished
 }
 
 void MainWindow::slotFinished(int i)
 {
-    qDebug() << "slotFinished(): " << i;
+    //qDebug() << "slotFinished(): " << i;
     m_exitcode = i;
 
     disconnect(m_process, SIGNAL(finished(int)), 0, 0);
@@ -261,29 +274,52 @@ void MainWindow::slotFinished(int i)
 
     addline(m_stdout);
     if (m_exitcode) {
-        addline("exit code != 0");
+        addline("Finished(): exit code != 0, exitcode = " + QString::number(m_exitcode));
         addline(m_stderr);
     }
 
     m_stdout = "";
     m_stderr = "";
-    delete m_process;
-    m_process = NULL;
+//    if (m_process) {
+//        delete m_process;
+//        m_process = NULL;
+//    }
+
+    emit sigCleanUp();
+}
+
+void MainWindow::slotCleanUp()
+{
+//    if (m_process) {
+//        delete m_process;
+//        m_process = NULL;
+//    }
+    ui->btnTerminate->setEnabled(false);
+    ui->btnInfo->setEnabled(false);
+
+    setAllFuncButtons(true);
 }
 
 void MainWindow::slotReadStdout()
 {
     //qDebug() << "slotReadStdout";
-//    char stdbuf[DEFAULT_BUFFER_SIZE];
-//    qint64 len = m_process.readLine(stdbuf, DEFAULT_BUFFER_SIZE);
-//    if (len != -1) {
-//        // the line is available in buf
-//        addline(QString::fromUtf8(stdbuf));
-//    }
-
+#if 0
+    // use readLine() to read from stdout
+    char stdbuf[DEFAULT_BUFFER_SIZE];
+    qint64 len = m_process->readLine(stdbuf, DEFAULT_BUFFER_SIZE);
+    if (len != -1) {
+        // the line is available in buf
+        m_stdout = QString::fromUtf8(stdbuf);
+    }
+#else
+    // use QByteArray to read stdout
     QByteArray arr = m_process->read(DEFAULT_BUFFER_SIZE);
     // the line is available in buf
+
+    //QByteArray arr = m_process->readAllStandardOutput();
     m_stdout = QString::fromUtf8(arr);
+#endif
+
     emit sigStdoutChanged();
 }
 
@@ -300,8 +336,9 @@ void MainWindow::slotReadStderr()
 void MainWindow::slotUpdateUi()
 {
     //qDebug() << "slotUpdateUi()";
+    //clearTextArea();
     addline(m_stdout);
-    addline(m_stderr);
+    //addline(m_stderr);
 }
 
 void MainWindow::slotTerminate()
@@ -314,10 +351,17 @@ void MainWindow::slotTerminate()
 
 void MainWindow::slotInfo()
 {
-    addline("info clicked");
+    //addline("info clicked");
     QString str;
     if (m_process) {
-        str = QString::number(m_process->processId());
+        str = QString("pid: ") + QString::number(m_process->processId());
         addline(str);
     }
+}
+
+void MainWindow::slotAbout()
+{
+    addline(VERSION);
+    QString build_datetime = QString("built at: ") + QString(__DATE__) + " " + QString(__TIME__);
+    addline(build_datetime);
 }
