@@ -342,7 +342,7 @@
         </property>
         <property name="font">
          <font>
-          <family>Ubuntu Mono</family>
+          <family>Liberation Mono</family>
          </font>
         </property>
         <property name="verticalScrollBarPolicy">

@@ -257,13 +257,12 @@ void MainWindow::runCommand(const QString& cmd)
     connect(m_process, SIGNAL(readyReadStandardError()), this, SLOT(slotReadStderr()));
     connect(m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(slotError(QProcess::ProcessError)));
     connect(m_process, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(slotState(QProcess::ProcessState)));
-//    connect(process, static_cast<void(QProcess::*)(QProcess::ProcessError)>(&QProcess::error),
-//        [=](QProcess::ProcessError error){ /* ... */ });
 
     connect(this, SIGNAL(sigRequestTerminated()), m_process, SLOT(terminate()));
     connect(this, SIGNAL(sigCleanUp()), this, SLOT(slotCleanUp()));
 
-    m_process->start(cmd);
+    QString append_cmd = QString("/bin/bash -c \"") + cmd + QString("\"");
+    m_process->start(append_cmd);
     ui->btnTerminate->setEnabled(true);
     ui->btnInfo->setEnabled(true);
     //m_process->waitForFinished(-1); // will wait forever until finished
@@ -284,14 +283,14 @@ void MainWindow::slotFinished(int i)
     disconnect(m_process, SIGNAL(readyReadStandardOutput()), 0, 0);
     disconnect(m_process, SIGNAL(readyReadStandardError()), 0, 0);
 
-    addline(m_stdout);
+    //addline(m_stdout);
     if (m_exitcode) {
         addline("Finished(): exit code != 0, exitcode = " + QString::number(m_exitcode));
-        addline(m_stderr);
+        //addline(m_stderr);
     }
 
-    m_stdout = "";
-    m_stderr = "";
+    //m_stdout = "";
+    //m_stderr = "";
 //    if (m_process) {
 //        delete m_process;
 //        m_process = NULL;
