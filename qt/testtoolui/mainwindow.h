@@ -72,6 +72,7 @@ private:
     QSignalMapper *signalMapperFunction;
     QPushButton *btnFunctionGroup[MAX_FUNCTION];
     int m_function;
+    int m_currentTotalFunction;
 
     QProcess *m_process;
     QString m_stdout;

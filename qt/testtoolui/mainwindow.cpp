@@ -28,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_function = 0;
     m_stdout = "";
     m_stderr = "";
+    m_currentTotalFunction = 0;
 
     loadConfig(DEFAULT_CONFIG_PATH);
 }
@@ -126,6 +127,7 @@ void MainWindow::categoryClicked(int i)
     m_conf->beginGroup(cat_name);
     int t = m_conf->value("total", 0).toInt();
     //qDebug() << "t: " << t;
+    m_currentTotalFunction = t;
     for (int i=0; i<MAX_FUNCTION; i++) {
         if (i<t) {
             QString but_name = QString("button") + QString::number(i);
@@ -138,7 +140,7 @@ void MainWindow::categoryClicked(int i)
                 btnFunctionGroup[i]->setEnabled(true);
             }
         } else {
-            btnFunctionGroup[i]->setText( "n/a" );
+            btnFunctionGroup[i]->setText( "" );
             btnFunctionGroup[i]->setEnabled(false);
         }
     }
@@ -147,7 +149,7 @@ void MainWindow::categoryClicked(int i)
 
 void MainWindow::setAllFuncButtons(bool onOff)
 {
-    for (int i=0; i<MAX_FUNCTION; i++) {
+    for (int i=0; i<m_currentTotalFunction; i++) {
         btnFunctionGroup[i]->setEnabled(onOff);
     }
 }
