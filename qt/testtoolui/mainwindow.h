@@ -33,10 +33,12 @@ private slots:
     void selectIniFile();
     void runLineCommand();
 
+    void slotStarted();
     void slotFinished(int i);
     void slotReadStdout();
     void slotReadStderr();
-    void slotUpdateUi();
+    void slotError(QProcess::ProcessError e);
+    void slotState(QProcess::ProcessState s);
 
     void slotTerminate();
     void slotInfo();
@@ -44,8 +46,6 @@ private slots:
     void slotAbout();
 
 signals:
-    void sigStdoutChanged();
-    void sigStderrChanged();
     void sigRequestTerminated();
     void sigCleanUp();
 
@@ -63,6 +63,7 @@ private:
     Ui::MainWindow *ui;
     // ini config object
     QSettings *m_conf;
+    QString m_configpath;
     // category buttons
     QSignalMapper *signalMapperCategory;
     QPushButton *btnCategoryGroup[MAX_CATEGORY];

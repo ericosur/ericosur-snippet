@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>480</height>
+    <height>501</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -80,7 +80,7 @@
       <x>0</x>
       <y>40</y>
       <width>791</width>
-      <height>461</height>
+      <height>411</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_2">
@@ -287,6 +287,19 @@
         </property>
         <property name="text">
          <string>Clear</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnQuit">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>380</y>
+          <width>99</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Quit</string>
         </property>
        </widget>
       </widget>
