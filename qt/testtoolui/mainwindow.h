@@ -13,7 +13,7 @@ class MainWindow;
 }
 
 const int MAX_CATEGORY = 5;
-const int MAX_FUNCTION = 10;
+const int MAX_FUNCTION = 6;
 
 class MainWindow : public QMainWindow
 {
@@ -78,6 +78,8 @@ private:
     QString m_stdout;
     QString m_stderr;
     int m_exitcode;
+
+    QFont m_fixedfont;
 };
 
 #endif // MAINWINDOW_H

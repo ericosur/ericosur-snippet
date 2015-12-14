@@ -6,10 +6,12 @@
 #include <QTextCodec>
 #include <QFileInfo>
 #include <QFileDialog>
+#include <QFontDatabase>
 
 #define DEFAULT_CONFIG_PATH "./testtool.conf"
 #define DEFAULT_BUFFER_SIZE 2048
-#define VERSION "testtool v0.4"
+#define VERSION "testtool v0.5"
+#define TEST_STRING "1234567890123456789012345678901234567890123456789012345678901234567890"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -29,6 +31,10 @@ MainWindow::MainWindow(QWidget *parent) :
     m_stdout = "";
     m_stderr = "";
     m_currentTotalFunction = 0;
+
+    m_fixedfont = QFontDatabase::systemFont(QFontDatabase::FixedFont);
+    ui->textEdit->setCurrentFont(m_fixedfont);
+    addline(m_fixedfont.toString());
 
     loadConfig(DEFAULT_CONFIG_PATH);
 }
@@ -81,10 +87,6 @@ void MainWindow::initButtonGroups()
     INITFUNCTIONBTN(3);
     INITFUNCTIONBTN(4);
     INITFUNCTIONBTN(5);
-    INITFUNCTIONBTN(6);
-    INITFUNCTIONBTN(7);
-    INITFUNCTIONBTN(8);
-    INITFUNCTIONBTN(9);
 #undef INITFUNCTIONBTN
 
 }
@@ -109,7 +111,7 @@ void MainWindow::initActionsConnections()
     connect(ui->actionClear, SIGNAL(triggered()), this, SLOT(clearTextArea()));
     connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(close()));
     connect(ui->actionLoadConfig, SIGNAL(triggered()), this, SLOT(selectIniFile()));
-    connect(ui->lineEdit, SIGNAL(returnPressed()), this, SLOT(runLineCommand()));
+    //connect(ui->lineEdit, SIGNAL(returnPressed()), this, SLOT(runLineCommand()));
 
     connect(ui->btnTerminate, SIGNAL(clicked(bool)), this, SLOT(slotTerminate()));
     connect(ui->btnInfo, SIGNAL(clicked(bool)), this, SLOT(slotInfo()));
@@ -205,7 +207,7 @@ void MainWindow::initCategory()
             btnCategoryGroup[i]->setText( s );
             btnCategoryGroup[i]->setEnabled(true);
         } else {
-            ui->cbxCategory->addItem( s );
+            //ui->cbxCategory->addItem( s );
         }
         //qDebug() << m_conf->value(s.number(i)).toString();
     }
@@ -224,11 +226,11 @@ void MainWindow::clearTextArea()
 
 void MainWindow::runLineCommand()
 {
-    QString cmd = ui->lineEdit->text();
-    if (cmd != "") {
-        addline(cmd);
-        runCommand(cmd);
-    }
+//    QString cmd = ui->lineEdit->text();
+//    if (cmd != "") {
+//        addline(cmd);
+//        runCommand(cmd);
+//    }
 }
 
 void MainWindow::selectIniFile()
@@ -378,4 +380,5 @@ void MainWindow::slotAbout()
     QString build_datetime = QString("built at: ") + QString(__DATE__) + " " + QString(__TIME__);
     addline(build_datetime);
     addline(QString("config: " + m_configpath));
+    addline(TEST_STRING);
 }

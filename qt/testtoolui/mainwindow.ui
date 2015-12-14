@@ -30,13 +30,6 @@
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="1">
-      <widget class="QPushButton" name="btnCategory1">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="3">
       <widget class="QPushButton" name="btnCategory3">
        <property name="text">
@@ -51,8 +44,8 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="2">
-      <widget class="QPushButton" name="btnCategory2">
+     <item row="0" column="1">
+      <widget class="QPushButton" name="btnCategory1">
        <property name="text">
         <string>PushButton</string>
        </property>
@@ -65,10 +58,10 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="5">
-      <widget class="QComboBox" name="cbxCategory">
-       <property name="enabled">
-        <bool>false</bool>
+     <item row="0" column="2">
+      <widget class="QPushButton" name="btnCategory2">
+       <property name="text">
+        <string>PushButton</string>
        </property>
       </widget>
      </item>
@@ -80,230 +73,10 @@
       <x>0</x>
       <y>40</y>
       <width>791</width>
-      <height>411</height>
+      <height>461</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_2">
-     <item row="0" column="1">
-      <widget class="QGroupBox" name="groupBox">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>120</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="title">
-        <string>Function Group</string>
-       </property>
-       <widget class="QPushButton" name="btnFunc0">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>20</y>
-          <width>99</width>
-          <height>27</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btnFunc1">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>50</y>
-          <width>99</width>
-          <height>27</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btnFunc2">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>80</y>
-          <width>99</width>
-          <height>27</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btnFunc3">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>110</y>
-          <width>99</width>
-          <height>27</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btnFunc4">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>140</y>
-          <width>99</width>
-          <height>27</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btnFunc5">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>170</y>
-          <width>99</width>
-          <height>27</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btnFunc6">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>200</y>
-          <width>99</width>
-          <height>27</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btnFunc7">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>230</y>
-          <width>99</width>
-          <height>27</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btnFunc8">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>260</y>
-          <width>99</width>
-          <height>27</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btnFunc9">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>290</y>
-          <width>99</width>
-          <height>27</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btnTerminate">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>320</y>
-          <width>41</width>
-          <height>27</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Kill</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btnInfo">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="geometry">
-         <rect>
-          <x>70</x>
-          <y>320</y>
-          <width>41</width>
-          <height>27</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Info</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btnAbout">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>350</y>
-          <width>41</width>
-          <height>27</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Ver</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btnClear">
-        <property name="geometry">
-         <rect>
-          <x>60</x>
-          <y>350</y>
-          <width>51</width>
-          <height>27</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Clear</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btnQuit">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>380</y>
-          <width>99</width>
-          <height>27</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Quit</string>
-        </property>
-       </widget>
-      </widget>
-     </item>
      <item row="0" column="2">
       <widget class="QGroupBox" name="groupBox_2">
        <property name="sizePolicy">
@@ -321,23 +94,13 @@
        <property name="title">
         <string>Terminal Output</string>
        </property>
-       <widget class="QLineEdit" name="lineEdit">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>340</y>
-          <width>641</width>
-          <height>27</height>
-         </rect>
-        </property>
-       </widget>
        <widget class="QTextEdit" name="textEdit">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>20</y>
-          <width>641</width>
-          <height>311</height>
+          <width>601</width>
+          <height>431</height>
          </rect>
         </property>
         <property name="font">
@@ -351,33 +114,186 @@
         <property name="horizontalScrollBarPolicy">
          <enum>Qt::ScrollBarAlwaysOn</enum>
         </property>
+        <property name="lineWrapMode">
+         <enum>QTextEdit::NoWrap</enum>
+        </property>
+       </widget>
+       <zorder>textEdit</zorder>
+       <zorder>groupBox</zorder>
+       <zorder>groupBox</zorder>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QGroupBox" name="groupBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>180</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="title">
+        <string>Function Group</string>
+       </property>
+       <widget class="QPushButton" name="btnFunc0">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>30</y>
+          <width>161</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnFunc1">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>90</y>
+          <width>161</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnFunc2">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>150</y>
+          <width>161</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnFunc3">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>206</y>
+          <width>161</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnFunc4">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>260</y>
+          <width>161</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnFunc5">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>316</y>
+          <width>161</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnTerminate">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>370</y>
+          <width>41</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Kill</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnInfo">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>370</y>
+          <width>41</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Info</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnAbout">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>400</y>
+          <width>41</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Ver</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnClear">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>400</y>
+          <width>121</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Clear</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnQuit">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>430</y>
+          <width>161</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Quit</string>
+        </property>
        </widget>
       </widget>
      </item>
     </layout>
    </widget>
   </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuMenu">
-    <property name="title">
-     <string>Menu</string>
-    </property>
-    <addaction name="actionLoadConfig"/>
-    <addaction name="actionClear"/>
-    <addaction name="separator"/>
-    <addaction name="actionQuit"/>
-   </widget>
-   <addaction name="menuMenu"/>
-  </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionQuit">
    <property name="text">
     <string>Quit</string>
