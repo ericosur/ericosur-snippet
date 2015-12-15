@@ -10,7 +10,7 @@
 
 #define DEFAULT_CONFIG_PATH "./testtool.conf"
 #define DEFAULT_BUFFER_SIZE 2048
-#define VERSION "testtool v0.5"
+#define VERSION "testtool v0.6"
 #define TEST_STRING "1234567890123456789012345678901234567890123456789012345678901234567890"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -20,6 +20,13 @@ MainWindow::MainWindow(QWidget *parent) :
     m_process(NULL)
 {
     ui->setupUi(this);
+
+    QPalette p = ui->textEdit->palette();
+    p.setColor(QPalette::Base, QColor(9, 9, 9));
+    // background color for TextEdit
+    ui->textEdit->setPalette(p);
+    // text color for TextEdit
+    ui->textEdit->setTextColor(QColor(255,255,255));
 
     initButtonGroups();
     signalMapperCategory = new QSignalMapper(this);
@@ -35,6 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_fixedfont = QFontDatabase::systemFont(QFontDatabase::FixedFont);
     ui->textEdit->setCurrentFont(m_fixedfont);
     addline(m_fixedfont.toString());
+
 
     loadConfig(DEFAULT_CONFIG_PATH);
 }
@@ -73,6 +81,9 @@ void MainWindow::initButtonGroups()
     INITCATEGORYBTN(2);
     INITCATEGORYBTN(3);
     INITCATEGORYBTN(4);
+    INITCATEGORYBTN(5);
+    INITCATEGORYBTN(6);
+    INITCATEGORYBTN(7);
 
 #undef INITCATEGORYBTN
 
@@ -87,6 +98,8 @@ void MainWindow::initButtonGroups()
     INITFUNCTIONBTN(3);
     INITFUNCTIONBTN(4);
     INITFUNCTIONBTN(5);
+    INITFUNCTIONBTN(6);
+    INITFUNCTIONBTN(7);
 #undef INITFUNCTIONBTN
 
 }
@@ -108,9 +121,9 @@ void MainWindow::initActionsConnections()
     connect(signalMapperFunction, SIGNAL(mapped(int)), this, SLOT(functionClicked(int)));
 
     // other actions
-    connect(ui->actionClear, SIGNAL(triggered()), this, SLOT(clearTextArea()));
-    connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(close()));
-    connect(ui->actionLoadConfig, SIGNAL(triggered()), this, SLOT(selectIniFile()));
+    //connect(ui->actionClear, SIGNAL(triggered()), this, SLOT(clearTextArea()));
+    //connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(close()));
+    //connect(ui->actionLoadConfig, SIGNAL(triggered()), this, SLOT(selectIniFile()));
     //connect(ui->lineEdit, SIGNAL(returnPressed()), this, SLOT(runLineCommand()));
 
     connect(ui->btnTerminate, SIGNAL(clicked(bool)), this, SLOT(slotTerminate()));
