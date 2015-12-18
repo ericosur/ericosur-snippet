@@ -58,6 +58,7 @@ private:
     void initCategory();
     void addline(const QString& s);
     void setAllFuncButtons(bool onOff);
+    void showCurrentTime();
 
 private:
     Ui::MainWindow *ui;

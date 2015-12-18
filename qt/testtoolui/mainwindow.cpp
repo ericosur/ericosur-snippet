@@ -7,6 +7,7 @@
 #include <QFileInfo>
 #include <QFileDialog>
 #include <QFontDatabase>
+#include <QDateTime>
 
 #define DEFAULT_CONFIG_PATH "./testtool.conf"
 #define DEFAULT_BUFFER_SIZE 2048
@@ -42,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_fixedfont = QFontDatabase::systemFont(QFontDatabase::FixedFont);
     ui->textEdit->setCurrentFont(m_fixedfont);
     addline(m_fixedfont.toString());
-
+    showCurrentTime();
 
     loadConfig(DEFAULT_CONFIG_PATH);
 }
@@ -50,6 +51,12 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::showCurrentTime()
+{
+    addline( QDateTime::currentDateTime().toString() );
+    addline( QDateTime::currentDateTimeUtc().toString() );
 }
 
 void MainWindow::loadConfig(const QString& conf_path)
