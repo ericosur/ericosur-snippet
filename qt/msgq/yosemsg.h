@@ -9,7 +9,7 @@ class YoseMsg : public QThread
     Q_OBJECT
 
 public:
-    YoseMsg() {}
+    YoseMsg();
     ~YoseMsg() {}
 
     void run();
@@ -20,6 +20,8 @@ public slots:
 signals:
     void sigReceived(const QString& s);
 
+private:
+    int m_count;
 };
 
 #endif // YOSEMSG_H

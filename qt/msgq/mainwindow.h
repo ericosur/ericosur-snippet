@@ -15,10 +15,12 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void addline(const QString& s);
 
 public slots:
     void gotMessage(const QString& s);
     void doNothing(bool b);
+    void showStarted();
 
 private:
     Ui::MainWindow *ui;
