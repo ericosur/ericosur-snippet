@@ -18,12 +18,27 @@ char *getxtsj()
     return buf;
 }
 
+int sendMyMessage(int msqid, struct mymsgbuf* buf, const char* str)
+{
+    int sendlength;
+    int flag;
+
+    buf->mtype = YOSE_MESSAGE_TYPE;
+    sendlength = sizeof(struct mymsgbuf) - sizeof(long);
+    strncpy(buf->mtext, str, MAX_SEND_SIZE - 32);
+    flag = msgsnd( msqid, buf, sendlength, 0 );
+    if ( flag < 0 ) {
+        perror("msgsnd: send message error");
+        return -1;
+    }
+    printf("sendMyMessage: %s\n", buf->mtext);
+}
+
 int main(int argc, char **argv)
 {
     int msqid;
     struct mymsgbuf buf;
-    int flag;
-    int sendlength, recvlength;
+    int recvlength;
     int key = MESGQKEY;
     const int MAXREPEAT = 5;
     int i;
@@ -44,21 +59,17 @@ int main(int argc, char **argv)
         printf("msgsnd: msqid: %d\n", msqid);
     }
 
-    buf.mtype = YOSE_MESSAGE_TYPE;
-
-    for (i=0; i<MAXREPEAT; i++) {
-        //strcpy(buf.time, getxtsj()) ;
-        //strcpy(buf.mtext, "happy new year!") ;
-        sprintf(buf.mtext, "[%d] %s", i, getxtsj());
-        sendlength = sizeof(struct mymsgbuf) - sizeof(long);
-        flag = msgsnd( msqid, &buf, sendlength, 0 );
-        if ( flag < 0 ) {
-            perror("msgsnd: send message error");
-            return -1;
-        }
-        printf("send: %s\n", buf.mtext);
-        sleep(1);
-    }
+    sendMyMessage(msqid, &buf, "home");
+    sleep(1);
+    sendMyMessage(msqid, &buf, "pause");
+    sleep(1);
+    sendMyMessage(msqid, &buf, "stop");
+    sleep(1);
+    sendMyMessage(msqid, &buf, "file:///etc/image_version");
+    sleep(1);
+    sendMyMessage(msqid, &buf, "helloworld from sendtest");
+    sleep(1);
+    sendMyMessage(msqid, &buf, __DATE__ __TIME__);
 
     system("ipcs -q");
     return 0;
