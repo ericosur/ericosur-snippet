@@ -1,0 +1,24 @@
+# comment lines will be ignored
+# blank lines will be ignored
+
+# regexp would be
+# ^([a-zA-Z_-]+)\s+(.+)$
+# \1 will be key
+# \2 will be value
+# seperate by tab/one or more spaces
+# all char after speration spaces are taken as value
+# no need enclosed by "" or ''
+
+key-prev    grey
+key-next    grey
+key-home    cyan
+key-mode    green
+key-phone   blue
+key-volup   grey
+key-voldown    yellow
+key-mute    grey
+key-back    red
+key-navi    grey
+
+# no need use " "  or ' '
+message    message to be shown on message text, clear when press any button

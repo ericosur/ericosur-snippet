@@ -18,6 +18,13 @@ ApplicationWindow {
     property var button_text_highlight: "orange"
     property var button_text_normal: "black"
 
+    Connections {
+        target: parse_status
+        onColorChanged: {
+            console.log("wheelkey qml: onColorChanged");
+        }
+    }
+
     Rectangle {
         anchors.fill: parent
         color: "cornsilk"
@@ -151,13 +158,14 @@ ApplicationWindow {
         anchors.bottom: seperate_hline2.top
         anchors.bottomMargin: 20
         radius: 10
-        color: button_color
+        color: parse_status.keyprev
         MouseArea {
             id: mousearea_a1
             anchors.fill: parent
             onClicked: {
                 //parent.color = button_color_highlight;
                 setButtonColor(parent, enum_button_unset);
+
             }
         }
         Text {
@@ -187,9 +195,7 @@ ApplicationWindow {
         anchors.bottom: seperate_hline3.top
         anchors.bottomMargin: 20
         radius: 10
-        color: {
-            return ( (mousearea_a2.containsMouse) ? button_color_highlight : button_color );
-        }
+        color: parse_status.keyvolup
         MouseArea {
             id: mousearea_a2
             anchors.fill: parent
@@ -224,13 +230,12 @@ ApplicationWindow {
         anchors.bottom: seperate_hline2.top
         anchors.bottomMargin: 20
         radius: 10
-        color: {
-            return ( (mousearea_b1.containsMouse) ? button_color_highlight : button_color );
-        }
+        color: parse_status.keynext
         MouseArea {
             id: mousearea_b1
             anchors.fill: parent
             onClicked: {
+                parse_status.keynext = "orange";
             }
         }
         Text {
@@ -260,9 +265,7 @@ ApplicationWindow {
         anchors.bottom: seperate_hline3.top
         anchors.bottomMargin: 20
         radius: 10
-        color: {
-            return ( (mousearea_b2.containsMouse) ? button_color_highlight : button_color );
-        }
+        color: parse_status.keyvoldown
         MouseArea {
             id: mousearea_b2
             anchors.fill: parent
@@ -296,7 +299,7 @@ ApplicationWindow {
         anchors.bottom: seperate_hline2.top
         anchors.bottomMargin: 20
         radius: 10
-        color: button_color
+        color: parse_status.keyhome
         MouseArea {
             id: mousearea_c1
             anchors.fill: parent
@@ -329,7 +332,7 @@ ApplicationWindow {
         anchors.bottom: seperate_hline3.top
         anchors.bottomMargin: 20
         radius: 10
-        color: button_color
+        color: parse_status.keymute
         MouseArea {
             id: mousearea_c2
             anchors.fill: parent
@@ -363,7 +366,7 @@ ApplicationWindow {
         anchors.bottom: seperate_hline2.top
         anchors.bottomMargin: 20
         radius: 10
-        color: button_color
+        color: parse_status.keymode
         MouseArea {
             id: mousearea_d1
             anchors.fill: parent
@@ -397,7 +400,7 @@ ApplicationWindow {
         anchors.bottom: seperate_hline3.top
         anchors.bottomMargin: 20
         radius: 10
-        color: button_color
+        color: parse_status.keyback
         MouseArea {
             id: mousearea_d2
             anchors.fill: parent
@@ -431,7 +434,7 @@ ApplicationWindow {
         anchors.bottom: seperate_hline2.top
         anchors.bottomMargin: 20
         radius: 10
-        color: button_color
+        color: parse_status.keyphone
         MouseArea {
             id: mousearea_e1
             anchors.fill: parent
@@ -465,7 +468,7 @@ ApplicationWindow {
         anchors.bottom: seperate_hline3.top
         anchors.bottomMargin: 20
         radius: 10
-        color: button_color
+        color: parse_status.keynavi
         MouseArea {
             id: mousearea_e2
             anchors.fill: parent
@@ -492,9 +495,9 @@ ApplicationWindow {
         id: hint_message_box
         anchors.top: seperate_hline3.bottom
         anchors.topMargin: 10
-        anchors.left: seperate_vline2.right
+        anchors.left: seperate_vline1.right
         anchors.leftMargin: 10
-        anchors.right: seperate_vline5.left
+        anchors.right: seperate_vline6.left
         anchors.rightMargin: 10
         height: 40
         border.width: 2
@@ -506,12 +509,50 @@ ApplicationWindow {
             anchors.left: parent.left
             anchors.leftMargin: 10
             id: hint_message_box_text
-            text: "Message:"
+            text: parse_status.message
+            font.family: "Andale Mono"
+            font.bold: true
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            //font.pointSize: 14
+        }
+    }
+
+    Rectangle {
+        id: button_areaA3
+        anchors.top: hint_message_box.bottom
+        anchors.topMargin: 15
+        anchors.left: seperate_vline1.right
+        anchors.leftMargin: 10
+        anchors.right: seperate_vline2.left
+        anchors.rightMargin: 10
+        anchors.bottom: seperate_hline4.top
+        anchors.bottomMargin: 15
+        radius: width * 0.75
+        color: {
+            return ( (mousearea_b3.containsMouse) ? button_color_highlight : button_color );
+        }
+        MouseArea {
+            id: mousearea_a3
+            anchors.fill: parent
+            onClicked: {
+                parse_status.loadStatus();
+                parse_status.dumpStatus();
+            }
+        }
+        Text {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            id: boxA3_text
+            text: "Reload"
             font.family: "Andale Mono"
             font.bold: true
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
             font.pointSize: 20
+            color: {
+                return ( (mousearea_a3.containsMouse) ? button_text_highlight : button_text_normal );
+            }
         }
     }
 
