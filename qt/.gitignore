@@ -2,4 +2,5 @@
 *.pro.user.*
 moc_*
 .qmake.stash
+qrc_qml.*
 
