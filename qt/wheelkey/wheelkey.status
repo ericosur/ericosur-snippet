@@ -1,3 +1,9 @@
+# file: wheelkey.status
+#
+#
+# This is sample config for wheelkey
+#
+#
 # comment lines will be ignored
 # blank lines will be ignored
 
@@ -8,6 +14,9 @@
 # seperate by tab/one or more spaces
 # all char after speration spaces are taken as value
 # no need enclosed by "" or ''
+
+# supported svg color name could be found:
+# http://www.december.com/html/spec/colorsvg.html
 
 key-prev    grey
 key-next    grey
