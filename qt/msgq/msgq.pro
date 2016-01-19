@@ -14,10 +14,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    yosemsg.cpp
+    yosemsg.cpp \
+    simplenotify.cpp
 
 HEADERS  += mainwindow.h \
     yosemsg.h \
-    YoseMessageQueue.h
+    YoseMessageQueue.h \
+    simplenotify.h
 
 FORMS    += mainwindow.ui

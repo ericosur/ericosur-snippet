@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include <QString>
 
+
+#include "simplenotify.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -19,11 +22,14 @@ public:
 
 public slots:
     void gotMessage(const QString& s);
-    void doNothing(bool b);
+    void testNotify(bool b);
     void showStarted();
+    void showFinished();
+    void getNotified();
 
 private:
     Ui::MainWindow *ui;
+    SimpleNotify *m_sn;
 };
 
 #endif // MAINWINDOW_H
