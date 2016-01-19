@@ -8,6 +8,8 @@
 #include <QFileDialog>
 #include <QFontDatabase>
 #include <QDateTime>
+#include <QLocale>
+#include <QRegularExpression>
 
 #define DEFAULT_CONFIG_PATH "./testtool.conf"
 #define DEFAULT_BUFFER_SIZE 2048
@@ -46,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent) :
     showCurrentTime();
 
     loadConfig(DEFAULT_CONFIG_PATH);
+    test();
 }
 
 MainWindow::~MainWindow()
@@ -209,11 +212,6 @@ QString MainWindow::composeString(const QString s, int i)
     return res;
 }
 
-void MainWindow::test()
-{
-
-}
-
 void MainWindow::initCategory()
 {
     QString s;
@@ -332,7 +330,10 @@ void MainWindow::slotCleanUp()
 void MainWindow::slotReadStdout()
 {
     //qDebug() << "slotReadStdout";
-    addline(m_process->readAllStandardOutput());
+    QString output = m_process->readAllStandardOutput();
+    addline(output);
+    //rasmus test
+    testParse(output);
 }
 
 void MainWindow::slotReadStderr()
@@ -401,4 +402,36 @@ void MainWindow::slotAbout()
     addline(build_datetime);
     addline(QString("config: " + m_configpath));
     addline(TEST_STRING);
+}
+
+void MainWindow::test()
+{
+
+    //qDebug() << "test()";
+    QLocale en = QLocale(QLocale::English, QLocale::UnitedKingdom);
+    addline( en.dateTimeFormat(QLocale::ShortFormat) );
+    addline( QDateTime::currentDateTime().toString(en.dateTimeFormat(QLocale::ShortFormat)) );
+
+    QLocale us = QLocale(QLocale::English, QLocale::UnitedStates);
+    addline( QDateTime::currentDateTime().toString(us.dateTimeFormat(QLocale::ShortFormat)) );
+
+    QLocale pt = QLocale(QLocale::Portuguese, QLocale::Brazil);
+    //addline( pt.dateTimeFormat() );
+    addline( QDateTime::currentDateTime().toString(pt.dateTimeFormat(QLocale::ShortFormat)) );
+}
+
+void MainWindow::testParse(const QString& str)
+{
+#if 1
+    QRegularExpression re("(\\d+\\.\\d+\\.\\d+\\.\\d+)");
+    QRegularExpressionMatchIterator i = re.globalMatch(str);
+    qDebug() << "str:" << str;
+    //QStringList words;
+    while (i.hasNext()) {
+        QRegularExpressionMatch match = i.next();
+        QString word1 = match.captured(1);
+        //words << word;
+        qDebug() << "word1:" << word1;
+    }
+#endif
 }

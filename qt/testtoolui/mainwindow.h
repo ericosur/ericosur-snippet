@@ -54,11 +54,12 @@ private:
     void initActionsConnections();
     void loadConfig(const QString& conf_path);
     QString composeString(const QString s, int i);
-    void test();
     void initCategory();
     void addline(const QString& s);
     void setAllFuncButtons(bool onOff);
     void showCurrentTime();
+    void test();
+    void testParse(const QString& s);
 
 private:
     Ui::MainWindow *ui;
