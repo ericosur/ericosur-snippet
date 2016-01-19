@@ -30,36 +30,10 @@ void SimpleNotify::run()
         return;
     }
 
-    wd = inotify_add_watch( fd, m_filename.toUtf8(), IN_MODIFY | IN_CREATE | IN_DELETE);
+    wd = inotify_add_watch( fd, m_filename.toUtf8(), IN_MODIFY | IN_CREATE | IN_DELETE | IN_ATTRIB);
     if (wd < 0) {
         qDebug() << "SimpleNotify: inotify_add_watch failed, errno: " << errno;
-        switch (errno) {
-        case EACCES:
-            qDebug() << "EACCES";
-            break;
-        case EBADF:
-            qDebug() << "EBADF";
-            break;
-        case EFAULT:
-            qDebug() << "EFAULT";
-            break;
-        case EINVAL:
-            qDebug() << "EINVAL";
-            break;
-        case ENAMETOOLONG:
-            qDebug() << "ENAMETOOLONG";
-            break;
-        case ENOENT:
-            qDebug() << "ENOENT";
-            break;
-        case ENOMEM:
-            qDebug() << "ENOMEM";
-            break;
-        case ENOSPC:
-            qDebug() << "ENOSPC";
-            break;
-        }
-
+        print_errno(errno);
         return;
     }
 
@@ -72,4 +46,35 @@ void SimpleNotify::run()
 
     (void) inotify_rm_watch(fd, wd);
     (void) close(fd);
+}
+
+void SimpleNotify::print_errno(int err)
+{
+    switch (err) {
+    case EACCES:
+        qDebug() << "EACCES";
+        break;
+    case EBADF:
+        qDebug() << "EBADF";
+        break;
+    case EFAULT:
+        qDebug() << "EFAULT";
+        break;
+    case EINVAL:
+        qDebug() << "EINVAL";
+        break;
+    case ENAMETOOLONG:
+        qDebug() << "ENAMETOOLONG";
+        break;
+    case ENOENT:
+        qDebug() << "ENOENT";
+        break;
+    case ENOMEM:
+        qDebug() << "ENOMEM";
+        break;
+    case ENOSPC:
+        qDebug() << "ENOSPC";
+        break;
+    }
+
 }

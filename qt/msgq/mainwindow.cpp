@@ -53,10 +53,12 @@ void MainWindow::testNotify(bool b)
     (void)b;
     qDebug() << "testNotify():";
 
+    // here create a test file: watch_file
     QFile f(watch_file);
     f.open(QIODevice::WriteOnly);
     f.write(QByteArray("test"));
     f.close();
+    // may modify the watch_file
 
     addline(QString("watch file: ") + watch_file);
     m_sn = new SimpleNotify(watch_file);

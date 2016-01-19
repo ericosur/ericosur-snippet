@@ -15,6 +15,7 @@ public:
     ~SimpleNotify() {}
 
     void run();
+    void print_errno(int err);
 
 public slots:
 

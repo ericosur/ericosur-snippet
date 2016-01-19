@@ -26,7 +26,7 @@ void YoseMsg::run()
         perror("msgsnd: msgget");
         return; // error here
     }
-    qDebug() << "mythread: key: " << key << " msgqueue_id: " << msgqueue_id;
+    qDebug() << "mythread: key: " << QString("0x") + QString::number(key, 16).toUpper() << " msgqueue_id: " << msgqueue_id;
     while ( true ) {
         qbuf.mtype = YOSE_MESSAGE_TYPE;
         msgrcv(msgqueue_id, (struct mymsgbuf *)&qbuf, MAX_SEND_SIZE, type, 0);
