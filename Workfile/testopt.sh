@@ -6,10 +6,10 @@ show_help() {
 cat << eot
 
 ${BOLD}NAME${OFFBOLD}
-    tostab12AL.sh - build TOSTAB12AL project
+    testopt.sh - build script
 
 ${BOLD}SYNOPSIS${OFFBOLD}
-    tostab12AL.sh -m <eng | user>
+    testopt.sh -m <eng | user>
 
 ${BOLD}OPTIONS${OFFBOLD}
     -m <mode>
@@ -25,18 +25,18 @@ ${BOLD}OPTIONS${OFFBOLD}
         turn on GMS integration into image
 
 ${BOLD}EXAMPLE${OFFBOLD}
-    Build tostab12AL with different mode
-         ./tostab12AL.sh -m eng
-         ./tostab12AL.sh -m user
-    
-    build tostab12AL with factory image
-         ./tostab12AL.sh -m eng -f
+    Build with different mode
+         ./testopt.sh -m eng
+         ./testopt.sh -m user
 
-    build tostab12AL with clean build
-         ./tostab12AL.sh -m eng -cb
+    build with factory image
+         ./testopt.sh -m eng -f
 
-    build tostab12AL with clean build and factory mode
-         ./tostab12AL.sh -m eng -cb -f
+    build with clean build
+         ./testopt.sh -m eng -cb
+
+    build with clean build and factory mode
+         ./testopt.sh -m eng -cb -f
 
 eot
 }
@@ -69,19 +69,19 @@ do
     case "$i"
     in
         -g)
-            #echo gms mode set; 
+            #echo gms mode set;
 			export BUILD_GMS_MODE=1;
             shift;;
 		-f)
-            #echo factory mode; 
-			export BUILD_FACTORY_MODE=1; 
+            #echo factory mode;
+			export BUILD_FACTORY_MODE=1;
             shift;;
         -c)
-            #echo clean build option is "’"$2"’"; 
+            #echo clean build option is "’"$2"’";
 			copt="$2"; shift;
             shift;;
         -m)
-            #echo mode is "’"$2"’"; 
+            #echo mode is "’"$2"’";
 			bmode="$2"; shift;
             shift;;
         --)
@@ -92,7 +92,7 @@ done
 #echo single-char flags: "’"$sflags"’"
 #echo oarg is "’"$oarg"’"
 
-echo "*** Buildng Project TOSTAB12AL!!! ***"
+echo "*** Buildng Project test!!! ***"
 echo
 
 echo "*** Building ["$bmode"] Mode Image!!! ***"
@@ -112,13 +112,12 @@ export TOP=$PWD
 export USE_CCACHE=1
 
 source build/envsetup.sh
-choosecombo 1 tostab12AL $bmode
+choosecombo 1 test $bmode
 make clean-bootloader
 
 if [ "$copt" = "b" ]; then
 	echo "*** Clean before building!!! ***"
 	make clean
-	make nvidia-clean
 fi
 
 mp 2>&1 | tee buildlog.txt
