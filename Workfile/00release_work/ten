@@ -1,5 +1,5 @@
 #!/bin/bash
 
 #git log --pretty=oneline $@
-git --no-pager log --format='%h %ai, %an, %s' -10 $@
+git --no-pager log --no-merges --date=short --format='%h %ai,%an,%s' -10 $@
 

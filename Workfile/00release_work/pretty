@@ -1,5 +1,5 @@
 #!/bin/bash
 
 #git log --pretty=oneline $@
-git log --format='%h %ai, %an, %s' $@
+git log --no-merges --format='%h %ai, %an, %s' $@
 
