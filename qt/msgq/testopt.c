@@ -47,11 +47,12 @@ int main(int argc, char **argv)
     int msgq_key = DEFAULT_INVALID_KEY;
     int tmp_key = 0;
     int res = 0;
+    int r;
 
     //fprintf(stderr, "argc: %d\n", argc);
     while(1) {
         //fprintf(stderr, "process index: %d\n", optind);
-        cmd_opt = getopt(argc, argv, "hk:vy");
+        cmd_opt = getopt(argc, argv, "hk:vycq");
 
         /* End condition always first */
         if (cmd_opt == -1) {
@@ -69,8 +70,9 @@ int main(int argc, char **argv)
             case 'h':
                 printf("-h  help message\n"
                     "-k  assign key\n"
-                    "-v  videocontrol to yoseui key"
-                    "-y  yoseui to videocontrol key"
+                    "-v  videocontrol to yoseui key\n"
+                    "-y  yoseui to videocontrol key\n"
+                    "-c  yoseui to clock key\n"
                     );
                 break;
             /* Single arg */
@@ -91,13 +93,22 @@ int main(int argc, char **argv)
                 msgq_key = 0x600DCAFE;
                 break;
 
+            case 'c':
+                msgq_key = 0x00C0FFEE;
+                break;
+
+            case 'q':
+                r = system("ipcs -q");
+                (void)r;
+                exit(1);
+
             /* Error handle: Mainly missing arg or illegal option */
             case '?':
                 fprintf(stderr, "Illegal option:-%c\n", isprint(optopt)?optopt:'#');
                 break;
             default:
                 fprintf(stderr, "Not supported option\n");
-                break;
+                exit(-1);
         }
     }
 
