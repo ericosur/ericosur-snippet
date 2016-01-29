@@ -48,7 +48,8 @@ MainWindow::MainWindow(QWidget *parent) :
     showCurrentTime();
 
     loadConfig(DEFAULT_CONFIG_PATH);
-    test();
+    //testLocal();
+    testSplit();
 }
 
 MainWindow::~MainWindow()
@@ -404,7 +405,7 @@ void MainWindow::slotAbout()
     addline(TEST_STRING);
 }
 
-void MainWindow::test()
+void MainWindow::testLocal()
 {
 
     //qDebug() << "test()";
@@ -434,4 +435,18 @@ void MainWindow::testParse(const QString& str)
         qDebug() << "word1:" << word1;
     }
 #endif
+}
+
+QList<QString> MainWindow::testSplit()
+{
+    //QRegularExpression re("|");
+    QString input = "mp3|mp4|mpg|wav|avi";
+    QStringList filterlist = input.split("|");
+    QList<QString> result;
+
+    for (int i = 0; i < filterlist.size(); ++i) {
+        result.append(filterlist.at(i));
+        addline(filterlist.at(i));
+    }
+    return result;
 }
