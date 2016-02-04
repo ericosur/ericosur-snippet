@@ -22,18 +22,21 @@ signals:
 
 public slots:
     void onStarted();
-    void onFinished();
+    void onFinished1();
+    void onFinished2();
+    void onFinished3();
     void onTimeout();
 
 private:
     int m_threadcount;
     int m_counter;
     QTimer *m_timer;
-    QSettings *m_settings;
+    QSettings *m_setting;
     QElapsedTimer *m_epoch;
 
-    ThreadFoo *foo;
-    ThreadBar *bar;
+    ThreadFoo *foo1;
+    ThreadFoo *foo2;
+    ThreadFoo *foo3;
 };
 
 #endif // MAINWINDOW_H

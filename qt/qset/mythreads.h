@@ -3,14 +3,13 @@
 
 #include <QObject>
 #include <QThread>
-#include <QSettings>
 #include <QElapsedTimer>
 
 class MyEmptyThread : public QThread
 {
     Q_OBJECT
 public:
-    MyEmptyThread(QSettings *set);
+    MyEmptyThread();
     ~MyEmptyThread() {}
 
     QString getResult() const {
@@ -25,8 +24,9 @@ public:
         return e.elapsed();
     }
 
+    static QString doHardWork(const QString& s, int method=0);
+
 protected:
-    QSettings *m_setting;
     QString m_result;
     int m_count;
     QElapsedTimer e;
@@ -37,21 +37,13 @@ class ThreadFoo : public MyEmptyThread
 {
     Q_OBJECT
 public:
-    ThreadFoo(QSettings *set);
+    ThreadFoo(int method, const QString& initstr);
     ~ThreadFoo() {}
     void run();
-
+private:
+    int m_method;
+    QString m_str;
 };
 
-
-class ThreadBar : public MyEmptyThread
-{
-    Q_OBJECT
-public:
-    ThreadBar(QSettings *set);
-    ~ThreadBar() {}
-    void run();
-
-};
 
 #endif // MYTHREADS_H
