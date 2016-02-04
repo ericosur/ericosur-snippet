@@ -50,6 +50,7 @@ MainWindow::MainWindow(QWidget *parent) :
     loadConfig(DEFAULT_CONFIG_PATH);
     //testLocal();
     testSplit();
+    testTime();
 }
 
 MainWindow::~MainWindow()
@@ -405,7 +406,7 @@ void MainWindow::slotAbout()
     addline(TEST_STRING);
 }
 
-void MainWindow::testLocal()
+void MainWindow::testLocale()
 {
 
     //qDebug() << "test()";
@@ -449,4 +450,10 @@ QList<QString> MainWindow::testSplit()
         addline(filterlist.at(i));
     }
     return result;
+}
+
+void MainWindow::testTime()
+{
+    QDateTime dt = QDateTime::currentDateTime();
+    addline( QString("time_t: ") + QString::number(dt.toTime_t()) );
 }

@@ -58,10 +58,11 @@ private:
     void addline(const QString& s);
     void setAllFuncButtons(bool onOff);
     void showCurrentTime();
-    void testLocal();
+    void testLocale();
     void testParse(const QString& s);
     //void testSplit();
     QList<QString> testSplit();
+    void testTime();
 
 private:
     Ui::MainWindow *ui;
