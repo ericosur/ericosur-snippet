@@ -38,7 +38,7 @@ ApplicationWindow {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                console.log("clicked");
+                console.log("bgm clicked");
                 main_form.visible = true;
                 bgm.visible = false;
             }
@@ -116,6 +116,7 @@ ApplicationWindow {
 
         btnNormal.onClicked: {
             mainwindow.visibility = Window.Windowed
+            textArea1.text = "";
         }
 
         editTest.onTextChanged: {

@@ -147,7 +147,7 @@ Item {
         id: editTest
         x: 40
         y: 127
-        width: 258
+        width: 146
         height: 20
         text: qsTr("09")
         font.pixelSize: 14
@@ -155,9 +155,9 @@ Item {
 
     Label {
         id: labelTest
-        x: 326
-        y: 130
-        width: 246
+        x: 197
+        y: 129
+        width: 163
         height: 17
         text: qsTr("Label")
     }
