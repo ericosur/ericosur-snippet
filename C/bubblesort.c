@@ -1,5 +1,13 @@
 #include <stdio.h>
 
+// dd if=/dev/urandom of=rand.dat bs=2048 count=400
+
+#define BUFFERSIZE		4096
+#define BUBBLESIZE		(BUFFERSIZE*25)
+#define DATAFILE		"rand.dat"
+
+typedef unsigned char byte;
+
 void bubblesort(int val[], int n)
 {
 	int i, j, tmp;
@@ -15,6 +23,28 @@ void bubblesort(int val[], int n)
 	}
 }
 
+int load_data(int val[], int n)
+{
+	FILE *fp = fopen(DATAFILE, "rb");
+	int buffer[BUFFERSIZE];
+	size_t cnt = 0;
+
+	if (fp == NULL) {
+		fprintf(stderr, "cannot read file\n");
+		return 0;
+	}
+
+	while ( cnt < n ) {
+		size_t rr = fread(val+cnt, sizeof(int), BUFFERSIZE, fp);
+		cnt += rr;
+		//fprintf(stderr, "cnt: %d\n", (int)cnt);
+	}
+
+	fprintf(stderr, "read finished\n");
+	fclose(fp);
+	return 1;
+}
+
 void show(int val[], int n)
 {
 	int i;
@@ -27,12 +57,14 @@ void show(int val[], int n)
 
 int main()
 {
-	int vv[] = {43, 57, 97, 91, 79, 3, 11, 29, 73, 83, 91, 29};
-	int nn = sizeof(vv)/sizeof(int);
+	int vv[BUBBLESIZE];
 
-	show(vv, nn);
-	bubblesort(vv, nn);
-	show(vv, nn);
+	if ( load_data(vv, BUBBLESIZE) ) {
+		//show(vv, BUBBLESIZE);
+		bubblesort(vv, BUBBLESIZE);
+		fprintf(stderr, "sort complete\n");
+		//show(vv, BUBBLESIZE);
+	}
 
 	return 0;
 }
