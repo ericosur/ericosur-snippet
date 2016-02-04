@@ -5,7 +5,7 @@
 #include <sys/ipc.h>
 #include <sys/msg.h>
 
-#define MAX_SEND_SIZE           1024
+#define MAX_SEND_SIZE           64
 #define YOSE_MESSAGE_TYPE       9
 #define DEFAULT_INVALID_KEY     0xDEADBEEF
 
@@ -14,13 +14,13 @@ struct mymsgbuf {
     char mtext[MAX_SEND_SIZE];
 };
 
-int send_msgq(int key, const char* str)
+int send_msgq(int key, int type, const char* str)
 {
     int msqid;
     struct mymsgbuf buf;
     int sendlength;
 
-    printf("key: 0x%08X\nstr: %s\n", key, str);
+    printf("send_msgq(): key: 0x%08X\ntype: %d\nstr: %s\n", key, type, str);
     msqid = msgget( key, 0660 | IPC_CREAT );
     if ( msqid < 0 ) {
         perror("msgsnd: create message queue error");
@@ -29,7 +29,7 @@ int send_msgq(int key, const char* str)
         printf("msgsnd: msqid: %d\n", msqid);
     }
 
-    buf.mtype = YOSE_MESSAGE_TYPE;
+    buf.mtype = type;
     sendlength = sizeof(struct mymsgbuf) - sizeof(long);
     strncpy(buf.mtext, str, MAX_SEND_SIZE - 32);
 
@@ -37,7 +37,7 @@ int send_msgq(int key, const char* str)
         perror("msgsnd: send message error");
         return -1;
     }
-    printf("sendMyMessage: %s\n", buf.mtext);
+    //printf("sendMyMessage: %s\n", buf.mtext);
     return 0;
 }
 
@@ -45,14 +45,16 @@ int main(int argc, char **argv)
 {
     int cmd_opt = 0;
     int msgq_key = DEFAULT_INVALID_KEY;
+    int msgq_type = YOSE_MESSAGE_TYPE;  // default value
     int tmp_key = 0;
+    int tmp_type = 0;
     int res = 0;
     int r;
 
     //fprintf(stderr, "argc: %d\n", argc);
     while(1) {
         //fprintf(stderr, "process index: %d\n", optind);
-        cmd_opt = getopt(argc, argv, "hk:vycq");
+        cmd_opt = getopt(argc, argv, "hk:t:vycq");
 
         /* End condition always first */
         if (cmd_opt == -1) {
@@ -68,23 +70,28 @@ int main(int argc, char **argv)
         switch (cmd_opt) {
 
             case 'h':
-                printf("-h  help message\n"
+                fprintf(stderr,
+                    "testopt [options] <message>\n"
+                    "-h  help message\n"
                     "-k  assign key\n"
+                    "-t  assign type (default:9)\n"
                     "-v  videocontrol to yoseui key\n"
                     "-y  yoseui to videocontrol key\n"
-                    "-c  yoseui to clock key\n"
-                    );
+                    "-c  yoseui to clock key\n");
                 break;
             /* Single arg */
             case 'k':
                 //fprintf(stderr, "option arg: %s\n", optarg);
                 tmp_key = strtol(optarg, NULL, 16);
-                //printf("tmp_key = 0x%08X\n", tmp_key);
+                fprintf(stderr, "assign key = 0x%08X\n", tmp_key);
                 if (tmp_key > 0) {
                     msgq_key = tmp_key;
                 }
                 break;
-
+            case 't':
+                tmp_type = strtol(optarg, NULL, 10);
+                fprintf(stderr, "assign type = %d\n", tmp_type);
+                msgq_type = tmp_type;
             case 'v':
                 msgq_key = 0x600DFEA6;
                 break;
@@ -124,7 +131,7 @@ int main(int argc, char **argv)
     }
 
     if (msgq_key != DEFAULT_INVALID_KEY) {
-        res = send_msgq(msgq_key, msg_str);
+        res = send_msgq(msgq_key, msgq_type, msg_str);
     }
 
     return res;
