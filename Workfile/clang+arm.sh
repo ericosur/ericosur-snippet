@@ -4,6 +4,9 @@
 # and arm2014.05 as cross compiler
 # to static link a c source
 
+# may use this command to replace 'ldd'
+# $ LD_TRACE_LOADED_OBJECTS=1 /bin/grep
+
 CLANGDIR=$HOME/Downloads/llvm/clang+llvm-3.7.1-x86_64-linux-gnu-ubuntu-14.04
 ARMTOOL=$HOME/arm2014.05
 
