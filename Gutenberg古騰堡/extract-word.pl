@@ -23,6 +23,7 @@ sub parse_file($)
 				}
 			}
 			$wd = lc($wd);
+			$wd =~ s/--//;
 			$wd =~ s/^\'//;	# remove single ' at beginning of word
 			$wd =~ s/\'$//; # remove signle ' at end of word
 		    if ( length($wd) ) {
