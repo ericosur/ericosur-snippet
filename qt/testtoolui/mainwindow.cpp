@@ -10,8 +10,13 @@
 #include <QDateTime>
 #include <QLocale>
 #include <QRegularExpression>
+#include <QDir>
 
+#ifdef Q_OS_WIN
+#define DEFAULT_CONFIG_PATH "d:/src/testtool.conf"
+#else
 #define DEFAULT_CONFIG_PATH "./testtool.conf"
+#endif
 #define DEFAULT_BUFFER_SIZE 2048
 #define VERSION "testtool v0.6"
 #define TEST_STRING "1234567890123456789012345678901234567890123456789012345678901234567890"
@@ -49,8 +54,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     loadConfig(DEFAULT_CONFIG_PATH);
     //testLocal();
-    testSplit();
+    //testSplit();
     testTime();
+
+    addline(QDir::currentPath());
 }
 
 MainWindow::~MainWindow()
@@ -283,7 +290,11 @@ void MainWindow::runCommand(const QString& cmd)
     connect(this, SIGNAL(sigRequestTerminated()), m_process, SLOT(terminate()));
     connect(this, SIGNAL(sigCleanUp()), this, SLOT(slotCleanUp()));
 
+#ifndef Q_OS_WIN
     QString append_cmd = QString("/bin/bash -c \"") + cmd + QString("\"");
+#else
+    QString append_cmd = QString("\"") + cmd + QString("\"");
+#endif
     m_process->start(append_cmd);
     ui->btnTerminate->setEnabled(true);
     ui->btnInfo->setEnabled(true);
