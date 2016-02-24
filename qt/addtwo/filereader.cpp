@@ -7,10 +7,10 @@
 #include <QFile>
 
 
-FileReader::FileReader(const QString& fn) :
-    m_filename(fn)
+FileReader::FileReader() :
+    m_filename("")
 {
-    readTextfile();
+    //readTextfile();
 }
 
 FileReader::~FileReader()

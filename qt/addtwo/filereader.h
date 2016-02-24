@@ -14,7 +14,7 @@ class FileReader : public QObject
     Q_PROPERTY(QString filename READ getFilename)
 
 public:
-    FileReader(const QString& fn);
+    FileReader();
     ~FileReader();
 
     QString getFilename() const {

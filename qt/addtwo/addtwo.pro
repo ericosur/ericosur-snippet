@@ -8,6 +8,8 @@ SOURCES += main.cpp \
 RESOURCES += qml.qrc \
     yaqml.qrc
 
+QMAKE_MAC_SDK = macosx10.11
+
 # Additional import path used to resolve QML modules in Qt Creator code model
 QML_IMPORT_PATH =
 
