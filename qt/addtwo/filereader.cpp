@@ -47,3 +47,14 @@ QString FileReader::queryString(const QString& query)
     }
     return QString("");
 }
+
+QStringList FileReader::testList(const QStringList& sl)
+{
+    qDebug() << "testList(): dump stringlist";
+    QStringList result;
+    foreach (const QString& s, sl) {
+        qDebug() << s;
+        result += "this is " + s;
+    }
+    return result;
+}

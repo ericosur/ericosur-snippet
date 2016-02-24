@@ -16,6 +16,10 @@ ApplicationWindow {
         id: trs;
     }
 
+    FileReader {
+        id: fileReader;
+    }
+
     // between min (inclusive) and max (exclusive)
     function getRandom(min, max)  {
         return Math.random() * (max - min) + min;
@@ -53,6 +57,7 @@ ApplicationWindow {
         function myInit() {
             textInput1.text = getRandomCeil(1, 9999);
             textInput2.text = getRandomCeil(1, 9999);
+            console.log( fileReader.testList(["apple", "ball", "cat"]) );
         }
 
         Component.onCompleted: {

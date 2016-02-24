@@ -6,6 +6,7 @@
 #include <QDebug>
 
 #include <QImage>
+#include <QStringList>
 
 class FileReader : public QObject
 {
@@ -22,6 +23,7 @@ public:
     }
 
     Q_INVOKABLE QString queryString(const QString& query);
+    Q_INVOKABLE QStringList testList(const QStringList& sl);
 
 protected:
     void readTextfile();
