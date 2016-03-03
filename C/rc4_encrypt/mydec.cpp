@@ -119,7 +119,7 @@ int main(int argc, char** argv)
 		}
 		if ( total_read != header.FileSize )
 		{
-			printf("size not matched %u vs %u\n", total_read, file_size);
+			printf("size not matched %lu vs %lu\n", total_read, file_size);
 		}
 	}
 
@@ -133,7 +133,7 @@ int main(int argc, char** argv)
 
 void my_truncate(const char* fname, size_t to_size)
 {
-	printf("%s(%d) my_truncate(%s, %d)...\n", __FILE__, __LINE__, fname, to_size);
+	printf("%s(%d) my_truncate(%s, %lu)...\n", __FILE__, __LINE__, fname, to_size);
 
 	const char out_fname[] = "tmp9876";
 	FILE *in = fopen(fname, "rb");
@@ -154,13 +154,13 @@ void my_truncate(const char* fname, size_t to_size)
 	while (left_size > 0 && !feof(in))
 	{
 		read_size = fread(buffer, 1, BUFFER_SIZE, in);
-		printf("%d ", read_size);
+		printf("%lu ", read_size);
 		write_size = fwrite(buffer, 1, (read_size > left_size ? left_size : read_size), out);
 		left_size -= write_size;
 		total_write += write_size;
 	}
 
-	printf("total_write = %d\n", total_write);
+	printf("total_write = %lu\n", total_write);
 	fclose(in);
 	fclose(out);
 
