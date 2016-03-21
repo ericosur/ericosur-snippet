@@ -7,6 +7,7 @@
 
 #include <QtQml>
 #include "mytranslation.hpp"
+#include "filereader.h"
 
 int main(int argc, char *argv[])
 {
@@ -32,6 +33,8 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<MyTranslation>("com.pega.rasmus", 1, 0, "MyTranslation");
     MyTranslation mt;
+
+    qmlRegisterType<FileReader>("com.pega.rasmus", 1, 0, "FileReader");
 
     QQmlApplicationEngine engine;
     //engine.rootContext()->setContextProperty("MyTranslation", &mt);

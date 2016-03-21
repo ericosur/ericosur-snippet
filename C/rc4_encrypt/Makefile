@@ -18,3 +18,4 @@ hdr:   ReadHeader.o
 
 clean:
 	rm -f *.o
+	rm -f mymd myrc myenc mydec hdr

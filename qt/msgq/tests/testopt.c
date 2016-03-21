@@ -22,6 +22,7 @@ int send_msgq(int key, int type, const char* str)
 
     printf("send_msgq(): key: 0x%08X\ntype: %d\nstr: %s\n", key, type, str);
     msqid = msgget( key, 0660 | IPC_CREAT );
+    //msqid = msgget( key, 0660 | IPC_EXCL );
     if ( msqid < 0 ) {
         perror("msgsnd: create message queue error");
         return -1;
@@ -39,6 +40,18 @@ int send_msgq(int key, int type, const char* str)
     }
     //printf("sendMyMessage: %s\n", buf.mtext);
     return 0;
+}
+
+void helpMessage()
+{
+    fprintf(stderr,
+            "testopt [options] <message>\n"
+            "-h  help message\n"
+            "-k  assign key\n"
+            "-t  assign type (default:9)\n"
+            "-v  videocontrol to yoseui key\n"
+            "-y  yoseui to videocontrol key\n"
+            "-c  yoseui to clock key\n");
 }
 
 int main(int argc, char **argv)
@@ -68,16 +81,9 @@ int main(int argc, char **argv)
 
         /* Lets parse */
         switch (cmd_opt) {
-
             case 'h':
-                fprintf(stderr,
-                    "testopt [options] <message>\n"
-                    "-h  help message\n"
-                    "-k  assign key\n"
-                    "-t  assign type (default:9)\n"
-                    "-v  videocontrol to yoseui key\n"
-                    "-y  yoseui to videocontrol key\n"
-                    "-c  yoseui to clock key\n");
+                helpMessage();
+                exit(2);
                 break;
             /* Single arg */
             case 'k':
@@ -112,10 +118,12 @@ int main(int argc, char **argv)
             /* Error handle: Mainly missing arg or illegal option */
             case '?':
                 fprintf(stderr, "Illegal option:-%c\n", isprint(optopt)?optopt:'#');
+                exit(3);
                 break;
             default:
                 fprintf(stderr, "Not supported option\n");
-                exit(-1);
+                exit(4);
+                break;
         }
     }
 
@@ -129,7 +137,7 @@ int main(int argc, char **argv)
             break;
         }
     }
-
+    printf("msgq_key: %08x\n", msgq_key);
     if (msgq_key != DEFAULT_INVALID_KEY) {
         res = send_msgq(msgq_key, msgq_type, msg_str);
     }

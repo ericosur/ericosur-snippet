@@ -7,10 +7,10 @@
 #include <QFile>
 
 
-FileReader::FileReader(const QString& fn) :
-    m_filename(fn)
+FileReader::FileReader() :
+    m_filename("")
 {
-    readTextfile();
+    //readTextfile();
 }
 
 FileReader::~FileReader()
@@ -46,4 +46,15 @@ QString FileReader::queryString(const QString& query)
         }
     }
     return QString("");
+}
+
+QStringList FileReader::testList(const QStringList& sl)
+{
+    qDebug() << "testList(): dump stringlist";
+    QStringList result;
+    foreach (const QString& s, sl) {
+        qDebug() << s;
+        result += "this is " + s;
+    }
+    return result;
 }

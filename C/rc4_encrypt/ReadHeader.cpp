@@ -91,7 +91,7 @@ void ShowHeader(const Header& header, const char* fname)
 	printf("MagicNumber = [%s]\n", header.MagicNumber);
 	printf("HeaderSize = %d\n", header.HeaderSize);
 	printf("FileNameLength = %d\n", header.FileNameLength);
-	printf("FileSize = %d\n", header.FileSize);
+	printf("FileSize = %lu\n", header.FileSize);
 	printf("file MD5 hash = ");
 	PrintHashValue(header.file_md5, MY_MD5_DIGEST_LENGTH);
 	printf("FileName = [%s]\n", fname);

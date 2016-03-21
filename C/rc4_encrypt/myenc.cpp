@@ -72,7 +72,7 @@ int main(int argc, char **argv)
 	CalculateFileMD5(in, file_header.file_md5, file_header.FileSize);
 	printf("%d: file md5 = ", __LINE__);
 	PrintHashValue((byte*)file_header.file_md5, MY_MD5_DIGEST_LENGTH);
-	printf("file size = %d\n", file_header.FileSize);
+	printf("file size = %lu\n", file_header.FileSize);
 
 // length of filename
 	file_header.FileNameLength = strlen(fname) + 1;
