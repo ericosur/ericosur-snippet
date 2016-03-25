@@ -24,6 +24,7 @@ while (<$fh>) {
 }
 close $fh;
 print STDERR "cnt: $cnt\n";
+unlink $f;
 
 # $result would be json style data array
 my $sum = 0;
