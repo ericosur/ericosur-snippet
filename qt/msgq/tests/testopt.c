@@ -8,6 +8,9 @@
 #define MAX_SEND_SIZE           64
 #define YOSE_MESSAGE_TYPE       9
 #define DEFAULT_INVALID_KEY     0xDEADBEEF
+#define MSGQKEY_V2Y        0x600DFEA6
+#define MSGQKEY_Y2V        0x600DCAFE
+#define MSGQKEY_C2Y        0x00C0FFEE
 
 struct mymsgbuf {
     long mtype;
@@ -49,9 +52,10 @@ void helpMessage()
             "-h  help message\n"
             "-k  assign key\n"
             "-t  assign type (default:9)\n"
-            "-v  videocontrol to yoseui key\n"
-            "-y  yoseui to videocontrol key\n"
-            "-c  yoseui to clock key\n");
+            "-v  videocontrol to yoseui key (%08X)\n"
+            "-y  yoseui to videocontrol key (%08X)\n"
+            "-c  yoseui to clock key (%08X)\n",
+            MSGQKEY_V2Y, MSGQKEY_Y2V, MSGQKEY_C2Y);
 }
 
 int main(int argc, char **argv)
@@ -99,15 +103,15 @@ int main(int argc, char **argv)
                 fprintf(stderr, "assign type = %d\n", tmp_type);
                 msgq_type = tmp_type;
             case 'v':
-                msgq_key = 0x600DFEA6;
+                msgq_key = MSGQKEY_V2Y;
                 break;
 
             case 'y':
-                msgq_key = 0x600DCAFE;
+                msgq_key = MSGQKEY_Y2V;
                 break;
 
             case 'c':
-                msgq_key = 0x00C0FFEE;
+                msgq_key = MSGQKEY_C2Y;
                 break;
 
             case 'q':
