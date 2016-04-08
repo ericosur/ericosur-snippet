@@ -26,12 +26,88 @@
       <x>0</x>
       <y>0</y>
       <width>836</width>
-      <height>41</height>
+      <height>62</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="6">
-      <widget class="QPushButton" name="btnCategory6">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetFixedSize</enum>
+     </property>
+     <property name="spacing">
+      <number>5</number>
+     </property>
+     <item row="1" column="6">
+      <widget class="QPushButton" name="btnCategory14">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="7">
+      <widget class="QPushButton" name="btnCategory15">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="btnCategory8">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="btnCategory9">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="4">
+      <widget class="QPushButton" name="btnCategory12">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QPushButton" name="btnCategory10">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QPushButton" name="btnCategory11">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="5">
+      <widget class="QPushButton" name="btnCategory13">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QPushButton" name="btnCategory0">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="btnCategory1">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QPushButton" name="btnCategory2">
        <property name="text">
         <string>PushButton</string>
        </property>
@@ -51,29 +127,15 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="QPushButton" name="btnCategory1">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QPushButton" name="btnCategory0">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="QPushButton" name="btnCategory2">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="5">
       <widget class="QPushButton" name="btnCategory5">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="6">
+      <widget class="QPushButton" name="btnCategory6">
        <property name="text">
         <string>PushButton</string>
        </property>
@@ -112,16 +174,13 @@
          <height>0</height>
         </size>
        </property>
-       <property name="title">
-        <string>Terminal Output</string>
-       </property>
        <widget class="QTextEdit" name="textEdit">
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>20</y>
+          <y>30</y>
           <width>601</width>
-          <height>431</height>
+          <height>421</height>
          </rect>
         </property>
         <property name="font">
@@ -156,7 +215,7 @@
         </size>
        </property>
        <property name="title">
-        <string>Function Group</string>
+        <string/>
        </property>
        <widget class="QPushButton" name="btnFunc0">
         <property name="geometry">
@@ -242,8 +301,8 @@
         </property>
         <property name="geometry">
          <rect>
-          <x>10</x>
-          <y>370</y>
+          <x>60</x>
+          <y>340</y>
           <width>41</width>
           <height>27</height>
          </rect>
@@ -258,8 +317,8 @@
         </property>
         <property name="geometry">
          <rect>
-          <x>50</x>
-          <y>370</y>
+          <x>130</x>
+          <y>340</y>
           <width>41</width>
           <height>27</height>
          </rect>
@@ -272,7 +331,7 @@
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>400</y>
+          <y>370</y>
           <width>41</width>
           <height>27</height>
          </rect>
@@ -285,7 +344,7 @@
         <property name="geometry">
          <rect>
           <x>50</x>
-          <y>400</y>
+          <y>370</y>
           <width>121</width>
           <height>27</height>
          </rect>
@@ -298,7 +357,7 @@
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>430</y>
+          <y>400</y>
           <width>161</width>
           <height>27</height>
          </rect>
