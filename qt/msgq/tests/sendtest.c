@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <sys/ipc.h>
 #include <sys/msg.h>
@@ -32,16 +33,16 @@ int sendMyMessage(int msqid, struct mymsgbuf* buf, const char* str)
         return -1;
     }
     printf("sendMyMessage: %s\n", buf->mtext);
+    return 0;
 }
 
 int main(int argc, char **argv)
 {
     int msqid;
     struct mymsgbuf buf;
-    int recvlength;
+    //int recvlength;
     int key = MESGQKEY;
-    const int MAXREPEAT = 5;
-    int i;
+    //const int MAXREPEAT = 5;
 
     //key = ftok(MSGQ_FILE, 'm' );
     if ( key < 0 ) {
@@ -71,6 +72,8 @@ int main(int argc, char **argv)
     sleep(1);
     sendMyMessage(msqid, &buf, __DATE__ __TIME__);
 
-    system("ipcs -q");
+    if ( system("ipcs -q") )
+        ;
+
     return 0;
 }
