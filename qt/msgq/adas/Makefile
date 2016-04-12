@@ -2,25 +2,27 @@
 
 CC=gcc
 STRIP=strip
-MFLAGS=-O3 -Wall
+CFLAGS=-O3 -Wall
 
-all: adasmsgq.o adastx adasrx testadas
+all: adastx adasrx
 
-adasmsgq.o:	adasmsgq.h adasmsgq.c
-	@echo build ADAS MSGQ
-	$(CC) $(MFLAGS) -c adasmsgq.c
+libadasmsgq.a:	adasmsgq.h adasmsgq.c
+	@echo build libadasmsgq.a
+	$(CC) $(CFLAGS) -c adasmsgq.c
+	$(AR) crv -o $@ adasmsgq.o
 
-adastx:	adasmsgq.h adastx.c adasmsgq.o
+adastx:	adasmsgq.h libadasmsgq.a adastx.c
 	@echo build TX
-	$(CC) $(MFLAGS) -o $@ adasmsgq.o adastx.c
+	$(CC) $(CFLAGS) -o $@ adastx.c -ladasmsgq -L.
 
-adasrx:	adasmsgq.h adasrx.c adasmsgq.o
+adasrx:	adasmsgq.h libadasmsgq.a adasrx.c
 	@echo build RX
-	$(CC) $(MFLAGS) -o $@ adasmsgq.o adasrx.c
+	$(CC) $(CFLAGS) -o $@ adasrx.c -ladasmsgq -L.
 
-testadas:	testadas.c adasmsgq.h
+testadas:	adasmsgq.h libadasmsgq.a testadas.c
 	@echo build testadas...
-	$(CC) $(MFLAGS) -o $@ adasmsgq.o testadas.c
+	$(CC) $(CFLAGS) -o $@ testadas.c -ladasmsgq -L.
 
 clean:
-	rm -f *.o adastx adasrx testadas
+	rm -f *.o adastx adasrx testadas libadasmsgq.a
+
