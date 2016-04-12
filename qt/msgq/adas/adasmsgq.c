@@ -56,7 +56,6 @@ void recv_msgq(int key, int type)
     for ( ; ; ) {
         qbuf.mtype = YOSE_MESSAGE_TYPE;
         msgrcv(msgqueue_id, (struct mymsgbuf *)&qbuf, MAX_SEND_SIZE, type, 0);
-        if (_debug)
-            printf("Type: %ld Text: %s\n", qbuf.mtype, qbuf.mtext);
+        printf("Type: %ld Text: %s\n", qbuf.mtype, qbuf.mtext);
     }
 }

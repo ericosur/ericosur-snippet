@@ -14,14 +14,17 @@ libadasmsgq.a:	adasmsgq.h adasmsgq.c
 adastx:	adasmsgq.h libadasmsgq.a adastx.c
 	@echo build TX
 	$(CC) $(CFLAGS) -o $@ adastx.c -ladasmsgq -L.
+	$(STRIP) $@
 
 adasrx:	adasmsgq.h libadasmsgq.a adasrx.c
 	@echo build RX
 	$(CC) $(CFLAGS) -o $@ adasrx.c -ladasmsgq -L.
+	$(STRIP) $@
 
 testadas:	adasmsgq.h libadasmsgq.a testadas.c
 	@echo build testadas...
 	$(CC) $(CFLAGS) -o $@ testadas.c -ladasmsgq -L.
+	$(STRIP) $@
 
 clean:
 	rm -f *.o adastx adasrx testadas libadasmsgq.a
