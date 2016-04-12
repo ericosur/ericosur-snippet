@@ -12,7 +12,7 @@ namespace Ui {
 class MainWindow;
 }
 
-const int MAX_CATEGORY = 16;
+const int MAX_CATEGORY = 18;
 const int MAX_FUNCTION = 8;
 
 class MainWindow : public QMainWindow
