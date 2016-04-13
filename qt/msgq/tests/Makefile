@@ -2,7 +2,7 @@
 
 CC=gcc
 STRIP=strip
-CFLAGS=-O3 -I../
+CFLAGS=-O3 -Wall -I../
 
 all: sendtest testopt
 
@@ -18,4 +18,3 @@ testopt:    testopt.c
 
 clean:
 	rm -f *.o sendtest testopt
-
