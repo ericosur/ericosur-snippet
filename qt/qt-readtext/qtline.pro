@@ -8,6 +8,8 @@ QT += core
 QT -= qui
 #greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+QMAKE_MAC_SDK = macosx10.11
+
 TARGET = qtline
 TEMPLATE = app
 
