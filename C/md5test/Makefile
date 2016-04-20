@@ -1,13 +1,15 @@
 MYINC=-I/opt/local/include
+CC=clang
+CFLAG=-O3 -Wall
+TARGET=md5test
 
-all:	main
+all:	$(TARGET)
 
-toolbox:
-	gcc -O3 -c toolbox.cpp $(MYINC)
+toolbox:	toolbox.cpp
+	$(CC) $(CFLAG)  $(MYINC) -c $<
 
-main: toolbox
-	gcc -O3 -o main main.cpp toolbox.o $(MYINC) -lcrypto -lstdc++
+md5test: toolbox main.cpp
+	$(CC) $(CFLAG)  $(MYINC) -o $@ main.cpp toolbox.o -lcrypto -lstdc++
 
 clean:
-	rm -f *.o
-	rm main
+	rm -f *.o $(TARGET)

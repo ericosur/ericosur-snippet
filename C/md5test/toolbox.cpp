@@ -9,7 +9,7 @@
 
 int CalculateBufferMD5(byte* buffer, size_t buffer_size, byte *md5_hash)
 {
-	size_t size_read = 0;
+	//size_t size_read = 0;
 	MD5_CTX ctx;
 
 	if (md5_hash == NULL)
