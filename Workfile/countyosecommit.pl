@@ -5,7 +5,7 @@ use strict;
 # run git-log and output to $f
 my $f = 'y.txt';
 chdir "/src/gmui_git/yosemite/YOSE_GUI/";
-system "git log --format='%an' --no-merges > $f";
+system "git log --format='%an,%ai,%s' --no-merges --since='2015-11-01' > $f";
 
 # read commit author names
 my $cnt = 0;
@@ -18,13 +18,13 @@ while (<$fh>) {
     s/ernest/Ernest_Liao/;
     s/unknown/Cid Huang/;
     s/ericosur/Rasmus_Lai/;
-	if ( m/^(.*)$/ ) {
+	if ( m/^([^,]+),/ ) {
 		$val{$1} ++;
 	}
 }
 close $fh;
 print STDERR "cnt: $cnt\n";
-unlink $f;
+#unlink $f;
 
 # $result would be json style data array
 my $sum = 0;
