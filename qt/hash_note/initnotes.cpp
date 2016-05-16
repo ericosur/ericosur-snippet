@@ -6,7 +6,8 @@ hash_note myhash;
 hash_note initHashnote()
 {
     hash_note hash;
-
+    // period value for every note
+    // duty_cycle = period / 2
     hash["C0"] = 61162080;
     hash["C#0"] = 57736721;
     hash["Db0"] = 57736721;
