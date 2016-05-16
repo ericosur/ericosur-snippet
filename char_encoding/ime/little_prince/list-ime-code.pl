@@ -54,9 +54,9 @@ sub parse_cin($)
     		next if m/^#/;
     		my $line = $_;
 =pod
-    		if ( $line =~ m/%cname\s+(.*)/ )  {
-    			print "ime name: $1\t";
-    		}
+            if ( $line =~ m/%cname\s+(.*)/ )  {
+                print "ime name: $1\t";
+            }
 =cut
     		if ( $line =~ m/%chardef\s+begin/ )  {
     			$flag = 1;
