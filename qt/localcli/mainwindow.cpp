@@ -3,6 +3,7 @@
 
 #include <QLocale>
 #include <QDebug>
+#include <QProcessEnvironment>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -10,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     test();
+    test_getenv();
 }
 
 MainWindow::~MainWindow()
@@ -21,10 +23,13 @@ void MainWindow::setLabel1(const QString& s)
 {
     ui->label_1->setText(s);
 }
-
 void MainWindow::setLabel2(const QString& s)
 {
     ui->label_2->setText(s);
+}
+void MainWindow::setLabel3(const QString& s)
+{
+    ui->label_3->setText(s);
 }
 
 void MainWindow::test()
@@ -51,4 +56,10 @@ void MainWindow::test()
             arg(12345).arg(12345).arg(12345, 0, 16);
     // str == "12345 12,345 3039"
     setLabel2(str);
+}
+
+void MainWindow::test_getenv()
+{
+    QString path = QProcessEnvironment::systemEnvironment().value("PATH", "");
+    setLabel3(path);
 }

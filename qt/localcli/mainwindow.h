@@ -16,12 +16,14 @@ public:
     ~MainWindow();
 
     void test();
+    void test_getenv();
 
 private:
     Ui::MainWindow *ui;
 
     void setLabel1(const QString& s);
     void setLabel2(const QString& s);
+    void setLabel3(const QString& s);
 };
 
 #endif // MAINWINDOW_H
