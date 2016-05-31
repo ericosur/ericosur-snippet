@@ -1,6 +1,6 @@
 // sample code from api doc
 
-function go(fn)  {
+function calcHash(fn)  {
     var crypto = require('crypto');
     var fs = require('fs');
     var shasum = crypto.createHash('sha1');
@@ -16,12 +16,12 @@ function go(fn)  {
 }
 
 function main()  {
-    var filename = process.argv[2];
-    if (filename)  {
-        go(filename);
-    } else {
-        console.log('please specify a file name');
-    }
+    process.argv.forEach(function (val, index, array) {
+        if (index >= 2) {
+            //console.log(index + ': ' + val);
+            calcHash(val);
+        }
+    });
 }
 
 main();
