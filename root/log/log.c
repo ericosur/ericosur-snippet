@@ -1,5 +1,5 @@
 /*
-$ gcc -o lg log.c -lm
+gcc -Wall -O3 -o logc log.c -lm
 */
 
 #include <stdio.h>
@@ -22,3 +22,4 @@ int main()
     test();
     return 0;
 }
+
