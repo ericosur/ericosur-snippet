@@ -6,6 +6,8 @@
 
 To demo how to ident items by using C<=over>
 
+use C<perldoc this script>
+
 =over
 
 =item *
