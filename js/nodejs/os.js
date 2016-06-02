@@ -1,23 +1,29 @@
 /// os.js
 // https://nodejs.org/dist/latest-v6.x/docs/api/os.html#os_os_arch
 
-const os = require('os');
-const util = require('util');
+function dump(myobj) {
+	const util = require('util');
+	//use util.inspect() to dump object
+	console.log(util.inspect(myobj));
+	//use JSON.stringify() to dump object
+	//console.log(JSON.stringify(myobj, null, 2));
+	// var keys = Object.keys(myobj);
+	// console.log(keys);
+}
 
-console.log('arch: ' + os.arch());
-console.log('free: ' + os.freemem());
 
-console.log('os.cpus()');
-console.log(os.cpus());
-// use util.inspect() to dump object
-//console.log('cpus: ' + util.inspect(os.cpus()));
-// use JSON.stringify() to dump object
-//console.log(JSON.stringify(os.cpus(), null, 2));
+(function() {
+	const os = require('os');
 
-console.log('os.networkInterfaces()');
-console.log( os.networkInterfaces() );
+	console.log('arch: ' + os.arch());
+	console.log('free: ' + os.freemem());
+	console.log('total: ' + os.totalmem());
+	console.log( 'platform: ' + os.platform() );
+	console.log( 'release: ' + os.release() );
+	console.log( 'os type: ' + os.type() );
+	console.log( 'uptime: ' + os.uptime() );
 
-console.log( os.platform() );
-console.log( os.release() );
-console.log( os.type() );
-console.log( os.uptime() );
+	console.log('os.cpus()');
+	//dump(os.cpus());
+	console.log(os.cpus());
+})();
