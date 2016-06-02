@@ -15,13 +15,15 @@ function calcHash(fn)  {
     });
 }
 
-function main()  {
+(function()  {
+    if (process.argv.length <= 2) {
+        console.log("please specify files to calculate hash...");
+        return;
+    }
     process.argv.forEach(function (val, index, array) {
         if (index >= 2) {
             //console.log(index + ': ' + val);
             calcHash(val);
         }
     });
-}
-
-main();
+})();
