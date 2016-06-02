@@ -1,5 +1,6 @@
 // sample code from api doc
 
+// should be same as 'sha1sum'
 function calcHash(fn)  {
     var crypto = require('crypto');
     var fs = require('fs');
