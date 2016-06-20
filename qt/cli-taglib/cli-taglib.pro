@@ -2,7 +2,7 @@ TEMPLATE = app
 CONFIG += console
 CONFIG -= app_bundle
 CONFIG -= qt
-CONFIG += localtaglib
+#CONFIG += localtaglib
 
 CONFIG(localtaglib) {
     macx {
