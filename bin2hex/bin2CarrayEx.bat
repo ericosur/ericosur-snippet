@@ -1,1 +1,0 @@
-perl bin2hex.pl example.bin 1 >example.c
