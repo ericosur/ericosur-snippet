@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 '''
 update.py
 
@@ -44,10 +46,10 @@ def usage():
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "ha:k:", ["help", "output="])
+        opts, args = getopt.getopt(sys.argv[1:], "ha:k:", ["help", "auth=", "key="])
     except getopt.GetoptError as err:
         # print help information and exit:
-        print str(err)  # will print something like "option -a not recognized"
+        print(str(err))  # will print something like "option -a not recognized"
         usage()
         sys.exit(2)
 
@@ -63,6 +65,9 @@ def main():
             spreadsheet_key_path = a
         else:
             assert False, "unhandled option"
+
+    print('auth:' + auth_json_path)
+    print('spread:' + spreadsheet_key_path)
 
     gss_scopes = ['https://spreadsheets.google.com/feeds']
     gss_client = auth_gss_client(auth_json_path, gss_scopes)
