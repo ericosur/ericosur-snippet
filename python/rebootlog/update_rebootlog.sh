@@ -28,7 +28,7 @@ DATE=`date -R`
 echo -e "$DATE\tcalling rebootlog..."
 cd $SRC
 echo $PWD
-echo "update_worksheet.py -a $AUTHPATH -k $KEYPATH"
+echo "update_worksheet.py --auth=$AUTHPATH --key=$KEYPATH"
 ./update_worksheet.py --auth=$AUTHPATH --key=$KEYPATH
 
 DATE=`date -R`
