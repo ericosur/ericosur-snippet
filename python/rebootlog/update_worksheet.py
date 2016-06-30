@@ -12,6 +12,7 @@ import gspread
 import time
 import socket
 import myutil
+import getopt, sys
 
 # oauth2
 def auth_gss_client(path, scopes):
@@ -37,12 +38,33 @@ def update_sheet(gss_client, key, host, date, eth0, wlan0, ssid, extip):
         print("unexpect error at update_sheet()");
 
 
-# oauth2
-if __name__ == "__main__":
-    auth_json_path = '/home/ericosur/Private/auth.json'
-    spreadsheet_key_path = '/home/ericosur/Private/spreadsheet_key'
-    gss_scopes = ['https://spreadsheets.google.com/feeds']
+def usage():
+    print("--auth, -a: auth json path")
+    print("--key, -k: spreadsheet key path")
 
+def main():
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], "ha:k:", ["help", "output="])
+    except getopt.GetoptError as err:
+        # print help information and exit:
+        print str(err)  # will print something like "option -a not recognized"
+        usage()
+        sys.exit(2)
+
+    auth_json_path = 'auth.json'
+    spreadsheet_key_path = 'spreadsheet_key'
+    for o, a in opts:
+        if o in ("-h", "--help"):
+            usage()
+            sys.exit()
+        elif o in ("-a", "--auth"):
+            auth_json_path = a
+        elif o in ("-k", "--key"):
+            spreadsheet_key_path = a
+        else:
+            assert False, "unhandled option"
+
+    gss_scopes = ['https://spreadsheets.google.com/feeds']
     gss_client = auth_gss_client(auth_json_path, gss_scopes)
 
     today = time.strftime("%c")
@@ -61,3 +83,8 @@ if __name__ == "__main__":
             spreadsheet_key = f.read().strip()
             update_sheet(gss_client, spreadsheet_key,
                 host, today, eth0, wlan0, ssid, extip)
+
+
+if __name__ == "__main__":
+    main()
+
