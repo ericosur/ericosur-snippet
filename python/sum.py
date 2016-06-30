@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# just a trivia script to use foo-loop and print
+
 t = 0
 max_size = 100
 
