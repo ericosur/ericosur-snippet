@@ -1,7 +1,8 @@
 # 17 Pokers
 
-在 Liar Game S2 第二集後半的一個遊戲 17 pokers，
+在 [Liar Game S2E2](./LiarGameS2E3.jpg) 後半的一個遊戲 17 Pokers，
 17張牌共有 6188 種組合 C(17,5)
+[rule screenshot](./17poker_rule.png)
 
 有八種牌型分別是
 4 Aces, 4 Kings, 4 Queens, 4 Jacks and a Joker
@@ -28,8 +29,6 @@ joker card is wild card
 | 8  | 1 pair          |  43.4389% |  24.8222% | 1 pairs |
 | -  | total           | 100.0000% | 100.0000% ||
 
-
-
 ### files
 
 - 17poker.py: init deck and deal 5 cards to 4 players
@@ -39,16 +38,16 @@ joker card is wild card
 
 ### Some notes ###
 
+完整52張牌：
 ```
-52P5 = 311,875,200
-52C5 = 2,598,960
+P(52, 5) = 311,875,200
+C(52, 5) = 2,598,960
 ```
 
 * straight flush
   all same suit
-  ```
-  (4*10) / (52C5) = 0.0015%
-  ```
+
+  ![(4*10) / (52C5) = 0.0015%](./eq0.png "eq0")
 
     Steel Wheel:
     ```
@@ -62,11 +61,7 @@ joker card is wild card
     is known as a _royal flush_ or *total 4 _royal flush_*
 
 * four of a kind
-  ```
-\[\frac{C(13,1) * C(4,4) * C(12,1) * C(4,1)}{C(52,5)}=0.024\%
-\]
-<script type="text/javascript" src="http://www.hostmath.com/Math/MathJax.js?config=OK"></script>
-  ```
+
   ![C(13,1)*C(4,4) * C(12,1)*C(4,1) / C(52,5)](./eq1.png "eq1")
 
 
