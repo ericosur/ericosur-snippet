@@ -1,0 +1,111 @@
+[21:00:06.808] W: yoseui starting...
+[21:00:06.930] D: [ 1 ] class: "YoseDbus" : register path: "/hu/MainUi" result: ok
+[21:00:06.931] D: [ 2 ] class: "YoseDbusMusic" : register path: "/hu/MainUi/LocalMusic" result: ok
+[21:00:06.932] D: [ 3 ] class: "YoseDbusA2dp" : register path: "/hu/MainUi/BtA2dp" result: ok
+[21:00:06.938] D: [ 4 ] class: "YoseDbusBluetooth" : register path: "/hu/MainUi/Bluetooth" result: ok
+[21:00:06.939] D: [ 5 ] class: "YoseDbusRadio" : register path: "/hu/MainUi/RadioAmFm" result: ok
+[21:00:06.940] D: [ 6 ] class: "YoseDbusPhone" : register path: "/hu/MainUi/MainPhone" result: ok
+[21:00:06.941] D: [ 7 ] class: "YoseDbusMedia" : register path: "/hu/MainUi/MainMedia" result: ok
+[21:00:06.941] D: [ 8 ] class: "YoseDbusCarinfo" : register path: "/hu/MainUi/MainCarinfo" result: ok
+[21:00:06.942] D: [ 9 ] class: "YoseDbusSetting" : register path: "/hu/MainUi/MainSetting" result: ok
+[21:00:06.943] D: [ 10 ] class: "YoseDbusVideo" : register path: "/hu/MainUi/LocalVideo" result: ok
+[21:00:06.944] D: [ 11 ] class: "YoseDbusHome" : register path: "/hu/MainUi/MainHome" result: ok
+[21:00:06.944] D: [ 12 ] class: "YoseDbusGesture" : register path: "/hu/MainUi/Gesture" result: ok
+[21:00:06.945] D: [ 13 ] class: "YoseDbusVol" : register path: "/hu/MainUi/Vol" result: ok
+[21:00:06.946] D: [ 14 ] class: "YoseDbusDvr" : register path: "/hu/MainUi/Dvr" result: ok
+[21:00:06.946] D: [ 15 ] class: "YoseDbusAuxIn" : register path: "/hu/MainUi/Aux" result: ok
+[21:00:06.947] D: [ 16 ] class: "YoseDbusDirHeadlight" : register path: "/hu/MainUi/DirTurnHeadlight" result: ok
+[21:00:06.948] D: [ 17 ] class: "YoseDbusVoice" : register path: "/hu/MainUi/Voice" result: ok
+[21:00:06.949] D: [ 18 ] class: "YoseDbusLMS" : register path: "/hu/MainUi/LMS" result: ok
+[21:00:06.950] D: [ 19 ] class: "YoseDbusLocation" : register path: "/hu/MainUi/LocationFull" result: ok
+[21:00:06.950] D: [ 20 ] class: "YoseDbusCarplay" : register path: "/hu/MainUi/Carplay" result: ok
+[21:00:06.951] D: [ 21 ] class: "YoseDbusShutdown" : register path: "/hu/MainUi/ShutDown" result: ok
+[21:00:07.016] D: YoseMsg::run()
+[21:00:07.016] D: YoseMsg: message queue created, key:  "0x600dfea6"  msgqueue_id:  65538
+[21:00:07.017] D: YoseMsg_R_VO: message queue created, key:  "0x600dcafb"  msgqueue_id:  98307
+[21:00:07.017] D: YoseMsg_rtoy::run()
+[21:00:07.018] D: YoseMsg_rtoy: message queue created, key:  "0x600ddddd"  msgqueue_id:  131076
+[21:00:07.032] D: BT/Settings: QBrcmBtSettings
+[21:00:07.033] D: BT/PBC: QBrcmBtPhoneBookClient
+[21:00:07.041] D: BT/HF: AudioDbusBtHfp: registerObject res:  true
+[21:00:07.481] D: "1969-12-31 21:00:07:480"  Wi-Fi Settings: QPegaWifiSettings Class
+[21:00:07.481] D: Wi-Fi Settings: Failed to open control connection to wpa_supplicant
+[21:00:07.481] D: Wi-Fi Settings: Could not get status from wpa_supplicant
+[21:00:07.482] D: "1969-12-31 21:00:07:482"  Wi-Fi NTP: QPegaWifiNtp Class
+[21:00:07.485] D: "21:00:07.485" gps: Connect to gpsd succeed.
+[21:00:07.486] W: before calling engine.load()
+[21:00:07.486] D: yoseui loading start time
+[21:00:10.236] D: file_reader.temperature: --
+[21:00:10.237] D: no temperature yet
+[21:00:10.256] D: queryRegularFont(): file:///usr/share/font/NotoSansCJKtc-Regular.otf
+[21:00:10.440] D: queryBoldFont(): file:///usr/share/font/NotoSansCJKtc-Bold.otf
+[21:00:11.141] D: Using the 'ivi-shell' shell integration
+[21:00:11.143] D: Loading main state...
+[21:00:11.147] D: Loading settings state...
+[21:00:11.148] D: Brightness changed to  50
+[21:00:11.152] D: BSA_DmSetConfig failed: 105
+[21:00:11.157] D: Loading settings state:  text_current_lang_code = en
+[21:00:11.157] D: selectLanguage():  "en"
+[21:00:11.160] D: setEQSlider(), GAIN_TREBLE
+[21:00:11.161] D: setEQSlider(), GAIN_MIDDLE
+[21:00:11.161] D: setEQSlider(), GAIN_BASS
+[21:00:11.165] W: qrc:/YOSE_QML/IVI_Basic_Components_v2.qml:110: TypeError: Cannot read property 'source' of undefined
+[21:00:11.165] W: qrc:/YOSE_QML/IVI_Home.qml:210: TypeError: Cannot read property 'music_page' of null
+[21:00:11.165] W: qrc:/YOSE_QML/IVI_Home.qml:230: TypeError: Cannot read property 'music_page' of null
+[21:00:11.166] W: qrc:/YOSE_QML/IVI_Home.qml:243: TypeError: Cannot read property 'music_page' of null
+[21:00:11.166] W: qrc:/YOSE_QML/IVI_Home.qml:253: TypeError: Cannot read property 'music_page' of null
+[21:00:11.167] D: yoseui loading end time
+[21:00:11.167] W: end calling engine.load()
+[21:00:11.183] D: basic: gps: status changed
+[21:00:11.606] D: "21:00:11.606" gps: Disconnect from gpsd.
+[21:00:11.607] D: basic: gps: connection status changed
+[21:00:11.608] D: basic: gps: runAutotzTest
+[21:00:11.608] D: "21:00:11.608" "gps: (1) Reconnecting..."
+[21:00:11.609] D: basic: gps: connection status changed
+[21:00:11.610] D: basic: gps: runAutotzTest
+[21:00:11.610] D: "21:00:11.610" gps: Connect to gpsd succeed.
+[21:00:12.242] D: radio: saveChannelFreq(): currentDispFreq = 0
+[21:00:12.288] D: sigError
+[21:00:12.289] D: true
+[21:00:12.294] D: "music: lastDir_text: "
+[21:00:12.304] D: Loading Media tab...
+[21:00:12.306] D: Loading Media tab...
+[21:00:12.524] D: radio: savedFMFreq: 10640
+[21:00:12.525] D: radio: savedAMFreq: 888
+[21:00:12.525] D: radio: isFm: true
+[21:00:12.526] D: m_isFM :  true
+[21:00:12.529] D: [Radio] onResultChaged: 10640
+[21:00:12.666] D: Request RDS data : 10640
+[21:00:12.666] D: [ void Rds_AF_Monitor::rds_af() ] RDS_AF req_no :  10640
+[21:00:12.666] D: [ void Rds_TP_Monitor::rds_tp() ] RDS_TP req_no :  10640
+[21:00:12.667] D: [ void Rds_AF_Monitor::rds_af() ] Get RDS_AF data : 
+[21:00:12.667] D: [ void Rds_TP_Monitor::rds_tp() ] Get RDS_TP data :  255
+[21:00:12.666] D: [ void Rds_PS_Monitor::rds_ps() ] RDS_PS req_no :  10640
+[21:00:12.667] D: tp changed
+[21:00:12.667] D: [ void Rds_PS_Monitor::rds_ps() ] Get RDS PS data:  
+[21:00:13.584] D: current source: 0
+[21:00:13.584] D: music: checkMedia(): file:///
+[21:00:13.585] D: music: showState: previous_source_id: 0
+[21:00:13.585] D: music: showState: current_source_id: 0
+[21:00:13.585] D: music: no sdcard insert
+[21:00:13.586] D: music: onCountChanged... 
+[21:00:13.586] D: music: showState: previous_source_id: 0
+[21:00:13.586] D: music: showState: current_source_id: 2
+[21:00:14.844] D: start app_mgr_open
+[21:00:19.182] D: get YoseDbusLMS::Changed()
+[21:00:19.182] D: FileReader::sltlmsChanged
+[21:00:19.847] D: BT/Settings: Could not connect to BSA server.
+[21:00:19.848] D: BT/Settings: Connect BSA server again..., retry times:  0
+[21:00:19.856] D: start app_mgr_open
+[21:00:19.856] D: BT/Settings: Connect BSA server success!!.
+[21:00:20.211] D: BT/HF: --> initHs
+[21:00:20.219] D: BT/MCE: --> initMce
+[21:00:20.720] D: restore flag times out set restore finished
+[21:00:21.551] D: home: yosedbus.askFullLocation()
+[21:00:22.462] D: yosedbus: addUSB()
+[21:00:22.463] D: [IVI_Media_Video] usb source
+[21:00:22.466] D: after update, current storage status:2
+[21:00:22.467] D: [IVI_Media_Music_v2] usb source
+[21:00:22.467] D: after update, current storage status:2
+[14:23:23.764] D: get YoseDbusLMS::Changed()
+[14:23:23.765] D: FileReader::sltlmsChanged
