@@ -1,0 +1,8 @@
+俞 = AI  華 = AJ  良 = AN  成 = AY  並 = BE  前 = BI  曾 = BO  義 = BX  既 = DL  夷 = EN
+司 = EO  易 = EP  發 = FX  垂 = GE  即 = GI  就 = GL  旁 = GY  或 = HE  巷 = HL  很 = HN
+首 = HO  愛 = HX  應 = IA  申 = II  甫 = IJ  祭 = JA  直 = JE  是 = JN  故 = JX  甚 = KL
+咸 = KO  新 = LI  親 = LL  路 = LO  夜 = LX  買 = MA  曼 = MX  求 = NA  包 = NL  象 = NN
+周 = NO  敬 = NX  貫 = OA  單 = OJ  嚴 = OX  條 = PN  個 = PO  修 = PP  貴 = QA  畢 = QJ
+規 = QL  兆 = RA  而 = RI  考 = RK  樂 = RN  當 = SO  頁 = TA  充 = TL  弟 = TP  更 = TX
+能 = UL  覽 = VL  詹 = VO  敏 = VX  武 = WE  谷 = WO  專 = XA  鄉 = XI  夸 = XK  奄 = XL
+商 = XO  原 = YA  幸 = YJ  厭 = YN  憂 = YX  餐 = ZN
