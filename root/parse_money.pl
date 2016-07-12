@@ -21,6 +21,7 @@ use DateTime;
 use Date::Calc qw(:all);
 
 my $deadline = 0;
+# will auto alter it if it is past
 my ($DEADYEAR, $DEADMONTH, $DEADDAY) = (2016, 7, 3);
 
 sub process() {
@@ -142,6 +143,19 @@ sub getDaysTillToday($$$)
     return $days;
 }
 
+# in: (year, month, day)
+sub get_date_delta($$$)
+{
+    my ($dy,$dm,$dd) = @_;
+    my ($ty, $tm, $tday) = Today();
+
+    #say $dy, $dm, $dd;
+    my $delta = Delta_Days($ty, $tm, $tday, $dy, $dm, $dd);
+
+    #print $delta,"\n";
+    return $delta;
+}
+
 sub show($)
 {
     my $rf = shift;
@@ -181,6 +195,13 @@ sub show_deadline()
 
 sub main()
 {
+    my $delta = get_date_delta($DEADYEAR, $DEADMONTH, $DEADDAY);
+    if ($delta <= 0) {
+        $DEADMONTH += 1;
+        if ($DEADMONTH >= 12) {
+            $DEADYEAR += 1;
+        }
+    }
     show_deadline();
     process();
 }
