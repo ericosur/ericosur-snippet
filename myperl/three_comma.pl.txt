@@ -1,25 +1,25 @@
 From Ericosur.bbs@cis.nctu.edu.tw  Sun Aug  1 18:11:17 1999
 Return-Path: <Ericosur.bbs@cis.nctu.edu.tw>
 Received: from mail.cis.nctu.edu.tw (mail.cis.nctu.edu.tw [140.113.23.5])
-	by genetic.iim.nctu.edu.tw (8.9.3/8.8.7) with ESMTP id SAA06843
-	for <ericosur@genetic.iim.nctu.edu.tw>; Sun, 1 Aug 1999 18:11:17 +0800
+    by genetic.iim.nctu.edu.tw (8.9.3/8.8.7) with ESMTP id SAA06843
+    for <ericosur@genetic.iim.nctu.edu.tw>; Sun, 1 Aug 1999 18:11:17 +0800
 From: Ericosur.bbs@cis.nctu.edu.tw
 Received: from bbs.cis.nctu.edu.tw (bbs [140.113.23.3])
-	by mail.cis.nctu.edu.tw (8.9.1a/8.9.1) with SMTP id SAA14700
-	for ericosur@genetic.iim.nctu.edu.tw; Sun, 1 Aug 1999 18:06:15 +0800 (CST)
+    by mail.cis.nctu.edu.tw (8.9.1a/8.9.1) with SMTP id SAA14700
+    for ericosur@genetic.iim.nctu.edu.tw; Sun, 1 Aug 1999 18:06:15 +0800 (CST)
 Received: by bbs.cis.nctu.edu.tw (Apollo BBS 1.0) id AB24862; Sun, 01 Aug 1999 18:04:27 +0800
 Date: Sun, 01 Aug 1999 18:04:27 +0800
 Message-Id: <19990801991004.AB24862@cis.nctu.edu.tw>
-Subject: ¥[¤J³r¸¹,¦b¨C¤T­Ó¼Æ¦r¤§«á...PERL
+Subject: åŠ å…¥é€—è™Ÿ,åœ¨æ¯ä¸‰å€‹æ•¸å­—ä¹‹å¾Œ...PERL
 To: ericosur@genetic.iim.nctu.edu.tw
-X-Forwarded-By: Ericosur (Âù¤l®yªºÄî¤l)
-X-Disclaimer:  ¥æ³q¤j¾Ç¸ê°T¬ì¾Ç¨t BBS  ¹ï¥»«H¤º®e®¤¤£­t³d¡C
+X-Forwarded-By: Ericosur (é›™å­åº§çš„ç™©å­)
+X-Disclaimer:  äº¤é€šå¤§å­¸è³‡è¨Šç§‘å­¸ç³» BBS  å°æœ¬ä¿¡å…§å®¹æ•ä¸è² è²¬ã€‚
 Status: R
 
-µo«H¤H: physis.bbs@bbs.ntu.edu.tw (cg-boy(24)), «H°Ï: programming
-¼Ğ  ÃD: ¥[¤J³r¸¹,¦b¨C¤T­Ó¼Æ¦r¤§«á...PERL
-µo«H¯¸: ¥x¤j­p¤¤·¦ªL­·±¡¯¸ (Sun Aug  1 13:35:57 1999)
-Âà«H¯¸: cis_nctu!news.cis.nctu!ctu-gate!news.nctu!news.ntu!Palmarama
+ç™¼ä¿¡äºº: physis.bbs@bbs.ntu.edu.tw (cg-boy(24)), ä¿¡å€: programming
+æ¨™  é¡Œ: åŠ å…¥é€—è™Ÿ,åœ¨æ¯ä¸‰å€‹æ•¸å­—ä¹‹å¾Œ...PERL
+ç™¼ä¿¡ç«™: å°å¤§è¨ˆä¸­æ¤°æ—é¢¨æƒ…ç«™ (Sun Aug  1 13:35:57 1999)
+è½‰ä¿¡ç«™: cis_nctu!news.cis.nctu!ctu-gate!news.nctu!news.ntu!Palmarama
 
 
  sub commas{
@@ -30,8 +30,8 @@ Status: R
  ...
  $Result = &commas( EXPR );
 
- okay,²×©ó¥´§¹¤F...
+ okay,çµ‚æ–¼æ‰“å®Œäº†...
 
 --
-¡¸ [Origin:·¦ªL­·±¡] [From: ccsun38.cc.ntu.edu.tw] [Login: **] [Post: **]
+â˜† [Origin:æ¤°æ—é¢¨æƒ…] [From: ccsun38.cc.ntu.edu.tw] [Login: **] [Post: **]
 
