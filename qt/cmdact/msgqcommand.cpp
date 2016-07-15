@@ -1,16 +1,24 @@
 #include "msgqcommand.h"
 
 #include <QDebug>
+#include <QDateTime>
 
 MyCtrl::MyCtrl()
 {
     initHash();
+    initList();
 }
 
 void MyCtrl::initHash()
 {
     myhash["test"] = &MyCtrl::actTest;
     qDebug() << myhash["test"];
+}
+
+void MyCtrl::initList()
+{
+    mylist << "apple";
+    emit sigMylistChanged();
 }
 
 void MyCtrl::qmlRunCommand(const QString& cmd)
@@ -33,5 +41,6 @@ void MyCtrl::doCommand(const QString& cmd)
 void MyCtrl::actTest()
 {
     qDebug() << Q_FUNC_INFO;
+    mylist << QString::number(QDateTime::currentMSecsSinceEpoch());
     emit sigTest();
 }
