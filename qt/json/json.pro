@@ -14,3 +14,6 @@ SOURCES += main.cpp \
 
 HEADERS += \
     readjson.h
+
+DISTFILES += \
+    a.json
