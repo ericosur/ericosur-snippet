@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     int cnt = 0;
 
     /* get the ID of shared memory */
-    shm_id = shmget((key_t)KEY_SHM_EXAMPLE, sizeof(struct shm_ex), 0666 | IPC_CREAT);
+    shm_id = shmget((key_t)KEY_SHM_EXAMPLE, sizeof(struct shm_ex), 0600 | IPC_CREAT);
     if (shm_id == -1) {
         perror("shmget");
         exit(EXIT_FAILURE);

@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     /* get the ID of shared memory,
        fail if specified shmem not created
     */
-    shm_id = shmget((key_t)KEY_SHM_EXAMPLE, sizeof(struct shm_ex), 0666 | IPC_EXCL);
+    shm_id = shmget((key_t)KEY_SHM_EXAMPLE, sizeof(struct shm_ex), 0600 | IPC_EXCL);
     if (shm_id == -1) {
         perror("shmget");
         exit(EXIT_FAILURE);
