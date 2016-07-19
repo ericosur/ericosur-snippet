@@ -17,12 +17,13 @@ public:
     YoseMsg();
     ~YoseMsg() {}
 
+    void removeMsg();
     void run();
 
 public slots:
     void sltPrint(const QString& s);
     void sltHome();
-    //void sltQuit();
+    void sltAskQuit();
 
 signals:
     void sigPrint(const QString& s);
@@ -46,6 +47,7 @@ private:
     QString m_msg;
     QHash<QString, actfp> actionTable;
     actfp m_fp;
+    bool m_shouldRun;
 };
 
 #endif // YOSEMSG_H

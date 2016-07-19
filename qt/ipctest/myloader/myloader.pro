@@ -3,15 +3,24 @@ TEMPLATE = app
 QT += qml quick
 
 CONFIG += c++11
+CONFIG += use_util
 
 SOURCES += main.cpp \
-    mydatasource.cpp \
-    ../yosemsg.cpp
+    mydatasource.cpp
 
 HEADERS += \
-    mydatasource.h \
-    ../msgqdef.h \
-    ../yosemsg.h
+    mydatasource.h
+
+use_util {
+HEADERS += \
+    ../util/msgqdef.h \
+    ../util/yosemsg.h \
+    ../util/shmdef.h \
+    ../util/yoseshm.h
+SOURCES += \
+    ../util/yosemsg.cpp \
+    ../util/yoseshm.cpp
+}
 
 RESOURCES += qml.qrc
 

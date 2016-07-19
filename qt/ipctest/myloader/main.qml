@@ -58,5 +58,16 @@ ApplicationWindow {
                 mydatasource.checkAction();
             }
         }
+        Button {
+            id: quitButton
+            anchors.top: greybutton2.bottom
+            anchors.topMargin: 10
+            anchors.left: greytext.left
+            text: "quit..."
+            onClicked: {
+                console.log("quit button...");
+                mydatasource.quitAction();
+            }
+        }
     }
 }

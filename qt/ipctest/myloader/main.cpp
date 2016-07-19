@@ -19,6 +19,8 @@ int main(int argc, char *argv[])
     QObject::connect(&msg, SIGNAL(sigMd5sum(const QString&)), &ds, SLOT(sltMd5sum(const QString&)));
     QObject::connect(&msg, SIGNAL(sigWrite()), &ds, SLOT(sltWrite()));
 
+    QObject::connect(&ds, SIGNAL(sigAskQuit()), &msg, SLOT(sltAskQuit()));
+
     msg.start();
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include <QString>
-#include <QSharedMemory>
 #include <QByteArray>
 
 class myDataSource : public QObject
@@ -13,6 +12,7 @@ class myDataSource : public QObject
 public:
     Q_INVOKABLE void loadAction();
     Q_INVOKABLE void checkAction();
+    Q_INVOKABLE void quitAction();
 
     myDataSource();
 
@@ -21,13 +21,14 @@ public slots:
     void sltMd5sum(const QString& s);
     void sltWrite();
 
+signals:
+    void sigAskQuit();
+
 protected:
     void readFromShared();
     void writeToShared();
 
 private:
-    QSharedMemory *m_shared;
-    QByteArray *m_arr;
 };
 
 #endif  // __MYDATASOURCE_H__
