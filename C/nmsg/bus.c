@@ -40,6 +40,7 @@ int node(const int argc, const char **argv)
 int main(const int argc, const char **argv)
 {
     if(argc >= 3) {
+        //fprintf(stderr, "argc: %d\n", argc);
         node(argc, argv);
     } else {
         fprintf(stderr, "Usage: bus <NODE_NAME> <URL> <URL> ...\n");
