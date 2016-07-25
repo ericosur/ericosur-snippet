@@ -8,11 +8,21 @@
 #define NODE0 "node0"
 #define NODE1 "node1"
 
+static int cnt = 0;
+
 int send_name(int sock, const char *name)
 {
-    printf("%s: SENDING \"%s\"\n", name, name);
-    int sz_n = strlen(name) + 1;  // '\0' too
-    return nn_send(sock, name, sz_n, 0);
+    char str[40];
+
+    if (strcmp(name, "node0")==0) {
+        sprintf(str, "0-%08d", cnt);
+    } else {
+        sprintf(str, "1-%08d", cnt);
+    }
+    cnt ++;
+    printf("%s: SENDING \"%s\"\n", name, str);
+    int sz_n = strlen(str) + 1;  // '\0' too
+    return nn_send(sock, str, sz_n, 0);
 }
 
 int recv_name(int sock, const char *name)
@@ -33,7 +43,7 @@ int send_recv(int sock, const char *name)
     while(1) {
         recv_name(sock, name);
         //sleep(1);
-        usleep(1000);
+        //usleep(5000);
         send_name(sock, name);
     }
 }
