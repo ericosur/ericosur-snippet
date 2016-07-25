@@ -4,7 +4,9 @@ APPS = \
 	pair \
 	pubsub \
 	survey \
-	bus
+	bus \
+	tx \
+	rx
 
 CFLAGS = -O3 -Wall
 LFLAGS = -lnanomsg
@@ -27,6 +29,12 @@ survey: survey.c
 	gcc $(CFLAGS) -o $@ $< $(LFLAGS)
 
 bus: bus.c
+	gcc $(CFLAGS) -o $@ $< $(LFLAGS)
+
+tx: tx.c
+	gcc $(CFLAGS) -o $@ $< $(LFLAGS)
+
+rx: rx.c
 	gcc $(CFLAGS) -o $@ $< $(LFLAGS)
 
 style:
