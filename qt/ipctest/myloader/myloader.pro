@@ -4,6 +4,7 @@ QT += qml quick
 
 CONFIG += c++11
 CONFIG += use_util
+CONFIG += use_nnmsg
 
 SOURCES += main.cpp \
     mydatasource.cpp
@@ -20,6 +21,13 @@ HEADERS += \
 SOURCES += \
     ../util/yosemsg.cpp \
     ../util/yoseshm.cpp
+}
+
+use_nnmsg {
+DEFINES += USE_NNMSG
+HEADERS += ../util/nnmsgpub.h
+SOURCES += ../util/nnmsgpub.cpp
+LIBS += -lnanomsg
 }
 
 RESOURCES += qml.qrc

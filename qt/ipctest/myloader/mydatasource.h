@@ -10,11 +10,14 @@ class myDataSource : public QObject
     Q_OBJECT
 
 public:
+    myDataSource();
+
     Q_INVOKABLE void loadAction();
     Q_INVOKABLE void checkAction();
+    Q_INVOKABLE void reqDigital();
+    Q_INVOKABLE void reqAnalog();
     Q_INVOKABLE void quitAction();
 
-    myDataSource();
 
 public slots:
     void sltRead(const QString& s);

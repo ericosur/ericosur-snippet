@@ -2,7 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QtQml>
 
-#include "../yosemsg.h"
+#include "../util/yosemsg.h"
 #include "mydatasource.h"
 
 int main(int argc, char *argv[])

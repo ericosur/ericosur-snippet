@@ -59,8 +59,30 @@ ApplicationWindow {
             }
         }
         Button {
-            id: quitButton
+            id: greybutton3
             anchors.top: greybutton2.bottom
+            anchors.topMargin: 10
+            anchors.left: greytext.left
+            text: "send Digital"
+            onClicked: {
+                console.log("grey button3: digital");
+                mydatasource.reqDigital();
+            }
+        }
+        Button {
+            id: greybutton4
+            anchors.top: greybutton3.bottom
+            anchors.topMargin: 10
+            anchors.left: greytext.left
+            text: "send Analog"
+            onClicked: {
+                console.log("grey button4: analog");
+                mydatasource.reqAnalog();
+            }
+        }
+        Button {
+            id: quitButton
+            anchors.top: greybutton4.bottom
             anchors.topMargin: 10
             anchors.left: greytext.left
             text: "quit..."

@@ -8,7 +8,11 @@
 #include <QFile>
 #include <QDataStream>
 
-#include "../yoseshm.h"
+#include "../util/yoseshm.h"
+#include "../util/nnmsgpub.h"
+
+#include "unistd.h"
+#define WAITAMOMENT()   usleep(250*1000);
 
 myDataSource::myDataSource()
 {
@@ -23,7 +27,22 @@ void myDataSource::checkAction()
 {
     qDebug() << Q_FUNC_INFO;
 }
-
+void myDataSource::reqDigital()
+{
+    qDebug() << Q_FUNC_INFO;
+    NnmsgPub nn("ipc:///tmp/pubsub.ipc");
+    WAITAMOMENT();
+    nn.senddata("clock-Digital");
+    WAITAMOMENT();
+}
+void myDataSource::reqAnalog()
+{
+    qDebug() << Q_FUNC_INFO;
+    NnmsgPub nn("ipc:///tmp/pubsub.ipc");
+    WAITAMOMENT();
+    nn.senddata("clock-Analog");
+    WAITAMOMENT();
+}
 void myDataSource::quitAction()
 {
     qDebug() << Q_FUNC_INFO;
