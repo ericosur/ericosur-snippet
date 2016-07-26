@@ -6,7 +6,8 @@ APPS = \
 	survey \
 	bus \
 	tx \
-	rx
+	rx \
+	mypub
 
 CFLAGS = -O3 -Wall
 LFLAGS = -lnanomsg
@@ -35,6 +36,9 @@ tx: tx.c
 	gcc $(CFLAGS) -o $@ $< $(LFLAGS)
 
 rx: rx.c
+	gcc $(CFLAGS) -o $@ $< $(LFLAGS)
+
+mypub: mypub.c
 	gcc $(CFLAGS) -o $@ $< $(LFLAGS)
 
 style:
