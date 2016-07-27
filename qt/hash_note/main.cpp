@@ -4,7 +4,8 @@
 
 void test()
 {
-    qDebug() << "C4: " << myhash["C4"];
+    qDebug() << "C4: " << myhash["C4"] << "Db5" << myhash["Db5"];
+
 }
 
 int main(int argc, char *argv[])
@@ -13,9 +14,9 @@ int main(int argc, char *argv[])
     //Q_UNUSED(argv);
 
     QCoreApplication a(argc, argv);
-    //myhash = initHashnote();
+    myhash = initHashnote();
 
-    //test();
+    test();
 
     //return a.exec();
     return 0;
