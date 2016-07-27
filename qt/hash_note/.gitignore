@@ -1,0 +1,4 @@
+Makefile
+*.o
+hash_note
+moc_*.o
