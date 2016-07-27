@@ -1,13 +1,11 @@
-/// file: c11.cpp
+#include <iostream>
 
-#include "c11.h"
+using namespace std;
 
-// MyInc::MyInc()
-// {
-//     m_val = 999;
-// }
+int main()
+{
+	auto func = [](int x, int y) { return x + y; };
 
-// int MyInc::getValue() const
-// {
-//     return m_val;
-// }
+	cout << func(5.0, 3.5) << endl;
+	return 0;
+}
