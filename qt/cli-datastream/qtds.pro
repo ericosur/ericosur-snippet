@@ -12,6 +12,6 @@ CONFIG += c++11
 TARGET = qtds
 TEMPLATE = app
 
-HEADERS +=
-SOURCES += main.cpp
-
+HEADERS += qbar.h
+SOURCES += main.cpp \
+    qbar.cpp

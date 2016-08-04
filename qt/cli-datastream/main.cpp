@@ -1,100 +1,22 @@
 #include <QtCore>
 #include <QDebug>
-//#include <QApplication>
+#include <QCoreApplication>
 #include <iostream>
 #include <QDataStream>
 #include <QFile>
+
+#include "qbar.h"
 
 using namespace std;
 
 #define FOOFILE "/tmp/foo.dat"
 
-class Foo
+void msgHandler(QtMsgType type, const QMessageLogContext& ctx, const QString& msg)
 {
-public:
-    Foo();
-    ~Foo();
-
-    void setM(int v) {
-        m = v;
-    }
-    int getM() const {
-        return m;
-    }
-    void setN(qint32 v) {
-        n = v;
-    }
-    qint32 getN() const {
-        return n;
-    }
-    void append(const QString& s) {
-        sl << s;
-    }
-    void show() {
-        foreach (const QString &str, sl) {
-            qDebug() << str;
-        }
-    }
-    void save();
-    void load();
-
-    friend QDataStream& operator<<(QDataStream& ds, const Foo& obj);
-    friend QDataStream& operator>>(QDataStream& ds, Foo& obj);
-private:
-    int m = 0x0000dead;
-    qint32 n = 0x00c0ffee;
-    QString s;
-    QStringList sl;
-};
-
-Foo::Foo()
-{
-    s = "hello world";
-    sl << "apple" << "ball" << "cat";
-}
-
-Foo::~Foo()
-{
-}
-
-QDataStream& operator<<(QDataStream& ds, const Foo& obj)
-{
-    ds << obj.m << obj.n << obj.s << obj.sl;
-    return ds;
-}
-
-QDataStream& operator>>(QDataStream& ds, Foo& obj)
-{
-    ds >> obj.m >> obj.n >> obj.s >> obj.sl;
-    return ds;
-}
-
-// save object BarCtrl into file
-void Foo::save()
-{
-    qDebug() << Q_FUNC_INFO;
-    QFile file(FOOFILE);
-    if (!file.open(QIODevice::WriteOnly)) {
-        qDebug() << "write file failed";
-        return;
-    }
-    QDataStream out(&file);
-    out << *this;
-    file.close();
-}
-
-// load object BarCtrl from file
-void Foo::load()
-{
-    qDebug() << Q_FUNC_INFO;
-    QFile file(FOOFILE);
-    if (!file.open(QIODevice::ReadOnly)) {
-        qDebug() << "read file failed";
-        return;
-    }
-    QDataStream out(&file);
-    out >> *this;
-    file.close();
+    const char symbols[] = { 'I', 'E', '!', 'X' };
+    QString output = QString("[%1] %2").arg( symbols[type] ).arg( msg );
+    std::cerr << output.toStdString() << std::endl;
+    if( type == QtFatalMsg ) abort();
 }
 
 int main(int argc, char *argv[])
@@ -102,18 +24,22 @@ int main(int argc, char *argv[])
     Q_UNUSED(argc);
     Q_UNUSED(argv);
 
-    Foo *f = new Foo;
-    f->setM(0xaa);
-    f->setN(0xdd);
-    f->append("dog");
-    f->show();
-    f->save();
-    delete f;
+    qInstallMessageHandler(msgHandler);
+    //QCoreApplication app(argc, argv);
 
-    Foo g;
-    g.load();
-    cout << hex << g.getM() << " " << g.getN() << endl;
-    g.show();
+    QBar foo;
+    foo.setTitle("King");
+    foo.setName("John");
+    foo.setNumber("123");
+    foo.save();
+    foo.show();
+
+    QBar bar;
+    bar.setTitle("");
+    bar.setName("");
+    bar.setNumber("");
+    bar.load();
+    bar.show();
 
     return 0;
 }
