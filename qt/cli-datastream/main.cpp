@@ -6,6 +6,7 @@
 #include <QFile>
 
 #include "qbar.h"
+#include "qfoo.h"
 
 using namespace std;
 
@@ -13,6 +14,7 @@ using namespace std;
 
 void msgHandler(QtMsgType type, const QMessageLogContext& ctx, const QString& msg)
 {
+    Q_UNUSED(ctx);
     const char symbols[] = { 'I', 'E', '!', 'X' };
     QString output = QString("[%1] %2").arg( symbols[type] ).arg( msg );
     std::cerr << output.toStdString() << std::endl;
@@ -27,17 +29,28 @@ int main(int argc, char *argv[])
     qInstallMessageHandler(msgHandler);
     //QCoreApplication app(argc, argv);
 
-    QBar foo;
-    foo.setTitle("King");
-    foo.setName("John");
-    foo.setNumber("123");
-    foo.save();
-    foo.show();
+    QFoo slot;
+    QBar *foo = new QBar;
+    foo->setTitle("King");
+    foo->setName("John");
+    foo->setNumber("123");
+    foo->save();
+    qDebug() << "foo.save()";
+    //foo.show();
+    delete foo;
 
     QBar bar;
-    bar.setTitle("");
-    bar.setName("");
-    bar.setNumber("");
+    qDebug() << "bar.show()...";
+    bar.show();
+
+    QObject::connect(&bar, SIGNAL(titleChanged()), &slot, SLOT(sltTitle()));
+    QObject::connect(&bar, SIGNAL(nameChanged()), &slot, SLOT(sltName()));
+    QObject::connect(&bar, SIGNAL(numberChanged()), &slot, SLOT(sltNumber()));
+
+    //bar.setTitle("");
+    //bar.setName("");
+    //bar.setNumber("");
+    qDebug() << "bar.load()...";
     bar.load();
     bar.show();
 

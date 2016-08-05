@@ -69,7 +69,7 @@ void QBar::load()
 
 void QBar::show()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     for (int i=this->metaObject()->propertyOffset(); i<this->metaObject()->propertyCount(); ++i) {
         if(this->metaObject()->property(i).isStored(this)) {
             qDebug() << QString::fromLatin1(this->metaObject()->property(i).name())

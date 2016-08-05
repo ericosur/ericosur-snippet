@@ -29,9 +29,9 @@ public:
     friend QDataStream& operator>>(QDataStream& ds, QBar& obj);
 
 signals:
-    titleChanged();
-    nameChanged();
-    numberChanged();
+    void titleChanged();
+    void nameChanged();
+    void numberChanged();
 
 private:
     QString m_title;
