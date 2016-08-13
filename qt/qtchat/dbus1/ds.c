@@ -7,6 +7,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define DBUS_PATH "/qtapp"
+#define DBUS_IFACE "com.pega.rasmus"
+#define SIGNAL_NAME "foobar"
 /**
  * Connect to the DBUS bus and send a broadcast signal
  */
@@ -35,7 +38,8 @@ void sendsignal(char* sigvalue)
    }
 
    // register our name on the bus, and check for errors
-   ret = dbus_bus_request_name(conn, "test.signal.source", DBUS_NAME_FLAG_REPLACE_EXISTING , &err);
+   //ret = dbus_bus_request_name(conn, "test.signal.source", DBUS_NAME_FLAG_REPLACE_EXISTING , &err);
+   ret = dbus_bus_request_name(conn, DBUS_IFACE ".source", DBUS_NAME_FLAG_REPLACE_EXISTING , &err);
    if (dbus_error_is_set(&err)) { 
       fprintf(stderr, "Name Error (%s)\n", err.message); 
       dbus_error_free(&err); 
@@ -44,10 +48,11 @@ void sendsignal(char* sigvalue)
       exit(1);
    }
 
-   // create a signal & check for errors 
-   msg = dbus_message_new_signal("/test/signal/Object", // object name of the signal
-                                 "test.signal.Type", // interface name of the signal
-                                 "Test"); // name of the signal
+   // create a signal & check for errors
+   // obj name of signal 
+   msg = dbus_message_new_signal(DBUS_PATH, // object name of the signal
+                                 DBUS_IFACE, // interface name of the signal
+                                 SIGNAL_NAME); // name of the signal
    if (NULL == msg) 
    { 
       fprintf(stderr, "Message Null\n"); 
@@ -320,7 +325,8 @@ void receive()
    }
    
    // request our name on the bus and check for errors
-   ret = dbus_bus_request_name(conn, "test.signal.sink", DBUS_NAME_FLAG_REPLACE_EXISTING , &err);
+   //ret = dbus_bus_request_name(conn, "test.signal.sink", DBUS_NAME_FLAG_REPLACE_EXISTING , &err);
+   ret = dbus_bus_request_name(conn, DBUS_IFACE ".sink", DBUS_NAME_FLAG_REPLACE_EXISTING , &err);
    if (dbus_error_is_set(&err)) { 
       fprintf(stderr, "Name Error (%s)\n", err.message);
       dbus_error_free(&err); 
@@ -330,7 +336,8 @@ void receive()
    }
 
    // add a rule for which messages we want to see
-   dbus_bus_add_match(conn, "type='signal',interface='test.signal.Type'", &err); // see signals from the given interface
+   //dbus_bus_add_match(conn, "type='signal',interface='test.signal.Type'", &err); // see signals from the given interface
+   dbus_bus_add_match(conn, "type='signal',interface='com.pega.rasmus'", &err);
    dbus_connection_flush(conn);
    if (dbus_error_is_set(&err)) { 
       fprintf(stderr, "Match Error (%s)\n", err.message);
@@ -352,7 +359,7 @@ void receive()
       }
 
       // check if the message is a signal from the correct interface and with the correct name
-      if (dbus_message_is_signal(msg, "test.signal.Type", "Test")) {
+      if (dbus_message_is_signal(msg, DBUS_IFACE, SIGNAL_NAME)) {
          
          // read the parameters
          if (!dbus_message_iter_init(msg, &args))
@@ -362,7 +369,7 @@ void receive()
          else
             dbus_message_iter_get_basic(&args, &sigvalue);
          
-         printf("Got Signal with value %s\n", sigvalue);
+         printf("Got Signal: %s\n", sigvalue);
 
          // my hack
          strncpy(mystr, sigvalue, MAX_MYSTR-2);

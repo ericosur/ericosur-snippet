@@ -1,0 +1,6 @@
+ds
+*.o
+moc_*
+chat
+*.pro.user
+
