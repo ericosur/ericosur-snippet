@@ -1,16 +1,16 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2015-09-10T16:25:10
-#
-#-------------------------------------------------
-
-QT += core dbus
-QT -= qui
-#greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-CONFIG += c++11
+# bustx.pro
 
 TARGET = bustx
 TEMPLATE = app
+
+QT += core dbus
+QT -= qui
+CONFIG += c++11
+
+# test
+CONFIG += console
+CONFIG -= app_bundle
+
 
 SOURCES += main.cpp
 
