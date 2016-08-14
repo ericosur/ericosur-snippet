@@ -38,7 +38,7 @@ public:
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS
     void action(const QString &nickname, const QString &text);
-    void foobar(const QString &text);
+    void command(const QString &text);
     void message(const QString &nickname, const QString &text);
 };
 

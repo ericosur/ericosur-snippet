@@ -64,15 +64,14 @@ ChatMainWindow::ChatMainWindow()
 
     // add our D-Bus interface and connect to D-Bus
     new ChatAdaptor(this);
-    QDBusConnection::sessionBus().registerObject("/qtapp", this);
-
+    QDBusConnection::sessionBus().registerObject(DBUS_PATH, this);
     //org::example::chat *iface;
     ComPegaRasmusInterface *iface;
     iface = new ::ComPegaRasmusInterface(QString(), QString(), QDBusConnection::sessionBus(), this);
     //connect(iface, SIGNAL(message(QString,QString)), this, SLOT(messageSlot(QString,QString)));
     QDBusConnection::sessionBus().connect(QString(), QString(), DBUS_IFACE, "message", this, SLOT(messageSlot(QString,QString)));
     connect(iface, SIGNAL(action(QString,QString)), this, SLOT(actionSlot(QString,QString)));
-    connect(iface, SIGNAL(foobar(QString)), this, SLOT(sltFoobar(QString)));
+    connect(iface, SIGNAL(command(QString)), this, SLOT(sltCommand(QString)));
 
     m_nickname = QUuid::createUuid().toString();
     emit action(m_nickname, QLatin1String("joins the chat"));
@@ -110,9 +109,9 @@ void ChatMainWindow::actionSlot(const QString &nickname, const QString &text)
     rebuildHistory();
 }
 
-void ChatMainWindow::sltFoobar(const QString &text)
+void ChatMainWindow::sltCommand(const QString &text)
 {
-    QString msg( QLatin1String("=> %1") );
+    QString msg( QLatin1String("cmd => %1") );
     msg = msg.arg(text);
     m_messages.append(msg);
 
@@ -133,7 +132,7 @@ void ChatMainWindow::textChangedSlot(const QString &newText)
 void ChatMainWindow::sendClickedSlot()
 {
     //emit message(m_nickname, messageLineEdit->text());
-    QDBusMessage msg = QDBusMessage::createSignal("/qtapp", DBUS_IFACE, "message");
+    QDBusMessage msg = QDBusMessage::createSignal(DBUS_PATH, DBUS_IFACE, "message");
     msg << m_nickname << messageLineEdit->text();
     QDBusConnection::sessionBus().send(msg);
     messageLineEdit->setText(QString());

@@ -63,7 +63,7 @@ signals:
 private slots:
     void messageSlot(const QString &nickname, const QString &text);
     void actionSlot(const QString &nickname, const QString &text);
-    void sltFoobar(const QString& text);
+    void sltCommand(const QString& text);
 
     void textChangedSlot(const QString &newText);
     void sendClickedSlot();

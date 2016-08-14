@@ -10,7 +10,7 @@
       <arg name="nickname" type="s" direction="out"/>
       <arg name="text" type="s" direction="out"/>
     </signal>
-    <signal name="foobar">
+    <signal name="command">
       <arg name="text" type="s" direction="out"/>
     </signal>
   </interface>
