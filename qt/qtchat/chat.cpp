@@ -49,6 +49,26 @@
 #define DBUS_PATH "/qtapp"
 #define DBUS_IFACE "com.pega.rasmus"
 
+enum ENUM_BUS {
+    USE_SESSION_BUS,
+    USE_SYSTEM_BUS
+};
+
+ENUM_BUS g_session_bus = USE_SYSTEM_BUS;
+
+QDBusConnection get_bus()
+{
+    if (g_session_bus == USE_SESSION_BUS) {
+        qDebug() << "session bus...";
+        return QDBusConnection::sessionBus();
+    } else if (g_session_bus == USE_SYSTEM_BUS) {
+        qDebug() << "system bus...";
+        return QDBusConnection::systemBus();
+    } else {
+        return QDBusConnection("qtchat");
+    }
+}
+
 ChatMainWindow::ChatMainWindow()
     : m_nickname(QLatin1String("nickname"))
 {
@@ -64,13 +84,19 @@ ChatMainWindow::ChatMainWindow()
 
     // add our D-Bus interface and connect to D-Bus
     new ChatAdaptor(this);
-    QDBusConnection::sessionBus().registerObject(DBUS_PATH, this);
-    //org::example::chat *iface;
+    //QDBusConnection::sessionBus().registerObject(DBUS_PATH, this);
+    get_bus().registerObject(DBUS_PATH, this);
+
     ComPegaRasmusInterface *iface;
-    iface = new ::ComPegaRasmusInterface(QString(), QString(), QDBusConnection::sessionBus(), this);
-    //connect(iface, SIGNAL(message(QString,QString)), this, SLOT(messageSlot(QString,QString)));
-    QDBusConnection::sessionBus().connect(QString(), QString(), DBUS_IFACE, "message", this, SLOT(messageSlot(QString,QString)));
+    //iface = new ::ComPegaRasmusInterface(QString(), QString(), QDBusConnection::sessionBus(), this);
+    iface = new ::ComPegaRasmusInterface(QString(), QString(), get_bus(), this);
+
+    //get_bus().connect(QString(), QString(), DBUS_IFACE, "message", this, SLOT(messageSlot(QString,QString)));
+    connect(iface, SIGNAL(message(QString,QString)), this, SLOT(messageSlot(QString,QString)));
+
     connect(iface, SIGNAL(action(QString,QString)), this, SLOT(actionSlot(QString,QString)));
+
+    //get_bus().connect(QString(), QString(), DBUS_IFACE, "command", this, SLOT(sltCommand(QString)));
     connect(iface, SIGNAL(command(QString)), this, SLOT(sltCommand(QString)));
 
     m_nickname = QUuid::createUuid().toString();
@@ -89,6 +115,7 @@ void ChatMainWindow::rebuildHistory()
 
 void ChatMainWindow::messageSlot(const QString &nickname, const QString &text)
 {
+    qDebug() << Q_FUNC_INFO << nickname << " " << text;
     QString msg( QLatin1String("<%1> %2") );
     msg = msg.arg(nickname, text);
     m_messages.append(msg);
@@ -100,6 +127,7 @@ void ChatMainWindow::messageSlot(const QString &nickname, const QString &text)
 
 void ChatMainWindow::actionSlot(const QString &nickname, const QString &text)
 {
+    qDebug() << Q_FUNC_INFO << nickname << " " << text;
     QString msg( QLatin1String("* %1 %2") );
     msg = msg.arg(nickname, text);
     m_messages.append(msg);
@@ -111,6 +139,7 @@ void ChatMainWindow::actionSlot(const QString &nickname, const QString &text)
 
 void ChatMainWindow::sltCommand(const QString &text)
 {
+    qDebug() << Q_FUNC_INFO << text;
     QString msg( QLatin1String("cmd => %1") );
     msg = msg.arg(text);
     m_messages.append(msg);
@@ -134,7 +163,7 @@ void ChatMainWindow::sendClickedSlot()
     //emit message(m_nickname, messageLineEdit->text());
     QDBusMessage msg = QDBusMessage::createSignal(DBUS_PATH, DBUS_IFACE, "message");
     msg << m_nickname << messageLineEdit->text();
-    QDBusConnection::sessionBus().send(msg);
+    get_bus().send(msg);
     messageLineEdit->setText(QString());
 }
 
@@ -160,8 +189,19 @@ void ChatMainWindow::exiting()
 int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
+	bool ret = false;
 
-    if (!QDBusConnection::sessionBus().isConnected()) {
+    g_session_bus = USE_SYSTEM_BUS;
+	if (argc > 1 && strcmp(argv[1], "session")==0) {
+		g_session_bus = USE_SESSION_BUS;
+        ret = QDBusConnection::sessionBus().isConnected();
+        qDebug() << "use session bus:" << ret;
+	} else {
+        ret = QDBusConnection::systemBus().isConnected();
+        qDebug() << "use system bus:" << ret;
+    }
+
+	if (!ret) {
         qWarning("Cannot connect to the D-Bus session bus.\n"
                  "Please check your system settings and try again.\n");
         return 1;
