@@ -5,6 +5,8 @@
 #include <QDataStream>
 #include <QMetaProperty>
 
+#include <assert.h>
+
 #define FOOFILE  "/tmp/aaa.dat"
 
 #include <iostream>
@@ -86,6 +88,7 @@ QString QBar::title() const
 void QBar::setTitle(const QString& s)
 {
     m_title = s;
+    assert(s != "assert");
     emit titleChanged();
 }
 QString QBar::name() const

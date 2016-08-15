@@ -4,6 +4,7 @@
 #include <iostream>
 #include <QDataStream>
 #include <QFile>
+#include <QDateTime>
 
 #include "qbar.h"
 #include "qfoo.h"
@@ -21,14 +22,14 @@ void msgHandler(QtMsgType type, const QMessageLogContext& ctx, const QString& ms
     if( type == QtFatalMsg ) abort();
 }
 
-int main(int argc, char *argv[])
+void test()
 {
-    Q_UNUSED(argc);
-    Q_UNUSED(argv);
+    QDateTime curr = QDateTime::currentDateTime();
+    qDebug() << "curr:" << curr.toString("yyMMddHHmmssz");
+}
 
-    qInstallMessageHandler(msgHandler);
-    //QCoreApplication app(argc, argv);
-
+void test_datastream()
+{
     QFoo slot;
     QBar *foo = new QBar;
     foo->setTitle("King");
@@ -53,6 +54,20 @@ int main(int argc, char *argv[])
     qDebug() << "bar.load()...";
     bar.load();
     bar.show();
+
+    //bar.setTitle("fuck");
+}
+
+int main(int argc, char *argv[])
+{
+    Q_UNUSED(argc);
+    Q_UNUSED(argv);
+
+    qInstallMessageHandler(msgHandler);
+    //QCoreApplication app(argc, argv);
+
+    test();
+    //test_datastream();
 
     return 0;
 }
