@@ -45,6 +45,13 @@
 
 #include "ui_chatmainwindow.h"
 
+enum ENUM_BUS {
+    USE_SESSION_BUS,
+    USE_SYSTEM_BUS
+};
+
+extern ENUM_BUS g_session_bus;
+
 class ChatMainWindow: public QMainWindow, Ui::ChatMainWindow
 {
     Q_OBJECT
@@ -64,6 +71,10 @@ private slots:
     void messageSlot(const QString &nickname, const QString &text);
     void actionSlot(const QString &nickname, const QString &text);
     void sltCommand(const QString& text);
+//#ifdef USE_DVD
+    void sltDvdOn(const QString& text);
+    void sltDvdOff(const QString& text);
+//#endif
 
     void textChangedSlot(const QString &newText);
     void sendClickedSlot();

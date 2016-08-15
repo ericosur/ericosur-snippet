@@ -1,0 +1,12 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
+"http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="hu.Dvd">
+    <signal name="On">
+      <arg name="text" type="s" direction="out"/>
+    </signal>
+    <signal name="Off">
+      <arg name="text" type="s" direction="out"/>
+    </signal>
+  </interface>
+</node>

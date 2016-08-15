@@ -41,7 +41,7 @@ void process_args(int argc, char* argv[])
     bool has_message = false;
 
     while (true) {
-        c = getopt(argc, argv, "hc:m:n:s");
+        c = getopt(argc, argv, "hc:m:n:sy");
         if (c == -1)
             break;
         switch (c) {
@@ -67,6 +67,10 @@ void process_args(int argc, char* argv[])
         case 's':
 			g_session_bus = USE_SESSION_BUS;
             printf("use session bus");
+            break;
+        case 'y':
+            g_session_bus = USE_SYSTEM_BUS;
+            printf("use system bus");
             break;
         default:
             break;
