@@ -1,14 +1,34 @@
 #include "dbusutil.h"
 #include <QDebug>
 
+QDBusConnection get_bus()
+{
+    if (g_session_bus == USE_SESSION_BUS) {
+        qDebug() << "session bus...";
+        return QDBusConnection::sessionBus();
+    } else if (g_session_bus == USE_SYSTEM_BUS) {
+        qDebug() << "system bus...";
+        return QDBusConnection::systemBus();
+    } else {
+        return QDBusConnection("qtchat");
+    }
+}
+
 bool check_dbus_connection()
 {
-    if (QDBusConnection::sessionBus().isConnected()) {
-        return true;
-    } else {
-        qDebug() << "Cannot connect to the D-Bus session bus";
-        return false;
+    bool ret = false;
+
+    if (g_session_bus == USE_SESSION_BUS) {
+        ret = QDBusConnection::sessionBus().isConnected();
+        qDebug() << "is sessionbus connected?"
+            << (ret ? "yes" : "no");
+    } else if (g_session_bus == USE_SYSTEM_BUS) {
+        ret = QDBusConnection::systemBus().isConnected();
+        qDebug() << "is systembus connected?"
+            << (ret ? "yes" : "no");
     }
+
+    return ret;
 }
 
 void print_dbussend_command(const QString& str, const QString& sender_name="")
@@ -40,7 +60,7 @@ void send_dbus_signal_to_command(const QString& str)
     QDBusMessage msg = QDBusMessage::createSignal(DUTIL_DBUS_PATH,
         DUTIL_DBUS_IFACE, DUTIL_COMMAND_SIGNAL_NAME);
     msg << str;
-    QDBusConnection::sessionBus().send(msg);
+    get_bus().send(msg);
 
     print_dbussend_command(str);
 }
@@ -55,7 +75,7 @@ void send_dbus_signal_to_message(const QString& str, const QString& sender_name)
     QDBusMessage msg = QDBusMessage::createSignal(DUTIL_DBUS_PATH,
         DUTIL_DBUS_IFACE, DUTIL_MESSAGE_SIGNAL_NAME);
     msg << sender_name << str;
-    QDBusConnection::sessionBus().send(msg);
+    get_bus().send(msg);
 
     print_dbussend_command(str, sender_name);
 }

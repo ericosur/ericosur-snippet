@@ -7,6 +7,8 @@
 
 using namespace std;
 
+ENUM_BUS g_session_bus = USE_SYSTEM_BUS;
+
 void msgHandler(QtMsgType type, const QMessageLogContext& ctx, const QString& msg)
 {
     Q_UNUSED(ctx);
@@ -22,7 +24,10 @@ void usage()
         << "options:" << endl
         << "\t-c    send COMMAND signal" << endl
         << "\t-m    send MESSAGE signal" << endl
-        << "\t-h    this usage" << endl << endl
+        << "\t-h    this usage" << endl
+        << "\t-n    assign name of sender" << endl
+        << "\t-s    use session bus" << endl
+        << endl
         << "option -c will override -s and -m" << endl;
 }
 
@@ -36,7 +41,7 @@ void process_args(int argc, char* argv[])
     bool has_message = false;
 
     while (true) {
-        c = getopt(argc, argv, "hc:m:s:");
+        c = getopt(argc, argv, "hc:m:n:s");
         if (c == -1)
             break;
         switch (c) {
@@ -54,10 +59,14 @@ void process_args(int argc, char* argv[])
             memset(cmd, 0, MAX_CMD_LEN);
             strncpy(cmd, optarg, qMin(MAX_CMD_LEN, strlen(optarg)));
             break;
-        case 's':
+        case 'n':
             has_sender = true;
             memset(sender, 0, MAX_CMD_LEN);
             strncpy(sender, optarg, qMin(MAX_CMD_LEN, strlen(optarg)));
+            break;
+        case 's':
+			g_session_bus = USE_SESSION_BUS;
+            printf("use session bus");
             break;
         default:
             break;

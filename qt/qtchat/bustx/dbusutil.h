@@ -10,7 +10,15 @@
 #define DUTIL_COMMAND_SIGNAL_NAME "command"
 #define DUTIL_MESSAGE_SIGNAL_NAME "message"
 
+enum ENUM_BUS {
+    USE_SESSION_BUS,
+    USE_SYSTEM_BUS
+};
+
+extern ENUM_BUS g_session_bus;
+
 void send_dbus_signal_to_command(const QString& str);
 void send_dbus_signal_to_message(const QString& str, const QString& sender_name="");
+
 
 #endif  // __DBUSUTIL_H__
