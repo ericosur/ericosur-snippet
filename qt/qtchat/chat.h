@@ -71,10 +71,10 @@ private slots:
     void messageSlot(const QString &nickname, const QString &text);
     void actionSlot(const QString &nickname, const QString &text);
     void sltCommand(const QString& text);
-//#ifdef USE_DVD
+#ifdef USE_DVD
     void sltDvdOn(const QString& text);
     void sltDvdOff(const QString& text);
-//#endif
+#endif
 
     void textChangedSlot(const QString &newText);
     void sendClickedSlot();

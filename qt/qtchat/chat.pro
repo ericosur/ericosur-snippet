@@ -14,7 +14,7 @@ HEADERS += chat_interface.h
 SOURCES += chat_interface.cpp
 
 # dvd adaptor
-#DEFINES += USE_DVD
+DEFINES += USE_DVD
 #HEADERS += DvdAdaptor.h
 #SOURCES += DvdAdaptor.cpp
 
@@ -24,6 +24,3 @@ SOURCES += chat_interface.cpp
 DISTFILES += com.pega.rasmus.xml \
     hu.dvd.xml
 
-# install
-target.path = $$[QT_INSTALL_EXAMPLES]/dbus/chat
-INSTALLS += target

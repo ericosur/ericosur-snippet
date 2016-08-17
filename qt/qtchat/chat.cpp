@@ -106,9 +106,9 @@ ChatMainWindow::ChatMainWindow()
 #ifdef USE_DVD
     //new DvdAdaptor(this);
     //get_bus().registerObject("/", this);
-#endif
     get_bus().connect(QString(), QString(), "hu.Dvd", "On", this, SLOT(sltDvdOn(QString)));
     get_bus().connect(QString(), QString(), "hu.Dvd", "Off", this, SLOT(sltDvdOff(QString)));
+#endif
 }
 
 ChatMainWindow::~ChatMainWindow()
