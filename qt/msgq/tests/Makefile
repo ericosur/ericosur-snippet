@@ -3,8 +3,9 @@
 CC=gcc
 STRIP=strip
 CFLAGS=-O3 -Wall -I../
+TARGET=testopt
 
-all: sendtest testopt
+all: $(TARGET)
 
 sendtest:    sendtest.c
 	@echo build $@
@@ -13,7 +14,7 @@ sendtest:    sendtest.c
 
 testopt:    testopt.c
 	@echo build $@
-	$(CC) $(CFLAGS) -o $@ testopt.c
+	$(CC) -O3 -Wall -o $@ testopt.c
 	$(STRIP) $@
 
 clean:
