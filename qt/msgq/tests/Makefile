@@ -3,7 +3,7 @@
 CC=gcc
 STRIP=strip
 CFLAGS=-O3 -Wall -I../
-TARGET=testopt
+TARGET=testopt foo
 
 all: $(TARGET)
 
@@ -12,10 +12,9 @@ sendtest:    sendtest.c
 	$(CC) $(CFLAGS) -o $@ sendtest.c
 	$(STRIP) $@
 
-testopt:    testopt.c
-	@echo build $@
-	$(CC) -O3 -Wall -o $@ testopt.c
-	$(STRIP) $@
+%: %.c
+	$(CC) -O3 -Wall $(shell pkg-config --cflags libconfig) \
+	-o $@ $< $(shell pkg-config --libs libconfig)
 
 clean:
-	rm -f *.o sendtest testopt
+	rm -f *.o $(TARGET)
