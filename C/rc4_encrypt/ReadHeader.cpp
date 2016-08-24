@@ -10,7 +10,7 @@
 #include <assert.h>
 #include <stdlib.h>
 
-#include "ToolBox.hpp"
+#include "toolbox.hpp"
 /**
 	\param header [in] data of header to print out
 	\param fnmae [in] input file name

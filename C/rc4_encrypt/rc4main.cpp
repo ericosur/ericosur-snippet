@@ -1,7 +1,8 @@
+/// \file: rc4main.cpp
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "ToolBox.hpp"
+#include "toolbox.hpp"
 
 int main(int argc, char **argv)
 {
@@ -37,7 +38,8 @@ int main(int argc, char **argv)
 	while (!feof(in))
 	{
 		size_read = fread(buffer, 1, sizeof(buffer), in);
-		printf(".", size_read);
+		//printf("%lu", size_read);
+		printf(".");
 		PerformRC4(buffer, out_buffer, size_read);
 		fwrite(out_buffer, 1, size_read, out);
 		total_read += size_read;
@@ -45,8 +47,7 @@ int main(int argc, char **argv)
 	printf("\n");
 	fclose(in);
 	fclose(out);
-	printf("total processed: %d bytes\n", total_read);
+	printf("total processed: %lu bytes\n", total_read);
 
 	return 0;
 }
-

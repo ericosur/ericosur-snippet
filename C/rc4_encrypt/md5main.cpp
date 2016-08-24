@@ -7,9 +7,9 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
-#include "ToolBox.hpp"
+#include "toolbox.hpp"
 
-const int MY_MD5_DIGEST_LENGTH = 16;
+//const int MY_MD5_DIGEST_LENGTH = 16;
 const int MY_SHA_DIGEST_LENGTH = 20;
 
 int main(int argc, char **argv)
@@ -36,13 +36,13 @@ int main(int argc, char **argv)
 	// rewind the file pointer
 	fseek(in, 0, SEEK_SET);
 	CalculateFileMD5(in, md5_hash, total_size);
-	printf("total size for md5 = %d\n", total_size);
+	printf("total size for md5 = %lu\n", total_size);
 
 	// rewind the file pointer
 	total_size = 0;
 	fseek(in, 0, SEEK_SET);
 	CalculateFileSHA1(in, sha1_hash, total_size);
-	printf("total size for sha1 = %d\n", total_size);
+	printf("total size for sha1 = %lu\n", total_size);
 	fclose(in);
 
 	PrintHashValue(md5_hash, MY_MD5_DIGEST_LENGTH);

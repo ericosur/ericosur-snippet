@@ -1,4 +1,0 @@
-Q:/openssl/ReadHeader.cpp:13: Warning: argument `fnmae' of command @param is not found in the argument list of ShowHeader(const Header &header, const char *fname)
-Q:/openssl/ReadHeader.cpp:13: Warning: The following parameters of ShowHeader(const Header &header, const char *fname) are not documented:
-  parameter fname
-

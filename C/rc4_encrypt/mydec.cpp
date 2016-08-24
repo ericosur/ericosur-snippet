@@ -9,10 +9,10 @@
 #include <string.h>
 #include <assert.h>
 #include <stdlib.h>
-#include "ToolBox.hpp"
+#include "toolbox.hpp"
 #include <unistd.h>
 
-const int MY_MD5HASH_LEN = 16;
+const int MY_MD5HASH_LEN = MY_MD5_DIGEST_LENGTH;
 
 void my_truncate(const char* fname, size_t to_size);
 
@@ -79,7 +79,7 @@ int main(int argc, char** argv)
 
 	fseek(in, header.HeaderSize, SEEK_SET);
 	fseek(out, 0, SEEK_SET);
-	size_t in_pos = ftell(in);
+	//size_t in_pos = ftell(in);
 	//printf("start read content from: %d\n", in_pos);
 	// decrypt & output
 	EncryptFileByRC4(in, out);
