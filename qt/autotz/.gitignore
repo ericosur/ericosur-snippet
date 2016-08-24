@@ -1,0 +1,4 @@
+autotz
+*.o
+build/
+
