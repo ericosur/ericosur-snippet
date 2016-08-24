@@ -2,5 +2,7 @@ main
 c11
 c14
 rl
+myalarm
+mytimer
 *.o
-
+build/

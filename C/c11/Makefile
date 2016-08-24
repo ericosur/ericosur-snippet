@@ -1,4 +1,4 @@
-TARGET=main c11 c14 rl
+TARGET=main c11 c14 rl mytimer myalarm
 FLAGS=-Wall -O3
 BASIC=$(FLAGS) -std=c++11
 
@@ -16,7 +16,10 @@ c14: c14.cpp
 	g++ $(FLAGS) -std=c++14 -o $@ $<
 
 rl: rl.c
-	gcc -Wall -O3 -o $@  $< -lreadline
+	gcc $(FLAGS) -o $@  $< -lreadline
+
+%: %.cpp
+	g++ $(FLAGS) -o $@ $<
 
 clean:
 	rm -f *.o $(TARGET)
