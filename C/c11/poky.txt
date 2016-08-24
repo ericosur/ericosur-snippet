@@ -1,0 +1,24 @@
+# poky is a yocto codebase
+
+# this one is important
+SET(CMAKE_SYSTEM_NAME Linux)
+#this one not so much
+SET(CMAKE_SYSTEM_VERSION 2)
+
+include (CMakeForceCompiler)
+
+SET(POKYSYSDIR /ssd/yose/build/tmp/sysroots)
+
+# specify the cross compiler
+SET(CMAKE_C_COMPILER   ${POKYSYSDIR}/x86_64-linux/usr/bin/cortexa15hf-vfp-neon-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc)
+SET(CMAKE_CXX_COMPILER ${POKYSYSDIR}/x86_64-linux/usr/bin/cortexa15hf-vfp-neon-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++)
+
+# where is the target environment
+SET(CMAKE_FIND_ROOT_PATH  ${POKYSYSDIR})
+
+# search for programs in the build host directories
+SET(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+# for libraries and headers in the target directories
+SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+
