@@ -1,5 +1,4 @@
-// ToolBox.hpp
-
+// \file toolbox.hpp
 #ifndef __TOOL_BOX_HPP__
 #define __TOOL_BOX_HPP__
 
@@ -7,9 +6,11 @@
 
 /// a magic string at the beginning of header
 #define MY_MAGIC_NUMBER	"RasmusMagicHead\0"
-#define MY_MD5_DIGEST_LENGTH	16
-#define MY_PRESERVED_LENGTH		128
-
+/// md5sum length = 16 bytes
+#define MY_MD5_DIGEST_LENGTH		16
+#define MY_MAGIC_NUMBER_LENGTH  	16
+#define MY_LOCAL_RESERVED_LENGTH	MY_MD5_DIGEST_LENGTH
+#define MY_LARGE_PRESERVED_LENGTH	128
 
 typedef unsigned char byte;
 
@@ -17,14 +18,16 @@ typedef unsigned char byte;
 */
 typedef struct Header
 {
-	byte	MagicNumber[16];	/// usu. MY_MAGIC_NUMBER
+	/// usu. MY_MAGIC_NUMBER
+
+	byte	MagicNumber[MY_MAGIC_NUMBER_LENGTH];	/// usu. MY_MAGIC_NUMBER
 	int 	HeaderSize;			/// the header size including the file name string
 	int 	FileNameLength;		/// the length of file name
 	int 	Reserved1;			/// reserved
 	size_t	FileSize;			/// the file size
 	byte	reserved2[16];		/// reserved
-	byte	header_md5[16];		/// header_md5
-	byte	file_md5[16];		/// the MD5 of file
+	byte	header_md5[MY_MD5_DIGEST_LENGTH];		/// header_md5
+	byte	file_md5[MY_MD5_DIGEST_LENGTH];		/// the MD5 of file
 	char*	FileName;			/// the name of file
 } Header_struct;
 
@@ -87,5 +90,5 @@ void VerifyHeaderMD5(const Header& header, byte* recorded_md5);
 	\brief check the magic header
 */
 bool verify_magic(const Header_struct& header);
-#endif
 
+#endif	// __TOOL_BOX_HPP__

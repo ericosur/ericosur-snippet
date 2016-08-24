@@ -11,18 +11,19 @@
 #include <stdlib.h>
 
 #include "toolbox.hpp"
+
+#define TEMP_BUFFER_SIZE	256
+
 /**
 	\param header [in] data of header to print out
-	\param fnmae [in] input file name
+	\param fname [in] input file name
 */
 void ShowHeader(const Header& header, const char* fname);
 
-
-#define TEMP_BUFFER_SIZE	256
-char FileName[TEMP_BUFFER_SIZE];
-
+/// \brief main fuction for ReadHeader
 int main(int argc, char** argv)
 {
+    char FileName[TEMP_BUFFER_SIZE];
 	FILE* fptr = NULL;
 	Header header;
 	byte header_digest[MY_MD5_DIGEST_LENGTH];
@@ -99,6 +100,3 @@ void ShowHeader(const Header& header, const char* fname)
 //	printf("actual header size = %d\n", GetActualHeaderSize(header.HeaderSize));
 	fflush(stdout);
 }
-
-
-
