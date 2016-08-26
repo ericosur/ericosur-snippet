@@ -8,6 +8,8 @@ CONFIG += console
 CONFIG -= app_bundle
 
 SOURCES += main.cpp
-
 HEADERS += wait.h
 
+# retry thread
+SOURCES += retry.cpp
+HEADERS += retry.h
