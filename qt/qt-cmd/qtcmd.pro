@@ -10,6 +10,13 @@ CONFIG -= app_bundle
 SOURCES += main.cpp
 HEADERS += wait.h
 
-# retry thread
-SOURCES += retry.cpp
-HEADERS += retry.h
+# retry thread is moved into libqtlib.a
+#SOURCES += retry.cpp
+#HEADERS += retry.h
+
+INCLUDEPATH += $$PWD/../qtlib
+DEPENDPATH  += $$PWD/../qtlib
+LIBS += -lqtlib
+LIBS += -L$$PWD/../qtlib
+
+
