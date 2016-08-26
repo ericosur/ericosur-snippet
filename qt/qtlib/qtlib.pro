@@ -5,14 +5,14 @@
 #-------------------------------------------------
 
 QT       -= gui
+QT += core
 
 TARGET = qtlib
 TEMPLATE = lib
 CONFIG += staticlib
 
-SOURCES += qtlib.cpp
-
-HEADERS += qtlib.h
+SOURCES += retry.cpp
+HEADERS += retry.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
