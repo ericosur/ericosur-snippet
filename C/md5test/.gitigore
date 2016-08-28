@@ -1,4 +1,4 @@
 *.o
 md5test
-build
+build/
 
