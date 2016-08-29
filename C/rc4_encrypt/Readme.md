@@ -1,19 +1,17 @@
 rc4_encrypt
 ===========
 
-* need libssl-dev installed
-* use cmake to build example applications
+Need openssl devel packages (libssl-dev)
+
+### how to make
+* traditional make
+```
+$ make
+```
+* use cmake
 ```
 $ mkdir build ; cd build
 $ cmake ..
-$ make
 ```
-* if you want to generate doxygen documentation, need install:
-  doxygen
-  graphviz
 
-  ```
-  $ make doc
-  ```
-
-  to build doxygen help files
+At folder doc there is a doxygen config to build doxygen documentation.
