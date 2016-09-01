@@ -12,3 +12,9 @@ project(zpipe)
 
 add_executable(zpp zpipe.c)
 target_link_libraries(zpp z)
+
+add_executable(buffy buffy.c)
+target_link_libraries(buffy z)
+
+add_executable(demo example.c)
+target_link_libraries(demo z)
