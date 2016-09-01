@@ -1,15 +1,21 @@
 /** \file toolbox.cpp
- * implementation of my own openssl functions
+ *  \brief implementation of my own openssl functions
 */
 #include "toolbox.hpp"
 
+#include <stdlib.h>
 #include <string.h>
 #include <openssl/md5.h>
 #include <openssl/sha.h>
 #include <openssl/rc4.h>
-#include <stdlib.h>
 
-int CalculateFileMD5(FILE *fptr, byte *md5_hash, size_t& total_read)
+/** \fn int CalculateFileMD5(FILE* fptr, byte* md5_hash, size_t& total_read)
+    \brief CalculateFileMD5 will calculate md5sum from a given file pointer
+    \param fptr: a file pointer opened by fopen
+    \param md5_hash: md5 hash value in byte (not readable string)
+    \param total_read: bytes that read from file
+*/
+int CalculateFileMD5(FILE* fptr, byte* md5_hash, size_t& total_read)
 {
 	const int BUFFERSIZE = 4096;
 	byte buffer[BUFFERSIZE];

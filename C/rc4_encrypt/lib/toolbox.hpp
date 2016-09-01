@@ -1,12 +1,13 @@
-// \file toolbox.hpp
+/**
+    \file toolbox.hpp
+    \brief header file for my encrypt/decrypt toolbox
+*/
 #ifndef __TOOL_BOX_HPP__
 #define __TOOL_BOX_HPP__
 
-#include <stdio.h>
-
-/// a magic string at the beginning of header
+/** a magic string at the beginning of header */
 #define MY_MAGIC_NUMBER	"RasmusMagicHead\0"
-/// md5sum length = 16 bytes
+/** md5sum length = 16 bytes */
 #define MY_MD5_DIGEST_LENGTH		16
 #define MY_MAGIC_NUMBER_LENGTH  	16
 #define MY_LOCAL_RESERVED_LENGTH	MY_MD5_DIGEST_LENGTH
@@ -14,13 +15,14 @@
 
 typedef unsigned char byte;
 
-/** \struct Header ToolBox.hpp
+/**
+    \struct struct Header
+    \brief store information for toolbox usage
 */
 typedef struct Header
 {
-	/// usu. MY_MAGIC_NUMBER
-
-	byte	MagicNumber[MY_MAGIC_NUMBER_LENGTH];	/// usu. MY_MAGIC_NUMBER
+	/// \var store magic number string at this field
+	byte	MagicNumber[MY_MAGIC_NUMBER_LENGTH];
 	int 	HeaderSize;			/// the header size including the file name string
 	int 	FileNameLength;		/// the length of file name
 	int 	Reserved1;			/// reserved
@@ -32,12 +34,14 @@ typedef struct Header
 } Header_struct;
 
 
-/** \param fptr [in] file pointer
-	\param md5_hash [out] byte buffer of hash digest
-	\param total_read [out] bytes already read
-	\brief Calculate MD5 digest form a file pointer
+/**
+	\fn int CalculateFileMD5(FILE* fptr, byte* md5_hash, size_t& total_read)
+    \brief CalculateFileMD5 will calculate md5sum from a given file pointer
+    \param fptr [in] a file pointer opened by fopen
+    \param md5_hash [out] md5 hash value in byte (not readable string)
+    \param total_read [out] bytes that read from file
 */
-int CalculateFileMD5(FILE *fptr, byte *md5_hash, size_t& total_read);
+int CalculateFileMD5(FILE *fptr, byte* md5_hash, size_t& total_read);
 
 
 /** \param buffer [in] byte buffer to calculate MD5
@@ -45,7 +49,7 @@ int CalculateFileMD5(FILE *fptr, byte *md5_hash, size_t& total_read);
 	\param md5_hash [out] byte buffer of hash digest
 	\brief Calculate MD5 digest form a give buffer
 */
-int CalculateBufferMD5(byte* buffer, size_t buffer_size, byte *md5_hash);
+int CalculateBufferMD5(byte* buffer, size_t buffer_size, byte* md5_hash);
 
 /** \param fptr [in] file pointer
 	\param sha1_hash [out] byte buffer of hash digest
@@ -58,7 +62,7 @@ int CalculateFileSHA1(FILE *fptr, byte *sha1_hash, size_t& total_read);
 	\param len	[in] length of hash buffer
 	\brief print a blob as continuos string
 */
-void PrintHashValue(const byte *hash, const int len);
+void PrintHashValue(const byte* hash, const int len);
 
 /** \param in [in] byte buffer for encoding
 	\param cipher [out] byte buffer already encrypted
@@ -78,7 +82,7 @@ int GetActualHeaderSize(int record_header_size);
 	\param out [in] output file stream
 	\brief encrypt an input file pointer by RC4
 */
-void EncryptFileByRC4(FILE *in, FILE *out);
+void EncryptFileByRC4(FILE* in, FILE* out);
 
 /** \param in [in] the header struct
 	\param out [out] the calculate md5
