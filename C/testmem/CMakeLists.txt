@@ -15,3 +15,4 @@ set(CMAKE_C_FLAGS "-Wall -O3")
 project(testmem)
 
 add_executable(testmemset testmemset.c)
+add_executable(testmemcpy testmemcpy.c)
