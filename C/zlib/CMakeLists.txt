@@ -6,7 +6,7 @@ message("CMAKE_BINARY_DIR= ${CMAKE_BINARY_DIR}")
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 
 set(CMAKE_CXX_FLAGS "-Wall -O3")
-set(CMAKE_C_FLAGS "-Wall -O3")
+set(CMAKE_C_FLAGS "-Wall -O3 -std=c99")
 
 project(zpipe)
 
