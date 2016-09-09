@@ -82,10 +82,10 @@ bool GetCover::getcover(const QString& fn, QString& tbfn)
     bool ret = false;
 
     if (fn.contains(rxmp3)) {
-        qDebug() << "call extract_cover_from_mp3()...";
+        //qDebug() << "call extract_cover_from_mp3()...";
         ret = extract_cover_from_mp3(fn, tbfn);
     } else if (fn.contains(rxm4a)) {
-        qDebug() << "call extract_cover_from_mp4()...";
+        //qDebug() << "call extract_cover_from_mp4()...";
         ret = extract_cover_from_mp4(fn, tbfn);
     }
 
@@ -96,13 +96,13 @@ bool GetCover::extract_cover_from_mp3(const QString& fn, QString& tbfn)
 {
     TagLib::MPEG::File file(fn.toStdString().c_str());
     bool ret = false;
-
+    tbfn = "";
     if (!file.isValid()) {
-        qDebug() << "file is invalid";
+        //qDebug() << "file is invalid";
         return false;
     }
     if (file.hasID3v2Tag()) {
-        qDebug() << "id3v2 tag...";
+        //qDebug() << "id3v2 tag...";
         TagLib::ID3v2::Tag *tag = file.ID3v2Tag();
         // m_artist = tag->artist().toCString(true);
         // m_album = tag->album().toCString(true);
@@ -112,7 +112,7 @@ bool GetCover::extract_cover_from_mp3(const QString& fn, QString& tbfn)
         //look for picture frames
         frames = tag->frameListMap()["APIC"];
         if (frames.isEmpty()) {
-            qDebug() << "frame is empty";
+            //qDebug() << "APIC frame is empty";
             return false;
         }
 
@@ -120,7 +120,7 @@ bool GetCover::extract_cover_from_mp3(const QString& fn, QString& tbfn)
         //cast Frame * to AttachedPictureFrame*
         TagLib::ID3v2::AttachedPictureFrame *pf = static_cast<TagLib::ID3v2::AttachedPictureFrame *> (*it);
         if (pf == NULL) {
-            qDebug() << "getMP3Frame: pf is null";
+            //qDebug() << "getMP3Frame: pf is null";
             return false;
         }
 
@@ -132,12 +132,12 @@ bool GetCover::extract_cover_from_mp3(const QString& fn, QString& tbfn)
         tbfn = get_thumb_name(hstr);
         //qDebug() << "tbfn:" << hstr;
         if ( isFileExisted(tbfn) ) {
-            qDebug() << "such thumbnail existed, don't save and report last tbfn:" << tbfn;
+            //qDebug() << "such thumbnail existed, don't save and report last tbfn:" << tbfn;
             return true;
         }
 
         _img.save(tbfn, "PNG");
-        qDebug() << "thumbnail:" << tbfn;
+        //qDebug() << "thumbnail:" << tbfn;
         ret = true;
     }
     return ret;
@@ -152,25 +152,24 @@ bool GetCover::extract_cover_from_mp4(const QString& fn, QString& tbfn)
     TagLib::MP4::Tag *tag = file.tag();
     tbfn = "";
     if (tag == NULL) {
-        qDebug() << "tag is null";
+        //qDebug() << "tag is null";
         return false;
     }
     // m_artist = tag->artist().toCString(true);
     // m_album = tag->album().toCString(true);
     // m_title = tag->title().toCString(true);
-    /*
-     *   get frame
-     */
+    /// get covr from m4a
     if ( !tag->itemListMap().contains("covr") ) {
-        qDebug() << "no covr";
+        //qDebug() << "no covr";
         return false;
     }
 
-    qDebug() << "get covr...";
+    //qDebug() << "get covr...";
     TagLib::MP4::CoverArtList list = tag->itemListMap()["covr"].toCoverArtList();
     const char *psz_format = list[0].format() == TagLib::MP4::CoverArt::PNG ? "image/png" : "image/jpeg";
-    qDebug() << "id3tag: mp4: found embedded art: " << psz_format << ", "
-             << list[0].data().size() << "bytes";
+    (void)psz_format;
+//    qDebug() << "id3tag: mp4: found embedded art: " << psz_format << ", "
+//             << list[0].data().size() << "bytes";
     QImage _img;
     _img.loadFromData((const uchar *)list[0].data().data(), list[0].data().size());
     //QString confmd5 = ();
@@ -180,11 +179,11 @@ bool GetCover::extract_cover_from_mp4(const QString& fn, QString& tbfn)
     tbfn = get_thumb_name(hstr);
     //qDebug() << "tbfn:" << hstr;
     if ( isFileExisted(tbfn) ) {
-        qDebug() << "such thumbnail existed, don't save and report last tbfn:" << tbfn;
+        //qDebug() << "such thumbnail existed, don't save and report last tbfn:" << tbfn;
         return true;
     }
 
-    qDebug() << "NO such thumbnail!!! save tbfn:" << tbfn;
+    //qDebug() << "NO such thumbnail!!! save tbfn:" << tbfn;
     if (list[0].format() == TagLib::MP4::CoverArt::PNG) {
         _img.save(tbfn, "PNG");
     } else {

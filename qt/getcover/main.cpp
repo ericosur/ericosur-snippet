@@ -34,8 +34,9 @@ void process_one_file(const QString& fn)
         bool ret = TbHash::getInstance()->getThumbnail(fn, tbfn);
         if (ret) {
             qDebug() << "tbfn:" << tbfn;
+        } else {
+            qDebug() << "ret:" << (ret?"ok":"nok");
         }
-        qDebug() << "ret:" << (ret?"ok":"nok");
     } else {
         qDebug() << "not found:" << fn;
     }
@@ -63,6 +64,8 @@ void read_from_list()
         cnt ++;
     }
     fclose(ptr);
+    QString msg = QString("%1 records processed").arg(cnt);
+    qDebug() << msg;
 }
 
 int main(int argc, char *argv[])

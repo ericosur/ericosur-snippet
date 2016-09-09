@@ -42,10 +42,25 @@ QHash<QString, QString>& TbHash::getTbhash()
 {
     return m_tbhash;
 }
-
+/**
+ * @brief TbHash::getThumbnail query thumbnail file name from fn
+ * @param fn [in] media file name
+ * @param tbfn [out] thumbnail file name
+ * @return true if tb exists, false if errors
+ */
 bool TbHash::getThumbnail(const QString& fn, QString& tbfn)
 {
-    return GetCover::getcover(fn, tbfn);
+    if (hasThumbFile(fn, tbfn)) {
+        return true;
+    }
+    // try to extract cover from fn
+    if ( GetCover::getcover(fn, tbfn) ) {
+        m_tbhash.insert(fn, tbfn);
+        return true;
+    } else {
+        m_tbhash.insert(fn, "null");
+    }
+    return false;
 }
 /** \brief query if specified fn and returns related tbfn
     \param fn [in] specified media file name
@@ -67,6 +82,9 @@ bool TbHash::hasThumbFile(const QString& fn, QString& tbfn)
 
     // existed in thumbnail hash
     tbfn = m_tbhash[fn];
+    if (tbfn == "null") {
+        return false;
+    }
     QFile fileobj(tbfn);
     //fileobj.setFileName(tbfn);
     if (fileobj.exists()) {
