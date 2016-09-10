@@ -26,15 +26,18 @@ void msgHandler(QtMsgType type, const QMessageLogContext& ctx, const QString& ms
 
 int main(int argc, char *argv[])
 {
-    Q_UNUSED(argc);
-    Q_UNUSED(argv);
-
     qInstallMessageHandler(msgHandler);
     //QCoreApplication app(argc, argv);
 
-    qDebug() << "hello world";
-    ImgTest::getInstance()->load();
-    
+    qDebug() << "getImgage - QImage tester";
+    if (argc == 1) {
+        ImgTest::getInstance()->load();
+    } else {
+        for (int i=1; i<argc; i++) {
+            ImgTest::getInstance()->load(argv[i]);
+        }
+    }
+
     //return app.exec();
     return 0;
 }

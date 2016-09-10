@@ -5,6 +5,8 @@
 #include <QString>
 #include <QImage>
 
+#define TESTIMAGE "/tmp/z.jpg"
+
 class ImgTest : public QObject
 {
 	Q_OBJECT
@@ -12,8 +14,9 @@ class ImgTest : public QObject
 public:
     static ImgTest* getInstance();
 
-    void load();
+    void load(const QString& fn=TESTIMAGE);
     QString md5sum(const char* buffer, int size);
+    void show();
 
 protected:
     static ImgTest* _instance;
