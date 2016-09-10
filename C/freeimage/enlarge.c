@@ -16,21 +16,8 @@ unsigned g_width;
 unsigned g_height;
 unsigned g_pitch;
 
-void enlarge_image(FIBITMAP* bid);
-
-int main()
+void show_image_info(FIBITMAP* bitmap)
 {
-    FIBITMAP* bitmap;
-
-    // load image
-    //bitmap = FreeImage_Load(FIF_JPEG, TEST_FILE, JPEG_DEFAULT);
-    bitmap = FreeImage_Load(FIF_BMP, TEST_FILE, BMP_DEFAULT);
-    if (!bitmap)
-    {
-        printf("cannot load image: %s\n", TEST_FILE);
-        exit(-1);
-    }
-
     printf("used_color = %d\n", FreeImage_GetColorsUsed(bitmap));
     g_bpp = FreeImage_GetBPP(bitmap);
     printf("bpp = %d\n", g_bpp);
@@ -39,19 +26,12 @@ int main()
     printf("width = %d\n", g_width);
     g_height = FreeImage_GetHeight(bitmap);
     printf("height = %d\n", g_height);
+    printf("memory size: %u\n", FreeImage_GetMemorySize(bitmap));
     g_pitch = FreeImage_GetPitch(bitmap);
     printf("pitch = %d\n", g_pitch);
-
-    enlarge_image(bitmap);
-
-    // unload image
-    if (bitmap)
-        FreeImage_Unload(bitmap);
-
-    return 0;
 }
 
-void enlarge_image(FIBITMAP* dib)
+void enlarge_image(const char* ofn, FIBITMAP* dib)
 {
     // this code assumes there is a bitmap loaded and
     // present in a variable called 'dib'
@@ -120,9 +100,61 @@ void enlarge_image(FIBITMAP* dib)
             // next line
             bits += pitch;
         }
-        if (! FreeImage_Save(FIF_BMP, out_dib, OUT_FILE, 0))
+        if (! FreeImage_Save(FIF_BMP, out_dib, ofn, 0))
         {
             printf("save image failed\n");
         }
     }
+}
+
+/** Generic image loader
+@param lpszPathName Pointer to the full file name
+@param flag Optional load flag constant
+@return Returns the loaded dib if successful, returns NULL otherwise
+*/
+FIBITMAP* load_generic(const char* fn, int flag)
+{
+    FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
+    // check the file signature and deduce its format
+    // (the second argument is currently not used by FreeImage)
+    fif = FreeImage_GetFileType(fn, 0);
+    if(fif == FIF_UNKNOWN) {
+        // no signature ?
+        // try to guess the file format from the file extension
+        fif = FreeImage_GetFIFFromFilename(fn);
+    }
+    printf("%s: %s\n", fn, FreeImage_GetFormatFromFIF(fif));
+    // check that the plugin has reading capabilities ...
+    if((fif != FIF_UNKNOWN) && FreeImage_FIFSupportsReading(fif)) {
+        // ok, let's load the file
+        FIBITMAP *dib = FreeImage_Load(fif, fn, flag);
+        // unless a bad file format, we are done !
+        return dib;
+    }
+    return NULL;
+}
+
+int main(int argc, char** argv)
+{
+    FIBITMAP* bitmap;
+
+    if (argc == 1) {
+        bitmap = load_generic(TEST_FILE, BMP_DEFAULT);
+    } else {
+        bitmap = load_generic(argv[1], BMP_DEFAULT);
+    }
+    if (bitmap == NULL)  {
+        printf("failed to load...\n");
+        exit(-1);
+    }
+    show_image_info(bitmap);
+    printf("enlarged and output to %s\n", OUT_FILE);
+    enlarge_image(OUT_FILE, bitmap);
+
+    // unload image
+    if (bitmap) {
+        FreeImage_Unload(bitmap);
+    }
+
+    return 0;
 }
