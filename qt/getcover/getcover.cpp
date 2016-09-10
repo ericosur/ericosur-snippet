@@ -115,8 +115,16 @@ bool GetCover::extract_cover_from_mp3(const QString& fn, QString& tbfn)
             //qDebug() << "APIC frame is empty";
             return false;
         }
+/*
+          ID3v2::FrameList::ConstIterator it = id3v2tag->frameList().begin();
+          for(; it != id3v2tag->frameList().end(); it++)
+            cout << (*it)->frameID() << " - \"" << (*it)->toString() << "\"" << endl;
 
+*/
         TagLib::ID3v2::FrameList::ConstIterator it = frames.begin();
+        //cout << (*it)->frameID() << "==>" << (*it)->toString();
+        qDebug() << (*it)->frameID().data();
+        qDebug() << (*it)->toString().toCString();
         //cast Frame * to AttachedPictureFrame*
         TagLib::ID3v2::AttachedPictureFrame *pf = static_cast<TagLib::ID3v2::AttachedPictureFrame *> (*it);
         if (pf == NULL) {
