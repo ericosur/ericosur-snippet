@@ -92,7 +92,7 @@ int main(int argc, char *argv[])
     QString listfn;
 
     while(1) {
-        int cmd_opt = getopt(argc, argv, "htnwf:");
+        int cmd_opt = getopt(argc, argv, "hitnwf:");
         if (cmd_opt == -1) {
             //qDebug() << "cmd_opt == -1";
             break;
@@ -102,13 +102,17 @@ int main(int argc, char *argv[])
             print_help();
             exit(2);
             break;
+        case 'i':
+            GetCover::setFollowImageType(true);
+            qDebug() << "will follow thumbnail image format...";
+            break;
         case 't':
             use_hashtable = false;
             qDebug() << "use thumbnail hash table?" << (use_hashtable?"yes":"no");
             break;
         case 'n':
-            TbHash::getInstance()->setDoWrite(false);
-            qDebug() << "no write...";
+            GetCover::setWriteTb(false);
+            qDebug() << "will not write tb to disk...";
             break;
         case 'f':
             listfn = optarg;

@@ -28,6 +28,7 @@ char buffer[DEFAULT_BUFFER_SIZE];
 
 /// default will output tb
 bool GetCover::m_writetb = true;
+bool GetCover::m_followtype = false;
 
 GetCover::GetCover()
 {
@@ -126,8 +127,8 @@ bool GetCover::extract_cover_from_mp3(const QString& fn, QString& tbfn)
 */
         TagLib::ID3v2::FrameList::ConstIterator it = frames.begin();
         //cout << (*it)->frameID() << "==>" << (*it)->toString();
-        qDebug() << (*it)->frameID().data();
-        qDebug() << (*it)->toString().toCString();
+        QString tbtype = (*it)->toString().toCString();
+        qDebug() << (*it)->frameID().data() << "type:" << tbtype;
         //cast Frame * to AttachedPictureFrame*
         TagLib::ID3v2::AttachedPictureFrame *pf = static_cast<TagLib::ID3v2::AttachedPictureFrame *> (*it);
         if (pf == NULL) {
@@ -149,10 +150,14 @@ bool GetCover::extract_cover_from_mp3(const QString& fn, QString& tbfn)
         }
 
         if (m_writetb) {
-            _img.save(tbfn, "PNG");
+            if (m_followtype && tbtype.contains("jpeg")) {
+                _img.save(tbfn, "JPG");
+            } else {
+                _img.save(tbfn, "PNG");
+            }
             //qDebug() << "thumbnail:" << tbfn;
         } else {
-            qDebug() << "img not saved...";
+            qDebug() << "will not save tb...";
         }
         ret = true;
     }
@@ -201,13 +206,14 @@ bool GetCover::extract_cover_from_mp4(const QString& fn, QString& tbfn)
 
     if (m_writetb) {
         //qDebug() << "NO such thumbnail!!! save tbfn:" << tbfn;
-        if (list[0].format() == TagLib::MP4::CoverArt::PNG) {
-            _img.save(tbfn, "PNG");
+        if (m_followtype &&
+            (list[0].format() == TagLib::MP4::CoverArt::JPEG)) {
+                _img.save(tbfn, "JPG");
         } else {
-            _img.save(tbfn, "JPG");
+            _img.save(tbfn, "PNG");
         }
     } else {
-        qDebug() << "img not saved...";
+        qDebug() << "will not save tb...";
     }
 
     //qDebug() << "thumbnail:" << tbfn;
@@ -223,4 +229,8 @@ bool GetCover::isFileExisted(const QString& fn)
 void GetCover::setWriteTb(bool b)
 {
     m_writetb = b;
+}
+void GetCover::setFollowImageType(bool b)
+{
+    m_followtype = b;
 }
