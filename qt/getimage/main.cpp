@@ -35,6 +35,7 @@ int main(int argc, char *argv[])
     } else {
         for (int i=1; i<argc; i++) {
             ImgTest::getInstance()->load(argv[i]);
+            ImgTest::getInstance()->shrink();
         }
     }
 
