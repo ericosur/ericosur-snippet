@@ -26,6 +26,9 @@
 #define DEFAULT_BUFFER_SIZE     (512)
 char buffer[DEFAULT_BUFFER_SIZE];
 
+/// default will output tb
+bool GetCover::m_writetb = true;
+
 GetCover::GetCover()
 {
 }
@@ -134,8 +137,9 @@ bool GetCover::extract_cover_from_mp3(const QString& fn, QString& tbfn)
 
         QImage _img;
         _img.loadFromData((const uchar*)pf->picture().data(), pf->picture().size());
-
+        qDebug() << "pf->picture().size():" << pf->picture().size();
         QString hstr = md5sum((const char*)_img.constBits(), _img.byteCount());
+        qDebug() << "_img.byteCount():"  << _img.byteCount();
         //qDebug() << "hstr:" << hstr;
         tbfn = get_thumb_name(hstr);
         //qDebug() << "tbfn:" << hstr;
@@ -144,8 +148,12 @@ bool GetCover::extract_cover_from_mp3(const QString& fn, QString& tbfn)
             return true;
         }
 
-        _img.save(tbfn, "PNG");
-        //qDebug() << "thumbnail:" << tbfn;
+        if (m_writetb) {
+            _img.save(tbfn, "PNG");
+            //qDebug() << "thumbnail:" << tbfn;
+        } else {
+            qDebug() << "img not saved...";
+        }
         ret = true;
     }
     return ret;
@@ -191,11 +199,15 @@ bool GetCover::extract_cover_from_mp4(const QString& fn, QString& tbfn)
         return true;
     }
 
-    //qDebug() << "NO such thumbnail!!! save tbfn:" << tbfn;
-    if (list[0].format() == TagLib::MP4::CoverArt::PNG) {
-        _img.save(tbfn, "PNG");
+    if (m_writetb) {
+        //qDebug() << "NO such thumbnail!!! save tbfn:" << tbfn;
+        if (list[0].format() == TagLib::MP4::CoverArt::PNG) {
+            _img.save(tbfn, "PNG");
+        } else {
+            _img.save(tbfn, "JPG");
+        }
     } else {
-        _img.save(tbfn, "JPG");
+        qDebug() << "img not saved...";
     }
 
     //qDebug() << "thumbnail:" << tbfn;
@@ -206,4 +218,9 @@ bool GetCover::isFileExisted(const QString& fn)
 {
     QFile fileobj(fn);
     return fileobj.exists();
+}
+
+void GetCover::setWriteTb(bool b)
+{
+    m_writetb = b;
 }

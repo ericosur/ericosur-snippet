@@ -17,6 +17,7 @@ public:
     bool hasThumbFile(const QString& fn, QString& tbfn);
     void add_or_move_to_head_at_queue(const QString& tbfn);
     void checkThumbQuota();
+    void setDoWrite(bool b);
 
     void load();
     void save();

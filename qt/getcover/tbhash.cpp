@@ -140,6 +140,11 @@ void TbHash::checkThumbQuota()
     qDebug() << Q_FUNC_INFO << "current tbfn total size:" << m_tbsize;
 }
 
+void TbHash::setDoWrite(bool b)
+{
+    GetCover::setWriteTb(b);
+}
+
 // save object BarCtrl into file
 void TbHash::save()
 {
