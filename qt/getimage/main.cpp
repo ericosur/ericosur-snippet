@@ -1,7 +1,7 @@
 /**
-    \file: main.cpp
-    \brief: entry point and test function
-**/
+ * \file main.cpp
+ * \brief entry point and test function
+ */
 
 #include <QtCore>
 #include <QDebug>
@@ -14,6 +14,8 @@
 
 using namespace std;
 
+/** customized message handler for rediecting qDebug() messages
+ */
 void msgHandler(QtMsgType type, const QMessageLogContext& ctx, const QString& msg)
 {
     Q_UNUSED(ctx);
