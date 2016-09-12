@@ -1,6 +1,6 @@
 /**
-    \file: main.cpp
-    \brief: entry point and test function
+    \file main.cpp
+    \brief entry point and test function
 **/
 
 #include <QtCore>

@@ -1,3 +1,7 @@
+/**
+ * \file tbhash.h
+ * \brief class TbHash
+ */
 #ifndef __TbHash_H__
 #define __TbHash_H__
 
@@ -6,6 +10,10 @@
 #include <QHash>
 #include <QQueue>
 
+/**
+ * \class TbHash
+ * \brief flow controller to extract and manage thumbnail of media file
+ */
 class TbHash : public QObject
 {
 	Q_OBJECT
@@ -17,10 +25,16 @@ public:
     bool hasThumbFile(const QString& fn, QString& tbfn);
     void add_or_move_to_head_at_queue(const QString& tbfn);
     void checkThumbQuota();
+    /**
+     * @param b [in] control write hash table info file or not
+     */
     void setDoWrite(bool b);
 
+    /// load thumbnail hash table from file
     void load();
+    /// save thumbnail hash table into file
     void save();
+    /// dump m_tbhash
     void show();
 
     QHash<QString, QString>& getTbhash();

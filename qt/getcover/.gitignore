@@ -4,3 +4,9 @@ list.txt
 Makefile
 *.png
 *.jpg
+html/
+*.o
+moc*
+build/
+mywarn.log
+

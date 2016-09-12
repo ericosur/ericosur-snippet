@@ -12,12 +12,18 @@
 
 TbHash* TbHash::_instance = NULL;
 
+/**
+ * overloaded operator function for putting TbHash into QDataStream
+ */
 QDataStream& operator<<(QDataStream& ds, const TbHash& obj)
 {
     qDebug() << Q_FUNC_INFO << obj.m_tbhash.size();
     ds << obj.m_tbhash;
     return ds;
 }
+/**
+ * overloaded operator function for reading QDataStream into TbHash
+ */
 QDataStream& operator>>(QDataStream& ds, TbHash& obj)
 {
     ds >> obj.m_tbhash;
@@ -25,7 +31,7 @@ QDataStream& operator>>(QDataStream& ds, TbHash& obj)
     return ds;
 }
 
-
+/// singleton interface
 TbHash* TbHash::getInstance()
 {
     if (_instance == NULL) {
@@ -145,7 +151,6 @@ void TbHash::setDoWrite(bool b)
     GetCover::setWriteTb(b);
 }
 
-// save object BarCtrl into file
 void TbHash::save()
 {
     qDebug() << Q_FUNC_INFO;
@@ -159,7 +164,6 @@ void TbHash::save()
     file.close();
 }
 
-// load object BarCtrl from file
 void TbHash::load()
 {
     qDebug() << Q_FUNC_INFO;

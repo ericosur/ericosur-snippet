@@ -1,3 +1,7 @@
+/**
+ * \file getcover.h
+ * \brief header file for class GetCover
+ */
 #ifndef __GET_COVER_H__
 #define __GET_COVER_H__
 
@@ -13,11 +17,13 @@ public:
     static bool getcover(const QString& mp3fn, QString& tbfn);
     static bool isFileExisted(const QString& fn);
     static void setWriteTb(bool b);
+
     /** \brief GetCover::setFollowImageType()
 		if set to true, thumbnail will be saved
 		as the same type within media file
 		if set to false, thumbnail is always
 		png format, default false
+        \param b [in] true will follow thumbnail image type, false always PNG
 		\note thumbnail fn extension is always png
 		but it could be jpg format
 	**/
