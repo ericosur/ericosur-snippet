@@ -16,6 +16,6 @@ HEADERS += \
     util.h
 
 # add taglib
-INCLUDEPATH += /home/rasmus/taglib/include
-LIBS += -L/home/rasmus/taglib/lib
-LIBS += -ltag
+INCLUDEPATH += /usr/local/include
+LIBS += -L/usr/local/lib
+LIBS += -ltag -lz

@@ -1,0 +1,12 @@
+list.txt
+*.mp3
+*.m4a
+Makefile
+*.png
+*.jpg
+html/
+*.o
+moc*
+build/
+mywarn.log
+
