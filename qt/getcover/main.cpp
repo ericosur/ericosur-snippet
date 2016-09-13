@@ -32,8 +32,10 @@ void print_help()
     fprintf(stderr,
             "getcover [options] [audio media files]\n"
             "\t-h  help message\n"
+            "\t-i  follow thumbnail media type (default:off)\n"
             "\t-t  turn off hash table (default:on)\n"
             "\t-n  Not output thumbnail file (default: on)\n"
+            "\t-r  resize width and height of thumbnail (default:off)\n"
             "\t-f  specify list file\n"
     );
 }
@@ -92,7 +94,7 @@ int main(int argc, char *argv[])
     QString listfn;
 
     while(1) {
-        int cmd_opt = getopt(argc, argv, "hitnwf:");
+        int cmd_opt = getopt(argc, argv, "hitnrf:");
         if (cmd_opt == -1) {
             //qDebug() << "cmd_opt == -1";
             break;
@@ -113,6 +115,10 @@ int main(int argc, char *argv[])
         case 'n':
             GetCover::setWriteTb(false);
             qDebug() << "will not write tb to disk...";
+            break;
+        case 'r':
+            GetCover::setResizeTb(true);
+            qDebug() << "will resize tb width/height...";
             break;
         case 'f':
             listfn = optarg;

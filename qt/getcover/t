@@ -1,0 +1,17 @@
+#!/bin/bash
+
+rm /tmp/*.png
+time ./getcover -t alice.mp3
+identify /tmp/*.png
+echo -e "----------\n";
+
+rm /tmp/*.png
+time ./getcover -ti alice.mp3
+identify /tmp/*.png
+echo -e "----------\n";
+
+rm /tmp/*.png
+time ./getcover -tr alice.mp3
+identify /tmp/*.png
+echo -e "----------\n";
+

@@ -32,6 +32,7 @@ char buffer[DEFAULT_BUFFER_SIZE];
 /// default will output tb
 bool GetCover::m_writetb = true;
 bool GetCover::m_followtype = false;
+bool GetCover::m_resizetb = false;
 
 GetCover::GetCover()
 {
@@ -102,68 +103,46 @@ bool GetCover::getcover(const QString& fn, QString& tbfn)
 bool GetCover::extract_cover_from_mp3(const QString& fn, QString& tbfn)
 {
     TagLib::MPEG::File file(fn.toStdString().c_str());
-    bool ret = false;
     tbfn = "";
     if (!file.isValid()) {
         //qDebug() << "file is invalid";
         return false;
     }
-    if (file.hasID3v2Tag()) {
-        //qDebug() << "id3v2 tag...";
-        TagLib::ID3v2::Tag *tag = file.ID3v2Tag();
-        // m_artist = tag->artist().toCString(true);
-        // m_album = tag->album().toCString(true);
-        // m_title = tag->title().toCString(true);
-        // frames
-        TagLib::ID3v2::FrameList frames;
-        //look for picture frames
-        frames = tag->frameListMap()["APIC"];
-        if (frames.isEmpty()) {
-            //qDebug() << "APIC frame is empty";
-            return false;
-        }
-/*
-          ID3v2::FrameList::ConstIterator it = id3v2tag->frameList().begin();
-          for(; it != id3v2tag->frameList().end(); it++)
-            cout << (*it)->frameID() << " - \"" << (*it)->toString() << "\"" << endl;
-
-*/
-        TagLib::ID3v2::FrameList::ConstIterator it = frames.begin();
-        //cout << (*it)->frameID() << "==>" << (*it)->toString();
-        QString tbtype = (*it)->toString().toCString();
-        qDebug() << (*it)->frameID().data() << "type:" << tbtype;
-        //cast Frame * to AttachedPictureFrame*
-        TagLib::ID3v2::AttachedPictureFrame *pf = static_cast<TagLib::ID3v2::AttachedPictureFrame *> (*it);
-        if (pf == NULL) {
-            //qDebug() << "getMP3Frame: pf is null";
-            return false;
-        }
-
-        QImage _img;
-        _img.loadFromData((const uchar*)pf->picture().data(), pf->picture().size());
-        qDebug() << "pf->picture().size():" << pf->picture().size();
-        QString hstr = md5sum((const char*)_img.constBits(), _img.byteCount());
-        qDebug() << "_img.byteCount():"  << _img.byteCount();
-        //qDebug() << "hstr:" << hstr;
-        tbfn = get_thumb_name(hstr);
-        //qDebug() << "tbfn:" << hstr;
-        if ( isFileExisted(tbfn) ) {
-            //qDebug() << "such thumbnail existed, don't save and report last tbfn:" << tbfn;
-            return true;
-        }
-
-        if (m_writetb) {
-            if (m_followtype && tbtype.contains("jpeg")) {
-                _img.save(tbfn, "JPG");
-            } else {
-                _img.save(tbfn, "PNG");
-            }
-            //qDebug() << "thumbnail:" << tbfn;
-        } else {
-            qDebug() << "will not save tb...";
-        }
-        ret = true;
+    if (!file.hasID3v2Tag()) {
+        return false;
     }
+
+    //qDebug() << "id3v2 tag...";
+    TagLib::ID3v2::Tag *tag = file.ID3v2Tag();
+    // m_artist = tag->artist().toCString(true);
+    // m_album = tag->album().toCString(true);
+    // m_title = tag->title().toCString(true);
+    TagLib::ID3v2::FrameList frames = tag->frameListMap()["APIC"];
+    if (frames.isEmpty()) {
+        //qDebug() << "APIC frame is empty";
+        return false;
+    }
+/*
+      ID3v2::FrameList::ConstIterator it = id3v2tag->frameList().begin();
+      for(; it != id3v2tag->frameList().end(); it++)
+        cout << (*it)->frameID() << " - \"" << (*it)->toString() << "\"" << endl;
+*/
+    TagLib::ID3v2::FrameList::ConstIterator it = frames.begin();
+    //cout << (*it)->frameID() << "==>" << (*it)->toString();
+    QString tbtype = (*it)->toString().toCString(); // shows: APIC
+    qDebug() << (*it)->frameID().data() << "type:" << tbtype;   // shows: images/jpeg
+    //cast Frame * to AttachedPictureFrame*
+    TagLib::ID3v2::AttachedPictureFrame *pf = static_cast<TagLib::ID3v2::AttachedPictureFrame *> (*it);
+    if (pf == NULL) {
+        //qDebug() << "getMP3Frame: pf is null";
+        return false;
+    }
+    bool isJpeg = tbtype.contains("jpeg");
+    /// _img is the original thumbnail from media file
+    QImage _img;
+    _img.loadFromData((const uchar*)pf->picture().data(), pf->picture().size());
+    bool ret = save_thumbnail(_img, tbfn, isJpeg);
+
     return ret;
 }
 
@@ -190,15 +169,22 @@ bool GetCover::extract_cover_from_mp4(const QString& fn, QString& tbfn)
 
     //qDebug() << "get covr...";
     TagLib::MP4::CoverArtList list = tag->itemListMap()["covr"].toCoverArtList();
-    const char *psz_format = list[0].format() == TagLib::MP4::CoverArt::PNG ? "image/png" : "image/jpeg";
-    (void)psz_format;
+    // const char *psz_format = list[0].format() == TagLib::MP4::CoverArt::PNG ? "image/png" : "image/jpeg";
+    // (void)psz_format;
+    bool isJpeg = (list[0].format() == TagLib::MP4::CoverArt::JPEG);
 //    qDebug() << "id3tag: mp4: found embedded art: " << psz_format << ", "
 //             << list[0].data().size() << "bytes";
     QImage _img;
     _img.loadFromData((const uchar *)list[0].data().data(), list[0].data().size());
     //QString confmd5 = ();
 
-    QString hstr = md5sum((const char*)_img.constBits(), _img.byteCount());
+    bool ret = save_thumbnail(_img, tbfn, isJpeg);
+    return ret;
+}
+
+bool GetCover::save_thumbnail(const QImage& img, QString& tbfn, bool isJpeg)
+{
+    QString hstr = md5sum((const char*)img.constBits(), img.byteCount());
     //qDebug() << "hstr:" << hstr;
     tbfn = get_thumb_name(hstr);
     //qDebug() << "tbfn:" << hstr;
@@ -207,13 +193,21 @@ bool GetCover::extract_cover_from_mp4(const QString& fn, QString& tbfn)
         return true;
     }
 
+    const int DEFAULT_SHRINK_WIDTH = 800;
+    const int DEFAULT_SHRINK_HEIGHT = 800;
     if (m_writetb) {
-        //qDebug() << "NO such thumbnail!!! save tbfn:" << tbfn;
-        if (m_followtype &&
-            (list[0].format() == TagLib::MP4::CoverArt::JPEG)) {
-                _img.save(tbfn, "JPG");
+        // m_resizetb will ignore m_followtype
+        if (m_resizetb) {
+            QImage resized_img = img.scaled(
+                QSize(DEFAULT_SHRINK_WIDTH, DEFAULT_SHRINK_HEIGHT),
+                Qt::KeepAspectRatio);
+            resized_img.save(tbfn, "PNG");
         } else {
-            _img.save(tbfn, "PNG");
+            if (m_followtype && isJpeg) {
+                    img.save(tbfn, "JPG");
+            } else {
+                img.save(tbfn, "PNG");
+            }
         }
     } else {
         qDebug() << "will not save tb...";
@@ -236,4 +230,14 @@ void GetCover::setWriteTb(bool b)
 void GetCover::setFollowImageType(bool b)
 {
     m_followtype = b;
+}
+void GetCover::setResizeTb(bool b)
+{
+    m_resizetb = b;
+}
+void GetCover::show_toggles()
+{
+    qDebug() << "m_writetb" << (m_writetb?"on":"off")
+        << "m_followtype" << (m_followtype?"on":"off")
+        << "m_resizetb" << (m_resizetb?"on":"off");
 }

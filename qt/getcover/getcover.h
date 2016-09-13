@@ -27,6 +27,8 @@ public:
         but it could be jpg format
     **/
     static void setFollowImageType(bool b);
+    static void setResizeTb(bool b);
+    static void show_toggles();
 
 protected:
     GetCover(); // not welcome to have instance
@@ -38,11 +40,13 @@ protected:
     static void save_hash(const QString& hash);
     static QString load_hash();
     static QString get_thumb_name(const QString& hstr);
+    static bool save_thumbnail(const QImage& img, QString& tbfn, bool isJpeg);
 
 private:
-    // default true
-    static bool m_writetb;
-    static bool m_followtype;
+	// default true
+	static bool m_writetb;
+	static bool m_followtype;
+    static bool m_resizetb;
 };
 
 #endif  // __GET_COVER_H__
