@@ -181,9 +181,10 @@ ApplicationWindow {
     }
 
     Image {
-        anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.margins: 10
+        // anchors.top: parent.top
+        // anchors.left: parent.left
+        // anchors.margins: 10
+        anchors.fill: parent
         source: "back.png"
         MouseArea {
             anchors.rightMargin: -12
