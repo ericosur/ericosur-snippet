@@ -55,4 +55,29 @@ Item {
         font.family: hanamin.name
         text: "𠁙𠁚𠀳𠁀𠁟" + "\n" + font.family;
     }
+
+    Item {
+        anchors.fill: parent
+        focus: true
+        Keys.onReleased: {
+            console.log("Qt event.key: " + event.key);
+            console.log("hotkey: nativeScanCode: " + event.nativeScanCode);
+            // if (event.isAutoRepeat) {
+            //     skip_one_release = true;
+            //     //console.log("hotkey: skip_one_release: " + skip_one_release);
+            //     return;
+            // } else {
+            //     if (skip_one_release) {
+            //         console.log("hotkey: skip one release...");
+            //         skip_one_release = false;
+            //         return;
+            //     }
+            // }
+            //console.log("hotkey: isAutoRepeat: " + event.isAutoRepeat);
+
+            if( event.key === Qt.Key_Home ) {
+                console.log("Home released");
+            }
+        }
+    }
 }
