@@ -15,10 +15,8 @@
  * \class ImgTest
  * \brief singleton class for testing QImage manipulation functions
  */
-class ImgTest : public QObject
+class ImgTest
 {
-	Q_OBJECT
-
 public:
     static ImgTest* getInstance();
 
