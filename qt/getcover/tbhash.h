@@ -5,7 +5,6 @@
 #ifndef __TbHash_H__
 #define __TbHash_H__
 
-#include <QObject>
 #include <QString>
 #include <QHash>
 #include <QQueue>
@@ -14,10 +13,8 @@
  * \class TbHash
  * \brief flow controller to extract and manage thumbnail of media file
  */
-class TbHash : public QObject
+class TbHash
 {
-	Q_OBJECT
-
 public:
     static TbHash* getInstance();
 

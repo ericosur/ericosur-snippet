@@ -7,7 +7,9 @@
 #include <QDebug>
 
 #include <unistd.h>
+#ifdef Q_OS_LINUX
 #include <error.h>
+#endif
 #include <sys/shm.h>
 
 #define MAX_BUFFER_SIZE 4096

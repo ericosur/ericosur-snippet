@@ -9,9 +9,8 @@
 #include <QString>
 #include <QSettings>
 
-class GetCover : public QObject
+class GetCover
 {
-    Q_OBJECT
 public:
     static QString get_hash_filename(const QString& fn);
     static bool getcover(const QString& mp3fn, QString& tbfn);
@@ -19,18 +18,18 @@ public:
     static void setWriteTb(bool b);
 
     /** \brief GetCover::setFollowImageType()
-		if set to true, thumbnail will be saved
-		as the same type within media file
-		if set to false, thumbnail is always
-		png format, default false
+        if set to true, thumbnail will be saved
+        as the same type within media file
+        if set to false, thumbnail is always
+        png format, default false
         \param b [in] true will follow thumbnail image type, false always PNG
-		\note thumbnail fn extension is always png
-		but it could be jpg format
-	**/
+        \note thumbnail fn extension is always png
+        but it could be jpg format
+    **/
     static void setFollowImageType(bool b);
 
 protected:
-    GetCover();	// not welcome to have instance
+    GetCover(); // not welcome to have instance
 
     static QString md5sum(const char* buffer, int size);
     static bool extract_cover_from_mp3(const QString& fn, QString& tbfn);
@@ -41,9 +40,9 @@ protected:
     static QString get_thumb_name(const QString& hstr);
 
 private:
-	// default true
-	static bool m_writetb;
-	static bool m_followtype;
+    // default true
+    static bool m_writetb;
+    static bool m_followtype;
 };
 
 #endif  // __GET_COVER_H__

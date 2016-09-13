@@ -1,4 +1,7 @@
-
+/**
+ * \file getcover.cpp
+ * \brief implementation for class GetCover
+ */
 #include "getcover.h"
 #include "yoseshm.h"
 
