@@ -7,14 +7,13 @@
 #include <stdio.h>
 #include <iostream>
 
-#include <tmap.h>
-#include <tstring.h>
-#include <tpropertymap.h>
-
-#include <mpegfile.h>
-#include <id3v2tag.h>
-#include <id3v2frame.h>
-#include <attachedpictureframe.h>
+#include <taglib/tmap.h>
+#include <taglib/tstring.h>
+#include <taglib/tpropertymap.h>
+#include <taglib/mpegfile.h>
+#include <taglib/id3v2tag.h>
+#include <taglib/id3v2frame.h>
+#include <taglib/attachedpictureframe.h>
 
 #define FNAME   "/home/rasmus/Music/last.mp3"
 #define PICNAME "output.jpg"
