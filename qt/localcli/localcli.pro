@@ -4,13 +4,12 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
+QT += core gui
+QT += widgets
+CONFIG -= app_bundle
+CONFIG += c++11
 TARGET = localcli
 TEMPLATE = app
-
 
 SOURCES += main.cpp\
         mainwindow.cpp
