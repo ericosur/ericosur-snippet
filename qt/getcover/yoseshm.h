@@ -2,8 +2,6 @@
     \file yoseshm.h
     \brief raw shm functions
 **/
-
-
 #ifndef __YOSESHM_H__
 #define __YOSESHM_H__
 

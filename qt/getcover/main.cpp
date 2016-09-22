@@ -9,7 +9,6 @@
 #include <QStringList>
 #include <QTime>
 #include <iostream>
-#include <QFile>
 #include <unistd.h>
 
 #include "tbhash.h"

@@ -151,6 +151,7 @@ void TbHash::setDoWrite(bool b)
     GetCover::setWriteTb(b);
 }
 
+// save object BarCtrl into file
 void TbHash::save()
 {
     qDebug() << Q_FUNC_INFO;
@@ -164,6 +165,7 @@ void TbHash::save()
     file.close();
 }
 
+// load object BarCtrl from file
 void TbHash::load()
 {
     qDebug() << Q_FUNC_INFO;

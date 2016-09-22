@@ -5,7 +5,6 @@
 #ifndef __GET_COVER_H__
 #define __GET_COVER_H__
 
-#include <QObject>
 #include <QString>
 #include <QSettings>
 

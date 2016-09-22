@@ -5,6 +5,8 @@
 #include "yoseshm.h"
 
 #include <QDebug>
+#include <QString>
+#include <QByteArray>
 
 #include <unistd.h>
 #ifdef Q_OS_LINUX
