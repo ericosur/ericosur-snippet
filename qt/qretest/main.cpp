@@ -43,12 +43,30 @@ void test2()
     }
 }
 
+void test3()
+{
+    char s[] =
+"system: CIS002-0.01.001.201609082206\x0a"
+"uboot: 40\x0a"
+"mcu:201608030004\x0a"
+"lcd:201609130008\x0a"
+"board id:2\x0a";
+
+    QRegularExpression re("(?<sys>system: [A-Za-z0-9.-]+)");
+    QRegularExpressionMatch match = re.match(s);
+    if (match.hasMatch()) {
+        QString pos = match.captured("sys");
+        qDebug() << pos;
+    }
+}
+
 int main(int argc, char *argv[])
 {
 //    QCoreApplication a(argc, argv);
 
-    testRegexp();
-    test2();
+    //testRegexp();
+    //test2();
+    test3();
 
     //return a.exec();
     return 0;
