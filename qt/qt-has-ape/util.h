@@ -6,5 +6,6 @@
 #include <QString>
 
 bool hasAPETag(const QString& fn);
+bool getTags(const QString& fn);
 
 #endif // UTIL_H
