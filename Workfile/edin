@@ -1,0 +1,28 @@
+#!/bin/bash
+
+#
+# this script uses grep/sed
+# to edit $INFILE
+#
+
+PING=/bin/ping
+CUT=/usr/bin/cut
+GREP=/bin/grep
+SED=/bin/sed
+INFILE=/etc/network/interfaces
+#INFILE=/ssd/yose/interfaces
+TMPFILE=/tmp/interfaces.tmp
+
+
+# get the line of LC
+LC=$($GREP -n 192.168.1.10 $INFILE |$CUT -d : -f 1)
+echo "LC at line $LC"
+
+# get the old ip
+OLD=$($SED -n ${LC}p $INFILE |$CUT -d ' ' -f 1)
+echo "OLDIP not work: ${OLD}"
+
+((NLC = $LC - 1))
+cat $INFILE | $SED ${LC}d | $SED "${NLC}a    address 192.168.111.10" > $TMPFILE
+echo "New file is output to: ${TMPFILE}"
+echo "sudo cp ${NEWFILE} ${HOSTFILE}"

@@ -1,0 +1,44 @@
+#!/bin/bash
+
+#
+# this script use grep/cut/sed
+# to find target line and
+# modify it
+#
+
+PING=/bin/ping
+CUT=/usr/bin/cut
+GREP=/bin/grep
+SED=/bin/sed
+HOSTFILE=/etc/hosts
+NEWFILE=newhosts
+XSEL=/usr/bin/xsel
+
+# try to ping lc
+$PING -c1 lc > /dev/null
+# it's ok, nothing to do
+if [[ $? == 0 ]]; then
+    echo "ping ok"
+    exit 1
+fi
+
+# get the line of LC
+LC=$($GREP -n lc $HOSTFILE |$CUT -d : -f 1)
+echo "LC at line $LC"
+
+# get the old ip
+OLD=$($SED -n ${LC}p $HOSTFILE |$CUT -d ' ' -f 1)
+echo "OLDIP not work: ${OLD}"
+
+if [[ $OLD == "192.168.111.44" ]] ; then
+    IP=192.168.111.21
+else
+    IP=192.168.111.44
+fi
+echo "New ip: ${IP}"
+
+((NLC = $LC -1))
+cat $HOSTFILE | $SED ${LC}d | $SED "${NLC}a ${IP}  lc" > $NEWFILE
+echo "New file is output to: ${NEWFILE}"
+echo "sudo cp ${NEWFILE} ${HOSTFILE}"| $XSEL -i
+
