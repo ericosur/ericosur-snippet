@@ -4,7 +4,7 @@
 =pod
 
 =head1 DESCRIPTION
- 
+
 md5.pl
 
  July 17 2002 by ericosur
@@ -18,11 +18,11 @@ use strict;
 use warnings;
 
 use Digest::MD5;
-use Digest::MD4;
+#use Digest::MD4;
 use Digest::SHA1;
 
 my $md5;
-my $md4;
+#my $md4;
 my $sha1;
 
 my $file = $ARGV[0] || $0;
