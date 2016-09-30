@@ -24,8 +24,9 @@ my $deadline = 0;
 # will auto alter it if it is past
 my ($DEADYEAR, $DEADMONTH, $DEADDAY) = (2016, 7, 3);
 
-sub process() {
-    my $file = 'money.txt';
+sub parse_file($)
+{
+    my $file = shift;
     my $debug = 0;
     my $verbose = 0;
     my $cnt = 0;
@@ -195,15 +196,27 @@ sub show_deadline()
 
 sub main()
 {
-    my $delta = get_date_delta($DEADYEAR, $DEADMONTH, $DEADDAY);
-    if ($delta <= 0) {
-        $DEADMONTH += 1;
-        if ($DEADMONTH >= 12) {
-            $DEADYEAR += 1;
+    my $delta;
+    # go forward one month if deadline date is overdue
+    do {
+        $delta = get_date_delta($DEADYEAR, $DEADMONTH, $DEADDAY);
+        #printf("delta: %d\n", $delta);
+        if ($delta <= 0) {
+            $DEADMONTH += 1;
+            if ($DEADMONTH >= 12) {
+                $DEADYEAR += 1;
+            }
         }
-    }
+    } while ($delta < 0);
+
     show_deadline();
-    process();
+    my $fn;
+    if ($ARGV[0]) {
+        $fn = $ARGV[0];
+    } else {
+        $fn = "money.txt";
+    }
+    parse_file($fn);
 }
 
 main;
