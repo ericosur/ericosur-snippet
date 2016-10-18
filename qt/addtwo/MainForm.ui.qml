@@ -90,9 +90,9 @@ Item {
         height: 26
         model: ListModel {
             //id: cbItems
-            ListElement { text: "French"; loc: "fr" }
-            ListElement { text: "English"; loc: "en" }
-            ListElement { text: "Chinese"; loc: "zh" }
+            ListElement { text: QT_TR_NOOP("le français"); loc: "fr" }
+            ListElement { text: QT_TR_NOOP("English"); loc: "en" }
+            ListElement { text: QT_TR_NOOP("中文"); loc: "zh" }
         }
     }
 
@@ -135,11 +135,11 @@ Item {
         width: 131
         height: 26
         model: ListModel {
-            ListElement { text: qsTr("n/a") }
-            ListElement { text: qsTr("Add") }
-            ListElement { text: qsTr("sin()") }
-            ListElement { text: qsTr("cos()") }
-            ListElement { text: qsTr("clear") }
+            ListElement { text: QT_TR_NOOP("n/a") }
+            ListElement { text: QT_TR_NOOP("Add") }
+            ListElement { text: QT_TR_NOOP("sin()") }
+            ListElement { text: QT_TR_NOOP("cos()") }
+            ListElement { text: QT_TR_NOOP("clear") }
         }
     }
 
@@ -149,7 +149,7 @@ Item {
         y: 127
         width: 146
         height: 20
-        text: qsTr("09")
+        text: qsTr("empty string") + trs.empty
         font.pixelSize: 14
     }
 
@@ -159,6 +159,6 @@ Item {
         y: 129
         width: 163
         height: 17
-        text: qsTr("Label")
+        text: qsTr("test label") + trs.empty
     }
 }
