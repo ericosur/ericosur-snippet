@@ -60,14 +60,46 @@ void test3()
     }
 }
 
-void test_qchar()
+QString translate_utf16be_to_qstring(const unsigned char utf16be[32])
 {
-	QChar c1 = QChar(0x4e2d);
-	QChar c2 = QChar(0x6587);
-	qDebug() << "digit val:" << c1.digitValue();
-	qDebug() << "unicode:" << QString::number(c1.unicode(), 16);
-	QString s = QString(c1) + c2;
-	qDebug() << "s:" << s;
+    const int MAXLEN = 32;
+    QString str = "";
+    for (int i = 0; i < MAXLEN/2; i+=2) {
+        //printf("i: %02x %02x\n", utf16be[i], utf16be[i+1]);
+        ushort uc = (utf16be[i] << 8) | utf16be[i+1];
+        if (uc == 0) {
+            break;
+        }
+        //printf("uc: %04x\n", uc);
+        QChar cc = QChar(uc);
+        //qDebug() << cc;
+        str = str + QString(cc);
+    }
+
+	//qDebug() << "str:" << str;
+    return str;
+}
+
+/// https://en.wikipedia.org/wiki/Percent-encoding
+void test4()
+{
+    QString s = "I%60m Lengend%21";
+    QRegularExpression re("(%([A-Fa-f0-9][A-Fa-f0-9]))");
+    QRegularExpressionMatchIterator i = re.globalMatch(s);
+    while (i.hasNext()) {
+        QRegularExpressionMatch match = i.next();
+        QString all = match.captured(1);
+        QString key = match.captured(2);
+        bool ok;
+        int _hex = key.toInt(&ok, 16);
+        if (ok) {
+            char value = (char)_hex;
+            QString after = QString(value);
+            qDebug() << "all:" << all << "key:" << key << ":" << after;
+            s.replace(all, after);
+            qDebug() << "s:" << s;
+        }
+    }
 }
 
 int main(int argc, char *argv[])
@@ -78,9 +110,12 @@ int main(int argc, char *argv[])
 
     //testRegexp();
     //test2();
-    test3();
-    test_qchar();
+    //test3();
+    //test4();
+
+    unsigned char utf16be[32] = {0x4e, 0x00, 0x58, 0x34, 0x90, 0x4a, 0x62, 0x32};
+    qDebug() << translate_utf16be_to_qstring(utf16be);
+
     //return a.exec();
     return 0;
 }
-
