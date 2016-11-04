@@ -203,7 +203,7 @@ sub main()
         #printf("delta: %d\n", $delta);
         if ($delta <= 0) {
             $DEADMONTH += 1;
-            if ($DEADMONTH >= 12) {
+            if ($DEADMONTH > 12) {
                 $DEADYEAR += 1;
             }
         }
