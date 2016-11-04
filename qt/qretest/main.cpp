@@ -45,6 +45,18 @@ void test2()
     }
 }
 
+
+void localre(const QString& re, const QString& str)
+{
+    QRegularExpression regexp(re);
+    QRegularExpressionMatch match = regexp.match(str);
+    if (match.hasMatch()) {
+        qDebug() << Q_FUNC_INFO << match.captured(1);
+    } else {
+        qDebug() << Q_FUNC_INFO << "no matched";
+    }
+}
+
 void test3()
 {
     char s[] =
@@ -54,12 +66,27 @@ void test3()
 "lcd:201609130008\x0a"
 "board id:2\x0a";
 
-    QRegularExpression re("(?<sys>system: [A-Za-z0-9.-]+)");
-    QRegularExpressionMatch match = re.match(s);
-    if (match.hasMatch()) {
-        QString pos = match.captured("sys");
-        qDebug() << pos;
-    }
+    localre("system: ([A-Za-z0-9.-]+)", s);
+    localre("uboot: ([A-Za-z0-9.-]+)", s);
+    localre("mcu:([A-Za-z0-9.-]+)", s);
+    localre("lcd:([A-Za-z0-9.-]+)", s);
+    localre("board id:([A-Za-z0-9.-]+)", s);
+    // QString _sysinfo;
+    // QRegularExpression re("system: (?<sys>[A-Za-z0-9.-]+)");
+    // QRegularExpressionMatch match = re.match(s);
+    // if (match.hasMatch()) {
+    //     _sysinfo = match.captured("sys");
+    //     qDebug() << Q_FUNC_INFO << _sysinfo;
+    // } else {
+    //     qDebug() << Q_FUNC_INFO << "no matched";
+    // }
+
+    // QRegularExpression re2("uboot: ([A-Za-z0-9.-]+)");
+    // QRegularExpressionMatch match = re2.match(s);
+    // if (match.hasMatch()) {
+    //     qDebug() << match.captured(1);
+    // }
+
 }
 
 QString translate_utf16be_to_qstring(const unsigned char utf16be[32])
@@ -112,7 +139,7 @@ int main(int argc, char *argv[])
 
     //testRegexp();
     //test2();
-    //test3();
+    test3();
     //test4();
 
     // unsigned char utf16be[32] = {0x4e, 0x00, 0x58, 0x34, 0x90, 0x4a, 0x62, 0x32};

@@ -3,4 +3,4 @@
 moc_*
 .qmake.stash
 qrc_qml.*
-
+build/
