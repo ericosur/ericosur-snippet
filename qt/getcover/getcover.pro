@@ -6,7 +6,7 @@ CONFIG -= app_bundle
 TARGET = getcover
 TEMPLATE = app
 
-QMAKE_MAC_SDK = macosx10.11
+QMAKE_MAC_SDK = macosx10.12
 DEFINES += MACOSX_DEPLOYMENT_TARGET=10.11
 
 HEADERS += getcover.h \
@@ -21,8 +21,14 @@ SOURCES += tbhash.cpp
 LIBS += -ltag
 
 # add self-built taglib
+linux {
 INCLUDEPATH += /usr/local/include
 LIBS += -L/usr/local/lib
+}
+macx {
+INCLUDEPATH += /opt/local/include
+LIBS += -L/opt/local/lib
+}
 LIBS += -ltag
 
 # taglib need libz
