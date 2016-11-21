@@ -16,7 +16,7 @@ sub try($)
 
 sub main()
 {
-	my $lower = Math::BigFloat->new("995_000");
+	my $lower = Math::BigFloat->new("0");
 	my $upper = Math::BigFloat->new("999_999");
 	my $distance = Math::BigFloat->bone();
 	my $lasttry;
