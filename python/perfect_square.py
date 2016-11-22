@@ -1,15 +1,19 @@
 #!/usr/bin/env python
 #
 
-start = 31
-end = 99
+import csv
 
-x = start
-cnt = 0
-while ( x <= end):
-    print '{0:2d}    {1:4d}'.format(x, x*x)
-    x = x + 1
-    cnt = cnt + 1
+OUTPUT_CSV = 'perfect_s.csv'
 
-print("cnt:", cnt)
+with open(OUTPUT_CSV, 'wb') as csvfile:
+    fieldnames = ['index', 'n', 'value']
+    sw = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=',',
+                    quotechar='"', quoting=csv.QUOTE_ALL)
+    sw.writeheader()
+    lower = 31
+    upper = 99
+    cnt = 0
+    for n in xrange(lower, upper):
+        cnt = cnt + 1
+        sw.writerow({'index': cnt, 'n':n, 'value':n*n})
 
