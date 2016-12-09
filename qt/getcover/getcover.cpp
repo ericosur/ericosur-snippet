@@ -96,10 +96,15 @@ bool GetCover::getcover(const QString& fn, QString& tbfn)
         //qDebug() << "call extract_cover_from_mp4()...";
         ret = extract_cover_from_mp4(fn, tbfn);
     }
+    // TODO: add function to extract flac album
+    // http://stackoverflow.com/questions/7119073/c-taglib-cover-art-from-flac-and-asf-files
 
     return ret;
 }
 
+/// fn [in] path to media file to be extracted album art
+/// tbfn [out] path to extracted album art
+/// bool: true if successful, false if failed
 bool GetCover::extract_cover_from_mp3(const QString& fn, QString& tbfn)
 {
     TagLib::MPEG::File file(fn.toStdString().c_str());
