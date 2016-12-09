@@ -16,13 +16,14 @@
 # perl parse_money.pl 1> a.csv 2> /dev/null
 
 use strict;
+use v5.10;
 use Data::Dump qw(dump);
 use DateTime;
 use Date::Calc qw(:all);
 
 my $deadline = 0;
 # will auto alter it if it is past
-my ($DEADYEAR, $DEADMONTH, $DEADDAY) = (2016, 7, 3);
+my ($DEADYEAR, $DEADMONTH, $DEADDAY) = (2016, 10, 3);
 
 sub parse_file($)
 {
@@ -150,7 +151,7 @@ sub get_date_delta($$$)
     my ($dy,$dm,$dd) = @_;
     my ($ty, $tm, $tday) = Today();
 
-    #say $dy, $dm, $dd;
+    printf("%04d/%02d/%02d\n", $dy, $dm, $dd);
     my $delta = Delta_Days($ty, $tm, $tday, $dy, $dm, $dd);
 
     #print $delta,"\n";
@@ -196,17 +197,18 @@ sub show_deadline()
 
 sub main()
 {
-    my $delta;
+    my $delta = 0;
     # go forward one month if deadline date is overdue
     do {
-        $delta = get_date_delta($DEADYEAR, $DEADMONTH, $DEADDAY);
-        #printf("delta: %d\n", $delta);
         if ($delta <= 0) {
             $DEADMONTH += 1;
             if ($DEADMONTH > 12) {
                 $DEADYEAR += 1;
+                $DEADMONTH -= 12;
             }
         }
+        $delta = get_date_delta($DEADYEAR, $DEADMONTH, $DEADDAY);
+        #printf("delta: %d\n", $delta);
     } while ($delta < 0);
 
     show_deadline();
