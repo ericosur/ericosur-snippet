@@ -119,9 +119,10 @@ bool GetCover::extract_cover_from_mp3(const QString& fn, QString& tbfn)
 
     //qDebug() << "id3v2 tag...";
     TagLib::ID3v2::Tag *tag = file.ID3v2Tag();
-    // m_artist = tag->artist().toCString(true);
-    // m_album = tag->album().toCString(true);
-    // m_title = tag->title().toCString(true);
+    qDebug() << QString("artist(%1),album(%2),title(%3")
+                .arg(tag->artist().toCString(true))
+                .arg(tag->album().toCString(true))
+                .arg(tag->title().toCString(true));
     TagLib::ID3v2::FrameList frames = tag->frameListMap()["APIC"];
     if (frames.isEmpty()) {
         //qDebug() << "APIC frame is empty";
