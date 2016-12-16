@@ -5,6 +5,9 @@ CONFIG += c++11
 CONFIG -= app_bundle
 SOURCES += main.cpp
 
+HEADERS += loadtext.h
+SOURCES += loadtext.cpp
+
 RESOURCES += qml.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model

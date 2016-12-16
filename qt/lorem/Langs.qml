@@ -3,13 +3,14 @@ import QtQuick 2.5
 
 Item {
     //visible: true
-    //width: 1280
-    //height: 800
+    width: 800
+    height: 600
 
     property int box_width: 120
     property int box_height: 60
     property int box_gap: 12
     property int box_fontsize: 20
+    //property var text_area_text: mytext.message
 
     Rectangle {
         id: rect1
@@ -28,6 +29,7 @@ Item {
             anchors.fill: parent
             onClicked: {
                 console.log("rect1");
+                mytext.getTextWithId(1);
             }
         }
     }
@@ -50,6 +52,7 @@ Item {
             anchors.fill: parent
             onClicked: {
                 console.log("rect2");
+                mytext.getTextWithId(2);
             }
         }
     }
@@ -72,6 +75,7 @@ Item {
             anchors.fill: parent
             onClicked: {
                 console.log("rect3");
+                mytext.getTextWithId(3);
             }
         }
     }
@@ -94,6 +98,7 @@ Item {
             anchors.fill: parent
             onClicked: {
                 console.log("rect4");
+                mytext.getTextWithId(4);
             }
         }
     }
@@ -116,6 +121,7 @@ Item {
             anchors.fill: parent
             onClicked: {
                 console.log("rect5");
+                mytext.getTextWithId(5);
             }
         }
     }
@@ -138,6 +144,7 @@ Item {
             anchors.fill: parent
             onClicked: {
                 console.log("rect6");
+                mytext.getTextWithId(6);
             }
         }
     }
@@ -160,6 +167,7 @@ Item {
             anchors.fill: parent
             onClicked: {
                 console.log("rect7");
+                mytext.getTextWithId(7);
             }
         }
     }
@@ -182,7 +190,27 @@ Item {
             anchors.fill: parent
             onClicked: {
                 console.log("rect8");
+                mytext.getTextWithId(8);
             }
+        }
+    }
+
+    Rectangle {
+        id: text_area
+        anchors.top: rect1.bottom
+        anchors.topMargin: 50
+        anchors.left: rect1.right
+        anchors.leftMargin: 50
+        width: 500; height: 500
+        color: "transparent"
+        border.color: "hotpink"; border.width: 2
+        Text {
+            id: text_area_text
+            anchors.fill: parent
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            font.pixelSize: box_fontsize + 4
+            //text: mytext.getText()
         }
     }
 
