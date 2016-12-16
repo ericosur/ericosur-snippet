@@ -24,3 +24,7 @@ INCLUDEPATH += $$PWD/../qtlib
 DEPENDPATH  += $$PWD/../qtlib
 LIBS += -lqtlib
 LIBS += -L$$PWD/../qtlib
+
+## thread to wait flock ##
+HEADERS += flock_wait.h
+SOURCES += flock_wait.cpp
