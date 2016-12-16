@@ -4,30 +4,45 @@
 #include <QObject>
 #include <QFile>
 #include <QString>
+#include <QMap>
 #include <QDebug>
 
 class LoadText : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString message READ text WRITE setText NOTIFY textChanged);
+    Q_PROPERTY(QString message READ message WRITE setMessage NOTIFY messageChanged)
 
 public:
-    LoadText() {}
+    enum LangType {
+        LangNull = 0,
+        LangEn = 1,
+        LangAr,
+        LangPt,
+        LangFr,
+        LangEs,
+        LangRu,
+        LangUk,
+        LangJa,
+    };
+
+    Q_ENUMS(LangType)
+
+public:
+    LoadText();
     ~LoadText() {}
 
-    Q_INVOKABLE QString getTextWithId(int id);
-    Q_INVOKABLE QString getText() {
-        return m_text;
-    }
+    Q_INVOKABLE QString getTextWithId(LangType id);
 
-    QString text();
-    void setText(const QString& str);
+    QString message();
+    void setMessage(const QString& str);
+    QString readTextfile(const QString& fn);
 
 signals:
-    void textChanged();
+    void messageChanged();
 
 private:
+    QMap<LangType, QString> m_map;
     QString m_text = "";
 };
 

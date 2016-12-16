@@ -5,12 +5,14 @@
 
 int main(int argc, char *argv[])
 {
+    QTextCodec *codec = QTextCodec::codecForName("UTF-8");
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
     LoadText loadtext;
 
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     engine.rootContext()->setContextProperty("mytext", &loadtext);
+    qmlRegisterType<LoadText>("com.rasmus", 1, 0, "LoadText");
+    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     return app.exec();
 }

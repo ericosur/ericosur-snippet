@@ -1,5 +1,6 @@
 import QtQuick 2.5
 //import QtQuick.Window 2.2
+import com.rasmus 1.0
 
 Item {
     //visible: true
@@ -10,7 +11,17 @@ Item {
     property int box_height: 60
     property int box_gap: 12
     property int box_fontsize: 20
-    //property var text_area_text: mytext.message
+
+    FontLoader {
+        id: noto
+        //C:\Windows\Fonts\NotoSans-Regular.ttf
+        source: "qrc:///NotoSans-Regular.ttf"
+        //source: "https://fonts.googleapis.com/css?family=Noto+Sans"
+    }
+    FontLoader {
+        id: kufi
+        source: "qrc:///NotoKufiArabic-Regular.ttf"
+    }
 
     Rectangle {
         id: rect1
@@ -29,7 +40,7 @@ Item {
             anchors.fill: parent
             onClicked: {
                 console.log("rect1");
-                mytext.getTextWithId(1);
+                mytext.getTextWithId(LoadText.LangEn);
             }
         }
     }
@@ -52,7 +63,8 @@ Item {
             anchors.fill: parent
             onClicked: {
                 console.log("rect2");
-                mytext.getTextWithId(2);
+                mytext.getTextWithId(LoadText.LangAr);
+                text_area_text.font.family = kufi.name
             }
         }
     }
@@ -75,7 +87,7 @@ Item {
             anchors.fill: parent
             onClicked: {
                 console.log("rect3");
-                mytext.getTextWithId(3);
+                mytext.getTextWithId(LoadText.LangPt);
             }
         }
     }
@@ -98,7 +110,7 @@ Item {
             anchors.fill: parent
             onClicked: {
                 console.log("rect4");
-                mytext.getTextWithId(4);
+                mytext.getTextWithId(LoadText.LangFr);
             }
         }
     }
@@ -121,7 +133,7 @@ Item {
             anchors.fill: parent
             onClicked: {
                 console.log("rect5");
-                mytext.getTextWithId(5);
+                mytext.getTextWithId(LoadText.LangEs);
             }
         }
     }
@@ -144,7 +156,7 @@ Item {
             anchors.fill: parent
             onClicked: {
                 console.log("rect6");
-                mytext.getTextWithId(6);
+                mytext.getTextWithId(LoadText.LangRu);
             }
         }
     }
@@ -167,7 +179,7 @@ Item {
             anchors.fill: parent
             onClicked: {
                 console.log("rect7");
-                mytext.getTextWithId(7);
+                mytext.getTextWithId(LoadText.LangUk);
             }
         }
     }
@@ -190,7 +202,7 @@ Item {
             anchors.fill: parent
             onClicked: {
                 console.log("rect8");
-                mytext.getTextWithId(8);
+                mytext.getTextWithId(LoadText.LangJa);
             }
         }
     }
@@ -208,9 +220,11 @@ Item {
             id: text_area_text
             anchors.fill: parent
             verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignLeft
             font.pixelSize: box_fontsize + 4
-            //text: mytext.getText()
+            text: mytext.message
+            wrapMode: Text.WordWrap
+            font.family: noto.name
         }
     }
 
