@@ -4,15 +4,22 @@
 #
 #-------------------------------------------------
 
-QT       -= gui
+QT -= gui
 QT += core
+CONFIG += c++11
+CONFIG += staticlib
 
 TARGET = qtlib
 TEMPLATE = lib
-CONFIG += staticlib
 
 SOURCES += retry.cpp
 HEADERS += retry.h
+
+### flock ###
+HEADERS += flock.h
+SOURCES += flock.cpp
+
+
 unix {
     target.path = /usr/lib
     INSTALLS += target
