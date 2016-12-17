@@ -6,11 +6,8 @@
 
 class FlockWaitThread : public QThread
 {
-    Q_OBJECT
-
 public:
-    FlockWaitThread() {}
-    ~FlockWaitThread() {}
+    FlockWaitThread();
 
     void run();
 private:

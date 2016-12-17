@@ -26,5 +26,10 @@ LIBS += -lqtlib
 LIBS += -L$$PWD/../qtlib
 
 ## thread to wait flock ##
-HEADERS += flock_wait.h
-SOURCES += flock_wait.cpp
+HEADERS += flock_wait.h \
+    funlock_wait.h \
+    flock_broker.h
+SOURCES += flock_wait.cpp \
+    funlock_wait.cpp \
+    flock_broker.cpp
+

@@ -4,7 +4,7 @@
 #include "testcases.h"
 #include "qibla.h"
 #include "flock.h"
-#include "flock_wait.h"
+#include "flock_broker.h"
 
 void doTests()
 {
@@ -22,17 +22,12 @@ int main(int argc, char *argv[])
 	Q_UNUSED(argc);
 	Q_UNUSED(argv);
 
-    FlockWaitThread* waitThread = NULL;
     QCoreApplication app(argc, argv);
 
     int ret = util_file_lock(PIDFILE);
     if (ret) {
         qWarning() << Q_FUNC_INFO
             << "another qretest is already running, exit this one...";
-
-        // start a thread and wait for it finished
-        waitThread = new FlockWaitThread;
-        waitThread->start();
 
         if ( util_test_file_lock(PIDFILE) != 0 ) {
             qDebug() << PIDFILE << "is locked by another process";
@@ -41,7 +36,9 @@ int main(int argc, char *argv[])
             return -1;
         }
 
-        QObject::connect(waitThread, SIGNAL(finished()), &app, SLOT(quit()));
+        FlockBroker::getInstance()->startLockWait();
+        // QObject::connect(FlockBroker::getInstance()->getWaitUnlock(), SIGNAL(finished()),
+        //     &app, SLOT(quit()));
     }
     else {
         qDebug() << "qretest starts ===>";
