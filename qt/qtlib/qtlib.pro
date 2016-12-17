@@ -19,6 +19,9 @@ HEADERS += retry.h
 HEADERS += flock.h
 SOURCES += flock.cpp
 
+### simple notify ###
+HEADERS += simplenotify.h
+SOURCES += simplenotify.cpp
 
 unix {
     target.path = /usr/lib
