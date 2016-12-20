@@ -4,6 +4,7 @@
         <file>Langs.qml</file>
         <file>NotoSans-Regular.ttf</file>
         <file>NotoKufiArabic-Regular.ttf</file>
+        <file>VC1.otf</file>
         <file>txt/en_US.txt</file>
         <file>txt/pt_PT.txt</file>
         <file>txt/es_ES.txt</file>
@@ -11,5 +12,6 @@
         <file>txt/uk_UK.txt</file>
         <file>txt/ru_RU.txt</file>
         <file>txt/fr_FR.txt</file>
+        <file>txt/ja_JP.txt</file>
     </qresource>
 </RCC>

@@ -9,7 +9,7 @@ LoadText::LoadText()
     m_map.insert(LangEs, "es_ES");
     m_map.insert(LangRu, "ru_RU");
     m_map.insert(LangUk, "uk_UK");
-    m_map.insert(LangJa, "ja_JA");
+    m_map.insert(LangJa, "ja_JP");
 }
 
 QString LoadText::message()
@@ -43,7 +43,7 @@ QString LoadText::getTextWithId(LangType id)
     QString str = QString("get with id: %1\n%2").arg(fn)
             .arg(content);
     setMessage(str);
-    qDebug() << "str:" << str;
+    //qDebug() << "str:" << str;
 
     return str;
 }

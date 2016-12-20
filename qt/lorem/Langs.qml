@@ -4,23 +4,49 @@ import com.rasmus 1.0
 
 Item {
     //visible: true
-    width: 800
-    height: 600
+    //width: 800
+    //height: 600
 
     property int box_width: 120
     property int box_height: 60
     property int box_gap: 12
-    property int box_fontsize: 20
+    property int box_fontsize: 18
 
     FontLoader {
         id: noto
         //C:\Windows\Fonts\NotoSans-Regular.ttf
-        source: "qrc:///NotoSans-Regular.ttf"
+        //source: "qrc:///NotoSans-Regular.ttf"
         //source: "https://fonts.googleapis.com/css?family=Noto+Sans"
+        source: "qrc:///VC1.otf"
     }
-    FontLoader {
-        id: kufi
-        source: "qrc:///NotoKufiArabic-Regular.ttf"
+    // FontLoader {
+    //     id: kufi
+    //     //source: "qrc:///NotoKufiArabic-Regular.ttf"
+    //     source: "qrc:///VC1.otf"
+    // }
+
+    Rectangle {
+        id: text_area
+        anchors.top: rect1.bottom
+        anchors.topMargin: 28
+        anchors.left: rect1.left
+        anchors.leftMargin: 12
+        anchors.right: rect8.right
+        anchors.rightMargin: 12
+        //width: 500
+        height: 500
+        color: "transparent"
+        border.color: "hotpink"; border.width: 2
+        Text {
+            id: text_area_text
+            anchors.fill: parent
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignLeft
+            font.pixelSize: box_fontsize
+            text: mytext.message
+            wrapMode: Text.WordWrap
+            font.family: noto.name
+        }
     }
 
     Rectangle {
@@ -64,7 +90,6 @@ Item {
             onClicked: {
                 console.log("rect2");
                 mytext.getTextWithId(LoadText.LangAr);
-                text_area_text.font.family = kufi.name
             }
         }
     }
@@ -204,27 +229,6 @@ Item {
                 console.log("rect8");
                 mytext.getTextWithId(LoadText.LangJa);
             }
-        }
-    }
-
-    Rectangle {
-        id: text_area
-        anchors.top: rect1.bottom
-        anchors.topMargin: 50
-        anchors.left: rect1.right
-        anchors.leftMargin: 50
-        width: 500; height: 500
-        color: "transparent"
-        border.color: "hotpink"; border.width: 2
-        Text {
-            id: text_area_text
-            anchors.fill: parent
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignLeft
-            font.pixelSize: box_fontsize + 4
-            text: mytext.message
-            wrapMode: Text.WordWrap
-            font.family: noto.name
         }
     }
 
