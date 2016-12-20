@@ -24,6 +24,7 @@
 #include <taglib/mp4file.h>
 #include <taglib/mp4tag.h>
 #include <taglib/mp4coverart.h>
+#include <taglib/flacfile.h>
 // taglib headers }
 
 #define DEFAULT_BUFFER_SIZE     (512)
@@ -87,6 +88,7 @@ bool GetCover::getcover(const QString& fn, QString& tbfn)
 
     QRegExp rxmp3("\\.mp3$");
     QRegExp rxm4a("\\.m4a$");
+    QRegExp rxflac("\\.flac$");
     bool ret = false;
 
     if (fn.contains(rxmp3)) {
@@ -95,6 +97,8 @@ bool GetCover::getcover(const QString& fn, QString& tbfn)
     } else if (fn.contains(rxm4a)) {
         //qDebug() << "call extract_cover_from_mp4()...";
         ret = extract_cover_from_mp4(fn, tbfn);
+    } else if (fn.contains(rxflac)) {
+        ret = extract_cover_from_flac(fn, tbfn);
     }
     // TODO: add function to extract flac album
     // http://stackoverflow.com/questions/7119073/c-taglib-cover-art-from-flac-and-asf-files
@@ -184,6 +188,30 @@ bool GetCover::extract_cover_from_mp4(const QString& fn, QString& tbfn)
     _img.loadFromData((const uchar *)list[0].data().data(), list[0].data().size());
     //QString confmd5 = ();
 
+    bool ret = save_thumbnail(_img, tbfn, isJpeg);
+    return ret;
+}
+
+bool GetCover::extract_cover_from_flac(const QString& fn, QString& tbfn)
+{
+    tbfn = "";
+
+    TagLib::FLAC::File file(fn.toStdString().c_str());
+    const TagLib::List<TagLib::FLAC::Picture*>& picList = file.pictureList();
+    if ( picList.size() == 0 ) {
+        qDebug() << Q_FUNC_INFO << "picList is empty...";
+        return false;
+    }
+    TagLib::FLAC::Picture* pic = picList[0];
+    bool isJpeg = false;
+    QString mimetype = pic->mimeType().toCString(true);
+    if (mimetype.contains("jpeg")) {
+        isJpeg = true;
+    }
+    qDebug() << "mime type:" << mimetype;
+
+    QImage _img;
+    _img.loadFromData((const uchar*)pic->data().data(), pic->data().size());
     bool ret = save_thumbnail(_img, tbfn, isJpeg);
     return ret;
 }

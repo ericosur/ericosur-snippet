@@ -35,6 +35,7 @@ protected:
     static QString md5sum(const char* buffer, int size);
     static bool extract_cover_from_mp3(const QString& fn, QString& tbfn);
     static bool extract_cover_from_mp4(const QString& fn, QString& tbfn);
+    static bool extract_cover_from_flac(const QString& fn, QString& tbfn);
 
     static void save_hash(const QString& hash);
     static QString load_hash();
