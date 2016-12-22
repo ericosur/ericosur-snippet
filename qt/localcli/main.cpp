@@ -1,11 +1,14 @@
 #include "mainwindow.h"
+#include "keyeater.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+    QApplication app(argc, argv);
     MainWindow w;
+
+    app.installEventFilter(KeyEater::getInstance());
     w.show();
 
-    return a.exec();
+    return app.exec();
 }
