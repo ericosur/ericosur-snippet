@@ -5,9 +5,11 @@
 #include <QDataStream>
 #include <QFile>
 #include <QDateTime>
+#include <QThread>
 
 #include "qbar.h"
 #include "qfoo.h"
+#include "mymap.h"
 
 using namespace std;
 
@@ -54,8 +56,22 @@ void test_datastream()
     qDebug() << "bar.load()...";
     bar.load();
     bar.show();
+}
 
-    //bar.setTitle("fuck");
+void maptest()
+{
+    MyMap* foo = new MyMap();
+    foo->init();
+    //foo->dump();
+    foo->save();
+    QThread::msleep(1000);
+    delete foo;
+
+    MyMap* bar = new MyMap();
+    bar->dump();
+    bar->load();
+    bar->dump();
+
 }
 
 int main(int argc, char *argv[])
@@ -66,8 +82,9 @@ int main(int argc, char *argv[])
     qInstallMessageHandler(msgHandler);
     //QCoreApplication app(argc, argv);
 
-    test();
+    //test();
     //test_datastream();
+    maptest();
 
     return 0;
 }

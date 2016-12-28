@@ -14,8 +14,10 @@ TEMPLATE = app
 
 HEADERS += \
     qbar.h \
-    qfoo.h
+    qfoo.h \
+    mymap.h
 
 SOURCES += main.cpp \
     qbar.cpp \
-    qfoo.cpp
+    qfoo.cpp \
+    mymap.cpp
