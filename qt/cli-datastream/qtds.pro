@@ -13,11 +13,7 @@ TARGET = qtds
 TEMPLATE = app
 
 HEADERS += \
-    qbar.h \
-    qfoo.h \
     mymap.h
 
 SOURCES += main.cpp \
-    qbar.cpp \
-    qfoo.cpp \
     mymap.cpp

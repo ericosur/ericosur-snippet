@@ -10,13 +10,13 @@
 
 QDataStream& operator<<(QDataStream& ds, const MyMap& obj)
 {
-    ds << obj.mMap;
+    ds << obj.scannedDevices;
     return ds;
 }
 
 QDataStream& operator>>(QDataStream&ds, MyMap& obj)
 {
-    ds >> obj.mMap;
+    ds >> obj.scannedDevices;
     return ds;
 }
 
@@ -27,17 +27,38 @@ MyMap::MyMap()
 
 void MyMap::init()
 {
-    mMap["mango"] = 53;
-    mMap["watermelon"] = 97;
-    mMap["chicken"] = 43;
+    int i = 0;
+    //for (int i=0; i < LENGTH_LIST; ++i) {
+        QVariantMap device;
+        QString name = "iPhone " + QString::number(i);
+        device["name"]      = QVariant(name);
+        device["mac"]       = QVariant(i);
+        device["paired"]    = QVariant(false);
+        device["connected"] = QVariant(false);
+        device["connecting"]= QVariant(false);
+        device["showInfo"]  = QVariant(false);
+        scannedDevices.append(device);
+    //}
 }
 
 void MyMap::dump()
 {
     qDebug() << Q_FUNC_INFO;
-    foreach (QString k, mMap.keys()) {
-        qDebug() << QString("%1 => %2").arg(k).arg(mMap[k]);
-    }
+    int i = 0;
+    //for (int i = 0; i < LENGTH_LIST; ++i) {
+        QVariantMap map = scannedDevices[i];
+        qDebug() << "size:" << map.size();
+        if (map.size() <= 0) {
+            qWarning() << "map size zero";
+            return;
+        }
+        foreach (QString k, map.keys()) {
+            qDebug() << QString("%1 => %2").arg(k).arg(map[k].toString());
+        }
+        // for (QVariantMap::const_iterator iter = map.begin(); iter != map.end(); ++iter) {
+        //   qDebug() << iter.key() << iter.value();
+        // }
+    //}
 }
 
 // save object BarCtrl into file

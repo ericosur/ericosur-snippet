@@ -7,8 +7,11 @@
 
 #include <QObject>
 #include <QString>
-#include <QMap>
 #include <QDataStream>
+#include <QList>
+#include <QVariantMap>
+
+#define LENGTH_LIST     10
 
 class MyMap
 {
@@ -26,7 +29,7 @@ protected:
     friend QDataStream& operator>>(QDataStream& ds, MyMap& obj);
 
 private:
-    QMap<QString, int> mMap;
+    QList<QVariantMap> scannedDevices;
 };
 
 
