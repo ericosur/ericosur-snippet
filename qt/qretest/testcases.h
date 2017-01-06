@@ -13,6 +13,9 @@ void testPercentEncoding();
 QString translate_utf16be_to_qstring(const unsigned char utf16be[32]);
 void testParseSysinfo();
 
+void testblacklist();
+bool isInBlackList(const QString& prop);
+
 #define PIDFILE    "/tmp/qretest.pid"
 
 

@@ -146,3 +146,31 @@ void testParseSysinfo()
     // }
 
 }
+
+#define DO_TEST(x) \
+    qDebug() << x << "?" << (isInBlackList(x) ? "yes" : "no")
+
+void testblacklist()
+{
+    DO_TEST("currentTime");
+    DO_TEST("tomorrowTime");
+    DO_TEST("language");
+    DO_TEST("Language");
+    DO_TEST("prayTime");
+    DO_TEST("cautionAutodismiss");
+}
+
+bool isInBlackList(const QString& prop)
+{
+    if (prop == "currentTime") {
+        return true;
+    } else if (prop == "language") {
+        return true;
+    } else if (prop == "prayTime") {
+        return true;
+    } else if (prop == "cautionAutodismiss") {
+        return true;
+    }
+
+    return false;
+}

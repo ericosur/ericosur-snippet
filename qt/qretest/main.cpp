@@ -16,6 +16,8 @@ void doTests()
 
     double longitude = 121.5, latitude = 25.119904;
     qDebug() << get_qibla_angle(longitude, latitude);
+
+    testblacklist();
 }
 
 int main(int argc, char *argv[])
