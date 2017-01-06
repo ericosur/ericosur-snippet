@@ -28,6 +28,7 @@ public:
     static void setFollowImageType(bool b);
     static void setResizeTb(bool b);
     static void show_toggles();
+    static void showInfo(const QString& fn);
 
 protected:
     GetCover(); // not welcome to have instance
@@ -36,11 +37,16 @@ protected:
     static bool extract_cover_from_mp3(const QString& fn, QString& tbfn);
     static bool extract_cover_from_mp4(const QString& fn, QString& tbfn);
     static bool extract_cover_from_flac(const QString& fn, QString& tbfn);
+    static bool extract_info_from_mp3(const QString& fn);
+    static bool extract_info_from_mp4(const QString& fn);
+    static bool extract_info_from_flac(const QString& fn);
 
     static void save_hash(const QString& hash);
     static QString load_hash();
     static QString get_thumb_name(const QString& hstr);
     static bool save_thumbnail(const QImage& img, QString& tbfn, bool isJpeg);
+
+    static void show_aat(const QString& artist, const QString& album, const QString& title);
 
 private:
 	// default true

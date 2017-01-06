@@ -93,11 +93,20 @@ bool GetCover::getcover(const QString& fn, QString& tbfn)
 
     if (fn.contains(rxmp3)) {
         //qDebug() << "call extract_cover_from_mp3()...";
+        if ( !extract_info_from_mp3(fn) ) {
+            qWarning() << "can't get info...";
+        }
         ret = extract_cover_from_mp3(fn, tbfn);
     } else if (fn.contains(rxm4a)) {
         //qDebug() << "call extract_cover_from_mp4()...";
+        if ( !extract_info_from_mp4(fn) ) {
+            qWarning() << "can't get info...";
+        }
         ret = extract_cover_from_mp4(fn, tbfn);
     } else if (fn.contains(rxflac)) {
+        if ( !extract_info_from_flac(fn) ) {
+            qWarning() << "can't get info...";
+        }
         ret = extract_cover_from_flac(fn, tbfn);
     }
     // TODO: add function to extract flac album
@@ -274,4 +283,61 @@ void GetCover::show_toggles()
     qDebug() << "m_writetb" << (m_writetb?"on":"off")
         << "m_followtype" << (m_followtype?"on":"off")
         << "m_resizetb" << (m_resizetb?"on":"off");
+}
+void GetCover::showInfo(const QString& fn)
+{
+
+}
+
+void GetCover::show_aat(const QString& artist, const QString& album, const QString& title)
+{
+    qDebug() << QString("artist:%1, album:%2, title:%3").arg(artist).arg(album).arg(title);
+}
+
+bool GetCover::extract_info_from_mp3(const QString& fn)
+{
+    TagLib::MPEG::File file(fn.toStdString().c_str());
+    if (!file.isValid()) {
+        //qDebug() << "file is invalid";
+        return false;
+    }
+    if (file.hasID3v2Tag()) {
+        //qDebug() << "id3v2 tag...";
+        TagLib::ID3v2::Tag *tag = file.ID3v2Tag();
+        QString _artist = tag->artist().toCString(true);
+        QString _album = tag->album().toCString(true);
+        QString _title = tag->title().toCString(true);
+        show_aat(_artist, _album, _title);
+        return true;
+    }
+    return false;
+}
+
+bool GetCover::extract_info_from_mp4(const QString& fn)
+{
+    TagLib::MP4::File file(fn.toStdString().c_str());
+    TagLib::MP4::Tag *tag = file.tag();
+    if (tag == NULL) {
+        //qDebug() << "tag is null";
+        return false;
+    }
+    QString _artist = tag->artist().toCString(true);
+    QString _album = tag->album().toCString(true);
+    QString _title = tag->title().toCString(true);
+    show_aat(_artist, _album, _title);
+    return true;
+}
+
+bool GetCover::extract_info_from_flac(const QString& fn)
+{
+    TagLib::FLAC::File file(fn.toStdString().c_str());
+    if (file.hasID3v2Tag()) {
+        TagLib::ID3v2::Tag *tag = file.ID3v2Tag();
+        QString _artist = tag->artist().toCString(true);
+        QString _album = tag->album().toCString(true);
+        QString _title = tag->title().toCString(true);
+        show_aat(_artist, _album, _title);
+        return true;
+    }
+    return false;
 }
