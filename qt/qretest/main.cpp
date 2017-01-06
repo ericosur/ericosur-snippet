@@ -5,6 +5,7 @@
 #include "qibla.h"
 #include "flock.h"
 #include "flock_broker.h"
+#include "simplenotify.h"
 
 void doTests()
 {
@@ -44,6 +45,11 @@ int main(int argc, char *argv[])
         qDebug() << "qretest starts ===>";
         doTests();
     }
+
+    FlockBroker::getInstance()->startWatchFile();
+    // SimpleNotify sn("/tmp/statusbarui.dat");
+    // QObject::connect(&sn, SIGNAL(sigNotify()), &app, SLOT(quit()));
+    // sn.start();
 
     return app.exec();
 }

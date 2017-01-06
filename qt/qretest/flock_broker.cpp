@@ -11,7 +11,18 @@ FlockBroker* FlockBroker::getInstance() {
 
 FlockBroker::FlockBroker()
 {
+    qDebug() << Q_FUNC_INFO << "created...";
+}
 
+FlockBroker::~FlockBroker()
+{
+    qDebug() << Q_FUNC_INFO;
+    if (waitlock)
+        delete waitlock;
+    if (waitunlock)
+        delete waitunlock;
+    if (simpleNotify)
+        delete simpleNotify;
 }
 
 FlockWaitThread* FlockBroker::getWaitLock()
@@ -44,6 +55,14 @@ void FlockBroker::startUnlockWait()
     getWaitUnlock()->start();
 }
 
+void FlockBroker::startWatchFile()
+{
+    simpleNotify = new SimpleNotify(OBSERVE_FILE);
+    connect(simpleNotify, SIGNAL(sigNotify()), this, SLOT(sltFileChanged()));
+    connect(simpleNotify, SIGNAL(finished()), this, SLOT(sltNotifyFinished()));
+    simpleNotify->start();
+}
+
 void FlockBroker::setLockPtr(FILE* ptr)
 {
     qDebug() << Q_FUNC_INFO;
@@ -62,6 +81,17 @@ void FlockBroker::sltLockWaitFinished()
 }
 
 void FlockBroker::sltUnlockWaitFinished()
+{
+    qDebug() << Q_FUNC_INFO;
+}
+
+void FlockBroker::sltFileChanged()
+{
+    qDebug() << Q_FUNC_INFO;
+
+}
+
+void FlockBroker::sltNotifyFinished()
 {
     qDebug() << Q_FUNC_INFO;
 }

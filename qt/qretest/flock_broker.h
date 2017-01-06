@@ -6,6 +6,9 @@
 #include <stdio.h>
 #include "flock_wait.h"
 #include "funlock_wait.h"
+#include "simplenotify.h"
+
+#define OBSERVE_FILE  "/tmp/statusbarui.dat"
 
 class FlockBroker : public QObject
 {
@@ -13,6 +16,7 @@ class FlockBroker : public QObject
 
 public:
     static FlockBroker* getInstance();
+    ~FlockBroker();
 
     void startLockWait();
     void startUnlockWait();
@@ -20,10 +24,13 @@ public:
     FILE* getLockPtr();
     FlockWaitThread* getWaitLock();
     FunlockWaitThread* getWaitUnlock();
+    void startWatchFile();
 
 public slots:
     void sltLockWaitFinished();
     void sltUnlockWaitFinished();
+    void sltFileChanged();
+    void sltNotifyFinished();
 
 protected:
     static FlockBroker* _instance;
@@ -33,6 +40,7 @@ private:
     FILE* lock_ptr = NULL;
     FlockWaitThread* waitlock = NULL;
     FunlockWaitThread* waitunlock = NULL;
+    SimpleNotify* simpleNotify = NULL;
 };
 
 

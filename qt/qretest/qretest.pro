@@ -33,3 +33,5 @@ SOURCES += flock_wait.cpp \
     funlock_wait.cpp \
     flock_broker.cpp
 
+HEADERS += simplenotify.h
+SOURCES += simplenotify.cpp
