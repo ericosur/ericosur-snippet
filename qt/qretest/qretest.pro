@@ -7,6 +7,8 @@ TARGET = qretest
 CONFIG += console
 CONFIG -= app_bundle
 
+#DEFINES += USE_SINGLERUN
+
 TEMPLATE = app
 
 SOURCES += main.cpp

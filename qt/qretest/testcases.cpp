@@ -7,7 +7,6 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-
 void localre(const QString& re, const QString& str)
 {
     QRegularExpression regexp(re);
@@ -173,4 +172,11 @@ bool isInBlackList(const QString& prop)
     }
 
     return false;
+}
+
+void testqurl()
+{
+#define TESTFILE "/tmp/A good book! #hash this!.mp3"
+    QUrl foo = QUrl::fromLocalFile(TESTFILE);
+    qDebug() << foo << "," << foo.toString();
 }

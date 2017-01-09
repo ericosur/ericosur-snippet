@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QString>
 #include <QRegularExpression>
+#include <QUrl>
 
 void localre(const QString& re, const QString& str);
 void testSizeOfDataType();
@@ -15,6 +16,7 @@ void testParseSysinfo();
 
 void testblacklist();
 bool isInBlackList(const QString& prop);
+void testqurl();
 
 #define PIDFILE    "/tmp/qretest.pid"
 

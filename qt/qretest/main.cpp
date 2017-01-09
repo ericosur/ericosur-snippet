@@ -18,13 +18,14 @@ void doTests()
     qDebug() << get_qibla_angle(longitude, latitude);
 
     testblacklist();
+    testqurl();
 }
 
 int main(int argc, char *argv[])
 {
 	Q_UNUSED(argc);
 	Q_UNUSED(argv);
-
+#ifdef USE_SINGLERUN
     QCoreApplication app(argc, argv);
 
     int ret = util_file_lock(PIDFILE);
@@ -44,14 +45,23 @@ int main(int argc, char *argv[])
         //     &app, SLOT(quit()));
     }
     else {
+#endif  // USE_SINGLERUN
         qDebug() << "qretest starts ===>";
         doTests();
+#ifdef USE_SINGLERUN
     }
+#endif  // USE_SINGLERUN
 
+#if 0
     FlockBroker::getInstance()->startWatchFile();
     // SimpleNotify sn("/tmp/statusbarui.dat");
     // QObject::connect(&sn, SIGNAL(sigNotify()), &app, SLOT(quit()));
     // sn.start();
+#endif
 
+
+
+#ifdef USE_SINGLERUN
     return app.exec();
+#endif  // USE_SINGLERUN
 }
