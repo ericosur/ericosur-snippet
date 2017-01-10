@@ -86,32 +86,27 @@ bool GetCover::getcover(const QString& fn, QString& tbfn)
         return false;
     }
 
-    QRegExp rxmp3("\\.mp3$");
-    QRegExp rxm4a("\\.m4a$");
-    QRegExp rxflac("\\.flac$");
     bool ret = false;
-
-    if (fn.contains(rxmp3)) {
+    if (fn.contains(QRegExp("\\.mp3$"))) {
         //qDebug() << "call extract_cover_from_mp3()...";
         if ( !extract_info_from_mp3(fn) ) {
-            qWarning() << "can't get info...";
+            qWarning() << "can't get info from" << fn;
         }
         ret = extract_cover_from_mp3(fn, tbfn);
-    } else if (fn.contains(rxm4a)) {
+    } else if (fn.contains(QRegExp("\\.m4a$"))) {
         //qDebug() << "call extract_cover_from_mp4()...";
         if ( !extract_info_from_mp4(fn) ) {
-            qWarning() << "can't get info...";
+            qWarning() << "can't get info from" << fn;
         }
         ret = extract_cover_from_mp4(fn, tbfn);
-    } else if (fn.contains(rxflac)) {
+    } else if (fn.contains(QRegExp("\\.flac$"))) {
         if ( !extract_info_from_flac(fn) ) {
-            qWarning() << "can't get info...";
+            qWarning() << "can't get info from" << fn;
         }
         ret = extract_cover_from_flac(fn, tbfn);
     }
     // TODO: add function to extract flac album
     // http://stackoverflow.com/questions/7119073/c-taglib-cover-art-from-flac-and-asf-files
-
     return ret;
 }
 
@@ -331,7 +326,14 @@ bool GetCover::extract_info_from_mp4(const QString& fn)
 bool GetCover::extract_info_from_flac(const QString& fn)
 {
     TagLib::FLAC::File file(fn.toStdString().c_str());
-    if (file.hasID3v2Tag()) {
+    TagLib::Tag *tag = file.tag();
+    if (tag != NULL) {
+        QString _artist = tag->artist().toCString(true);
+        QString _album = tag->album().toCString(true);
+        QString _title = tag->title().toCString(true);
+        show_aat(_artist, _album, _title);
+        return true;
+    } else if (file.hasID3v2Tag()) {
         TagLib::ID3v2::Tag *tag = file.ID3v2Tag();
         QString _artist = tag->artist().toCString(true);
         QString _album = tag->album().toCString(true);
