@@ -42,15 +42,14 @@ void msgHandler(QtMsgType type, const QMessageLogContext &context, const QString
 int main(int argc, char *argv[])
 {
     qInstallMessageHandler(msgHandler);
-    //QCoreApplication app(argc, argv);
+    QCoreApplication app(argc, argv);
 
     if (argc > 1) {
         Core::getInstance()->start(argv[1]);
     } else {
-        Core::getInstance()->start("/home/rasmus/Pictures/");
+        //Core::getInstance()->start("/home/rasmus/Pictures/");
+        Core::getInstance()->start(DEFAULT_START_PATH);
     }
 
-
-
-    //return app.exec();
+    return app.exec();
 }

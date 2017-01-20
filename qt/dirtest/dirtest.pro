@@ -15,3 +15,5 @@ SOURCES += main.cpp
 HEADERS += core.h
 SOURCES += core.cpp
 
+HEADERS += travelthread.h
+SOURCES += travelthread.cpp
