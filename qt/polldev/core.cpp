@@ -6,6 +6,9 @@
 #ifdef USE_YOSETARGET
 #include <libmsgq.h>
 #include <libhu_system.h>
+#else
+#define svc_dispatch(m,n,p,q)  \
+    qDebug() << "svc_dispatch() debug mode..."
 #endif
 
 Core* Core::_instance = NULL;
@@ -32,10 +35,22 @@ Core::Core()
     connect(this, SIGNAL(sigQuit()), qApp, SLOT(quit()));
 }
 
+void Core::launchIpod()
+{
+    qDebug() << Q_FUNC_INFO;
+    svc_dispatch(ZONE_FRONT, SVC_HMI_IPOD, ACT_ON, NULL);
+}
+
+void Core::launchMedia()
+{
+    qDebug() << Q_FUNC_INFO;
+    svc_dispatch(ZONE_FRONT, SVC_HMI_USB, ACT_ON, NULL);
+}
+
 void Core::sltUsbDetected()
 {
     qDebug() << "USB detected...";
-    svc_dispatch(ZONE_FRONT, SVC_HMI_USB, ACT_ON, NULL);
+    launchMedia();
 
     QThread::msleep(1000);
     qDebug() << "and quit...";
@@ -45,7 +60,7 @@ void Core::sltUsbDetected()
 void Core::sltIpodDetected()
 {
     qDebug() << "iPod detected...";
-    svc_dispatch(ZONE_FRONT, SVC_HMI_IPOD, ACT_ON, NULL);
+    launchIpod();
 
     QThread::msleep(1000);
     qDebug() << "and quit...";

@@ -10,8 +10,6 @@ TARGET = polldev
 CONFIG += console
 CONFIG -= app_bundle
 
-DEFINES += USE_YOSETARGET
-
 SOURCES += main.cpp
 
 HEADERS += core.h
@@ -20,5 +18,4 @@ SOURCES += core.cpp
 HEADERS += pollthread.h
 SOURCES += pollthread.cpp
 
-
-LIBS += -lhu -lmsgq
+LIBS += ${CXXFLAGS}

@@ -1,8 +1,14 @@
+/**
+ * main.cpp
+ */
+
+#include "core.h"
+
 #include <QCoreApplication>
 #include <QTime>
 #include <QDebug>
 #include <iostream>
-#include "core.h"
+#include <unistd.h>
 
 using namespace std;
 
@@ -39,13 +45,78 @@ void msgHandler(QtMsgType type, const QMessageLogContext &context, const QString
     }
 }
 
+void helpMessage()
+{
+    fprintf(stderr, "built at: %s %s\n", __DATE__, __TIME__);
+    fprintf(stderr,
+            "testopt [options] <message>\n"
+            "-h  help message\n"
+            "-i  launch ipodui directly\n"
+            "-m  launch mediaui directly\n"
+            "-s  start poll thread (default)\n"
+        );
+}
+
+
 int main(int argc, char *argv[])
 {
     qInstallMessageHandler(msgHandler);
     QCoreApplication app(argc, argv);
 
-    Core::getInstance()->start();
+    int cmd_opt = 0;
+    bool bHelp = false;
+    bool bStart = true;
+    bool bIpod = false;
+    bool bMedia = false;
 
+    while (true) {
+        if ( (cmd_opt = getopt(argc, argv, "hims")) == -1 ) {
+            // something wrong
+            break;
+        }
+        switch (cmd_opt) {
+        case 'h':
+            bHelp = true;
+            break;
+        case 'i':
+            bIpod = true;
+            // will not process the other parameters
+            break;
+        case 'm':
+            bMedia = true;
+            // will not process the other parameters
+            break;
+        case 's':
+            // it is default
+            bStart = true;
+            // will not process the other parameters
+            break;
+        default:
+            qDebug() << "unknown switch:" << cmd_opt;
+            break;
+        }
+    }
+
+    if (bHelp) {
+        helpMessage();
+        return 0;
+    }
+
+    if (bIpod) {
+        qDebug() << "launch ipodui...";
+        Core::getInstance()->launchIpod();
+        return 0;
+    }
+
+    if (bMedia) {
+        qDebug() << "launch mediaui...";
+        Core::getInstance()->launchMedia();
+        return 0;
+    }
+
+    if (bStart) {
+        Core::getInstance()->start();
+    }
 
     return app.exec();
 }

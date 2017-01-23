@@ -1,12 +1,14 @@
 # Copyright (C) 2015 Pegatron Corp.
 SUMMARY = "Qt5 Car IVI demo"
 DESCRIPTION = "Qt5 Car IVI demo application"
-LICENSE = "Pegatron"
-LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/Pegatron;md5=8dbf761840bdb42cf94b2d15b5dfaa82"
+LICENSE = "MIT"
+LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
 S = "${WORKDIR}/polldev"
+CXXFLAGS += "-DUSE_YOSETARGET "
 CXXFLAGS += "-I${STAGING_INCDIR}/libhu-1.0 "
 CXXFLAGS += "-I${STAGING_INCDIR}/libmsgq-1.0 "
+CXXFLAGS += "-lhu -lmsgq"
 
 DEPENDS = "qtbase qtconnectivity libhu libmsgq"
 RDEPENDS_${PN} = "qtbase qtconnectivity libhu libmsgq"

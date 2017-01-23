@@ -13,6 +13,8 @@ public:
     static Core* getInstance();
 
     void start();
+    void launchIpod();
+    void launchMedia();
 
 signals:
     void sigQuit();
