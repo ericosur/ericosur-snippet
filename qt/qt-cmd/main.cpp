@@ -3,9 +3,11 @@
 #include <QDebug>
 #include <QDateTime>
 #include <iostream>
+#include <string.h>
 
 #include "wait.h"
 #include "retry.h"
+#include "pass.h"
 
 using namespace std;
 
@@ -34,7 +36,15 @@ int main(int argc, char *argv[])
     QCoreApplication app(argc, argv);
 
     for (int i = 0; i < argc; i++) {
-        printf("%d: %s\n", i, argv[i]);
+        //printf("%d: %s\n%s\n", i, argv[i], );
+        qDebug() << i << ":" << argv[i] << endl
+            << "HMAC-SHA1:" << hmacSha1(argv[i], "1234");
+        QString md = md5sum(argv[i], strlen(argv[i]));
+        //qDebug() << md;
+        if ( md == CIPHER_HASH ) {
+            qWarning() << "parameter matched!!";
+            return 0;
+        }
     }
 
     cout << "hello world" << endl;

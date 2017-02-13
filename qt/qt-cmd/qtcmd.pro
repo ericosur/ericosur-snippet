@@ -14,6 +14,9 @@ HEADERS += wait.h
 #SOURCES += retry.cpp
 #HEADERS += retry.h
 
+SOURCES += pass.cpp
+HEADERS += pass.h
+
 INCLUDEPATH += $$PWD/../qtlib
 DEPENDPATH  += $$PWD/../qtlib
 LIBS += -lqtlib
