@@ -8,6 +8,11 @@
 #include <QCoreApplication>
 #include <QStringList>
 #include <QTime>
+#include <QTextCodec>
+#include <QUrl>
+#include <QRegularExpression>
+#include <QRegularExpressionMatchIterator>
+
 #include <iostream>
 #include <unistd.h>
 
@@ -80,10 +85,36 @@ void read_from_list(const QString& listfn)
     qDebug() << msg;
 }
 
+QString test_encode(const QString& str)
+{
+    return QUrl::toPercentEncoding(str);
+}
+
+QString test_decode(const QString& str)
+{
+    return QUrl::fromPercentEncoding(str.toLocal8Bit());
+}
+
+void oops(const QString& cmd)
+{
+    QRegularExpression re("(?<key>[A-Za-z][A-Za-z0-9_]*)\\s*=\\s*(?<val>[^/]+)");
+    QRegularExpressionMatchIterator i = re.globalMatch(cmd);
+    while (i.hasNext()) {
+        QRegularExpressionMatch match = i.next();
+        QString key = match.captured("key");
+        QString val = match.captured("val");
+        qDebug() << "match: " << key << "=" << test_decode(val);
+    }
+}
+
 int main(int argc, char *argv[])
 {
     qInstallMessageHandler(msgHandler);
     //QCoreApplication app(argc, argv);
+
+    // QString in = "/type=1/title=percent encoding/message=%2Fvar%2Flog%2Fmessages%2Fcomplete%3D100%25/";
+    // oops(in);
+    // return 0;
 
     if (argc == 1) {
         print_help();

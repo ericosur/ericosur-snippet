@@ -21,16 +21,14 @@ SOURCES += tbhash.cpp
 LIBS += -ltag
 
 # add self-built taglib
-linux {
-INCLUDEPATH += /usr/local/include
-LIBS += -L/usr/local/lib
-}
-macx {
-INCLUDEPATH += /opt/local/include
-LIBS += -L/opt/local/lib
-}
-LIBS += -ltag
+#linux {
+#INCLUDEPATH += /usr/local/include
+#LIBS += -L/usr/local/lib
+#}
+#macx {
+#INCLUDEPATH += /opt/local/include
+#LIBS += -L/opt/local/lib
+#}
 
 # taglib need libz
 LIBS += -lz
-

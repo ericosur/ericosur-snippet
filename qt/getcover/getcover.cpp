@@ -281,7 +281,7 @@ void GetCover::show_toggles()
 }
 void GetCover::showInfo(const QString& fn)
 {
-
+    Q_UNUSED(fn);
 }
 
 void GetCover::show_aat(const QString& artist, const QString& album, const QString& title)
