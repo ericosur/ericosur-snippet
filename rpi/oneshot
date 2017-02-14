@@ -1,5 +1,10 @@
 #!/bin/sh
 
+#
+# get dropbox_uploader script from:
+# https://github.com/andreafabrizi/Dropbox-Uploader
+#
+
 DATE=`date +%y%m%d_%H%M%S`
 FNAME=rpi-$DATE.jpg
 UPLOAD=/home/pi/apps/Dropbox-Uploader/dropbox_uploader.sh
