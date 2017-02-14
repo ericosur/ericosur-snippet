@@ -1,8 +1,7 @@
 README
 ======
 
-sense hat api see: [1]
-
-[1](https://github.com/RPi-Distro/python-sense-hat/blob/master/docs/api.md)
+* [sense hat github](https://github.com/RPi-Distro/python-sense-hat)
+* [sense hat api documentation](https://github.com/RPi-Distro/python-sense-hat/blob/master/docs/api.md)
 
 
