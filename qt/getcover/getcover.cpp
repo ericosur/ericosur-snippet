@@ -92,17 +92,21 @@ bool GetCover::getcover(const QString& fn, QString& tbfn)
         if ( !extract_info_from_mp3(fn) ) {
             qWarning() << "can't get info from" << fn;
         }
+        extract_length_from_mp3(fn);  // test
         ret = extract_cover_from_mp3(fn, tbfn);
     } else if (fn.contains(QRegExp("\\.m4a$"))) {
         //qDebug() << "call extract_cover_from_mp4()...";
         if ( !extract_info_from_mp4(fn) ) {
             qWarning() << "can't get info from" << fn;
         }
+        extract_length_from_mp4(fn);
         ret = extract_cover_from_mp4(fn, tbfn);
     } else if (fn.contains(QRegExp("\\.flac$"))) {
+        qDebug() << "flac...";
         if ( !extract_info_from_flac(fn) ) {
             qWarning() << "can't get info from" << fn;
         }
+        extract_length_from_flac(fn);
         ret = extract_cover_from_flac(fn, tbfn);
     }
     // TODO: add function to extract flac album
@@ -127,10 +131,10 @@ bool GetCover::extract_cover_from_mp3(const QString& fn, QString& tbfn)
 
     //qDebug() << "id3v2 tag...";
     TagLib::ID3v2::Tag *tag = file.ID3v2Tag();
-    qDebug() << QString("artist(%1),album(%2),title(%3")
-                .arg(tag->artist().toCString(true))
-                .arg(tag->album().toCString(true))
-                .arg(tag->title().toCString(true));
+    // qDebug() << QString("artist(%1),album(%2),title(%3")
+    //             .arg(tag->artist().toCString(true))
+    //             .arg(tag->album().toCString(true))
+    //             .arg(tag->title().toCString(true));
     TagLib::ID3v2::FrameList frames = tag->frameListMap()["APIC"];
     if (frames.isEmpty()) {
         //qDebug() << "APIC frame is empty";
@@ -286,7 +290,10 @@ void GetCover::showInfo(const QString& fn)
 
 void GetCover::show_aat(const QString& artist, const QString& album, const QString& title)
 {
-    qDebug() << QString("artist:%1, album:%2, title:%3").arg(artist).arg(album).arg(title);
+    qDebug() << "metadata ==========>>>" << endl
+        << "artist:" << artist << endl
+        << "album:" << album << endl
+        << "title:" << title;
 }
 
 bool GetCover::extract_info_from_mp3(const QString& fn)
@@ -342,4 +349,32 @@ bool GetCover::extract_info_from_flac(const QString& fn)
         return true;
     }
     return false;
+}
+
+bool GetCover::extract_length_from_mp3(const QString& fn)
+{
+    TagLib::MPEG::File file(fn.toStdString().c_str());
+    TagLib::MPEG::Properties p(&file);
+
+    qDebug() << "mp3 len(fn):" << p.length();
+    return true;
+}
+
+bool GetCover::extract_length_from_mp4(const QString& fn)
+{
+    TagLib::MP4::File file(fn.toStdString().c_str());
+
+    qDebug() << "m4a len(fn):" << file.audioProperties()->length();
+    return true;
+}
+
+bool GetCover::extract_length_from_flac(const QString& fn)
+{
+    qDebug() << Q_FUNC_INFO;
+
+    TagLib::FLAC::File file(fn.toStdString().c_str());
+    TagLib::FLAC::Properties p(&file);
+
+    qDebug() << "flac len(fn):" << p.length();
+    return true;
 }

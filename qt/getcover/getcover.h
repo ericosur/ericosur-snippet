@@ -40,6 +40,9 @@ protected:
     static bool extract_info_from_mp3(const QString& fn);
     static bool extract_info_from_mp4(const QString& fn);
     static bool extract_info_from_flac(const QString& fn);
+    static bool extract_length_from_mp3(const QString& fn);
+    static bool extract_length_from_mp4(const QString& fn);
+    static bool extract_length_from_flac(const QString& fn);
 
     static void save_hash(const QString& hash);
     static QString load_hash();
