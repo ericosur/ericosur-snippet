@@ -1,0 +1,218 @@
+#include "core.h"
+#include "util.h"
+#include "getcover.h"
+
+#include <string.h>
+#include <stdlib.h>
+#include <QCoreApplication>
+#include <QDebug>
+#include <QThread>
+
+#define WAIT_MSEC_LENGTH    250
+#define MAX_RETRY_TIMES     4
+#define MAX_ITEM            10
+
+Core* Core::_instance = NULL;
+Core* Core::getInstance()
+{
+    if (_instance == NULL) {
+        _instance = new Core();
+    }
+    return _instance;
+}
+
+Core::Core()
+{
+    qDebug() << Q_FUNC_INFO << "created...";
+
+    // thread to receive msgq
+    if (msgrx == NULL) {
+        msgrx = new MsgRxThread();
+    }
+
+    if (travel == NULL) {
+        travel = new TravelThread();
+    }
+
+    connect(msgrx, SIGNAL(sigReceived(const QString&)),
+        this, SLOT(sltMessageReceived(const QString&)));
+    connect(this, SIGNAL(sigQuitApp()), qApp, SLOT(quit()));
+
+    if (msgrx != NULL) {
+        msgrx->start();
+    }
+
+    connect(this, SIGNAL(sigStart()), this, SLOT(sltStart()));
+    connect(this, SIGNAL(sigNext()), this, SLOT(sltNext()));
+
+}
+
+void Core::sltMessageReceived(const QString& msg)
+{
+    qDebug() << Q_FUNC_INFO << "msg:" << msg;
+    if (msg == "foo") {
+        qDebug() << "IPC notification: foo starts...";
+    } else if (msg == "quit") {
+        qDebug() << "quit command received...";
+        emit sigQuitApp();
+    } else if (msg == "start") {
+        qDebug() << "received start command...";
+        emit sigStart();
+    }
+}
+
+void Core::sltWaitFinished()
+{
+    qDebug() << "foo is NOT running...";
+}
+
+void Core::test()
+{
+    qDebug() << Q_FUNC_INFO;
+    startTravel();
+}
+
+void Core::simple_test_shm_read_write()
+{
+    const int BUFFER_SIZE = 1024;
+    byte* buf = (byte*) malloc(BUFFER_SIZE);
+
+    memset(buf, 0xcc, BUFFER_SIZE);
+    if (util_shm_write(LOCAL_SHM_KEY, BUFFER_SIZE, buf) < 0) {
+        qWarning() << "shm write failed";
+        //return;
+    }
+    memset(buf, 0xff, BUFFER_SIZE);
+    delete buf;
+    emit sigNext();
+}
+
+void Core::sltNext()
+{
+    qDebug() << Q_FUNC_INFO;
+    const int BUFFER_SIZE = 1024;
+    byte* buf = NULL;
+
+    buf = (byte*)util_shm_read(LOCAL_SHM_KEY, BUFFER_SIZE);
+    if (buf == (void*)-1) {
+        qDebug() << "shm read failed";
+        return;
+    }
+    for (unsigned int i = 0; i < BUFFER_SIZE; i++) {
+        if (buf[i] != 0xcc) {
+            qWarning() << "incorrect!";
+            return;
+        }
+    }
+    qDebug() << "ok";
+}
+
+void Core::startTravel()
+{
+    QString homepath = qgetenv("HOME");
+    if (homepath == "") {
+        homepath = "/home/rasmus";
+    }
+    travel->setStartPath(homepath + "/Music");
+    travel->start();
+    connect(travel, SIGNAL(finished()), this, SLOT(sltTravelFinished()));
+}
+
+void Core::sltTravelFinished()
+{
+    qDebug() << Q_FUNC_INFO;
+    filelist = travel->getFilelist();
+    qDebug() << "size of filelist:" << filelist.size();
+}
+
+void Core::sltStart()
+{
+    qDebug() << Q_FUNC_INFO;
+    if (filelist.size() <= 0) {
+        qWarning() << "file list empty...";
+        return;
+    }
+
+    int cnt = 1;
+    FileItem* buf = NULL;
+
+    do {
+        FileItem* fi = fetchOneItem();
+        if (util_shm_write(LOCAL_SHM_KEY, sizeof(FileItem), fi) < 0) {
+            qWarning() << "shm write failed";
+            delete fi;
+            break;
+        }
+
+        delete fi;
+
+        buf = (FileItem*)util_shm_read(LOCAL_SHM_KEY, sizeof(FileItem));
+        if (buf == NULL) {
+            qWarning() << "shm read failed";
+            break;
+        }
+
+        // block here
+        int wait_cnt = 0;
+        while (true) {
+            if ( buf->rw_ctrl != 0 ) {
+                qDebug() << "cannot write..., and wait...";
+            } else {
+                //qDebug() << "can write...";
+                break;
+            }
+
+            if ( wait_cnt > MAX_RETRY_TIMES ) {
+                qDebug() << "timeout...";
+                break;
+            }
+
+            QThread::msleep(WAIT_MSEC_LENGTH);
+            //qDebug() << "wait...";
+            wait_cnt ++;
+        }
+        if (wait_cnt > 3) {
+            break;
+        }
+
+        qDebug() << "cnt:" << cnt;
+        cnt ++;
+        if (cnt > MAX_ITEM) {
+            qDebug() << qApp->applicationName() << "reach max items...";
+            break;
+        }
+    } while (true);
+
+    if (buf != NULL) {
+        buf->rw_ctrl = -1;
+    }
+
+    qDebug() << Q_FUNC_INFO << "finished";
+    emit sigQuitApp();
+}
+
+FileItem* Core::fetchOneItem()
+{
+    static int _id = 0;
+
+    FileItem* fi = getOneEmptyFileItem();
+    QString _name = "no name";
+    QString _artist = "unknown artist";
+    QString _album = "unknown album";
+
+    if (filelist.size() > _id + 1) {
+        if ( GetCover::getInstance()->getcover(filelist[_id]) ) {
+            _name = GetCover::getInstance()->getTitle();
+            _artist = GetCover::getInstance()->getArtist();
+            _album = GetCover::getInstance()->getAlbum();
+            fillFileItem(fi, _name, _artist, _album);
+        }
+        fi->id = _id;
+        fi->rw_ctrl = 1;
+    }
+
+    dumpFileItem(fi);
+    _id ++;
+
+    return fi;
+}
