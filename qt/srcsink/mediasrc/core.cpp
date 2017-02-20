@@ -42,6 +42,7 @@ Core::Core()
     connect(this, SIGNAL(sigGetfolder()), this, SLOT(sltGetfolder()));
     connect(this, SIGNAL(sigNext()), this, SLOT(sltNext()));
 
+    check_shm();
 }
 
 void Core::sltMessageReceived(const QString& msg)
@@ -160,10 +161,9 @@ void Core::SendItemToShm(ItemType it)
     }
 
     int cnt = 1;
-    FileItem* buf = NULL;
+    FileItem* fi;
 
     do {
-        FileItem* fi;
         if (it == AUDIO_ITEM) {
             fi = fetchOneItem();
         } else if (it == FOLDER_ITEM) {
@@ -171,26 +171,14 @@ void Core::SendItemToShm(ItemType it)
         } else {
             fi = getOneEmptyFileItem();
         }
-
-        if (util_shm_write(LOCAL_SHM_KEY, sizeof(FileItem), fi) < 0) {
-            qWarning() << "shm write failed";
-            delete fi;
-            break;
-        }
+        memcpy(mBuffer, fi, sizeof(FileItem));
         delete fi;
-
-        // read it back for rw_ctrl
-        buf = (FileItem*)util_shm_read(LOCAL_SHM_KEY, sizeof(FileItem));
-        if (buf == NULL) {
-            qWarning() << "shm read failed";
-            break;
-        }
 
         // block here
         int wait_cnt = 0;
         while (true) {
-            if ( buf->rw_ctrl != 0 ) {
-                qDebug() << "cannot write..., and wait...";
+            if ( mBuffer->rw_ctrl != 0 ) {
+                //qDebug() << "cannot write..., and wait...";
             } else {
                 //qDebug() << "can write...";
                 break;
@@ -218,9 +206,8 @@ void Core::SendItemToShm(ItemType it)
         }
     } while (true);
 
-    if (buf != NULL) {
-        buf->rw_ctrl = (char)0xff;
-    }
+    // mark as finished
+    mBuffer->rw_ctrl = (char)0xff;
 
     qDebug() << Q_FUNC_INFO << "finished transmitting audio filelist";
     //emit sigQuitApp();
@@ -246,7 +233,7 @@ FileItem* Core::fetchOneItem()
         fi->rw_ctrl = 1;
     }
 
-    dumpFileItem(fi);
+    //dumpFileItem(fi);
     _id ++;
 
     return fi;
@@ -271,3 +258,25 @@ FileItem* Core::fetchOneFolderItem()
     return fi;
 }
 
+void Core::check_shm()
+{
+    // fill all zero into 0xff
+    FileItem _fi;
+    memset(&_fi, 0, sizeof(FileItem));
+    if (util_shm_write(LOCAL_SHM_KEY, sizeof(FileItem), &_fi) < 0) {
+        qWarning() << "shm write failed";
+    }
+    FileItem *buf = (FileItem*)util_shm_read(LOCAL_SHM_KEY, sizeof(FileItem));
+    if (buf == NULL) {
+        qWarning() << "failed to read shm...";
+        return;
+    }
+    mBuffer = buf;
+    QString sum1 = md5sum((char*)&_fi, sizeof(FileItem));
+    QString sum2 = md5sum((char*)buf, sizeof(FileItem));
+    if (sum1 != sum2) {
+        qWarning() << "mismatch md5sum!!!";
+    } else {
+        qDebug() << "md5sum:" << sum1;
+    }
+}

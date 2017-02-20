@@ -24,6 +24,13 @@ public:
         return mItemType;
     }
 
+    void setBufferAddr(FileItem* b) {
+        mBuffer = b;
+    }
+    FileItem* getBufferAddr() {
+        return mBuffer;
+    }
+
     void run();
 
 protected:
@@ -31,6 +38,7 @@ protected:
 private:
     FileItem* fi = NULL;
     ItemType mItemType = NO_ITEM;
+    FileItem* mBuffer = NULL;
 };
 
 #endif // __READ_THREAD_H__

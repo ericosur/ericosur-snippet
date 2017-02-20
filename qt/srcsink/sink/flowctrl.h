@@ -38,6 +38,7 @@ private:
     ReadThread* readthead = NULL;
     bool mFileFinished = false;
     bool mFolderFinished = false;
+    FileItem* mBuffer = NULL;
 };
 
 #endif // __FLOW_CTRL_H__

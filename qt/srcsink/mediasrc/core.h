@@ -44,12 +44,14 @@ protected:
     void SendItemToShm(ItemType it);
     FileItem* fetchOneItem();
     FileItem* fetchOneFolderItem();
+    void check_shm();
 
 private:
     MsgRxThread* msgrx = NULL;
     TravelThread* travel = NULL;
     QStringList filelist;
     QStringList folderlist;
+    FileItem* mBuffer = NULL;
 };
 
 #endif  // __CORE_H__

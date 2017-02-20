@@ -14,7 +14,7 @@
 
 #define WAIT_MSEC_LENGTH    (75)
 #define MAX_RETRY_TIMES     4
-#define MAX_ITEM            10
+#define MAX_ITEM            5
 
 typedef enum enum_item_type {
     NO_ITEM = 97,
@@ -31,5 +31,9 @@ extern qint64 g_epoch_start;
 extern bool g_messageVerbose;
 // customized message handler
 void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg);
+
+QString md5sum(const char* buf, int size);
+
+void dump(unsigned char* buf, unsigned int size);
 
 #endif  // __COMMONUTIL_H__

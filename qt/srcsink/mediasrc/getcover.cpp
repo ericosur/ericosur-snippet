@@ -85,7 +85,7 @@ bool GetCover::getcover(const QString& fn)
         extract_length_from_mp4(fn);
 
     } else if (fn.contains(QRegExp("\\.flac$"))) {
-        qDebug() << "flac...";
+        //qDebug() << "flac...";
         if ( !extract_info_from_flac(fn) ) {
             qWarning() << "can't get info from" << fn;
         }
@@ -170,8 +170,11 @@ bool GetCover::extract_length_from_mp3(const QString& fn)
     TagLib::MPEG::File file(fn.toStdString().c_str());
     TagLib::MPEG::Properties p(&file);
 
-    qDebug() << "mp3 len(fn):" << p.length();
     m_length = p.length();
+    if (m_length == 0) {
+        qDebug() << "extract_length_from_mp3:" << fn << m_length;
+    }
+
     return true;
 }
 
@@ -179,19 +182,26 @@ bool GetCover::extract_length_from_mp4(const QString& fn)
 {
     TagLib::MP4::File file(fn.toStdString().c_str());
 
-    qDebug() << "m4a len(fn):" << file.audioProperties()->length();
+    if (file.audioProperties() == NULL) {
+        qDebug() << "cannot get retrive audio properties...";
+        m_length = 0;
+        return false;
+    }
     m_length = file.audioProperties()->length();
+    if (!m_length)
+        qDebug() << "extract_length_from_mp4:" << fn << m_length;
     return true;
 }
 
 bool GetCover::extract_length_from_flac(const QString& fn)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 
     TagLib::FLAC::File file(fn.toStdString().c_str());
     TagLib::FLAC::Properties p(&file);
 
-    qDebug() << "flac len(fn):" << p.length();
     m_length = p.length();
+    if (!m_length)
+        qDebug() << "extract_length_from_flac:" << fn << m_length;
     return true;
 }

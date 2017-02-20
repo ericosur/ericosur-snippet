@@ -3,9 +3,14 @@
     \brief implementation of myMessageOutput()
 **/
 #include "commonutil.h"
+
 #include <QTime>
 #include <QCoreApplication>
+#include <QCryptographicHash>
+#include <QString>
 #include <QDebug>
+
+#include <stdio.h>
 #include <iostream>
 
 #define YESNO(b)    ((b)?"yes":"no")
@@ -56,3 +61,19 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
     }
 }
 
+QString md5sum(const char* buf, int size)
+{
+    QCryptographicHash hash( QCryptographicHash::Md5 );
+    hash.addData(buf, size);
+    QString str_hash = hash.result().toHex().data();
+    return str_hash;
+}
+
+void dump(unsigned char* buf, unsigned int size)
+{
+    for (unsigned int i = 0; i < size; i++) {
+        if (i && i%16==0)  printf("\n");
+        printf("%02X ", buf[i]);
+    }
+    printf("\n");
+}

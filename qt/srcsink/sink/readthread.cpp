@@ -20,32 +20,32 @@ void ReadThread::run()
     }
 
     int count = 0;
-    FileItem* buf = NULL;
 
-    buf = (FileItem*)util_shm_read(LOCAL_SHM_KEY, sizeof(FileItem));
+    // block here
     do {
-        if (buf == NULL) {
-            qDebug() << "shm read failed";
+        // buf = (FileItem*)util_shm_read(LOCAL_SHM_KEY, sizeof(FileItem));
+        // if (buf == NULL) {
+        //     qWarning() << "shm read failed";
+        //     return;
+        // } else {
+        //     qDebug() << "buf addr:" << buf;
+        // }
+        if (mBuffer->rw_ctrl == 1) {    // ok to read
+            dumpFileItem(mBuffer);
+            mBuffer->rw_ctrl = 0;
+            count ++;
+        } else if (mBuffer->rw_ctrl == (char)0xff) {
+            qDebug() << "it finished...";
             break;
         } else {
-            if (buf->rw_ctrl == 1) {    // ok to read
-                dumpFileItem(buf);
-                buf->rw_ctrl = 0;
-                count ++;
-            } else if (buf->rw_ctrl == (char)0xff) {
-                qDebug() << "it finished...";
-                break;
-            } else {
-                QThread::msleep(WAIT_MSEC_LENGTH);
-                qDebug() << "wait...";
-            }
-            if (count > MAX_ITEM) {
-                qDebug() << "max item reached...";
-                break;
-            }
+            QThread::msleep(WAIT_MSEC_LENGTH);
+            //qDebug() << "wait...";
+        }
+        if (count > MAX_ITEM) {
+            qDebug() << "max item reached...";
+            break;
         }
     } while (true);
 
     qDebug() << Q_FUNC_INFO << "run finished...";
 }
-

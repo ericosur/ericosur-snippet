@@ -29,6 +29,7 @@ void FlowControl::start()
         // issue an IPC to tell "generator" start send data...
         send_msgq(MESGQKEY_MONITOR, MESGQKEY_MESSAGE_TYPE, "start");
         readthead->setReadItemType(AUDIO_ITEM);
+        readthead->setBufferAddr(mBuffer);
         readthead->start();
     }
 }
@@ -78,5 +79,17 @@ void FlowControl::check_shm()
     if (util_shm_write(LOCAL_SHM_KEY, sizeof(FileItem), &_fi) < 0) {
         qWarning() << "shm write failed";
     }
-
+    FileItem *buf = (FileItem*)util_shm_read(LOCAL_SHM_KEY, sizeof(FileItem));
+    if (buf == NULL) {
+        qWarning() << "failed to read shm...";
+        return;
+    }
+    mBuffer = buf;
+    QString sum1 = md5sum((char*)&_fi, sizeof(FileItem));
+    QString sum2 = md5sum((char*)buf, sizeof(FileItem));
+    if (sum1 != sum2) {
+        qWarning() << "mismatch md5sum!!!";
+    } else {
+        qDebug() << "md5sum:" << sum1;
+    }
 }
