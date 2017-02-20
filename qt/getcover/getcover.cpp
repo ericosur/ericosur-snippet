@@ -362,8 +362,13 @@ bool GetCover::extract_length_from_mp3(const QString& fn)
 
 bool GetCover::extract_length_from_mp4(const QString& fn)
 {
+    qDebug() << Q_FUNC_INFO;
     TagLib::MP4::File file(fn.toStdString().c_str());
 
+    if (file.audioProperties() == NULL) {
+        qDebug() << "cannot get retrive audio properties...";
+        return false;
+    }
     qDebug() << "m4a len(fn):" << file.audioProperties()->length();
     return true;
 }
