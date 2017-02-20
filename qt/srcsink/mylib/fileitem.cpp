@@ -6,6 +6,7 @@ FileItem* getOneEmptyFileItem()
 {
     FileItem* fi = new FileItem;
     fi->id = 0;
+    fi->type = 0;
     memset(fi->name, 0, MAX_FILEITEM_NAME);
     memset(fi->artist, 0, MAX_FILEITEM_ARTIST);
     memset(fi->album, 0, MAX_FILEITEM_ALBUM);
@@ -30,8 +31,13 @@ void fillFileItem(FileItem* fi, const QString& name, const QString& artist, cons
 void dumpFileItem(const FileItem* _fi)
 {
     qDebug() << "fileitem, id:" << _fi->id << endl
-        << "name:" << _fi->name << endl
-        << "artist:" << _fi->artist << endl
-        << "album:" << _fi->album << endl
-        << "rw_ctrl:" << (_fi->rw_ctrl ? "true" : "false");
+             << "rw_ctrl:" << (_fi->rw_ctrl ? "true" : "false");
+
+    if (strlen(_fi->name))
+        qDebug() << "name:" << _fi->name;
+    if (strlen(_fi->artist))
+        qDebug() << "artist:" << _fi->artist;
+    if (strlen(_fi->album))
+        qDebug() << "album:" << _fi->album;
+
 }

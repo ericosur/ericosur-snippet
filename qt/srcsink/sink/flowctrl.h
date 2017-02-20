@@ -18,12 +18,15 @@ public:
     static FlowControl* getInstance();
 
     void start();
+    void requestGetfolder();
 
 signals:
+    void sigGetfolder();
     void sigQuitApp();
 
 public slots:
     void sltReadFinished();
+    void sltGetfolder();
 
 protected:
     static FlowControl* _instance;
@@ -33,6 +36,8 @@ protected:
 
 private:
     ReadThread* readthead = NULL;
+    bool mFileFinished = false;
+    bool mFolderFinished = false;
 };
 
 #endif // __FLOW_CTRL_H__

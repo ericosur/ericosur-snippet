@@ -27,6 +27,7 @@ public:
 signals:
     void sigNext();
     void sigStart();
+    void sigGetfolder();
     void sigQuitApp();
 
 public slots:
@@ -34,17 +35,21 @@ public slots:
     void sltWaitFinished();
     void sltNext();
     void sltStart();
+    void sltGetfolder();
     void sltTravelFinished();
 
 protected:
     Core();
 
+    void SendItemToShm(ItemType it);
     FileItem* fetchOneItem();
+    FileItem* fetchOneFolderItem();
 
 private:
     MsgRxThread* msgrx = NULL;
     TravelThread* travel = NULL;
     QStringList filelist;
+    QStringList folderlist;
 };
 
 #endif  // __CORE_H__

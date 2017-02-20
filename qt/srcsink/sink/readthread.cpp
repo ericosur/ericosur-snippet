@@ -10,6 +10,11 @@ void ReadThread::run()
 {
     qDebug() << Q_FUNC_INFO << "run start...";
 
+    if (mItemType == NO_ITEM) {
+        qWarning() << "did not specify requested item type";
+        return;
+    }
+
     if (fi == NULL) {
         fi = getOneEmptyFileItem();
     }

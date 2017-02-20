@@ -16,6 +16,11 @@
 #define MAX_RETRY_TIMES     4
 #define MAX_ITEM            10
 
+typedef enum enum_item_type {
+    NO_ITEM = 97,
+    AUDIO_ITEM = 101,
+    FOLDER_ITEM = 103
+} ItemType;
 
 
 // macro to show epoch time elapse everywhere at c++ code

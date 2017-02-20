@@ -17,12 +17,20 @@ class ReadThread : public QThread
 public:
     ReadThread();
 
+    void setReadItemType(ItemType it) {
+        mItemType = it;
+    }
+    ItemType getReadItemType() {
+        return mItemType;
+    }
+
     void run();
 
 protected:
 
 private:
     FileItem* fi = NULL;
+    ItemType mItemType = NO_ITEM;
 };
 
 #endif // __READ_THREAD_H__

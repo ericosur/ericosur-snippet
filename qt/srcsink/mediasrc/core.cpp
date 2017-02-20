@@ -39,6 +39,7 @@ Core::Core()
     }
 
     connect(this, SIGNAL(sigStart()), this, SLOT(sltStart()));
+    connect(this, SIGNAL(sigGetfolder()), this, SLOT(sltGetfolder()));
     connect(this, SIGNAL(sigNext()), this, SLOT(sltNext()));
 
 }
@@ -54,6 +55,9 @@ void Core::sltMessageReceived(const QString& msg)
     } else if (msg == "start") {
         qDebug() << "received start command...";
         emit sigStart();
+    } else if (msg == "getfolder") {
+        qDebug() << "request getfolder...";
+        emit sigGetfolder();
     }
 }
 
@@ -128,14 +132,30 @@ void Core::sltTravelFinished()
 {
     qDebug() << Q_FUNC_INFO;
     filelist = travel->getFilelist();
+    folderlist = travel->getPathlist();
     qDebug() << "size of filelist:" << filelist.size();
 }
 
 void Core::sltStart()
 {
+    SendItemToShm(AUDIO_ITEM);
+}
+
+void Core::sltGetfolder()
+{
+    SendItemToShm(FOLDER_ITEM);
+}
+
+void Core::SendItemToShm(ItemType it)
+{
     qDebug() << Q_FUNC_INFO;
-    if (filelist.size() <= 0) {
+
+    if (it == AUDIO_ITEM && filelist.size() <= 0) {
         qWarning() << "file list empty...";
+        return;
+    }
+    if (it == FOLDER_ITEM && folderlist.size() <= 0) {
+        qWarning() << "folder list is empty...";
         return;
     }
 
@@ -143,15 +163,23 @@ void Core::sltStart()
     FileItem* buf = NULL;
 
     do {
-        FileItem* fi = fetchOneItem();
+        FileItem* fi;
+        if (it == AUDIO_ITEM) {
+            fi = fetchOneItem();
+        } else if (it == FOLDER_ITEM) {
+            fi = fetchOneFolderItem();
+        } else {
+            fi = getOneEmptyFileItem();
+        }
+
         if (util_shm_write(LOCAL_SHM_KEY, sizeof(FileItem), fi) < 0) {
             qWarning() << "shm write failed";
             delete fi;
             break;
         }
-
         delete fi;
 
+        // read it back for rw_ctrl
         buf = (FileItem*)util_shm_read(LOCAL_SHM_KEY, sizeof(FileItem));
         if (buf == NULL) {
             qWarning() << "shm read failed";
@@ -167,7 +195,7 @@ void Core::sltStart()
                 //qDebug() << "can write...";
                 break;
             }
-
+            // leave inner wait loop
             if ( wait_cnt > MAX_RETRY_TIMES ) {
                 qDebug() << "timeout...";
                 break;
@@ -177,7 +205,8 @@ void Core::sltStart()
             //qDebug() << "wait...";
             wait_cnt ++;
         }
-        if (wait_cnt > 3) {
+        // leave outer loop
+        if (wait_cnt > MAX_RETRY_TIMES) {
             break;
         }
 
@@ -193,8 +222,8 @@ void Core::sltStart()
         buf->rw_ctrl = (char)0xff;
     }
 
-    qDebug() << Q_FUNC_INFO << "finished";
-    emit sigQuitApp();
+    qDebug() << Q_FUNC_INFO << "finished transmitting audio filelist";
+    //emit sigQuitApp();
 }
 
 FileItem* Core::fetchOneItem()
@@ -222,3 +251,23 @@ FileItem* Core::fetchOneItem()
 
     return fi;
 }
+
+FileItem* Core::fetchOneFolderItem()
+{
+    static int _id = 0;
+
+    FileItem* fi = getOneEmptyFileItem();
+
+    if (folderlist.size() > _id + 1) {
+        QString _name = folderlist[_id];
+        fillFileItem(fi, _name, "", "");
+        fi->id = _id;
+        fi->rw_ctrl = 1;
+    }
+
+    //dumpFileItem(fi);
+    _id ++;
+
+    return fi;
+}
+

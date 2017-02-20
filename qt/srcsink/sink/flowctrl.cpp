@@ -17,24 +17,57 @@ FlowControl::FlowControl()
     }
     connect(readthead, SIGNAL(finished()), this, SLOT(sltReadFinished()));
     connect(this, SIGNAL(sigQuitApp()), qApp, SLOT(quit()));
+    connect(this, SIGNAL(sigGetfolder()), this, SLOT(sltGetfolder()));
 }
 
 void FlowControl::start()
 {
     qDebug() << Q_FUNC_INFO;
 
+    if (mFileFinished == false) {
+        check_shm();
+        // issue an IPC to tell "generator" start send data...
+        send_msgq(MESGQKEY_MONITOR, MESGQKEY_MESSAGE_TYPE, "start");
+        readthead->setReadItemType(AUDIO_ITEM);
+        readthead->start();
+    }
+}
+
+void FlowControl::sltGetfolder()
+{
+    if (!mFileFinished) {
+        qWarning() << "why? file transfer not done...";
+        return;
+    }
+    if (mFolderFinished == false) {
+        requestGetfolder();
+    }
+}
+
+void FlowControl::requestGetfolder()
+{
+    qDebug() << Q_FUNC_INFO;
+
     check_shm();
-
     // issue an IPC to tell "generator" start send data...
-    send_msgq(MESGQKEY_MONITOR, MESGQKEY_MESSAGE_TYPE, "start");
-
+    send_msgq(MESGQKEY_MONITOR, MESGQKEY_MESSAGE_TYPE, "getfolder");
+    readthead->setReadItemType(FOLDER_ITEM);
     readthead->start();
 }
 
 void FlowControl::sltReadFinished()
 {
     qDebug() << Q_FUNC_INFO;
-    emit sigQuitApp();
+    if (mFileFinished == false) {
+        mFileFinished = true;
+        emit sigGetfolder();
+    } else if (mFolderFinished == false) {
+        mFolderFinished = true;
+    }
+
+    if (mFileFinished && mFolderFinished) {
+        emit sigQuitApp();
+    }
 }
 
 void FlowControl::check_shm()

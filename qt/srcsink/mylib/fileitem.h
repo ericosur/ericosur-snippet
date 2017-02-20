@@ -13,6 +13,7 @@
 typedef struct FileItem
 {
     unsigned int id;
+    unsigned char type;
     char name[MAX_FILEITEM_NAME];
     char artist[MAX_FILEITEM_ARTIST];
     char album[MAX_FILEITEM_ALBUM];
