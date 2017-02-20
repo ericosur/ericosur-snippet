@@ -8,8 +8,7 @@
 #include "msgqsend.h"
 #include "fileitem.h"
 #include "readthread.h"
-
-#define MAX_ITEM    (10)
+#include "commonutil.h"
 
 class FlowControl : public QObject
 {

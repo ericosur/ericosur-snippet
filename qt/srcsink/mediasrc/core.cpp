@@ -8,10 +8,6 @@
 #include <QDebug>
 #include <QThread>
 
-#define WAIT_MSEC_LENGTH    250
-#define MAX_RETRY_TIMES     4
-#define MAX_ITEM            10
-
 Core* Core::_instance = NULL;
 Core* Core::getInstance()
 {
@@ -109,11 +105,21 @@ void Core::sltNext()
 
 void Core::startTravel()
 {
-    QString homepath = qgetenv("HOME");
-    if (homepath == "") {
-        homepath = "/home/rasmus";
+    QString mediapath = qgetenv("MEDIASRC");
+    if (mediapath == "") {
+#ifdef __arm__
+        mediapath = "/media/usb/storage";
+#else
+        QString homepath = qgetenv("HOME");
+        if (homepath == "") {
+            homepath = "/home/rasmus";
+        }
+        mediapath = homepath + "/Music";
+#endif  // __arm__
     }
-    travel->setStartPath(homepath + "/Music");
+
+    qWarning() << "setStartPath():" << mediapath;
+    travel->setStartPath(mediapath);
     travel->start();
     connect(travel, SIGNAL(finished()), this, SLOT(sltTravelFinished()));
 }
@@ -184,7 +190,7 @@ void Core::sltStart()
     } while (true);
 
     if (buf != NULL) {
-        buf->rw_ctrl = -1;
+        buf->rw_ctrl = (char)0xff;
     }
 
     qDebug() << Q_FUNC_INFO << "finished";

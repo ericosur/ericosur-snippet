@@ -8,6 +8,7 @@
 
 #include "fileitem.h"
 #include "util.h"
+#include "commonutil.h"
 
 class ReadThread : public QThread
 {

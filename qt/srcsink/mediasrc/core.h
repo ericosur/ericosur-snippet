@@ -8,6 +8,7 @@
 #include "msgqrx.h"
 #include "travelthread.h"
 #include "fileitem.h"
+#include "commonutil.h"
 
 typedef unsigned char byte;
 

@@ -1,7 +1,7 @@
 QT += core
 QT -= gui
 QMAKE_MAC_SDK = macosx10.12
-TARGET = source
+TARGET = mediasrc
 CONFIG += c++11 console
 CONFIG -= app_bundle
 TEMPLATE = app

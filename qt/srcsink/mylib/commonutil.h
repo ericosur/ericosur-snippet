@@ -12,6 +12,12 @@
 #include <QtGlobal>
 
 
+#define WAIT_MSEC_LENGTH    (75)
+#define MAX_RETRY_TIMES     4
+#define MAX_ITEM            10
+
+
+
 // macro to show epoch time elapse everywhere at c++ code
 extern qint64 g_epoch_start;
 #define SHOW_CURRENT_EPOCH()    \

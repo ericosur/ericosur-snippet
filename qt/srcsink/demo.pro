@@ -1,6 +1,5 @@
 TEMPLATE = subdirs
 SUBDIRS += \
-    mylib \
-    source \
+    mediasrc \
     sink \
 

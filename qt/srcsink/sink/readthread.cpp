@@ -1,8 +1,6 @@
 #include "readthread.h"
 #include "flowctrl.h"
 
-#define WAIT_MSEC_LENGTH    (500)
-
 ReadThread::ReadThread()
 {
     qDebug() << Q_FUNC_INFO << "created...";
@@ -29,7 +27,7 @@ void ReadThread::run()
                 dumpFileItem(buf);
                 buf->rw_ctrl = 0;
                 count ++;
-            } else if (buf->rw_ctrl == -1) {
+            } else if (buf->rw_ctrl == (char)0xff) {
                 qDebug() << "it finished...";
                 break;
             } else {
