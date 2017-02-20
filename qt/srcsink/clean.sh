@@ -9,4 +9,4 @@ rm -r $TOP/lib/
 rm -r $TOP/out/
 rm -r $TOP/mylib/b/
 rm -r $TOP/sink/b/
-rm -r $TOP/mylib/b/
+rm -r $TOP/mediasrc/b/
