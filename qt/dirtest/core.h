@@ -10,7 +10,7 @@
 #ifdef __arm__
 #define DEFAULT_START_PATH "/media/usb/storage"
 #else
-#define DEFAULT_START_PATH "/home/rasmus/Pictures"
+#define DEFAULT_START_PATH "/home/ericosur/Dropbox/Pictures"
 #endif
 
 class Core : public QObject
@@ -23,6 +23,11 @@ public:
 
     void startTotalSize(const QString& startpath);
     void start(const QString& startpath);
+
+    static quint32 make3(quint8 lhs, quint8 mid, quint8 rhs);
+    static quint32 clean3(quint32 u);
+    static void show3(quint32 u);
+    static void test3();
 
 signals:
     void sigQuit();
@@ -40,6 +45,7 @@ protected:
     qlonglong imageSpace(const QString &path);
     void travel_dir(const QString& path);
     void dumpList(const QStringList& list, const QString& fn);
+
 
 private:
     TravelThread* mTravel = NULL;

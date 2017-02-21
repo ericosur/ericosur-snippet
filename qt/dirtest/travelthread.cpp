@@ -18,12 +18,18 @@ TravelThread::TravelThread()
 
 void TravelThread::init_filter()
 {
-    mFilter << "*.mp3" << "*.wav" << "*.aac" << "*.m4a"
-        << "*.wma" << "*.flac" << "*.ogg" << "*.ape"
-        << "*.mp4" << "*.wmv" << "*.mov" << "*.flv"
-        << "*.mkv" << "*.avi" << "*.mpg" << "*.mpeg"
-        << "*.png" << "*.jpg" << "*.jpeg" << "*.bmp"
-        << "*.jpe" << "*.mid" << "*.amr";
+    // mFilter << "*.mp3" << "*.wav" << "*.aac" << "*.m4a"
+    //     << "*.wma" << "*.flac" << "*.ogg" << "*.ape"
+    //     << "*.mp4" << "*.wmv" << "*.mov" << "*.flv"
+    //     << "*.mkv" << "*.avi" << "*.mpg" << "*.mpeg"
+    //     << "*.png" << "*.jpg" << "*.jpeg" << "*.bmp"
+    //     << "*.jpe" << "*.mid" << "*.amr";
+    // mFilter << "*.mp3" << "*.wav" << "*.aac" << "*.m4a"
+    //     << "*.wma" << "*.flac" << "*.ogg" << "*.ape";
+    mAudioFilter << "*.mp3" << "*.wav" << "*.aac" << "*.m4a"
+        << "*.wma" << "*.flac" << "*.ogg" << "*.ape";
+    mPictureFilter << "*.png" << "*.jpg" << "*.bmp";
+    mFilter = mPictureFilter;
 }
 
 bool TravelThread::isInBlacklist(const QString& name)
@@ -47,6 +53,8 @@ void TravelThread::run()
     //mPathlist = collect_path(mFilelist);
 
     qDebug() << Q_FUNC_INFO << "finished...";
+    report_status();
+    emit filelistChanged();
 }
 
 void TravelThread::travel_dir(const QString& path)
@@ -66,8 +74,14 @@ void TravelThread::travel_dir(const QString& path)
             mFolderHash.insert(path, tmp);
         }
         QFileInfo _info(dir, file);
-        mFilelist << _info.filePath();
-        (*tmp) << _info.filePath();
+
+        QString _fullfilepath = _info.filePath();
+        mFilelist << _fullfilepath;
+        (*tmp) << _fullfilepath;
+
+        int _id = get_id();
+        mFile2IdHash.insert(_fullfilepath, _id);
+        mId2FileHash.insert(_id, _fullfilepath);
     }
 
 
@@ -96,9 +110,33 @@ void TravelThread::dumpFolderHash()
     }
 }
 
+void TravelThread::dumpId()
+{
+    foreach (int key, mId2FileHash.keys()) {
+        qDebug() << key << "->" << mId2FileHash.value(key);
+    }
+    foreach (QString key, mFile2IdHash.keys()) {
+        qDebug() << key << "->" << mFile2IdHash.value(key);
+    }
+}
+
 void TravelThread::clearFolderHash()
 {
     foreach (QString key, mFolderHash.keys()) {
         delete mFolderHash[key];
     }
+}
+
+void TravelThread::report_status()
+{
+    qDebug() << Q_FUNC_INFO << endl
+        << "mStartpath:" << mStartpath << endl
+        << "mFilelist count:" << mFilelist.size() << endl
+        << "mPathlist count:" << mPathlist.size();
+
+}
+
+int TravelThread::get_id()
+{
+    return _id++;
 }
