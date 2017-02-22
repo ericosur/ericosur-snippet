@@ -9,6 +9,7 @@
 #include "travelthread.h"
 #include "fileitem.h"
 #include "commonutil.h"
+#include "idhash.h"
 
 typedef unsigned char byte;
 

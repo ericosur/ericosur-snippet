@@ -6,8 +6,17 @@
 #include <QDir>
 #include <QStringList>
 #include <QHash>
+#include <QDataStream>
+#include <QBuffer>
+#include <QSharedMemory>
+#include <QDebug>
+
+#include "commonutil.h"
+#include "idhash.h"
 
 typedef QHash<QString, QStringList*> FolderHashList;
+#define SHMKEY    "travel.dir.sharedmem.key"
+
 
 class TravelThread : public QThread
 {
@@ -42,6 +51,13 @@ public:
         return mFolderHash;
     }
 
+    IdHash getIdHash() {
+        return idh;
+    }
+
+    void requestSave();
+    void requestLoad();
+
     void dumpFolderHash();
     void clearFolderHash();
     void report_status();
@@ -54,6 +70,12 @@ protected:
     bool isInBlacklist(const QString& name);
     void travel_dir(const QString& path);
 
+    void saveToShm(const IdHash& hash);
+    IdHash loadFromShm();
+
+    quint32 get_folderid();
+    quint32 get_fileid();
+
 private:
     QString mStartpath = "";
     QStringList mFilter;
@@ -61,9 +83,15 @@ private:
     QStringList mFilelist;  // list with all folders/files
     QStringList mPathlist;  // list with all folders
 
+    quint32 curr_folderid = 1;    // start from 1
+    quint32 curr_fileid = 1;
+
+    IdHash idh;
 
     // key is path name, value is a string list
     FolderHashList mFolderHash;
+
+    QSharedMemory *shm = NULL;
 };
 
 #endif // __TRAVEL_THREAD_H__

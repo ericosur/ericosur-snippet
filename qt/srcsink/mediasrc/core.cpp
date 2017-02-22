@@ -135,6 +135,11 @@ void Core::sltTravelFinished()
     filelist = travel->getFilelist();
     folderlist = travel->getPathlist();
     qDebug() << "size of filelist:" << filelist.size();
+
+    travel->requestSave();
+    travel->requestLoad();
+
+    travel->getIdHash().dumpToFile("/tmp/idhash.csv");
 }
 
 void Core::sltStart()
@@ -222,7 +227,7 @@ FileItem* Core::fetchOneItem()
     QString _artist = "unknown artist";
     QString _album = "unknown album";
 
-    if (filelist.size() > _id + 1) {
+    if (filelist.size() > _id) {
         if ( GetCover::getInstance()->getcover(filelist[_id]) ) {
             _name = GetCover::getInstance()->getTitle();
             _artist = GetCover::getInstance()->getArtist();
@@ -245,7 +250,7 @@ FileItem* Core::fetchOneFolderItem()
 
     FileItem* fi = getOneEmptyFileItem();
 
-    if (folderlist.size() > _id + 1) {
+    if (folderlist.size() > _id) {
         QString _name = folderlist[_id];
         fillFileItem(fi, _name, "", "");
         fi->id = _id;
@@ -262,21 +267,22 @@ void Core::check_shm()
 {
     // fill all zero into 0xff
     FileItem _fi;
-    memset(&_fi, 0, sizeof(FileItem));
-    if (util_shm_write(LOCAL_SHM_KEY, sizeof(FileItem), &_fi) < 0) {
-        qWarning() << "shm write failed";
-    }
+     memset(&_fi, 0, sizeof(FileItem));
+     if (util_shm_write(LOCAL_SHM_KEY, sizeof(FileItem), &_fi) < 0) {
+         qWarning() << "shm write failed";
+     }
     FileItem *buf = (FileItem*)util_shm_read(LOCAL_SHM_KEY, sizeof(FileItem));
     if (buf == NULL) {
         qWarning() << "failed to read shm...";
         return;
     }
     mBuffer = buf;
-    QString sum1 = md5sum((char*)&_fi, sizeof(FileItem));
+    //QString sum1 = md5sum((char*)&_fi, sizeof(FileItem));
     QString sum2 = md5sum((char*)buf, sizeof(FileItem));
-    if (sum1 != sum2) {
-        qWarning() << "mismatch md5sum!!!";
-    } else {
-        qDebug() << "md5sum:" << sum1;
-    }
+    // if (sum1 != sum2) {
+    //     qWarning() << "mismatch md5sum!!!";
+    // } else {
+        qDebug() << "md5sum:" << sum2;
+    // }
 }
+

@@ -15,11 +15,13 @@ TEMPLATE = lib
 SOURCES += \
     util.cpp \
     commonutil.cpp \
+    idhash.cpp \
     fileitem.cpp
 
 HEADERS += \
     util.h \
     commonutil.h \
+    idhash.h \
     fileitem.h
 
 
