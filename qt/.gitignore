@@ -1,9 +1,0 @@
-*.pro.user
-*.pro.user.*
-moc_*
-.qmake.stash
-qrc_qml.*
-build/
-*.a
-*.so
-
