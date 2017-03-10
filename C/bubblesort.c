@@ -26,11 +26,11 @@ void bubblesort(int val[], int n)
 int load_data(int val[], int n)
 {
 	FILE *fp = fopen(DATAFILE, "rb");
-	int buffer[BUFFERSIZE];
+//	int buffer[BUFFERSIZE];
 	size_t cnt = 0;
 
 	if (fp == NULL) {
-		fprintf(stderr, "cannot read file\n");
+		fprintf(stderr, "cannot read file: %s\n", DATAFILE);
 		return 0;
 	}
 

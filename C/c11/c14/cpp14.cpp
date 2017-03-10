@@ -1,5 +1,9 @@
+// from:
+// https://solarianprogrammer.com/2016/06/24/raspberry-pi-raspbian-install-gcc-compile-cpp-14-and-cpp-17-programs/
+//
 // clang -std=c++14 -c cpp14.cpp
-
+// g++ -std=c++14 -c cpp14.cpp
+//
 // refer to 
 // https://clang.llvm.org/cxx_status.html
 // https://gcc.gnu.org/projects/cxx-status.html
