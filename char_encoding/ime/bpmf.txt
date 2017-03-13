@@ -1,4 +1,0 @@
-read from bpmf.cin
-ime name: 注音	char def: 14150
-unique in: 928	unique out: 9958
-----------------------------------------
