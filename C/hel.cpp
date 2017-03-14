@@ -8,7 +8,7 @@ int main(void)
 	string foo = "abcdef";
 	char ch;
 
-	for (int i = 0; i < foo.length(); i++)
+	for (size_t i = 0; i < foo.length(); i++)
 	{
 		string bar = foo.substr(i, 1);
 		ch = bar.c_str()[0];
