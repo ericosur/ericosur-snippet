@@ -8,7 +8,7 @@ message("CMAKE_SOURCE_DIR= ${CMAKE_SOURCE_DIR}")
 message("CMAKE_BINARY_DIR= ${CMAKE_BINARY_DIR}")
 
 set(CMAKE_VERBOSE_MAKEFILE OFF)
-
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "-Wall -O3")
 set(CMAKE_C_FLAGS "-Wall -O3")
 
@@ -24,8 +24,3 @@ add_executable(myalarm myalarm.cpp)
 add_subdirectory(c14/)
 add_subdirectory(readln/)
 
-set_target_properties(
-    main c11
-    PROPERTIES
-    COMPILE_FLAGS    -std=c++11
-)
