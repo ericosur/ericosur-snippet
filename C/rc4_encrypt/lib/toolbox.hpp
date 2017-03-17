@@ -5,6 +5,10 @@
 #ifndef __TOOL_BOX_HPP__
 #define __TOOL_BOX_HPP__
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 /** a magic string at the beginning of header */
 #define MY_MAGIC_NUMBER	"RasmusMagicHead\0"
 /** md5sum length = 16 bytes */
