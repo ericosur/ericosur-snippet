@@ -1,0 +1,15 @@
+# use android standalone ndk
+
+# this one is important
+SET(CMAKE_SYSTEM_NAME Android)
+set(CMAKE_ANDROID_STANDALONE_TOOLCHAIN /ssd/myndk)
+
+include (CMakeForceCompiler)
+
+# specify the cross compiler
+SET(CMAKE_C_COMPILER   /ssd/myndk/bin/arm-linux-androideabi-gcc)
+SET(CMAKE_CXX_COMPILER /ssd/myndk/bin/arm-linux-androideabi-g++)
+
+# where is the target environment
+SET(CMAKE_FIND_ROOT_PATH  /ssd/myndk/sysroot)
+
