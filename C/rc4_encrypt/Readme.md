@@ -1,17 +1,8 @@
-rc4_encrypt
-===========
+Readme
+======
 
-Need openssl devel packages (libssl-dev)
-
-### how to make
-* traditional make
+required package
 ```
-$ make
-```
-* use cmake
-```
-$ mkdir build ; cd build
-$ cmake ..
+apt-get install openssl libssl-dev doxygen
 ```
 
-At folder doc there is a doxygen config to build doxygen documentation.
