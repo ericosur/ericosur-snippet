@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import time
+import os
 import json
 from sense_hat import SenseHat
 from instapush import Instapush, App
@@ -18,7 +19,8 @@ def read_secret():
     '''
     global appid
     global secret
-    file = 'insta.txt'
+    home = os.environ.get('HOME')
+    file = home + '/' + '.insta.txt'
     # read from json file
     with open(file) as sec_file:
         data = json.load(sec_file)
