@@ -4,6 +4,8 @@ import time
 from sense_hat import SenseHat
 
 rotate_degree = 180
+cadetblue = (95,158,160)
+red = (255,0,0)
 
 def show_tph():
     sense = SenseHat()
@@ -20,11 +22,12 @@ def show_tph():
     p = round(p, 0)
     h = round(h, 0)
 
-    msg = "p{0}h{1}t{2}".format(p,h,t)
+    msg = "P{0}H{1}".format(p,h)
+    msg1 = "T{0}".format(t)
 
     sense.set_rotation(rotate_degree)
-    cadetblue = (95,158,160)
     sense.show_message(msg, text_colour=cadetblue)
+    sense.show_message(msg1, text_colour=red)
 
 if __name__ == '__main__':
 	for i in range(1):
