@@ -2,7 +2,10 @@ CXXFLAGS = -Wall -O2 -std=c++11
 CFLAGS = -Wall -O2
 CXX=g++
 CC=gcc
-TARGET=anon stdc pi
+
+CTARGET=bubblesort pi ptz seeif
+CPPTARGET=anon stdc
+TARGET=$(CTARGET) $(CPPTARGET)
 
 all: $(TARGET)
 

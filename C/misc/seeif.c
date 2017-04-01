@@ -26,10 +26,10 @@ int main()
     memcpy(&v, s2, 4);
     printf("v = %x\n", v);
 
-    time_t t;
+    //time_t t;
     printf("sizeof(time_t) = %d\n", sizeof(time_t));
-
-    printf("time: %d\n", time(NULL));
+    // should be same as "date +%s"
+    printf("time: %ld\n", (long)time(NULL));
 
     return 0;
 }
