@@ -25,6 +25,17 @@ my $deadline = 0;
 # will auto alter it if it is past
 my ($DEADYEAR, $DEADMONTH, $DEADDAY) = (2016, 10, 3);
 
+sub get_today()
+{
+    # get date of today
+    my (undef,undef,undef,$day,$month,$year,undef,undef,undef) = localtime;
+    $year += 1900;
+    $month += 1;
+
+    $DEADYEAR = $year;
+    $DEADMONTH = $month;
+}
+
 sub parse_file($)
 {
     my $file = shift;
@@ -151,7 +162,7 @@ sub get_date_delta($$$)
     my ($dy,$dm,$dd) = @_;
     my ($ty, $tm, $tday) = Today();
 
-    printf("%04d/%02d/%02d\n", $dy, $dm, $dd);
+    #printf("%04d/%02d/%02d\n", $dy, $dm, $dd);
     my $delta = Delta_Days($ty, $tm, $tday, $dy, $dm, $dd);
 
     #print $delta,"\n";
@@ -190,14 +201,15 @@ sub show_deadline()
     #print "days to deadline: $deadline\n";
 
     $deadline = getDaysTillToday($DEADYEAR, $DEADMONTH, $DEADDAY);
-    my $str = sprintf("todays to deadline(%04d/%02d/%02d): %d\n",
-        $DEADYEAR, $DEADMONTH, $DEADDAY, $deadline);
-    print STDERR $str;
+    my $str_deadline = sprintf("%04d/%02d/%02d", $DEADYEAR, $DEADMONTH, $DEADDAY);
+    print STDERR "next deadline date: ", $str_deadline, "\n";
+    print STDERR "days to deadline: ", $deadline, "\n";
 }
 
 sub main()
 {
     my $delta = 0;
+    get_today();
     # go forward one month if deadline date is overdue
     do {
         if ($delta <= 0) {
