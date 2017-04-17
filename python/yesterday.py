@@ -1,14 +1,17 @@
 #!/usr/bin/python
 
-import datetime
+from datetime import timedelta, datetime
 import time
-from datetime import timedelta
 
-foo = datetime.datetime.fromtimestamp(time.time())
+# get current time
+foo = datetime.fromtimestamp(time.time())
+foo = foo.replace(microsecond=0)  # remove microsecond part
 print foo;
 
+# define offset 1 day
 offset = timedelta(days=1)
 print offset
 
+# get yesterday
 foo -= offset
 print foo
