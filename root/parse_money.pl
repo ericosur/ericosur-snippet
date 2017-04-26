@@ -24,6 +24,8 @@ use Date::Calc qw(:all);
 my $deadline = 0;
 # will auto alter it if it is past
 my ($DEADYEAR, $DEADMONTH, $DEADDAY) = (2016, 10, 3);
+my %hash = ();
+my %hash_to_sort = ();
 
 sub get_today()
 {
@@ -56,7 +58,8 @@ sub parse_file($)
             if ($dirty) {
                 # output it and clean dirty flag
                 show_verbose(\@data) if $verbose;
-                show(\@data);
+                my @dup = show_one_record(\@data);
+                addToHash(\@dup);
                 $dirty = 0;
                 dump(@data) if $debug;
                 print "\n" if $debug;
@@ -86,7 +89,8 @@ sub parse_file($)
     if ($dirty) {
         # output it and clean dirty flag
         show_verbose(\@data) if $verbose;
-        show(\@data);
+        my @dup = show_one_record(\@data);
+        addToHash(\@dup);
         $dirty = 0;
         dump(@data) if $debug;
         print "\n" if $debug;
@@ -95,6 +99,17 @@ sub parse_file($)
 
     close $fh;
     print STDERR "cnt: $cnt\n" if $debug;
+}
+
+sub addToHash($)
+{
+    my $rf = shift;
+    my @dt = @$rf;
+
+    if ($dt[0] ne "") {
+        $hash{$dt[0]} = $rf;
+        $hash_to_sort{$dt[0]} = $rf->[6];
+    }
 }
 
 sub show_csvtitle()
@@ -169,10 +184,11 @@ sub get_date_delta($$$)
     return $delta;
 }
 
-sub show($)
+sub show_one_record($)
 {
     my $rf = shift;
     my @dt = @$rf;
+    my @dup = ();
 
     my $expd = $dt[2];
     my $dist = -1;
@@ -181,18 +197,35 @@ sub show($)
         $distdead = getDaysTillDead($1, $2, $3);
         $dist = getDaysTillToday($1,$2,$3);
         #print "$1-$2-$3\n";
+        push @dup, @dt;
+        push @dup, $distdead;
+        push @dup, $dist;
+        push @dup, ($distdead<0)?"ok":"n/a";
     }
 
     if ($dt[0] eq "") {
         #print STDERR "no account id, skip\n";
         return;
     }
-#    my $output = sprintf("\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%d\"\n",
-#        $dt[0], $dt[1], $dt[2], $dt[3], $dt[4], $dist);
+=pod
+    my $output = sprintf("\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%d\"\n",
+        $dt[0], $dt[1], $dt[2], $dt[3], $dt[4], $dist);
     my $output = sprintf("\"%s\",\"%s\",\"%s\",\"%s\",\"%d\",\"%d\",\"%s\"\n",
         $dt[0], $dt[2], $dt[3], $dt[4], $distdead, $dist,
         ($distdead<0)?"ok":"" );
     print $output;
+=cut
+    return @dup;
+}
+
+sub show_one_array(@)
+{
+    my $rf = shift;
+    my @dt = @$rf;
+    my $output = sprintf("\"%s\",\"%s\",\"%s\",\"%s\",\"%d\",\"%d\",\"%s\"\n",
+        $dt[0], $dt[2], $dt[3], $dt[4], $dt[5], $dt[6], $dt[7]);
+    print $output;
+
 }
 
 sub show_deadline()
@@ -231,6 +264,11 @@ sub main()
         $fn = "money.txt";
     }
     parse_file($fn);
+
+    # sort records by distance from today
+    foreach my $no (sort { $hash_to_sort{$a} <=> $hash_to_sort{$b} or $a cmp $b } keys %hash_to_sort) {
+        show_one_array($hash{$no});
+    }
 }
 
 main;
