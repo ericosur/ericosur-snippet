@@ -11,3 +11,17 @@ first build libz for arm
 
 myenv.sh
 a.sh
+
+--------------------------------------------------------------------
+
+0. source myenv.sh
+1. run ./a.sh for first time and will download zlib and build fail
+
+----- build zlib for target -----
+1. cd $TOP/Shared/Source/zlib
+2. ./configure
+3. make -j
+
+----- rebuild mediainfo again -----
+1. cd $TOP
+2. run ./a.sh
