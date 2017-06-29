@@ -2,7 +2,7 @@
 
 在 [Liar Game S2E2](./LiarGameS2E3.jpg) 後半的一個遊戲 17 Pokers，
 17張牌共有 6188 種組合 C(17,5)
-[rule screenshot](./17poker_rule.png)
+![rule screenshot](./17poker_rule.png)
 
 有八種牌型分別是
 4 Aces, 4 Kings, 4 Queens, 4 Jacks and a Joker
