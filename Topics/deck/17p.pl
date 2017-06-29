@@ -149,9 +149,9 @@ sub check_hand(@)
 
 	say "check_hand() =>";
 	foreach (@_)  {
-		# ÂI¼Æ
+		# é»æ•¸
 		my $pt = substr($cardface{$_}, 1, 1);
-		if ($pt eq 'j')  {	# ¦³°­µP
+		if ($pt eq 'j')  {	# æœ‰é¬¼ç‰Œ
 			$is_joker = 1;
 			say "joker!" if $dbg;
 		}
@@ -159,9 +159,9 @@ sub check_hand(@)
 			#print "<$pt> ";
 			$pp{$pt} ++;
 		}
-		# ªá¦â
+		# èŠ±è‰²
 		my $st = substr($cardface{$_}, 0, 1);
-		if ($st ne 'j')  {	# ¸õ¹L°­µP
+		if ($st ne 'j')  {	# è·³éé¬¼ç‰Œ
 			$ss{$st} ++;
 		}
 	}
@@ -181,7 +181,7 @@ sub check_hand(@)
 		goto exitfunc;
 	}
 
-	# §P§O straight ¥H¤Î royal straight flush
+	# åˆ¤åˆ¥ straight ä»¥åŠ royal straight flush
 	if ($is_joker && ($pp{A} == 1 && $pp{K} == 1
 						&& $pp{Q} == 1 && $pp{J} == 1))  {
 		if ($is_same_suit)  {
@@ -193,7 +193,7 @@ sub check_hand(@)
 		goto exitfunc;
 	}
 
-	# §P§O 3 cards
+	# åˆ¤åˆ¥ 3 cards
 	if ($pp{A} == 3 || $pp{K} == 3 || $pp{Q} == 3 || $pp{J} == 3)  {
 		if ($pp{A} == 2 || $pp{K} == 2 || $pp{Q} == 2 || $pp{J} == 2)  {
 			say "(4) full house";
@@ -204,7 +204,7 @@ sub check_hand(@)
 		goto exitfunc;
 	}
 
-	# §P§O 2 pairs
+	# åˆ¤åˆ¥ 2 pairs
 	if (   ($pp{A}==2 && $pp{K}==2)
 		|| ($pp{A}==2 && $pp{Q}==2)
 		|| ($pp{A}==2 && $pp{J}==2)
@@ -220,7 +220,7 @@ sub check_hand(@)
 		goto exitfunc;
 	}
 
-	# §P§O 1 pair
+	# åˆ¤åˆ¥ 1 pair
 	if ( $pp{A}==1 || $pp{K}==1 || $pp{Q}==1 || $pp{J}==1 )  {
 		if ($is_joker)  {
 			say "(6) 3 cards";
