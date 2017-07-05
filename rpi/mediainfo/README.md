@@ -2,26 +2,45 @@ HOWTO cross compile mediainfo for raspberry pi
 ==============================================
 
 source for mediainfo:
-https://mediaarea.net/download/binary/mediainfo/0.7.92.1/MediaInfo_CLI_0.7.92.1_GNU_FromSource.tar.bz2
+https://mediaarea.net/download/binary/mediainfo/0.7.97/MediaInfo_CLI_0.7.97_GNU_FromSource.tar.bz2
 
 toolchain for raspberry pi:
 https://github.com/raspberrypi/tools.git
 
 first build libz for arm
 
-myenv.sh
-a.sh
+July 4, 2017 updated steps:
 
---------------------------------------------------------------------
+* untar source tarball
+```bash
+cd ~/Downloads/
+tar xfvj MediaInfo_CLI_0.7.97_GNU_FromSource.tar.bz2
+cd MediaInfo_CLI_GNU_FromSource/
+```
 
-0. source myenv.sh
-1. run ./a.sh for first time and will download zlib and build fail
+* copy zlib source tree
+```bash
+mkdir -p Shared/Source/
+cp -r ~/src/github/zlib/ Shared/Source/
+```
 
------ build zlib for target -----
-1. cd $TOP/Shared/Source/zlib
-2. ./configure
-3. make -j
+* cp init scripts
+```bash
+cp ~/src/snippet/rpi/mediainfo/myenv.sh ./
+cp ~/src/snippet/rpi/mediainfo/a.sh ./
+```
 
------ rebuild mediainfo again -----
-1. cd $TOP
-2. run ./a.sh
+* build zlib first
+```
+source myenv.sh
+cd Shared/Source/zlib
+./configure
+make -j
+```
+
+* build all others
+```
+./a.sh
+```
+
+--------------------------------------------------------------
