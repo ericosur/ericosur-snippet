@@ -1,19 +1,49 @@
+#!/usr/bin/env node
 /// yql.js
 
+
+var sprintf
+try {
+     sprintf = require('sprintf').sprintf;
+} catch (err) {
+    console.log('require sprintf module, use \'npm install sprintf\'');
+    return;
+}
+
+var MAXDAYS = 3;
 var YQL = require('yql');
 
-// 'select * from weather.forecast where (location = 94089)'
-// 'select item.condition from weather.forecast where woeid = 2487889'
-var query = new YQL('select item.condition from weather.forecast where woeid = 2487889');
+var city_name = 'Taipei';
+var conditions = ['item.condition', 'astronomy'];
+var condition_str = '*';
 
-query.exec(function(err, data) {
+//where woeid in (select woeid from geo.places(1) where text='Taipei')
+var wherestr = sprintf("where woeid in (select woeid from geo.places(1) where text =\'%s\') and u='c'", city_name);
+var yqlstr = sprintf("select %s from weather.forecast ", condition_str);
 
-	console.log(data);
-	var ch = data.query.results.channel;
-	console.log(ch);
-	// var location = data.query.results.channel.location;
-	// var condition = data.query.results.channel.item.condition;
+var query_str = yqlstr + wherestr
+do_query(query_str);
 
-	// console.log('The current weather in ' + location.city + ', '
-	// 	+ location.region + ' is ' + condition.temp + ' degrees.');
-});
+function do_query(query_str)
+{
+    // 'select * from weather.forecast where (location = 94089)'
+    // 'select item.condition from weather.forecast where woeid = 2487889'
+    var query = new YQL(query_str);
+
+    query.exec(function(err, data) {
+        print_out(data);
+    });
+}
+
+function print_out(data)
+{
+    console.log("print_out....");
+    console.log(data.query.results.channel.astronomy);
+    console.log(data.query.results.channel.atmosphere);
+    console.log(data.query.results.channel.item.condition);
+    console.log("\nforecast in " + MAXDAYS + ' days');
+    for (var i = 0; i < MAXDAYS; ++i) {
+        console.log(data.query.results.channel.item.forecast[i]);
+    }
+
+}
