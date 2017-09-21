@@ -9,10 +9,15 @@ try {
     console.log('require sprintf module, use \'npm install sprintf\'');
     return;
 }
+var YQL
+try {
+    YQL = require('yql');
+} catch (err) {
+    console.log("require module yql, use npm to install");
+    return;
+}
 
 var MAXDAYS = 3;
-var YQL = require('yql');
-
 var city_name = 'Taipei';
 var conditions = ['item.condition', 'astronomy'];
 var condition_str = '*';
