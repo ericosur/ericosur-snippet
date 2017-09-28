@@ -30,7 +30,7 @@ def help_message():
     -d 'format=json'
 '''
 
-def query_woeid_by_latlong(latitude, longitude, condition='woeid'):
+def query_woeid_by_latlong(latitude, longitude, condition='woeid', getAll=False):
     '''
     only query woeid by latitude/longitude
     '''
@@ -42,11 +42,16 @@ def query_woeid_by_latlong(latitude, longitude, condition='woeid'):
     if condition == 'woeid':
         print json.dumps(data)
 
-    return json.dumps(data['query']['results']['place']['woeid'])
+    if getAll:
+        return json.dumps(data)
+    else:
+        return json.dumps(data['query']['results']['place']['woeid'])
+
 
 def print_weather_result(data):
     print json.dumps(data['query']['results']['channel']['description'])
     print json.dumps(data['query']['results']['channel']['item']['condition'])
+
 
 def issue_yql(yql_query):
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
@@ -54,6 +59,7 @@ def issue_yql(yql_query):
     result = urllib2.urlopen(yql_url).read()
     data = json.loads(result)
     return data
+
 
 def query_weather(woeid):
     '''
@@ -110,6 +116,11 @@ if __name__ == '__main__':
             print("query all...")
             for oneloc in loc:
                 query_woeid_by_latlong(oneloc[0], oneloc[1])
+        elif sys.argv[1] == '-a':
+            #print("full woeid for #0")
+            oneloc = loc[0]
+            print( query_woeid_by_latlong(oneloc[0], oneloc[1], "*", True) )
+
         else:
             idx = int(sys.argv[1])
             if len(loc) >= idx:
