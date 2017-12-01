@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #!/Users/ericosur/anaconda/bin/python
 
 from plotly.offline import plot
@@ -15,5 +16,8 @@ trace0 = go.Box(
 trace1 = go.Box(
     y=y1
 )
+
+output_file = 'box.html'
 data = [trace0, trace1]
-plot(data, filename='boxplot.html')
+plot(data, filename=output_file)
+print("output to: {0}".format(output_file))

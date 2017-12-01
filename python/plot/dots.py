@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #!/Users/ericosur/anaconda/bin/python
 
 # Get this figure: fig = py.get_figure("https://plot.ly/~foo12345/6/")
@@ -53,5 +54,8 @@ layout = {
     "zeroline": False
   }
 }
+
+output_file = 'dots.html'
 fig = Figure(data=data, layout=layout)
-plot_url = offplot.plot(fig, filename='class.html')
+plot_url = offplot.plot(fig, filename=output_file)
+print("output to: {0}".format(output_file))
