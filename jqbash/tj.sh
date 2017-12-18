@@ -9,12 +9,11 @@ OFILE=out.json
 
 echo "read from $FILE"
 
-QPATH='["query"]["results"]["channel"]'
 #jq '.["query"]["results"]["channel"]["description"]' ${FILE}
-CITY=$(jq '.'$QPATH'["location"]["city"]' ${FILE})
-TEXT=$(jq '.'$QPATH'["item"]["condition"]["text"]' ${FILE})
-TEMP=$(jq '.'$QPATH'["item"]["condition"]["temp"]' ${FILE})
-UNIT=$(jq '.'$QPATH'["units"]["temperature"]' ${FILE})
+CITY=$(jq '.query.results.channel.location.city' ${FILE})
+TEXT=$(jq '.query.results.channel.item.condition.text' ${FILE})
+TEMP=$(jq '.query.results.channel.item.condition.temp' ${FILE})
+UNIT=$(jq '.query.results.channel.units.temperature' ${FILE})
 
 # remove "" using sed
 T1=$(echo $TEMP|sed 's/\"//g')
