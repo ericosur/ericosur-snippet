@@ -11,6 +11,9 @@
 
 =cut
 
+# how to run:
+# perl geosketch.pl && display geosketch.png
+
 use strict;
 use warnings;
 
@@ -18,6 +21,7 @@ use Image::Magick;
 use Config::JSON;
 
 my $file = 'geosketch.json';
+my $ofile = "geosketch.png";
 
 my $pi = 3.14159265358979323846264338327950;
 
@@ -114,14 +118,11 @@ sub get_random_coord()
 
 sub get_random_color()
 {
-=pod
+
     my $color = sprintf("#%02x%02x%02x",
         int(rand(255)), int(rand(255)), int(rand(255))
     );
     print "color = $color\n" if $debug;
-=cut
-    my $color = "#000000";
-    return $color;
 }
 
 sub draw($)
@@ -129,9 +130,9 @@ sub draw($)
     my $im = Image::Magick->new(size => "$maxx x $maxy");
     my $rc;
     my $pix_name = shift;
-    my $fill_color = 'black';
+    my $fill_color = '#EEEEEE';
 
-    $rc = $im->Read('xc:white');
+    $rc = $im->Read('xc:black');
     warn $rc if $rc;
 
     for (1 .. $repeat)  {
@@ -150,8 +151,6 @@ sub draw($)
 
 sub main()
 {
-    my $ofile = "test.jpg";
-
     load_setting();
     draw($ofile);
     print "output to $ofile\n";
