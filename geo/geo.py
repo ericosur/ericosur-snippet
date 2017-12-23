@@ -52,9 +52,20 @@ def query_geocoding(addr, key, email):
     print yql_url
     result = urllib2.urlopen(yql_url).read()
     data = json.loads(result)
-    print json.dumps(data)
-    return data
+    #print json.dumps(data)
+    if data['status'] == 'OK':
+        return data
+    else:
+        return None
 
+def show_result(data):
+    if data == None:
+        return
+
+    val = data['plus_code']['best_street_address']
+    print("best_street_address:" + val)
+    val = data['plus_code']['global_code']
+    print("global_code:" + val)
 
 if __name__ == '__main__':
     # if len(sys.argv) > 1:
@@ -62,4 +73,5 @@ if __name__ == '__main__':
     #         help_message()
     #         sys.exit()
     read_secret()
-    query_geocoding("自由女神像", apikey, email)
+    ret = query_geocoding("自由女神像", apikey, email)
+    show_result(ret)
