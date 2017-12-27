@@ -12,6 +12,7 @@ import urllib2, urllib, json
 
 def print_tips():
     print("you may use './yql.py | python -m json.tool' to get pretty format\n")
+    print("may also use: jq '.'\n");
 
 def query_weather():
     woeid = '20070568'
