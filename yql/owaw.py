@@ -8,14 +8,23 @@ from myutil import query_url, write_json
 global latitude
 global longitude
 
+openweather_file = '/tmp/ow.json'
+accuweather_file = '/tmp/aw_curr.json'
+accuweather_forcast_file = '/tmp/aw_fore.json'
+
 def getapikey(keyname):
     debug = False
-    keyfn = os.environ["HOME"] + '/' + 'keys.json';
+    keyfn = os.environ["HOME"] + '/apikey/' + 'keys.json';
     with open(keyfn) as keyfile:
         data = json.load(keyfile)
     if debug:
         print(json.dumps(data))
     return data["keys"][keyname]["key"]
+
+def my_write_json(filename, jsondata):
+    write_json(filename, jsondata)
+    print('query_openweather: output to {0}'.format(filename))
+
 
 def query_openweather():
     debug = False
@@ -27,7 +36,7 @@ def query_openweather():
     if debug:
         print(baseurl)
     data = query_url(baseurl)
-    write_json('ow.json', data)
+    my_write_json(openweather_file, data)
     tempk = data['main']['temp']
     tempk = tempk - 273.15
     print('temp:{0}'.format(tempk))
@@ -57,8 +66,8 @@ def query_accuweather():
     url = baseurl + urllib.urlencode({'apikey':appid})
     #print(url)
     data = query_url(url)
-    write_json('aw_curr.json', data)
-    print data[0]['Temperature']['Metric']['Value']
+    my_write_json(accuweather_file, data)
+    print('.[0].Temperature.Metric.Value: {0}'.format(data[0]['Temperature']['Metric']['Value']))
 
     baseurl = '''
     http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/{0}?
@@ -66,7 +75,8 @@ def query_accuweather():
     baseurl = baseurl.strip()
     url = baseurl + urllib.urlencode({'apikey':appid, 'details':'true'})
     data = query_url(url)
-    write_json('aw_fore.json', data)
+    my_write_json(accuweather_forcast_file, data)
+    print('.[0].RainProbability: {0}'.format(data[0]['RainProbability']))
 
 
 if __name__ == '__main__':
