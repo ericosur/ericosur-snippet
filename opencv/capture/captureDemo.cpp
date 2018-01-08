@@ -262,7 +262,7 @@ int demoTest()
     VideoCapture cap;
     cap.open(0);
     if (!cap.isOpened()) {
-        cout << "capture failed\n";
+        cout << "open capture device failed\n";
         return -1;
     }
 
