@@ -14,8 +14,8 @@
 //IN THE SOFTWARE.
 
 #include <opencv2/opencv.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
+//#include <opencv2/highgui/highgui.hpp>
+//#include <opencv2/imgproc/imgproc.hpp>
 
 #include <iostream>
 #include <sstream>
@@ -184,6 +184,17 @@ void trackFilteredObject(int &x, int &y, Mat threshold, Mat &cameraFeed)
 
 int demoCapture()
 {
+	//video capture object to acquire webcam feed
+	VideoCapture capture;
+	//open capture object at location zero (default location for webcam)
+	capture.open(0);
+
+	// check
+	if (!capture.isOpened()) {
+		cout << "cannot open capture device!!" << endl;
+		return -1;
+	}
+
 	//some boolean variables for different functionality within this program
 	bool trackObjects = false;
 	bool useMorphOps = false;
@@ -198,10 +209,7 @@ int demoCapture()
 	int x = 0, y = 0;
 	//create slider bars for HSV filtering
 	createTrackbars();
-	//video capture object to acquire webcam feed
-	VideoCapture capture;
-	//open capture object at location zero (default location for webcam)
-	capture.open(0);
+
 	//set height and width of capture frame
 	capture.set(CV_CAP_PROP_FRAME_WIDTH, FRAME_WIDTH);
 	capture.set(CV_CAP_PROP_FRAME_HEIGHT, FRAME_HEIGHT);

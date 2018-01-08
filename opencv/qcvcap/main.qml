@@ -5,8 +5,10 @@ import QtQuick.Dialogs 1.2
 
 ApplicationWindow {
     title: qsTr("Hello World")
-    width: 640
-    height: 480
+    width: 320
+    height: 240
+    x: 640
+    y: 0
     visible: true
 
     menuBar: MenuBar {
@@ -26,17 +28,8 @@ ApplicationWindow {
     MainForm {
         anchors.fill: parent
         button1.onClicked: console.log( myobject.demo() )
-        button2.onClicked: messageDialog.show(qsTr("Button 2 pressed"))
-        button3.onClicked: messageDialog.show(qsTr("Button 3 pressed"))
+        button2.onClicked: console.log(qsTr("Button 2 pressed"))
+        button3.onClicked: console.log(qsTr("Button 3 pressed"))
     }
 
-    MessageDialog {
-        id: messageDialog
-        title: qsTr("May I have your attention, please?")
-
-        function show(caption) {
-            messageDialog.text = caption;
-            messageDialog.open();
-        }
-    }
 }
