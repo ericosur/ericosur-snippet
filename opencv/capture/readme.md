@@ -1,8 +1,8 @@
 # capture
 
-simple sample to use opencv and Qt to capture images
+simple sample to use capture in opencv
 
 ## note
 
-Here use qmake to build this sample.
+use cmake to build this project
 
