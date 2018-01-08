@@ -1,5 +1,5 @@
-#include <cv.h>
-#include <highgui.h>
+#include <stdio.h>
+#include "opencv2/opencv.hpp"
 
 using namespace cv;
 
@@ -20,39 +20,63 @@ Mat dst;
  */
 void on_trackbar( int, void* )
 {
- alpha = (double) alpha_slider/alpha_slider_max ;
- beta = ( 1.0 - alpha );
+    alpha = (double) alpha_slider/alpha_slider_max;
+    beta = ( 1.0 - alpha );
 
- addWeighted( src1, alpha, src2, beta, 0.0, dst);
+    addWeighted( src1, alpha, src2, beta, 0.0, dst);
 
- imshow( "Linear Blend", dst );
+    imshow( "Linear Blend", dst );
+}
+
+bool if_file_fxists(const char* fn)
+{
+    FILE* fptr = fopen(fn, "rb");
+    if (fptr == NULL) {
+        return false;
+    } else {
+        fclose(fptr);
+        return true;
+    }
+}
+
+void check_and_load(const char* fn, Mat& mat)
+{
+    if (if_file_fxists(fn)) {
+        mat = imread(fn);
+    } else {
+        fprintf(stderr, "file not found: %s\n", fn);
+        exit(-1);
+    }
+    if (!mat.data) {
+        fprintf(stderr, "mat data error\n");
+        exit(-2);
+    }
 }
 
 int main( int argc, char** argv )
 {
- /// Read image ( same size, same type )
- src1 = imread("LinuxLogo.jpg");
- src2 = imread("WindowsLogo.jpg");
+    const char image1[] = "LinuxLogo.jpg";
+    const char image2[] = "WindowsLogo.jpg";
 
- if( !src1.data ) { printf("Error loading src1 \n"); return -1; }
- if( !src2.data ) { printf("Error loading src2 \n"); return -1; }
+    check_and_load(image1, src1);
+    check_and_load(image2, src2);
 
- /// Initialize values
- alpha_slider = 0;
+    /// Initialize values
+    alpha_slider = 50;
 
- /// Create Windows
- namedWindow("Linear Blend", 1);
+    /// Create Windows
+    namedWindow("Linear Blend", 1);
 
- /// Create Trackbars
- char TrackbarName[50];
- sprintf( TrackbarName, "Alpha x %d", alpha_slider_max );
+    /// Create Trackbars
+    char TrackbarName[50];
+    sprintf( TrackbarName, "Alpha x %d", alpha_slider_max );
 
- createTrackbar( TrackbarName, "Linear Blend", &alpha_slider, alpha_slider_max, on_trackbar );
+    createTrackbar( TrackbarName, "Linear Blend", &alpha_slider, alpha_slider_max, on_trackbar );
 
- /// Show some stuff
- on_trackbar( alpha_slider, 0 );
+    /// Show some stuff
+    on_trackbar( alpha_slider, 0 );
 
- /// Wait until user press some key
- waitKey(0);
- return 0;
+    /// Wait until user press some key
+    waitKey(0);
+    return 0;
 }
