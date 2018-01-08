@@ -1,3 +1,13 @@
+# blur
+
+Simple example to "blur" deer.jpg.
+
+## note
+
+Here use qmake to build this sample.
+
+## old build.sh
+```
 #!/bin/sh
 
 g++ -o Blur -O3 \
@@ -5,4 +15,4 @@ g++ -o Blur -O3 \
     cvcli/main.cpp \
     `pkg-config --libs opencv` \
     -lstdc++
-
+```

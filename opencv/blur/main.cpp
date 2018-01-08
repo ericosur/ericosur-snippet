@@ -12,12 +12,7 @@ using namespace cv;
 
 const string WINDOW_ORIGIN = "Unprocessed Image";
 const string WINDOW_PROCESS = "Processed Image";
-#if defined(__APPLE__)
-const string DEFAULT_IAMGE = "/Users/ericosur/gcode/snippet/opencv/blur/deer.jpg";
-#endif
-#if defined(__linux__)
-const string DEFAULT_IAMGE = "/home/rasmus/gcode/snippet/opencv/blur/deer.jpg";
-#endif
+const string DEFAULT_IAMGE = "deer.jpg";
 
 const int GAUSSIAN_RADIUS = 29;
 
@@ -45,6 +40,7 @@ int main( int argc, char** argv )
     if (argc >= 2) {
         ret = load_image(src, argv[1]);
     } else {
+        fprintf(stderr, "may use %s [image filename]\n", argv[0]);
         ret = load_image(src, DEFAULT_IAMGE);
     }
 
