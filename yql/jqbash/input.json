@@ -1,0 +1,11 @@
+{
+    "input": {
+        "latitude": 37.331932,
+        "longtitude": -122.030146
+    },
+    "file": {
+        "woeid": "woeid.json",
+        "weather": "weather.json",
+        "tjoutput": "tjout.json"
+    }
+}

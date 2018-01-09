@@ -3,7 +3,8 @@
 this sub directory contains several samples to query Yahoo weather:
   * bash
       * curl
-      * output to all.json
+      * jq
+      * query woeid, weather
 
   * python
       * urllib, urllib2, json

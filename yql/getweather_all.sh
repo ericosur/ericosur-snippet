@@ -31,7 +31,7 @@ function forecast {
 # parameter
 # $1: output filename
 #
-function all {
+function query_taipei_forecast {
     # forecast
     curl https://query.yahooapis.com/v1/public/yql \
        -d q="select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='Taipei') and u='c'" \
@@ -39,6 +39,7 @@ function all {
 
     tidy_json $1.bak $1
     #select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="nome, ak")
+  echo "query_taipei_forecast: output to $1"
 }
 
 #
@@ -54,5 +55,5 @@ function tidy_json {
 
 # main flow here
 OFILE=all.json
-all $OFILE
-echo "output to $OFILE"
+query_taipei_forecast $OFILE
+
