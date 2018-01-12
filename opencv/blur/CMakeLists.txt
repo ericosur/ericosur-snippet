@@ -6,6 +6,8 @@ project(${PN})
 
 find_package( OpenCV REQUIRED )
 
+include_directories("$ENV{HOME}/src/github/json/src/")
+
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "-Wall -O3")
 set(CMAKE_CXX_FLAGS "-DUSE_JSON")
