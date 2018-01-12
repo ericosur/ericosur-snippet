@@ -8,6 +8,12 @@
 #include <iterator>
 #include <stdio.h>
 
+#ifdef USE_JSON
+#include <unistd.h>
+#include <fstream>
+#include <json.hpp>
+#endif
+
 using namespace std;
 using namespace cv;
 
@@ -15,20 +21,75 @@ void detectAndDraw( Mat& img, CascadeClassifier& cascade,
                     CascadeClassifier& nestedCascade,
                     double scale, bool tryflip );
 
-//const string cascadeName = "/Users/ericosur/haarcascade_frontalface_alt.xml";
-const string cascadeName = "./haarcascade_frontalface_alt.xml";
-//const string nestedCascadeName = "/Users/ericosur/haarcascade_eye_tree_eyeglasses.xml";
-const string nestedCascadeName = "./haarcascade_eye_tree_eyeglasses.xml";
-//const string inputName = "/Users/ericosur/lena.jpg";
-const string inputName = "./lena.jpg";
+#define DEFAULT_CASCADE "haarcascade_frontalface_alt.xml"
+#define DEFAULT_NESTED "haarcascade_eye_tree_eyeglasses.xml"
+#define DEFAULT_IMAGE  "lena.jpg"
+#define FRAME_WIDTH    640
+#define FRAME_HEIGHT   480
+
+string cascadeName = DEFAULT_CASCADE;
+string nestedCascadeName = DEFAULT_NESTED;
+string inputName = DEFAULT_IMAGE;
+int frame_width = FRAME_WIDTH;
+int frame_height = FRAME_HEIGHT;
+
+#ifdef USE_JSON
+
+#define JSON_FILE  "../setting.json"
+
+bool is_file_exist(const string& fn)
+{
+    if (access(fn.c_str(), F_OK) != -1) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool load_json()
+{
+    if (!is_file_exist(JSON_FILE)) {
+        cout << "json not found: " << JSON_FILE << endl;
+        return false;
+    }
+    nlohmann::json json;
+    string top;
+    string cascade;
+    string nested_cascade;
+    string image;
+    try {
+        ifstream infile(JSON_FILE);
+        infile >> json;
+        top = json.at("topdir");
+        cascade = json.at("cascade");
+        nested_cascade = json.at("nested_cascade");
+        image = json.at("image");
+        frame_height = json.at("frame_height");
+        frame_width = json.at("frame_width");
+    } catch (nlohmann::json::parse_error& e) {
+        cout << "parse json error: " << e.what();
+        return false;
+    } catch (nlohmann::json::out_of_range& e) {
+        cout << "json: out of range: " << e.what();
+        return false;
+    }
+    cascadeName = top + cascade;
+    nestedCascadeName = top + nested_cascade;
+    inputName = top + image;
+    return true;
+}
+#endif
+
 
 #if 1
 //int face_detect_camera()
 int face_detect()
 {
+    if ( !load_json() ) {
+        cerr << "load setting json failed";
+    }
+
     //default capture width and height
-    const int FRAME_WIDTH = 800;
-    const int FRAME_HEIGHT = 600;
     const int WAIT_DELAY = 100;
 
     cout << "face_detect_camera()\n";
@@ -42,12 +103,15 @@ int face_detect()
         cerr << "load nestedCascadeName ok" << endl;
     } else {
         cerr << "WARNING: Could not load classifier cascade for nested objects" << endl;
+        cerr << "file not found: " << nestedCascadeName << endl;
+        return -1;
     }
 
     if ( cascade.load( cascadeName ) ) {
         cerr << "load cascadeName ok" << endl;
     } else {
         cerr << "ERROR: Could not load classifier cascade" << endl;
+        cerr << "file not found: " << cascadeName << endl;
         return -1;
     }
 
@@ -60,8 +124,8 @@ int face_detect()
 
     cvNamedWindow( "result", 1 );
     // set height and width of capture frame
-    capture.set(CV_CAP_PROP_FRAME_WIDTH, FRAME_WIDTH);
-    capture.set(CV_CAP_PROP_FRAME_HEIGHT, FRAME_HEIGHT);
+    capture.set(CV_CAP_PROP_FRAME_WIDTH, frame_width);
+    capture.set(CV_CAP_PROP_FRAME_HEIGHT, frame_height);
 
     while (true) {
         capture.read(frame);
