@@ -1,0 +1,9 @@
+{
+    "name": "foo",
+    "path": "Pictures/data",
+    "images" : [
+        "25r.jpg",
+        "40r.jpg",
+        "flw.jpg"
+    ]
+}
