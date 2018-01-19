@@ -21,8 +21,48 @@
 #include <sstream>
 #include <string>
 
+#ifdef USE_JSON
+#include <fstream>
+#include <json.hpp>
+#include <unistd.h>
+#define JSON_FILE    "../setting.json"
+#endif
+
 using namespace cv;
 using namespace std;
+
+int video_id = 0;
+
+#ifdef USE_JSON
+bool is_file_exist(const string& fn)
+{
+    if (access(fn.c_str(), F_OK) != -1) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool load_json(const string& json_file)
+{
+    if (!is_file_exist(JSON_FILE)) {
+        cout << "json not found..." << endl;
+        return false;
+    }
+    nlohmann::json json;
+    try {
+        ifstream infile(JSON_FILE);
+        infile >> json;
+
+        video_id = json.at["video_id"];
+        cout << "video_id: " << video_id << endl;
+    } catch (nlohmann::json::parse_error& e) {
+        cout << "parse json error: " << e.what();
+        return false;
+    }
+    return true;
+}
+#endif
 
 //initial min and max HSV filter values.
 //these will be changed using trackbars
@@ -41,8 +81,8 @@ int v_min = 0;
 int v_max = 255;
 
 //default capture width and height
-const int FRAME_WIDTH = 640;
-const int FRAME_HEIGHT = 480;
+const int FRAME_WIDTH = 320;
+const int FRAME_HEIGHT = 240;
 //max number of objects to be detected in frame
 const int MAX_NUM_OBJECTS = 10;
 //minimum and maximum object area
@@ -196,9 +236,10 @@ int demoCapture()
 	//video capture object to acquire webcam feed
 	VideoCapture capture;
 	//open capture object at location zero (default location for webcam)
-	capture.open(0);
+	capture.open(video_id);
 
     if (!capture.isOpened()) {
+    	cerr << "VideoCapture not opened...\n";
         return -1;
     }
 
@@ -259,8 +300,14 @@ int demoTest()
     const string WIN_FEED = "camera feeds";
     const string WIN_EDGE = "edges";
 
+#ifdef USE_JSON
+    if ( !load_json(JSON_FILE) )
+#else
+    video_id = 0;
+#endif
+
     VideoCapture cap;
-    cap.open(0);
+    cap.open(video_id);
     if (!cap.isOpened()) {
         cout << "open capture device failed\n";
         return -1;
