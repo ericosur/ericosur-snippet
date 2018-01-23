@@ -25,16 +25,17 @@ def cv_test(filename):
     cv2.waitKey(0)
 
 if __name__ == '__main__':
+    app_name = 'readim.py'
     data = myutil.read_setting('setting.json')
     home = os.environ['HOME']
-    picpath = home + '/' + data['path']
+    picpath = home + '/' + data[app_name]['path']
     print(picpath)
 
     cv2.namedWindow("foobar")
     cv2.moveWindow("foobar", 50, 50)
 
     if False:
-        for img_file in data['images']:
+        for img_file in data[app_name]['images']:
             pic1 = picpath + '/' + img_file
             print(pic1)
             if not os.path.isfile(pic1):

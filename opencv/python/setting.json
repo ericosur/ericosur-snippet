@@ -1,9 +1,14 @@
 {
     "name": "foo",
-    "path": "Pictures/data",
-    "images" : [
-        "25r.jpg",
-        "40r.jpg",
-        "flw.jpg"
-    ]
+    "readim.py" : {
+        "path": "Pictures/data",
+        "images" : [
+            "25r.jpg",
+            "40r.jpg",
+            "flw.jpg"
+        ]
+    },
+    "vcap.py" : {
+        "video_index": 0
+    }
 }
