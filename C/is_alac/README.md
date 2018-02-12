@@ -10,7 +10,13 @@ The original idea comes from: [stackoverflow][1]
 
 ---------------------------------------
 
-###Note
+## test
+
+```
+$ ./test_by_list.sh
+````
+
+## Generate test data
 
 There are three test files at the source directory. I extracted header
 512 bytes from media files.
@@ -30,3 +36,24 @@ They are not really media you could play, just for testing.
 [1]: http://stackoverflow.com/questions/10934936/determine-whether-an-audio-file-is-encoded-in-apple-lossless-alac
 
 [2]: https://macosforge.github.io/alac/
+
+## dependency
+
+Now isAlac depends on libpbox.so (https://github.com/ericosur/ccbox/pbox/)
+
+## backup
+
+old Makefile content moved to here, now use cmake to build
+
+```
+CFLAGS=-Wall -O3
+PROGS=isAlac
+
+all: $(PROGS)
+
+isAlac: is_alac.cpp
+    gcc $(CFLAGS) -o $@ $<
+
+clean:
+    rm -f $(PROGS) *.o
+```

@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#include <pbox/pbox.h>
+
 /**
  * dump() is a simple stupid dump function to see buffer in HEX
  * @param buf  [in] buffer to see
@@ -48,17 +50,26 @@ bool is_alac(const char* fn)
     return false;
 }
 
+void do_test(const char* fn)
+{
+    if (pbox::is_file_exist(fn)) {
+        printf("%s is %sALAC\n", fn, (is_alac(fn) ? "" : "not "));
+    } else {
+        fprintf(stderr, "file not found: %s\n", fn);
+    }
+
+}
+
+
 int main(int argc, char* argv[])
 {
-#define MYTEST(fn) \
-    printf("is %s alac? %s\n", fn, is_alac(fn)?"YES":"NO");
-
     if (argc == 1) {
-        printf("please specify at least one filename...\n");
+        printf("please specify filename...\n");
         return 0;
-    }
-    for (int i=1; i<argc; i++) {
-        MYTEST(argv[i]);
+    } else {
+        for (int i=1; i<argc; i++) {
+            do_test(argv[i]);
+        }
     }
     return 0;
 }
