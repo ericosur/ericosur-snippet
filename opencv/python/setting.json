@@ -10,8 +10,8 @@
     },
     "vcap.py" : {
         "video_index": 0,
-        "width": 320,
-        "height": 240
+        "width": 640,
+        "height": 480
     },
     "split.py" : {
         "__image_file": "Pictures/lena.png",
