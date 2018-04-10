@@ -9,9 +9,12 @@
         ]
     },
     "vcap.py" : {
-        "video_index": 0
+        "video_index": 0,
+        "width": 640,
+        "height": 480
     },
     "split.py" : {
-        "image_file": "Pictures/lena.png"
+        "__image_file": "Pictures/lena.png",
+        "image_file": "Dropbox/Pictures/wallpaper/47916_1600x1200-wallpaper-cb1333465486.jpg"
     }
 }

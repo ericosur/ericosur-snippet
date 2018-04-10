@@ -15,6 +15,9 @@ void print_timezone()
 	printf("Offset to GMT is %lds.\n", lt.tm_gmtoff);
 	printf("The time zone is '%s'.\n", lt.tm_zone);
 	printf("%02d %02d\n", offset_hour, offset_min);
+
+    // will same as "date +%s"
+    printf("%d\n", (int)t);
 }
 
 int main()

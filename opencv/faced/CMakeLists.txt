@@ -6,7 +6,8 @@ project(${PN})
 
 find_package( OpenCV REQUIRED )
 
-include_directories("$ENV{HOME}/src/github/json/src/")
+# for json.hpp
+include_directories("/usr/local/include")
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "-Wall -O3")
