@@ -9,7 +9,9 @@ sub process_one_file($)
         my $cmd = sprintf("mediainfo \"%s\"", $fn);
         my $ret = get_stdout($cmd);
         my @prop = grep_output($ret);
-        printf("\"%s\",\"%s\",\"%s\"\n", $fn, $prop[0], $prop[1]);
+        if ($prop[0] >= 96 and $prop[1] >= 24) {
+            printf("\"%s\",\"%s\",\"%s\"\n", $fn, $prop[0], $prop[1]);
+        }
     } else {
         printf("file not found: %s\n", $fn);
     }
@@ -60,7 +62,9 @@ sub process_list($)
 
 sub main()
 {
+    system("find -iname '*.flac' > list.txt");
     process_list('list.txt');
+    unlink "list.txt";
 }
 
 main;
