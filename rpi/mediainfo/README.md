@@ -16,6 +16,7 @@ July 4, 2017 updated steps:
 cd ~/Downloads/
 tar xfvj MediaInfo_CLI_0.7.97_GNU_FromSource.tar.bz2
 cd MediaInfo_CLI_GNU_FromSource/
+export TOP=$PWD
 ```
 
 * copy zlib source tree
@@ -40,6 +41,7 @@ make -j
 
 * build all others
 ```
+cd $TOP
 ./a.sh
 ```
 
