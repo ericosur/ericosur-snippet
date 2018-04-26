@@ -7,6 +7,10 @@
 # to see the difference
 #
 
+'''
+list each item of sys.path
+'''
+
 import sys
 
 for idx, pp in enumerate(sys.path):
