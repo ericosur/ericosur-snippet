@@ -14,10 +14,13 @@ def print_tips():
     print("you may use './yql.py | python -m json.tool' to get pretty format\n")
     print("may also use: jq '.'\n");
 
+# suggest to query all data once, and then show needed data
 def query_weather():
     woeid = '20070568'
     city_name = 'Taipei'
     #condition = 'item.condition'
+
+    # astronomy will show sunrise/sunset time
     condition = 'astronomy'
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
 
@@ -37,6 +40,7 @@ def query_weather():
 
     # use this:
     print json.dumps(data['query']['results'])
+    return
 
 
 if __name__ == '__main__':
