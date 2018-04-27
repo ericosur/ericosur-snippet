@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 #
 
-import json
 import os
 import myutil
 import cv2
@@ -24,7 +23,7 @@ def cv_test(filename):
     cv2.imshow("foobar", img)
     cv2.waitKey(0)
 
-if __name__ == '__main__':
+def main():
     app_name = 'readim.py'
     data = myutil.read_setting('setting.json')
     home = os.environ['HOME']
@@ -39,9 +38,13 @@ if __name__ == '__main__':
             pic1 = picpath + '/' + img_file
             print(pic1)
             if not os.path.isfile(pic1):
-                print("file not found")
+                print("file not found: {}".format(pic1))
             else:
                 cv_test(pic1)
 
     cv_drawline()
     cv2.destroyAllWindows()
+
+
+if __name__ == '__main__':
+    main()
