@@ -1,0 +1,19 @@
+APPNAME = app
+OBJECTS = main.o
+TARGET = $(OBJECTS)
+
+CC = arm-none-linux-gnueabi-gcc
+CXX = arm-none-linux-gnueabi-g++
+CXXFLAGS = -O3 -Wall -std=gnu++11
+#LDFLAGS = -lstdc++ -static-libstdc++
+LDFLAGS = -lstdc++
+
+all: $(TARGET)
+	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(APPNAME) $(LDFLAGS)
+
+main.o: main.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+clean:
+	rm -rf *.o $(APPNAME)
+
