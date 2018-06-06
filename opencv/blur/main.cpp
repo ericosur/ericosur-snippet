@@ -7,7 +7,7 @@
 
 #ifdef USE_JSON
 #include <fstream>
-#include <json.hpp>
+#include <nlohmann/json.hpp>
 #endif
 
 using namespace std;
