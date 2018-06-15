@@ -21,6 +21,9 @@
         "image_file": "Dropbox/Pictures/wallpaper/47916_1600x1200-wallpaper-cb1333465486.jpg"
     },
     "gblur.py": {
+        "video_index": 0,
+        "width": 640,
+        "height": 480,
         "sigmaX": 25,
         "sigmaY": 25
     }
