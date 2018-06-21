@@ -9,19 +9,17 @@ import myutil
 
 
 class MyCap:
-    def __init__(self, useDefault=False, name='vcap.py'):
+    def __init__(self, readConfig=True, name='gblur.py'):
         self.name = name
 
         # default values
         self.width = 640
         self.height = 480
         self.video_index = 0
-        self.hasGray = False
-        self.hasBGR = False
-        self.hasRGB = False
-        self.hasTest = True
         self.win_count = 0
-        if not useDefault:
+        self.sigmaX = 5
+        self.sigmaY = 5
+        if readConfig:
             self.read_config()
         self.init_window()
 
@@ -35,38 +33,22 @@ class MyCap:
             print("video input from: {}".format(self.video_index))
             self.width = data[app_name]['width']
             self.height = data[app_name]['height']
-            self.hasGray = data[app_name]['gray']
-            self.hasRGB = data[app_name]['rgb']
+            self.sigmaX = data[app_name]['sigmaX']
+            self.sigmaY = data[app_name]['sigmaY']
         except KeyError:
             print('no such key, fallback using default values')
         print('config read...')
 
     def init_window(self):
 
-        if self.hasGray:
-            cv2.namedWindow('gray', flags=cv2.WINDOW_AUTOSIZE)
-            self.win_count += 1
-            cv2.moveWindow('gray', int(self.width * 1.5), 0)
-        if self.hasRGB:
-            cv2.namedWindow('rgb', flags=cv2.WINDOW_AUTOSIZE)
-            self.win_count += 1
-            cv2.moveWindow('rgb', 0, 0)
-        if self.hasTest:
-            cv2.namedWindow('test', flags=cv2.WINDOW_AUTOSIZE)
-            cv2.moveWindow('test', 0, int(self.height*1.5))
+        cv2.namedWindow('rgb')
+        self.win_count += 1
+        cv2.moveWindow('rgb', 0, 0)
 
+        cv2.namedWindow('blur')
+        self.win_count += 1
+        cv2.moveWindow('blur', self.width, 0)
         print('init_window...')
-
-    def split_blue(self, img):
-        #img = cv2.resize(img, (self.width, self.height))
-        b,g,r = cv2.split(img)
-        zeros = np.zeros(img.shape[:2], dtype=img.dtype)
-        #cv2.imshow('red', cv2.merge([zeros, zeros, r]))
-
-        no_blue_img = cv2.merge([b, g, r])
-        return no_blue_img
-        #cv2.imshow('green', cv2.merge([zeros, g, zeros]))
-
 
     def action(self):
         cap = cv2.VideoCapture(self.video_index)
@@ -83,19 +65,9 @@ class MyCap:
                     cv2.imshow('frame', frame)
                 else:
                     # Our operations on the frame come here
-                    if self.hasGray:
-                        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                        cv2.imshow('gray', gray)
-
-                    if self.hasRGB:
-                        #rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                        rgb = frame
-                        cv2.imshow('rgb', rgb)
-
-                    if self.hasTest:
-                        ifrm = frame.copy()
-                        blue = self.split_blue(ifrm)
-                        cv2.imshow('test', blue)
+                    blur = cv2.GaussianBlur(frame, (self.sigmaX, self.sigmaY), 0)
+                    cv2.imshow('rgb', frame)
+                    cv2.imshow('blur', blur)
 
 
                 key = cv2.waitKey(1)

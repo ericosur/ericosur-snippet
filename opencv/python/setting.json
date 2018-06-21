@@ -1,5 +1,6 @@
 {
     "name": "foo",
+    "comment": "setting for multiple python script, splitted by script name",
     "readim.py" : {
         "path": "Pictures/data",
         "images" : [
@@ -10,11 +11,20 @@
     },
     "vcap.py" : {
         "video_index": 0,
-        "width": 640,
-        "height": 480
+        "width": 320,
+        "height": 240,
+        "gray": true,
+        "rgb": true
     },
     "split.py" : {
         "__image_file": "Pictures/lena.png",
         "image_file": "Dropbox/Pictures/wallpaper/47916_1600x1200-wallpaper-cb1333465486.jpg"
+    },
+    "gblur.py": {
+        "video_index": 0,
+        "width": 640,
+        "height": 480,
+        "sigmaX": 25,
+        "sigmaY": 25
     }
 }

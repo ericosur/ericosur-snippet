@@ -1,0 +1,4 @@
+# exclude data files for this folder
+out.json
+out.txt
+storable.dat

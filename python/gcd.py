@@ -11,7 +11,7 @@ def gcd(m, n):
 	else:
 		return gcd(n, m % n)
 
-if __name__ == '__main__':
+def main():
 	import sys
 	#import locale
 	import os
@@ -38,3 +38,6 @@ if __name__ == '__main__':
 	else:
 		print("cannot be zero")
 
+
+if __name__ == '__main__':
+	main()
