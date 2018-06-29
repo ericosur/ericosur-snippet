@@ -1,0 +1,9 @@
+{
+    "img_size.pl": {
+        "data": "../../../Pictures/data/lena.jpg"
+    },
+    "gm_quatrefoilv.pl": {
+        "data": "../../../Pictures/data/tzuyu.png"
+    }
+
+}
