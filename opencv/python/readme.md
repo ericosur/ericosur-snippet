@@ -3,6 +3,10 @@
 practice for python / opencv
 using module cv2
 
+## sample worthy to refer
+
+[python cv2 module](https://www.programcreek.com/python/index/2663/cv2)
+
 
 ## setting
 

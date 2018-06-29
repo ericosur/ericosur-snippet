@@ -14,7 +14,8 @@
         "width": 320,
         "height": 240,
         "gray": true,
-        "rgb": true
+        "rgb": true,
+        "test": false
     },
     "split.py" : {
         "__image_file": "Pictures/lena.png",
