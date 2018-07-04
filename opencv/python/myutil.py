@@ -1,6 +1,8 @@
 import os
 import json
 
+__version__ = '0.0.1'
+
 def read_jsonfile(fn):
     '''
     specify json filename and return whole json object
