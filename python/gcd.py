@@ -1,6 +1,8 @@
 #!/usr/bin/python
 
-# provice a recursive version of gcd
+# provide a recursive version of gcd
+
+__version__ = '1.0.0'
 
 def gcd(m, n):
 	'''
