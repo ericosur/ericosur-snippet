@@ -7,6 +7,16 @@ using module cv2
 
 [python cv2 module](https://www.programcreek.com/python/index/2663/cv2)
 
+## notes
+
+how to know outdated python modules by pip?
+
+refer from: https://stackoverflow.com/questions/2720014/upgrading-all-packages-with-pip
+
+```
+pip list --outdated --format=freeze
+```
+
 
 ## setting
 
