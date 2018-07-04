@@ -2,7 +2,7 @@
 ## precondition
 ### install pyvenv
 ```
-sudgo apt-get install pyvenv-3.5
+sudo apt-get install pyvenv-3.5
 ```
 ### prepare pyvenv
 ```
