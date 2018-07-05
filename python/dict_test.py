@@ -11,7 +11,7 @@ def cube(x):
     return x*x*x
 
 
-if __name__ == '__main__':
+def main():
     rec = { 'name': {'first': 'Brown', 'last': 'Smith'},
             'job': ['dev', 'mgr'],
             'age': 40.5}
@@ -37,3 +37,7 @@ rec['name']['last']: {2}
     items = (31, 37, 41, 43, 47, 53)
     squared = map(lambda x: x**2, items)
     print "map(): ", squared, type(squared)
+
+
+if __name__ == '__main__':
+    main()
