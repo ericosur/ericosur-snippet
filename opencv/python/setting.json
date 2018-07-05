@@ -27,5 +27,19 @@
         "height": 480,
         "sigmaX": 25,
         "sigmaY": 25
+    },
+
+    "imgur": {
+        "name" : [
+            "lena.jpg",
+            "vwlego.jpg",
+            "deer.png"
+        ],
+        "url": {
+            "lena.jpg": "https://i.imgur.com/H0WsDJg.jpg",
+            "vwlego.jpg": "https://i.imgur.com/dTvI2cA.jpg",
+            "deer.png": "https://i.imgur.com/yU4Cbzw.png"
+        }
     }
+
 }

@@ -40,6 +40,13 @@ def request_value(data, key, default_value = None):
     return ret
 
 
+def isfile(url):
+    return os.path.isfile(url)
+
+def isdir(url):
+    return os.path.isdir(url)
+
+
 def main():
     file = 'nosuchfile'
     data = read_jsonfile(file)

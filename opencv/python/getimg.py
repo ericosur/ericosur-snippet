@@ -21,11 +21,16 @@ def main():
     url='https://i.imgur.com/yU4Cbzw.png'
     img = LoadImageFromUrl(url)
     print(img.format, img.size, img.mode)
+
+    ofn = 'out.jpg'
+    img.save(ofn)
+
     #img.show()
     # x1,y1 x2,y2
     box = (200, 80, 600, 560)
     region = img.crop(box)
     region.show()
+
 
 if __name__ == '__main__':
     main()
