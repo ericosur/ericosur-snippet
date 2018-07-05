@@ -7,9 +7,6 @@ A simple CSV practice by using python module csv
 import csv
 import random
 
-RANDOM_CSV = 'random.csv'
-OUTCOME_CSV = 'outcome.csv'
-
 def getTenNumbers():
     ten = 10
     arr = []
@@ -42,8 +39,13 @@ def appendCsv(input_fn, output_fn):
     csvout.close()
 
 
-if __name__ == "__main__":
-    print 'generate random numbers and output to', RANDOM_CSV
+def main():
+    RANDOM_CSV = 'random.csv'
+    OUTCOME_CSV = 'outcome.csv'
+    print('generate random numbers and output to ' + RANDOM_CSV)
     writeCsv(RANDOM_CSV)
-    print 'read', RANDOM_CSV, 'sum up and output to', OUTCOME_CSV
+    print('read' + RANDOM_CSV + ' sum up and output to ' + OUTCOME_CSV)
     appendCsv(RANDOM_CSV, OUTCOME_CSV)
+
+if __name__ == '__main__':
+    main()
