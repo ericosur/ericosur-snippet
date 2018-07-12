@@ -38,22 +38,31 @@
 # ref: http://dlib.net/face_landmark_detection.py.html
 # ref: opencv_webcam_face_detection.py
 
+# this script is modified from example from dlib
+
 import sys
 import dlib
 import cv2
 import numpy as np
+from myutil import isfile
 
 class Foo:
     def __init__(self):
         self.font = cv2.FONT_HERSHEY_SIMPLEX
         #self.tracker = dlib.correlation_tracker()
         #self.win = dlib.image_window()
-        self.detector = dlib.get_frontal_face_detector()
+
+        self.inited = False
 
         # dat download from: http://dlib.net/face_landmark_detection.py.html
-        self.predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
-
-
+        predictor_data = 'shape_predictor_68_face_landmarks.dat'
+        if isfile(predictor_data):
+            self.detector = dlib.get_frontal_face_detector()
+            self.predictor = dlib.shape_predictor(predictor_data)
+            self.inited = True
+        else:
+            print('need predictor data file, exit...')
+            return
 
     '''
     def tracking(self):
@@ -81,6 +90,10 @@ class Foo:
     '''
 
     def action(self):
+        if not self.inited:
+            print('no init ok, exit...')
+            return
+
         cam = cv2.VideoCapture(0)
         color_green = (0,255,0)
         line_width = 1
