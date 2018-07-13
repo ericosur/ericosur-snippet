@@ -16,14 +16,20 @@ def LoadImageFromUrl(url):
     img = Image.open( StringIO(img_file.read()) )
     return img
 
+def SaveImg(img, fn):
+    img.save(fn)
+
+def download_url_to_file(url, fn):
+    img_url = urllib2.urlopen(url)
+    img = Image.open( StringIO(img_url.read()) )
+    img.save(fn)
+
 def main():
     # use imgur direct link
     url='https://i.imgur.com/yU4Cbzw.png'
+    print('download from: {}'.format(url))
     img = LoadImageFromUrl(url)
     print(img.format, img.size, img.mode)
-
-    ofn = 'out.jpg'
-    img.save(ofn)
 
     #img.show()
     # x1,y1 x2,y2
