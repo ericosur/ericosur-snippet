@@ -28,7 +28,7 @@ void str2hex(const char* str, char* bytearray, size_t& sz)
     size_t len = strlen(str);
     // char tmp[16];
     // bzero(tmp, sizeof(tmp));
-    printf("len:%d\n", (int)len);
+    //printf("len:%d\n", (int)len);
 
     sz = 0;
     for (size_t i=0; i<len; i+=2) {
