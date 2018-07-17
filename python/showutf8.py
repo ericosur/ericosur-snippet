@@ -8,4 +8,9 @@ def showutf8(ch):
     # not work if codepoint > 0xffff
     #print 'hex: ', hex(ord(uch))
     print 'uen: ', uch.encode('unicode-escape')
-    print
+
+def main():
+    showutf8('中')
+
+if __name__ == '__main__':
+    main()
