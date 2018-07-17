@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 2.6)
+cmake_minimum_required(VERSION 3.0)
 
 project(easytest)
 set(CMAKE_CXX_STANDARD 11)
@@ -8,4 +8,9 @@ set(CMAKE_C_FLAGS "-Wall -O3")
 
 add_executable(rfind rfind.cpp)
 add_executable(getret getret.cpp)
-add_executable(gete e.cpp)
+add_executable(gete gete.cpp)
+add_executable(hello_world hello_world.cpp)
+add_executable(mul mul.cpp)
+add_executable(fib fib.c)
+add_executable(memmove memmove.c)
+add_executable(delete_null  delete_null.cpp)
