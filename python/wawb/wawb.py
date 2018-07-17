@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 from itertools import permutations
@@ -98,8 +98,8 @@ def test_check_guess(allpair):
 		print neg, " vs ", my_guess, " => ", check_guess(neg, my_guess)
 
 
-def make_wawb_guess(allpair):
-	debug = 1
+def make_wawb_guess(allpair, answer):
+	debug = 0
 	aa = allpair
 	poss = []
 	confirm_neg = []
@@ -110,16 +110,11 @@ def make_wawb_guess(allpair):
 
 		if len(poss):
 			aa = list( poss[0] )
-		'''
+
 		my_guess = get_one_elem(aa)	# 隨機取一個作猜測
 		while check_guess(confirm_neg, my_guess) == False:
 			my_guess = get_one_elem(aa)
 		result = get_wawb(answer, my_guess)	# 結果
-		'''
-		my_guess = []
-		result = []
-		get_guess_wawb(my_guess, result)
-
 		if debug:	print my_guess, "=> ", result
 		found_pair = find_wawb(aa, result, my_guess)	# 此結果可能的組合
 		if debug:	print "len(found_pair): ", len(found_pair)
@@ -145,46 +140,31 @@ def make_wawb_guess(allpair):
 					if debug:	print "left pairs: ", new_pair
 				poss[0] = new_pair
 
-	print "confirm ans: ", confirm_ans
-	'''
 	if get_wawb(answer, list( confirm_ans[0] )) == [4,0]:
 		print "got answer and checked, try ", i, " times"
 		return i
-	'''
+
 	return 0
 
-
-def get_all_combination():
-	'''
-	a = [0, 1, 2, ..., 10]
-	all_perm = C(10, 4)
-	'''
-	# get all combination
+def main():
+	# a = [0, 1, 2, ..., 10]
+	# all_perm = C(10, 4)
 	all_perm = permutations(range(10), 4)
-
-	# dump all_perm out
 	#dump_all(all_perm)
+	all_list = list(all_perm)
 
-	# cast all_perm into list
-	all_as_list = list(all_perm)
-	return all_as_list
+	repeat = 10
 
-def get_guess_wawb(guess, wawb):
-	s = raw_input("guess and ?a ?b: ")
-	print "get '%s'" % (s,)
+	guess_time = []
+	for tt in xrange(repeat):
+		answer = get_one_elem(all_list)
+		print "answer: ", answer
+		guess_time.append( make_wawb_guess(all_list, answer) )
 
-	#guess = []
-	#wawb = []
-	for i in xrange(4):
-		guess.append(int(s[i]))
-	#guess = [s[0],s[1],s[2],s[3]]
-	for i in xrange(2):
-		wawb.append(int(s[4+i]))
-	#wawb = [s[4],s[5]]
-
+	print "max: ", max(guess_time)
+	print "min: ", min(guess_time)
+	print "sum: ", sum(guess_time)
+	print "avg: ", float(sum(guess_time)) / len(guess_time)
 
 if __name__ == '__main__':
-	all_list = get_all_combination()
-	make_wawb_guess(all_list) 
-
-
+	main()
