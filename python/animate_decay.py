@@ -9,7 +9,7 @@ def data_gen():
     t = data_gen.t
     data_gen.t += 0.05
     return np.sin(2*np.pi*t) * np.exp(-t/10.)
-    
+
 
 def run(*args):
     background = fig.canvas.copy_from_bbox(ax.bbox)
@@ -40,7 +40,8 @@ def run(*args):
         if run.cnt==1000:
             # print the timing info and quit
             print 'FPS:' , 1000/(time.time()-tstart)
-            sys.exit()
+            #sys.exit()
+            return
 
         run.cnt += 1
 
