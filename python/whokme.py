@@ -44,3 +44,8 @@ def who_kick_me():
     print max_list
     pass
 
+def main():
+    who_kick_me()
+
+if __name__ == '__main__':
+    main()
