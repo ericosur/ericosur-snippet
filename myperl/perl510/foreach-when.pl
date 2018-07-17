@@ -1,5 +1,7 @@
 use strict;
 use v5.10;
+no if $] >= 5.018, warnings => qw( experimental::smartmatch );
+
 #http://www.slideshare.net/acme/whats-new-in-perl-510
 
 my @items = qw(apple ball cat dog egg);
