@@ -151,7 +151,7 @@ Fontutil* Fontutil::getInstance()
     if (_instance == NULL) {
         _instance = new Fontutil();
     }
-    printf("and returns instance\n");
+    //printf("and returns instance\n");
     return _instance;
 }
 
@@ -238,5 +238,28 @@ bool Fontutil::big5_to_index(const uint16_t big5, uint16_t& index)
             return false;
         }
     }
+    return false;
+}
+
+bool Fontutil::load_one_character_by_big5(const uint16_t big5, uint8_t* char_buffer)
+{
+    if (!isLoaded()) {
+        printf("error: font not loaded\n");
+        return false;
+    }
+
+    uint16_t index = 0;
+
+    bzero(char_buffer, BYTE_PER_CHAR);
+    if ( big5_to_index(big5, index) ) {
+        if ( load_one_character_by_id(index, char_buffer) ) {
+            return true;
+        } else {
+            printf("error: fail to load char\n");
+        }
+    } else {
+        printf("error: cannot translate big5 to index: big5: %04X\n", (int)big5);
+    }
+
     return false;
 }

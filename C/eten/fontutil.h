@@ -31,6 +31,7 @@ public:
         return bFontLoaded;
     }
 
+    bool load_one_character_by_big5(const uint16_t big5, uint8_t* char_buffer);
     bool load_one_character_by_id(const uint16_t id, uint8_t* char_buffer);
     bool big5_to_index(const uint16_t big5, uint16_t& index);
 

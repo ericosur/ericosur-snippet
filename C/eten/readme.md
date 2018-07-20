@@ -1,27 +1,41 @@
 # readme for loading bitmap from eten font files
 
-```
-$ echo "中" | iconv -f UTF-8 -t BIG5 |hexdump -C
-00000000  a4 a4 0a                                          |...|
-```
 
 ## what is inside
 
-stdfont.24b has 942768 bytes
-per to rule, there are
+Font file of ETEN "stdfont.24" has 942768 bytes.
+Per to rule, there are
+
 ```
 5401 + 7652 + 41 = 13094
 ```
+
 characters in this file,
+
 ```
 942768 / 13094 = 72
 ```
-every character occupys 72 bytes for 24x24 font.
+and every character uses 72 bytes for 24x24 font, and 1bit for 1pixel.
 
-so each pixel use 1bit,
 ```
 (72 * 8) / (24 * 24) = 1
 ```
+
+## font files
+
+This sample uses only stdfont for 24x24 fonts. All possible fonts are:
+
+  * ascfont.24
+  * stdfont.24
+  * spcfont.24
+  * japfont.24 ???
+
+These files are not included in git repository because of license issue.
+
+## dependency
+
+* libiconv
+* mytoolbox
 
 ## rule
 
@@ -88,3 +102,9 @@ so each pixel use 1bit,
 * support spcfont and ascfont
 * show all characters in one bitmap (or partial)
 
+## tips
+
+```
+$ echo "中" | iconv -f UTF-8 -t BIG5 |hexdump -C
+00000000  a4 a4 0a                                          |...|
+```

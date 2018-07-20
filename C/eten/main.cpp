@@ -1,132 +1,100 @@
-#include <stdio.h>
 #include "fontutil.h"
+#include "try_iconv.h"
+#include <mytool.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <iostream>
+#include <vector>
 
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
-uint16_t big5s[] = {
-    0xA4D1, 0xB0AE, 0xAAAB, 0xC0EA, 0xA141, 0xA470, 0xA4DF, 0xA4F5, 0xC0EB
-};
+using namespace std;
 
-#if 0
-void test()
+
+bool draw_char_bitmap(const uint8_t* char_buf)
 {
-    uint8_t buf[BYTE_PER_CHAR];
-    const uint16_t test_id = 1000;
-
-    bzero(buf, BYTE_PER_CHAR);
-    load_one_character_24x24(test_id, buf);
-    //dump(buf, BYTE_PER_CHAR);
-
-    size_t dst_size = BYTE_PER_CHAR * 8;
-    uint8_t dst[dst_size];
-    convert_bit_to_8uc1(buf, BYTE_PER_CHAR, dst, dst_size);
-    printf("\n");
-    //dump(dst, dst_size);
-
-    cv::Mat src(FONT_HEIGHT, FONT_WIDTH, CV_8UC1, dst);
-    cv::Mat img(FONT_HEIGHT, FONT_WIDTH, CV_8UC3);
-
-    cv::cvtColor(src, img, CV_GRAY2RGB);
-    cv::Mat big;
-    cv::resize(img, big, cv::Size(), 8.0, 8.0);
-    cv::imshow("result", big);
-    cv::waitKey(0);
-    //cv::imshow( "result", img );
-}
-#endif
-
-#if 0
-void test0(uint8_t val)
-{
-    const uint8_t src_size = 1;
-    uint8_t src[src_size];
-    const size_t dst_size = src_size * 8;
-    uint24_t dst[dst_size];
-
-    bzero(dst, dst_size*3);
-    src[0] = val;
-    convert_bit_to_8uc3(src, src_size, dst, dst_size);
-    dump((uint8_t*)dst, dst_size*3);
-}
-#endif
-
-void draw_char_bitmap(const uint8_t* char_buf)
-{
-    const double scale = 1.0;
+    const double scale = 2.0;
     size_t dst_size = BYTE_PER_CHAR * 8;
     uint24_t dst[dst_size];
     convert_bit_to_8uc3(char_buf, BYTE_PER_CHAR, dst, dst_size);
-    //printf("\n");
-    //dump(dst, dst_size);
 
     cv::Mat img(FONT_HEIGHT, FONT_WIDTH, CV_8UC3, (uint8_t*)dst);
-    cv::Mat big;
     if (scale != 1.0) {
-        cv::resize(img, big, cv::Size(), scale, scale);
-        cv::imshow("result", big);
-    } else {
-        cv::imshow("result", img);
+        cv::resize(img, img, cv::Size(), scale, scale);
     }
-    cv::waitKey(0);
-}
 
-#if 0
-void show_char_bitmap(const uint16_t test_id)
-{
-    uint8_t buf[BYTE_PER_CHAR];
-
-    bzero(buf, BYTE_PER_CHAR);
-    load_one_character_24x24(test_id, buf);
-    //dump(buf, BYTE_PER_CHAR);
-    draw_char_bitmap(buf);
-}
-
-void show_big5(const uint16_t big5)
-{
-    uint16_t index = 0;
-    bool res = big5_to_index(big5, index);
-    if (res) {
-        printf("big5: %04X index:%d\n", big5, index);
-        show_char_bitmap(index);
+    cv::imshow("result", img);
+    if ( cv::waitKey(0) == 0x1B ) {
+        return false;
     } else {
-        printf("not a big5 code, or it is spcfont, japfont: big5: %04X\n", big5);
+        return true;
     }
 }
-#endif
 
-void try_class()
+
+void show_big5_char_from_vector(std::vector<uint16_t>& big5s)
 {
     //printf("try_class\n");
     Fontutil* fu = Fontutil::getInstance();
-    if (fu->isLoaded()) {
-        //printf("here...\n");
-        uint16_t index = 0;
-        uint8_t buf[BYTE_PER_CHAR];
-
-        for (size_t i=0; i<sizeof(big5s)/sizeof(uint16_t); i++) {
-
-            if ( fu->big5_to_index(big5s[i], index) ) {
-                if ( fu->load_one_character_by_id(index, buf) ) {
-                    draw_char_bitmap(buf);
-                }
-            }
-        }
-
-    } else {
+    if (!fu->isLoaded()) {
         printf("cannot init font loading...\n");
+        return;
     }
-    //printf("end...\n");
+
+    //printf("here...\n");
+    uint8_t buf[BYTE_PER_CHAR];
+    for (vector<uint16_t>::iterator it = big5s.begin() ; it != big5s.end() ; it++) {
+        //cout << *it << endl;
+        if ( fu->load_one_character_by_big5(*it, buf) ) {
+            if (!draw_char_bitmap(buf))
+                break;
+        }
+    }
 }
 
-int main()
+int main(int argc, char** argv)
 {
-#if 0
-    for (size_t i=0; i<sizeof(big5s)/sizeof(uint16_t); i++) {
-        show_big5(big5s[i]);
-    }
+    if (argc == 1) {
+        vector<uint16_t> big5s = {
+            0xA4D1, 0xB0AE, 0xAAAB, 0xC0EA, 0xA141, 0xA470, 0xA4DF, 0xA4F5, 0xC0EB
+        };
+        printf("Usage: eten [setting.json]\n");
+        printf("use default demo\n");
+        show_big5_char_from_vector(big5s);
+    } else if ( mytoolbox::is_file_exist(argv[1]) ) {
+#if 1
+        // load string from jsonfile, it is utf-8 encoding
+        string str = mytoolbox::get_string_from_jsonfile(argv[1], "string", "");
+        //cout << str << endl;
+
+        // use iconv convert to big5
+        char* big5buf = ConvertEnc("UTF-8", "BIG5", str.c_str());
+        //cout << big5buf << endl;
+        //dump((const uint8_t*)big5buf, strlen(big5buf));
+
+        // put big5buf into big5s
+        std::vector<uint16_t> v;
+        for (size_t i=0; i<strlen(big5buf); i+=2) {
+            uint16_t val = (uint8_t)big5buf[i] << 8 | (uint8_t)big5buf[i+1];
+            //cout << hex << val << endl;
+            v.push_back(val);
+        }
+        show_big5_char_from_vector(v);
 #else
-    try_class();
+        // load big5 code vector
+        vector<string> keys = {"big5s"};
+        vector<string> hexstrs = mytoolbox::get_vector_from_jsonfile(argv[1], keys);
+        std::vector<uint16_t> v;
+        for (vector<string>::iterator it=hexstrs.begin(); it!=hexstrs.end(); it++) {
+            //cout << *it << endl;
+            uint16_t val = (uint16_t)strtoul(it->c_str(), NULL, 16);
+            v.push_back(val);
+        }
+        show_big5_char_from_vector(v);
 #endif
+    }
+
     return 0;
 }
