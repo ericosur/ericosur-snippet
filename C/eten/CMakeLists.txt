@@ -8,6 +8,25 @@ set(CMAKE_CXX_STANDARD 11)
 set(PN "eten")
 project(${PN})
 
+# usally we need to manually build libiconv, default is 0
+set(USE_ICONV    0)
+
+set(SOURCES
+    main.cpp
+    fontutil.cpp
+)
+
+set(MYLIBS
+    mytool
+)
+
+if(USE_ICONV)
+    message("USE_ICONV is ON")
+    set(SOURCES    "${SOURCES} try_iconv.cpp")
+    set(MYLIBS     "${MYLIBS}  libiconv.so")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -DUSE_ICONV")
+endif()
+
 find_package( OpenCV REQUIRED )
 
 # mytool
@@ -19,14 +38,11 @@ link_directories("/usr/local/lib")
 
 add_executable(
     ${PN}
-    main.cpp
-    fontutil.cpp
-    try_iconv.cpp
+    ${SOURCES}
 )
 
 target_link_libraries(
     ${PN}
     ${OpenCV_LIBS}
-    mytool
-    libiconv.so
+    ${MYLIBS}
 )

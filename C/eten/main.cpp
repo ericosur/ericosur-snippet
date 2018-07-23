@@ -1,5 +1,7 @@
 #include "fontutil.h"
+#ifdef USE_ICONV
 #include "try_iconv.h"
+#endif
 #include <mytool.h>
 
 #include <stdio.h>
@@ -61,10 +63,12 @@ int main(int argc, char** argv)
             0xA4D1, 0xB0AE, 0xAAAB, 0xC0EA, 0xA141, 0xA470, 0xA4DF, 0xA4F5, 0xC0EB
         };
         printf("Usage: eten [setting.json]\n");
-        printf("use default demo\n");
+        printf("use default demo...\n");
         show_big5_char_from_vector(big5s);
     } else if ( mytool::is_file_exist(argv[1]) ) {
-#if 1
+#ifdef USE_ICONV
+        printf("use load utf-8 string from setting.json and iconv to big5 code\n");
+
         // load string from jsonfile, it is utf-8 encoding
         string str = mytool::get_string_from_jsonfile(argv[1], "string", "");
         //cout << str << endl;
@@ -83,6 +87,7 @@ int main(int argc, char** argv)
         }
         show_big5_char_from_vector(v);
 #else
+        printf("use load big5 list from setting.json\n");
         // load big5 code vector
         vector<string> keys = {"big5s"};
         vector<string> hexstrs = mytool::get_vector_from_jsonfile(argv[1], keys);

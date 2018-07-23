@@ -1,10 +1,10 @@
 {
     "_comment": "it's bad for json to directly use hex number",
-    "big5s": [
+    "test": [
         "f9cb", "f8e5", "f6ab", "f6a8", "f5ed", "f1d2", "b965", "bf52", "bf5e"
     ],
 
-    "test": [
+    "big5s": [
         "A4D1", "B0AE", "AAAB", "C0EA", "A141", "A470", "A4DF", "A4F5", "C0EB"
     ],
 
