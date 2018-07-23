@@ -35,7 +35,7 @@ These files are not included in git repository because of license issue.
 ## dependency
 
 * libiconv
-* mytoolbox
+* mytool
 
 ## rule
 

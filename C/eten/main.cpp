@@ -63,10 +63,10 @@ int main(int argc, char** argv)
         printf("Usage: eten [setting.json]\n");
         printf("use default demo\n");
         show_big5_char_from_vector(big5s);
-    } else if ( mytoolbox::is_file_exist(argv[1]) ) {
+    } else if ( mytool::is_file_exist(argv[1]) ) {
 #if 1
         // load string from jsonfile, it is utf-8 encoding
-        string str = mytoolbox::get_string_from_jsonfile(argv[1], "string", "");
+        string str = mytool::get_string_from_jsonfile(argv[1], "string", "");
         //cout << str << endl;
 
         // use iconv convert to big5
@@ -85,7 +85,7 @@ int main(int argc, char** argv)
 #else
         // load big5 code vector
         vector<string> keys = {"big5s"};
-        vector<string> hexstrs = mytoolbox::get_vector_from_jsonfile(argv[1], keys);
+        vector<string> hexstrs = mytool::get_vector_from_jsonfile(argv[1], keys);
         std::vector<uint16_t> v;
         for (vector<string>::iterator it=hexstrs.begin(); it!=hexstrs.end(); it++) {
             //cout << *it << endl;

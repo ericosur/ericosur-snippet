@@ -10,7 +10,7 @@ project(${PN})
 
 find_package( OpenCV REQUIRED )
 
-# mytoolbox
+# mytool
 link_directories("/usr/local/lib/mytool")
 include_directories("/usr/local/include/mytool")
 
