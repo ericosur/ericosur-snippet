@@ -1,12 +1,13 @@
-#ericosur-snippet
+# ericosur-snippet
 
 ericosur's code snippet
 
 Most snippets are:
-perl, text, python, C, batch,
-graphviz, shell script, java, cmd, javascript
+C/C++, perl, python, text,
+javascript, graphviz, shell script, java,
+windows batch/cmd, and etc...
 
-### history
+## history
 
 * 2017-02-22 move all qt/ into myqt.git
 

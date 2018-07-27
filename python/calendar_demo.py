@@ -1,8 +1,9 @@
 #!/usr/bin/python
 
 import calendar
+from datetime import date
 
-year = 2009
+year = date.today().year
 calendar.prcal(year)
 
 """what is this???

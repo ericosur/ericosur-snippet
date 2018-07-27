@@ -13,5 +13,5 @@ path = os.environ['PATH']
 #    str = os.getenv('path')
 
 for i in path.split(os.pathsep):
-	print i
+	print( i )
 

@@ -4,12 +4,13 @@
 import urllib
 
 def percent_enc(tok):
-    print tok
-    print urllib.quote(tok.encode("utf-8"))
+    print( tok )
+    print( urllib.quote(tok.encode("utf-8")) )
+
 
 '''
 for unicdoe codepage 0000 to FFFF, use lower case \u, eg: u'\u1234'
-for 00010000 to 0001FFFF, use upper case \U, eg: u'\U000123456'
+for 00010000 to 0001FFFF, use upper case \U, eg: u'\U00012345'
 '''
 def main():
     tokens = [

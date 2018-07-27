@@ -28,20 +28,21 @@ def who_kick_me():
         cnts[tp] = cnts.setdefault(tp, 0) + 1
         pass
     all_cnts = cnts.items()
+    # notice: imcompatible syntax for python3
     all_cnts.sort(key=lambda x: x[1], reverse=True)
     for tp, cnt in all_cnts:
         if tp == list:
-            print '%d %s (total %d/%d)' % (cnt, repr(tp), total_list_len,
-                                                         len_max)
+            print('%d %s (total %d/%d)' % (cnt, repr(tp), total_list_len,
+                                                         len_max))
         elif tp == tuple:
-            print '%d %s (total %d)' % (cnt, repr(tp), total_tuple_len)
+            print('%d %s (total %d)' % (cnt, repr(tp), total_tuple_len))
         elif tp == dict:
-            print '%d %s (total %d)' % (cnt, repr(tp), total_dict_len)
+            print('%d %s (total %d)' % (cnt, repr(tp), total_dict_len))
         else:
-            print '%d %s' % (cnt, repr(tp))
+            print('%d %s' % (cnt, repr(tp)))
             pass
         pass
-    print max_list
+    print(max_list)
     pass
 
 def main():

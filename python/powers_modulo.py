@@ -3,17 +3,19 @@
 
 '''
 try to calculate p ** q mod n
-其中 simplify() 可以參考 last-digit-power.py
+
+it is used by last-digit-power.py
+
 '''
 
-def powmod(p, q, n):
+def _powmod(p, q, n):
 	'''
 		驗證答案是否正確
 	'''
 	return p ** q % n
 
 
-def simplify(p, q, n):
+def powmod(p, q, n):
 	v = 1
 	s = q
 	while s > 0:
@@ -32,18 +34,11 @@ def test(rep):
 		(p, q, n) = (random.randint(10001,99999),
 				random.randint(3001,7999),
 				random.randint(1001,3001))
-		cc = powmod(p, q, n)
-		dd = simplify(p, q, n)
-		print "%d ** %d %% %d = %d" % (p, q, n, dd)
+		cc = _powmod(p, q, n)
+		dd = powmod(p, q, n)
+		print("%d ** %d %% %d = %d" % (p, q, n, dd))
 		if cc != dd:
-			print "error!!!"
+			print("error!!!")
 
-'''
-p = 2029
-q = 10
-n = 17
-simplify(p, q, n)
-print "trad: ", powmod(p, q, n)
-'''
-
-test(99)
+if __name__ == '__main__':
+	test(99)
