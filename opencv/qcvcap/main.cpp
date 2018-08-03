@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
-    QList<QObject*> item = engine.rootObjects();
+    //QList<QObject*> item = engine.rootObjects();
     Core myClass;
     // QObject::connect(item.at(0), SIGNAL(qmlSignal(QString)),
     //                  &myClass, SLOT(cppSloot(QString)));

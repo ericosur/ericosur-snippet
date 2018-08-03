@@ -4,11 +4,13 @@ QT += qml quick widgets
 
 SOURCES += main.cpp \
     demo_capture.cpp \
-    core.cpp
+    core.cpp \
+    BinaryCvMat.cpp
 
 HEADERS += \
     demo_capture.h \
-    core.h
+    core.h \
+    BinaryCvMat.h
 
 RESOURCES += qml.qrc
 
@@ -23,4 +25,4 @@ QML_IMPORT_PATH =
 
 # run 'pkg-config --libs opencv' to update the following LIBS
 LIBS += \
--lopencv_shape -lopencv_stitching -lopencv_objdetect -lopencv_superres -lopencv_videostab -lopencv_calib3d -lopencv_features2d -lopencv_highgui -lopencv_videoio -lopencv_imgcodecs -lopencv_video -lopencv_photo -lopencv_ml -lopencv_imgproc -lopencv_flann -lopencv_viz -lopencv_core
+-lopencv_shape -lopencv_stitching -lopencv_objdetect -lopencv_superres -lopencv_videostab -lopencv_calib3d -lopencv_features2d -lopencv_highgui -lopencv_videoio -lopencv_imgcodecs -lopencv_video -lopencv_photo -lopencv_ml -lopencv_imgproc -lopencv_flann -lopencv_core
