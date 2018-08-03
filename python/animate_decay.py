@@ -1,65 +1,70 @@
-# from http://matplotlib.sourceforge.net/examples/animation/animate_decay_tk_blit.html
+# -*- coding: utf-8 -*-
 
-import time, sys
+"""
+from http://matplotlib.sourceforge.net/examples/animation/animate_decay_tk_blit.html
+"""
+
+from __future__ import print_function
+import time
 import numpy as np
 import matplotlib.pyplot as plt
 
 
 def data_gen():
+    ''' generate data points '''
     t = data_gen.t
     data_gen.t += 0.05
     return np.sin(2*np.pi*t) * np.exp(-t/10.)
 
 
-def run(*args):
-    background = fig.canvas.copy_from_bbox(ax.bbox)
+def run():
+    ''' run by args '''
+    background = FIG.canvas.copy_from_bbox(AX.bbox)
     # for profiling
     tstart = time.time()
 
     while 1:
         # restore the clean slate background
-        fig.canvas.restore_region(background)
+        FIG.canvas.restore_region(background)
         # update the data
         t = data_gen.t
         y = data_gen()
-        xdata.append(t)
-        ydata.append(y)
-        xmin, xmax = ax.get_xlim()
-        if t>=xmax:
-            ax.set_xlim(xmin, 2*xmax)
-            fig.canvas.draw()
-            background = fig.canvas.copy_from_bbox(ax.bbox)
+        XDATA.append(t)
+        YDATA.append(y)
+        xmin, xmax = AX.get_xlim()
+        if t >= xmax:
+            AX.set_xlim(xmin, 2*xmax)
+            FIG.canvas.draw()
+            background = FIG.canvas.copy_from_bbox(AX.bbox)
 
-        line.set_data(xdata, ydata)
+        LINE.set_data(XDATA, YDATA)
 
         # just draw the animated artist
-        ax.draw_artist(line)
+        AX.draw_artist(LINE)
         # just redraw the axes rectangle
-        fig.canvas.blit(ax.bbox)
+        FIG.canvas.blit(AX.bbox)
 
-        if run.cnt==1000:
+        if run.cnt == 1000:
             # print the timing info and quit
-            print 'FPS:' , 1000/(time.time()-tstart)
-            #sys.exit()
+            print('{:.2f} fps'.format(1000.0/(time.time()-tstart)))
             return
 
         run.cnt += 1
 
-
 if __name__ == '__main__':
-	data_gen.t = 0
+    data_gen.t = 0
 
-	fig = plt.figure()
-	ax = fig.add_subplot(111)
-	line, = ax.plot([], [], animated=True, lw=2)
-	ax.set_ylim(-1.1, 1.1)
-	ax.set_xlim(0, 5)
-	ax.grid()
-	xdata, ydata = [], []
+    FIG = plt.figure()
+    AX = FIG.add_subplot(111)
+    LINE, = AX.plot([], [], animated=True, lw=2)
+    AX.set_ylim(-1.1, 1.1)
+    AX.set_xlim(0, 5)
+    AX.grid()
+    XDATA, YDATA = [], []
 
-	run.cnt = 0
+    run.cnt = 0
 
-	manager = plt.get_current_fig_manager()
-	manager.window.after(100, run)
+    MANAGER = plt.get_current_fig_manager()
+    MANAGER.window.after(100, run)
 
-	plt.show()
+    plt.show()

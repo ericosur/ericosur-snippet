@@ -1,31 +1,38 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 
 '''
 demo to write a binary file
 '''
 
-'''
-import binascii
+#import binascii
+#hs = '5b7f887469feda'
+#hb = binascii.a2b_hex(hs)
 
-hs = '5b7f887469feda'
-hb = binascii.a2b_hex(hs)
-'''
-
+from __future__ import print_function
 import random
 
-left_size = 2 ** 30
-s_size = 0
-file = open("test.bin", "wb")
-s = ''
-while (left_size):
-	left_size -= 1
-	s += "%c" % random.randint(0, 0xff)
-	s_size += 1
-	if s_size > 16 * 1024 * 1024:
-		file.write(s)
-		file.flush()
-		s_size = 0
-		s = ''
+def main():
+    '''main function'''
+    left_size = 2 ** 20
+    s_size = 0
+    binfile = open("test.bin", "wb")
+    s = ''
+    BLOCK_SIZE = 512 * 1024
+    while left_size > 0:
+        s += "%c" % random.randint(0, 0xff)
+        s_size += 1
+        if s_size > BLOCK_SIZE:
+            binfile.write(s)
+            binfile.flush()
+            left_size -= s_size
+            s_size = 0
+            s = ''
+            print('left_size: {}'.format(left_size))
 
-file.close()
+    binfile.close()
 
+
+if __name__ == '__main__':
+    main()

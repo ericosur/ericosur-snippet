@@ -1,17 +1,20 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
-# get current path setting and split it
-# then list them
+'''
+get current path setting and split it
+then list them
+'''
 
 # single line alias version:
 # alias path='echo $PATH | sed "s/:/\n/g"'
 
+from __future__ import print_function
 import os
 
-path = os.environ['PATH']
+PATH = os.environ['PATH']
 # or this way:
 #    str = os.getenv('path')
 
-for i in path.split(os.pathsep):
-	print( i )
-
+for i in PATH.split(os.pathsep):
+    print(i)

@@ -1,21 +1,23 @@
 #!/usr/bin/python
 
-# count char in a string
-# Jan 17 2005 by rasmus
+''' count char in a string '''
 
-s = 'the quick brown fox jumps over the lazy dog'
 
-beg = ord('a')
-end = ord('z') + 1
+from __future__ import print_function
 
-char_no_space = len(s) - s.count(' ')
-total = 0
+STR = 'the quick brown fox jumps over the lazy dog'
 
-for i in range(beg, end):
+BEG = ord('a')
+END = ord('z') + 1
+
+CHAR_NO_SPACE = len(STR) - STR.count(' ')
+TOTAL = 0
+
+for i in range(BEG, END):
     ch = chr(i)
-    cnt = s.count(ch)
-    percent = cnt / float(char_no_space) *100
-    total = total + cnt
+    cnt = STR.count(ch)
+    percent = cnt / float(CHAR_NO_SPACE) *100
+    TOTAL = TOTAL + cnt
     print('%c appears %d times %.2f%%' % (ch, cnt, percent))
 
-print('total count: %d' % total)
+print('total count: %d' % TOTAL)

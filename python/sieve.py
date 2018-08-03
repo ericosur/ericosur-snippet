@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 '''
 algorithm of __Sieve of Eratosthenes__
@@ -9,64 +10,89 @@ Prime Sieve of Eratosthenes
 http://www.algorithmist.com/index.php/Prime_Sieve_of_Eratosthenes
 '''
 
+from __future__ import print_function
 import math
 
-def fill_array(arr, arr_max):
-	'''
-		even numbers would not be filled in this array
-	'''
-	i = 3
-	while i <= arr_max:
-		arr.append(i)
-		i += 2
+class Sieve(object):
+    ''' class Sieve demos "Prime Sieve of Eratosthenes" '''
+
+    def __init__(self, max_number):
+        self.arr = []
+        self.arr_max = max_number
+        self.g_count = 0
+        self.primes = [2]
+
+    def fill_array(self):
+        '''
+            even numbers would not be filled in this array
+        '''
+        i = 3
+        while i <= self.arr_max:
+            self.arr.append(i)
+            i += 2
+
+    def fill_array_old(self):
+        '''
+            fill array from 2 to arr_max-1
+        '''
+        for i in range(2, self.arr_max):
+            self.arr.append(i)
+
+    def del_elem(self):
+        ''' remove multiple values from array '''
+        self.g_count += 1
+    #   print("#", g_count, arr)
+    #   print("prime.append(%d", arr[0])
+        # the first one is prime
+        self.primes.append(self.arr[0])
+
+        pp = self.arr[0]
+        inc = self.arr[0]
+
+        while pp <= self.arr[-1]:
+            if self.arr.__contains__(pp):
+                self.arr.remove(pp)  # remove the multiples
+                #print(pp, " removed")
+            pp += inc           # next multiple
+
+        if self.arr[0] > math.sqrt(self.arr_max):
+            # print("%d > %f" % (arr[0], math.sqrt(arr_max)))
+            if self.arr:
+                for bb in self.arr:
+                    self.primes.append(bb)
+            return
+        else:
+            self.del_elem()
+
+    def get_count(self):
+        ''' return number of pass '''
+        return self.g_count
+
+    def get_primes(self):
+        ''' return remaining primes '''
+        return self.primes
+
+    def run(self):
+        ''' run me to do sieve '''
+        self.fill_array()
+        self.del_elem()
 
 
-def fill_array_old(arr, arr_max):
-	'''
-		fill array from 2 to arr_max-1
-	'''
-	for i in range(2, arr_max):
-		arr.append(i)
 
+def main():
+    '''main function'''
+    MAX_NUMBER = 1000
+    sieve_obj = Sieve(MAX_NUMBER)
+    sieve_obj.run()
 
-def del_elem(arr, arr_max):
-	global g_count
-	global primes
+    print('# filter primes from 1 to {}'.format(MAX_NUMBER))
+    print("# total pass: %d" % sieve_obj.get_count())
+    primes = sieve_obj.get_primes()
+    print("# found %d primes" % len(primes))
 
-	g_count += 1
-#	print("#", g_count, arr)
-#	print("prime.append(%d", arr[0])
-	# the first one is prime
-	primes.append(arr[0])
+    for pr in primes:
+        print(pr)
 
-	pp = arr[0]
-	inc = arr[0]
-
-	while pp <= arr[-1]:
-		if arr.__contains__(pp):
-			arr.remove(pp)	# remove the multiples
-			#print(pp, " removed")
-		pp += inc;	# next multiple
-
-	if arr[0] > math.sqrt(arr_max):
-		# print("%d > %f" % (arr[0], math.sqrt(arr_max)))
-		if len(arr) > 0:
-			for bb in arr:
-				primes.append(bb)
-		return
-	else:
-		del_elem(arr, arr_max)
 
 if __name__ == "__main__":
-	max_number = 1000
-	g_count = 0
-	primes = [2]
-	arr = []
-	fill_array(arr, max_number)
-	#print(arr)
-	del_elem(arr, max_number)
-	print("# total pass: %d" % g_count)
-	print("# found %d primes" % len(primes))
-
-	for pr in primes:
-		print(pr)
+    main()

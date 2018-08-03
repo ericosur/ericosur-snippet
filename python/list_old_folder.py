@@ -1,7 +1,11 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 '''
     try to list the folder while is one month ago
 '''
+
+from __future__ import print_function
 import sys
 import glob
 import os
@@ -21,8 +25,8 @@ def showlist(folders, arg=1):
     # get today
     today = datetime.datetime.fromtimestamp(time.time())
     # get datetime for 30 days ago
-    ago = today - offset;
-    print '30 days ago = ', ago;
+    ago = today - offset
+    print('30 days ago = ', ago)
 
     ctime = 0
     foldertime = 0
@@ -31,26 +35,31 @@ def showlist(folders, arg=1):
         foldertime = datetime.datetime.fromtimestamp(ctime)
         if foldertime <= ago:
             if arg == 1:
-                print "!!!", xx, "is one month ago (", foldertime, ")"
+                print("!!! {} is one month ago ({})".format(xx, foldertime))
             else:
-                print xx
+                print(xx)
         else:
             if arg == 1:
-                print xx, 'is newer (', foldertime, ')'
+                print('{} is newer ({})'.format(xx, foldertime))
         #print xx, ":", time.strftime('%c', time.localtime(ctime))
 
-if __name__ == '__main__':
+def main():
+    '''main function'''
     # get file list within current folder
     alllist = glob.glob('*')
     dirlist = []
 
     for x in alllist:
         # only sub-directory kept
-        if os.path.isdir(x) == True:
+        if os.path.isdir(x):
             #print x
             dirlist.append(x)
-	detail_arg = 1
-	if (len(sys.argv) > 1) and (sys.argv[1] == '-l'):
-		detail_arg = 0
+    detail_arg = 1
+    if (len(sys.argv) > 1) and (sys.argv[1] == '-l'):
+        detail_arg = 0
     #print len(dirlist)
     showlist(dirlist, detail_arg)
+
+
+if __name__ == '__main__':
+    main()

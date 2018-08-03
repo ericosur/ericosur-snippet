@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 '''
 to find four-digit vampire numbers
@@ -6,9 +7,11 @@ to find four-digit vampire numbers
 http://en.wikipedia.org/wiki/Vampire_number
 '''
 
-from itertools import permutations, combinations
+from __future__ import print_function
+from itertools import permutations#, combinations
 
 def find_vampire_in_4digit(num):
+    '''give number check if a vampire number'''
     digit = 4
     nl = list(str(num))
     if len(nl) != digit:
@@ -32,6 +35,7 @@ def find_vampire_in_4digit(num):
 
 
 def main():
+    '''main function'''
     for val in range(1000, 9999):
         find_vampire_in_4digit(val)
 

@@ -1,17 +1,22 @@
 #!/usr/bin/python
-#
-# a simple demo to ultilize function in the other script
-#
+# -*- coding: utf-8 -*-
 
+'''
+a simple demo to ultilize function in the other script
+'''
+
+
+from __future__ import print_function
 # use shuffle_array() in fisher_yates_shuffle.py
 from fisher_yates_shuffle import shuffle_array
 
-name_list = ['zoo', 'bob', 'tim', 'david', 'pineapple',
-	'fred', 'victory', 'limb']
+REPEAT = 5
+NAME_LIST = ['zoo', 'bob', 'tim', 'david', 'pineapple',
+             'fred', 'victory', 'limb']
 
-print(name_list)
+print("original: {}".format(NAME_LIST))
 
-# repeat 5 times
+# repeat shuffling
 for i in range(5):
-	shuffle_array(name_list)
-	print(name_list)
+    shuffle_array(NAME_LIST)
+    print(i, ':', NAME_LIST)

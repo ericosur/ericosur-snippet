@@ -1,6 +1,9 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
-# sys.platform
+''' get name of platform '''
+
+from __future__ import print_function
 import sys
 
 print("platform is ", sys.platform)

@@ -1,18 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+'''
+demo percentage encoding
+'''
+
+from __future__ import print_function
 import urllib
 
 def percent_enc(tok):
-    print( tok )
-    print( urllib.quote(tok.encode("utf-8")) )
+    ''' print percent encoded string '''
+    print(tok)
+    print(urllib.quote(tok.encode("utf-8")))
 
 
-'''
-for unicdoe codepage 0000 to FFFF, use lower case \u, eg: u'\u1234'
-for 00010000 to 0001FFFF, use upper case \U, eg: u'\U00012345'
-'''
+# for unicdoe codepage 0000 to FFFF, use lower case \u, eg: u'\u1234'
+# for 00010000 to 0001FFFF, use upper case \U, eg: u'\U00012345'
 def main():
+    '''main function'''
     tokens = [
         u"\u00A1 \u00BF",
         u"\u00C0 \u00C1 \u00C2 \u00C3 \u00C4 \u00C5 \u00C6",
