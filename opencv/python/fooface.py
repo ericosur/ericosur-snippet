@@ -1,4 +1,7 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
+# pylint: disable=import-error
+
 # The contents of this file are in the public domain. See LICENSE_FOR_EXAMPLE_PROGRAMS.txt
 #
 #   This example program shows how to find frontal human faces in a webcam stream using OpenCV.
@@ -38,15 +41,17 @@
 # ref: http://dlib.net/face_landmark_detection.py.html
 # ref: opencv_webcam_face_detection.py
 
-# this script is modified from example from dlib
+''' this script is modified from example from dlib '''
 
-import sys
-import dlib
+from __future__ import print_function
 import cv2
 import numpy as np
+import dlib
 from myutil import isfile
 
-class Foo:
+class Foo(object):
+    ''' simple class to run dlib face landmarks function '''
+
     def __init__(self):
         self.font = cv2.FONT_HERSHEY_SIMPLEX
         #self.tracker = dlib.correlation_tracker()
@@ -90,29 +95,34 @@ class Foo:
     '''
 
     def action(self):
+        '''test actions'''
         if not self.inited:
             print('no init ok, exit...')
             return
 
         cam = cv2.VideoCapture(0)
-        color_green = (0,255,0)
+        color_green = (0, 255, 0)
         line_width = 1
         while True:
-            ret_val, img = cam.read()
+            ret, img = cam.read()
+            if not ret:
+                break
+
             rgb_image = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             #gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             dets = self.detector(rgb_image)
-            if len(dets) == 0:
-
-                cv2.putText(img, 'no dets',(10, 40), self.font, 1, (127,0,255), 2, cv2.LINE_AA)
+            if dets:
+                cv2.putText(img, 'no dets', (10, 40), self.font, 1, (127, 0, 255), 2, cv2.LINE_AA)
             else:
                 for det in dets:
-                    cv2.rectangle(img,(det.left(), det.top()), (det.right(), det.bottom()), color_green, line_width)
+                    cv2.rectangle(img, (det.left(), det.top()),
+                                  (det.right(), det.bottom()), color_green, line_width)
                     landmarks = np.matrix([[p.x, p.y] for p in self.predictor(img, det).parts()])
                     for idx, point in enumerate(landmarks):
                         pos = (point[0, 0], point[0, 1])
                         cv2.circle(img, pos, 2, color=(0, 255, 0))
-                        cv2.putText(img, str(idx + 1), pos, self.font, 0.2, (0, 0, 255), 1, cv2.LINE_AA)
+                        cv2.putText(img, str(idx + 1), pos, self.font, 0.2,
+                                    (0, 0, 255), 1, cv2.LINE_AA)
 
             cv2.imshow('webcam', img)
             if cv2.waitKey(1) == 27:
@@ -121,8 +131,9 @@ class Foo:
 
 
 def main():
-    foo = Foo()
-    foo.action()
+    '''main function'''
+    capface = Foo()
+    capface.action()
 
 if __name__ == '__main__':
     main()

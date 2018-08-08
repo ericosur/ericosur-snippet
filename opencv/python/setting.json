@@ -33,17 +33,17 @@
         "picture": [
             {
                 "title": "lena",
-                "file": "lena.jpg",
+                "fn": "lena.jpg",
                 "url": "https://i.imgur.com/H0WsDJg.jpg"
             },
             {
                 "title": "vwcar",
-                "file": "vwcar.jpg",
+                "fn": "vwcar.jpg",
                 "url": "https://i.imgur.com/H0WsDJg.jpg"
             },
             {
                 "title": "deer",
-                "file": "deer.png",
+                "fn": "deer.png",
                 "url": "https://i.imgur.com/yU4Cbzw.png"
             }
         ]
@@ -53,5 +53,9 @@
         "lena": "https://i.imgur.com/H0WsDJg.jpg",
         "deer": "https://i.imgur.com/yU4Cbzw.png",
         "lego": "https://i.imgur.com/Y7VTPOi.jpg"
+    },
+
+    "myutil.py": {
+        "data": "a quick fox jumps over the lazy dog"
     }
 }

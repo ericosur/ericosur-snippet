@@ -1,19 +1,25 @@
-#
-# from: https://docs.opencv.org/3.0-beta/doc/py_tutorials/py_gui/py_video_display/py_video_display.html
-#
+# -*- coding: utf-8 -*-
+# pylint: disable=line-too-long
+'''
+from: https://docs.opencv.org/3.0-beta/doc/py_tutorials/py_gui/py_video_display/py_video_display.html
+'''
 
-import numpy as np
-import cv2
+from __future__ import print_function
+#import numpy as np
 import os
+import cv2
 
 def delete_if_exists(fn):
-    # Checks and deletes the output file
-    # You cant have a existing file or it will through an error
+    '''
+    Checks and deletes the output file
+    You cant have a existing file or it will through an error
+    '''
     if os.path.isfile(fn):
         os.remove(fn)
 
 
 def main():
+    '''main'''
     ofn = 'outpy.avi'
     delete_if_exists(ofn)
 
@@ -21,7 +27,7 @@ def main():
     cap = cv2.VideoCapture(0)
 
     # Check if camera opened successfully
-    if (cap.isOpened() == False):
+    if not cap.isOpened():
         print("Unable to read camera feed")
         return
 
@@ -33,11 +39,11 @@ def main():
     #fourcc = cv2.VideoWriter_fourcc(*'8BPS')
 
     # Define the codec and create VideoWriter object.The output is stored in 'outpy.avi' file.
-    out = cv2.VideoWriter(ofn, fourcc, 30, (frame_width,frame_height), False)
+    out = cv2.VideoWriter(ofn, fourcc, 30, (frame_width, frame_height), False)
 
-    while(True):
+    while True:
         ret, frame = cap.read()
-        if ret == True:
+        if ret:
             aframe = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
             # Write the frame into the file

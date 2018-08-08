@@ -1,5 +1,15 @@
+# -*- coding: utf-8 -*-
+#
+
+'''some cv util functions'''
+
+
+from __future__ import print_function
 import cv2
 import numpy
+from myutil import isfile
+
+__version__ = '0.0,1'
 
 def translate_img_to_str(fn):
     '''
@@ -9,11 +19,14 @@ def translate_img_to_str(fn):
     img = cv2.imread(fn)
     encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]
     result, img_str = cv2.imencode('.jpg', img, encode_param)
-    #result, img_str = cv2.imencode('.jpg', img)
-    #print('img_str: {}'.format(img_str))
-    data = numpy.array(img_str)
-    stringData = data.tostring()
-    return stringData
+    if result:
+        #print('img_str: {}'.format(img_str))
+        data = numpy.array(img_str)
+        stringData = data.tostring()
+        return stringData
+
+    print('failed to imencode')
+    return ""
 
 
 def combine_two_images(ofn, inf1, inf2, debug=False):
@@ -29,6 +42,7 @@ def combine_two_images(ofn, inf1, inf2, debug=False):
     img1 = cv2.imread(inf1)
     img2 = cv2.imread(inf2)
 
+    # maybe I should use min() instead of max()?
     new_height = max(img1.shape[0], img2.shape[0])
     new_width = max(img1.shape[1], img2.shape[1])
 
@@ -52,13 +66,14 @@ def combine_two_images(ofn, inf1, inf2, debug=False):
 
 
 def main():
+    '''main function'''
     import sys
     # strData = translate_img_to_str('lena.jpg')
     # print strData
     ofn = 'out.jpg'
     if len(sys.argv) == 1:
-        fn1='img1.jpg'
-        fn2='img2.jpg'
+        fn1 = 'img1.jpg'
+        fn2 = 'img2.jpg'
         debug = False
     elif len(sys.argv) == 3:
         fn1 = sys.argv[1]
@@ -68,9 +83,11 @@ def main():
         print('specify img1 img2...')
         return
 
-    combine_two_images(ofn, fn1, fn2, debug)
-    print('output to {}'.format(ofn))
-    return
+    if isfile(fn1) and isfile(fn2):
+        combine_two_images(ofn, fn1, fn2, debug)
+        print('output to {}'.format(ofn))
+    else:
+        print('{} and/or {} is not available'.format(fn1, fn2))
 
 if __name__ == '__main__':
     main()

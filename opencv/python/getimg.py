@@ -6,29 +6,33 @@ https://pillow.readthedocs.io/en/3.0.x/handbook/tutorial.html#reading-and-writin
 
 from __future__ import print_function
 # using Pillow, not PIL itself
-from PIL import Image
 import urllib2
 from cStringIO import StringIO
+from PIL import Image
 
 # http://blog.hardlycode.com/pil-image-from-url-2011-01/
-def LoadImageFromUrl(url):
+def load_image_from_url(url):
+    ''' using stringio to load image from URL '''
     img_file = urllib2.urlopen(url)
-    img = Image.open( StringIO(img_file.read()) )
+    img = Image.open(StringIO(img_file.read()))
     return img
 
-def SaveImg(img, fn):
+def save_img(img, fn):
+    '''PIL.save()'''
     img.save(fn)
 
 def download_url_to_file(url, fn):
+    '''download from url and save to file'''
     img_url = urllib2.urlopen(url)
-    img = Image.open( StringIO(img_url.read()) )
+    img = Image.open(StringIO(img_url.read()))
     img.save(fn)
 
 def main():
+    '''main function'''
     # use imgur direct link
-    url='https://i.imgur.com/yU4Cbzw.png'
+    url = 'https://i.imgur.com/yU4Cbzw.png'
     print('download from: {}'.format(url))
-    img = LoadImageFromUrl(url)
+    img = load_image_from_url(url)
     print(img.format, img.size, img.mode)
 
     #img.show()

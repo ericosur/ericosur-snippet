@@ -1,11 +1,14 @@
 #!/usr/bin/env python
-#
-# using skimage (scikit-image)
+# -*- coding: utf-8 -*-
 
-import myutil
+''' using skimage (scikit-image) '''
+
+from __future__ import print_function
 from skimage import io
+import myutil
 
 def main():
+    '''main function'''
     app_name = 'loadimgur.py'
     data = myutil.read_setting('setting.json')
     url = data[app_name]['lego']

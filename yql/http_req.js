@@ -33,6 +33,7 @@
     });
   }
 
+  console.log('request random.org for random numbers...');
   var http = require('https');
   http.request(options, callback).end();
 

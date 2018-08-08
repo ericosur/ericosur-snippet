@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+
+'''demo fetch image from imgur'''
+
+from __future__ import print_function
 import os
 import json
 
@@ -24,9 +29,10 @@ def read_jsonfile(fn):
 
 # in order not to break client scripts
 def read_setting(fn):
+    '''get json object from file'''
     return read_jsonfile(fn)
 
-def request_value(data, key, default_value = None):
+def request_value(data, key, default_value=None):
     '''
     given json object and request key, if key does not exist, return None
     if default_value is specified, will return default value if value not
@@ -35,25 +41,35 @@ def request_value(data, key, default_value = None):
     ret = default_value
     try:
         ret = data[key]
-    except:
+    except KeyError:
         print('key "{}" not found, will use default_value'.format(key))
     return ret
 
 
 def isfile(url):
+    '''test file exists'''
     return os.path.isfile(url)
 
 def isdir(url):
+    '''test dir exists'''
     return os.path.isdir(url)
 
 
 def main():
-    file = 'nosuchfile'
-    data = read_jsonfile(file)
-    if data == None:
+    '''main function'''
+    fn = 'nosuchfile'
+    data = read_jsonfile(fn)
+    if data:
+        print('skipped...')
         return
 
-
+def test():
+    '''test function'''
+    print('test')
+    jdata = read_jsonfile('setting.json')
+    data = jdata['myutil.py']
+    ret = request_value(data, 'name')
+    print('ret:', ret)
 
 if __name__ == '__main__':
-    main()
+    test()

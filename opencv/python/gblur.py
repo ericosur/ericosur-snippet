@@ -1,14 +1,20 @@
 #!/usr/bin/env python
-#
-# further reading: https://stackoverflow.com/questions/865115/how-do-i-correctly-clean-up-a-python-object
-#
+# -*- coding: utf-8 -*-
 
-import numpy as np
+'''
+further reading:
+https://stackoverflow.com/questions/865115/how-do-i-correctly-clean-up-a-python-object
+'''
+
+from __future__ import print_function
+#import numpy as np
 import cv2
 import myutil
 
 
-class MyCap:
+class MyCap(object):
+    ''' class MyCap to capture video from webcam and perform blur '''
+
     def __init__(self, readConfig=True, name='gblur.py'):
         self.name = name
 
@@ -17,14 +23,14 @@ class MyCap:
         self.height = 480
         self.video_index = 0
         self.win_count = 0
-        self.sigmaX = 5
-        self.sigmaY = 5
+        self.sigma_x = 5
+        self.sigma_y = 5
         if readConfig:
             self.read_config()
         self.init_window()
 
     def read_config(self):
-        # read settings from json
+        ''' read settings from json '''
         app_name = self.name
         data = myutil.read_setting('setting.json')
         try:
@@ -33,14 +39,14 @@ class MyCap:
             print("video input from: {}".format(self.video_index))
             self.width = data[app_name]['width']
             self.height = data[app_name]['height']
-            self.sigmaX = data[app_name]['sigmaX']
-            self.sigmaY = data[app_name]['sigmaY']
+            self.sigma_x = data[app_name]['sigma_x']
+            self.sigma_y = data[app_name]['sigma_y']
         except KeyError:
             print('no such key, fallback using default values')
         print('config read...')
 
     def init_window(self):
-
+        ''' init windows for imshow '''
         cv2.namedWindow('rgb')
         self.win_count += 1
         cv2.moveWindow('rgb', 0, 0)
@@ -51,21 +57,24 @@ class MyCap:
         print('init_window...')
 
     def action(self):
+        ''' open webcam and perform action '''
         cap = cv2.VideoCapture(self.video_index)
         if cap.isOpened():
             cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.width)
             cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.height)
             print("press 'q' to quit")
-            while(True):
+            while True:
                 # Capture frame-by-frame
                 ret, frame = cap.read()
+                if not ret:
+                    break
 
                 if self.win_count == 0:
                     #rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                     cv2.imshow('frame', frame)
                 else:
                     # Our operations on the frame come here
-                    blur = cv2.GaussianBlur(frame, (self.sigmaX, self.sigmaY), 0)
+                    blur = cv2.GaussianBlur(frame, (self.sigma_x, self.sigma_y), 0)
                     cv2.imshow('rgb', frame)
                     cv2.imshow('blur', blur)
 
@@ -80,8 +89,9 @@ class MyCap:
 
 
 def main():
-    foo = MyCap()
-    foo.action()
+    ''' main function '''
+    mycap = MyCap()
+    mycap.action()
 
 
 if __name__ == '__main__':
