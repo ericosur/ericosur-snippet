@@ -45,8 +45,15 @@ void test1()
     }
 }
 
+void test2()
+{
+    MyMat m(1024,2048);
+    MyMat n(2048,1024);
+    MyMat ans = m.cross(n);
+}
+
 int main()
 {
-    test1();
+    test2();
     return 0;
 }
