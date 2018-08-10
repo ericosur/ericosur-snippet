@@ -27,7 +27,7 @@ int main()
     printf("v = %x\n", v);
 
     //time_t t;
-    printf("sizeof(time_t) = %d\n", sizeof(time_t));
+    printf("sizeof(time_t) = %d\n", (int)sizeof(time_t));
     // should be same as "date +%s"
     printf("time: %ld\n", (long)time(NULL));
 
