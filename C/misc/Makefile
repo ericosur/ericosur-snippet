@@ -1,5 +1,5 @@
-CXXFLAGS = -Wall -O2 -std=c++11
-CFLAGS = -Wall -O2
+CXXFLAGS = -Wall -O3 -std=c++11
+CFLAGS = -Wall -O3
 CXX=g++
 CC=gcc
 
