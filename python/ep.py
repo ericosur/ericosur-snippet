@@ -7,6 +7,7 @@ convert epoch value to date/time string
 
 from __future__ import print_function
 import time
+import sys
 
 def epoch2timestr(epoch=-1):
     ''' Replace time.localtime with time.gmtime for GMT time '''
@@ -18,5 +19,9 @@ def epoch2timestr(epoch=-1):
     return [epoch, msg]
 
 if __name__ == "__main__":
-    print(epoch2timestr())
-    print(epoch2timestr(1468123201))
+    if len(sys.argv) > 1:
+        print('argv[1]:({})'.format(sys.argv[1]))
+        print(epoch2timestr(float(sys.argv[1])))
+    else:
+        print(epoch2timestr())
+        print(epoch2timestr(1468123201))
