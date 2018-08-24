@@ -234,7 +234,9 @@ int main(int argc, char* argv[])
 
 		//delay 30ms so that screen can refresh.
 		//image will not appear without this waitKey() command
-		waitKey(30);
+		if (waitKey(30) == 0x1B) {
+			break;
+		}
 	}
 
 	return 0;
