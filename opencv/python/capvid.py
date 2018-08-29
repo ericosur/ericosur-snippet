@@ -1,3 +1,4 @@
+#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 # pylint: disable=line-too-long
 '''
@@ -40,7 +41,7 @@ def main():
 
     # Define the codec and create VideoWriter object.The output is stored in 'outpy.avi' file.
     out = cv2.VideoWriter(ofn, fourcc, 30, (frame_width, frame_height), False)
-
+    print('press "q" to quit...')
     while True:
         ret, frame = cap.read()
         if ret:

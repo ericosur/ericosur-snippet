@@ -40,7 +40,6 @@ class MyCap(object):
         self.win_count = 0
         if not useDefault:
             self.read_config()
-        self.init_window()
 
     def read_config(self):
         ''' read settings from json '''
@@ -131,45 +130,50 @@ class MyCap(object):
     def action(self):
         ''' invoking entry function '''
         cap = cv2.VideoCapture(self.video_index)
-        if cap.isOpened():
-            cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.width)
-            cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.height)
-            print("press 'q' to quit")
-            while True:
-                # Capture frame-by-frame
-                ret, frame = cap.read()
-                if not ret:
-                    break
-                self.skin_mask(frame)
+        if not cap.isOpened():
+            print('ERROR: cannot open video capture device...')
+            cap.release()
+            return
 
-                if self.win_count == 0:
+        self.init_window()
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.width)
+        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.height)
+        print("press 'q' to quit")
+        while True:
+            # Capture frame-by-frame
+            ret, frame = cap.read()
+            if not ret:
+                break
+            self.skin_mask(frame)
+
+            if self.win_count == 0:
+                #rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                cv2.imshow('frame', frame)
+
+            else:
+                # Our operations on the frame come here
+                if self.has_gray:
+                    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+                    cv2.imshow('gray', gray)
+
+                if self.has_rgb:
                     #rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                    cv2.imshow('frame', frame)
+                    rgb = frame
+                    cv2.imshow('rgb', rgb)
 
-                else:
-                    # Our operations on the frame come here
-                    if self.has_gray:
-                        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                        cv2.imshow('gray', gray)
+                if self.has_test:
+                    ifrm = frame.copy()
+                    blue = self.split_blue(ifrm)
+                    cv2.imshow('test', blue)
 
-                    if self.has_rgb:
-                        #rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                        rgb = frame
-                        cv2.imshow('rgb', rgb)
-
-                    if self.has_test:
-                        ifrm = frame.copy()
-                        blue = self.split_blue(ifrm)
-                        cv2.imshow('test', blue)
-
-                    if self.has_hsv:
-                        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-                        cv2.imshow('hsv', hsv)
+                if self.has_hsv:
+                    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+                    cv2.imshow('hsv', hsv)
 
 
-                key = cv2.waitKey(1)
-                if key & 0xFF == ord('q') or key == 27:
-                    break
+            key = cv2.waitKey(1)
+            if key & 0xFF == ord('q') or key == 27:
+                break
 
         # When everything done, release the capture
         cap.release()
@@ -178,6 +182,7 @@ class MyCap(object):
 
 def main():
     '''main function'''
+    print('using opencv version: {}'.format(cv2.__version__))
     mycap = MyCap()
     mycap.action()
 
