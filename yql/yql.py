@@ -1,21 +1,25 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# use yql to query yahoo weather
-# to get pretty output:
-# ./yql.py|python -m json.tool
-#
-# from: http://57life.blogspot.tw/2012/12/msn-yahoo.html
-# 20070568   台北 (台北市內湖區)
+'''
+use yql to query yahoo weather
+to get pretty output:
+./yql.py|python -m json.tool
+
+from: http://57life.blogspot.tw/2012/12/msn-yahoo.html
+20070568   台北 (台北市內湖區)
+'''
 
 import urllib2, urllib, json
 
 def print_tips():
+    '''print_tips'''
     print("you may use './yql.py | python -m json.tool' to get pretty format\n")
     print("may also use: jq '.'\n");
 
 # suggest to query all data once, and then show needed data
 def query_weather():
+    '''query weather at fixed city: taipei'''
     woeid = '20070568'
     city_name = 'Taipei'
     #condition = 'item.condition'
