@@ -7,7 +7,11 @@ find_package( OpenCV REQUIRED )
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "-Wall -O3")
+if(NOT ${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp")
+endif()
+
+message("cmake system: ${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_VERSION}")
 
 #      - OpenCV_LIBS                     : The list of all imported targets for OpenCV modules.
 #      - OpenCV_INCLUDE_DIRS             : The OpenCV include directories.

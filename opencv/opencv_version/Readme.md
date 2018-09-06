@@ -13,3 +13,10 @@ different.
 ```
 $ source /opt/intel/computer_vision_sdk/bin/setupvars.sh
 ```
+
+## alternative opencv
+
+```
+$ export OpenCV_DIR=/usr/local/share
+$ mkdir -p build && cd build && cmake ..
+```
