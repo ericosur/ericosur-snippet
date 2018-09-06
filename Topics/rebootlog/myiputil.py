@@ -1,7 +1,9 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-# file: myutil.py
+''' file: myutil.py '''
 
+from __future__ import print_function
 import subprocess
 
 # use python to run:
@@ -28,4 +30,3 @@ if __name__ == "__main__":
     print("iface: " + get_iface_ip("eth0"))
     print("ssid: " + get_ssid())
     print("ssid: " + get_extip())
-

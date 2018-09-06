@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 '''
 update.py
@@ -13,8 +14,8 @@ ip addr show eth0 |grep -w inet
 import gspread
 import time
 import socket
-import myutil
 import getopt, sys
+from myiputil import get_iface_ip, get_ssid, get_extip
 
 # oauth2
 def auth_gss_client(path, scopes):
@@ -74,10 +75,10 @@ def main():
 
     today = time.strftime("%c")
     host = socket.gethostname()
-    eth0 = myutil.get_iface_ip("eth0")
-    wlan0 = myutil.get_iface_ip("wlan0")
-    ssid = myutil.get_ssid()
-    extip = myutil.get_extip()
+    eth0 = get_iface_ip("eth0")
+    wlan0 = get_iface_ip("wlan0")
+    ssid = get_ssid()
+    extip = get_extip()
 
     try:
         f = open(spreadsheet_key_path)
