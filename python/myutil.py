@@ -7,7 +7,6 @@ from __future__ import print_function
 import os
 import sys
 import json
-import urllib2
 
 __version__ = '0.0.2'
 
@@ -34,6 +33,11 @@ def read_jsonfile(fn):
 def read_setting(fn):
     '''get json object from file'''
     return read_jsonfile(fn)
+
+def get_python_version():
+    ''' return version string of python '''
+    py_ver = ".".join(map(str, sys.version_info[:2]))
+    return py_ver
 
 def request_value(data, key, default_value=None):
     '''
@@ -67,11 +71,23 @@ def isdir(url):
 
 
 def query_url(url):
-    ''' query url and return data '''
+    ''' query url and return data
+    refer to: https://stackoverflow.com/questions/2792650/import-error-no-module-name-urllib2
+    '''
+
     debug = False
     if debug:
         print(url)
-    result = urllib2.urlopen(url).read()
+    py_ver = get_python_version()
+    if float(py_ver) >= 3.0:
+        #print("python >= 3.0")
+        import urllib.request
+        result = urllib.request.urlopen(url).read()
+    else:
+        #print("python < 3.0")
+        import urllib
+        result = urllib.urlopen(url).read()
+
     data = json.loads(result)
     return data
 
