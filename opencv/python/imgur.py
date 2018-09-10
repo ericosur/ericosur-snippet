@@ -29,7 +29,9 @@ def main():
     title = 'deer'
     fn = 'deer.png'
 
-    if not myutil.isfile(fn):
+    if myutil.isfile(fn):
+        print('file {} already exists, will not download'.format(fn))
+    else:
         fn = try_to_download(json_data, title)
 
     im = Image.open(fn)
