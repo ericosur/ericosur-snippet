@@ -16,8 +16,10 @@ using namespace cv;
 const string WINDOW_ORIGIN = "Unprocessed Image";
 const string WINDOW_PROCESS = "Processed Image";
 const string DEFAULT_IAMGE = "deer.jpg";
+const string OUTPUT_FNAME = "output.jpg";
 
 int GAUSSIAN_RADIUS = 29;
+bool show_image = true;
 
 bool is_file_exist(const string& fn);
 
@@ -47,6 +49,12 @@ bool load_json(string& img_file)
         GAUSSIAN_RADIUS = 29;
     }
     cout << "gaussian radius: " << GAUSSIAN_RADIUS << endl;
+    try {
+        show_image = json.at("show_image");
+    } catch (nlohmann::json::out_of_range& e) {
+        show_image = true;
+    }
+    cout << "show_image: " << show_image << endl;
     return true;
 }
 #endif
@@ -95,16 +103,21 @@ int main( int argc, char** argv )
         return -1;
     }
 
-    namedWindow( WINDOW_ORIGIN, WINDOW_AUTOSIZE );
-    imshow(WINDOW_ORIGIN, src);
-
     dst = src.clone();
-    GaussianBlur( src, dst, Size(GAUSSIAN_RADIUS, GAUSSIAN_RADIUS), 0, 0 );
+    GaussianBlur(src, dst, Size(GAUSSIAN_RADIUS, GAUSSIAN_RADIUS), 0, 0);
 
-    namedWindow( WINDOW_PROCESS, WINDOW_AUTOSIZE );
-    imshow(WINDOW_PROCESS, dst);
+    if (show_image) {
+        namedWindow(WINDOW_ORIGIN, WINDOW_AUTOSIZE);
+        imshow(WINDOW_ORIGIN, src);
 
-    cout << "press any key to exit..." << endl;
-    waitKey();
+        namedWindow(WINDOW_PROCESS, WINDOW_AUTOSIZE);
+        imshow(WINDOW_PROCESS, dst);
+        cout << "press any key to exit..." << endl;
+        waitKey();
+    } else {
+        cout << "will output to " << OUTPUT_FNAME << "...\n";
+        imwrite(OUTPUT_FNAME, dst);
+    }
+
     return 0;
 }

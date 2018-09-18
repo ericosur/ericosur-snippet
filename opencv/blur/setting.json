@@ -1,5 +1,6 @@
 {
     "image": "../deer.jpg",
-    "radius": 25
+    "radius": 25,
+    "show_image": false
 }
 
