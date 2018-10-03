@@ -65,12 +65,13 @@ def main():
 
     print_sep()
     des = res.describe()
-    #print('68', des)
+    #print('all description...', des)
+    #print_sep()
 
-    queries = ['mean', '50%']
+    queries = ['max', 'min', 'mean', '50%', 'std']
     for qq in queries:
         ans = peek_target(des, qq)
-        print('{}: {}'.format(qq, ans))
+        print('{:5s}: {:20s}'.format(qq, ans.rjust(10,' ')))
     print_sep()
 
 
