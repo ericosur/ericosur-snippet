@@ -17,12 +17,15 @@ RESOURCES += qml.qrc
 macx {
     INCLUDEPATH += /opt/local/include
     LIBS += -L/opt/local/lib
+} else {
+    # run 'pkg-config --libs opencv' to update the following LIBS
+    INCLUDEPATH += $$system(pkg-config --cflags opencv)
+    LIBS += $$system(pkg-config --libs opencv)
 }
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
 
 
-# run 'pkg-config --libs opencv' to update the following LIBS
-LIBS += \
--lopencv_dnn -lopencv_ml -lopencv_objdetect -lopencv_shape -lopencv_stitching -lopencv_superres -lopencv_videostab -lopencv_calib3d -lopencv_features2d -lopencv_highgui -lopencv_videoio -lopencv_imgcodecs -lopencv_video -lopencv_photo -lopencv_imgproc -lopencv_flann -lopencv_core
+# if opencv is built with opencv_world turned on, may link only one lib file
+# LIBS += -lopencv_world
