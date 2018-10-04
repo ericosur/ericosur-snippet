@@ -13,6 +13,7 @@ refer: https://www.researchgate.net/publication/262371199_Explicit_image_detecti
 # pylint: enable=line-too-long
 
 from __future__ import print_function
+import math
 import numpy as np
 import cv2
 import myutil
@@ -35,7 +36,8 @@ class MyCap(object):
         self.has_gray = False
         self.has_bgr = False
         self.has_rgb = False
-        self.has_hsv = True
+        self.has_hsv = False
+        self.has_skin = False
         self.has_test = True
         self.win_count = 0
         if not useDefault:
@@ -71,9 +73,9 @@ class MyCap(object):
         if self.has_test:
             cv2.namedWindow('test', flags=cv2.WINDOW_AUTOSIZE)
             cv2.moveWindow('test', 0, int(self.height*1.5))
-
-        cv2.namedWindow('skin')
-        cv2.moveWindow('skin', 0, 300)
+        if self.has_skin:
+            cv2.namedWindow('skin')
+            cv2.moveWindow('skin', 0, 300)
         print('init_window...')
 
     @staticmethod
@@ -127,6 +129,7 @@ class MyCap(object):
         '''
 
 
+
     def action(self):
         ''' invoking entry function '''
         cap = cv2.VideoCapture(self.video_index)
@@ -144,7 +147,9 @@ class MyCap(object):
             ret, frame = cap.read()
             if not ret:
                 break
-            self.skin_mask(frame)
+
+            if self.has_skin:
+                self.skin_mask(frame)
 
             if self.win_count == 0:
                 #rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -163,8 +168,9 @@ class MyCap(object):
 
                 if self.has_test:
                     ifrm = frame.copy()
-                    blue = self.split_blue(ifrm)
-                    cv2.imshow('test', blue)
+                    hough_lines(ifrm)
+                    #blue = self.split_blue(ifrm)
+                    #cv2.imshow('test', blue)
 
                 if self.has_hsv:
                     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -180,12 +186,45 @@ class MyCap(object):
         cv2.destroyAllWindows()
 
 
+def hough_lines(src):
+    ''' reference from opencv python examples houghlines.py '''
+    dst = cv2.Canny(src, 50, 200)
+    #cv2.imshow('test', dst)
+    cdst = cv2.cvtColor(dst, cv2.COLOR_GRAY2BGR)
+    #cdst = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
+
+    use_houghlinep = True
+    if use_houghlinep: # HoughLinesP
+        lines = cv2.HoughLinesP(dst, 1, math.pi/180.0, 40, np.array([]), 50, 10)
+        try:
+            a,b,c = lines.shape
+            for i in range(a):
+                cv2.line(cdst, (lines[i][0][0], lines[i][0][1]), (lines[i][0][2], lines[i][0][3]), (0, 0, 255), 3, cv2.LINE_AA)
+        except AttributeError:
+            print('.', end='')
+
+    else:    # HoughLines
+        lines = cv2.HoughLines(dst, 1, math.pi/180.0, 50, np.array([]), 0, 0)
+        if lines is not None:
+            a,b,c = lines.shape
+            for i in range(a):
+                rho = lines[i][0][0]
+                theta = lines[i][0][1]
+                a = math.cos(theta)
+                b = math.sin(theta)
+                x0, y0 = a*rho, b*rho
+                pt1 = ( int(x0+1000*(-b)), int(y0+1000*(a)) )
+                pt2 = ( int(x0-1000*(-b)), int(y0-1000*(a)) )
+                cv2.line(cdst, pt1, pt2, (0, 0, 255), 3, cv2.LINE_AA)
+
+    cv2.imshow("test", cdst)
+
 def main():
     '''main function'''
     print('using opencv version: {}'.format(cv2.__version__))
     mycap = MyCap()
     mycap.action()
-
+    print()
 
 if __name__ == '__main__':
     main()
