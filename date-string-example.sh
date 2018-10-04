@@ -1,12 +1,18 @@
 #!/bin/bash
 
+if [ $(uname) == "Darwin" ] ; then
+    DATE=gdate
+else
+    DATE=date
+fi
+
 # get epoch from date
-testdate=$(date +%s)
+testdate=$($DATE +%s)
 echo "epoch: ${testdate}"
 
 # convert epoch to local readable date/time string
 # it may show date string to follow system locale settings
-date -d @${testdate}
+$DATE -d @${testdate}
 
 # -R, --rfc-2822 output date and time in RFC 2822 format
-date -R -d @${testdate}
+$DATE -R -d @${testdate}
