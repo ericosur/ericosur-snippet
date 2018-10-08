@@ -25,7 +25,7 @@ def sec2str(sec):
         qq = nn / 60
         rr = nn % 60
         ss.append(strify(rr))
-        nn = qq
+        nn = int(qq)
     ss.append(strify(nn))
     ss.reverse()
     res = ':'.join(ss)
