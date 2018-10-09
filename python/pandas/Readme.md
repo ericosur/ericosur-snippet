@@ -1,5 +1,8 @@
 # readme
 
+In this folder, some python scripts uses module *__*csv*__* and *__*pandas*__*
+to manipulate data table.
+
 hello_pd.py is a simple python script that uses module pandas to do some
 filter on data table.
 
