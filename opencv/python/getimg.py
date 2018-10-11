@@ -6,13 +6,17 @@ https://pillow.readthedocs.io/en/3.0.x/handbook/tutorial.html#reading-and-writin
 
 from __future__ import print_function
 # using Pillow, not PIL itself
-import urllib2
-from cStringIO import StringIO
 from PIL import Image
+from myutil import get_python_version
 
 # http://blog.hardlycode.com/pil-image-from-url-2011-01/
 def load_image_from_url(url):
     ''' using stringio to load image from URL '''
+    ver = float(get_python_version())
+    assert ver < 3.0, 'cannot run under python3'
+
+    import urllib2
+    from cStringIO import StringIO
     img_file = urllib2.urlopen(url)
     img = Image.open(StringIO(img_file.read()))
     return img
@@ -23,6 +27,11 @@ def save_img(img, fn):
 
 def download_url_to_file(url, fn):
     '''download from url and save to file'''
+    ver = float(get_python_version())
+    assert ver < 3.0, 'cannot run under python3'
+
+    import urllib2
+    from cStringIO import StringIO
     img_url = urllib2.urlopen(url)
     img = Image.open(StringIO(img_url.read()))
     img.save(fn)
