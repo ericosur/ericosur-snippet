@@ -4,8 +4,76 @@
 ''' read driving data and make stastics '''
 
 from __future__ import print_function
+import os
 import pandas as pd
 from datetime import time
+import myutil
+
+class driving_data(object):
+    def __init__(self):
+        self.debug = True
+        self.jsonfile = 'driving_data.json'
+        self.jsondir = 'apikey/'
+        self.jsonpath = self.jsonfile
+        self.jsondata = None
+        self.csvfile = '/tmp/driving_data.csv'
+        self.docid = ''
+        self.sheetid = ''
+        self.url = ''
+
+    def read_setting(self):
+        home = os.getenv('HOME')
+        self.jsonpath = home + '/' + self.jsondir + self.jsonfile
+        if not myutil.isfile(self.jsonpath):
+            print('setting file not found', self.jsonpath)
+            os.exit(-1)
+        self.jsondata = myutil.read_jsonfile(self.jsonpath)
+        self.docid = self.jsondata.get('docid', '')
+        self.sheetid = self.jsondata.get('sheetid', '')
+        self.url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(self.docid, self.sheetid)
+
+    def dump_setting(self):
+        print('jsonpath:', self.jsonpath)
+        print('docid:', self.docid)
+        print('sheetid', self.sheetid)
+        print('url:', self.url)
+
+    def request_data(self):
+        csvdata = myutil.query_url_for_data(self.url)
+        #print('csvdata: ', csvdata)
+        with open(self.csvfile, 'w') as ofile:
+            ofile.write(csvdata)
+            if self.debug:
+                print('output json to {}'.format(self.csvfile))
+
+    def action(self):
+        ''' main function '''
+        #print("pd.__version__: {}".format(pd.__version__))
+
+        # read csv file as dataframe
+        data = pd.read_csv(self.csvfile)
+
+        s1 = data['duration']
+        dates = []
+        secs = []
+        for ii, ds in enumerate(data['date']):
+            dates.append(ds)
+            secs.append(str2sec(s1[ii]))
+
+        ndict = {"date": dates, "seconds": secs}
+        res = pd.DataFrame(ndict)
+        #print(res.info())
+
+        print_sep()
+        des = res.describe()
+        #print('all description...', des)
+        #print_sep()
+
+        queries = ['count', 'max', 'min', 'mean', '50%', 'std']
+        for qq in queries:
+            ans = peek_target(des, qq)
+            print('{:5s}: {:20s}'.format(qq, ans.rjust(10,' ')))
+        print_sep()
 
 
 def str2sec(timestr):
@@ -45,35 +113,14 @@ def peek_target(desc_table, target):
     except ValueError:
         return ''
 
-def main():
-    ''' main function '''
-    #print("pd.__version__: {}".format(pd.__version__))
-    FILEN = 'driving_data.csv'
-    # read csv file as dataframe
-    data = pd.read_csv(FILEN)
 
-    s1 = data['duration']
-    dates = []
-    secs = []
-    for ii, ds in enumerate(data['date']):
-        dates.append(ds)
-        secs.append(str2sec(s1[ii]))
 
-    ndict = {"date": dates, "seconds": secs}
-    res = pd.DataFrame(ndict)
-    #print(res.info())
-
-    print_sep()
-    des = res.describe()
-    #print('all description...', des)
-    #print_sep()
-
-    queries = ['max', 'min', 'mean', '50%', 'std']
-    for qq in queries:
-        ans = peek_target(des, qq)
-        print('{:5s}: {:20s}'.format(qq, ans.rjust(10,' ')))
-    print_sep()
-
+def test():
+    dd = driving_data()
+    dd.read_setting()
+    #dd.dump_setting()
+    dd.request_data()
+    dd.action()
 
 if __name__ == '__main__':
-    main()
+    test()
