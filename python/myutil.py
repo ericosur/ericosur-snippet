@@ -70,11 +70,11 @@ def isdir(url):
     return os.path.isdir(url)
 
 
-def query_url(url):
+def query_url_for_data(url):
     ''' query url and return data
     refer to: https://stackoverflow.com/questions/2792650/import-error-no-module-name-urllib2
     '''
-
+    result = None
     debug = False
     if debug:
         print(url)
@@ -87,9 +87,17 @@ def query_url(url):
         #print("python < 3.0")
         import urllib
         result = urllib.urlopen(url).read()
+    return result
 
+
+def query_url_for_json(url):
+    ''' query url and return json data
+    refer to: https://stackoverflow.com/questions/2792650/import-error-no-module-name-urllib2
+    '''
+    result = query_url_for_data(url)
     data = json.loads(result)
     return data
+
 
 def write_json(fn, data):
     ''' write json into specified file '''

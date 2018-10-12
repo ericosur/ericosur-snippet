@@ -3,7 +3,7 @@
 
 import urllib, json
 import os
-from myutil import query_url, write_json
+from myutil import query_url_for_json, write_json
 
 global latitude
 global longitude
@@ -35,7 +35,7 @@ def query_openweather():
     baseurl = baseurl.strip()
     if debug:
         print(baseurl)
-    data = query_url(baseurl)
+    data = query_url_for_json(baseurl)
     my_write_json(openweather_file, data)
     tempk = data['main']['temp']
     tempk = tempk - 273.15
@@ -55,7 +55,7 @@ def query_accuweather():
     url = baseurl + urllib.urlencode({'apikey':appid,'q':pos})
     if debug:
         print(url)
-    data = query_url(url)
+    data = query_url_for_json(url)
     #print json.dumps(data)
     #write_json('aw.json', data)
     lockey = data["Key"]
@@ -65,7 +65,7 @@ def query_accuweather():
     baseurl = baseurl.strip()
     url = baseurl + urllib.urlencode({'apikey':appid})
     #print(url)
-    data = query_url(url)
+    data = query_url_for_json(url)
     my_write_json(accuweather_file, data)
     print('.[0].Temperature.Metric.Value: {0}'.format(data[0]['Temperature']['Metric']['Value']))
 
@@ -74,7 +74,7 @@ def query_accuweather():
     '''.format(lockey)
     baseurl = baseurl.strip()
     url = baseurl + urllib.urlencode({'apikey':appid, 'details':'true'})
-    data = query_url(url)
+    data = query_url_for_json(url)
     my_write_json(accuweather_forcast_file, data)
     print('.[0].RainProbability: {0}'.format(data[0]['RainProbability']))
 
