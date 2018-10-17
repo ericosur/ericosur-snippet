@@ -168,9 +168,13 @@ class MyCap(object):
 
                 if self.has_test:
                     ifrm = frame.copy()
-                    hough_lines(ifrm)
+                    e0 = cv2.getTickCount()
+                    cvimg = hough_lines(ifrm)
+                    e1 = cv2.getTickCount()
+                    elapsed = (e1 - e0) / cv2.getTickFrequency()
+                    show_fps(cvimg, elapsed)
                     #blue = self.split_blue(ifrm)
-                    #cv2.imshow('test', blue)
+                    cv2.imshow('test', cvimg)
 
                 if self.has_hsv:
                     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -186,6 +190,18 @@ class MyCap(object):
         cv2.destroyAllWindows()
 
 
+def show_fps(img, elapsed_time):
+    ''' put text of elapse time and FPS from input image '''
+    fontface = cv2.FONT_HERSHEY_SIMPLEX
+    scale = 0.75
+    #baseline = 0
+    #thickness = 2
+    fps = 1.0 / elapsed_time
+    msg = "elapsed: {:.3f} fps({:.1f})".format(elapsed_time, fps)
+    cv2.putText(img, msg, (10, 35), fontface, scale, (127, 0, 255), 1, cv2.LINE_AA)
+    return img
+
+
 def hough_lines(src):
     ''' reference from opencv python examples houghlines.py '''
     dst = cv2.Canny(src, 50, 200)
@@ -197,31 +213,33 @@ def hough_lines(src):
     if use_houghlinep: # HoughLinesP
         lines = cv2.HoughLinesP(dst, 1, math.pi/180.0, 40, np.array([]), 50, 10)
         try:
-            a,b,c = lines.shape
+            a, b, c = lines.shape
             for i in range(a):
-                cv2.line(cdst, (lines[i][0][0], lines[i][0][1]), (lines[i][0][2], lines[i][0][3]), (0, 0, 255), 3, cv2.LINE_AA)
+                cv2.line(cdst, (lines[i][0][0], lines[i][0][1]), (lines[i][0][2], lines[i][0][3]),
+                         (0, 0, 255), 3, cv2.LINE_AA)
         except AttributeError:
             print('.', end='')
 
     else:    # HoughLines
         lines = cv2.HoughLines(dst, 1, math.pi/180.0, 50, np.array([]), 0, 0)
         if lines is not None:
-            a,b,c = lines.shape
+            a, b, c = lines.shape
             for i in range(a):
                 rho = lines[i][0][0]
                 theta = lines[i][0][1]
                 a = math.cos(theta)
                 b = math.sin(theta)
                 x0, y0 = a*rho, b*rho
-                pt1 = ( int(x0+1000*(-b)), int(y0+1000*(a)) )
-                pt2 = ( int(x0-1000*(-b)), int(y0-1000*(a)) )
+                pt1 = (int(x0+1000*(-b)), int(y0+1000*(a)))
+                pt2 = (int(x0-1000*(-b)), int(y0-1000*(a)))
                 cv2.line(cdst, pt1, pt2, (0, 0, 255), 3, cv2.LINE_AA)
+    #cv2.imshow("test", cdst)
+    return cdst
 
-    cv2.imshow("test", cdst)
 
 def main():
     '''main function'''
-    print('using opencv version: {}'.format(cv2.__version__))
+    #print('using opencv version: {}'.format(cv2.__version__))
     mycap = MyCap()
     mycap.action()
     print()

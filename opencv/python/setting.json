@@ -11,11 +11,11 @@
     },
     "vcap.py" : {
         "video_index": 0,
-        "width": 320,
-        "height": 240,
-        "gray": true,
+        "width": 640,
+        "height": 480,
+        "gray": false,
         "rgb": true,
-        "test": false
+        "test": true
     },
     "split.py" : {
         "__image_file": "Pictures/lena.png",
