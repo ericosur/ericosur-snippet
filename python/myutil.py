@@ -53,12 +53,14 @@ def request_value(data, key, default_value=None):
     return ret
 
 def insert_syspath(p):
+    ''' help to insert path into module search path '''
     if is_path_exist(p):
         print('insert {} into sys path'.format(p))
         sys.path.insert(0, p)
     return
 
 def is_path_exist(p):
+    ''' true if specified path exists '''
     return os.path.exists(p)
 
 def isfile(url):
