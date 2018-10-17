@@ -18,3 +18,10 @@ def show_utf8char(ch):
 
 if __name__ == '__main__':
     show_utf8char('中')
+    print()
+
+    ss = u' '.join(u"\u037E").encode('utf-8').strip()
+    print("greek question mark: {}".format(ss))
+    print()
+
+    print("char: {}\nhex: {}".format(';', hex(ord(';'))))
