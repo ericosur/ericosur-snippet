@@ -5,3 +5,6 @@ outpy.avi
 # this file should be download from:
 # http://dlib.net/face_landmark_detection.py.html
 shape_predictor_68_face_landmarks.dat
+
+
+img_encode.txt
