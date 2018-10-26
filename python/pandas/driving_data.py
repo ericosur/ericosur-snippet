@@ -5,18 +5,19 @@
 
 from __future__ import print_function
 import os
+import sys
 import pandas as pd
 from datetime import time
 import myutil
 
 class driving_data(object):
-    def __init__(self):
+    def __init__(self, csvfile='/tmp/driving_data.csv'):
         self.debug = True
         self.jsonfile = 'driving_data.json'
         self.jsondir = 'apikey/'
         self.jsonpath = self.jsonfile
         self.jsondata = None
-        self.csvfile = '/tmp/driving_data.csv'
+        self.csvfile = csvfile
         self.docid = ''
         self.sheetid = ''
         self.url = ''
@@ -77,11 +78,19 @@ class driving_data(object):
 
 
 def str2sec(timestr):
-    arr = timestr.split(':')
-    sec = 0.0
-    if len(arr) == 2:
-        sec = float(arr[0]) * 60.0 + float(arr[1])
-    return sec
+    minutes = 0.0
+    seconds = 0.0
+    total = 0.0
+    try:
+        arr = timestr.split(':')
+        #print('in:{} out:{}'.format(timestr, arr))
+        if len(arr) == 2:
+            minutes = float(arr[0]) * 60.0
+            seconds = float(arr[1])
+            total = minutes + seconds
+    except ValueError as e:
+        print('ValueError with {}: {}'.format(timestr, e.args))
+    return total
 
 def strify(nn):
     return '{:02}'.format(nn)
@@ -110,17 +119,28 @@ def peek_target(desc_table, target):
         mean_value = desc_table.iloc[midx, 0]
         result = sec2str(mean_value)
         return result
-    except ValueError:
+    except ValueError as e:
+        print('WARN: ValueError: {}'.format(e.args))
         return ''
 
 
-
-def test():
+def load_data_from_gdrive():
     dd = driving_data()
     dd.read_setting()
     #dd.dump_setting()
     dd.request_data()
     dd.action()
 
+def load_data_from_file(fn):
+    dd = driving_data(fn)
+    dd.action()
+
+
 if __name__ == '__main__':
-    test()
+    if len(sys.argv) > 1:
+        fn = sys.argv[1]
+        print('load csv data from: {}'.format(fn))
+        load_data_from_file(fn)
+    else:
+        print('will request data from gdrive...')
+        load_data_from_gdrive()
