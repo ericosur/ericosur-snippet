@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+'''
+script to query openweather and accuweather
+'''
+
+from __future__ import print_function
 import urllib, json
 import os
 from myutil import query_url_for_json, write_json
@@ -40,7 +45,7 @@ def query_openweather():
     tempk = data['main']['temp']
     tempk = tempk - 273.15
     print('temp:{0}'.format(tempk))
-    print data['weather'][0]['description']
+    print(data['weather'][0]['description'])
 
 
 
