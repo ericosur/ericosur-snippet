@@ -12,3 +12,9 @@ if no error, may issue
 $ make
 ```
 to build them all
+
+## hello_world
+
+simple "hello world" to show:
+  - a extenal instance will be run before main()
+  - simple nlomann::json usage
