@@ -1,8 +1,11 @@
+# code: utf-8
+
+
 def test_even_divide(nn):
-	for i in xrange(1,20):
+	for i in range(1, 20):
 		if nn % i != 0:
-			return 0
-	return 1
+			return False
+	return True
 
 def call_func(nn):
 	if test_even_divide(nn):
