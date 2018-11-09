@@ -41,10 +41,11 @@ def main(video_id=0):
         print("Unable to read camera feed, exit...")
         return
 
-    cap.set(3, DEFAULT_WIDTH)
-    cap.set(4, DEFAULT_HEIGHT)
-    frame_width = int(cap.get(3))
-    frame_height = int(cap.get(4))
+    # CAP_PROP_FRAME_WIDTH is defined at videoio.hpp
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, DEFAULT_WIDTH)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, DEFAULT_HEIGHT)
+    frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
     if doWriteAVI:
         #fourcc = cv2.VideoWriter_fourcc(*'MJPG')

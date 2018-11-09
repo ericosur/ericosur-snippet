@@ -49,10 +49,11 @@ class MyCap(object):
 
     def init_window(self):
         ''' init multiple showing windows '''
-        cv2.namedWindow('rgb', flags=cv2.WINDOW_AUTOSIZE)
-        cv2.moveWindow('rgb', 0, 0)
+        #cv2.namedWindow('rgb', flags=cv2.WINDOW_AUTOSIZE)
+        #cv2.moveWindow('rgb', 0, 0)
         cv2.namedWindow('test', flags=cv2.WINDOW_AUTOSIZE)
-        cv2.moveWindow('test', 0, int(self.height*1.5))
+        #cv2.moveWindow('test', 0, int(self.height*1.5))
+        cv2.moveWindow('test', 0, 0)
         print('init_window...')
 
     def action(self):
@@ -66,8 +67,10 @@ class MyCap(object):
         self.init_window()
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.width)
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.height)
+        cap.set(cv2.CAP_PROP_FPS, 30)
         print("press 'q' to quit")
         while True:
+            e0 = cv2.getTickCount()
             # Capture frame-by-frame
             ret, frame = cap.read()
             if not ret:
@@ -75,16 +78,17 @@ class MyCap(object):
 
             #rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             rgb = frame
-            cv2.imshow('rgb', rgb)
+            #cv2.imshow('rgb', rgb)
 
             ifrm = frame.copy()
-            e0 = cv2.getTickCount()
             cvimg = hough_lines(ifrm)
+
             e1 = cv2.getTickCount()
             elapsed = (e1 - e0) / cv2.getTickFrequency()
-            show_fps(cvimg, elapsed)
+            show_fps(rgb, elapsed)
+            result_img = np.concatenate((rgb, cvimg), axis=1)
             #blue = self.split_blue(ifrm)
-            cv2.imshow('test', cvimg)
+            cv2.imshow('test', result_img)
 
             key = cv2.waitKey(1)
             if key & 0xFF == ord('q') or key == 27:
@@ -103,7 +107,7 @@ def show_fps(img, elapsed_time):
     #thickness = 2
     fps = 1.0 / elapsed_time
     msg = "elapsed: {:.3f} fps({:.1f})".format(elapsed_time, fps)
-    cv2.putText(img, msg, (10, 30), fontface, scale, (127, 0, 255), 1, cv2.LINE_AA)
+    cv2.putText(img, msg, (10, 30), fontface, scale, (255, 0, 255), 1, cv2.LINE_AA)
     return img
 
 
@@ -116,7 +120,10 @@ def hough_lines(src):
 
     use_houghlinep = True
     if use_houghlinep: # HoughLinesP
-        lines = cv2.HoughLinesP(dst, 1, math.pi/180.0, 40, np.array([]), 50, 10)
+        threshold = 75
+        min_line_len = 140
+        max_line_gap = 30
+        lines = cv2.HoughLinesP(dst, 1, math.pi/180.0, threshold, np.array([]), min_line_len, max_line_gap)
         try:
             a, b, c = lines.shape
             for i in range(a):
