@@ -28,18 +28,21 @@ def main(video_id=0):
     '''main'''
     doWriteAVI = False
     ofn = OUTPUT_FN
+    DEFAULT_WIDTH = 640
+    DEFAULT_HEIGHT = 480
 
     if doWriteAVI:
         delete_if_exists(ofn)
 
     # Create a VideoCapture object
     cap = cv2.VideoCapture(video_id)
-
     # Check if camera opened successfully
     if not cap.isOpened():
-        print("Unable to read camera feed")
+        print("Unable to read camera feed, exit...")
         return
 
+    cap.set(3, DEFAULT_WIDTH)
+    cap.set(4, DEFAULT_HEIGHT)
     frame_width = int(cap.get(3))
     frame_height = int(cap.get(4))
 

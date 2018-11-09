@@ -58,6 +58,8 @@ class Foo(object):
         #self.win = dlib.image_window()
 
         self.inited = False
+        self.default_width = 640
+        self.default_height = 480
 
         # dat download from: http://dlib.net/face_landmark_detection.py.html
         predictor_data = 'shape_predictor_68_face_landmarks.dat'
@@ -66,7 +68,8 @@ class Foo(object):
             self.predictor = dlib.shape_predictor(predictor_data)
             self.inited = True
         else:
-            print('need predictor data file, exit...')
+            print('need predictor data file, use the following command to fetch data file')
+            print('wget {}\n'.format(predictor_data))
             return
 
     '''
@@ -101,6 +104,11 @@ class Foo(object):
             return
 
         cam = cv2.VideoCapture(0)
+        if not cam.isOpened:
+            print('cannot open camera...')
+            return
+        cam.set(3, self.default_width)
+        cam.set(4, self.default_height)
         color_green = (0, 255, 0)
         line_width = 1
         while True:
