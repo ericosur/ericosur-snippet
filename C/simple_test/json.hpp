@@ -1,7 +1,7 @@
 /*
     __ _____ _____ _____
  __|  |   __|     |   | |  JSON for Modern C++
-|  |  |__   |  |  | | | |  version 3.3.0
+|  |  |__   |  |  | | | |  version 3.4.0
 |_____|_____|_____|_|___|  https://github.com/nlohmann/json
 
 Licensed under the MIT License <http://opensource.org/licenses/MIT>.
@@ -31,7 +31,7 @@ SOFTWARE.
 #define NLOHMANN_JSON_HPP
 
 #define NLOHMANN_JSON_VERSION_MAJOR 3
-#define NLOHMANN_JSON_VERSION_MINOR 3
+#define NLOHMANN_JSON_VERSION_MINOR 4
 #define NLOHMANN_JSON_VERSION_PATCH 0
 
 #include <algorithm> // all_of, find, for_each
@@ -582,15 +582,10 @@ struct is_constructible_object_type_impl <
     using object_t = typename BasicJsonType::object_t;
 
     static constexpr bool value =
-        std::is_constructible<typename ConstructibleObjectType::key_type,
-        typename object_t::key_type>::value and
-        (std::is_same<typename object_t::mapped_type,
-         typename ConstructibleObjectType::mapped_type>::value or
-         (has_from_json<BasicJsonType,
-          typename ConstructibleObjectType::mapped_type>::value or
-          has_non_default_from_json <
-          BasicJsonType,
-          typename ConstructibleObjectType::mapped_type >::value));
+        (std::is_constructible<typename ConstructibleObjectType::key_type, typename object_t::key_type>::value and
+         std::is_same<typename object_t::mapped_type, typename ConstructibleObjectType::mapped_type>::value) or
+        (has_from_json<BasicJsonType, typename ConstructibleObjectType::mapped_type>::value or
+         has_non_default_from_json<BasicJsonType, typename ConstructibleObjectType::mapped_type >::value);
 };
 
 template <typename BasicJsonType, typename ConstructibleObjectType>
@@ -2114,8 +2109,8 @@ class input_stream_adapter : public input_adapter_protocol
     ~input_stream_adapter() override
     {
         // clear stream flags; we use underlying streambuf I/O, do not
-        // maintain ifstream flags
-        is.clear();
+        // maintain ifstream flags, except eof
+        is.clear(is.rdstate() & std::ios::eofbit);
     }
 
     explicit input_stream_adapter(std::istream& i)
@@ -2133,7 +2128,13 @@ class input_stream_adapter : public input_adapter_protocol
     // end up as the same value, eg. 0xFFFFFFFF.
     std::char_traits<char>::int_type get_character() override
     {
-        return sb.sbumpc();
+        auto res = sb.sbumpc();
+        // set eof manually, as we don't use the istream interface.
+        if (res == EOF)
+        {
+            is.clear(is.rdstate() | std::ios::eofbit);
+        }
+        return res;
     }
 
   private:
@@ -3811,7 +3812,7 @@ scan_number_done:
             {
                 // escape control characters
                 char cs[9];
-                snprintf(cs, 9, "<U+%.4X>", static_cast<unsigned char>(c));
+                (std::snprintf)(cs, 9, "<U+%.4X>", static_cast<unsigned char>(c));
                 result += cs;
             }
             else
@@ -6604,7 +6605,7 @@ class binary_reader
             default: // anything else not supported (yet)
             {
                 char cr[3];
-                snprintf(cr, sizeof(cr), "%.2hhX", static_cast<unsigned char>(element_type));
+                (std::snprintf)(cr, sizeof(cr), "%.2hhX", static_cast<unsigned char>(element_type));
                 return sax->parse_error(element_type_parse_position, std::string(cr), parse_error::create(114, element_type_parse_position, "Unsupported BSON record type 0x" + std::string(cr)));
             }
         }
@@ -6640,7 +6641,10 @@ class binary_reader
 
             if (not is_array)
             {
-                sax->key(key);
+                if (not sax->key(key))
+                {
+                    return false;
+                }
             }
 
             if (JSON_UNLIKELY(not parse_bson_element_internal(element_type, element_type_parse_position)))
@@ -8258,7 +8262,7 @@ class binary_reader
     std::string get_token_string() const
     {
         char cr[3];
-        snprintf(cr, 3, "%.2hhX", static_cast<unsigned char>(current));
+        (std::snprintf)(cr, 3, "%.2hhX", static_cast<unsigned char>(current));
         return std::string{cr};
     }
 
@@ -11139,15 +11143,15 @@ class serializer
                             {
                                 if (codepoint <= 0xFFFF)
                                 {
-                                    std::snprintf(string_buffer.data() + bytes, 7, "\\u%04x",
-                                                  static_cast<uint16_t>(codepoint));
+                                    (std::snprintf)(string_buffer.data() + bytes, 7, "\\u%04x",
+                                                    static_cast<uint16_t>(codepoint));
                                     bytes += 6;
                                 }
                                 else
                                 {
-                                    std::snprintf(string_buffer.data() + bytes, 13, "\\u%04x\\u%04x",
-                                                  static_cast<uint16_t>(0xD7C0 + (codepoint >> 10)),
-                                                  static_cast<uint16_t>(0xDC00 + (codepoint & 0x3FF)));
+                                    (std::snprintf)(string_buffer.data() + bytes, 13, "\\u%04x\\u%04x",
+                                                    static_cast<uint16_t>(0xD7C0 + (codepoint >> 10)),
+                                                    static_cast<uint16_t>(0xDC00 + (codepoint & 0x3FF)));
                                     bytes += 12;
                                 }
                             }
@@ -11183,7 +11187,7 @@ class serializer
                         case error_handler_t::strict:
                         {
                             std::string sn(3, '\0');
-                            snprintf(&sn[0], sn.size(), "%.2X", byte);
+                            (std::snprintf)(&sn[0], sn.size(), "%.2X", byte);
                             JSON_THROW(type_error::create(316, "invalid UTF-8 byte at index " + std::to_string(i) + ": 0x" + sn));
                         }
 
@@ -11264,7 +11268,7 @@ class serializer
                 case error_handler_t::strict:
                 {
                     std::string sn(3, '\0');
-                    snprintf(&sn[0], sn.size(), "%.2X", static_cast<uint8_t>(s.back()));
+                    (std::snprintf)(&sn[0], sn.size(), "%.2X", static_cast<uint8_t>(s.back()));
                     JSON_THROW(type_error::create(316, "incomplete UTF-8 string; last byte: 0x" + sn));
                 }
 
@@ -11383,7 +11387,7 @@ class serializer
         static constexpr auto d = std::numeric_limits<number_float_t>::max_digits10;
 
         // the actual conversion
-        std::ptrdiff_t len = snprintf(number_buffer.data(), number_buffer.size(), "%.*g", d, x);
+        std::ptrdiff_t len = (std::snprintf)(number_buffer.data(), number_buffer.size(), "%.*g", d, x);
 
         // negative value indicates an error
         assert(len > 0);
@@ -13213,7 +13217,7 @@ class basic_json
                     object = nullptr;  // silence warning, see #821
                     if (JSON_UNLIKELY(t == value_t::null))
                     {
-                        JSON_THROW(other_error::create(500, "961c151d2e87f2686a955a9be24d316f1362bf21 3.3.0")); // LCOV_EXCL_LINE
+                        JSON_THROW(other_error::create(500, "961c151d2e87f2686a955a9be24d316f1362bf21 3.4.0")); // LCOV_EXCL_LINE
                     }
                     break;
                 }
@@ -20115,7 +20119,7 @@ class basic_json
     Thereby, `Target` is the current object; that is, the patch is applied to
     the current value.
 
-    @param[in] patch  the patch to apply
+    @param[in] apply_patch  the patch to apply
 
     @complexity Linear in the lengths of @a patch.
 
@@ -20127,15 +20131,15 @@ class basic_json
 
     @since version 3.0.0
     */
-    void merge_patch(const basic_json& patch)
+    void merge_patch(const basic_json& apply_patch)
     {
-        if (patch.is_object())
+        if (apply_patch.is_object())
         {
             if (not is_object())
             {
                 *this = object();
             }
-            for (auto it = patch.begin(); it != patch.end(); ++it)
+            for (auto it = apply_patch.begin(); it != apply_patch.end(); ++it)
             {
                 if (it.value().is_null())
                 {
@@ -20149,7 +20153,7 @@ class basic_json
         }
         else
         {
-            *this = patch;
+            *this = apply_patch;
         }
     }
 
