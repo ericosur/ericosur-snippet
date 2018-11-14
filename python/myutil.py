@@ -10,11 +10,12 @@ import json
 
 __version__ = '0.0.2'
 
-def read_jsonfile(fn):
+def read_jsonfile(fn, debug=False):
     '''
     specify json filename and return whole json object
     '''
-    print('load json from {}'.format(fn))
+    if debug:
+        print('load json from {}'.format(fn))
     if not os.path.exists(fn):
         print('file not found')
         return None
