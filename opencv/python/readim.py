@@ -5,6 +5,7 @@
 
 from __future__ import print_function
 import os
+import sys
 import cv2
 import numpy as np
 import myutil
@@ -30,14 +31,22 @@ def cv_test(filename):
 
 def main():
     '''main function'''
-    app_name = 'readim.py'
-    data = myutil.read_setting('setting.json')
-    home = os.environ['HOME']
-    picpath = home + '/' + data[app_name]['path']
-    print(picpath)
+    WIN_NAME = 'foobar'
+    cv2.namedWindow(WIN_NAME)
+    cv2.moveWindow(WIN_NAME, 50, 50)
+    if len(sys.argv) > 1:   # has argument
+        for ff in sys.argv[1:]:
+            print('imread {}'.format(ff))
+            img = cv2.imread(ff)
+            cv2.imshow(WIN_NAME, img)
+            cv2.waitKey(0)
+    else:
+        app_name = 'readim.py'
+        data = myutil.read_setting('setting.json')
+        home = os.environ['HOME']
+        picpath = home + '/' + data[app_name]['path']
+        print(picpath)
 
-    cv2.namedWindow("foobar")
-    cv2.moveWindow("foobar", 50, 50)
 
     '''
         for img_file in data[app_name]['images']:
@@ -49,7 +58,7 @@ def main():
                 cv_test(pic1)
     '''
 
-    cv_drawline()
+    #cv_drawline()
     cv2.destroyAllWindows()
 
 

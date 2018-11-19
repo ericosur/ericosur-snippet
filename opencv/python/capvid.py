@@ -31,6 +31,9 @@ def main(video_id=0):
     DEFAULT_WIDTH = 640
     DEFAULT_HEIGHT = 480
 
+    cv2.namedWindow('aframe')
+    cv2.moveWindow('aframe', 0, 0)
+
     if doWriteAVI:
         delete_if_exists(ofn)
 
@@ -55,10 +58,12 @@ def main(video_id=0):
         out = cv2.VideoWriter(ofn, fourcc, 30, (frame_width, frame_height), False)
 
     print('press "q" or ESC to quit...')
+    cnt = 1
     while True:
         ret, frame = cap.read()
         if ret:
-            aframe = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            #aframe = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            aframe = frame
 
             if doWriteAVI:
                 # Write the frame into the file
@@ -71,6 +76,11 @@ def main(video_id=0):
             key = cv2.waitKey(1)
             if key & 0xFF == ord('q') or key == 0x1B:
                 break
+            if key & 0xFF == ord('s'):
+                fn = 'pic{:04d}.png'.format(cnt)
+                print('imwrite {}...'.format(fn))
+                cv2.imwrite(fn, aframe)
+                cnt += 1
         # Break the loop
         else:
             break
