@@ -3,6 +3,6 @@
     "cascade": "haarcascade_frontalface_alt.xml",
     "nested_cascade": "haarcascade_eye_tree_eyeglasses.xml",
     "image": "lena.jpg",
-    "frame_height": 320,
-    "frame_width": 240
+    "frame_width": 640,
+    "frame_height": 480
 }
