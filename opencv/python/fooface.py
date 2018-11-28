@@ -42,6 +42,7 @@
 # ref: opencv_webcam_face_detection.py
 
 ''' this script is modified from example from dlib '''
+''' it could run but cannot detect any face '''
 
 from __future__ import print_function
 import cv2
@@ -116,9 +117,10 @@ class Foo(object):
             if not ret:
                 break
 
-            rgb_image = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-            #gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            dets = self.detector(rgb_image)
+            #rgb_image = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+            gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            #dets = self.detector(rgb_image)
+            dets = self.detector(gray_image)
             if dets:
                 cv2.putText(img, 'no dets', (10, 40), self.font, 1, (127, 0, 255), 2, cv2.LINE_AA)
             else:

@@ -41,12 +41,16 @@ def main():
             cv2.imshow(WIN_NAME, img)
             cv2.waitKey(0)
     else:
-        app_name = 'readim.py'
-        data = myutil.read_setting('setting.json')
-        home = os.environ['HOME']
-        picpath = home + '/' + data[app_name]['path']
-        print(picpath)
-
+        setting_fn = 'setting.json'
+        if not myutil.isfile(setting_fn):
+            print('[ERROR] cannot find setting: {}'.format(setting_fn))
+            print('[INFO] may use argument')
+        else:
+            app_name = 'readim.py'
+            data = myutil.read_setting(setting_fn)
+            home = os.environ['HOME']
+            picpath = home + '/' + data[app_name]['path']
+            print(picpath)
 
     '''
         for img_file in data[app_name]['images']:
