@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 3.0)
 set(PN "opencv_version")
 project(${PN})
 
+set(OpenCV_DIR    "/opt/intel/opencv/share/OpenCV")
+#set(OpenCV_DIR    "/usr/local/share/OpenCV")
 find_package( OpenCV REQUIRED )
 
 set(CMAKE_CXX_STANDARD 11)

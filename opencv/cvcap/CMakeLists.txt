@@ -4,6 +4,8 @@ set(PN "cvcap")
 
 project(${PN})
 
+#set(OpenCV_DIR    "/opt/intel/opencv/share/OpenCV")
+set(OpenCV_DIR    "/usr/local/share/OpenCV")
 find_package( OpenCV REQUIRED )
 
 set(CMAKE_CXX_STANDARD 11)
@@ -14,7 +16,7 @@ endif()
 
 add_executable(
     ${PN}
-    Source.cpp
+    main.cpp
 )
 
 target_link_libraries(

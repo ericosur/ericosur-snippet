@@ -14,8 +14,7 @@
 //IN THE SOFTWARE.
 
 #include <opencv2/opencv.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/imgproc.hpp>
 
 #include <iostream>
 #include <sstream>
@@ -141,7 +140,7 @@ void trackFilteredObject(int &x, int &y, Mat threshold, Mat &cameraFeed)
 	vector< vector<Point> > contours;
 	vector<Vec4i> hierarchy;
 	//find contours of filtered image using openCV findContours function
-	findContours(temp, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
+	findContours(temp, contours, hierarchy, RETR_CCOMP, CHAIN_APPROX_SIMPLE);
 	//use moments method to find our filtered object
 	double refArea = 0;
 	bool objectFound = false;
@@ -201,8 +200,8 @@ int main(int argc, char* argv[])
 	//open capture object at location zero (default location for webcam)
 	capture.open(0);
 	//set height and width of capture frame
-	capture.set(CV_CAP_PROP_FRAME_WIDTH, FRAME_WIDTH);
-	capture.set(CV_CAP_PROP_FRAME_HEIGHT, FRAME_HEIGHT);
+	capture.set(CAP_PROP_FRAME_WIDTH, FRAME_WIDTH);
+	capture.set(CAP_PROP_FRAME_HEIGHT, FRAME_HEIGHT);
 	//start an infinite loop where webcam feed is copied to cameraFeed matrix
 	//all of our operations will be performed within this loop
 	while (true) {

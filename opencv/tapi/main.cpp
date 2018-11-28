@@ -1,5 +1,5 @@
 #include <iostream>
-#include "opencv2/opencv.hpp"
+#include <opencv2/opencv.hpp>
 
 using namespace cv;
 
@@ -47,13 +47,15 @@ int test3(const char* imgfn)
 
 int main(int argc, char** argv)
 {
+    using namespace std;
+
     const char imgfn[] = "image.jpg";
 
     if (argc == 1) {
-        std::cout << "test1...\n";
+        cout << "test1 " << imgfn << endl;
         test1(imgfn);
     } else {
-        std::cout << "test2...\n";
+        cout << "test2 " << imgfn << endl;
         test2(imgfn);
     }
 

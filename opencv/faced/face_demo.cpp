@@ -122,18 +122,23 @@ int face_detect()
         return -1;
     }
 
-    cvNamedWindow( "result", 1 );
+    namedWindow( "result", 1 );
     // set height and width of capture frame
     cout << "frame width: " << frame_width << ", " << "height: " << frame_height << endl;
+#if CV_MAJOR_VERSION >= 4
+    capture.set(CAP_PROP_FRAME_WIDTH, frame_width);
+    capture.set(CAP_PROP_FRAME_HEIGHT, frame_height);
+#else
     capture.set(CV_CAP_PROP_FRAME_WIDTH, frame_width);
     capture.set(CV_CAP_PROP_FRAME_HEIGHT, frame_height);
+#endif
 
     while (true) {
         capture.read(frame);
         image = frame.clone();
         detectAndDraw( image, cascade, nestedCascade, scale, tryflip );
         if ( waitKey(WAIT_DELAY) > 0 ) {
-            cvDestroyAllWindows();
+            destroyAllWindows();
             break;
         }
     };
@@ -171,7 +176,7 @@ int face_detect()
         cerr << "image is loaded" << endl;
     }
 
-    cvNamedWindow( "result", 1 );
+    namedWindow( "result", 1 );
 
     do {
         cout << "In image read" << endl;
@@ -182,8 +187,8 @@ int face_detect()
     } while (0);
 
     if (waitKey(0) > 0) {
-        //cvDestroyWindow("result");
-        cvDestroyAllWindows();
+        //destroyWindow("result");
+        destroyAllWindows();
     }
 
     return 0;
@@ -212,7 +217,7 @@ void detectAndDraw( Mat& img, CascadeClassifier& cascade,
     resize( gray, smallImg, smallImg.size(), 0, 0, INTER_LINEAR );
     equalizeHist( smallImg, smallImg );
 
-    t = (double)cvGetTickCount();
+    t = (double)getTickCount();
     cascade.detectMultiScale( smallImg, faces,
         1.1, 2, 0
         //|CASCADE_FIND_BIGGEST_OBJECT
@@ -236,10 +241,10 @@ void detectAndDraw( Mat& img, CascadeClassifier& cascade,
             faces.push_back(Rect(smallImg.cols - r->x - r->width, r->y, r->width, r->height));
         }
     }
-    t = (double)cvGetTickCount() - t;
+    t = (double)getTickCount() - t;
     char mytext[60];
-    sprintf( mytext, "%g ms", t/((double)cvGetTickFrequency()*1000.) );
-    putText(img, mytext, cvPoint(40, 100), FONT_HERSHEY_PLAIN,
+    sprintf( mytext, "%g ms", t/((double)getTickFrequency()*1000.) );
+    putText(img, mytext, Point(40, 100), FONT_HERSHEY_PLAIN,
             4.0, CV_RGB(255,0,0), 2);
     for( vector<Rect>::const_iterator r = faces.begin(); r != faces.end(); r++, i++ )
     {
@@ -256,13 +261,13 @@ void detectAndDraw( Mat& img, CascadeClassifier& cascade,
             center.y = cvRound((r->y + r->height*0.5)*scale);
             radius = cvRound((r->width + r->height)*0.25*scale);
             //circle( img, center, radius, color, 3, 8, 0 );
-            rectangle( img, cvPoint(cvRound(r->x*scale), cvRound(r->y*scale)),
-                       cvPoint(cvRound((r->x + r->width-1)*scale), cvRound((r->y + r->height-1)*scale)),
+            rectangle( img, Point(cvRound(r->x*scale), cvRound(r->y*scale)),
+                       Point(cvRound((r->x + r->width-1)*scale), cvRound((r->y + r->height-1)*scale)),
                        color, 3, 8, 0);
         }
         else {
-            rectangle( img, cvPoint(cvRound(r->x*scale), cvRound(r->y*scale)),
-                       cvPoint(cvRound((r->x + r->width-1)*scale), cvRound((r->y + r->height-1)*scale)),
+            rectangle( img, Point(cvRound(r->x*scale), cvRound(r->y*scale)),
+                       Point(cvRound((r->x + r->width-1)*scale), cvRound((r->y + r->height-1)*scale)),
                        color, 3, 8, 0);
         }
         if ( nestedCascade.empty() )
