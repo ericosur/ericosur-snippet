@@ -52,15 +52,13 @@ def main():
             picpath = home + '/' + data[app_name]['path']
             print(picpath)
 
-    '''
         for img_file in data[app_name]['images']:
             pic1 = picpath + '/' + img_file
             print(pic1)
             if not os.path.isfile(pic1):
                 print("file not found: {}".format(pic1))
-            else:
-                cv_test(pic1)
-    '''
+            # else:
+            #     cv_test(pic1)
 
     #cv_drawline()
     cv2.destroyAllWindows()
