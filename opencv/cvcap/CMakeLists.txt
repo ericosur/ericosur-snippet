@@ -18,8 +18,10 @@ add_executable(
     ${PN}
     main.cpp
 )
-
 target_link_libraries(
     ${PN}
     ${OpenCV_LIBS}
 )
+
+add_executable(qrcode qrcode.cpp)
+target_link_libraries(qrcode ${OpenCV_LIBS})
