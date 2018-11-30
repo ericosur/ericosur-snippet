@@ -248,8 +248,8 @@ int demoCapture()
     createTrackbars();
 
     //set height and width of capture frame
-    capture.set(CV_CAP_PROP_FRAME_WIDTH, FRAME_WIDTH);
-    capture.set(CV_CAP_PROP_FRAME_HEIGHT, FRAME_HEIGHT);
+    capture.set(CAP_PROP_FRAME_WIDTH, FRAME_WIDTH);
+    capture.set(CAP_PROP_FRAME_HEIGHT, FRAME_HEIGHT);
     //start an infinite loop where webcam feed is copied to cameraFeed matrix
     //all of our operations will be performed within this loop
     bool isRunning = true;

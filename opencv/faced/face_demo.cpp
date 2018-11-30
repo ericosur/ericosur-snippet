@@ -125,13 +125,9 @@ int face_detect()
     namedWindow( "result", 1 );
     // set height and width of capture frame
     cout << "frame width: " << frame_width << ", " << "height: " << frame_height << endl;
-#if CV_MAJOR_VERSION >= 4
+
     capture.set(CAP_PROP_FRAME_WIDTH, frame_width);
     capture.set(CAP_PROP_FRAME_HEIGHT, frame_height);
-#else
-    capture.set(CV_CAP_PROP_FRAME_WIDTH, frame_width);
-    capture.set(CV_CAP_PROP_FRAME_HEIGHT, frame_height);
-#endif
 
     while (true) {
         capture.read(frame);

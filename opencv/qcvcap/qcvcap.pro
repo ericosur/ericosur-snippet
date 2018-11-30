@@ -21,6 +21,8 @@ macx {
     # run 'pkg-config --libs opencv' to update the following LIBS
     INCLUDEPATH += $$system(pkg-config --cflags opencv)
     LIBS += $$system(pkg-config --libs opencv)
+    message($$INCLUDEPATH)
+    message($$LIBS)
 }
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
