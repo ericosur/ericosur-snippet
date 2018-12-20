@@ -4,6 +4,9 @@ set(PN "faced")
 
 project(${PN})
 
+set(OpenCV_DIR    "/opt/intel/opencv/share/OpenCV")
+#set(OpenCV_DIR    "/usr/local/share/OpenCV")
+
 find_package( OpenCV REQUIRED )
 
 # for json.hpp
