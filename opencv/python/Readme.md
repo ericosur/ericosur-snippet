@@ -5,9 +5,37 @@ using module cv2
 
 [TOC]
 
+## how to install
+
+for pip2
+```
+sudo -H pip2 install -U opencv-python
+```
+
+> For raspberry pi, there is no python2 opencv module
+
+for pip3
+```
+sudo -H pip3 install -U opencv-python
+```
+
 ## sample worthy to refer
 
 [python cv2 module](https://www.programcreek.com/python/index/2663/cv2)
+
+
+## some tips
+
+At python script, may use
+```python
+import cv2 as cv
+```
+Then refer to openCV functons by using
+```
+cv.imshow('image', img)
+cv.waitKey()
+```
+Just like namespace 'cv' as C++.
 
 ## notes
 
