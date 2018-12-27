@@ -1,10 +1,7 @@
 /// file: qrcode.cpp
 /// from opencv sample/cpp/
 ///
-#include "opencv2/objdetect.hpp"
-#include "opencv2/imgproc.hpp"
-#include "opencv2/highgui.hpp"
-#include <string>
+#include <opencv2/opencv.hpp>
 #include <iostream>
 
 using namespace std;
@@ -99,8 +96,7 @@ int liveQRCodeDetect(const string& out_file)
 
     QRCodeDetector qrcode;
     TickMeter total;
-    for(;;)
-    {
+    while (true) {
         Mat frame, src, straight_barcode;
         string decode_info;
         vector<Point> transform;
@@ -180,13 +176,11 @@ int imageQRCodeDetect(const string& in_file, const string& out_file)
     cout << "FPS: " << fps << endl;
     cout << "Decoded info: " << decoded_info << endl;
 
-    if (!out_file.empty())
-    {
+    if (!out_file.empty()) {
         imwrite(out_file, color_src);
     }
 
-    for(;;)
-    {
+    while (true) {
         imshow("Detect QR code on image", color_src);
         if (waitKey(0) == 27)
             break;
