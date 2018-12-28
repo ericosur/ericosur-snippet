@@ -23,7 +23,7 @@ void load_one_character_24x24(uint16_t id, uint8_t* char_buffer)
 
     FILE* fptr = fopen(FONT_FILEPATH, "rb");
     if (fptr == NULL) {
-        printf("error: fptr is null\n");
+        printf("error: cannot open: %s\n", FONT_FILEPATH);
         return;
     }
 
@@ -174,7 +174,7 @@ bool Fontutil::load_fontfile()
 {
     FILE* fptr = fopen(FONT_FILEPATH, "rb");
     if (fptr == NULL) {
-        printf("error: fptr is null\n");
+        printf("error: cannot open: %s\n", FONT_FILEPATH);
         return false;
     }
 
