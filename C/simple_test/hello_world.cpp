@@ -16,7 +16,7 @@ public:
 // the ctor will be run before main()
 HelloWorld hw;
 
-void test()
+void show_jsonhpp_version()
 {
 	nlohmann::json json = {{"apple", 31}, {"ball", 43}, {"egg", 71}};
 	cout << setw(4) << json << endl;
@@ -54,7 +54,7 @@ void what()
 int main()
 {
     cout << "hello world from " << __func__ << endl;
-	//test();
+	show_jsonhpp_version();
     //testre();
     what();
 
