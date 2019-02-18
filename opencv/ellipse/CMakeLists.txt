@@ -4,10 +4,11 @@ set(PN "ell")
 
 project(${PN})
 
-set(OpenCV_DIR    "/usr/local/share/OpenCV")
+#set(OpenCV_DIR    "/usr/local/share/OpenCV")
 message("OpenCV_DIR: ${OpenCV_DIR}")
 find_package( OpenCV REQUIRED )
 message("opencv ver: ${OpenCV_VERSION}")
+include_directories(${OpenCV_INCLUDE_DIRS})
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "-Wall -O3")
