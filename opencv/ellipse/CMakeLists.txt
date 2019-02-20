@@ -22,3 +22,15 @@ add_executable(${PN}
 )
 
 target_link_libraries(${PN} ${OpenCV_LIBS})
+
+add_executable(
+    drawtext
+    drawtext.cpp
+)
+target_link_libraries(drawtext ${OpenCV_LIBS})
+
+add_executable(
+    imghash
+    imghash.cpp
+)
+target_link_libraries(imghash ${OpenCV_LIBS})

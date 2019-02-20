@@ -56,7 +56,7 @@ void draw_ellipse()
     const int sec_len = 40;
     const int space_len = 120;
 
-    Mat img = Mat::zeros(MAX_WIDTH, MAX_HEIGHT, CV_8UC3);
+    Mat img = Mat::zeros(MAX_HEIGHT, MAX_WIDTH, CV_8UC3);
     int m = MAX_WIDTH / 2;
     int n = MAX_HEIGHT / 2;
     int a1 = MAX_WIDTH / 2 - space_len;
