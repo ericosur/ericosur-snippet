@@ -1,30 +1,6 @@
 {
     "name": "foo",
     "comment": "setting for multiple python script, splitted by script name",
-    "readim.py" : {
-        "path": "Pictures/data",
-        "images" : [
-            "25r.jpg",
-            "40r.jpg",
-            "flw.jpg"
-        ]
-    },
-    "vcap.py" : {
-        "video_index": 0,
-        "width": 640,
-        "height": 480,
-        "gray": false,
-        "rgb": true,
-        "test": true
-    },
-    "hough.py": {
-        "width": 640,
-        "height": 480
-    },
-    "split.py" : {
-        "__image_file": "Pictures/lena.png",
-        "image_file": "Dropbox/Pictures/wallpaper/47916_1600x1200-wallpaper-cb1333465486.jpg"
-    },
     "gblur.py": {
         "video_index": 0,
         "width": 640,
@@ -32,7 +8,10 @@
         "sigma_x": 25,
         "sigma_y": 25
     },
-
+    "hough.py": {
+        "width": 640,
+        "height": 480
+    },
     "imgur.py": {
         "picture": [
             {
@@ -49,17 +28,40 @@
                 "title": "deer",
                 "fn": "deer.png",
                 "url": "https://i.imgur.com/yU4Cbzw.png"
+            },
+            {
+                "title": "smallhorse",
+                "fn": "smallhorse.jpg",
+                "url": "https://i.imgur.com/yl5Ed7p.jpg"
             }
         ]
     },
-
     "loadimgur.py": {
         "lena": "https://i.imgur.com/H0WsDJg.jpg",
         "deer": "https://i.imgur.com/yU4Cbzw.png",
         "lego": "https://i.imgur.com/Y7VTPOi.jpg"
     },
-
     "myutil.py": {
         "data": "a quick fox jumps over the lazy dog"
+    },
+    "readim.py" : {
+        "path": "Pictures/data",
+        "images" : [
+            "25r.jpg",
+            "40r.jpg",
+            "flw.jpg"
+        ]
+    },
+    "split.py" : {
+        "__image_file": "Pictures/lena.png",
+        "image_file": "Dropbox/Pictures/wallpaper/47916_1600x1200-wallpaper-cb1333465486.jpg"
+    },
+    "vcap.py" : {
+        "video_index": 0,
+        "width": 640,
+        "height": 480,
+        "gray": false,
+        "rgb": true,
+        "test": true
     }
 }

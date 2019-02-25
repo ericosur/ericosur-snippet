@@ -1,9 +1,29 @@
 # opencv using python
 
 practice for python / opencv
-using module cv2
+
+depends on:
+opencv-python
+numpy
+scikit-image
+dlib
+
+--
 
 [TOC]
+
+--
+
+## notes
+
+* how to know outdated python modules by pip?
+  refer from: https://stackoverflow.com/questions/2720014/upgrading-all-packages-with-pip
+
+```
+pip list --outdated --format=freeze
+```
+
+* most python scripts here could run by python3, if not, it will croak while running
 
 ## how to install
 
@@ -37,18 +57,8 @@ cv.waitKey()
 ```
 Just like namespace 'cv' as C++.
 
-## notes
 
-how to know outdated python modules by pip?
-
-refer from: https://stackoverflow.com/questions/2720014/upgrading-all-packages-with-pip
-
-```
-pip list --outdated --format=freeze
-```
-
-
-## setting
+## setting.json
 
 configure setting.json for input image path/filenames
 

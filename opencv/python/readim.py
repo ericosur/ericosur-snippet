@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 ''' opencv python example '''
@@ -55,10 +55,10 @@ def main():
         for img_file in data[app_name]['images']:
             pic1 = picpath + '/' + img_file
             print(pic1)
-            if not os.path.isfile(pic1):
+            if os.path.isfile(pic1):
+                cv_test(pic1)
+            else:
                 print("file not found: {}".format(pic1))
-            # else:
-            #     cv_test(pic1)
 
     #cv_drawline()
     cv2.destroyAllWindows()

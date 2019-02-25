@@ -1,11 +1,12 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import cv2
 import numpy as np
+from loadimgur import load_image
 
 def add_border(src):
-    borderType = cv2.BORDER_DEFAULT | cv2.BORDER_ISOLATED
-    #borderType = cv2.BORDER_ISOLATED
+    #borderType = cv2.BORDER_DEFAULT | cv2.BORDER_ISOLATED
+    borderType = cv2.BORDER_ISOLATED
     top = 80
     bottom = 80
     left = 80
@@ -18,13 +19,19 @@ def show_img(img):
     cv2.moveWindow('img', 0, 0)
     cv2.imshow('img', img)
 
+def main():
+    # load sample image from imgur
+    img = load_image('https://i.imgur.com/Dd30pDt.jpg')
+    print(img.shape) # height, width, channel
+    #show_img(img)
 
-fn = "emma.jpg"
-src = cv2.imread(fn)
-print(src.shape)
-w = src.shape[1]
-h = src.shape[0]
-show_img(src)
+    img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+    dst = add_border(img)
+    show_img(dst)
+
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
 
-cv2.waitKey(0)
+if __name__ == '__main__':
+    main()

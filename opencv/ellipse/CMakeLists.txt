@@ -34,3 +34,9 @@ add_executable(
     imghash.cpp
 )
 target_link_libraries(imghash ${OpenCV_LIBS})
+
+add_executable(
+    kal
+    kal.cpp
+)
+target_link_libraries(kal ${OpenCV_LIBS})

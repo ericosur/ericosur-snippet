@@ -1,5 +1,5 @@
-#!/usr/bin/env python
-#
+# -*- coding: utf-8 -*-
+
 
 '''
 sample script to import cv2 and list where to load
@@ -7,8 +7,9 @@ sample script to import cv2 and list where to load
 
 import sys
 import cv2
-from myutil import isfile, isdir
+from myutil import isfile, isdir, get_python_version
 
+print('python version: {}'.format(get_python_version()))
 print('opencv version: {}'.format(cv2.__version__))
 
 for pp in sys.path:

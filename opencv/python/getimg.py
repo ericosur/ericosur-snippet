@@ -1,4 +1,7 @@
 #!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+
+# this script could not run without python2
 
 '''
 https://pillow.readthedocs.io/en/3.0.x/handbook/tutorial.html#reading-and-writing-images

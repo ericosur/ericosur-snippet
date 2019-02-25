@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 '''demo fetch image from imgur'''
@@ -6,7 +6,7 @@
 from __future__ import print_function
 from PIL import Image
 import myutil
-import getimg
+from loadimgur import fetch_image
 
 def try_to_download(json_data, title):
     '''load setting variables from jsonfile and download'''
@@ -15,10 +15,9 @@ def try_to_download(json_data, title):
             url = img['url']
             fn = img['fn']
             print('download url({0}) as fn({1})'.format(url, fn))
-            getimg.download_url_to_file(url, fn)
+            fetch_image(url, fn)
             return fn
     return None
-
 
 
 def main():
