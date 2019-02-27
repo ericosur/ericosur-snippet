@@ -1,17 +1,15 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 ''' list perfect square number into csv '''
 
 from __future__ import print_function
+import os
 import csv
 
-
-def main():
+def gen_csv(fn):
     '''main function'''
-    OUTPUT_CSV = 'perfect_s.csv'
-
-    with open(OUTPUT_CSV, 'wb') as csvfile:
+    with open(fn, 'w') as csvfile:
         fieldnames = ['index', 'n', 'value']
         sw = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=',',
                             quotechar='"', quoting=csv.QUOTE_ALL)
@@ -19,9 +17,20 @@ def main():
         lower = 31
         upper = 99
         cnt = 0
-        for n in xrange(lower, upper):
+        for n in range(lower, upper):
             cnt = cnt + 1
             sw.writerow({'index': cnt, 'n':n, 'value':n*n})
+    csvfile.close()
+
+def main():
+    OUTPUT_CSV = 'perfect_s.csv'
+    if os.path.isfile(OUTPUT_CSV):
+        print("remove existed file...")
+        os.remove(OUTPUT_CSV)
+
+    print("generating {}...".format(OUTPUT_CSV))
+    gen_csv(OUTPUT_CSV)
+
 
 if __name__ == '__main__':
     main()

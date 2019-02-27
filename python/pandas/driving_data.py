@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 ''' read driving data and make stastics '''
@@ -42,7 +42,7 @@ class driving_data(object):
     def request_data(self):
         csvdata = myutil.query_url_for_data(self.url)
         #print('csvdata: ', csvdata)
-        with open(self.csvfile, 'w') as ofile:
+        with open(self.csvfile, 'wb') as ofile:
             ofile.write(csvdata)
             if self.debug:
                 print('output json to {}'.format(self.csvfile))

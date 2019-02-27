@@ -18,7 +18,7 @@ $ sudo -H pip install pandas
 
 ### hello_pd.py ###
 
-This script read data from rates.csv and show some examples to use
+This script read data from **rates.csv** and show some examples to use
 *__*pandas.DataFrame*__*.
 
 The data table is manually tailored from [Bank of Taiwan](https://rate.bot.com.tw/xrt?Lang=zh-TW) and saved as *__*rates.csv*__*
