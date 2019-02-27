@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 '''
@@ -32,7 +32,7 @@ def test(rep):
     n: repeat time
     '''
     import random
-    for _ in xrange(rep):
+    for _ in range(rep):
         (p, q, n) = (random.randint(10001, 99999),
                      random.randint(3001, 7999),
                      random.randint(1001, 3001))

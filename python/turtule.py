@@ -1,23 +1,19 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-''' unicode char test '''
+''' unicode char test
+    could not use python2 to run this
+'''
 
 from __future__ import print_function
+
 
 def main():
     '''main function'''
     STR = '黿鼇龜鼈竈黿鼇龜鼈竈黿鼇龜鼈竈'
-    msg = ''
-    for cc in list(STR.decode("utf8")):
-        #print cc,"\n"
-        print(cc, cc.encode('unicode-escape'),)
-
-        for hh in list(cc.encode('utf8')):
-            msg += hex(ord(hh)) + ' '
-
-        print(msg)
-        msg = ''
+    arr = list(STR)
+    for cc in arr:
+        print('cc: {} hex: {}'.format(cc, hex(ord(cc))))
 
 if __name__ == '__main__':
     main()

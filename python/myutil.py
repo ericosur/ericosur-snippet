@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 '''demo fetch image from imgur'''
@@ -119,11 +119,15 @@ def main():
 
 def test():
     '''test function'''
-    print('test')
-    jdata = read_jsonfile('setting.json')
-    data = jdata['myutil.py']
-    ret = request_value(data, 'name')
-    print('ret:', ret)
+    print('test() of myutil.py')
+    fn = 'setting.json'
+    if isfile(fn):
+        jdata = read_jsonfile(fn)
+        data = jdata['myutil.py']
+        ret = request_value(data, 'name')
+        print('ret:', ret)
+    else:
+        print('file not found: {}'.format(fn))
 
 if __name__ == '__main__':
     test()

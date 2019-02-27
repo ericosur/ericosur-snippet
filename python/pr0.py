@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
 
 '''list in list'''
 
@@ -9,6 +10,6 @@ MOVIES = ["the holy grail", 1975, "Terry Jones & Terry Gilliam", 91,
 for item in MOVIES:
     if isinstance(item, list):
         for name in item:
-            print name
+            print(name)
     else:
-        print item
+        print(item)
