@@ -1,5 +1,12 @@
 # yql samples
 
+## NOTE
+
+Important EOL Notice: As of Thursday, Jan. 3, 2019, the weather.yahooapis.com and query.yahooapis.com for Yahoo Weather API will be retired.
+To continue using our free Yahoo Weather APIs, use https://weather-ydn-yql.media.yahoo.com/forecastrss. Follow below instructions to get credentials and onboard to this free Yahoo Weather API service.
+
+## description
+
 this sub directory contains several samples to query Yahoo weather:
   * bash
       * curl
