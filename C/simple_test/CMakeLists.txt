@@ -19,6 +19,7 @@ set(CMAKE_C_FLAGS "-Wall -O3")
 
 project(easytest)
 
+add_executable(sss sss.cpp)
 add_executable(rfind rfind.cpp)
 add_executable(getret getret.cpp)
 add_executable(gete gete.cpp)
@@ -28,4 +29,4 @@ add_executable(fib fib.c)
 add_executable(memmove memmove.c)
 add_executable(delete_null  delete_null.cpp)
 add_executable(shift  shift.cpp)
-add_executable(atan  atan.cpp)
+#add_executable(atan  atan.cpp)
