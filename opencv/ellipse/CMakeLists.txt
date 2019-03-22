@@ -9,6 +9,7 @@ message("OpenCV_DIR: ${OpenCV_DIR}")
 find_package( OpenCV REQUIRED )
 message("opencv ver: ${OpenCV_VERSION}")
 include_directories(${OpenCV_INCLUDE_DIRS})
+message("opencv inc: ${OpenCV_INCLUDE_DIRS}")
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "-Wall -O3")
