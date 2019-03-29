@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 '''
@@ -6,7 +6,7 @@ to list black Friday
 '''
 
 from __future__ import print_function
-import datetime
+from datetime import datetime, date
 
 
 def get_blackfriday(from_year, to_year):
@@ -20,9 +20,9 @@ def get_blackfriday(from_year, to_year):
 
     for yr in range(from_year, to_year+1):
         for mnth in range(MIN_MONTH, MAX_MONTH+1):
-            dd = datetime.datetime(yr, mnth, 13)
+            dd = datetime(yr, mnth, 13)
             if dd.weekday() == WEEKDAY_FRIDAY:
-                print(get_date_str(dd), "is Black Friday")
+                print("Black Friday: ", get_date_str(dd))
 
 def get_date_str(dd):
     ''' print date time by format '''
@@ -31,11 +31,12 @@ def get_date_str(dd):
 
 def main():
     ''' main function '''
-    today = datetime.date.today()
+    RANGE = 5
+    today = date.today()
     from_y = today.year
-    get_blackfriday(from_y, from_y+15)
+    get_blackfriday(from_y, from_y+RANGE)
 
 
 if __name__ == '__main__':
-    #print(get_date_str(datetime.date.today()))
+    #print(get_date_str(date.today()))
     main()
