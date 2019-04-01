@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import random
 
@@ -22,5 +22,5 @@ def gen_otp():
 if __name__ == '__main__':
     rep = 1
     for i in range(rep):
-        print gen_otp()
+        print(gen_otp())
 

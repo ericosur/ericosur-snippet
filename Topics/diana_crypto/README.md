@@ -1,10 +1,12 @@
-Diana Cryptosystem
-==================
+# Diana Cryptosystem
 
-This article describes about [Diana Cryptosystem](http://programmingpraxis.com/2014/12/19/diana-cryptosystem/), and how to use.
+This article describes about [programming praxis][1] or [dodona][2], and how to use.
 
-usage
------
+
+[1]: https://programmingpraxis.com/2014/12/19/diana-cryptosystem/
+[2]: https://dodona.ugent.be/en/exercises/2088793301/
+
+## usage
 
 **how to generate trigraph table**
 ```
@@ -32,3 +34,9 @@ TXHDI TSOTB QNRCJ YXNBN MIJNP
 BWKFL XRPAJ OJDRK ACOWI FBNKR
 USYZV LSWUP GLSLL AUNCG OXECI
 ```
+
+and plain text:
+`HELLO WORLD`
+
+then we got:
+`BNUVO JOJMR SKWSE IWYZR`
