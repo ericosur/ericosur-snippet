@@ -5,6 +5,8 @@
 use pollard rho brent method to factorize an integer
 '''
 
+# will output error if python3
+
 from __future__ import print_function
 import sys
 import random

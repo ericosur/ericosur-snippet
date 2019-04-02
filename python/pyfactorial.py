@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 '''
@@ -14,6 +14,7 @@ def main():
     ''' main function '''
     while True:    # input value <= zero to exit
         val = input("input an postive integer (0 to quit): ")
+        val = int(val)
         if val <= 0:
             break
         fdict = factorint(val)

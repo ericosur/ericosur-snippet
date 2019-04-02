@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 '''
@@ -9,11 +9,9 @@ from __future__ import print_function
 
 def main():
     '''main function'''
-    d = {'name':'bob', 'number':'99', 'phone':'123456789'}
-    for key, value in d.iteritems():    # this statement for python 2.x
+    d = {'name':'bob', 'number':99, 'phone':'123456789'}
+    for key, value in d.items():
         print("{} => {}".format(key, value))
-
-    # use for key, value in d.items():   for python 3.x
 
     # pylint not recommend:
     #for key in d.keys():

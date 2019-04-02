@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 '''
@@ -16,20 +16,26 @@ def show(value):
     '''
     from sympy import factorint
     if value <= 0:
-        print("must >= 0")
+        print("must > 0")
         return
+    # factorint() will return dict with factor and its
     myd = factorint(value)
     # output the result...
-    print(value, "=",)
+    print(value, "= ", end='')
     x = list(myd.keys())
     x.sort()
-    while True:
-        key = x.pop(0)
-        print(key, "^", myd[key],)
-        if not len:
-            break
+    isFirst = True;
+    for key in x:
+        if not isFirst:
+            print(" * ", end='')
         else:
-            print("*",)
+            isFirst = False
+        val = myd[key]
+        if val == 1:
+            print(key, end='')
+        else:
+            print("{}**{}".format(key, myd[key]), end='')
+
 
 
 def main():
