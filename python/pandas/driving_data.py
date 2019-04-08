@@ -6,6 +6,7 @@
 from __future__ import print_function
 import os
 import sys
+from math import floor
 import pandas as pd
 from datetime import time
 import myutil
@@ -73,7 +74,11 @@ class driving_data(object):
         queries = ['count', 'max', 'min', 'mean', '50%', 'std']
         for qq in queries:
             ans = peek_target(des, qq)
-            print('{:5s}: {:20s}'.format(qq, ans.rjust(10,' ')))
+            if qq != 'count':
+                result = sec2str(ans)
+            else:
+                result = str(int(floor(ans)))
+            print('{:5s}: {:20s}'.format(qq, result.rjust(10,' ')))
         print_sep()
 
 
@@ -111,13 +116,15 @@ def sec2str(sec):
 def print_sep():
     print('-' * 40)
 
+# return type: numpy.float64
 def peek_target(desc_table, target):
     #print('desc_table:', desc_table)
     desc_list = desc_table.index.tolist()
     try:
         midx = desc_list.index(target)
         mean_value = desc_table.iloc[midx, 0]
-        result = sec2str(mean_value)
+        #result = sec2str(mean_value)
+        result = mean_value
         return result
     except ValueError as e:
         print('WARN: ValueError: {}'.format(e.args))
