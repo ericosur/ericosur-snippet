@@ -30,3 +30,5 @@ add_executable(memmove memmove.c)
 add_executable(delete_null  delete_null.cpp)
 add_executable(shift  shift.cpp)
 #add_executable(atan  atan.cpp)
+add_executable(min min.cpp)
+
