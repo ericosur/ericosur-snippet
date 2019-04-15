@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 '''
 try to find McNugget Number
@@ -6,7 +6,7 @@ http://mathworld.wolfram.com/McNuggetNumber.html
 
 '''
 
-from itertools import product
+import itertools as it
 import operator
 import bisect
 from math import ceil
@@ -20,24 +20,33 @@ def check_missing(res, maxnum):
 
 
 def main():
+    # if 4 elem for McNugget
+    # m = (4, 6, 9, 20)
+
     m = (6, 9, 20)
     MAXNUMBER = 100
 
+    pp = list(range(ceil(MAXNUMBER/m[0])))
+    qq = list(range(ceil(MAXNUMBER/m[1])))
+    rr = list(range(ceil(MAXNUMBER/m[2])))
+
+    # if 4 elem for McNugget
+    # ss = list(range(ceil(MAXNUMBER/m[3])))
+
     res = []
-    for xx in range(ceil(MAXNUMBER/m[0])):
-        for yy in range(ceil(MAXNUMBER/m[1])):
-            for zz in range(ceil(MAXNUMBER/m[2])):
-                n = (xx, yy, zz)
 
-                # m dot product n
-                ans = sum(map(operator.mul, m, n))
-                if ans > MAXNUMBER:
-                    continue
+    # using itertools without writing more nested for-loop
+    # if 4 elem for McNugget, add __ss__ into next tuple
+    for n in it.product(pp, qq, rr):
+        # m dot product n
+        ans = sum(map(operator.mul, m, n))
+        if ans > MAXNUMBER:
+            continue
 
-                # ans > 0 and ans is not duplicated
-                if ans and not ans in res:
-                    bisect.insort(res, ans)
-                    print('n: {} ans: {}'.format(n, ans))
+        # ans > 0 and ans is not duplicated
+        if ans and not ans in res:
+            bisect.insort(res, ans)
+            print('n: {} ans: {}'.format(n, ans))
 
     print('res: {}'.format(res))
     missing = check_missing(res, MAXNUMBER)
