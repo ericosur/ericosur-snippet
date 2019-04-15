@@ -9,15 +9,20 @@ sub show($)
     print $d,"\n";
 }
 
-$date = "hello world!";
+sub main()
+{
+    $date = "1234";
 
-$digest = sha3_224_hex($data);
-show($digest);
-$digest = sha3_256_hex($data);
-show($digest);
-$digest = sha3_384_base64($data);
-show($digest);
-$digest = sha3_512_hex($data);
-show($digest);
-# $digest = sha3_0_hex($data);
-# show($digest);
+    $digest = sha3_224_hex($data);
+    show($digest);
+    $digest = sha3_256_hex($data);
+    show($digest);
+    $digest = sha3_384_base64($data);
+    show($digest);
+    $digest = sha3_512_hex($data);
+    show($digest);
+    # $digest = sha3_0_hex($data);
+    # show($digest);
+}
+
+main();
