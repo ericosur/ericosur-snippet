@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import sys
 import math
@@ -26,8 +26,8 @@ def try3k():
     log10(n!) ~ log10(sqrt(2*pi*n)) + n * log10(n/e)
 
     '''
-    val = math.log10(2 * math.pi * n) + n * math.log10(n/math.e)
-    print "log10(%d!) = %f" % (n, val)
+    val = math.log10(2 * math.pi * n) + n * math.log10(n / math.e)
+    print("log10({}!) = {}".format(n, math.ceil(val)))
 
 
 if __name__ == '__main__':
@@ -35,10 +35,9 @@ if __name__ == '__main__':
         for v in sys.argv[1:]:
             try:
                 n = int(v)
-                print "%d! =" % (n),
-                print stupid_factorial(n)
+                print("{}! = {}".format(n, stupid_factorial(n)))
             except:
-                print "shit happens for:", v
+                print("shit happens for:", v)
                 quit()
     else:
         try3k()

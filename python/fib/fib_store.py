@@ -1,48 +1,90 @@
-#!/usr/bin/python
+#!/usr/bin/python3
+# coding: utf-8
 
-import cPickle
+import pickle
 import random
+from math import log
 
 '''
 to demo a fib function which would store calculated fib(n)
 to elimate unnecessary recursive and calculation
+
+Fibonacci number
 '''
 
+class CalcFib(object):
+    def __init__(self, fn='fib.p'):
+        #print('__init__')
+        # init values
+        self.fibvalues = {}
+        self.cache_hit = 0
+        self.pfile = fn
+        self.init_size = len(self.fibvalues)
 
-def fib(n):
-	'''
-	if fib(n) is already calculated, it would not
-	re-calculate it again.
-	'''
-	global fibvalues
+    def __enter__(self):
+        #print('__enter__')
+        self.load_pickle()
+        self.init_size = len(self.fibvalues)
+        return self
 
-	if n <= 2:
-		return 1
-	elif n in fibvalues:
-		print '.',
-		return fibvalues[n]
-	else:
-		print 'c',
-		fibvalues[n] = fib(n-1) + fib(n-2)
-		return fibvalues[n]
+    def __exit__(self, exc_type, exc_value, traceback):
+        #print('__exit__')
+        if len(self.fibvalues) > self.init_size:
+            self.save_pickle()
 
-fibvalues = {}
-data_file = 'fib.p'
+    def fib(self, n):
+        '''
+        if fib(n) is already calculated, it would not
+        re-calculate it again.
+        '''
+        if n <= 2:
+            return 1
+        if n in self.fibvalues:
+            self.cache_hit += 1
+            return self.fibvalues[n]
+        else:
+            #print("n:", n)
+            self.fibvalues[n] = self.fib(n-1) + self.fib(n-2)
+            return self.fibvalues[n]
+
+    def get_pickle_len(self):
+        return len(self.fibvalues)
+
+    def load_pickle(self):
+        '''
+        載入 pickle，若無則建立預設的值
+        '''
+        #print('load_pickle', self.pfile)
+        try:
+            with open(self.pfile, "rb") as inf:
+                self.fibvalues = pickle.load(inf)
+        except IOError:
+            print('IOError')
+
+    def save_pickle(self):
+        '''
+        儲存 stepvalues 至 pickle
+        '''
+        #print('save_pickle')
+        # store into pickle file
+        with open(self.pfile, "wb") as ouf:
+            pickle.dump(self.fibvalues, ouf)
+
+
+def main():
+    ''' main function '''
+    MAX_UPPER_LIMIT = 1000
+    MAX_REPEAT_TIME = 10
+
+    with CalcFib() as foo:
+        print('before loop, fibvalues has {} entries'.format(foo.get_pickle_len()))
+
+        for i in range(MAX_REPEAT_TIME):
+            n = random.randint(1, MAX_UPPER_LIMIT)
+            print('fib({}) = {}'.format(n, foo.fib(n)))
+
+        print('after loop, fibvalues has {} entries'.format(foo.get_pickle_len()))
+
 
 if __name__ == '__main__':
-	try:
-		inf = open(data_file, "r")
-		fibvalues = cPickle.load(inf)
-		inf.close()
-	except IOError:
-		fibvalues = {1:1, 2:1}	# init values
-
-	for i in xrange(1000):
-		n = random.randint(2,500)
-		print "fib(%d) = %d" % (n, fib(n))
-
-	# store the fibvalues into pickle file
-	ouf = open(data_file, "w")
-	cPickle.dump(fibvalues, ouf)
-	ouf.close()
-
+    main()

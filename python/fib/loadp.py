@@ -1,13 +1,23 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 '''
-use cPickle to load fib.p
+use pickle to load
 '''
-import cPickle
+import pickle
+from glob import glob
 
-fname = 'fib.p'
+def load_pickle(fn):
+    mydata = {}
+    try:
+        with open(fn, "rb") as fh:
+            mydata = pickle.load(fh)
+            print("{}: {} entries".format(fn, len(mydata)))
+    except IOError:
+        print('IOError')
 
-inf = open(fname, "r")
-mydata = cPickle.load(inf)
-inf.close()
+def main():
+    filearr = glob('*.p')
+    for ff in filearr:
+        load_pickle(ff)
 
-print("there are %d entries in %s" % (len(mydata), fname))
+if __name__ == '__main__':
+    main()
