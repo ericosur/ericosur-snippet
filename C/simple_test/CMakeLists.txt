@@ -32,3 +32,4 @@ add_executable(shift  shift.cpp)
 #add_executable(atan  atan.cpp)
 add_executable(min min.cpp)
 
+add_executable(test_jvs  test_jvs.c  jvs.c)
