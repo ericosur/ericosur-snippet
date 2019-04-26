@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 #
 ''' just pick one name from name list randomly '''
@@ -9,7 +9,7 @@ import random
 def demo():
     '''demo function'''
     name_list = ['alice', 'bob', 'cathy', 'david', 'eric',
-                 'fred', 'grace', 'helen']
+                 'fred', 'grace', 'helen', 'instgram', 'hicob']
     size = len(name_list)
     REPEAT = 5
 
