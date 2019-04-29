@@ -4,7 +4,11 @@ set(PN "cvcap")
 
 project(${PN})
 
-set(OpenCV_DIR    "/usr/local/share/OpenCV")
+# NOTE
+# due to qrcode needs QUIRC module, binaries from
+# intel openvino/opencv does not link with it
+#set(OpenCV_DIR    "/opt/intel/opencv/share/OpenCV")
+#set(OpenCV_DIR    "/usr/local/share/OpenCV")
 message("OpenCV_DIR: ${OpenCV_DIR}")
 find_package( OpenCV REQUIRED )
 message("opencv ver: ${OpenCV_VERSION}")
