@@ -2,8 +2,11 @@
 #include <iomanip>
 #include <regex>
 #include <nlohmann/json.hpp>
+#include <time.h>
 
 using namespace std;
+
+double generateGaussianNoise(double mu, double sigma);
 
 class HelloWorld
 {
@@ -44,19 +47,32 @@ void testre()
     }
 }
 
-void what()
+void test_string_connect()
 {
     string s;
     s = string("color") + string("12345") + ".png";
     cout << s << endl;
 }
 
+void test_noise()
+{
+    const int max_count = 10;
+    for (int i=0; i<max_count; ++i) {
+        double n = generateGaussianNoise(100.0, 15);
+        cout << n << endl;
+    }
+}
+
 int main()
 {
+    srand(time(NULL));
+
     cout << "hello world from " << __func__ << endl;
 	show_jsonhpp_version();
     //testre();
-    what();
+    test_string_connect();
+
+    test_noise();
 
 	return 0;
 }

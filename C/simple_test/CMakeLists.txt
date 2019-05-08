@@ -23,7 +23,10 @@ add_executable(sss sss.cpp)
 add_executable(rfind rfind.cpp)
 add_executable(getret getret.cpp)
 add_executable(gete gete.cpp)
-add_executable(hello_world hello_world.cpp json.hpp)
+add_executable(hello_world
+    hello_world.cpp
+    json.hpp
+    boxmuller.cpp)
 add_executable(mul mul.cpp)
 add_executable(fib fib.c)
 add_executable(memmove memmove.c)
