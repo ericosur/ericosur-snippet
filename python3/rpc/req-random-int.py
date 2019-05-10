@@ -7,26 +7,14 @@ reference: https://api.random.org/json-rpc/2/basic
 
 import requests
 import json
-import myutil
-
-def get_apikey():
-    import os
-    home = os.environ.get('HOME')
-    keypath = home + '/' + 'Private/random-org.json'
-    data = myutil.read_jsonfile(keypath)
-    apiKey = data.get('apiKey');
-    if apiKey is None:
-        print('[WARN] apiKey is None')
-        return ""
-    return apiKey
-
+from getapikey import get_randomorg_apikey
 
 def main():
     url = "https://api.random.org/json-rpc/2/invoke"
     headers = {'content-type': 'application/json'}
 
     myid = 47
-    key = get_apikey()
+    key = get_randomorg_apikey()
     request_size = 10
 
     payload = {

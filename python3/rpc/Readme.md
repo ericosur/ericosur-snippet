@@ -25,8 +25,13 @@
 * req-random-int.py
   call random.org API to simulate rolling a dice (1 to 6)
 
-* wtf.py
+* validate_gaussian.py
   read *data.txt* and calculate mean, median, stdev
+  and try-and-error to test how many numbers to figure out it is
+  a normal distribution
 
 * concat.py
   read *resp?.json* and output result into *data.txt*
+
+* getapikey.py
+  common function to fetch API key of random.org

@@ -31,16 +31,8 @@ class Request_Guassian(object):
         #print('apiKey: {}'.format(self.apiKey))
 
     def get_apikey(self):
-        import myutil
-        import os
-        home = os.environ.get('HOME')
-        keypath = home + '/' + 'Private/random-org.json'
-        data = myutil.read_jsonfile(keypath)
-        apiKey = data.get('apiKey');
-        if apiKey is None:
-            print('[WARN] apiKey is None')
-            return ""
-        return apiKey
+        import getapikey
+        return getapikey.get_randomorg_apikey()
 
     def save_resp(self, resp):
         with open(self.resp_json, 'w') as outj:
@@ -105,21 +97,6 @@ def main():
     foo.dump()
     foo.action()
 
-def test():
-    data = myutil.read_jsonfile('resp.json')
-    arr = data.get('result').get('random').get('data')
-    print(len(arr))
-    cnt = 0
-    mode = 'wt'
-    if myutil.isfile('data.txt'):
-        print('file exists, use "at"')
-        mode = 'at'
-
-    with open('data.txt', mode) as datafile:
-        for elem in arr:
-            print('{}'.format(elem), file=datafile)
-            cnt += 1
-    print('cnt: {}'.format(cnt))
 
 if __name__ == "__main__":
     main()
