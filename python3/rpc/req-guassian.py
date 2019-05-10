@@ -54,6 +54,10 @@ class Request_Guassian(object):
         myid = 47
         request_size = 1000
 
+        if self.apiKey == "":
+            print('[FAIL] no api key, exit')
+            return
+
         payload = {
             "jsonrpc": "2.0",
             "method": "generateGaussians",
@@ -82,11 +86,17 @@ class Request_Guassian(object):
         if not ret_data is None:
             print('ret_data: {}'.format(ret_data))
 
+        ret_data = []
         # get results
-        ret_data = resp.get('result').get('random').get('data')
-        if ret_data is None:
-            print('[FAIL] data is None')
+        if resp.get('result') is None:
+            print('[FAIL] no result')
+            errmsg = resp.get('error').get('message')
+            print('[FAIL] error message: {}'.format(errmsg))
             return
+        else:
+            ret_data = resp.get('result').get('random').get('data')
+            if ret_data is None:
+                return
 
         print('save to data file: {}'.format(self.data_file_name))
         self.save_data(ret_data)

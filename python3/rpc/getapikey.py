@@ -8,6 +8,9 @@ import myutil
 def get_randomorg_apikey():
     home = os.environ.get('HOME')
     keypath = home + '/' + 'Private/random-org.json'
+    if not myutil.isfile(keypath):
+        print('[FAIL] key file not exist: {}'.format(keypath))
+        return ""
     data = myutil.read_jsonfile(keypath)
     apiKey = data.get('apiKey');
     if apiKey is None:
