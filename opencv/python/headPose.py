@@ -1,12 +1,20 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+
+'''
+it is a example of learnopencv from: https://github.com/spmallick/learnopencv.git
+'''
 
 import cv2
 import numpy as np
 
 # Read Image
 im = cv2.imread("headPose.jpg");
+if im is None:
+    print('fail to load image')
+    exit()
+
 size = im.shape
-    
+
 #2D image points. If you change the image, you need to change vector
 image_points = np.array([
                             (359, 391),     # Nose tip
@@ -39,13 +47,13 @@ camera_matrix = np.array(
                          [0, 0, 1]], dtype = "double"
                          )
 
-print "Camera Matrix :\n {0}".format(camera_matrix);
+print("Camera Matrix :\n {0}".format(camera_matrix));
 
 dist_coeffs = np.zeros((4,1)) # Assuming no lens distortion
 (success, rotation_vector, translation_vector) = cv2.solvePnP(model_points, image_points, camera_matrix, dist_coeffs, flags=cv2.SOLVEPNP_ITERATIVE)
 
-print "Rotation Vector:\n {0}".format(rotation_vector)
-print "Translation Vector:\n {0}".format(translation_vector)
+print("Rotation Vector:\n {0}".format(rotation_vector))
+print("Translation Vector:\n {0}".format(translation_vector))
 
 
 # Project a 3D point (0, 0, 1000.0) onto the image plane.
