@@ -1,8 +1,8 @@
+#include <iostream>
 #include <algorithm>
 #include <functional>
-//#include <array>
 #include <vector>
-#include <iostream>
+#include <random>
 
 using namespace std;
 
@@ -43,6 +43,21 @@ std::ostream& operator<<(std::ostream& ds, const Foo& obj)
     return ds;
 }
 
+void printsep()
+{
+    std::cout << "----------\n";
+}
+
+
+template<typename T>
+void dump(std::vector<T> v)
+{
+    for (auto a: v) {
+        std::cout << a << std::endl;
+    }
+    printsep();
+}
+
 int main()
 {
     std::vector<Foo> s;
@@ -52,11 +67,8 @@ int main()
     s.push_back(Foo("gamma", 13));
     s.push_back(Foo("victor", 73));
     s.push_back(Foo("roger", 67));
-
-    for (auto ii : s) {
-        std::cout << ii << endl;
-    }
-    cout << "-----" << endl;
+    // initial values
+    dump(s);
 
     struct {
         bool operator()(Foo m, Foo n) {
@@ -64,11 +76,16 @@ int main()
         }
     } customGreater;
 
+    // sort with customized class
     std::sort(s.begin(), s.end(), customGreater);
-    for (auto a : s) {
-        std::cout << a << endl;
-    }
+    dump(s);
 
+    random_device rd;
+    mt19937 g(rd());
+
+    // shuffle it
+    std::shuffle(s.begin(), s.end(), g);
+    dump(s);
 
     return 0;
 }

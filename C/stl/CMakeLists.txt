@@ -31,3 +31,6 @@ add_executable(
 add_executable(
     dist
     dist.cpp)
+add_executable(
+    sortfoo
+    sortfoo.cpp)
