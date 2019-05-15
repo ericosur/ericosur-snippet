@@ -27,6 +27,6 @@ int main()
     show(2017, 6, 19);
     show(1975, 6, 17);
 
-    printf("value:%d\n", (2017,1953));
+    //printf("value:%d\n", (2017,1953));
     return 0;
 }
