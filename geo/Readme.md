@@ -1,6 +1,23 @@
-# readme
+# Readme
+
+## api key
+
+to request API key:
+https://github.com/google/open-location-code/wiki/Plus-codes-API#api-keys
+
+
+## migrate to python3
+
+old geo.py
+  - python2
+  - urllib2
+
+new geo.py
+  - python3
+  - **requests**
 
 ## for plus.codes, encrypt geo api key request
+
 ```
 curl https://plus.codes/api?encryptkey=abcdefkey
 ```
