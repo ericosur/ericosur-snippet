@@ -22,6 +22,10 @@ class foobar(object):
         print('userkey: {}\napitoken: {}'.format(self.userkey, self.apitoken))
 
     def shoot(self):
+        if self.userkey is None or self.apitoken is None:
+            print('[FAIL] key/apitoken not exists, abort...')
+            return
+
         conn = http.client.HTTPSConnection("api.pushover.net:443")
         conn.request("POST", "/1/messages.json",
             urllib.parse.urlencode({
