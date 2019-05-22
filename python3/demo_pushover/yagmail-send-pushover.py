@@ -33,13 +33,13 @@ def main():
 
     print('send content via email gateway by pushover')
 
-    imgurl = 'https://i.imgur.com/Y7VTPOis.jpg'
-    yagmail.register('ericosur@gmail.com', appkey)
+    imgurl = 'https://i.imgur.com/grFslzy.jpg'
+    #yagmail.register('ericosur@gmail.com', appkey)
     yag = yagmail.SMTP('ericosur@gmail.com')
     to = email
     subject = 'yagmail + pushover @{}'.format(int(time.time()))
     body = 'just have fun with yagmail, visit url: {}'.format(imgurl)
-    img = '/home/rasmus/Pictures/test/ff.jpg'
+    img = '/home/rasmus/Pictures/picked/794724259_0f5edb1cd4.jpg'
     yag.send(to=to, subject=subject, contents=[body, img])
 
 

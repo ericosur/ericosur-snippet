@@ -1,41 +1,29 @@
 #!/usr/bin/env python3
-# coding: utf-8
+
 
 '''
-using pushover to send notification to my iphone
+pushover base class
 '''
 
 import os
-import sys
 from datetime import datetime
-import time
-import http.client, urllib
+from time import time
 import myutil
 
-class foobar(object):
+class PushOverBase(object):
     def __init__(self, msg):
+        # load user, token
         (self.userkey, self.apitoken) = self.get_apikey()
+        # default data fields
         self.title = 'pushover.py'
         self.message = '{} at {}'.format(msg, datetime.now())
+        self.resp_str = None
 
-    def show(self):
-        print('userkey: {}\napitoken: {}'.format(self.userkey, self.apitoken))
+    def __str__(self):
+        return 'userkey: {}\napitoken: {}'.format(self.userkey, self.apitoken)
 
     def shoot(self):
-        if self.userkey is None or self.apitoken is None:
-            print('[FAIL] key/apitoken not exists, abort...')
-            return
-
-        conn = http.client.HTTPSConnection("api.pushover.net:443")
-        conn.request("POST", "/1/messages.json",
-            urllib.parse.urlencode({
-                "token": self.apitoken,
-                "user": self.userkey,
-                "title": self.title,
-                "message": self.message,
-            }), { "Content-type": "application/x-www-form-urlencoded" })
-        resp = conn.getresponse()
-        print('status: {} reason: {}'.format(resp.status, resp.reason))
+        print('shoot!')
 
     def set_title(self, title):
         self.title = title
@@ -44,7 +32,16 @@ class foobar(object):
         self.message = message
 
     def get_timestamp(self):
-        return int(time.time())
+        return int(time())
+
+    def show_resp(self):
+        if not self.resp_str is None:
+            print(self.resp_str)
+
+    @staticmethod
+    def get_home():
+        home = os.environ.get('HOME')
+        return home
 
     @staticmethod
     def get_apikey():
@@ -64,9 +61,11 @@ class foobar(object):
         apitoken = data.get('apitoken')
         return userkey, apitoken
 
+
 def main():
-    gg = foobar('test pushover notification!')
-    gg.shoot()
+    bar = PushOverBase('hello world')
+    print(bar)
+    bar.shoot()
 
 if __name__ == '__main__':
     main()
