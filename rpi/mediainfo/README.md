@@ -1,7 +1,10 @@
 # HOWTO cross compile mediainfo for raspberry pi
 
-source for mediainfo:
-https://mediaarea.net/download/binary/mediainfo/18.05/MediaInfo_CLI_18.05_GNU_FromSource.tar.bz2
+fetch CLI source tarball of MediaInfo:
+```
+$ cd ~/Downloads/
+$ curl -O https://mediaarea.net/download/binary/mediainfo/19.04/MediaInfo_CLI_19.04_GNU_FromSource.tar.bz2
+```
 
 toolchain for raspberry pi:
 https://github.com/raspberrypi/tools.git
@@ -13,9 +16,9 @@ July 4, 2017 updated steps:
 * untar source tarball
 ```bash
 cd ~/Downloads/
-tar xfvj MediaInfo_CLI_18.05_GNU_FromSource.tar.bz2
+tar xfvj ~/Downloads/MediaInfo_CLI_19.04_GNU_FromSource.tar.bz2
 cd MediaInfo_CLI_GNU_FromSource/
-export TOP=$PWD
+export WORKDIR=$PWD
 ```
 
 * copy zlib source tree
@@ -46,13 +49,13 @@ make -j
 
 * build all others
 ```
-cd $TOP
+cd $WORKDIR
 ./build-all.sh
 ```
   -*- or -*-
 
 ```
-cd $TOP
+cd $WORKDIR
 ./linaro.sh
 ```
 
@@ -66,5 +69,9 @@ arm-linux-gnueabi-strip -o mediainfo.arm.strip MediaInfo/Project/GNU/CLI/mediain
 $HOME/linaro/gcc-linaro-7.2.1-2017.11-i686_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-strip \
     -o mediainfo.arm.strip MediaInfo/Project/GNU/CLI/mediainfo
 ```
+
+path of strip
+$HOME/src/github/rpi-git/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/bin/arm-linux-gnueabihf-strip
+
 
 --------------------------------------------------------------
