@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 '''
 from:
@@ -10,7 +10,7 @@ import operator
 
 def main():
     '''main function'''
-    x = {1: 2, 3: 4, 4: 3, 2: 1, 0: 0}
+    x = {1: 41, 3: 37, 4: 79, 2: 17, 0: 23}
 
     # sort by values of dict
     sorted_x = sorted(x.items(), key=operator.itemgetter(1))

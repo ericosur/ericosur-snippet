@@ -37,13 +37,15 @@ class PushOverRequests(PushOverBase):
             "message": self.message,
             "sound": "intermission"
         }
+        '''
         img_fn = self.get_home() + '/Pictures/kabaa.jpg'
         img = {
             "attachment": ("image.jpg", open(img_fn, "rb"), "image/jpeg")
         }
+        '''
 
-        r = requests.post(url, data=json.dumps(payload), headers=headers,
-            files=img)
+        r = requests.post(url, data=json.dumps(payload), headers=headers)
+
         print(r.status_code)
 
         resp = r.json()

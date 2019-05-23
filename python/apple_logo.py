@@ -5,11 +5,19 @@
 
 
 from __future__ import print_function
+import sys
 from showutf8 import show_utf8char
+from myutil import get_python_version
 
 
 def main():
     ''' print some unicode characters '''
+
+    v = float(get_python_version())
+    if v >= 3.0:
+        print('cannot run after python3')
+        sys.exit()
+
     # utf8 octets for apple logo (private use area)
     # U+F8FF utf8: EF A3 BF
     a = '\xef\xa3\xbf'
