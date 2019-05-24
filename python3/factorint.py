@@ -9,12 +9,12 @@ it takes a while to load sympy (it's huge!)
 
 from __future__ import print_function
 import sys
+from sympy import factorint
 
 def show(value):
     '''
     use sympy.factorint() and display in formatted form
     '''
-    from sympy import factorint
     if value <= 0:
         print("must > 0")
         return
@@ -44,7 +44,6 @@ def main():
         print("usage: %s [arg1] [arg2]..." % sys.argv[0])
         quit()
 
-    #for x in xrange(1, len(sys.argv)):
     for x in sys.argv[1:]:
         try:
             value = int(x)

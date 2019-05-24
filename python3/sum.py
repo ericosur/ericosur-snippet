@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-''' just a trivia script to use foo-loop and print '''
+'''
+just a trivia script to use foo-loop and print
+if numpy is available, it could be more efficient by using:
+np.arange and np.sum
+'''
 
 from __future__ import print_function
 
