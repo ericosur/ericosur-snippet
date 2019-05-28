@@ -17,9 +17,9 @@ class PushOverRequests(PushOverBase):
     def __init__(self, msg):
         super().__init__(msg)
         self.title = 'p2over pushover'
-        self.load_cofig('../emoji/f.json')
+        self.load_config('../emoji/f.json')
 
-    def load_config(fn):
+    def load_config(self, fn):
         data = myutil.read_jsonfile(fn)
         if data is None:
             return
@@ -43,6 +43,7 @@ class PushOverRequests(PushOverBase):
             "user": self.userkey,
             "title": self.title,
             "message": self.message,
+            "device": self.device,
             "sound": "intermission"
         }
         '''
@@ -63,6 +64,10 @@ class PushOverRequests(PushOverBase):
 
 def main():
     gg = PushOverRequests('test pushover notification!')
+    #gg.set_title('hello world')
+    #gg.set_message('please check: https://i.imgur.com/HVkVKmf.jpg')
+    gg.set_device('erimx')
+    print(gg)
     gg.shoot()
 
 if __name__ == '__main__':

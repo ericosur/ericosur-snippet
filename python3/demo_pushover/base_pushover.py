@@ -13,14 +13,22 @@ import myutil
 class PushOverBase(object):
     def __init__(self, msg):
         # load user, token
-        (self.userkey, self.apitoken) = self.get_apikey()
+        self.userkey = None
+        self.apitoken = None
+        self.device = None
+        # load settings of previous three variables
+        if not self.get_apikey():
+            print('[FAIL] failed to load config')
         # default data fields
         self.title = 'pushover.py'
         self.message = '{} at {}'.format(msg, datetime.now())
         self.resp_str = None
 
     def __str__(self):
-        return 'userkey: {}\napitoken: {}'.format(self.userkey, self.apitoken)
+        s = 'userkey: {}\napitoken: {}\n'.format(self.userkey, self.apitoken)
+        s += 'title: {}\nmessage: {}\ndevice: {}\n'.format(
+            self.title, self.message, self.device)
+        return s
 
     def shoot(self):
         print('shoot!')
@@ -30,6 +38,9 @@ class PushOverBase(object):
 
     def set_message(self, message):
         self.message = message
+
+    def set_device(self, device):
+        self.device = device
 
     def get_timestamp(self):
         return int(time())
@@ -43,23 +54,21 @@ class PushOverBase(object):
         home = os.environ.get('HOME')
         return home
 
-    @staticmethod
-    def get_apikey():
+    def get_apikey(self):
         keyfile = 'pushover-net.json'
-        userkey = None
-        apitoken = None
         home = os.environ.get('HOME')
         keypath = home + '/Private/' + keyfile
         if not myutil.isfile(keypath):
             print('[FAIL] key file not exist: {}'.format(keypath))
-            return None, None
+            return False
         data = myutil.read_jsonfile(keypath)
         if data is None:
-            return None, None
+            return False
 
-        userkey = data.get('userkey')
-        apitoken = data.get('apitoken')
-        return userkey, apitoken
+        self.userkey = data.get('userkey')
+        self.apitoken = data.get('apitoken')
+        self.device = data.get('device')
+        return True
 
 
 def main():
