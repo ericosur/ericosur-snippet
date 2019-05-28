@@ -14,19 +14,23 @@ class TestSum(object):
         # integer value 0 to 99
         self.data_arr = np.random.randint(100, size=self.data_size)
 
+    @staticmethod
+    def print_duration(start, end, msg=''):
+        print('{} duration: {:.3f} seconds (wall clock)'.format(msg, end - start))
+
     def test_sum(self):
         time_start = timeit.default_timer()
         for _ in range(self.test_number):
             s = sum(self.data_arr)
         time_end = timeit.default_timer()
-        print('duration: {}'.format(time_end-time_start))
+        TestSum.print_duration(time_start, time_end, 'test_sum')
 
     def test_npsum(self):
         time_start = timeit.default_timer()
         for _ in range(self.test_number):
             s = np.sum(self.data_arr)
         time_end = timeit.default_timer()
-        print('duration: {}'.format(time_end-time_start))
+        TestSum.print_duration(time_start, time_end, 'test_npsum')
 
     def test(self):
         self.test_sum()
