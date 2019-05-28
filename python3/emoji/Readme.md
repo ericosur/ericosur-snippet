@@ -64,3 +64,10 @@ void unicode_char()
     cout << str << endl;
 }
 ```
+
+## howto
+
+> utf-16 surrogate characters ranges from U+D800 to U+DFFF
+
+- script **surgg.py** demos how to translate utf-16 characters to a string
+- may put it into a json file, and use **jq** to view
