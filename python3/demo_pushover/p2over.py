@@ -11,11 +11,19 @@ use module ==requests==
 import json
 import requests
 from base_pushover import PushOverBase
+import myutil
 
 class PushOverRequests(PushOverBase):
     def __init__(self, msg):
         super().__init__(msg)
-        self.title = 'push over requests'
+        self.title = 'p2over pushover'
+        self.load_cofig('../emoji/f.json')
+
+    def load_config(fn):
+        data = myutil.read_jsonfile(fn)
+        if data is None:
+            return
+        self.message = data.get('s')
 
     def shoot(self):
         '''
