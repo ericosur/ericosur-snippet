@@ -27,7 +27,9 @@ add_executable(getret getret.cpp)
 add_executable(gete gete.cpp)
 add_executable(hello_world
     hello_world.cpp
-    boxmuller.cpp)
+    boxmuller.cpp
+    test_func.cpp
+)
 add_executable(mul mul.cpp)
 add_executable(fib fib.c)
 add_executable(memmove memmove.c)
