@@ -15,7 +15,7 @@ class driving_data(object):
     def __init__(self, csvfile='/tmp/driving_data.csv'):
         self.debug = True
         self.jsonfile = 'driving_data.json'
-        self.jsondir = 'apikey/'
+        self.jsondir = 'Private/'
         self.jsonpath = self.jsonfile
         self.jsondata = None
         self.csvfile = csvfile
@@ -46,7 +46,7 @@ class driving_data(object):
         with open(self.csvfile, 'wb') as ofile:
             ofile.write(csvdata)
             if self.debug:
-                print('output json to {}'.format(self.csvfile))
+                print('output csv to {}'.format(self.csvfile))
 
     def action(self):
         ''' main function '''

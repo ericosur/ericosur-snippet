@@ -26,6 +26,8 @@ The data table is manually tailored from [Bank of Taiwan](https://rate.bot.com.t
 
 ### driving_data.py ###
 
+config: ```$HOME/Private/driving_data.json```
+
 This script uses *__*driving_data.csv*__* which is located at google spreadsheet.
 The table will look like:
 
