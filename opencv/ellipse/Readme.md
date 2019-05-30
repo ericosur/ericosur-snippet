@@ -6,6 +6,8 @@ stupid practice to draw some points on ellipse curve by myself
 
 ## note
 
+**Oh shoot, github markdown does not support latex syntax**
+
 $(m,n)$ is the center point of ellipse
 $a$ is longer, $b$ is shorter, $c$ is center to focus point
 
