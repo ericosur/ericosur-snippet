@@ -5,15 +5,22 @@
 script to query openweather and accuweather
 '''
 
+# TODO: UNIFINISHED
+#
+# pylint: disable=unreachable
+# pylint: disable=undefined-variable
+# pylint: disable=unused-variable
+
 import os
 import json
-import requests
 from datetime import datetime
+import requests
 from myutil import write_json
 
 def getapikey(keyname):
+    ''' get api key '''
     debug = False
-    keyfn = os.environ["HOME"] + '/Private/' + 'owaw-keys.json';
+    keyfn = os.environ["HOME"] + '/Private/' + 'owaw-keys.json'
     with open(keyfn) as keyfile:
         data = json.load(keyfile)
     if debug:
@@ -21,6 +28,7 @@ def getapikey(keyname):
     return data["keys"][keyname]["key"]
 
 def my_write_json(filename, jsondata):
+    ''' output json data to file '''
     write_json(filename, jsondata)
     print('query_openweather: output to {0}'.format(filename))
 
@@ -62,11 +70,11 @@ def query_openweather(latitude, longitude):
     temp_min = data['main']['temp_min']
     temp_max = data['main']['temp_max']
     temp = data['main']['temp']
-    print('max: {:.1f}, min: {:.1f}, curr: {:.1f}'.format(k2c(temp_max),
-        k2c(temp_min), k2c(temp)))
+    print('max: {:.1f}, min: {:.1f}, curr: {:.1f}'.format(k2c(temp_max), k2c(temp_min), k2c(temp)))
 
 
 def query_accuweather(latitude, longitude):
+    ''' query accuweather by latitude and longitude '''
     debug = False
     appid = getapikey('accuweather')
     baseurl = '''
@@ -82,8 +90,8 @@ def query_accuweather(latitude, longitude):
     print('url: ' + resp.url)
     data = resp.json()
     write_json('aw-loc.json', data)
-    return
 
+    return
     lockey = data["Key"]
     baseurl = '''
     http://dataservice.accuweather.com/currentconditions/v1/{0}?
@@ -106,6 +114,7 @@ def query_accuweather(latitude, longitude):
 
 
 def main():
+    ''' main '''
     openweather_file = '/tmp/ow.json'
     accuweather_file = '/tmp/aw_curr.json'
     accuweather_forcast_file = '/tmp/aw_fore.json'

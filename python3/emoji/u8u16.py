@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
-import os
+'''
+u8u16 tests
+'''
+
 import sys
 import json
 from myutil import read_jsonfile, write_json
@@ -23,8 +26,13 @@ def test0():
         to_from_u16(cc)
 
 def test1():
-    arr = [u'\u2764\ufe0f', u'\U0001f1e7\U0001f1f4',
-        u'\U0001f64b\u200d\u2640\ufe0f', u'\U0001f3c8', u'\U0001f603'
+    ''' test1 '''
+    arr = [
+        u'\u2764\ufe0f',
+        u'\U0001f1e7\U0001f1f4',
+        u'\U0001f64b\u200d\u2640\ufe0f',
+        u'\U0001f3c8',
+        u'\U0001f603'
     ]
     #print(arr)
     payload = {'icons': arr}
@@ -34,6 +42,7 @@ def test1():
 
 
 def test2():
+    ''' test2 '''
     s = '漢  χαν  хан'
     #to_from_u8(s)
     to_from_u16(s)
@@ -55,15 +64,16 @@ def test3():
 
 
 def main():
+    ''' main '''
     test0()
     #test2()
     #test3()
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
-        s = sys.argv[1]
-        to_from_u16(s)
-        to_utf8(s)
+        S = sys.argv[1]
+        to_from_u16(S)
+        to_utf8(S)
     else:
         print('no cli parameter, call demo functions')
         main()

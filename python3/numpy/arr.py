@@ -1,36 +1,42 @@
 #!/usr/bin/env python3
-#
+# coding: utf-8
 
 ''' numpy array sample '''
 
-import numpy as np
+from __future__ import print_function
 import timeit
+import numpy as np
 
 MAXCNT = 75000
 L = np.random.random(MAXCNT)
 
 def test1():
-    S1 = sum(L)
+    ''' test1 '''
+    sum(L)
     #print('result:', S1)
 
 def test2():
-    S2 = np.sum(L)
+    ''' test2 '''
+    np.sum(L)
     #print('result:', S2)
 
-def get_statics(arr):
+def get_statistics(arr):
+    ''' get statistics '''
     print('min: {}, max: {}'.format(np.min(arr), np.max(arr)))
     print('std: {}, mean: {} avg: {}'.format(np.std(arr), np.mean(arr), np.average(arr)))
 
 def test():
+    ''' test '''
     arr = L
     print('array filled with 0 to 1')
-    get_statics(arr)
+    get_statistics(arr)
     mu, sigma = 0.5, 0.25
     print('array filled with normal distribution mu:{} sigma:{}'.format(mu, sigma))
     arr = np.random.normal(mu, sigma, MAXCNT)
-    get_statics(arr)
+    get_statistics(arr)
 
 def main():
+    ''' main '''
     test()
 
     print('time taken with python sum():')

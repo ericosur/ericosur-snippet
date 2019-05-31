@@ -7,9 +7,13 @@ simple demo to test against https://httpbin.org/
 it is a great website to test http requests
 '''
 
+# pylint: disable=broad-except
+
+from __future__ import print_function
 import requests
 
 def show_results(r):
+    ''' show data member of **response** '''
     print('r.url', r.url)
     print('r.elapsed', r.elapsed)
     print('r.ok', r.ok)
@@ -31,8 +35,8 @@ def show_results(r):
     elif 'octet' in content_type:
         print('r.content', r.content)
 
-
 def test0():
+    ''' query ip '''
     url = 'https://httpbin.org/ip'
     r = requests.get(url)
     show_results(r)
@@ -46,6 +50,9 @@ def test1():
     show_results(r)
 
 def test2():
+    '''
+    fetch links
+    '''
     try:
         n = 3
         offset = 5
@@ -57,6 +64,9 @@ def test2():
         print(e.args)
 
 def test3():
+    '''
+    fetch numbers
+    '''
     try:
         n = 32
         url = 'https://httpbin.org/range/{}'.format(n)
@@ -67,6 +77,9 @@ def test3():
         print(e.args)
 
 def test4():
+    '''
+    fetch anything
+    '''
     try:
         url = 'https://httpbin.org/anything/{anything}'
         r = requests.get(url)
@@ -77,6 +90,7 @@ def test4():
 
 
 def main():
+    ''' main test function '''
     test4()
     print('-' * 60)
 

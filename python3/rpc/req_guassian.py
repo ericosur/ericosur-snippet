@@ -5,20 +5,23 @@
 reference: https://api.random.org/json-rpc/2/basic
 '''
 
-import requests
+from __future__ import print_function
 import json
+import requests
 import myutil
 
-class Request_Guassian(object):
+# pylint: disable=useless-object-inheritance
+class RequestGuassian(object):
+    ''' request guassian random numbers from random.org '''
     def __init__(self):
         self.sett_json = 'sett.json'
         self.data_file_name = ''
         self.resp_json = ''
-        self.apiKey = ''
         self.load_setting()
-        self.apiKey = self.get_apikey()
+        self.apikey = self.get_apikey()
 
     def load_setting(self):
+        ''' load setting '''
         if not myutil.isfile(self.sett_json):
             print('[FAIL] setting file not found: {}'.format(self.sett_json))
         sett = myutil.read_jsonfile(self.sett_json)
@@ -26,19 +29,24 @@ class Request_Guassian(object):
         self.resp_json = sett.get('resp_json')
 
     def dump(self):
+        ''' dump varialbes '''
         print('data_file_name: {}'.format(self.data_file_name))
         print('resp_json: {}'.format(self.resp_json))
         #print('apiKey: {}'.format(self.apiKey))
 
-    def get_apikey(self):
+    @staticmethod
+    def get_apikey():
+        ''' get apikey '''
         import getapikey
         return getapikey.get_randomorg_apikey()
 
     def save_resp(self, resp):
+        ''' save resp to json file '''
         with open(self.resp_json, 'w') as outj:
             outj.write(resp)
 
     def save_data(self, arr):
+        ''' save array to data.txt '''
         mode = 'wt'
         if myutil.isfile('data.txt'):
             #print('file exists, use "at"')
@@ -48,13 +56,16 @@ class Request_Guassian(object):
                 print('{}'.format(elem), file=datafile)
 
     def action(self):
+        '''
+        perform request to random.org
+        '''
         url = "https://api.random.org/json-rpc/2/invoke"
         headers = {'content-type': 'application/json'}
 
         myid = 47
         request_size = 1000
 
-        if self.apiKey == "":
+        if self.apikey == "":
             print('[FAIL] no api key, exit')
             return
 
@@ -62,7 +73,7 @@ class Request_Guassian(object):
             "jsonrpc": "2.0",
             "method": "generateGaussians",
             "params": {
-                "apiKey": self.apiKey,
+                "apiKey": self.apikey,
                 "n": request_size,
                 "mean": 100,
                 "standardDeviation": 15,
@@ -93,19 +104,21 @@ class Request_Guassian(object):
             errmsg = resp.get('error').get('message')
             print('[FAIL] error message: {}'.format(errmsg))
             return
-        else:
-            ret_data = resp.get('result').get('random').get('data')
-            if ret_data is None:
-                return
+
+        ret_data = resp.get('result').get('random').get('data')
+        if ret_data is None:
+            print('[FAIL] ret_data is None')
+            return
 
         print('save to data file: {}'.format(self.data_file_name))
         self.save_data(ret_data)
 
 
 def main():
-    foo = Request_Guassian()
-    foo.dump()
-    foo.action()
+    ''' main '''
+    guas = RequestGuassian()
+    guas.dump()
+    guas.action()
 
 
 if __name__ == "__main__":

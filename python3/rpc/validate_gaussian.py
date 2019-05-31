@@ -2,24 +2,32 @@
 # coding: utf-8
 #
 
+'''
+get data from file and try to fetch part of them, to see
+how many data will match the range of mu and sigma
+'''
+
+# pylint: disable=broad-except
+
+from __future__ import print_function
 import random
 import statistics
 
+# pylint: disable=useless-object-inheritance
 class ValidateGuassian(object):
+    ''' class ValidateGuassian '''
     def __init__(self):
-        self.data_file = 'data.txt'
         self.orig_arr = []
-        self.target_mean = 100.0
-        self.limit_mean = 0.5
-        self.target_stdev = 15.0
-        self.limit_stdev = 0.75
+        self.target_mean = (100.0, 0.5)    # target mean, and limit
+        self.target_stdev = (15.0, 0.75)   # target stdev, and limit
         self.result_mean = 0.0
         self.result_stdev = 0.0
         self.result_mode = 0.0
-        self.orig_arr = self.read_array_from_file(self.data_file)
+        self.orig_arr = self.read_array_from_file('data.txt')
 
     @staticmethod
     def read_array_from_file(fn):
+        ''' read array from file '''
         arr = []
         try:
             with open(fn, 'rt') as ifile:
@@ -32,12 +40,13 @@ class ValidateGuassian(object):
 
     @staticmethod
     def save_array_to_file(arr, fn):
+        ''' save array to file '''
         try:
             with open(fn, 'wt') as ofile:
                 for val in arr:
                     print('{}'.format(val), file=ofile)
-        except:
-            print('Except happens')
+        except Exception as e:
+            print('Except happens: {}'.format(e))
 
     @staticmethod
     def shuffle_array(arr):
@@ -56,10 +65,10 @@ class ValidateGuassian(object):
         if mean and stdev of *arr* is close to target_mean and target_stdev,
         return true
         '''
-        limit = 0.5
+
         #print('there are {} elements'.format(len(arr)))
         mean = statistics.mean(arr)
-        median = statistics.median(arr)
+        #median = statistics.median(arr)
         stdev = statistics.stdev(arr)
         mode = 0
         # most time we could not get *mode* from this array, pass it
@@ -69,16 +78,17 @@ class ValidateGuassian(object):
             pass
         #print('median: {:.3f}\n'.format(media))
         #print('mean: {:.3f}\nstdev: {:.3f}\n'.format(mean, stdev))
-        if abs(self.target_mean - mean) < self.limit_mean \
-            and abs(self.target_stdev - stdev) < self.limit_stdev:
+        if abs(self.target_mean[0] - mean) < self.target_mean[1] \
+            and abs(self.target_stdev[0] - stdev) < self.target_stdev[1]:
             self.result_mean = mean
             self.result_stdev = stdev
             self.result_mode = mode
             return True
-        else:
-            return False
+
+        return False
 
     def test(self):
+        ''' test data against critiria '''
         #test_arr = sorted(self.orig_arr)
         #self.save_array_to_file(test_arr, 'sorted.txt')
 
@@ -96,11 +106,11 @@ class ValidateGuassian(object):
             print('mode: {:.3f}'.format(self.result_mode))
 
 def main():
+    ''' main '''
     REPEAT = 10
-    for i in range(REPEAT):
-        foo = ValidateGuassian()
-        foo.test()
-        del(foo)
+    for _ in range(REPEAT):
+        valguass = ValidateGuassian()
+        valguass.test()
 
 if __name__ == '__main__':
     main()

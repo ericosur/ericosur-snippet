@@ -8,18 +8,22 @@ class PushOverRequests inherits from class PushOverBase for common functions
 use module ==requests==
 '''
 
+from __future__ import print_function
 import json
 import requests
 from base_pushover import PushOverBase
 import myutil
 
+
 class PushOverRequests(PushOverBase):
+    ''' class to request pushover '''
     def __init__(self, msg):
         super().__init__(msg)
-        self.title = 'p2over pushover'
+        self._title = 'p2over pushover'
         self.load_config('../emoji/f.json')
 
     def load_config(self, fn):
+        ''' load config '''
         data = myutil.read_jsonfile(fn)
         if data is None:
             return
@@ -63,10 +67,11 @@ class PushOverRequests(PushOverBase):
 
 
 def main():
+    ''' main '''
     gg = PushOverRequests('test pushover notification!')
     #gg.set_title('hello world')
     #gg.set_message('please check: https://i.imgur.com/HVkVKmf.jpg')
-    gg.set_device('erimx')
+    gg.device = 'erimx'
     print(gg)
     gg.shoot()
 

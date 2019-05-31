@@ -8,6 +8,8 @@ import os
 import sys
 import json
 
+# pylint: disable=no-member
+
 __version__ = '0.0.2'
 
 def read_jsonfile(fn, debug=False):
@@ -58,7 +60,6 @@ def insert_syspath(p):
     if is_path_exist(p):
         print('insert {} into sys path'.format(p))
         sys.path.insert(0, p)
-    return
 
 def is_path_exist(p):
     ''' true if specified path exists '''

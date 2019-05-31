@@ -8,7 +8,7 @@ import os
 import csv
 
 def gen_csv(fn):
-    '''main function'''
+    ''' generate csv '''
     with open(fn, 'w') as csvfile:
         fieldnames = ['index', 'n', 'value']
         sw = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=',',
@@ -23,6 +23,7 @@ def gen_csv(fn):
     csvfile.close()
 
 def main():
+    ''' main '''
     OUTPUT_CSV = 'perfect_s.csv'
     if os.path.isfile(OUTPUT_CSV):
         print("remove existed file...")

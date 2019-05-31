@@ -1,9 +1,14 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
+'''
+stupid test from code point to char, to utf-8
+'''
+
 from __future__ import print_function
 
-def show(ch):
+def test0(ch):
+    ''' show '''
     print('ch: {}, len: {}, hex: {}'.format(ch, len(ch), hex(ord(ch))))
     bb = ch.encode('utf8')
     print('bb: {}, len: {}'.format(bb, len(bb)))
@@ -11,14 +16,15 @@ def show(ch):
     print('uu: {}'.format(uu))
 
 
-def show2():
+def test1():
+    ''' from 16bit codepint '''
     ss = u'\u037e'
     print("greek question mark: {}    codepoint: {}".format(ss, hex(ord(ss))))
     print("  normal semi colon: {}    codepoint: {}".format(';', hex(ord(';'))))
 
 
 if __name__ == '__main__':
-    ch = '中'
-    show(ch)
+    CC = '中'
+    test0(CC)
     print('----------')
-    show2()
+    test1()

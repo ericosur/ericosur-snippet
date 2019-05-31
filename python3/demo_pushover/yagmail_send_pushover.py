@@ -5,12 +5,14 @@
 use yagmail to send mail via gmail
 '''
 
+from __future__ import print_function
 import os
 import time
 import yagmail
 from myutil import read_jsonfile, isfile
 
 def append_path(fn):
+    ''' append path '''
     home = os.environ.get('HOME')
     path = home + '/Private/' + fn
     if not isfile(path):
@@ -19,6 +21,7 @@ def append_path(fn):
     return path
 
 def main():
+    ''' main '''
     data = read_jsonfile(append_path('gmail-app-local.json'))
     if data is None:
         print('cannot fetch key, exit...')

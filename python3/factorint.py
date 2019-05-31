@@ -24,7 +24,7 @@ def show(value):
     print(value, "= ", end='')
     x = list(myd.keys())
     x.sort()
-    isFirst = True;
+    isFirst = True
     for key in x:
         if not isFirst:
             print(" * ", end='')

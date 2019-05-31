@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
+''' try to concat files '''
+
+from __future__ import print_function
 import glob
+#import json
 import myutil
-import json
 
 def test(fn):
+    ''' test '''
     data = myutil.read_jsonfile(fn)
     if data is None:
         print('[FAIL] read json fail')
@@ -23,6 +27,7 @@ def test(fn):
     print('cnt: {}'.format(cnt))
 
 def main():
+    ''' main '''
     file_arr = glob.glob('resp?.json')
     for ff in file_arr:
         test(ff)

@@ -4,16 +4,18 @@
 '''
 reference: https://api.random.org/json-rpc/2/basic
 '''
-
-import requests
+from __future__ import print_function
 import json
+import random
+import requests
 from getapikey import get_randomorg_apikey
 
 def main():
+    ''' main '''
     url = "https://api.random.org/json-rpc/2/invoke"
     headers = {'content-type': 'application/json'}
 
-    myid = 47
+    myid = random.randint(1, 100)
     key = get_randomorg_apikey()
     request_size = 10
 
@@ -36,8 +38,8 @@ def main():
     print(json.dumps(resp))
 
     # responded id should the same as request
-    #if resp['id'] == id:
-    #    print('id ok')
+    if resp['id'] == myid:
+        print('id matched')
 
     # fetch a field not existed
     ret_data = resp.get('abc')

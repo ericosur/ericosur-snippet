@@ -9,15 +9,19 @@ np.arange and np.sum
 
 from __future__ import print_function
 
+# pylint: disable=useless-object-inheritance
 class SumUp(object):
+    ''' different method for sum '''
     def __init__(self):
         self.sum = 0
         self.max_num = 100
 
-    def printOut(self):
+    def print_out(self):
+        ''' printOut '''
         print("sum from 1 to {} = {}".format(self.max_num, self.sum))
 
     def sum1(self):
+        ''' fill arr '''
         s = 0
         # sum from 0 to 100
         for i in range(self.max_num + 1):
@@ -25,14 +29,16 @@ class SumUp(object):
         return s
 
     def sum2(self):
-        arr = [ i for i in range(self.max_num + 1)]
+        ''' fill arr '''
+        arr = [i for i in range(self.max_num + 1)]
         return sum(arr)
 
     def test(self):
+        ''' test '''
         self.sum = self.sum1()
-        self.printOut()
+        self.print_out()
         self.sum = self.sum2()
-        self.printOut()
+        self.print_out()
 
 
 def main():

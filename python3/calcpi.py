@@ -9,6 +9,7 @@ from __future__ import print_function
 import random
 import math
 
+# pylint: disable=useless-object-inheritance
 class CalcPi(object):
     ''' a class to calculate pi from random numbers '''
     def __init__(self):

@@ -7,16 +7,16 @@ from __future__ import print_function
 import os
 import sys
 from math import floor
+#from datetime import time
 import pandas as pd
-from datetime import time
 import myutil
 
-class driving_data(object):
+# pylint: disable=useless-object-inheritance
+class DrivingData(object):
+    ''' fetch driving data from gdrive or local csv '''
     def __init__(self, csvfile='/tmp/driving_data.csv'):
         self.debug = True
-        self.jsonfile = 'driving_data.json'
-        self.jsondir = 'Private/'
-        self.jsonpath = self.jsonfile
+        self.jsonpath = ''
         self.jsondata = None
         self.csvfile = csvfile
         self.docid = ''
@@ -24,23 +24,32 @@ class driving_data(object):
         self.url = ''
 
     def read_setting(self):
+        ''' read setting '''
         home = os.getenv('HOME')
-        self.jsonpath = home + '/' + self.jsondir + self.jsonfile
+        self.jsonpath = home + '/Private/driving_data.json'
         if not myutil.isfile(self.jsonpath):
             print('setting file not found', self.jsonpath)
-            os.exit(-1)
+            exit(1)
         self.jsondata = myutil.read_jsonfile(self.jsonpath)
         self.docid = self.jsondata.get('docid', '')
         self.sheetid = self.jsondata.get('sheetid', '')
-        self.url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(self.docid, self.sheetid)
+        self.compose_url()
+
+    def compose_url(self):
+        ''' compose url '''
+        part1 = 'https://docs.google.com/spreadsheets/d/'
+        part2 = '/gviz/tq?tqx=out:csv&sheet='
+        self.url = part1 + self.docid + part2 + self.sheetid
 
     def dump_setting(self):
+        ''' dump settings '''
         print('jsonpath:', self.jsonpath)
         print('docid:', self.docid)
         print('sheetid', self.sheetid)
         print('url:', self.url)
 
     def request_data(self):
+        ''' request data '''
         csvdata = myutil.query_url_for_data(self.url)
         #print('csvdata: ', csvdata)
         with open(self.csvfile, 'wb') as ofile:
@@ -78,11 +87,12 @@ class driving_data(object):
                 result = sec2str(ans)
             else:
                 result = str(int(floor(ans)))
-            print('{:5s}: {:20s}'.format(qq, result.rjust(10,' ')))
+            print('{:5s}: {:20s}'.format(qq, result.rjust(10, ' ')))
         print_sep()
 
 
 def str2sec(timestr):
+    ''' string to seconds '''
     minutes = 0.0
     seconds = 0.0
     total = 0.0
@@ -98,9 +108,11 @@ def str2sec(timestr):
     return total
 
 def strify(nn):
+    ''' strify '''
     return '{:02}'.format(nn)
 
 def sec2str(sec):
+    ''' seconds to string '''
     ss = []
     nn = int(sec)
     while nn >= 60:
@@ -114,10 +126,12 @@ def sec2str(sec):
     return res
 
 def print_sep():
-    print('-' * 40)
+    ''' print seperator '''
+    print('-' * 50)
 
 # return type: numpy.float64
 def peek_target(desc_table, target):
+    ''' peek target '''
     #print('desc_table:', desc_table)
     desc_list = desc_table.index.tolist()
     try:
@@ -132,22 +146,24 @@ def peek_target(desc_table, target):
 
 
 def load_data_from_gdrive():
-    dd = driving_data()
+    ''' load data from google drive '''
+    dd = DrivingData()
     dd.read_setting()
     #dd.dump_setting()
     dd.request_data()
     dd.action()
 
 def load_data_from_file(fn):
-    dd = driving_data(fn)
+    ''' load data from file '''
+    dd = DrivingData(fn)
     dd.action()
 
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
-        fn = sys.argv[1]
-        print('load csv data from: {}'.format(fn))
-        load_data_from_file(fn)
+        FN = sys.argv[1]
+        print('load csv data from: {}'.format(FN))
+        load_data_from_file(FN)
     else:
         print('will request data from gdrive...')
         load_data_from_gdrive()

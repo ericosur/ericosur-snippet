@@ -1,27 +1,30 @@
 #!/usr/bin/env python3
-
+# coding: utf-8
 
 '''
 pushover base class
 '''
 
+from __future__ import print_function
 import os
 from datetime import datetime
 from time import time
 import myutil
 
+# pylint: disable=useless-object-inheritance
 class PushOverBase(object):
+    ''' base class of pushover '''
     def __init__(self, msg):
         # load user, token
         self.userkey = None
         self.apitoken = None
-        self.device = None
+        self._device = None
         # load settings of previous three variables
         if not self.get_apikey():
             print('[FAIL] failed to load config')
         # default data fields
-        self.title = 'pushover.py'
-        self.message = '{} at {}'.format(msg, datetime.now())
+        self._title = 'pushover.py'
+        self._message = '{} at {}'.format(msg, datetime.now())
         self.resp_str = None
 
     def __str__(self):
@@ -30,31 +33,44 @@ class PushOverBase(object):
             self.title, self.message, self.device)
         return s
 
-    def shoot(self):
+    @staticmethod
+    def shoot():
+        ''' shoot '''
         print('shoot!')
 
-    def set_title(self, title):
-        self.title = title
+    @property
+    def title(self):
+        ''' title of notification '''
+        return self._title
 
-    def set_message(self, message):
-        self.message = message
+    @property
+    def message(self):
+        ''' message of notification '''
+        return self._message
 
-    def set_device(self, device):
-        self.device = device
+    @property
+    def device(self):
+        ''' device name of notification '''
+        return self._device
 
-    def get_timestamp(self):
+    @staticmethod
+    def get_timestamp():
+        ''' get timestamp '''
         return int(time())
 
     def show_resp(self):
+        ''' print resp '''
         if not self.resp_str is None:
             print(self.resp_str)
 
     @staticmethod
     def get_home():
+        ''' $HOME '''
         home = os.environ.get('HOME')
         return home
 
     def get_apikey(self):
+        ''' get apikey '''
         keyfile = 'pushover-net.json'
         home = os.environ.get('HOME')
         keypath = home + '/Private/' + keyfile
@@ -67,14 +83,15 @@ class PushOverBase(object):
 
         self.userkey = data.get('userkey')
         self.apitoken = data.get('apitoken')
-        self.device = data.get('device')
+        self._device = data.get('device')
         return True
 
 
 def main():
-    bar = PushOverBase('hello world')
-    print(bar)
-    bar.shoot()
+    ''' main '''
+    hello_world = PushOverBase('hello world')
+    print(hello_world)
+    hello_world.shoot()
 
 if __name__ == '__main__':
     main()

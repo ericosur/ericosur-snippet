@@ -7,6 +7,7 @@ import os
 import pandas as pd
 
 def main():
+    ''' main '''
     FILEN = 'perfect_s.csv'
 
     if not os.path.isfile(FILEN):

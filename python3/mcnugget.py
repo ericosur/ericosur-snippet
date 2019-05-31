@@ -6,12 +6,16 @@ http://mathworld.wolfram.com/McNuggetNumber.html
 
 '''
 
+from __future__ import print_function
 import itertools as it
 import operator
 import bisect
 from math import ceil
 
 def check_missing(res, maxnum):
+    '''
+    return missing number in list
+    '''
     missing = []
     for ii in range(1, maxnum+1):
         if not ii in res:
@@ -20,6 +24,8 @@ def check_missing(res, maxnum):
 
 
 def main():
+    ''' main test function '''
+
     # if 4 elem for McNugget
     # m = (4, 6, 9, 20)
 
