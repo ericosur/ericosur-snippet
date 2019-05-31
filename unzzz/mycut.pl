@@ -2,8 +2,8 @@
 use strict;
 use Fcntl qw(SEEK_END SEEK_CUR SEEK_SET);
 
-# ¦pªG­n¯}Ãa zip ¤º¸ê®Æªº¤º®e¡A¥i¥H´M§ä PK 0x03 0x04
-# POS+22 (filename len) , skip filename §ä¦a¤è¯}Ãa
+# å¦‚æœè¦ç ´å£ zip å…§è³‡æ–™çš„å…§å®¹ï¼Œå¯ä»¥å°‹æ‰¾ PK 0x03 0x04
+# POS+22 (filename len) , skip filename æ‰¾åœ°æ–¹ç ´å£
 
 
 my $in_file = $ARGV[0] || 'src.zip';
