@@ -14,9 +14,11 @@ def test0():
     '''
     fn = 'emj.json'
     data = read_jsonfile(fn)
+    if data is None:
+        print('failed to read data from json')
+        exit()
+
     strs = data['string']
-    if not strs:
-        os.exit(1)
     for cc in strs:
         to_from_u16(cc)
 
