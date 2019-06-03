@@ -9,7 +9,7 @@ import csv
 
 def gen_csv(fn):
     ''' generate csv '''
-    with open(fn, 'w') as csvfile:
+    with open(fn, 'wt', encoding='UTF-8') as csvfile:
         fieldnames = ['index', 'n', 'value']
         sw = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=',',
                             quotechar='"', quoting=csv.QUOTE_ALL)
@@ -20,7 +20,7 @@ def gen_csv(fn):
         for n in range(lower, upper):
             cnt = cnt + 1
             sw.writerow({'index': cnt, 'n':n, 'value':n*n})
-    csvfile.close()
+
 
 def main():
     ''' main '''

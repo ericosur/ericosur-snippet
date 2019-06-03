@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-''' try dataframe '''
+''' use dataframe of pandas to read csv file '''
 
 from __future__ import print_function
 import os
@@ -11,6 +11,7 @@ def main():
     FILEN = 'perfect_s.csv'
 
     if not os.path.isfile(FILEN):
+        print('[INFO] file not found, call perfect_square to generate:', FILEN)
         from perfect_square import gen_csv
         gen_csv(FILEN)
 
