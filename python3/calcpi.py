@@ -2,10 +2,12 @@
 # -*- coding: utf-8 -*-
 
 '''
-refercenc from http://snippets.dzone.com/posts/show/5433
+reference from http://snippets.dzone.com/posts/show/5433
+
+using Monte Carlo method to calculate Pi
 '''
 
-from __future__ import print_function
+import time
 import random
 import math
 
@@ -13,9 +15,11 @@ import math
 class CalcPi(object):
     ''' a class to calculate pi from random numbers '''
     def __init__(self):
-        self.times = pow(10, 6)
+        self.times = 10_000_000
         self.i = 0
         self.isnot = 0
+        self.start = 0
+        self.end = 0
 
     @staticmethod
     def is_on_circle(x, y):
@@ -37,16 +41,25 @@ class CalcPi(object):
 
     def get_pi(self):
         ''' return guessed pi '''
+        self.start = time.time()
         self.run()
         r = self.get_results()
-        return r[0] / (r[0] + r[1]) * 4
+        pi = r[0] / (r[0] + r[1]) * 4
+        self.end = time.time()
+        return pi
+
+    def get_duration(self):
+        ''' print duration '''
+        d = abs(self.start - self.end)
+        print("duration: {:.3f} seconds".format(d))
 
 def main():
     '''main function'''
     mypi = CalcPi()
     got_pi = mypi.get_pi()
     dist = abs(math.pi - got_pi)
-    print('got {} and distance: {}'.format(got_pi, dist))
+    print('got {} and distance: {:.6f}'.format(got_pi, dist))
+    mypi.get_duration()
 
 
 if __name__ == '__main__':
