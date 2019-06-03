@@ -1,0 +1,7 @@
+# output data file
+*.json
+
+# input data file
+*.gnx
+*.GNX
+
