@@ -15,3 +15,21 @@ for example
 ## output file
 
 a.json
+
+
+## extra address
+
+still not verified
+
+| position | description |
+|------|---|-------------|
+| 0x8C | father's name   |
+| 0x74 | daughter's name |
+| 0x00 | year |
+| 0x02 | month |
+| 0x06 | date |
+
+## scripts
+
+- show_gnx.py
+- go_cmd.py
