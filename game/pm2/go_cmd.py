@@ -6,6 +6,8 @@
 read command and do action
 '''
 
+import os
+import sys
 import json
 import shutil
 from show_gnx import ShowGnx
@@ -83,7 +85,7 @@ class CommandAction():
                         item['addr'], item['value'], new_val))
                     self.modify_addr_with_value(item['addr'], item['value'], new_val)
                     self.delta_checksum += delta
-        except Exception as e:
+        except ValueError as e:
             print(e)
 
     def modify_addr_with_value(self, addr, oldvalue, newvalue, size=2):
@@ -111,10 +113,19 @@ class CommandAction():
             print('[FAIL] something wrong')
 
 
-def main():
+def main(fn):
     ''' main '''
-    ca = CommandAction('cmd.json', 'F110.GNX')
+    if not os.path.isfile(fn):
+        print('[FAIL] file not found:', fn)
+        return
+
+    ca = CommandAction('cmd.json', fn)
     ca.do_action()
 
 if __name__ == '__main__':
-    main()
+    FN = 'F101.GNX'
+    if len(sys.argv) == 1:
+        main(FN)
+    else:
+        FN = sys.argv[1]
+        main(FN)

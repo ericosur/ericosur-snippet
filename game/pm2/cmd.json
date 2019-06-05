@@ -1,6 +1,50 @@
 [
   {
-    "tag": "錢",
-    "delta": 10000
+    "delta": 3000,
+    "tag": "錢"
+  },
+  {
+    "delta": 1,
+    "tag": "height"
+  },
+  {
+    "delta": 1,
+    "tag": "weight"
+  },
+  {
+    "delta": -5,
+    "tag": "bust"
+  },
+  {
+    "delta": 0,
+    "tag": "waist"
+  },
+  {
+    "delta": -5,
+    "tag": "hips"
+  },
+  {
+    "delta": -1,
+    "tag": "month"
+  },
+  {
+    "delta": 1,
+    "tag": "品德"
+  },
+  {
+    "delta": 1,
+    "tag": "信仰"
+  },
+  {
+    "delta": 1,
+    "tag": "感性"
+  },
+  {
+    "delta": 10,
+    "tag": "戰鬥技巧"
+  },
+  {
+    "delta": 1,
+    "tag": "氣力"
   }
 ]

@@ -161,7 +161,7 @@ if __name__ == '__main__':
     if len(sys.argv) >= 2:
         main(sys.argv[1])
     else:
-        FN = 'F104.GNX'
+        FN = 'F101.GNX'
         print('default file:', FN)
         print('    Or show_gnx.py [filename]')
         main(FN)
