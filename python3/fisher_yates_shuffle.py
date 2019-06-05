@@ -9,7 +9,7 @@ import random
 # implement fisher-yates shuffle in python
 MAX_SIZE = 5
 SHOW_STEP = 0
-REPEAT = 100000
+REPEAT = 1000
 
 def shuffle_array(arr):
     '''shuffle array using fisher'''
