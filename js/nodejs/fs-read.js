@@ -43,4 +43,4 @@ function main() {
     }
 }
 
-//main();
+main();

@@ -94,7 +94,7 @@ int main(int argc, char** argv)
         std::vector<uint16_t> v;
         for (vector<string>::iterator it=hexstrs.begin(); it!=hexstrs.end(); it++) {
             //cout << *it << endl;
-            uint16_t val = (uint16_t)strtoul(it->c_str(), NULL, 16);
+            uint16_t val = (uint16_t)strtoul(it->c_str(), nullptr, 16);
             v.push_back(val);
         }
         show_big5_char_from_vector(v);

@@ -22,7 +22,7 @@ void load_one_character_24x24(uint16_t id, uint8_t* char_buffer)
     }
 
     FILE* fptr = fopen(FONT_FILEPATH, "rb");
-    if (fptr == NULL) {
+    if (fptr == nullptr) {
         printf("error: cannot open: %s\n", FONT_FILEPATH);
         return;
     }
@@ -145,10 +145,10 @@ bool big5_to_index(const uint16_t big5, uint16_t& index)
     return false;
 }
 
-Fontutil* Fontutil::_instance = NULL;
+Fontutil* Fontutil::_instance = nullptr;
 Fontutil* Fontutil::getInstance()
 {
-    if (_instance == NULL) {
+    if (_instance == nullptr) {
         _instance = new Fontutil();
     }
     //printf("and returns instance\n");
@@ -173,7 +173,7 @@ void Fontutil::load()
 bool Fontutil::load_fontfile()
 {
     FILE* fptr = fopen(FONT_FILEPATH, "rb");
-    if (fptr == NULL) {
+    if (fptr == nullptr) {
         printf("error: cannot open: %s\n", FONT_FILEPATH);
         return false;
     }
