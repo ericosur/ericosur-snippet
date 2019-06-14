@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <iostream>
+#include <chrono>
 #include "mymat.h"
 
 void test0()
@@ -47,9 +49,20 @@ void test1()
 
 void test2()
 {
+    using namespace std;
+
     MyMat m(1024,2048);
     MyMat n(2048,1024);
+
+    cout << "start...\n";
+    auto t1 = std::chrono::high_resolution_clock::now();
     MyMat ans = m.cross(n);
+    auto t2 = std::chrono::high_resolution_clock::now();
+    cout << "end...\n";
+
+    // floating-point duration: no duration_cast needed
+    std::chrono::duration<double, std::milli> fp_ms = t2 - t1;
+    std::cout << "m.cross() took " << fp_ms.count() << " ms\n";
 }
 
 int main()

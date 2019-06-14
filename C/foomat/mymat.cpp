@@ -22,7 +22,7 @@ MyMat::MyMat(const MyMat& M)
 
 MyMat::~MyMat()
 {
-    if (buffer != NULL) {
+    if (buffer != nullptr) {
         free(buffer);
     }
 }
