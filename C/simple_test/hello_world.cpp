@@ -17,7 +17,7 @@ HelloWorld hw;
 
 int main()
 {
-    srand(time(NULL));
+    srand(time(nullptr));
 
     std::cout << "hello world from " << __func__ << std::endl;
     show_jsonhpp_version();

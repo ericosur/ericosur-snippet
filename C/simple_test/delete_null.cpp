@@ -14,9 +14,8 @@ int main()
 {
 	const int REPEAT = 100000;
 
-	for (int i=0; i<REPEAT; i++) 
+	for (int i=0; i<REPEAT; i++)
 	{
-		testfunc(NULL);
+		testfunc(nullptr);
 	}
 }
-
