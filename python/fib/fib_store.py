@@ -1,10 +1,6 @@
 #!/usr/bin/python3
 # coding: utf-8
 
-import pickle
-import random
-from math import log
-
 '''
 to demo a fib function which would store calculated fib(n)
 to elimate unnecessary recursive and calculation
@@ -12,7 +8,12 @@ to elimate unnecessary recursive and calculation
 Fibonacci number
 '''
 
-class CalcFib(object):
+import pickle
+import random
+#from math import log
+
+class CalcFib():
+    ''' class will help to handle read pickle file '''
     def __init__(self, fn='fib.p'):
         #print('__init__')
         # init values
@@ -42,12 +43,12 @@ class CalcFib(object):
         if n in self.fibvalues:
             self.cache_hit += 1
             return self.fibvalues[n]
-        else:
-            #print("n:", n)
-            self.fibvalues[n] = self.fib(n-1) + self.fib(n-2)
-            return self.fibvalues[n]
+        #print("n:", n)
+        self.fibvalues[n] = self.fib(n-1) + self.fib(n-2)
+        return self.fibvalues[n]
 
     def get_pickle_len(self):
+        ''' get length of pickle '''
         return len(self.fibvalues)
 
     def load_pickle(self):
@@ -76,14 +77,14 @@ def main():
     MAX_UPPER_LIMIT = 1000
     MAX_REPEAT_TIME = 10
 
-    with CalcFib() as foo:
-        print('before loop, fibvalues has {} entries'.format(foo.get_pickle_len()))
+    with CalcFib() as fibv:
+        print('before loop, fibvalues has {} entries'.format(fibv.get_pickle_len()))
 
-        for i in range(MAX_REPEAT_TIME):
+        for _ in range(MAX_REPEAT_TIME):
             n = random.randint(1, MAX_UPPER_LIMIT)
-            print('fib({}) = {}'.format(n, foo.fib(n)))
+            print('fib({}) = {}'.format(n, fibv.fib(n)))
 
-        print('after loop, fibvalues has {} entries'.format(foo.get_pickle_len()))
+        print('after loop, fibvalues has {} entries'.format(fibv.get_pickle_len()))
 
 
 if __name__ == '__main__':

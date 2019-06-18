@@ -11,27 +11,31 @@ BASE 越大交叉的點會在越後面
 X 軸是 n, Y 軸是取 ln() 的值
 '''
 
-from pylab import plot, show, gcf, gca
 from math import log
+from pylab import plot, show, gca
+
 
 # for class CalcFactorial
 from calc_factorial import CalcFactorial
 
 
 def main():
+    ''' main '''
     BASE = 25
     MAXREPEAT = 100
+    # if you want to save plot to image file, turn it True
+    OPTION_SAVEIMAGE = False
 
-    fact = []   # base !
+    nlvl = []   # base !
     expo = []   # base ** n
 
-    with CalcFactorial() as foo:
+    with CalcFactorial() as fact:
         for i in range(1, MAXREPEAT):
-            fact.append( log(foo.factorial(i)) )
-            expo.append( log(BASE ** i) )
+            nlvl.append(log(fact.factorial(i)))
+            expo.append(log(BASE ** i))
 
 #    t = xrange(1,20)
-    plot(fact, color='red')     # 階乘
+    plot(nlvl, color='red')     # 階乘
     plot(expo, color='green')   # 次方
 
     setfig = gca()
@@ -40,12 +44,11 @@ def main():
     setfig.set_ylabel("ln( f(x) )")
     show()
 
+    if OPTION_SAVEIMAGE:
+        from pylab import gcf
+        fig = gcf()
+        fig.savefig("test.png")
 
-'''
-    # if you want to save plot to image file
-    fig = gcf()
-    fig.savefig("test.png")
-'''
 
 if __name__ == '__main__':
     main()

@@ -1,16 +1,18 @@
 #!/usr/bin/python3
 # coding: utf-8
 
-import sys
-import pickle
-import random
-from math import log10, ceil
-
 '''
 to calculate factorial n!
 '''
 
-class CalcFactorial(object):
+import sys
+import pickle
+#import random
+from math import log10, ceil
+
+
+class CalcFactorial():
+    ''' class will help to load pickle file '''
     def __init__(self, fn='factorial.p'):
         # init values
         self.stepvalues = {}
@@ -29,6 +31,7 @@ class CalcFactorial(object):
             self.save_pickle()
 
     def get_pickle_len(self):
+        ''' get length of pickle '''
         return len(self.stepvalues)
 
     def factorial(self, n):
@@ -38,16 +41,17 @@ class CalcFactorial(object):
         '''
         if n < 2:
             return 1
-        elif n in self.stepvalues:
-            return self.stepvalues[n]
-        else:
-            self.stepvalues[n] = n * self.factorial(n - 1)
+        if n in self.stepvalues:
             return self.stepvalues[n]
 
+        self.stepvalues[n] = n * self.factorial(n - 1)
+        return self.stepvalues[n]
+
     def load_pickle(self):
+        ''' load pickle file '''
         try:
             with open(self.dfile, "rb") as inf:
-                inf = open(self.dfile, "rb")
+                #inf = open(self.dfile, "rb")
                 self.stepvalues = pickle.load(inf)
         except FileNotFoundError:
             pass
@@ -61,9 +65,10 @@ class CalcFactorial(object):
 
 
 def calc(n):
-    with CalcFactorial() as foo:
+    ''' main test function '''
+    with CalcFactorial() as fact:
         #print('before loop, has {} entries'.format(foo.get_pickle_len()))
-        ret = foo.factorial(n)
+        ret = fact.factorial(n)
         print("{}! = {}, log10()={}".format(n, ret, ceil(log10(ret))))
         #sret = str(ret)
         #print('len:{}'.format(len(sret)))
@@ -78,5 +83,5 @@ if __name__ == '__main__':
                 calc(int(v))
         else:
             calc(170)
-    except:
-        print('shit happens:', v)
+    except ValueError as e:
+        print('shit happens at {}, exception: {}'.format(v, e))
