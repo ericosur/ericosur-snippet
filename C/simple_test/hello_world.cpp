@@ -27,6 +27,7 @@ int main()
     test_string_connect();
 
     test_noise();
+    test_utfstring();
 
     return 0;
 }

@@ -86,3 +86,12 @@ void test_noise()
         cout << n << endl;
     }
 }
+
+void test_utfstring()
+{
+    print_title(__func__);
+    const char s[] = "\U0001F60D \x35\u20e3  \U0001F631";
+    std::cout << s << "\n";
+    //const char t[] = "\uD83D\uDE1C";
+    //std::cout << t << "\n";
+}
