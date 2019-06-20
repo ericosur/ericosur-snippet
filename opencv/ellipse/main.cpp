@@ -103,8 +103,69 @@ void draw_ellipse()
     destroyAllWindows();
 }
 
+// http://mathworld.wolfram.com/Superellipse.html
+// https://en.wikipedia.org/wiki/Superellipse
+// [imgur](https://i.imgur.com/H9JbIhW.png)
+// [imgur](https://i.imgur.com/fGnCB64.png)
+void draw_superellipse()
+{
+    using namespace cv;
+    const int sec_len = 5;
+    const int space_len = 120;
+
+    Mat img = Mat::zeros(MAX_HEIGHT, MAX_WIDTH, CV_8UC3);
+    int m = MAX_WIDTH / 2;
+    int n = MAX_HEIGHT / 2;
+    int a1 = MAX_WIDTH / 3 - space_len;
+    int b1 = MAX_HEIGHT / 3 - space_len;
+    //int b1 = 1.5 * a1;
+    int a2 = a1 + sec_len;
+    int b2 = b1 + sec_len;
+
+    drawpt(img, m, n, Scalar(127,255,127));
+
+    // 0 < r < 1, r = 1, 1 < r < 2, r = 2, r > 2
+    double r = 0.4;
+    double inc_r = 0.1;
+    double d = 0.0;
+    double inc = 0.05;
+    hsv cc;
+    rgb dd;
+    cc.h = 0.0;
+    cc.s = 1.0;
+    cc.v = 255.0;
+
+    double sign_cos, sign_sin;
+    while (true) {
+        double t = deg2rad(double(d));
+        sign_sin = (sin(t) < 0) ? -1.0 : 1.0;
+        sign_cos = (cos(t) < 0) ? -1.0 : 1.0;
+
+        int x1 = m + a1 * pow(abs(cos(t)), 2.0/r) * sign_cos;
+        int y1 = n + b1 * pow(abs(sin(t)), 2.0/r) * sign_sin;
+        int x2 = m + a2 * pow(abs(cos(t)), 2.0/r) * sign_cos;
+        int y2 = n + b2 * pow(abs(sin(t)), 2.0/r) * sign_sin;
+        //printf("point at (%d, %d) for %d degree\n", x, y, i);
+        //drawpt(img, x, y);
+        cc.h = d;
+        dd = hsv2rgb(cc);
+        usleep(DELAY_TIME);
+        drawln(img, Point(x1,y1), Point(x2,y2), Scalar(dd.r, dd.g, dd.b));
+        imshow("result", img);
+        d = (d + inc > 360.0) ? 0.0 : (d + inc);
+        cc.v = (int(cc.v) + 1) % 255;
+        if (waitKey(1) == 0x1B) {
+            break;
+        }
+        if (d <= 0.0) {
+            r += inc_r;
+        }
+    }
+    destroyAllWindows();
+}
+
 int main()
 {
-    draw_ellipse();
+    draw_superellipse();
     return 0;
 }
