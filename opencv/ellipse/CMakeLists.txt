@@ -19,6 +19,7 @@ endif()
 
 add_executable(${PN}
     main.cpp
+    drawutil.cpp drawutil.h
     hsv2rgb.cpp hsv2rgb.h
 )
 
