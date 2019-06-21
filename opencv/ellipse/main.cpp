@@ -3,6 +3,6 @@
 int main()
 {
     //draw_superellipse();
-    draw_cardioid();
+    draw_nautilus();
     return 0;
 }

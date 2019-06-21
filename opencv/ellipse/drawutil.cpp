@@ -252,3 +252,58 @@ void draw_cardioid()
     waitKey(0);
     destroyAllWindows();
 }
+
+inline float r_func(float a, float b, float t)
+{
+    return a * exp(b * t);
+}
+
+// https://en.wikipedia.org/wiki/Logarithmic_spiral
+void draw_nautilus()
+{
+    using namespace cv;
+    // const int sec_len = 5;
+    // const int space_len = 100;
+
+    //const float MAX_TH = 10 * M_PI;
+    Mat img = Mat::zeros(MAX_HEIGHT, MAX_WIDTH, CV_8UC3);
+    int m = MAX_WIDTH / 2;
+    int n = MAX_HEIGHT / 2;
+    float a = 0.1;
+    float b = 0.1759;
+
+    drawpt(img, m, n, Scalar(127,255,127));
+
+    hsv cc;
+    rgb dd;
+    cc.h = 0.0;
+    cc.s = 1.0;
+    cc.v = 255.0;
+    const float inc_t = 0.01;
+    float t = 0.0;
+    int i = 0;
+
+    while (true) {
+        float r = r_func(a, b, t);
+        int x = m + r * cos(t);
+        int y = n + r * sin(t);
+        cc.h = i;
+        dd = hsv2rgb(cc);
+        //usleep(DELAY_TIME);
+
+        cv::circle(img, cv::Point(x, y), 1, Scalar(127, 255, 127), 1);
+
+        imshow("nautilus", img);
+        cc.v = (int(cc.v) + 1) % 255;
+        t += inc_t;
+        i = (i + 1) % MAX_DEGREE;
+        if (waitKey(1) == 0x1B || t > 16.0*M_PI) {
+            break;
+        }
+    }
+    std::cout << "t = " << t << "\n";
+    std::cout << "draw finished, press any key to quit...\n";
+    waitKey(0);
+
+    destroyAllWindows();
+}
