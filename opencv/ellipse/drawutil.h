@@ -6,7 +6,7 @@
 
 void draw_ellipse();
 void draw_superellipse();
-
+void draw_cardioid();
 
 
 #endif  // __UTIL_DRAWUTIL_H__

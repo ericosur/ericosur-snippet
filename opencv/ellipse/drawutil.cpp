@@ -1,5 +1,6 @@
 #include "drawutil.h"
 #include "hsv2rgb.h"
+#include <iostream>
 #include <algorithm>
 #include <unistd.h>
 
@@ -148,7 +149,7 @@ void draw_superellipse()
         dd = hsv2rgb(cc);
         usleep(DELAY_TIME);
         drawln(img, Point(x1,y1), Point(x2,y2), Scalar(dd.r, dd.g, dd.b));
-        imshow("result", img);
+        imshow("superellipse", img);
         d = (d + inc > MAX_DEGREE) ? 0.0 : (d + inc);
         cc.v = (int(cc.v) + 1) % 255;
         if (waitKey(1) == 0x1B) {
@@ -158,5 +159,96 @@ void draw_superellipse()
             r += inc_r;
         }
     }
+    destroyAllWindows();
+}
+
+// https://en.wikipedia.org/wiki/Cardioid
+void draw_cardioid2()
+{
+    using namespace cv;
+    const int sec_len = 10;
+    const int space_len = 100;
+
+    Mat img = Mat::zeros(MAX_HEIGHT, MAX_WIDTH, CV_8UC3);
+    int m = MAX_WIDTH / 2;
+    int n = MAX_HEIGHT / 2;
+    int r1 = MAX_WIDTH / 4 - space_len;
+    int r2 = MAX_WIDTH / 4 - space_len + sec_len;
+
+    drawpt(img, m, n, Scalar(127,255,127));
+
+    hsv cc;
+    rgb dd;
+    cc.h = 0.0;
+    cc.s = 1.0;
+    cc.v = 255.0;
+    float d = 0.0;
+    const float inc_d = 0.1;
+
+    while (true) {
+        float t = deg2rad(d);
+        int x1 = m + 2.0 * r1 * (cos(t) - 0.5 * cos(2.0*t));
+        int y1 = n + 2.0 * r1 * (sin(t) - 0.5 * sin(2.0*t));
+        int x2 = m + 2.0 * r2 * (cos(t) - 0.5 * cos(2.0*t));
+        int y2 = n + 2.0 * r2 * (sin(t) - 0.5 * sin(2.0*t));
+        cc.h = d;
+        dd = hsv2rgb(cc);
+        usleep(DELAY_TIME);
+        drawln(img, Point(x1,y1), Point(x2,y2), Scalar(dd.r, dd.g, dd.b));
+        imshow("cardioid", img);
+        cc.v = (int(cc.v) + 1) % 255;
+        d = (d + inc_d > MAX_DEGREE) ? 0.0 : (d + inc_d);
+        if (waitKey(1) == 0x1B || d <= 0.0) {
+            break;
+        }
+    }
+
+    std::cout << "draw finished, press any key to quit...\n";
+    waitKey(0);
+    destroyAllWindows();
+}
+
+void draw_cardioid()
+{
+    using namespace cv;
+    const int sec_len = 5;
+    const int space_len = 100;
+
+    Mat img = Mat::zeros(MAX_HEIGHT, MAX_WIDTH, CV_8UC3);
+    int m = MAX_WIDTH * 2 / 3;
+    int n = MAX_HEIGHT / 2;
+    int r1 = MAX_WIDTH / 4 - space_len;
+    int r2 = MAX_WIDTH / 4 - space_len + sec_len;
+
+    drawpt(img, m, n, Scalar(127,255,127));
+
+    hsv cc;
+    rgb dd;
+    cc.h = 0.0;
+    cc.s = 1.0;
+    cc.v = 255.0;
+    float d = 0.0;
+    const float inc_d = 0.05;
+
+    while (true) {
+        float t = deg2rad(d);
+        int x1 = m + 2.0 * r1 * (1 - cos(t)) * cos(t);
+        int y1 = n + 2.0 * r1 * (1 - cos(t)) * sin(t);
+        int x2 = m + 2.0 * r2 * (1 - cos(t)) * cos(t);
+        int y2 = n + 2.0 * r2 * (1 - cos(t)) * sin(t);
+        cc.h = d;
+        dd = hsv2rgb(cc);
+        usleep(DELAY_TIME);
+        drawln(img, Point(x1,y1), Point(x2,y2), Scalar(dd.r, dd.g, dd.b));
+        imshow("cardioid", img);
+        cc.v = (int(cc.v) + 1) % 255;
+        d = (d + inc_d > MAX_DEGREE) ? 0.0 : (d + inc_d);
+        if (waitKey(1) == 0x1B || d <= 0.0) {
+            break;
+        }
+    }
+
+    std::cout << "draw finished, press any key to quit...\n";
+    waitKey(0);
     destroyAllWindows();
 }
