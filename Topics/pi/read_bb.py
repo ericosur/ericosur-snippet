@@ -16,7 +16,7 @@ def test():
     ''' test '''
     try:
         with open(get_pipath(), 'rt') as pi:
-            for p in [10, 1e6, 1e7, 1e8, 1e9]:
+            for p in [10, 768, 1e6, 1e7, 1e8, 1e9]:
                 _p = int(p)
                 pi.seek(get_pos(_p), 0)
                 buf = pi.read(10)
