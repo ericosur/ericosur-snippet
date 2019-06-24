@@ -24,7 +24,7 @@ class ValidateGuassian(object):
 
     def fill_array(self):
         ''' fill array '''
-        self.orig_arr = np.random.normal(self.target_mean, self.target_stdev,
+        self.orig_arr = np.random.normal(self.target_mean[0], self.target_stdev[0],
                                          self.target_array_size)
 
     def validate_array(self, arr):
@@ -33,7 +33,6 @@ class ValidateGuassian(object):
         if mean and stdev of *arr* is close to target_mean and target_stdev,
         return true
         '''
-
         #print('there are {} elements'.format(len(arr)))
         mean = np.mean(arr)
         #median = np.median(arr)
