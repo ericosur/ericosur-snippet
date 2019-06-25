@@ -30,10 +30,16 @@ def show_results(r):
         # maybe not printable
         print('may not printable...')
         #print('r.content', r.content)
+        fn = content_type.replace('/', '.')
+        with open(fn, 'wb') as ofh:
+            ofh.write(r.content)
+        print('save content into', fn)
+        return fn
     elif 'text' in content_type:
         print('r.text', r.text)
     elif 'octet' in content_type:
         print('r.content', r.content)
+    return None
 
 def test0():
     ''' query ip '''
