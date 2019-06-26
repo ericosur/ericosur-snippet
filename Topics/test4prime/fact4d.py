@@ -17,14 +17,22 @@ def show(value):
     print('{} = '.format(value), end='')
     x = list(myd.keys())
     x.sort()
+    if len(x) == 1:
+        print('PRIME')
+        return
+
     while x:
         key = x.pop(0)
-        print('{} ^ {}'.format(key, myd[key]), end='')
-        if not x: # empty
-            print()
-            break
+        pv = myd[key]
+        if pv == 1:
+            print('{}'.format(key), end='')
         else:
-            print('*', end='')
+            print('{}^{}'.format(key, pv), end='')
+
+        if x:    # not empty
+            print(' * ', end='')
+        else:
+            print()
 
 
 if __name__ == '__main__':
@@ -34,6 +42,11 @@ if __name__ == '__main__':
         for n in range(2147483647, 2147483649):
             show(n)
     else:
+        if sys.argv[1] == 'test':
+            for n in range(1000, 10000):
+                show(n)
+            quit()
+
         for n in sys.argv[1:]:
             try:
                 print('n:{}'.format(n))
