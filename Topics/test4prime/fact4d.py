@@ -1,36 +1,42 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+# coding: utf-8
+
 '''
 using sympy.factorint to factorize integers
 '''
+
 def show(value):
-	'''
-	use sympy.factorint() and display in formatted form
-	'''
-	from sympy import factorint
-	if (value <= 0):
-		print("must >= 0")
-		return
-	myd = factorint(value)
-	print value,"=",
-	x = list(myd.keys())
-	x.sort()
-	while (1):
-		key = x.pop(0)
-		print key, "^", myd[key],
-		if len(x) == 0:	# empty
-			break
-		else:
-			print "*",
+    '''
+    use sympy.factorint() and display in formatted form
+    '''
+    from sympy import factorint
+    if value <= 2:
+        print("must > 1")
+        return
+    myd = factorint(value)
+    print('{} = '.format(value), end='')
+    x = list(myd.keys())
+    x.sort()
+    while x:
+        key = x.pop(0)
+        print('{} ^ {}'.format(key, myd[key]), end='')
+        if not x: # empty
+            print()
+            break
+        else:
+            print('*', end='')
 
-for x in xrange(1000, 9999):
-	if x:
-		try:
-			show(x)
-			print
-		except ValueError:
-			print("not a numeric value")
-			quit()
-		except:
-			print("unexpected error:", sys.exc_info()[0])
-			raise
 
+if __name__ == '__main__':
+    import sys
+    if len(sys.argv) == 1:
+        print('could also specify numbers from cli')
+        for n in range(2147483647, 2147483649):
+            show(n)
+    else:
+        for n in sys.argv[1:]:
+            try:
+                print('n:{}'.format(n))
+                show(int(n))
+            except ValueError:
+                print("{} is not a numeric".format(n))
