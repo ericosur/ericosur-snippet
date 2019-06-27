@@ -29,5 +29,7 @@ int main()
     test_noise();
     test_utfstring();
 
+    test_foo_string();
+
     return 0;
 }

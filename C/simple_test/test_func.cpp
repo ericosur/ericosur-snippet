@@ -1,5 +1,7 @@
 #include "test_func.h"
 
+#include <stdio.h>
+#include <string.h>
 #include <iostream>
 #include <fstream>
 #include <iomanip>
@@ -12,6 +14,21 @@ void print_title(const std::string& s)
     cout << "==========>> test: " << s << endl;
 }
 
+/**
+ * dump() is a simple stupid dump function to see buffer in HEX
+ * @param buf  [in] buffer to see
+ * @param size_t [in] buffer size
+ */
+void dump(const char* buf, size_t size)
+{
+    for (size_t i=0; i<size; i++) {
+        printf("%02X ", (unsigned char)buf[i]);
+        if (i%16==15) {
+            printf("\n");
+        }
+    }
+    printf("\n");
+}
 
 void test_read_json()
 {
@@ -94,4 +111,13 @@ void test_utfstring()
     std::cout << s << "\n";
     //const char t[] = "\uD83D\uDE1C";
     //std::cout << t << "\n";
+}
+
+void test_foo_string()
+{
+    print_title(__func__);
+    const char foo[] = "The quick brown fox jumps over the lazy dog\0\0\0\0\0\x01\x02\x03\x04\x05";
+    dump(foo, strlen(foo)+10);
+    const char bar[] = "12345";
+    dump(bar, strlen(bar)+1);
 }
