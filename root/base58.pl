@@ -2,6 +2,13 @@
 
 # refer to b64.pl, numbase.pl as well
 
+# NOTE: Encode::Base58 is required
+# shorten URL service "flic.kr/p/" does not work?
+#
+# python module: base58
+# cat file | base58
+#
+
 use strict;
 use warnings;
 use v5.10;
