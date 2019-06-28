@@ -15,20 +15,22 @@ import requests
 from httpbin import show_results
 
 # pylint: disable=no-member
+# pylint: disable=using-constant-test
 
-
-def get_qrcode():
+def get_qrcode(text='The quick brown fox jumps over the lazy dog'):
     ''' qrcode '''
     # http://goqr.me/api/doc/
     # https://api.qrserver.com/v1/create-qr-code/?data=[URL-encoded-text]&size=[pixels]x[pixels]
     url = 'https://api.qrserver.com/v1/create-qr-code/'
     payload = {
-        'data': 'hello world',
+        'data': text,
         'size': '256x256',
         'ecc': 'M'
     }
     r = requests.get(url, params=payload)
-    show_results(r)
+    fn = show_results(r)
+    GenerateBarcode.show_image(fn, fillbackground=False)
+
 
 class GenerateBarcode():
     ''' barcode: https://github.com/metafloor/bwip-js/wiki/Online-Barcode-API '''
@@ -71,7 +73,7 @@ class GenerateBarcode():
         self.resp = requests.get(self.url, params=urlencode(params))
 
     @staticmethod
-    def show_image(fn):
+    def show_image(fn, fillbackground=True):
         '''
         because of returned image with transparent background color,
         this function will replace it into white
@@ -85,9 +87,12 @@ class GenerateBarcode():
             print('failed to read image')
             return
 
-        trans_mask = img[:, :, 3] == 0
-        img[trans_mask] = [255, 255, 255, 255]
-        new_img = cv2.cvtColor(img, cv2.COLOR_BGRA2BGR)
+        if fillbackground:
+            trans_mask = img[:, :, 3] == 0
+            img[trans_mask] = [255, 255, 255, 255]
+            new_img = cv2.cvtColor(img, cv2.COLOR_BGRA2BGR)
+        else:
+            new_img = img
 
         cv2.imshow('image', new_img)
         cv2.waitKey()
@@ -95,10 +100,21 @@ class GenerateBarcode():
 
 def main():
     ''' main '''
-    gen = GenerateBarcode()
-    # http://www.otzberg.net/isbn/index.php?isbn=9789861772080
-    gen.get_isbn('978-986-177-208-0')
-    gen.show_resp()
+
+    if False:
+        gen = GenerateBarcode()
+        # help to hypenate isbn
+        # http://www.otzberg.net/isbn/index.php?isbn=9789861772080
+        gen.get_isbn('978-986-177-208-0')
+        gen.show_resp()
+
+    if True:
+        text = 'https://goodinfo.tw/StockInfo/StockDetail.asp?STOCK_ID=4938'
+        get_qrcode(text)
 
 if __name__ == '__main__':
-    main()
+    import sys
+    if len(sys.argv) == 1:
+        main()
+    else:
+        get_qrcode(sys.argv[1])

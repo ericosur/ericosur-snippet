@@ -4,6 +4,7 @@ resp*.json
 ggmail.json
 ow*json
 aw*json
-image.png
-image.jpeg
+*.png
+*.jpeg
+*.jpg
 
