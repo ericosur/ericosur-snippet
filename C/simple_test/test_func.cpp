@@ -79,17 +79,22 @@ void test_re()
     string s = "color1544508130.png";
 
     std::regex word_regex("(\\d+)");
-    auto words_begin =
-        std::sregex_iterator(s.begin(), s.end(), word_regex);
+    auto words_begin = std::sregex_iterator(s.begin(), s.end(), word_regex);
     auto words_end = std::sregex_iterator();
 
     for (std::sregex_iterator i = words_begin; i != words_end; ++i) {
         std::smatch match = *i;
         std::string match_str = match.str();
         if (match_str.size()) {
-            std::cout << match_str << '\n';
+            cout << match_str << '\n';
         }
     }
+
+    // trying c++11 for-loop
+    for (auto i: s) {
+        cout << i << " ";
+    }
+    cout << endl;
 }
 
 void test_noise()
@@ -120,4 +125,15 @@ void test_foo_string()
     dump(foo, strlen(foo)+10);
     const char bar[] = "12345";
     dump(bar, strlen(bar)+1);
+}
+
+void test_lamb()
+{
+    using namespace std;
+    print_title(__func__);
+    int n = [](int x, int y) { return x+y; }(5, 4);
+    cout << n << endl;
+
+    auto lam = [](string s) { cout << s << endl; };
+    lam(__func__);
 }

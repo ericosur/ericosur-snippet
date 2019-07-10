@@ -31,5 +31,7 @@ int main()
 
     test_foo_string();
 
+    test_lamb();
+
     return 0;
 }

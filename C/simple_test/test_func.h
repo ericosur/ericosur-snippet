@@ -17,7 +17,8 @@ double generateGaussianNoise(double mu, double sigma);
 void test_noise();
 
 void test_utfstring();
-
 void test_foo_string();
+
+void test_lamb();
 
 #endif  // __LIB_TEST_FUNC_H__
