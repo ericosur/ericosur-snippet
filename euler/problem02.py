@@ -1,7 +1,5 @@
-#!/usr/bin/python
-
-import cPickle
-import random
+#!/usr/bin/env python3
+# coding: utf-8
 
 '''
 to demo a fib function which would store calculated fib(n)
@@ -12,53 +10,28 @@ http://projecteuler.net/problem=2
 
 '''
 
+from fib_store import CalcFib
 
-def fib(n):
-	'''
-	if fib(n) is already calculated, it would not
-	re-calculate it again.
-	'''
-	global fibvalues
+def main():
+    ''' main '''
+    # to find the fib number which is even and smaller the upper_limit
+    upper_limit = 4e6
 
-	if n <= 2:
-		return 1
-	elif n in fibvalues:
-		#print '.',
-		return fibvalues[n]
-	else:
-		#print 'c',
-		fibvalues[n] = fib(n-1) + fib(n-2)
-		return fibvalues[n]
+    with CalcFib() as fibs:
+        i = 1
+        even_seq = []
+        while True:
+            fval = fibs.fib(i)
+            if fval > upper_limit:
+                break
+            if not fval & 1:
+                even_seq.append(fval)
+                #print "fib(%d) = %d" % (i, fval)
+            i += 1
 
-fibvalues = {}
-data_file = 'fib.p'
+    print(even_seq, "and sum is", sum(even_seq))
+
+
 
 if __name__ == '__main__':
-	try:
-		inf = open(data_file, "r")
-		fibvalues = cPickle.load(inf)
-		inf.close()
-	except IOError:
-		fibvalues = {1:1, 2:1}	# init values
-
-	# to find the fib number which is even and smaller the upper_limit
-	upper_limit = 4e6
-	i = 1
-	even_seq = []
-	while (1):
-		fval = fib(i)
-		if fval > upper_limit:
-			break
-		if not fval & 1:
-			even_seq.append(fval)
-			#print "fib(%d) = %d" % (i, fval)
-		i += 1
-
-	print even_seq, "and sum is", sum(even_seq)
-
-
-	# store the fibvalues into pickle file
-	ouf = open(data_file, "w")
-	cPickle.dump(fibvalues, ouf)
-	ouf.close()
-
+    main()

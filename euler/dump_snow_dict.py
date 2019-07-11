@@ -1,38 +1,49 @@
-import cPickle
+#!/usr/bin/env python3
+## coding: utf-8
 
-cond = True
-while cond:
-	if __name__ == '__main__':
-		cond = False
-		data_file = 'snowball.p'
-		snow_dict = {}
-		cnt = 0
-		miss_list = []
+'''
+dump snow dict
+'''
 
-		try:
-			inf = open(data_file, 'r')
-			snow_dict = cPickle.load(inf)
-			inf.close()
-		except IOError:
-			print "cannot load"
-			break
+import pickle
 
-		print 'beg: len',len(snow_dict)
-		#print snow_dict.keys()
+def main():
+    ''' main '''
+    #cond = False
+    data_file = 'snowball.p'
+    snow_dict = {}
+    #cnt = 0
+    #miss_list = []
 
-		for kk in snow_dict.keys():
-			for vv in snow_dict[kk]:
-				cnt += 1
-				if not (vv in snow_dict):
-					snow_dict[vv] = snow_dict[kk][snow_dict[kk].index(vv):]
+    try:
+        with open(data_file, 'rb') as inf:
+            snow_dict = pickle.load(inf)
+    except IOError:
+        print("cannot load", data_file)
+        return
 
-		print 'cnt', cnt
-		print 'end: len',len(snow_dict)
-		result = snow_dict.keys()
-		result.sort()
-		#print result
+    print('beg: len', len(snow_dict))
+    #print(snow_dict.keys())
 
-		# store into pickle file
-		ouf = open(data_file, 'w')
-		cPickle.dump(snow_dict, ouf)
-		ouf.close()
+    # for kk in snow_dict.keys():
+    #     for vv in snow_dict[kk]:
+    #         cnt += 1
+    #         if vv not in snow_dict:
+    #             snow_dict[vv] = snow_dict[kk][snow_dict[kk].index(vv):]
+    #print('cnt', cnt)
+
+    print('end: len', len(snow_dict))
+    result = list(snow_dict.keys())
+    result.sort()
+    for kk in result:
+        for vv in snow_dict[kk]:
+            if vv not in snow_dict:
+                print(vv)
+
+    # store into pickle file
+    # with open(data_file, 'wb') as ouf:
+    #     pickle.dump(snow_dict, ouf)
+
+
+if __name__ == '__main__':
+    main()

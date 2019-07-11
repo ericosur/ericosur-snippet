@@ -1,123 +1,114 @@
 #!/usr/bin/python
+# coding: utf-8
+
 '''
 http://projecteuler.net/problem=14
 '''
-import cPickle
 
-def snow_number_seq(n):
-	'''
-	original method to calculate snow number by loop
-	'''
-	seq = []
-	cnt = 0
-	while n > 1:
-		cnt += 1
-		if n & 1:	# n is odd
-			n = 3 * n + 1
-		else:
-			n = n / 2
-		seq.append(n)
-	return seq
+import pickle
 
-def snowball(n):
-	'''
-	recursive method to calculate snow number, and
-	it will save the calculated sequence
-	'''
-	global snow_dict
-	global snow
-	global cnt
-	global not_included_cnt
+class SnowBall():
+    ''' class to calculate snow ball numbers '''
+    def __init__(self):
+        self.cnt = 0
+        self.not_included_cnt = 0
+        self.snow_dict = {1:[1], 2:[2, 1]}
+        self.snow = {}
 
-	cnt += 1
-	if cnt > 1e4:
-		print "to many recursive and stop..."
-		return
+    def snow_number_seq(self, n):
+        '''
+        original method to calculate snow number by loop
+        '''
+        seq = []
+        while n > 1:
+            self.cnt += 1
+            if n & 1:   # n is odd
+                n = 3 * n + 1
+            else:
+                n = n / 2
+            seq.append(n)
+        return seq
 
-	if (n != 1) and (n in snow_dict):
-		snow.extend(snow_dict[n])
-		return
+    def snowball(self, n):
+        '''
+        recursive method to calculate snow number, and
+        it will save the calculated sequence
+        '''
 
-	snow.append(n)
+        self.cnt += 1
+        if self.cnt > 1e4:
+            print("to many recursive and stop...")
+            return
 
-	if not (n in snow_dict):
-		not_included_cnt += 1
+        if n != 1 and n in self.snow_dict:
+            self.snow.extend(self.snow_dict[n])
+            return
 
-	if n <= 1:
-		return
-	elif n & 1:	# n is odd
-		#print 'o',
-		snowball(3*n+1)
-	else:
-		#print 'o',
-		snowball(n/2)
+        self.snow.append(n)
+
+        if not n in self.snow_dict:
+            self.not_included_cnt += 1
+
+        if n <= 1:
+            return
+
+        if n % 2: # n is odd
+            #print 'o',
+            self.snowball(3 * n + 1)
+        else:
+            #print 'o',
+            self.snowball(n / 2)
 
 
+    def action(self):
+        ''' action '''
+        data_file = 'snowball.p'
+        storage = True  # save into pickle file or not
+
+        # it takes long time if upperlimit is large
+        upperlimit = 1000000
+        i = upperlimit // 2
+
+        print('upperlimit:', upperlimit)
+
+        if storage:
+            try:
+                with open(data_file, 'rb') as inf:
+                    self.snow_dict = pickle.load(inf)
+            except IOError:
+                print('data file not opened, init snow_dict')
+
+        print('size of snow_dict:', len(self.snow_dict))
+        maxlen = 0
+        maxidx = 0
+        i = 0
+        while i < upperlimit:
+            i += 1
+            self.snow = []
+            self.cnt = 0
+            self.snowball(i)
+            if len(self.snow) > maxlen:
+                maxlen = len(self.snow)
+                maxidx = i
+
+            #print i,'cnt', cnt,'len', len(snow) #,'snow', snow
+            if i not in self.snow_dict:
+                self.snow_dict[i] = self.snow
+
+        #print 'snow_dict key', snow_dict.keys()
+        print('not_included_cnt', self.not_included_cnt)
+        print('max len is', maxlen, 'max idx: ', maxidx)
+
+        # store into pickle file
+        if storage:
+            with open(data_file, 'wb') as ouf:
+                pickle.dump(self.snow_dict, ouf)
+
+
+def main():
+    ''' main '''
+    snowb = SnowBall()
+    snowb.action()
 
 if __name__ == '__main__':
-	data_file = 'snowball.p'
-	snow_dict = {1:[1], 2:[2, 1]}
-	storage = 1
-	cnt = 0
-	# it takes long time if upperlimit is large
-	upperlimit = 1000000
-	i = int(upperlimit/2)
-	not_included_cnt = 0
-
-	print 'upperlimit:', upperlimit
-
-	if storage:
-		try:
-			inf = open(data_file, 'r')
-			snow_dict = cPickle.load(inf)
-			inf.close()
-		except IOError:
-			# init values
-			snow_dict = {1:[1], 2:[2, 1]}
-
-	maxlen = 0
-	maxidx = 0
-	while i < upperlimit:
-		i+=1
-		snow = []
-		cnt = 0
-		snowball(i)
-		if len(snow) > maxlen:
-			maxlen = len(snow)
-			maxidx = i
-
-		#print i,'cnt', cnt,'len', len(snow) #,'snow', snow
-		if not i in snow_dict:
-			snow_dict[i] = snow
-
-	#print 'snow_dict key', snow_dict.keys()
-	print 'not_included_cnt', not_included_cnt
-	print 'max len is', maxlen, 'max idx: ', maxidx;
-
-	# store into pickle file
-	if storage:
-		ouf = open(data_file, 'w')
-		cPickle.dump(snow_dict, ouf)
-		ouf.close()
-
-'''
-if __name__ == '__main__':
-	maxlen = 0
-	maxidx = 0
-	upperlimit = 30
-	#i = int(upperlimit/2)
-	i=0
-	longest_seq = []
-	verbose = 1
-	while i < upperlimit:
-		i += 1
-		reseq = snow_number_seq(i)
-		if verbose:
-			print i,':',reseq
-		if len(reseq) > maxlen:
-			maxlen = len(reseq)
-			maxidx = i
-			longest_seq = reseq
-	print 'maxlen:',maxlen,"max:",maxidx
-	print "longest_seq", longest_seq
-'''
+    main()
