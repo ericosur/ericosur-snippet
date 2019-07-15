@@ -15,7 +15,7 @@ import math
 class CalcPi(object):
     ''' a class to calculate pi from random numbers '''
     def __init__(self):
-        self.times = 10_000_000
+        self.times = 10000000
         self.i = 0
         self.isnot = 0
         self.start = 0
