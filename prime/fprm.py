@@ -1,35 +1,41 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+# coding: utf-8
 
 '''
 To know how many numbers could be elimated by these small primes as factor.
 '''
 
-small_primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29,
-31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
+def output_to_file(fn, primes):
+    ''' output list into text file '''
+    with open(fn, "wt") as ofh:
+        for pp in primes:
+            ofh.write("{}\n".format(pp))
+    print('output to {}, count = {}'.format(fn, len(primes)))
 
-target = range(1000, 10000)	# 1000 ... 9999
-print "len(target): ", len(target)
-cnt_array = []
+def main():
+    ''' main '''
+    small_primes = [2, 3, 5, 7, 11,
+                    13, 17, 19, 23, 29,
+                    31, 37, 41, 43, 47,
+                    53, 59, 61, 67, 71,
+                    73, 79, 83, 89, 97]
 
-for pp in small_primes:
-	cnt = 0
-	for nn in target:
-		if nn % pp == 0:
-			cnt += 1
-			target.remove(nn)
-	print "filtered by ", pp, ", count: ", cnt, "len(target): ", len(target)
-	cnt_array.append(cnt);
-	if len(target) < 20:
-		print "target: ", target
+    target = [i for i in range(1000, 10000)]
+    for pp in small_primes:
+        cnt = 0
+        print('use {} to filter, count {} before start '.format(pp, len(target)), end='')
+        for nn in target:
+            if nn % pp == 0:
+                cnt += 1
+                target.remove(nn)
+        print("removed: {}, left: {}".format(cnt, len(target)))
 
-print "end..."
-print "len(target): ", len(target)
-print "target: ", target
+    print("end...")
+    print("left count of numbers:", len(target))
 
-left = 9999-1000+1
-sum = 0.0
-for cc in cnt_array:
-	sum += float(cc) / left
-	print "sum: ", sum
+    # uncomment the following line if output to file
+    #output_to_file('four-digit-prime.txt', target)
 
-print "cnt sum: ", sum
+
+if __name__ == '__main__':
+    main()
