@@ -7,6 +7,8 @@ will load/save it as pickle format
 
 given cli argument to get lower/upper prime
 
+NOTE: pythonista version
+
 '''
 
 import os
@@ -14,6 +16,10 @@ import sys
 import pickle
 import re
 import random
+
+# pythonista
+import clipboard
+import console
 
 # pylint: disable=invalid-name
 
@@ -82,30 +88,6 @@ class StorePrime():
                     el = int(result.groups()[1])
                     self.pvalues.append(el)
         return True
-
-    def find(self, val):
-        ''' find val in list of primes '''
-        if val in self.pvalues:
-            return self.pvalues.index(val)
-        else:
-            return -1
-
-    def get_primes_less_than(self, val):
-        ''' get a list of primes less than given value '''
-        _max = self.pvalues[-1]
-        _min = self.pvalues[0]
-        if val > _max or val < _min:
-            print('[ERROR] out of bound')
-            return None
-        if val == _min:
-            return [2]
-        (p, _) = self.search_between(val)
-        if p is None:
-            print('[ERROR] cannot operate')
-            return None
-        plist = self.pvalues[:p]
-        return plist
-
 
     def search_between(self, val):
         ''' search value at index or between '''
@@ -177,7 +159,7 @@ def show(v, p, q):
         print('{} is in the range of ({} {} {})'.format(v, p, arrow, q))
 
 
-def main(argv):
+def main():
     ''' main function '''
     with StorePrime() as sp:
 
@@ -189,28 +171,16 @@ def main(argv):
                 print('\tno answer for this')
                 return
             show(v, sp.at(p), sp.at(q))
+            clipboard.set(str(sp.at(p)))
         ''' inner function '''
 
-        #print(sp)
-        #rint(sp.get_count())
-
-        if argv == []:
-            _max = sp.at(sp.get_count() - 1)
-            _min = sp.at(0)
-            #print("max:{}, min:{}".format(_max, _min))
-            REPEAT = 10
-            for _ in range(REPEAT):
-                r = random.randint(_min, _max)
-                test(r)
-        else:
-            for ss in argv:
-                try:
-                    val = int(ss)
-                    test(val)
-                except ValueError:
-                    print('{} is a ValueError'.format(ss))
-                    continue
+        ret = console.input_alert('input a number')
+        try:
+            val = int(ret)
+            test(val)
+        except ValueError:
+            print('{} is a ValueError'.format(ret))
 
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    main()

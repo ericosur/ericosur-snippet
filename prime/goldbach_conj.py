@@ -9,15 +9,23 @@ given cli argument to get lower/upper prime
 
 '''
 
-import os
+import bisect
 import sys
-import pickle
-import re
 import random
+import time
+import timeit
 
 import search_in_primes
 
 # pylint: disable=invalid-name
+
+
+def get_bisect(a, x):
+    ''' Locate the leftmost value exactly equal to value **x** from list **a** '''
+    i = bisect.bisect_left(a, x)
+    if i != len(a) and a[i] == x:
+        return i
+    raise ValueError
 
 
 def gold_bach(val):
@@ -29,46 +37,98 @@ def gold_bach(val):
             return
 
         ret = sp.get_primes_less_than(val)
-        #print(ret)
-        ans = []
-        for pp in ret:
-            left = val - pp
-            if pp > left:
-                break
-            if left in ret:
-                ans.append((pp, left))
-        print('goldbach:', ans)
-        return ans
+        print('len(ret):', len(ret))
 
+        def test1():
+            ans = []
+            cnt = 0
+            start_time = time.time()
+            for pp in ret:
+                left = val - pp
+                cnt += 1
+                if pp > left:
+                    break
+                if left in ret:
+                    ans.append((pp, left))
+            return ans, cnt, time.time() - start_time
 
-def basic_test():
+        def test2():
+            ans = []
+            cnt = 0
+            start_time = time.time()
+            for pp in ret:
+                left = val - pp
+                cnt += 1
+                if pp > left:
+                    break
+                try:
+                    ret.index(left)
+                except ValueError:
+                    pass
+                else:
+                    ans.append((pp, left))
+            return ans, cnt, time.time() - start_time
+
+        def test3():
+            ans = []
+            cnt = 0
+            start_time = time.time()
+            for pp in ret:
+                left = val - pp
+                cnt += 1
+                if pp > left:
+                    break
+                try:
+                    get_bisect(ret, left)
+                except ValueError:
+                    pass
+                else:
+                    ans.append((pp, left))
+            return ans, cnt, time.time() - start_time
+
+        ans, cnt, duration = test1()
+        print('len: {}, cnt: {}, time: {}'.format(len(ans), cnt, duration))
+        ans, cnt, duration = test2()
+        print('len: {}, cnt: {}, time: {}'.format(len(ans), cnt, duration))
+        ans, cnt, duration = test3()
+        print('len: {}, cnt: {}, time: {}'.format(len(ans), cnt, duration))
+
+def profile():
     ''' basic test '''
-    gold_bach(4)
-    gold_bach(50)
-    gold_bach(100)
+    gold_bach(250000)
 
+def print_duration(start, end, msg=''):
+    ''' print duration '''
+    print('{} duration: {:.3f} seconds (wall clock)'.format(msg, end - start))
 
 def main(argv):
     if argv == []:
-        _max = 1299709
-        _min = 2
+        #_max = 1299709
+        #_min = 2
+        _max = 65536
+        _min = 1024
         #print("max:{}, min:{}".format(_max, _min))
         REPEAT = 10
-        # for _ in range(REPEAT):
-        #     r = random.randint(_min, _max)
-        #     gold_bach(r)
-        #
+        for _ in range(REPEAT):
+            r = random.randint(_min, _max)
+            # an odd number, plus 1
+            if r % 2 == 1:
+                r += 1
+            argv.append(r)
 
-'''
-    else:
-        for ss in argv:
-            try:
-                val = int(ss)
-                test(val)
-            except ValueError:
-                print('{} is a ValueError'.format(ss))
-                continue
-'''
+    for ss in argv:
+        try:
+            val = int(ss)
+            time_start = timeit.default_timer()
+            res = gold_bach(val)
+            time_end = timeit.default_timer()
+            if res is not None:
+                print('combination: {}'.format(len(res)))
+            print_duration(time_start, time_end)
+        except ValueError:
+            print('{} is a ValueError'.format(ss))
+            continue
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    #main(sys.argv[1:])
+    profile()
