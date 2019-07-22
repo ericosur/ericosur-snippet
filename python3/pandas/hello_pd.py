@@ -9,6 +9,8 @@ import pandas as pd
 def main():
     ''' main '''
     print("pd.__version__: {}".format(pd.__version__))
+
+    print('[WARN] This is not a current updated rates!!!')
     FILEN = 'rates.csv'
     # read csv file as dataframe
     rates = pd.read_csv(FILEN)
