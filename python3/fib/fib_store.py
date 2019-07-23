@@ -52,9 +52,7 @@ class CalcFib():
         return len(self.fibvalues)
 
     def load_pickle(self):
-        '''
-        載入 pickle，若無則建立預設的值
-        '''
+        ''' load pickle, or default value '''
         #print('load_pickle', self.pfile)
         try:
             with open(self.pfile, "rb") as inf:
@@ -63,9 +61,7 @@ class CalcFib():
             print('IOError')
 
     def save_pickle(self):
-        '''
-        儲存 stepvalues 至 pickle
-        '''
+        ''' save values into pickle '''
         #print('save_pickle')
         # store into pickle file
         with open(self.pfile, "wb") as ouf:
