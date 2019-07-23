@@ -13,7 +13,6 @@ import bisect
 import sys
 import random
 import time
-import timeit
 
 import search_in_primes
 
@@ -28,16 +27,18 @@ def get_bisect(a, x):
     raise ValueError
 
 
-def gold_bach(val):
+def gold_bach(val, debug=False):
     ''' it could be found if val < 4 * 10^17 '''
-    print('test {}...'.format(val))
+    if debug:
+        print('test {}...'.format(val))
     with search_in_primes.StorePrime() as sp:
         if val % 2 != 0:
             print('[ERROR] must be an even number')
-            return
+            return None
 
         ret = sp.get_primes_less_than(val)
-        print('len(ret):', len(ret))
+        if debug:
+            print('len(ret):', len(ret))
 
         def test1():
             ans = []
@@ -86,22 +87,27 @@ def gold_bach(val):
                     ans.append((pp, left))
             return ans, cnt, time.time() - start_time
 
-        ans, cnt, duration = test1()
-        print('len: {}, cnt: {}, time: {}'.format(len(ans), cnt, duration))
-        ans, cnt, duration = test2()
-        print('len: {}, cnt: {}, time: {}'.format(len(ans), cnt, duration))
+        if debug:
+            ans, cnt, duration = test1()
+            print('len: {}, cnt: {}, time: {}'.format(len(ans), cnt, duration))
+            ans, cnt, duration = test2()
+            print('len: {}, cnt: {}, time: {}'.format(len(ans), cnt, duration))
+
         ans, cnt, duration = test3()
-        print('len: {}, cnt: {}, time: {}'.format(len(ans), cnt, duration))
+        if debug:
+            print('len: {}, cnt: {}, time: {}'.format(len(ans), cnt, duration))
+        return ans
 
 def profile():
     ''' basic test '''
-    gold_bach(250000)
+    gold_bach(250000, debug=True)
 
 def print_duration(start, end, msg=''):
     ''' print duration '''
     print('{} duration: {:.3f} seconds (wall clock)'.format(msg, end - start))
 
 def main(argv):
+    ''' main '''
     if argv == []:
         #_max = 1299709
         #_min = 2
@@ -119,16 +125,16 @@ def main(argv):
     for ss in argv:
         try:
             val = int(ss)
-            time_start = timeit.default_timer()
             res = gold_bach(val)
-            time_end = timeit.default_timer()
             if res is not None:
-                print('combination: {}'.format(len(res)))
-            print_duration(time_start, time_end)
+                print('input {} goldbach ====>', end='')
+                print('  total combination: {}'.format(len(res)))
+                print('  pick random one: {}'.format(res[random.randint(0, len(res)-1)]))
+                print('  pick last one: {}'.format(res[-1]))
         except ValueError:
             print('{} is a ValueError'.format(ss))
-            continue
+
 
 if __name__ == '__main__':
-    #main(sys.argv[1:])
-    profile()
+    main(sys.argv[1:])
+    #profile()
