@@ -65,3 +65,10 @@ def profile():
     plt.ylabel('log(time)', fontsize=18)
     plt.legend(loc = 'upper left')
     plt.show()
+
+def main():
+    ''' main '''
+    profile()
+
+if __name__ == '__main__':
+    main()
