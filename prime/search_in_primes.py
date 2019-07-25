@@ -47,7 +47,8 @@ class StorePrime():
             self.init_size = 0
         else:
             self.init_size = len(self.pvalues)
-        msg = 'length: {}'.format(self.init_size)
+        msg = 'min: {}, max: {}, '.format(self.pvalues[0], self.pvalues[-1])
+        msg = msg + 'total primes: {}'.format(self.init_size)
         return msg
 
     def get_count(self):
@@ -85,10 +86,9 @@ class StorePrime():
 
     def find(self, val):
         ''' find val in list of primes '''
-        if val in self.pvalues:
-            return self.pvalues.index(val)
-        else:
-            return -1
+        #if val in self.pvalues:
+        return self.pvalues.index(val)
+        #return -1
 
     def get_primes_less_than(self, val):
         ''' get a list of primes less than given value '''
@@ -180,6 +180,8 @@ def show(v, p, q):
 def main(argv):
     ''' main function '''
     with StorePrime() as sp:
+
+        print(sp)
 
         ''' inner function '''
         def test(v):

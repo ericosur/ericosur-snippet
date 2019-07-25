@@ -25,7 +25,10 @@ such table could be downloaded at
 head -100 prime_100k.txt | cut -d ' ' -f 2
 ```
 
+## somehow curios
 
+* $2^3+3^2$ means $8+9$
+* $064810$ means $0 \cdot 8^2 \cdot 9^2 \cdot 0$
 
 ## references
 
