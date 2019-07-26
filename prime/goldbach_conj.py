@@ -17,7 +17,7 @@ import time
 import search_in_primes
 
 # pylint: disable=invalid-name
-
+# too-many-statements
 
 def get_bisect(a, x):
     ''' Locate the leftmost value exactly equal to value **x** from list **a** '''
@@ -25,6 +25,57 @@ def get_bisect(a, x):
     if i != len(a) and a[i] == x:
         return i
     raise ValueError
+
+
+def impl1(val, ret):
+    ''' impl1 '''
+    ans = []
+    cnt = 0
+    start_time = time.time()
+    for pp in ret:
+        left = val - pp
+        cnt += 1
+        if pp > left:
+            break
+        if left in ret:
+            ans.append((pp, left))
+    return ans, cnt, time.time() - start_time
+
+def impl2(val, ret):
+    ''' impl2 '''
+    ans = []
+    cnt = 0
+    start_time = time.time()
+    for pp in ret:
+        left = val - pp
+        cnt += 1
+        if pp > left:
+            break
+        try:
+            ret.index(left)
+        except ValueError:
+            pass
+        else:
+            ans.append((pp, left))
+    return ans, cnt, time.time() - start_time
+
+def impl3(val, ret):
+    ''' impl3 '''
+    ans = []
+    cnt = 0
+    start_time = time.time()
+    for pp in ret:
+        left = val - pp
+        cnt += 1
+        if pp > left:
+            break
+        try:
+            get_bisect(ret, left)
+        except ValueError:
+            pass
+        else:
+            ans.append((pp, left))
+    return ans, cnt, time.time() - start_time
 
 
 def gold_bach(val, debug=False):
@@ -40,60 +91,13 @@ def gold_bach(val, debug=False):
         if debug:
             print('len(ret):', len(ret))
 
-        def test1():
-            ans = []
-            cnt = 0
-            start_time = time.time()
-            for pp in ret:
-                left = val - pp
-                cnt += 1
-                if pp > left:
-                    break
-                if left in ret:
-                    ans.append((pp, left))
-            return ans, cnt, time.time() - start_time
-
-        def test2():
-            ans = []
-            cnt = 0
-            start_time = time.time()
-            for pp in ret:
-                left = val - pp
-                cnt += 1
-                if pp > left:
-                    break
-                try:
-                    ret.index(left)
-                except ValueError:
-                    pass
-                else:
-                    ans.append((pp, left))
-            return ans, cnt, time.time() - start_time
-
-        def test3():
-            ans = []
-            cnt = 0
-            start_time = time.time()
-            for pp in ret:
-                left = val - pp
-                cnt += 1
-                if pp > left:
-                    break
-                try:
-                    get_bisect(ret, left)
-                except ValueError:
-                    pass
-                else:
-                    ans.append((pp, left))
-            return ans, cnt, time.time() - start_time
-
         if debug:
-            ans, cnt, duration = test1()
+            ans, cnt, duration = impl1(val, ret)
             print('len: {}, cnt: {}, time: {}'.format(len(ans), cnt, duration))
-            ans, cnt, duration = test2()
+            ans, cnt, duration = impl2(val, ret)
             print('len: {}, cnt: {}, time: {}'.format(len(ans), cnt, duration))
 
-        ans, cnt, duration = test3()
+        ans, cnt, duration = impl3(val, ret)
         if debug:
             print('len: {}, cnt: {}, time: {}'.format(len(ans), cnt, duration))
         return ans
@@ -127,7 +131,7 @@ def main(argv):
             val = int(ss)
             res = gold_bach(val)
             if res is not None:
-                print('input {} goldbach ====>', end='')
+                print('test {} goldbach ====>'.format(val), end='')
                 print('  total combination: {}'.format(len(res)))
                 print('  pick random one: {}'.format(res[random.randint(0, len(res)-1)]))
                 print('  pick last one: {}'.format(res[-1]))

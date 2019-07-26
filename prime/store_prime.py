@@ -2,24 +2,12 @@
 # coding: utf-8
 
 '''
-table: prime_100k.txt
-will load/save it as pickle format
-
-given cli argument to get lower/upper prime
-
-NOTE: pythonista version
-
+provide a basic interface/class for load/save/search primes
 '''
 
 import os
 import pickle
 import re
-
-# pylint: disable=import-error
-# pylint: disable=unused-import
-# pythonista
-import clipboard
-import console
 
 # pylint: disable=invalid-name
 
@@ -53,22 +41,27 @@ class StorePrime():
             self.init_size = 0
         else:
             self.init_size = len(self.pvalues)
-        msg = 'length: {}'.format(self.init_size)
+        msg = 'min: {}, max: {}, '.format(self.pvalues[0], self.pvalues[-1])
+        msg = msg + 'total primes: {}'.format(self.init_size)
         return msg
 
     def get_count(self):
         ''' get length of pickle '''
         return len(self.pvalues)
 
+    def load_pickle_impl(self):
+        ''' load pickle implementation '''
+        with open(self.pfile, "rb") as inf:
+            self.pvalues = pickle.load(inf)
+            self.need_save = False
+            return True
+
     def load_pickle(self):
         '''
         load pickle file, or from text
         '''
         try:
-            with open(self.pfile, "rb") as inf:
-                self.pvalues = pickle.load(inf)
-                self.need_save = False
-                return True
+            return self.load_pickle_impl()
         except IOError:
             print('pickle file not found, try to load text file')
             self.pvalues = []
@@ -88,6 +81,44 @@ class StorePrime():
                     el = int(result.groups()[1])
                     self.pvalues.append(el)
         return True
+
+    def save_pickle_impl(self):
+        ''' implementation of save pickle '''
+        with open(self.pfile, 'wb') as outf:
+            pickle.dump(self.pvalues, outf)
+
+    def save_pickle(self):
+        ''' save pvalues into pickle file '''
+        print('save pickle')
+        if self.pvalues is None:
+            return
+        if self.need_save:
+            self.save_pickle_impl()
+        else:
+            print('no need to save')
+
+    def find(self, val):
+        ''' find val in list of primes '''
+        #if val in self.pvalues:
+        return self.pvalues.index(val)
+        #return -1
+
+    def get_primes_less_than(self, val):
+        ''' get a list of primes less than given value '''
+        _max = self.pvalues[-1]
+        _min = self.pvalues[0]
+        if val > _max or val < _min:
+            print('[ERROR] out of bound')
+            return None
+        if val == _min:
+            return [2]
+        (p, _) = self.search_between(val)
+        if p is None:
+            print('[ERROR] cannot operate')
+            return None
+        plist = self.pvalues[:p]
+        return plist
+
 
     def search_between(self, val):
         ''' search value at index or between '''
@@ -127,60 +158,33 @@ class StorePrime():
         ''' get value at index '''
         try:
             return self.pvalues[idx]
-        except IndexError:
-            return None
-        except TypeError:
+        except (IndexError, TypeError):
             return None
 
-    def save_pickle(self):
-        ''' save pvalues into pickle file '''
-        print('save pickle')
-        if self.pvalues is None:
+    @staticmethod
+    def show(v, p, q):
+        ''' show '''
+        if p is None and q is None:
             return
-        if self.need_save:
-            with open(self.pfile, 'wb') as outf:
-                pickle.dump(self.pvalues, outf)
+        if q is None:
+            print('{} is a prime {}'.format(v, p))
         else:
-            print('no need to save')
+            lhs = abs(v - p)
+            rhs = abs(v - q)
+            if lhs <= rhs:
+                arrow = "<<<<<"
+            else:
+                arrow = ">>>>>"
+            print('{} is in the range of ({} {} {})'.format(v, p, arrow, q))
 
-def show(v, p, q):
-    ''' show '''
-    if p is None and q is None:
-        return
-    if q is None:
-        print('{} is a prime {}'.format(v, p))
-    else:
-        lhs = abs(v - p)
-        rhs = abs(v - q)
-        if lhs <= rhs:
-            arrow = "<<<<<"
-        else:
-            arrow = ">>>>>"
-        print('{} is in the range of ({} {} {})'.format(v, p, arrow, q))
-
-
-def main():
-    ''' main function '''
-    with StorePrime() as sp:
-
-        ''' inner function '''
-        def test(v):
-            ''' test '''
-            (p, q) = sp.search_between(v)
-            if p is None:
-                print('\tno answer for this')
-                return
-            show(v, sp.at(p), sp.at(q))
-            clipboard.set(str(sp.at(p)))
-        ''' inner function '''
-
-        ret = console.input_alert('input a number')
-        try:
-            val = int(ret)
-            test(val)
-        except ValueError:
-            print('{} is a ValueError'.format(ret))
+    def test(self, v):
+        ''' test '''
+        (p, q) = self.search_between(v)
+        if p is None:
+            print('\tno answer for this')
+            return
+        StorePrime.show(v, self.at(p), self.at(q))
 
 
 if __name__ == '__main__':
-    main()
+    print('run **test_sp.py sp** to see the demo...')

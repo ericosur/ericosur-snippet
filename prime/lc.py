@@ -3,7 +3,7 @@
 #
 
 '''
-use linecache for one million lines of text file
+handle one million lines of text file with reading all lines into memory
 '''
 
 import random

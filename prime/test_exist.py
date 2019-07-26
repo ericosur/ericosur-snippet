@@ -58,12 +58,12 @@ def profile():
         time_method_set_in.append(math.log(method_set_in(a, b, c)))
         time_method_bisect.append(math.log(method_bisect(a, b, c)))
 
-    plt.plot(Nls,time_method_in,marker='o',color='r',linestyle='-',label='in')
-    plt.plot(Nls,time_method_set_in,marker='o',color='b',linestyle='-',label='set')
-    plt.plot(Nls,time_method_bisect,marker='o',color='g',linestyle='-',label='bisect')
+    plt.plot(Nls, time_method_in, marker='o', color='r', linestyle='-', label='in')
+    plt.plot(Nls, time_method_set_in, marker='o', color='b', linestyle='-', label='set')
+    plt.plot(Nls, time_method_bisect, marker='o', color='g', linestyle='-', label='bisect')
     plt.xlabel('list size', fontsize=18)
     plt.ylabel('log(time)', fontsize=18)
-    plt.legend(loc = 'upper left')
+    plt.legend(loc='upper left')
     plt.show()
 
 def main():
