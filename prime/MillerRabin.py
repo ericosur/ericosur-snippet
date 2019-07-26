@@ -1,4 +1,7 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+# coding: utf-8
+
+'''
 # Copyright (c) 2009 the authors listed at the following URL, and/or
 # the authors of referenced articles or incorporated external code:
 # http://en.literateprograms.org/Miller-Rabin_primality_test_(Python)?action=history&offset=20081029005339
@@ -23,10 +26,15 @@
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 # Retrieved from: http://en.literateprograms.org/Miller-Rabin_primality_test_(Python)?oldid=15344
+'''
 
-import random, sys
+# pylint: disable=invalid-name
+#
+import random
+import sys
 
 def miller_rabin_pass(a, n):
+    ''' miller_rabin_pass '''
     d = n - 1
     s = 0
     while d % 2 == 0:
@@ -36,7 +44,7 @@ def miller_rabin_pass(a, n):
     a_to_power = pow(a, d, n)
     if a_to_power == 1:
         return True
-    for i in xrange(s-1):
+    for _ in range(s-1):
         if a_to_power == n - 1:
             return True
         a_to_power = (a_to_power * a_to_power) % n
@@ -44,7 +52,8 @@ def miller_rabin_pass(a, n):
 
 
 def miller_rabin(n):
-    for repeat in xrange(20):
+    ''' miller_rabin '''
+    for _ in range(20):
         a = 0
         while a == 0:
             a = random.randrange(n)
@@ -52,6 +61,10 @@ def miller_rabin(n):
             return False
     return True
 
+
+def print_result(n):
+    ''' show result '''
+    print('{} is {}'.format(n, miller_rabin(n) and "PRIME" or "COMPOSITE"))
 
 '''
 if __name__ == "__main__":
@@ -67,21 +80,30 @@ if __name__ == "__main__":
         print "composite"
 '''
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
+    if len(sys.argv) == 3:
         if sys.argv[1] == "test":
-            n = long(sys.argv[2])
-            print n, 'is', (miller_rabin(n) and "PRIME" or "COMPOSITE")
+            v = int(sys.argv[2])
+            print_result(v)
         elif sys.argv[1] == "genprime":
             nbits = int(sys.argv[2])
             while True:
                 p = random.randrange(2 ** nbits)
-                if p % 2 == 0: continue
-                if p % 3 == 0: continue
-                if p % 5 == 0: continue
-                if p % 7 == 0: continue
+                if p % 2 == 0:
+                    continue
+                if p % 3 == 0:
+                    continue
+                if p % 5 == 0:
+                    continue
+                if p % 7 == 0:
+                    continue
                 if miller_rabin(p):
-                    print p
+                    print(p)
                     break
-    else:
-        n = 795028841
-        print n, 'is', (miller_rabin(n) and "PRIME" or "COMPOSITE")
+        exit(0)
+
+    if len(sys.argv) == 2:
+        print('MillerRabin.py [test|genprime] integer')
+        exit(0)
+
+    v = 795028841
+    print_result(v)
