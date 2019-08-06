@@ -185,6 +185,22 @@ class StorePrime():
             return
         StorePrime.show(v, self.at(p), self.at(q))
 
+    def list_nearby(self, v):
+        ''' print primes nearby v '''
+        (p, q) = self.search_between(v)
+        if p is None:
+            print('\tno answer for this')
+            return None
+        begin = 0
+        count = 4
+        if p > count:
+            begin = p - count
+        if q is None:   # pos p is a prime
+            end = p + count + 1
+        else:
+            end = p + count + 2
+        arr = self.pvalues[begin:end]
+        return arr
 
 if __name__ == '__main__':
     print('run **test_sp.py sp** to see the demo...')

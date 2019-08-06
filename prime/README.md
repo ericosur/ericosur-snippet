@@ -9,7 +9,11 @@
 - *factor.pl* takes *basic_prime.txt* as prime number table
 - *fac_by_table.pl* takes *prime_100k.txt* or *prime_1M.txt* as table
 - *fprm.py* use small primes to filter out non-primes
+
 - ```search_in_primes.py``` needs text data file ```prime_100k.txt```, will save it as ```primes.p``` for futher use. It answers lower/upper primes near the given number. For example, given 24, will get ```(23 <<<<< 29)```. It means between ```(23, 29)``` and closer to ```23```.
+
+- ```nearby_primes.py``` could list nearby primes from specified number
+- ```miller_rabin.py``` to test if a prime number
 
 ## prime number table
 
