@@ -2,11 +2,12 @@
 # coding: utf-8
 
 '''
-table: prime_100k.txt
-will load/save it as pickle format
+[goldbach's conjecture](https://en.wikipedia.org/wiki/Goldbach%27s_conjecture)
 
-given cli argument to get lower/upper prime
+given an even number and list some sum of two primes
 
+* import from store_prime using table prime_100k (100 killo primes)
+* import from sip, it uses table py1.txt (1 million primes)
 '''
 
 import bisect
@@ -14,7 +15,10 @@ import sys
 import random
 import time
 
-import search_in_primes
+# smaller and quicker
+from store_prime import StorePrime
+# larger and slower
+#from sip import LoadCompressPrime as StorePrime
 
 # pylint: disable=invalid-name
 # too-many-statements
@@ -82,12 +86,15 @@ def gold_bach(val, debug=False):
     ''' it could be found if val < 4 * 10^17 '''
     if debug:
         print('test {}...'.format(val))
-    with search_in_primes.StorePrime() as sp:
+    with StorePrime() as sp:
         if val % 2 != 0:
             print('[ERROR] must be an even number')
             return None
 
         ret = sp.get_primes_less_than(val)
+        if ret is None:
+            return None
+
         if debug:
             print('len(ret):', len(ret))
 
@@ -126,6 +133,11 @@ def main(argv):
                 r += 1
             argv.append(r)
 
+    if len(argv) == 1:
+        listnum = 6
+    else:
+        listnum = 3
+
     for ss in argv:
         try:
             val = int(ss)
@@ -133,8 +145,10 @@ def main(argv):
             if res is not None:
                 print('test {} goldbach ====>'.format(val), end='')
                 print('  total combination: {}'.format(len(res)))
-                print('  pick random one: {}'.format(res[random.randint(0, len(res)-1)]))
-                print('  pick last one: {}'.format(res[-1]))
+                a = random.sample(res, min(listnum, len(res)))
+                for e in a:
+                    print('  pick random one: {}'.format(e))
+                print('    pick last one: {}'.format(res[-1]))
         except ValueError:
             print('{} is a ValueError'.format(ss))
 

@@ -1,6 +1,5 @@
-#!/usr/bin/env python
-
-import sys
+#!/usr/bin/env python3
+# coding: utf-8
 
 '''
 http://en.wikipedia.org/wiki/Modular_exponentiation
@@ -11,35 +10,40 @@ use modular_pow to get modulus only
 
 '''
 
+import sys
+
 def modular_pow(base, exp, mod):
     '''
     b, e, m are natural
     '''
     c = 1
-    for i in xrange(exp):
+    for _ in range(exp):
         c = (c * base) % mod
     return c
 
-def powermod(b,e,m):
-    r = modular_pow(b,e,m)
-    print "%d ^ %d mod %d = %d" % (b, e, m, r)
+def powermod(b, e, m):
+    ''' powermod '''
+    r0 = modular_pow(b, e, m)
+    print('{} ^ {} mod {} = {}'.format(b, e, m, r0))
     # there is a built-in function
-    r = pow(b,e,m)
-    print "%d ^ %d mod %d = %d" % (b, e, m, r)
+    r1 = pow(b, e, m)
+    #print('{} ^ {} mod {} = {}'.format(b, e, m, r1))
+    assert r0 == r1
 
 
-def demo():
-    powermod(4,13,497)
-    powermod(104857,32768,4294)
+def main(argv):
+    ''' main '''
+    if argv == []:
+        print('demo:')
+        powermod(4, 13, 497)
+        powermod(104857, 32768, 4294)
+    else:
+        try:
+            arr = [int(x) for x in argv]
+            (b, e, m) = arr
+            powermod(b, e, m)
+        except ValueError as err:
+            print(err)
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        [b,e,m] = sys.argv[1:]
-        try:
-            powermod(int(b),int(e),int(m))
-        except:
-            print "shit happens"
-            quit()
-    else:
-        demo()
-
+    main(sys.argv[1:])

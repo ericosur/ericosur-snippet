@@ -13,6 +13,6 @@ Use C<Math::BigInt> instead;
 use bigint lib => 'Math::BigInt';
 
 $vv = 104857 ** 32768 % 4294;
-print $vv;
+print $vv, "\n";
 
 # answer is 2931

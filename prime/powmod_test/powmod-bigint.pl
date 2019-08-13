@@ -13,4 +13,4 @@ Use C<Math::BigInt> instead;
 use bigint;
 
 $vv = 104857 ** 32768 % 4294;
-print $vv;
+print $vv, "\n";
