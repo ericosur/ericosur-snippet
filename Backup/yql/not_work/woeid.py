@@ -8,6 +8,9 @@
 # from: http://57life.blogspot.tw/2012/12/msn-yahoo.html
 # 20070568   台北 (台北市內湖區)
 
+# not working any more
+assert False
+
 import sys
 import urllib2, urllib, json
 

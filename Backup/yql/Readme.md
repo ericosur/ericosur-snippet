@@ -24,3 +24,7 @@ this sub directory contains several samples to query Yahoo weather:
   * javascript
       * yql
       * showing forecasts
+
+## cwb openweather
+
+https://opendata.cwb.gov.tw/dist/opendata-swagger.html

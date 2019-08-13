@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-# will
+# not work any more
+assert False
 
 import urllib2, urllib, json
 baseurl = "https://query.yahooapis.com/v1/public/yql?"
