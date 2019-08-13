@@ -1,15 +1,27 @@
 # HOWTO cross compile mediainfo for raspberry pi
 
-fetch CLI source tarball of MediaInfo:
-```
-$ cd ~/Downloads/
-$ curl -O https://mediaarea.net/download/binary/mediainfo/19.04/MediaInfo_CLI_19.04_GNU_FromSource.tar.bz2
-```
+## toolchain
 
-toolchain for raspberry pi:
+* toolchain for raspberry pi:
 https://github.com/raspberrypi/tools.git
 
-first build libz for arm
+**or**
+
+ubuntu package for ARM cross compiler:
+
+```
+apt-get install binutils-arm-linux-gnueabi
+```
+
+## fetch CLI source tarball of MediaInfo:
+
+updated on Aug 13, 2019:
+```
+$ cd ~/Downloads/
+$ curl -O https://mediaarea.net/download/binary/mediainfo/19.07/MediaInfo_CLI_19.07_GNU_FromSource.tar.bz2
+```
+
+## first build libz for arm
 
 July 4, 2017 updated steps:
 
@@ -37,7 +49,6 @@ cp ~/src/ericosur-snippet/rpi/mediainfo/rpi-tools/build-all.sh ./
 cp ~/src/ericosur-snippet/rpi/mediainfo/linaro/linaro-env.sh ./
 cp ~/src/ericosur-snippet/rpi/mediainfo/linaro/linaro.sh ./
 ```
-
 
 * build zlib first
 ```
