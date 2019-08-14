@@ -2,7 +2,8 @@
 # coding: utf-8
 
 '''
-To know how many numbers could be elimated by these small primes as factor.
+use method of 'sieve of eratosthenes' to get four-digit-primes
+https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
 '''
 
 def output_to_file(fn, primes):
@@ -34,7 +35,7 @@ def main():
     print("left count of numbers:", len(target))
 
     # uncomment the following line if output to file
-    #output_to_file('four-digit-prime.txt', target)
+    #output_to_file('need_check.txt', target)
 
 
 if __name__ == '__main__':
