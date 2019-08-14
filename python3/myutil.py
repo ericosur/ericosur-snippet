@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-'''demo fetch image from imgur'''
+''' some useful tool functions '''
 
 from __future__ import print_function
 import os

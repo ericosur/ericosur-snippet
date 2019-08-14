@@ -35,3 +35,8 @@
 
 * getapikey.py
   common function to fetch API key of random.org
+
+## web api
+
+https://aa.usno.navy.mil/data/docs/api.php#phase
+https://opendata.cwb.gov.tw/index
