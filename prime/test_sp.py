@@ -21,16 +21,15 @@ def test(argv, sp):
         REPEAT = 10
         for _ in range(REPEAT):
             r = random.randint(_min, _max)
-            sp.test(r)
-    else:
-        for ss in argv:
-            try:
-                val = int(ss)
-                sp.test(val)
-            except ValueError:
-                print('    {} is a ValueError'.format(ss))
-                continue
+            argv.append(r)
 
+    for ss in argv:
+        try:
+            val = int(ss)
+            sp.test(val)
+        except ValueError:
+            print('    {} is a ValueError'.format(ss))
+            continue
 
 
 def main(argv, item):

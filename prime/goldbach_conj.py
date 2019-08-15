@@ -23,8 +23,11 @@ from store_prime import StorePrime
 # pylint: disable=invalid-name
 # too-many-statements
 
-def get_bisect(a, x):
-    ''' Locate the leftmost value exactly equal to value **x** from list **a** '''
+def index(a, x):
+    '''
+    get index of the leftmost value exactly equal to value **x** from list **a**
+    return -1 if not found
+    '''
     i = bisect.bisect_left(a, x)
     if i != len(a) and a[i] == x:
         return i
@@ -74,7 +77,7 @@ def impl3(val, ret):
         if pp > left:
             break
         try:
-            get_bisect(ret, left)
+            index(ret, left)
         except ValueError:
             pass
         else:
@@ -125,7 +128,7 @@ def main(argv):
         _max = 65536
         _min = 1024
         #print("max:{}, min:{}".format(_max, _min))
-        REPEAT = 10
+        REPEAT = 5
         for _ in range(REPEAT):
             r = random.randint(_min, _max)
             # an odd number, plus 1

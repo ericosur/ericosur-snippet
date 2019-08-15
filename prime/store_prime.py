@@ -8,8 +8,44 @@ provide a basic interface/class for load/save/search primes
 import os
 import pickle
 import re
+from bisect import bisect_left, bisect_right
 
 # pylint: disable=invalid-name
+
+def index(a, x):
+    ''' return index of the leftmost value exactly equal to x '''
+    i = bisect_left(a, x)
+    if i != len(a) and a[i] == x:
+        return i
+    return -1
+
+def find_lt(a, x):
+    ''' Find rightmost value less than x '''
+    i = bisect_left(a, x)
+    if i:
+        return a[i-1], i-1
+    raise ValueError
+
+def find_le(a, x):
+    ''' Find rightmost value less than or equal to x '''
+    i = bisect_right(a, x)
+    if i:
+        return a[i-1], i-1
+    raise ValueError
+
+def find_gt(a, x):
+    ''' Find leftmost value greater than x '''
+    i = bisect_right(a, x)
+    if i != len(a):
+        return a[i], i
+    raise ValueError
+
+def find_ge(a, x):
+    ''' Find leftmost item greater than or equal to x '''
+    i = bisect_left(a, x)
+    if i != len(a):
+        return a[i], i
+    raise ValueError
 
 class StorePrime():
     ''' class will help to handle read pickle file '''
@@ -112,21 +148,44 @@ class StorePrime():
             return None
         if val == _min:
             return [2]
-        (p, _) = self.search_between(val)
+        (p, _) = self.search_between_idx(val)
         if p is None:
             print('[ERROR] cannot operate')
             return None
         plist = self.pvalues[:p]
         return plist
 
+    def bisect_between_idx(self, val):
+        '''
+        use bisect to search value in list return index for lower, upper bound
+        '''
+        if self.pvalues is None:
+            print('[FAIL] predefined data not available')
+            return (None, None)
+        i = index(self.pvalues, val)
+        if i != -1:
+            return (i, None)
+        # not exactly prime, search lower, upper bound
+        a = self.pvalues
+        x = val
+        try:
+            _, p = find_le(a, x)
+            _, q = find_ge(a, x)
+            return (p, q)
+        except ValueError:
+            print('something wrong for {}, OOB?'.format(x))
+            return (None, None)
 
-    def search_between(self, val):
-        ''' search value at index or between '''
+
+    def search_between_idx(self, val):
+        '''
+        search value within primes, return index for lower, upper bound
+        '''
         if self.pvalues is None:
             print('[FAIL] predefined data not available')
             return (None, None)
         if val in self.pvalues:
-            return (self.pvalues.index(val), None)
+            return (val, None)
         if val < self.pvalues[0]:
             print('{} is smaller than lower bound'.format(val))
             return (None, None)
@@ -179,7 +238,7 @@ class StorePrime():
 
     def test(self, v):
         ''' test '''
-        (p, q) = self.search_between(v)
+        (p, q) = self.bisect_between_idx(v)
         if p is None:
             print('\tno answer for this')
             return
@@ -187,7 +246,8 @@ class StorePrime():
 
     def list_nearby(self, v):
         ''' print primes nearby v '''
-        (p, q) = self.search_between(v)
+        (p, q) = self.bisect_between_idx(v)
+        #print('p, q:', p, q)
         if p is None:
             print('\tno answer for this')
             return None

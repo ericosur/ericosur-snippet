@@ -28,7 +28,7 @@ sub load_prime_table($)
 	}
 	close $ifh;
 
-	printf STDERR "%d prime numbers parsed from text file\n", $count;
+	printf STDERR "%d prime numbers parsed from text file: %s\n", $count, $plain_file;
 	# and store it into data file
 	my $store_file = 'fourdigit.dat';
 	store(\@primes, $store_file);
@@ -42,7 +42,7 @@ sub load_prime_table($)
 # output one random number with (upper, lower)
 sub get_one_rand_number($$)
 {
-	my ($upper, $lower) = @_;
+	my ($lower, $upper) = @_;
 
 	my $range = $upper - $lower + 1;
 	my $num;
@@ -67,7 +67,7 @@ sub main()
 
 	# try 10 times
 	for ( 1 .. 1)  {
-		my $nn = get_one_rand_number(9999, 1000);
+		my $nn = get_one_rand_number(1000, 9999);
 		find_nearest_prime($nn, \@fprime);
 		say "nn: ", $nn;
 	}
@@ -85,13 +85,14 @@ sub find_nearest_prime($$)
 	my $idx = $size / 2;
 	my $dist = -1;
 	my ($prev, $test) = (0,0);
+	my $TRY_COUNT = 10;
 
 	# try binary search
 	my $cnt = 0;
 	while ( $idx >= 0 || $idx < $size )  {
-		last if $cnt > 20;
+		last if $cnt > $TRY_COUNT;
 		$test = $prm[$idx];
-		printf("(%d) try idx: %d => %d\t", $cnt, $idx, $test);
+		printf("(%02d) try idx: %d => %d    ", $cnt, $idx, $test);
 		$cnt ++;
 		if ($prev == $test)  {  # repeats...
 			say "repeats... exit...";

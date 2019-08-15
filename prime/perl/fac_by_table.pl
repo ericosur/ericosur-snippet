@@ -68,10 +68,10 @@ sub main
 {
 	# load data from storage file
 	if (-e $store_file)  {
-		print "load from stored data file\n";
+		printf "load from stored data file: %s\n", $store_file;
 		%prime = %{ retrieve($store_file) };   # direct to hash
 	} else  {
-		print "load from plain text file\n";
+		print "load from plain text file: %s\n", $plain_file;
 		load_prime_table();
 	}
 	$max_index = scalar(keys(%prime));
