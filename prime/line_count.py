@@ -17,19 +17,6 @@ import sys
 from collections import defaultdict
 from timeit import default_timer as timer
 
-# try:
-#     from fadvise import sequential, normal # http://chris-lamb.co.uk/projects/python-fadvise/
-#     def fadvcount(fname):
-#         ''' fadvcount is external module '''
-#         sequential(fname)
-#         c = bufcount(fname)
-#         normal(fname)
-#         return c
-# except ImportError:
-#     import warnings
-#     warnings.warn("can't import fadvise: fadvcount() will be unavailable", UserWarning)
-
-
 def mapcount(filename):
     ''' memory map '''
     f = open(filename, "r+")
@@ -84,6 +71,19 @@ def kylecount(fname):
     ''' kyle count '''
     return sum(1 for line in open(fname))
 
+try:
+    from fadvise import sequential, normal # http://chris-lamb.co.uk/projects/python-fadvise/
+    def fadvcount(fname):
+        ''' fadv count '''
+        sequential(fname)
+        c = bufcount(fname)
+        normal(fname)
+        return c
+except ImportError:
+    import warnings
+    warnings.warn("can't import fadvise: fadvcount() will be unavailable",
+                  UserWarning)
+
 def clear_cache():
     """Clear disk cache on Linux."""
     os.system("sync ; sudo /bin/sh -c 'echo 3 > /proc/sys/vm/drop_caches'")
@@ -109,7 +109,7 @@ def main():
             start_time = timer()
             # http://norvig.com/big.txt
             if filename == 'big.txt':
-                assert func(filename) == 128457 # 128457 1095695 6488666 big.txt
+                assert func(filename) == 1000000 # 1000000 1000000 8245905 big.txt
             else:
                 func(filename)
             counts[func].append(timer() - start_time)
