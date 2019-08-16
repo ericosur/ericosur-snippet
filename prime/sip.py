@@ -7,6 +7,8 @@ will load/save it as pickle format (need compress_pickle)
 
 given cli argument to get lower/upper prime
 
+pip install compress_pickle
+
 '''
 
 import compress_pickle
