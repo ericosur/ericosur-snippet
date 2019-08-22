@@ -3,41 +3,56 @@
 
 '''
 randomint to base64
+add sample of ' Function Annotations'
+https://www.python.org/dev/peps/pep-3107/
 '''
 
-from __future__ import print_function
 import binascii as bi
 import hashlib
+import sys
 import numpy as np
 
-def get_random_bytes(size=64):
+def get_random_bytes(size: int = 9) -> bytes:
     '''
     [in] size
     return type: bytes compatible
     '''
     return np.random.bytes(size)
 
-def get_base64(byte_array):
+def get_base64(byte_array: bytes) -> bytes:
     '''
-    return: type: bytes, in base64
+    base64 of bytes
     '''
     return bi.b2a_base64(byte_array)
 
-def get_diget(data):
-    '''
-    return: str
-    '''
+def get_md5(data: bytes) -> str:
+    ''' get md5 digest '''
     m = hashlib.md5()
     m.update(data)
     return m.hexdigest()
 
-def main():
-    ''' main test function '''
-    for _ in range(10):
-        b = get_random_bytes()
-        print(get_base64(b))
-        print(get_diget(b))
+def get_sha256(data: bytes) -> str:
+    ''' get sha256 '''
+    m = hashlib.sha256()
+    m.update(data)
+    return m.hexdigest()
 
+def main(argv: list):
+    ''' main test function '''
+    if argv == []:
+        repeat = 2
+        for _ in range(repeat):
+            argv.append(get_random_bytes())
+
+    for e in argv:
+        if not isinstance(e, bytes):
+            b = e.encode('utf-8')
+        else:
+            b = e
+        print('base64:', get_base64(b))
+        print('   md5:', get_md5(b))
+        print('sha256:', get_sha256(b))
+        print()
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv[1:])
