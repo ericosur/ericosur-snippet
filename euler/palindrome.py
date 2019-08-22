@@ -6,6 +6,11 @@ http://projecteuler.net/problem=4
 http://en.wikipedia.org/wiki/Palindromic_number
 http://www.csie.ntnu.edu.tw/~u91029/Palindrome.html
 
+zh: 回文數
+
+palindromic primes
+https://oeis.org/A002385
+
 '''
 
 import itertools as it
