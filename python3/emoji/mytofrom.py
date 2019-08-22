@@ -5,7 +5,6 @@
 unicode escape sequence to utf-8 and backward
 '''
 
-from __future__ import print_function
 import json
 import binascii as bi
 
@@ -28,7 +27,6 @@ def to_utf8(cc):
 def to_from_u16(cc):
     '''
     cc [in] unicode char
-
     calling: to_from_u16(chr(0x0001f3c8))
     '''
     print(cc)

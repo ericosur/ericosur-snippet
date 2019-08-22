@@ -2,7 +2,7 @@
 # coding: utf-8
 
 '''
-u8u16 tests
+u8u16 tests, apply string directly from CLI or json file
 '''
 
 import sys
@@ -63,17 +63,17 @@ def test3():
     to_from_u16(cc)
 
 
-def main():
+def main(argv: list):
     ''' main '''
-    test0()
-    #test2()
-    #test3()
+    if argv == []:
+        test0()
+        #test2()
+        #test3()
+        quit()
+
+    for s in argv:
+        to_from_u16(s)
+        to_utf8(s)
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        S = sys.argv[1]
-        to_from_u16(S)
-        to_utf8(S)
-    else:
-        print('no cli parameter, call demo functions')
-        main()
+    main(sys.argv[1:])
