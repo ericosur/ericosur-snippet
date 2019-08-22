@@ -7,7 +7,6 @@ using sympy.factorint to factorize integers
 it takes a while to load sympy (it's huge!)
 '''
 
-from __future__ import print_function
 import sys
 from sympy import factorint
 
@@ -15,17 +14,16 @@ def show(value):
     '''
     use sympy.factorint() and display in formatted form
     '''
-    if value <= 0:
-        print("must > 0")
-        return
+    assert value >= 0
+
     # factorint() will return dict with factor and its
     myd = factorint(value)
     # output the result...
     print(value, "= ", end='')
-    x = list(myd.keys())
-    x.sort()
+    arr = list(myd.keys())
+    arr.sort()
     isFirst = True
-    for key in x:
+    for key in arr:
         if not isFirst:
             print(" * ", end='')
         else:
@@ -37,24 +35,26 @@ def show(value):
             print("{}**{}".format(key, myd[key]), end='')
 
 
-
-def main():
+def main(argv: list):
     '''main function'''
-    if len(sys.argv) == 1:
-        print("usage: %s [arg1] [arg2]..." % sys.argv[0])
-        quit()
+    if argv == []:
+        print("usage: factoring.py [arg1] [arg2]...")
+        print()
+        from random import randint
+        for _ in range(3):
+            argv.append(randint(1001, 9999))
 
-    for x in sys.argv[1:]:
+    for x in argv:
         try:
             value = int(x)
             show(value)
             print()
         except ValueError:
-            print("not a numeric value")
-            quit()
-        except:
-            print("unexpected error:", sys.exc_info()[0])
-            raise
+            print("not a numeric value:", x)
+            continue
+        # except:
+        #     print("unexpected error:", sys.exc_info()[0])
+        #     continue
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv[1:])

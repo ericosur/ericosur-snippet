@@ -7,10 +7,7 @@ if numpy is available, it could be more efficient by using:
 np.arange and np.sum
 '''
 
-from __future__ import print_function
-
-# pylint: disable=useless-object-inheritance
-class SumUp(object):
+class SumUp():
     ''' different method for sum '''
     def __init__(self):
         self.sum = 0

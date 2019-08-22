@@ -5,8 +5,6 @@
 unicode zjw test
 '''
 
-from __future__ import print_function
-
 def main():
     ''' main test '''
     # MUST NOT edit the following string if your editor/system

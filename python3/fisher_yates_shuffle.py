@@ -3,7 +3,6 @@
 
 ''' fisher-yates shuffle '''
 
-from __future__ import print_function
 import random
 
 # implement fisher-yates shuffle in python
