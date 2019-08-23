@@ -3,19 +3,25 @@
 #
 ''' just pick one name from name list randomly '''
 
-from __future__ import print_function
 import random
 
 def demo():
     '''demo function'''
     name_list = ['alice', 'bob', 'cathy', 'david', 'eric',
-                 'fred', 'grace', 'helen', 'instgram', 'hicob']
+                 'fred', 'grace', 'helen', 'injet', 'jacob',
+                 'keem', 'liam', 'mike', 'nike']
     size = len(name_list)
-    REPEAT = 5
+    REPEAT = 2
 
+    print('use random.randint as index:')
     for _ in range(REPEAT):
         idx = random.randint(0, size - 1) # int(random.random() * size)
         print("name picked: {}".format(name_list[idx]))
+
+    # another way
+    print('use random.choice:')
+    for _ in range(REPEAT):
+        print("name picked: {}".format(random.choice(name_list)))
 
 if __name__ == '__main__':
     demo()

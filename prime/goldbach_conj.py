@@ -15,10 +15,15 @@ import sys
 import random
 import time
 
-# smaller and quicker
-from store_prime import StorePrime
-# larger and slower
-#from sip import LoadCompressPrime as StorePrime
+try:
+    # larger and slower
+    from sip import LoadCompressPrime as StorePrime
+    print('use **LoadCompressPrime**')
+except ImportError:
+    # smaller and quicker
+    from store_prime import StorePrime
+    print('use **store_prime**')
+
 
 # pylint: disable=invalid-name
 # too-many-statements

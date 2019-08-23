@@ -11,7 +11,12 @@ pip install compress_pickle
 
 '''
 
-import compress_pickle
+try:
+    import compress_pickle
+except ImportError:
+    print('cannot load module **compress_pickle**')
+    quit()
+
 from store_prime import StorePrime
 
 # pylint: disable=invalid-name
