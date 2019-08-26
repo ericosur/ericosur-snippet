@@ -3,6 +3,9 @@
 *.gz
 *.lzma
 py*.txt
-need_check.txt
+*need_check.txt
 prime.dat
+small.txt
+big.txt
+large.txt
 

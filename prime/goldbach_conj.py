@@ -7,7 +7,7 @@
 given an even number and list some sum of two primes
 
 * import from store_prime using table prime_100k (100 killo primes)
-* import from sip, it uses table py1.txt (1 million primes)
+* import from sip, it uses larger table
 '''
 
 import bisect

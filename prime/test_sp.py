@@ -5,6 +5,7 @@
 test StorePrime
 '''
 
+from myutil import read_setting
 
 def test(argv, sp):
     ''' test '''
@@ -34,9 +35,14 @@ def test(argv, sp):
 
 def main(argv, item):
     ''' main function '''
+    data = read_setting('setting.json')
+    txtfn = data['prime_large']
+    pfn = data['pickle_large']
+    print(txtfn, pfn)
+
     if item == 'sp':
         from store_prime import StorePrime
-        with StorePrime() as sp:
+        with StorePrime(txtfn, pfn) as sp:
             test(argv, sp)
     else:
         from sip import LoadCompressPrime
@@ -50,6 +56,6 @@ if __name__ == '__main__':
     try:
         if sys.argv[1] in ('sp', 'sip'):
             main(sys.argv[2:], sys.argv[1])
-    except IndexError:
-        print('**python3 test_sp.py sp**  OR')
-        print('**python3 test_sp.py sip**')
+    except IndexError as err:
+        print(err)
+        print('specify arg: sp or sip')

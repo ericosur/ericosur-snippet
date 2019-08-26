@@ -4,6 +4,8 @@
 '''
 use method of 'sieve of eratosthenes' to get four-digit-primes
 https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
+
+there is a speed-upgraded version 'sieve.py'
 '''
 
 def output_to_file(fn, primes):
@@ -21,7 +23,7 @@ def main():
                     53, 59, 61, 67, 71,
                     73, 79, 83, 89, 97]
     LOWER = 2
-    UPPER = 1000000
+    UPPER = 100000
     print('integers from {} to {}'.format(LOWER, UPPER - 1))
     target = [i for i in range(LOWER, UPPER)]
     for pp in small_primes:
@@ -41,4 +43,5 @@ def main():
 
 
 if __name__ == '__main__':
+    print('there is also a speed-upgraded version: sieve.py')
     main()

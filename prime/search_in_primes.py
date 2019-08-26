@@ -17,9 +17,9 @@ import random
 
 # pylint: disable=invalid-name
 
-class StorePrime():
+class LoadPrimeFromText():
     ''' class will help to handle read pickle file '''
-    def __init__(self, txtfn='prime_100k.txt', pfn='primes.p'):
+    def __init__(self, txtfn='prime_100k.txt', pfn='small.p'):
         #print('__init__')
         # init values
         self.pvalues = None
@@ -179,7 +179,7 @@ def show(v, p, q):
 
 def main(argv):
     ''' main function '''
-    with StorePrime() as sp:
+    with LoadPrimeFromText() as sp:
 
         print(sp)
 

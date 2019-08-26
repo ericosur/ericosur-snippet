@@ -2,7 +2,7 @@
 # coding: utf-8
 
 '''
-table: prime_1M.txt (with 1 million primes)
+table: small.txt / big.txt / large.txt
 will load/save it as pickle format (need compress_pickle)
 
 given cli argument to get lower/upper prime
@@ -26,7 +26,7 @@ class LoadCompressPrime(StorePrime):
     this class inherits from StorePrime and overrides load_pickle() and
     save_pickle(), which are using "compress_pickle" to load/save pickle data
     '''
-    def __init__(self, txtfn='prime_1M.txt', pfn='primes.p.lzma'):
+    def __init__(self, txtfn='large.txt', pfn='large.p.lzma'):
         super().__init__(txtfn, pfn)
         #print('__init__')
 

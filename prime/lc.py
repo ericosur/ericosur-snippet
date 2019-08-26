@@ -9,10 +9,11 @@ handle one million lines of text file with reading all lines into memory
 import random
 from itertools import islice
 from line_count import bufcount
+from myutil import read_setting
+
 
 # pylint: disable=global-statement
 
-FILENAME = 'py1.txt'
 TOTAL_CALLS = 0
 
 def get_nth_line_from_file(fn, line_num):
@@ -95,7 +96,8 @@ def get_filesize(fn):
 
 def main(argv):
     ''' main '''
-    fn = FILENAME
+    data = read_setting('setting.json')
+    fn = data['prime_big']
     sz = get_filesize(fn)
     lnc = bufcount(fn)
     print('text file: {}, size: {}, lines: {}'.format(fn, sz, lnc))

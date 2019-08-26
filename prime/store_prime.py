@@ -12,35 +12,35 @@ from bisect import bisect_left, bisect_right
 
 # pylint: disable=invalid-name
 
-def index(a, x):
+def index(a: list, x: int):
     ''' return index of the leftmost value exactly equal to x '''
     i = bisect_left(a, x)
     if i != len(a) and a[i] == x:
         return i
     return -1
 
-def find_lt(a, x):
+def find_lt(a: list, x: int):
     ''' Find rightmost value less than x '''
     i = bisect_left(a, x)
     if i:
         return a[i-1], i-1
     raise ValueError
 
-def find_le(a, x):
+def find_le(a: list, x: int):
     ''' Find rightmost value less than or equal to x '''
     i = bisect_right(a, x)
     if i:
         return a[i-1], i-1
     raise ValueError
 
-def find_gt(a, x):
+def find_gt(a: list, x: int):
     ''' Find leftmost value greater than x '''
     i = bisect_right(a, x)
     if i != len(a):
         return a[i], i
     raise ValueError
 
-def find_ge(a, x):
+def find_ge(a: list, x: int):
     ''' Find leftmost item greater than or equal to x '''
     i = bisect_left(a, x)
     if i != len(a):
@@ -49,7 +49,7 @@ def find_ge(a, x):
 
 class StorePrime():
     ''' class will help to handle read pickle file '''
-    def __init__(self, txtfn='prime_100k.txt', pfn='primes.p'):
+    def __init__(self, txtfn='small.txt', pfn='small.p'):
         #print('__init__')
         # init values
         self.pvalues = None
@@ -108,14 +108,20 @@ class StorePrime():
 
         with open(self.txtfile, "rt") as txtinf:
             self.need_save = True
+            error_count = 0
             while True:
                 ln = txtinf.readline().strip()
                 if ln == '':
                     break
-                result = re.match(r'^(\d+)\s+(\d+)', ln)
-                if result and len(result.groups()) == 2:
-                    el = int(result.groups()[1])
+                if error_count > 10:
+                    print('invalid format?')
+                    break
+                result = re.match(r'^(\d+)$', ln)
+                if result:
+                    el = int(result.groups()[0])
                     self.pvalues.append(el)
+                else:
+                    error_count += 1
         return True
 
     def save_pickle_impl(self):
@@ -133,11 +139,15 @@ class StorePrime():
         else:
             print('no need to save')
 
-    def find(self, val):
+    def find(self, val: int):
         ''' find val in list of primes '''
         #if val in self.pvalues:
         return self.pvalues.index(val)
         #return -1
+
+    def index(self, val: int):
+        ''' use external index() '''
+        return index(self.pvalues, val)
 
     def get_primes_less_than(self, val):
         ''' get a list of primes less than given value '''
@@ -181,7 +191,7 @@ class StorePrime():
         '''
         search value within primes, return index for lower, upper bound
         '''
-        if self.pvalues is None:
+        if self.pvalues is None or self.pvalues == []:
             print('[FAIL] predefined data not available')
             return (None, None)
         if val in self.pvalues:

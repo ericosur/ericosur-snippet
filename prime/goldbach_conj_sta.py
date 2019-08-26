@@ -87,7 +87,7 @@ def gold_bach(val, debug=False):
     ''' it could be found if val < 4 * 10^17 '''
     if debug:
         print('test {}...'.format(val))
-    with search_in_primes.StorePrime() as sp:
+    with search_in_primes.LoadPrimeFromText() as sp:
         if val % 2 != 0:
             print('[ERROR] must be an even number')
             return None

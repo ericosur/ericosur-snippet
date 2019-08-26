@@ -91,7 +91,7 @@ def clear_cache():
 def main():
     ''' main '''
     counts = defaultdict(list)
-    default_fn = 'py1.txt'
+    default_fn = 'big.txt'
 
     if '--clear-cache' in sys.argv:
         sys.argv.remove('--clear-cache')
