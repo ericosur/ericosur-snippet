@@ -20,8 +20,10 @@ def main():
                     31, 37, 41, 43, 47,
                     53, 59, 61, 67, 71,
                     73, 79, 83, 89, 97]
-
-    target = [i for i in range(1000, 10000)]
+    LOWER = 2
+    UPPER = 1000000
+    print('integers from {} to {}'.format(LOWER, UPPER - 1))
+    target = [i for i in range(LOWER, UPPER)]
     for pp in small_primes:
         cnt = 0
         print('use {} to filter, count {} before start '.format(pp, len(target)), end='')
@@ -35,7 +37,7 @@ def main():
     print("left count of numbers:", len(target))
 
     # uncomment the following line if output to file
-    #output_to_file('need_check.txt', target)
+    #output_to_file('primes_need_check.txt', target)
 
 
 if __name__ == '__main__':
