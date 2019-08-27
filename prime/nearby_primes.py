@@ -38,7 +38,7 @@ def test(argv, sp):
             if ans is not None:
                 for n in ans:
                     if n == val:
-                        print('prime ', end='')
+                        print('prime idx#{}  '.format(sp.index(val)), end='')
                     if n > val and not isShown and not isPrime:
                         print('input ', val)
                         isShown = True

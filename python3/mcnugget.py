@@ -6,13 +6,12 @@ http://mathworld.wolfram.com/McNuggetNumber.html
 
 '''
 
-from __future__ import print_function
 import itertools as it
 import operator
 import bisect
 from math import ceil
 
-def check_missing(res, maxnum):
+def check_missing(res: list, maxnum: int) -> list:
     '''
     return missing number in list
     '''
@@ -52,7 +51,7 @@ def main():
         # ans > 0 and ans is not duplicated
         if ans and not ans in res:
             bisect.insort(res, ans)
-            print('n: {} ans: {}'.format(n, ans))
+            #print('n: {} ans: {}'.format(n, ans))
 
     print('res: {}'.format(res))
     missing = check_missing(res, MAXNUMBER)

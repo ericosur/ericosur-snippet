@@ -2,8 +2,17 @@
 # coding: utf-8
 
 '''
-table: prime_100k.txt
-will load/save it as pickle format
+class LoadPrimeFromText
+
+text table: prime_100k.txt
+format:
+1 2
+2 3
+3 5
+4 7
+...
+
+if pickle exists, use it, or load text
 
 given cli argument to get lower/upper prime
 

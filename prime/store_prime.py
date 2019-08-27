@@ -139,17 +139,17 @@ class StorePrime():
         else:
             print('no need to save')
 
-    def find(self, val: int):
+    def find(self, val: int) -> int:
         ''' find val in list of primes '''
         #if val in self.pvalues:
         return self.pvalues.index(val)
         #return -1
 
-    def index(self, val: int):
+    def index(self, val: int) -> int:
         ''' use external index() '''
         return index(self.pvalues, val)
 
-    def get_primes_less_than(self, val):
+    def get_primes_less_than(self, val: int) -> list:
         ''' get a list of primes less than given value '''
         _max = self.pvalues[-1]
         _min = self.pvalues[0]
@@ -165,7 +165,7 @@ class StorePrime():
         plist = self.pvalues[:p]
         return plist
 
-    def bisect_between_idx(self, val):
+    def bisect_between_idx(self, val: int) -> tuple:
         '''
         use bisect to search value in list return index for lower, upper bound
         '''
@@ -246,7 +246,7 @@ class StorePrime():
                 arrow = ">>>>>"
             print('{} is in the range of ({} {} {})'.format(v, p, arrow, q))
 
-    def test(self, v):
+    def test(self, v: int):
         ''' test '''
         (p, q) = self.bisect_between_idx(v)
         if p is None:
@@ -254,7 +254,7 @@ class StorePrime():
             return
         StorePrime.show(v, self.at(p), self.at(q))
 
-    def list_nearby(self, v):
+    def list_nearby(self, v: int) -> list:
         ''' print primes nearby v '''
         (p, q) = self.bisect_between_idx(v)
         #print('p, q:', p, q)
