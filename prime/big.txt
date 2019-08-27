@@ -1,1 +1,0 @@
-/home/rasmus/Dropbox/src/primes/py1.txt
