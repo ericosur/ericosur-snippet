@@ -3,13 +3,15 @@
 
 """access_file test file existence before using it"""
 
-from __future__ import print_function
-import sys
-import cv2
+try:
+    import cv2
+except ImportError:
+    print("ImportError: pip install opencv-python")
+    quit()
 
 # pylint: disable=no-member
 
-def test_file(fn):
+def test_file(fn: str) -> bool:
     '''
     use open() to test file could be accessed
     '''
@@ -33,18 +35,19 @@ def main(argv):
     '''
     use cv2.imread() to load an image
     '''
-    fn = '/dev/shm/reid.jpg'
-    if len(argv) > 1:
-        fn = argv[1]
-    else:
+    if argv == []:
+        fn = '/dev/shm/reid.jpg'
         print('specify an image file path, using default: %s' % fn)
+        argv.append(fn)
 
-    if test_file(fn):
-        img = cv2.imread(fn)
-        cv2.imshow('test', img)
-        cv2.waitKey(0)
-    else:
-        print('main: cannot access file')
+    for f in argv:
+        test_file(f)
+        img = cv2.imread(f)
+        if img is not None:
+            cv2.imshow(f, img)
+            cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
 if __name__ == '__main__':
-    main(sys.argv)
+    import sys
+    main(sys.argv[1:])
