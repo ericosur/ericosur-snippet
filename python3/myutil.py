@@ -83,14 +83,17 @@ def query_url_for_data(url):
     if debug:
         print(url)
     py_ver = get_python_version()
-    if float(py_ver) >= 3.0:
-        #print("python >= 3.0")
-        import urllib.request
-        result = urllib.request.urlopen(url).read()
-    else:
-        #print("python < 3.0")
-        import urllib
-        result = urllib.urlopen(url).read()
+    try:
+        if float(py_ver) >= 3.0:
+            #print("python >= 3.0")
+            import urllib.request
+            result = urllib.request.urlopen(url).read()
+        else:
+            #print("python < 3.0")
+            import urllib
+            result = urllib.urlopen(url).read()
+    except ImportError:
+        print('[ERROR] import error!')
     return result
 
 
