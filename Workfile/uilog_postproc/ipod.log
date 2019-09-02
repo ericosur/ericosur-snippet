@@ -1,0 +1,545 @@
+snd_hwdep already loaded
+snd_rawmidi already loaded
+snd_usbmidi_lib already loaded
+snd_usb_audio already loaded
+load iap2usbhid
+[05:39:15.973][][1240] D: ipodui start!!!
+[05:39:16.157][ipodui][1240] D: Using Wayland-EGL
+[05:39:16.346][ipodui][1240] D: MainWindow
+[05:39:16.347][ipodui][1240] D: ctor: create audio object
+[05:39:16.592][ipodui][1240] D: object MainWindow created...
+[05:39:16.592][ipodui][1240] D: PollThread::PollThread() created
+[05:39:16.592][ipodui][1240] D: WaitBtThread: created, watching: /var/run/iap-auth.lck
+[05:39:17.445][ipodui][1240] D: main.qml: onCompleted
+[05:39:17.998][ipodui][1240] D: pagefakeusb.qml: onEnterPage...
+[05:39:18.010][ipodui][1240] D: Using the 'ivi-shell' shell integration
+[05:39:18.013][ipodui][1240] D: surface id of qv1 =  1240
+[05:39:18.014][ipodui][1240] W: cannot load config /data/etc/sysinfo.txt
+[05:39:18.015][ipodui][1240] D: dump product info =====> 
+name: iPod PlayList 
+model: CIS002 
+manufacturer: Pegatron 
+serial: 0000000001 
+sw: 0.01 
+hw: 0.01 
+pid: 51966 
+vid: 61453 
+<=-=-=-=-=
+[05:39:18.040][ipodui][1240] D: YoseMsg: used msgq key  "0xDEF160D"
+[05:39:18.040][ipodui][1240] D: virtual void YoseMsg::run() key:  "0xDEF160D"  msgq_id:  589842
+[05:39:18.041][ipodui][1240] D: sltHandleMsg recv: "autoFullScreen/false"
+[05:39:18.041][ipodui][1240] D: void ActionHandler::actAutofullscreen() false
+IPODSDK_DEBUG=7
+[05:39:18.164][ipodui][1240] D: playlist manager init'ed...
+[05:39:18.164][ipodui][1240] D: key filter instance is created...
+[05:39:18.165][ipodui][1240] D: request register...
+[05:39:19.166][ipodui][1240] D: start to register hdlr...
+[05:43:37.968][ipodui][1240] W: void ipodui_dispatch_hdlr(LaunchInfo)  info: "keycode=launcher"
+[05:43:37.968][ipodui][1240] W: >>>>> keycode=launcher , svc id: SVC_HMI_IPOD
+[05:43:37.980][ipodui][1240] D: setPlmState: Turn PLM to: ON
+[05:43:37.980][ipodui][1240] D: requestWaitBt starts waiting BT...
+[05:43:37.981][ipodui][1240] W: setPlmState: cannot unlock PLM wait lock
+[05:43:37.981][ipodui][1240] D: WaitBtThread: start running...
+[05:43:37.983][ipodui][1240] D: myflock: file:  /var/run/iap-auth.lck fd: 23 is locked[05:43:37.989][ipodui][1240] W: >>>>> ipodui requests HMI shows up...
+
+[05:43:37.989][ipodui][1240] D: myfunlock fd 23 unlocked
+[05:43:37.989][ipodui][1240] D: WaitBtThread: flock is available @ 1555476217989
+[05:43:37.990][ipodui][1240] D: WaitBtThread: finished
+[05:43:38.005][ipodui][1240] D: sltWaitBtFinished enables PLM
+version --- 2 2
+[05:43:38.439][ipodui][1240] W: device attached...
+[05:43:38.440][ libhu][WARN] +++request svc id is [SVC_HMI_IPOD]
+[05:43:38.440][ libhu][WARN] +++cur hmi is [SVC_HMI_IPOD]
+[05:43:38.440][ libhu][WARN] +++skip, hmi in foreground
+[05:43:38.440][ipodui][1240] D: void MainWindow::init_ipod_db()
+[05:43:38.441][ipodui][1240] D: PageRootBase: switch to ipod page...
+[05:43:38.653][ipodui][1240] D: UpdateSelectedMediaItem_ItemCb: artwork id: 128
+[05:43:38.654][ipodui][1240] W: skip dropdown: ipod is not ready...
+[05:43:38.654][ipodui][1240] D: json parse err: "illegal value"
+[05:43:38.654][ipodui][1240] W: read json status failed: /var/run/media/ipod.json
+[05:43:38.655][ipodui][1240] D: UpdateTotalTime 0
+[05:43:38.655][ipodui][1240] W: lookupInAllSongs: media library is not ready, exit...
+[05:43:38.696][ipodui][1240] D: MediaArtworkReadyCb: "mPID(0) ==> artwork(128)"
+[05:43:38.779][ipodui][1240] D: MyKeyReceiver
+[05:43:38.784][laudio][  INFO] type=0, bass = 50, min = 50, tre = 50
+[05:43:38.784][laudio][  INFO] type=1, bass = 75, min = 54, tre = 71
+[05:43:38.784][laudio][  INFO] type=6, bass = 75, min = 46, tre = 54
+[05:43:38.784][laudio][  INFO] type=5, bass = 58, min = 71, tre = 54
+[05:43:38.784][laudio][  INFO] type=4, bass = 67, min = 75, tre = 75
+[05:43:38.784][laudio][  INFO] type=3, bass = 79, min = 50, tre = 79
+[05:43:38.784][laudio][  INFO] type=2, bass = 75, min = 79, tre = 71
+[05:43:38.785][ipodui][1240] D: SimpleNotify::run()
+[05:43:38.786][ipodui][1240] W: skip calling setDisplayByCurState()
+[05:43:38.837][ipodui][1240] D: getSpeedPulse: 0
+[05:43:38.838][ipodui][1240] D: getSpeedPulse: 0
+[05:43:38.903][ipodui][1240] W: libpng warning: iCCP: known incorrect sRGB profile
+[05:43:38.907][ipodui][1240] D: "UpdatePlaybackCb: //0/0"
+[05:43:38.934][ipodui][1240] D: "UpdatePlaybackCb: 音樂//2/236511"
+[05:43:38.935][ipodui][1240] D: UpdatePlaybackCb: set as paused
+[05:43:38.953][ipodui][1240] D: void LC200SetupDisplayService::setAutoDimmer(bool) true
+[05:43:38.953][ipodui][1240] I: setBrightness on ui:  75
+[05:43:38.953][ipodui][1240] D: void LC200SetupDisplayService::setBrightness(int) , skip while restoration
+[05:43:38.973][ipodui][1240] D: yosemsgq: key:  -1610743799
+[05:43:38.974][ipodui][1240] D: yosemsgq: msqid:  491535
+[05:43:38.974][ipodui][1240] D: yosemsgq: key:  1611516670
+[05:43:38.974][ipodui][1240] D: yosemsgq: msqid:  557073
+[05:43:38.974][ipodui][1240] D: yosemsgq: key:  233769744
+[05:43:38.975][ipodui][1240] D: yosemsgq: msqid:  458766
+[05:43:38.975][ipodui][1240] D: yosemsgq: key:  233772557
+[05:43:38.976][ipodui][1240] D: yosemsgq: msqid:  589842
+[05:43:38.976][ipodui][1240] D: sltHandleMsg recv: "autoFullScreen/false"
+[05:43:38.976][ipodui][1240] D: void ActionHandler::actAutofullscreen() false
+[05:43:38.976][ipodui][1240] D: yosemsgq: key:  52428
+[05:43:38.977][ipodui][1240] D: yosemsgq: msqid:  622611
+[05:43:38.987][ipodui][1240] I: void LC200SetupSoundService::setClickSound(bool) false
+[05:43:38.988][ipodui][1240] W: void LC200SetupSoundService::setBalance(QPoint&) QPoint(0,0)
+[05:43:38.988][ipodui][1240] D: void LC200SetupSoundService::setEq(QString) , skip when restoration
+[05:43:38.998][ipodui][1240] W: void LC200SetupSoundService::setTreble(int) 50
+[05:43:38.999][ipodui][1240] D: void LC200SetupSoundService::setTreble(int) , skip when restoration
+[05:43:38.999][ipodui][1240] W: int LC200SetupSoundService::treble() 50
+[05:43:39.019][ipodui][1240] W: void LC200SetupSoundService::setMid(int) 50
+[05:43:39.019][ipodui][1240] D: void LC200SetupSoundService::setMid(int) , skip when restoration
+[05:43:39.038][ipodui][1240] W: void LC200SetupSoundService::setBass(int) 50
+[05:43:39.038][ipodui][1240] D: void LC200SetupSoundService::setBass(int) , skip when restoration
+[05:43:39.107][ipodui][1240] D: qml, Component.onCompleted check lang: en_US
+[05:43:39.110][ipodui][1240] D: Pageipod.qml: onEnterPage...
+[05:43:39.110][ipodui][1240] D: sltHasipodChanged... false
+[05:43:39.110][ipodui][1240] D: sltHasipodChanged: ipod not ready, why???
+[05:43:39.187][ipodui][1240] D: DeviceNameCB: erip6 , iTunes Radio
+[05:43:39.188][ipodui][1240] D: write ipod name as: "erip6"
+[05:43:39.188][ipodui][1240] D: requestUnlockFile
+[05:43:39.189][ipodui][1240] D: UpdateSelectedMediaItem_ItemCb: artwork id: 129
+[05:43:39.190][ libhu][WARN] +++request svc id is [SVC_HMI_IPOD]
+[05:43:39.190][ libhu][WARN] +++cur hmi is [SVC_HMI_IPOD]
+[05:43:39.191][ libhu][WARN] +++skip, hmi in foreground
+[05:43:39.191][ipodui][1240] D: UpdateTotalTime 239490
+[05:43:39.192][ipodui][1240] D: ///// UpdateSelectedMediaItem_ItemCb: request to play \\\\\
+[05:43:39.195][ipodui][1240] D: "refreshNowPlaying" T: "Circle of Li..." ALB: "Sing Your He..." ART: "Carmen Twill..." PID: 6938452439136571602
+[05:43:39.196][ipodui][1240] D: SetNowPlayingArtwork: artwork fileid: 128
+[05:43:39.197][ipodui][1240] W: SetArtworkImage: _artwork size == 0
+[05:43:39.203][ipodui][1240] D: sltHasipodChanged... true
+[05:43:39.203][ipodui][1240] D:  last ipod state =  false
+[05:43:39.204][ipodui][1240] D: >>>>> emit sigRequestToPlay <<<<<
+[05:43:39.204][ipodui][1240] D: sltRequestToPlay and calls playCurrentItem()
+[05:43:39.204][ipodui][1240] D: playCurrentItem: request play current item...
+[05:43:39.204][ipodui][1240] D: real_play_current_item: callSvcRequest...
+[05:43:39.204][ipodui][1240] D: is restoring? false
+[05:43:39.205][ipodui][1240] D: "callSvcRequest:  extra: sender=hu.IpodUiMgrSender ACT_ON"
+[05:43:39.217][ipodui][1240] D: call nativeSetPlayCurrentSelection()
+[05:43:39.217][ipodui][1240] D: playCurrentSelection: sends HID#7
+[05:43:39.370][ libhu][WARN] +++request svc id is [SVC_HMI_IPOD]
+[05:43:39.371][ libhu][WARN] +++cur hmi is [SVC_HMI_IPOD]
+[05:43:39.371][ libhu][WARN] +++skip, hmi in foreground
+[05:43:39.371][ipodui][1240] D: setIsRestoring restoring: false
+[05:43:39.371][ipodui][1240] D: last ipod state===== true
+[05:43:39.372][ipodui][1240] D: sltUnlockFile
+[05:43:39.372][ipodui][1240] D: "refreshNowPlaying" T: "Circle of Li..." ALB: "Sing Your He..." ART: "Carmen Twill..." PID: 6938452439136571602
+[05:43:39.393][ipodui][1240] D:  last ipod state =  true
+[05:43:39.393][ipodui][1240] W: lookupInAllSongs: media library is not ready, exit...
+[05:43:39.493][ipodui][1240] D: send IAP on to BT
+[05:43:39.494][ipodui][1240] D: myflock: file:  /var/run/ipodmusic.lck fd: 29 is locked
+[05:43:39.494][ipodui][1240] W: IPOD_INUSE locked
+[05:43:39.738][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/236427"
+[05:43:39.739][ipodui][1240] D: UpdatePlaybackCb: playing/skip callSvcRequest/ipod is current svc
+[05:43:39.791][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/236442"
+[05:43:39.859][ipodui][1240] D: MediaArtworkReadyCb: "mPID(6938452439136571602) ==> artwork(129)"
+[05:43:39.872][ipodui][1240] D: SetNowPlayingArtwork: artwork fileid: 129
+[05:43:39.974][ipodui][1240] D: save to: "/tmp/ae80b762fe6c8642552318d465e1bb0d.jpg"
+[05:43:39.994][ipodui][1240] D: on_iPodConnect: call audio->iPodConnected()
+[05:43:40.116][ipodui][1240] D: svc_request loopback init success.
+[05:43:40.189][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/236879"
+[05:43:40.307][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/237011"
+[05:43:40.758][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/237461"
+[05:43:41.451][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/238155"
+[05:43:41.906][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/238609"
+[05:43:42.360][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/239063"
+[05:43:42.814][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/239517"
+[05:43:43.267][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/239969"
+[05:43:43.351][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/630"
+[05:43:43.603][ipodui][1240] D: UpdateSelectedMediaItem_ItemCb: artwork id: 129
+[05:43:43.604][ libhu][WARN] +++request svc id is [SVC_HMI_IPOD]
+[05:43:43.604][ libhu][WARN] +++cur hmi is [SVC_HMI_IPOD]
+[05:43:43.604][ipodui][1240] D: "refreshNowPlaying" T: "If I Didn't ..." ALB: "Sing Your He..." ART: "Billy Crysta..." PID: 6938452439136571603
+[05:43:43.604][ libhu][WARN] +++skip, hmi in foreground
+[05:43:43.606][ipodui][1240] D: UpdateTotalTime 217849
+[05:43:43.608][ipodui][1240] D: ///// UpdateSelectedMediaItem_ItemCb: request to play \\\\\
+[05:43:43.809][ipodui][1240] D: sltHasipodChanged: exit, is playing...
+[05:43:43.809][ipodui][1240] W: lookupInAllSongs: media library is not ready, exit...
+[05:43:44.062][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/1000"
+[05:43:44.174][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/1453"
+[05:43:44.554][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/1831"
+[05:43:44.627][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/1903"
+[05:43:45.081][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/2356"
+[05:43:45.536][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/2811"
+[05:43:45.991][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/3266"
+[05:43:46.445][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/3720"
+[05:43:46.899][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/4174"
+[05:43:47.353][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/4628"
+[05:43:47.807][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/5081"
+[05:43:48.272][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/5546"
+[05:43:48.732][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/6007"
+[05:43:49.185][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/6459"
+[05:43:49.639][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/6913"
+[05:43:50.095][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/7369"
+[05:43:50.549][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/7823"
+[05:43:51.002][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/8275"
+[05:43:51.728][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/9000"
+[05:43:52.180][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/9453"
+[05:43:52.637][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/9909"
+[05:43:53.088][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/10362"
+[05:43:53.542][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/10815"
+[05:43:53.995][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/11268"
+[05:43:54.451][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/11720"
+[05:43:54.906][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/12174"
+[05:43:55.359][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/12628"
+[05:43:55.813][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/13082"
+[05:43:56.270][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/13538"
+[05:43:56.724][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/13991"
+[05:43:57.179][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/14446"
+[05:43:57.632][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/14900"
+[05:43:58.094][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/15355"
+[05:43:58.549][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/15810"
+[05:43:59.002][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/16264"
+[05:43:59.456][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/16717"
+[05:43:59.912][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/17173"
+[05:44:00.368][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/17628"
+[05:44:00.822][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/18081"
+[05:44:01.207][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/18477"
+[05:44:01.275][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/18545"
+[05:44:01.727][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/18997"
+[05:44:02.415][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/19685"
+[05:44:02.869][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/20138"
+[05:44:03.323][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/20593"
+[05:44:03.778][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/21046"
+[05:44:04.231][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/21500"
+[05:44:04.687][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/21956"
+[05:44:05.374][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/22642"
+[05:44:06.077][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/23344"
+[05:44:06.785][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/24053"
+[05:44:07.239][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/24507"
+[05:44:07.693][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/24960"
+[05:44:08.147][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/25414"
+[05:44:08.602][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/25870"
+[05:44:09.056][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/26324"
+[05:44:09.510][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/26778"
+[05:44:09.964][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/27232"
+[05:44:10.419][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/27686"
+[05:44:10.873][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/28140"
+[05:44:11.327][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/28594"
+[05:44:11.781][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/29049"
+[05:44:12.237][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/29505"
+[05:44:12.692][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/29959"
+[05:44:13.146][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/30413"
+[05:44:13.600][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/30866"
+[05:44:14.281][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/31548"
+[05:44:14.986][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/32252"
+[05:44:15.439][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/32706"
+[05:44:15.892][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/33159"
+[05:44:16.345][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/33611"
+[05:44:16.798][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/34063"
+[05:44:17.251][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/34517"
+[05:44:17.705][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/34971"
+[05:44:18.404][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/35670"
+[05:44:18.858][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/36124"
+[05:44:19.313][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/36578"
+[05:44:19.768][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/37033"
+[05:44:20.221][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/37487"
+[05:44:20.676][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/37942"
+[05:44:21.130][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/38395"
+[05:44:21.586][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/38851"
+[05:44:22.042][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/39307"
+[05:44:22.497][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/39761"
+[05:44:22.953][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/40217"
+[05:44:23.407][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/40671"
+[05:44:24.113][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/41377"
+[05:44:24.572][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/41835"
+[05:44:25.026][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/42290"
+[05:44:25.480][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/42744"
+[05:44:25.935][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/43199"
+[05:44:26.390][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/43654"
+[05:44:26.845][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/44109"
+[05:44:27.298][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/44562"
+[05:44:27.754][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/45018"
+[05:44:28.210][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/45473"
+[05:44:28.664][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/45927"
+[05:44:29.124][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/46387"
+[05:44:29.578][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/46841"
+[05:44:30.032][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/47295"
+[05:44:30.487][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/47750"
+[05:44:31.193][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/48455"
+[05:44:31.869][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/49132"
+[05:44:32.576][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/49839"
+[05:44:33.283][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/50545"
+[05:44:34.017][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/51280"
+[05:44:34.475][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/51737"
+[05:44:34.929][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/52191"
+[05:44:35.387][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/52646"
+[05:44:35.841][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/53102"
+[05:44:36.296][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/53556"
+[05:44:36.750][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/54011"
+[05:44:37.206][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/54467"
+[05:44:37.661][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/54922"
+[05:44:38.115][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/55376"
+[05:44:38.839][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/56100"
+[05:44:39.293][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/56554"
+[05:44:39.747][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/57008"
+[05:44:40.201][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/57462"
+[05:44:40.656][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/57917"
+[05:44:41.111][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/58372"
+[05:44:41.566][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/58827"
+[05:44:42.023][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/59283"
+[05:44:42.478][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/59738"
+[05:44:42.932][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/60192"
+[05:44:43.388][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/60648"
+[05:44:43.842][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/61102"
+[05:44:44.295][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/61556"
+[05:44:45.064][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/62324"
+[05:44:45.518][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/62778"
+[05:44:45.973][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/63233"
+[05:44:46.429][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/63689"
+[05:44:46.882][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/64142"
+[05:44:47.336][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/64596"
+[05:44:47.792][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/65051"
+[05:44:48.247][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/65506"
+[05:44:48.700][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/65959"
+[05:44:49.156][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/66415"
+[05:44:49.876][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/67135"
+[05:44:50.331][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/67589"
+[05:44:50.785][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/68042"
+[05:44:51.508][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/68766"
+[05:44:51.963][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/69220"
+[05:44:52.417][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/69675"
+[05:44:53.114][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/70371"
+[05:44:53.781][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/71038"
+[05:44:54.235][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/71493"
+[05:44:54.691][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/71948"
+[05:44:55.145][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/72403"
+[05:44:55.599][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/72857"
+[05:44:56.058][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/73315"
+[05:44:56.513][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/73770"
+[05:44:56.965][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/74223"
+[05:44:57.420][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/74677"
+[05:44:57.876][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/75133"
+[05:44:58.331][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/75587"
+[05:44:58.785][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/76041"
+[05:44:59.242][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/76497"
+[05:44:59.957][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/77213"
+[05:45:00.665][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/77921"
+[05:45:01.376][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/78631"
+[05:45:01.829][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/79084"
+[05:45:02.282][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/79538"
+[05:45:02.735][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/79991"
+[05:45:03.191][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/80446"
+[05:45:03.645][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/80901"
+[05:45:04.100][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/81355"
+[05:45:04.556][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/81810"
+[05:45:05.012][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/82267"
+[05:45:05.468][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/82723"
+[05:45:05.922][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/83177"
+[05:45:06.377][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/83632"
+[05:45:06.830][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/84086"
+[05:45:07.285][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/84540"
+[05:45:07.740][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/84994"
+[05:45:08.448][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/85703"
+[05:45:08.903][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/86158"
+[05:45:09.359][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/86614"
+[05:45:09.814][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/87069"
+[05:45:10.268][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/87523"
+[05:45:10.982][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/88237"
+[05:45:11.689][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/88944"
+[05:45:12.401][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/89656"
+[05:45:13.087][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/90342"
+[05:45:13.543][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/90798"
+[05:45:13.998][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/91252"
+[05:45:14.451][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/91704"
+[05:45:14.907][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/92158"
+[05:45:15.364][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/92615"
+[05:45:15.817][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/93068"
+[05:45:16.271][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/93522"
+[05:45:16.726][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/93975"
+[05:45:17.183][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/94433"
+[05:45:17.638][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/94887"
+[05:45:18.092][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/95341"
+[05:45:18.547][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/95796"
+[05:45:19.000][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/96249"
+[05:45:19.452][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/96701"
+[05:45:19.905][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/97154"
+[05:45:20.360][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/97609"
+[05:45:20.815][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/98064"
+[05:45:21.268][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/98517"
+[05:45:21.723][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/98971"
+[05:45:22.178][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/99427"
+[05:45:22.633][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/99881"
+[05:45:23.091][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/100338"
+[05:45:23.546][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/100795"
+[05:45:24.001][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/101250"
+[05:45:24.455][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/101704"
+[05:45:24.913][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/102161"
+[05:45:25.368][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/102617"
+[05:45:25.822][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/103070"
+[05:45:26.279][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/103526"
+[05:45:26.733][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/103980"
+[05:45:27.187][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/104434"
+[05:45:27.895][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/105142"
+[05:45:28.350][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/105596"
+[05:45:29.059][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/106304"
+[05:45:29.762][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/107006"
+[05:45:30.218][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/107462"
+[05:45:30.672][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/107916"
+[05:45:31.128][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/108371"
+[05:45:31.886][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/109130"
+[05:45:32.595][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/109839"
+[05:45:33.279][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/110522"
+[05:45:33.734][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/110977"
+[05:45:34.190][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/111432"
+[05:45:34.647][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/111889"
+[05:45:35.101][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/112343"
+[05:45:35.555][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/112797"
+[05:45:36.012][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/113254"
+[05:45:36.467][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/113709"
+[05:45:36.921][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/114163"
+[05:45:37.375][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/114617"
+[05:45:37.830][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/115071"
+[05:45:38.284][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/115525"
+[05:45:38.738][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/115978"
+[05:45:39.194][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/116433"
+[05:45:39.648][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/116888"
+[05:45:40.103][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/117343"
+[05:45:40.814][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/118054"
+[05:45:41.269][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/118509"
+[05:45:41.723][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/118964"
+[05:45:42.179][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/119419"
+[05:45:42.634][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/119874"
+[05:45:43.089][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/120329"
+[05:45:43.543][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/120783"
+[05:45:43.998][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/121238"
+[05:45:44.453][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/121693"
+[05:45:44.907][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/122147"
+[05:45:45.363][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/122602"
+[05:45:45.819][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/123057"
+[05:45:46.271][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/123509"
+[05:45:46.728][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/123966"
+[05:45:47.183][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/124421"
+[05:45:47.637][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/124876"
+[05:45:48.091][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/125329"
+[05:45:48.548][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/125785"
+[05:45:49.003][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/126240"
+[05:45:49.458][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/126695"
+[05:45:49.917][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/127154"
+[05:45:50.634][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/127871"
+[05:45:51.088][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/128325"
+[05:45:51.542][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/128779"
+[05:45:51.997][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/129233"
+[05:45:52.452][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/129688"
+[05:45:52.907][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/130143"
+[05:45:53.362][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/130598"
+[05:45:53.816][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/131051"
+[05:45:54.271][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/131506"
+[05:45:54.725][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/131961"
+[05:45:55.180][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/132415"
+[05:45:55.635][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/132869"
+[05:45:56.091][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/133325"
+[05:45:56.921][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/134155"
+[05:45:57.621][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/134856"
+[05:45:58.076][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/135310"
+[05:45:58.529][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/135763"
+[05:45:58.984][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/136217"
+[05:45:59.438][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/136671"
+[05:45:59.896][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/137126"
+[05:46:00.350][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/137582"
+[05:46:00.805][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/138037"
+[05:46:01.514][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/138746"
+[05:46:01.970][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/139202"
+[05:46:02.676][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/139907"
+[05:46:03.130][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/140361"
+[05:46:03.585][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/140816"
+[05:46:04.040][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/141270"
+[05:46:04.496][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/141726"
+[05:46:04.951][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/142180"
+[05:46:05.406][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/142634"
+[05:46:05.862][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/143088"
+[05:46:06.575][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/143803"
+[05:46:07.030][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/144258"
+[05:46:07.485][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/144713"
+[05:46:07.940][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/145168"
+[05:46:08.397][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/145624"
+[05:46:09.165][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/146393"
+[05:46:10.156][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/147383"
+[05:46:11.053][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/148281"
+[05:46:12.157][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/149384"
+[05:46:13.009][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/150235"
+[05:46:13.465][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/150690"
+[05:46:13.920][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/151145"
+[05:46:14.624][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/151849"
+[05:46:15.078][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/152303"
+[05:46:15.531][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/152756"
+[05:46:15.984][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/153209"
+[05:46:16.437][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/153661"
+[05:46:16.890][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/154115"
+[05:46:17.344][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/154569"
+[05:46:17.799][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/155023"
+[05:46:18.253][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/155478"
+[05:46:18.709][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/155934"
+[05:46:19.163][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/156388"
+[05:46:19.617][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/156842"
+[05:46:20.071][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/157295"
+[05:46:20.525][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/157749"
+[05:46:20.979][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/158202"
+[05:46:21.432][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/158655"
+[05:46:21.886][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/159109"
+[05:46:22.583][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/159806"
+[05:46:23.039][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/160262"
+[05:46:23.493][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/160715"
+[05:46:23.947][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/161170"
+[05:46:24.402][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/161624"
+[05:46:24.855][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/162077"
+[05:46:25.567][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/162789"
+[05:46:26.021][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/163242"
+[05:46:26.736][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/163958"
+[05:46:27.189][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/164411"
+[05:46:27.644][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/164865"
+[05:46:28.098][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/165318"
+[05:46:28.552][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/165772"
+[05:46:29.006][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/166226"
+[05:46:29.460][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/166681"
+[05:46:29.914][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/167134"
+[05:46:30.368][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/167588"
+[05:46:31.076][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/168296"
+[05:46:31.783][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/169002"
+[05:46:32.236][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/169456"
+[05:46:32.689][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/169909"
+[05:46:33.143][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/170363"
+[05:46:33.597][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/170817"
+[05:46:34.052][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/171271"
+[05:46:34.506][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/171725"
+[05:46:34.960][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/172179"
+[05:46:35.414][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/172633"
+[05:46:35.868][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/173086"
+[05:46:36.324][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/173542"
+[05:46:36.777][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/173996"
+[05:46:37.230][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/174449"
+[05:46:37.684][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/174903"
+[05:46:38.137][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/175356"
+[05:46:38.591][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/175810"
+[05:46:39.045][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/176264"
+[05:46:39.500][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/176718"
+[05:46:39.954][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/177173"
+[05:46:40.408][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/177626"
+[05:46:40.863][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/178080"
+[05:46:40.955][ipodui][1240] D: KEY PAUSE pressed
+[05:46:40.956][ipodui][1240] D: togglePlayPause: callSvcRequest: true
+[05:46:41.032][ipodui][1240] D: KEY PAUSE released
+[05:46:41.317][ipodui][1240] D: "UpdatePlaybackCb: 音樂//1/178535"
+[05:46:41.509][ipodui][1240] D: "UpdatePlaybackCb: 音樂//2/178262"
+[05:46:41.510][ipodui][1240] D: UpdatePlaybackCb: set as paused
+[05:46:41.521][ipodui][1240] D: "UpdatePlaybackCb: 音樂//2/178262"
+[05:46:41.521][ipodui][1240] D: UpdatePlaybackCb: set as paused
+[05:52:24.529][ipodui][1240] D: MediaScanProgress: 100
+[05:52:24.543][ipodui][1240] D: MediaScanFinishCb _items.size: 12722
+[05:52:24.545][ipodui][1240] W: MediaScanFinishCb "load time 526105 ms"
+[05:52:24.545][ipodui][1240] D: MediaScanFinishCb request write DB...
+[05:52:24.559][ipodui][1240] D: drop all tables...
+[05:52:24.576][ipodui][1240] D: dbthread start!!!
+[05:52:24.577][ipodui][1240] D: writeDb....
+[05:52:45.040][ipodui][1240] D: writeDb....End.... unlock mutex
+[05:52:45.040][ipodui][1240] D: sltDbFinished

@@ -1,0 +1,567 @@
+04-17 05:39:18.013:W: 
+== Set iPod Disable ==
+04-17 05:39:18.014:W: iPod is Disabled
+04-17 05:39:18.015:W: PlayListUsb_Reset
+04-17 05:39:18.049:D: IPODSDK_DEBUG=7
+04-17 05:39:18.049:D: PlayListManager_Init
+04-17 05:39:18.049:W: Version 1.55
+04-17 05:39:18.049:D: lc200
+04-17 05:39:18.163:D: MFi auth create certificate: 908
+04-17 05:43:07.220:D: ## 0x05ac:0x12a8 ##
+04-17 05:43:07.220:I: iPhone add
+04-17 05:43:07.220:D: PlaylistMgr or iPod is disable
+04-17 05:43:38.007:W: 
+== Set iPod Enable ==
+04-17 05:43:38.032:D: dev found
+04-17 05:43:38.098:I: iPodUsb add
+04-17 05:43:38.188:D: iPodSDK UsbAttach +
+04-17 05:43:38.189:D: MonitorInboudTraffic +
+04-17 05:43:38.189:D: iPodSDK UsbAttach -
+04-17 05:43:38.189:D: iAP2SendDetectCB=0
+04-17 05:43:38.254:I: iAP2ConnectedCB=1
+04-17 05:43:38.259:D: MFi auth copy 908
+04-17 05:43:38.265:D: ChallengeData 20
+04-17 05:43:38.439:D: PlaylistAttachCb 1+
+04-17 05:43:38.491:D: PlaylistAttachCb 1-
+04-17 05:43:38.591:D: MFi auth created signature:128
+04-17 05:43:38.653:D: NOW PB 0
+04-17 05:43:38.653:D: Now ArtworkID=128
+04-17 05:43:38.653:D: UpdateSelectedMediaItem_ItemCb 
+04-17 05:43:38.653:D: Now 0, , ArtworkID=128, totalTime=0
+04-17 05:43:38.654:W: buf null(30)
+04-17 05:43:38.654:I: Info -- (null) -- (null)
+04-17 05:43:38.663:I: Battery not charge, MaxCurrent:1000mA
+04-17 05:43:38.666:W: buf null(30)
+04-17 05:43:38.667:I: Info -- (null) -- (null)
+04-17 05:43:38.673:I: Battery charge, MaxCurrent:1000mA
+04-17 05:43:38.696:D: MediaArtworkReadyCb 0 128
+04-17 05:43:38.907:D: Audio -- 44100 Hz
+04-17 05:43:38.907:D: AudioSampleRateCb
+04-17 05:43:38.907:D: UpdatePlaybackCb   0 0 0 0
+04-17 05:43:38.934:D: NOW PB 45
+04-17 05:43:38.934:D: UpdatePlaybackCb 音樂  2 0 2 236511
+04-17 05:43:38.936:D: Now ArtworkID=129
+04-17 05:43:38.956:I: Info -- erip6 -- BBB5A6C6-15B2-429C-9EEA-569CA0B6CA2B-MPN-12.2
+04-17 05:43:38.956:D: MediaScanStartCb +
+04-17 05:43:38.956:D: MediaScanStartCb -
+04-17 05:43:38.956:D: Update LocalLib Rev:(null)
+04-17 05:43:39.187:D: Now APP 音樂.
+04-17 05:43:39.187:D: BBB5A6C6-15B2-429C-9EEA-569CA0B6CA2B-MPN-12.2
+04-17 05:43:39.187:D: BBB5A6C6-15B2-429C-9EEA-569CA0B6CA2B-4954524C-12.2
+04-17 05:43:39.187:D: DeviceNameCb (erip6,iTunes Radio)
+04-17 05:43:39.189:D: UpdateSelectedMediaItem_ItemCb 
+04-17 05:43:39.189:D: Now 6938452439136571602, Circle of Life (From "The Lion King"), ArtworkID=129, totalTime=239490
+04-17 05:43:39.197:D: Got Artwork 128
+04-17 05:43:39.217:D: nativeSetPlayCurrentSelection
+04-17 05:43:39.217:D: lib Local
+04-17 05:43:39.218:D: HID 7
+04-17 05:43:39.295:D: HID 0
+04-17 05:43:39.441:W: Reset local data!
+04-17 05:43:39.646:D: MediaScanProgeessCb 61
+04-17 05:43:39.738:D: UpdatePlaybackCb 音樂  1 0 2 236427
+04-17 05:43:39.791:D: UpdatePlaybackCb 音樂  1 0 2 236442
+04-17 05:43:39.859:D: MediaArtworkReadyCb 6938452439136571602 129
+04-17 05:43:39.873:D: Got Artwork 129
+04-17 05:43:40.189:D: UpdatePlaybackCb 音樂  1 0 2 236879
+04-17 05:43:40.307:D: UpdatePlaybackCb 音樂  1 0 2 237011
+04-17 05:43:40.758:D: UpdatePlaybackCb 音樂  1 0 2 237461
+04-17 05:43:41.451:D: UpdatePlaybackCb 音樂  1 0 2 238155
+04-17 05:43:41.906:D: UpdatePlaybackCb 音樂  1 0 2 238609
+04-17 05:43:42.360:D: UpdatePlaybackCb 音樂  1 0 2 239063
+04-17 05:43:42.814:D: UpdatePlaybackCb 音樂  1 0 2 239517
+04-17 05:43:43.267:D: UpdatePlaybackCb 音樂  1 0 2 239969
+04-17 05:43:43.350:D: UpdatePlaybackCb 音樂  1 0 2 630
+04-17 05:43:43.603:D: UpdateSelectedMediaItem_ItemCb 
+04-17 05:43:43.603:D: Now 6938452439136571603, If I Didn't Have You (From "Monsters, Inc."), ArtworkID=129, totalTime=217849
+04-17 05:43:44.062:D: UpdatePlaybackCb 音樂  1 0 2 1000
+04-17 05:43:44.174:D: UpdatePlaybackCb 音樂  1 0 2 1453
+04-17 05:43:44.554:D: UpdatePlaybackCb 音樂  1 0 2 1831
+04-17 05:43:44.626:D: UpdatePlaybackCb 音樂  1 0 2 1903
+04-17 05:43:45.080:D: UpdatePlaybackCb 音樂  1 0 2 2356
+04-17 05:43:45.535:D: UpdatePlaybackCb 音樂  1 0 2 2811
+04-17 05:43:45.990:D: UpdatePlaybackCb 音樂  1 0 2 3266
+04-17 05:43:46.445:D: UpdatePlaybackCb 音樂  1 0 2 3720
+04-17 05:43:46.899:D: UpdatePlaybackCb 音樂  1 0 2 4174
+04-17 05:43:47.353:D: UpdatePlaybackCb 音樂  1 0 2 4628
+04-17 05:43:47.806:D: UpdatePlaybackCb 音樂  1 0 2 5081
+04-17 05:43:48.271:D: UpdatePlaybackCb 音樂  1 0 2 5546
+04-17 05:43:48.732:D: UpdatePlaybackCb 音樂  1 0 2 6007
+04-17 05:43:49.185:D: UpdatePlaybackCb 音樂  1 0 2 6459
+04-17 05:43:49.439:D: MediaScanProgeessCb 62
+04-17 05:43:49.638:D: UpdatePlaybackCb 音樂  1 0 2 6913
+04-17 05:43:50.095:D: UpdatePlaybackCb 音樂  1 0 2 7369
+04-17 05:43:50.549:D: UpdatePlaybackCb 音樂  1 0 2 7823
+04-17 05:43:51.001:D: UpdatePlaybackCb 音樂  1 0 2 8275
+04-17 05:43:51.727:D: UpdatePlaybackCb 音樂  1 0 2 9000
+04-17 05:43:52.179:D: UpdatePlaybackCb 音樂  1 0 2 9453
+04-17 05:43:52.636:D: UpdatePlaybackCb 音樂  1 0 2 9909
+04-17 05:43:53.088:D: UpdatePlaybackCb 音樂  1 0 2 10362
+04-17 05:43:53.541:D: UpdatePlaybackCb 音樂  1 0 2 10815
+04-17 05:43:53.994:D: UpdatePlaybackCb 音樂  1 0 2 11268
+04-17 05:43:54.451:D: UpdatePlaybackCb 音樂  1 0 2 11720
+04-17 05:43:54.905:D: UpdatePlaybackCb 音樂  1 0 2 12174
+04-17 05:43:55.359:D: UpdatePlaybackCb 音樂  1 0 2 12628
+04-17 05:43:55.813:D: UpdatePlaybackCb 音樂  1 0 2 13082
+04-17 05:43:56.270:D: UpdatePlaybackCb 音樂  1 0 2 13538
+04-17 05:43:56.723:D: UpdatePlaybackCb 音樂  1 0 2 13991
+04-17 05:43:57.178:D: UpdatePlaybackCb 音樂  1 0 2 14446
+04-17 05:43:57.632:D: UpdatePlaybackCb 音樂  1 0 2 14900
+04-17 05:43:58.093:D: UpdatePlaybackCb 音樂  1 0 2 15355
+04-17 05:43:58.548:D: UpdatePlaybackCb 音樂  1 0 2 15810
+04-17 05:43:59.002:D: UpdatePlaybackCb 音樂  1 0 2 16264
+04-17 05:43:59.456:D: UpdatePlaybackCb 音樂  1 0 2 16717
+04-17 05:43:59.912:D: UpdatePlaybackCb 音樂  1 0 2 17173
+04-17 05:44:00.368:D: UpdatePlaybackCb 音樂  1 0 2 17628
+04-17 05:44:00.821:D: UpdatePlaybackCb 音樂  1 0 2 18081
+04-17 05:44:01.206:D: UpdatePlaybackCb 音樂  1 0 2 18477
+04-17 05:44:01.274:D: UpdatePlaybackCb 音樂  1 0 2 18545
+04-17 05:44:01.727:D: UpdatePlaybackCb 音樂  1 0 2 18997
+04-17 05:44:02.415:D: UpdatePlaybackCb 音樂  1 0 2 19685
+04-17 05:44:02.869:D: UpdatePlaybackCb 音樂  1 0 2 20138
+04-17 05:44:03.323:D: UpdatePlaybackCb 音樂  1 0 2 20593
+04-17 05:44:03.777:D: UpdatePlaybackCb 音樂  1 0 2 21046
+04-17 05:44:04.230:D: UpdatePlaybackCb 音樂  1 0 2 21500
+04-17 05:44:04.687:D: UpdatePlaybackCb 音樂  1 0 2 21956
+04-17 05:44:05.374:D: UpdatePlaybackCb 音樂  1 0 2 22642
+04-17 05:44:06.077:D: UpdatePlaybackCb 音樂  1 0 2 23344
+04-17 05:44:06.785:D: UpdatePlaybackCb 音樂  1 0 2 24053
+04-17 05:44:07.038:D: MediaScanProgeessCb 63
+04-17 05:44:07.239:D: UpdatePlaybackCb 音樂  1 0 2 24507
+04-17 05:44:07.693:D: UpdatePlaybackCb 音樂  1 0 2 24960
+04-17 05:44:08.147:D: UpdatePlaybackCb 音樂  1 0 2 25414
+04-17 05:44:08.602:D: UpdatePlaybackCb 音樂  1 0 2 25870
+04-17 05:44:09.056:D: UpdatePlaybackCb 音樂  1 0 2 26324
+04-17 05:44:09.510:D: UpdatePlaybackCb 音樂  1 0 2 26778
+04-17 05:44:09.964:D: UpdatePlaybackCb 音樂  1 0 2 27232
+04-17 05:44:10.419:D: UpdatePlaybackCb 音樂  1 0 2 27686
+04-17 05:44:10.872:D: UpdatePlaybackCb 音樂  1 0 2 28140
+04-17 05:44:11.326:D: UpdatePlaybackCb 音樂  1 0 2 28594
+04-17 05:44:11.781:D: UpdatePlaybackCb 音樂  1 0 2 29049
+04-17 05:44:12.237:D: UpdatePlaybackCb 音樂  1 0 2 29505
+04-17 05:44:12.691:D: UpdatePlaybackCb 音樂  1 0 2 29959
+04-17 05:44:13.145:D: UpdatePlaybackCb 音樂  1 0 2 30413
+04-17 05:44:13.600:D: UpdatePlaybackCb 音樂  1 0 2 30866
+04-17 05:44:14.281:D: UpdatePlaybackCb 音樂  1 0 2 31548
+04-17 05:44:14.985:D: UpdatePlaybackCb 音樂  1 0 2 32252
+04-17 05:44:15.439:D: UpdatePlaybackCb 音樂  1 0 2 32706
+04-17 05:44:15.892:D: UpdatePlaybackCb 音樂  1 0 2 33159
+04-17 05:44:16.344:D: UpdatePlaybackCb 音樂  1 0 2 33611
+04-17 05:44:16.797:D: UpdatePlaybackCb 音樂  1 0 2 34063
+04-17 05:44:17.251:D: UpdatePlaybackCb 音樂  1 0 2 34517
+04-17 05:44:17.705:D: UpdatePlaybackCb 音樂  1 0 2 34971
+04-17 05:44:18.404:D: UpdatePlaybackCb 音樂  1 0 2 35670
+04-17 05:44:18.858:D: UpdatePlaybackCb 音樂  1 0 2 36124
+04-17 05:44:19.312:D: UpdatePlaybackCb 音樂  1 0 2 36578
+04-17 05:44:19.768:D: UpdatePlaybackCb 音樂  1 0 2 37033
+04-17 05:44:20.221:D: UpdatePlaybackCb 音樂  1 0 2 37487
+04-17 05:44:20.676:D: UpdatePlaybackCb 音樂  1 0 2 37942
+04-17 05:44:21.130:D: UpdatePlaybackCb 音樂  1 0 2 38395
+04-17 05:44:21.586:D: UpdatePlaybackCb 音樂  1 0 2 38851
+04-17 05:44:22.042:D: UpdatePlaybackCb 音樂  1 0 2 39307
+04-17 05:44:22.496:D: UpdatePlaybackCb 音樂  1 0 2 39761
+04-17 05:44:22.953:D: UpdatePlaybackCb 音樂  1 0 2 40217
+04-17 05:44:23.407:D: UpdatePlaybackCb 音樂  1 0 2 40671
+04-17 05:44:23.909:D: MediaScanProgeessCb 64
+04-17 05:44:24.113:D: UpdatePlaybackCb 音樂  1 0 2 41377
+04-17 05:44:24.571:D: UpdatePlaybackCb 音樂  1 0 2 41835
+04-17 05:44:25.026:D: UpdatePlaybackCb 音樂  1 0 2 42290
+04-17 05:44:25.480:D: UpdatePlaybackCb 音樂  1 0 2 42744
+04-17 05:44:25.935:D: UpdatePlaybackCb 音樂  1 0 2 43199
+04-17 05:44:26.390:D: UpdatePlaybackCb 音樂  1 0 2 43654
+04-17 05:44:26.844:D: UpdatePlaybackCb 音樂  1 0 2 44109
+04-17 05:44:27.298:D: UpdatePlaybackCb 音樂  1 0 2 44562
+04-17 05:44:27.754:D: UpdatePlaybackCb 音樂  1 0 2 45018
+04-17 05:44:28.210:D: UpdatePlaybackCb 音樂  1 0 2 45473
+04-17 05:44:28.664:D: UpdatePlaybackCb 音樂  1 0 2 45927
+04-17 05:44:29.124:D: UpdatePlaybackCb 音樂  1 0 2 46387
+04-17 05:44:29.578:D: UpdatePlaybackCb 音樂  1 0 2 46841
+04-17 05:44:30.032:D: UpdatePlaybackCb 音樂  1 0 2 47295
+04-17 05:44:30.487:D: UpdatePlaybackCb 音樂  1 0 2 47750
+04-17 05:44:31.193:D: UpdatePlaybackCb 音樂  1 0 2 48455
+04-17 05:44:31.869:D: UpdatePlaybackCb 音樂  1 0 2 49132
+04-17 05:44:32.576:D: UpdatePlaybackCb 音樂  1 0 2 49839
+04-17 05:44:33.282:D: UpdatePlaybackCb 音樂  1 0 2 50545
+04-17 05:44:33.785:D: MediaScanProgeessCb 65
+04-17 05:44:34.017:D: UpdatePlaybackCb 音樂  1 0 2 51280
+04-17 05:44:34.474:D: UpdatePlaybackCb 音樂  1 0 2 51737
+04-17 05:44:34.929:D: UpdatePlaybackCb 音樂  1 0 2 52191
+04-17 05:44:35.387:D: UpdatePlaybackCb 音樂  1 0 2 52646
+04-17 05:44:35.841:D: UpdatePlaybackCb 音樂  1 0 2 53102
+04-17 05:44:36.296:D: UpdatePlaybackCb 音樂  1 0 2 53556
+04-17 05:44:36.750:D: UpdatePlaybackCb 音樂  1 0 2 54011
+04-17 05:44:37.206:D: UpdatePlaybackCb 音樂  1 0 2 54467
+04-17 05:44:37.660:D: UpdatePlaybackCb 音樂  1 0 2 54922
+04-17 05:44:38.114:D: UpdatePlaybackCb 音樂  1 0 2 55376
+04-17 05:44:38.839:D: UpdatePlaybackCb 音樂  1 0 2 56100
+04-17 05:44:39.293:D: UpdatePlaybackCb 音樂  1 0 2 56554
+04-17 05:44:39.545:D: MediaScanProgeessCb 66
+04-17 05:44:39.746:D: UpdatePlaybackCb 音樂  1 0 2 57008
+04-17 05:44:40.201:D: UpdatePlaybackCb 音樂  1 0 2 57462
+04-17 05:44:40.656:D: UpdatePlaybackCb 音樂  1 0 2 57917
+04-17 05:44:41.111:D: UpdatePlaybackCb 音樂  1 0 2 58372
+04-17 05:44:41.566:D: UpdatePlaybackCb 音樂  1 0 2 58827
+04-17 05:44:42.022:D: UpdatePlaybackCb 音樂  1 0 2 59283
+04-17 05:44:42.478:D: UpdatePlaybackCb 音樂  1 0 2 59738
+04-17 05:44:42.931:D: UpdatePlaybackCb 音樂  1 0 2 60192
+04-17 05:44:43.387:D: UpdatePlaybackCb 音樂  1 0 2 60648
+04-17 05:44:43.842:D: UpdatePlaybackCb 音樂  1 0 2 61102
+04-17 05:44:44.295:D: UpdatePlaybackCb 音樂  1 0 2 61556
+04-17 05:44:45.063:D: UpdatePlaybackCb 音樂  1 0 2 62324
+04-17 05:44:45.517:D: UpdatePlaybackCb 音樂  1 0 2 62778
+04-17 05:44:45.770:D: MediaScanProgeessCb 67
+04-17 05:44:45.973:D: UpdatePlaybackCb 音樂  1 0 2 63233
+04-17 05:44:46.428:D: UpdatePlaybackCb 音樂  1 0 2 63689
+04-17 05:44:46.881:D: UpdatePlaybackCb 音樂  1 0 2 64142
+04-17 05:44:47.336:D: UpdatePlaybackCb 音樂  1 0 2 64596
+04-17 05:44:47.791:D: UpdatePlaybackCb 音樂  1 0 2 65051
+04-17 05:44:48.247:D: UpdatePlaybackCb 音樂  1 0 2 65506
+04-17 05:44:48.317:E: err! MediaLibraryUpdate ID 0xcc11
+04-17 05:44:48.700:D: UpdatePlaybackCb 音樂  1 0 2 65959
+04-17 05:44:49.156:D: UpdatePlaybackCb 音樂  1 0 2 66415
+04-17 05:44:49.876:D: UpdatePlaybackCb 音樂  1 0 2 67135
+04-17 05:44:50.128:D: MediaScanProgeessCb 68
+04-17 05:44:50.331:D: UpdatePlaybackCb 音樂  1 0 2 67589
+04-17 05:44:50.785:D: UpdatePlaybackCb 音樂  1 0 2 68042
+04-17 05:44:51.508:D: UpdatePlaybackCb 音樂  1 0 2 68766
+04-17 05:44:51.963:D: UpdatePlaybackCb 音樂  1 0 2 69220
+04-17 05:44:52.417:D: UpdatePlaybackCb 音樂  1 0 2 69675
+04-17 05:44:53.114:D: UpdatePlaybackCb 音樂  1 0 2 70371
+04-17 05:44:53.781:D: UpdatePlaybackCb 音樂  1 0 2 71038
+04-17 05:44:54.033:D: MediaScanProgeessCb 69
+04-17 05:44:54.235:D: UpdatePlaybackCb 音樂  1 0 2 71493
+04-17 05:44:54.690:D: UpdatePlaybackCb 音樂  1 0 2 71948
+04-17 05:44:55.145:D: UpdatePlaybackCb 音樂  1 0 2 72403
+04-17 05:44:55.599:D: UpdatePlaybackCb 音樂  1 0 2 72857
+04-17 05:44:56.058:D: UpdatePlaybackCb 音樂  1 0 2 73315
+04-17 05:44:56.512:D: UpdatePlaybackCb 音樂  1 0 2 73770
+04-17 05:44:56.965:D: UpdatePlaybackCb 音樂  1 0 2 74223
+04-17 05:44:57.419:D: UpdatePlaybackCb 音樂  1 0 2 74677
+04-17 05:44:57.876:D: UpdatePlaybackCb 音樂  1 0 2 75133
+04-17 05:44:58.331:D: UpdatePlaybackCb 音樂  1 0 2 75587
+04-17 05:44:58.785:D: UpdatePlaybackCb 音樂  1 0 2 76041
+04-17 05:44:59.242:D: UpdatePlaybackCb 音樂  1 0 2 76497
+04-17 05:44:59.957:D: UpdatePlaybackCb 音樂  1 0 2 77213
+04-17 05:45:00.665:D: UpdatePlaybackCb 音樂  1 0 2 77921
+04-17 05:45:01.375:D: UpdatePlaybackCb 音樂  1 0 2 78631
+04-17 05:45:01.828:D: UpdatePlaybackCb 音樂  1 0 2 79084
+04-17 05:45:02.282:D: UpdatePlaybackCb 音樂  1 0 2 79538
+04-17 05:45:02.735:D: UpdatePlaybackCb 音樂  1 0 2 79991
+04-17 05:45:03.190:D: UpdatePlaybackCb 音樂  1 0 2 80446
+04-17 05:45:03.645:D: UpdatePlaybackCb 音樂  1 0 2 80901
+04-17 05:45:04.099:D: UpdatePlaybackCb 音樂  1 0 2 81355
+04-17 05:45:04.556:D: UpdatePlaybackCb 音樂  1 0 2 81810
+04-17 05:45:05.012:D: UpdatePlaybackCb 音樂  1 0 2 82267
+04-17 05:45:05.467:D: UpdatePlaybackCb 音樂  1 0 2 82723
+04-17 05:45:05.922:D: UpdatePlaybackCb 音樂  1 0 2 83177
+04-17 05:45:06.376:D: UpdatePlaybackCb 音樂  1 0 2 83632
+04-17 05:45:06.830:D: UpdatePlaybackCb 音樂  1 0 2 84086
+04-17 05:45:07.285:D: UpdatePlaybackCb 音樂  1 0 2 84540
+04-17 05:45:07.739:D: UpdatePlaybackCb 音樂  1 0 2 84994
+04-17 05:45:08.448:D: UpdatePlaybackCb 音樂  1 0 2 85703
+04-17 05:45:08.903:D: UpdatePlaybackCb 音樂  1 0 2 86158
+04-17 05:45:09.359:D: UpdatePlaybackCb 音樂  1 0 2 86614
+04-17 05:45:09.814:D: UpdatePlaybackCb 音樂  1 0 2 87069
+04-17 05:45:10.268:D: UpdatePlaybackCb 音樂  1 0 2 87523
+04-17 05:45:10.982:D: UpdatePlaybackCb 音樂  1 0 2 88237
+04-17 05:45:11.689:D: UpdatePlaybackCb 音樂  1 0 2 88944
+04-17 05:45:12.401:D: UpdatePlaybackCb 音樂  1 0 2 89656
+04-17 05:45:13.087:D: UpdatePlaybackCb 音樂  1 0 2 90342
+04-17 05:45:13.543:D: UpdatePlaybackCb 音樂  1 0 2 90798
+04-17 05:45:13.998:D: UpdatePlaybackCb 音樂  1 0 2 91252
+04-17 05:45:14.451:D: UpdatePlaybackCb 音樂  1 0 2 91704
+04-17 05:45:14.907:D: UpdatePlaybackCb 音樂  1 0 2 92158
+04-17 05:45:15.363:D: UpdatePlaybackCb 音樂  1 0 2 92615
+04-17 05:45:15.817:D: UpdatePlaybackCb 音樂  1 0 2 93068
+04-17 05:45:16.271:D: UpdatePlaybackCb 音樂  1 0 2 93522
+04-17 05:45:16.725:D: UpdatePlaybackCb 音樂  1 0 2 93975
+04-17 05:45:16.979:D: MediaScanProgeessCb 70
+04-17 05:45:17.183:D: UpdatePlaybackCb 音樂  1 0 2 94433
+04-17 05:45:17.637:D: UpdatePlaybackCb 音樂  1 0 2 94887
+04-17 05:45:18.092:D: UpdatePlaybackCb 音樂  1 0 2 95341
+04-17 05:45:18.547:D: UpdatePlaybackCb 音樂  1 0 2 95796
+04-17 05:45:19.000:D: UpdatePlaybackCb 音樂  1 0 2 96249
+04-17 05:45:19.452:D: UpdatePlaybackCb 音樂  1 0 2 96701
+04-17 05:45:19.905:D: UpdatePlaybackCb 音樂  1 0 2 97154
+04-17 05:45:20.360:D: UpdatePlaybackCb 音樂  1 0 2 97609
+04-17 05:45:20.815:D: UpdatePlaybackCb 音樂  1 0 2 98064
+04-17 05:45:21.268:D: UpdatePlaybackCb 音樂  1 0 2 98517
+04-17 05:45:21.722:D: UpdatePlaybackCb 音樂  1 0 2 98971
+04-17 05:45:22.178:D: UpdatePlaybackCb 音樂  1 0 2 99427
+04-17 05:45:22.633:D: UpdatePlaybackCb 音樂  1 0 2 99881
+04-17 05:45:23.091:D: UpdatePlaybackCb 音樂  1 0 2 100338
+04-17 05:45:23.546:D: UpdatePlaybackCb 音樂  1 0 2 100795
+04-17 05:45:24.001:D: UpdatePlaybackCb 音樂  1 0 2 101250
+04-17 05:45:24.455:D: UpdatePlaybackCb 音樂  1 0 2 101704
+04-17 05:45:24.912:D: UpdatePlaybackCb 音樂  1 0 2 102161
+04-17 05:45:25.367:D: UpdatePlaybackCb 音樂  1 0 2 102617
+04-17 05:45:25.821:D: UpdatePlaybackCb 音樂  1 0 2 103070
+04-17 05:45:26.279:D: UpdatePlaybackCb 音樂  1 0 2 103526
+04-17 05:45:26.733:D: UpdatePlaybackCb 音樂  1 0 2 103980
+04-17 05:45:27.187:D: UpdatePlaybackCb 音樂  1 0 2 104434
+04-17 05:45:27.895:D: UpdatePlaybackCb 音樂  1 0 2 105142
+04-17 05:45:28.350:D: UpdatePlaybackCb 音樂  1 0 2 105596
+04-17 05:45:29.059:D: UpdatePlaybackCb 音樂  1 0 2 106304
+04-17 05:45:29.761:D: UpdatePlaybackCb 音樂  1 0 2 107006
+04-17 05:45:30.218:D: UpdatePlaybackCb 音樂  1 0 2 107462
+04-17 05:45:30.672:D: UpdatePlaybackCb 音樂  1 0 2 107916
+04-17 05:45:31.127:D: UpdatePlaybackCb 音樂  1 0 2 108371
+04-17 05:45:31.886:D: UpdatePlaybackCb 音樂  1 0 2 109130
+04-17 05:45:32.594:D: UpdatePlaybackCb 音樂  1 0 2 109839
+04-17 05:45:33.279:D: UpdatePlaybackCb 音樂  1 0 2 110522
+04-17 05:45:33.734:D: UpdatePlaybackCb 音樂  1 0 2 110977
+04-17 05:45:34.189:D: UpdatePlaybackCb 音樂  1 0 2 111432
+04-17 05:45:34.647:D: UpdatePlaybackCb 音樂  1 0 2 111889
+04-17 05:45:35.101:D: UpdatePlaybackCb 音樂  1 0 2 112343
+04-17 05:45:35.555:D: UpdatePlaybackCb 音樂  1 0 2 112797
+04-17 05:45:36.012:D: UpdatePlaybackCb 音樂  1 0 2 113254
+04-17 05:45:36.467:D: UpdatePlaybackCb 音樂  1 0 2 113709
+04-17 05:45:36.920:D: UpdatePlaybackCb 音樂  1 0 2 114163
+04-17 05:45:37.375:D: UpdatePlaybackCb 音樂  1 0 2 114617
+04-17 05:45:37.829:D: UpdatePlaybackCb 音樂  1 0 2 115071
+04-17 05:45:38.283:D: UpdatePlaybackCb 音樂  1 0 2 115525
+04-17 05:45:38.737:D: UpdatePlaybackCb 音樂  1 0 2 115978
+04-17 05:45:39.193:D: UpdatePlaybackCb 音樂  1 0 2 116433
+04-17 05:45:39.648:D: UpdatePlaybackCb 音樂  1 0 2 116888
+04-17 05:45:40.103:D: UpdatePlaybackCb 音樂  1 0 2 117343
+04-17 05:45:40.814:D: UpdatePlaybackCb 音樂  1 0 2 118054
+04-17 05:45:41.269:D: UpdatePlaybackCb 音樂  1 0 2 118509
+04-17 05:45:41.723:D: UpdatePlaybackCb 音樂  1 0 2 118964
+04-17 05:45:42.179:D: UpdatePlaybackCb 音樂  1 0 2 119419
+04-17 05:45:42.634:D: UpdatePlaybackCb 音樂  1 0 2 119874
+04-17 05:45:43.088:D: UpdatePlaybackCb 音樂  1 0 2 120329
+04-17 05:45:43.543:D: UpdatePlaybackCb 音樂  1 0 2 120783
+04-17 05:45:43.998:D: UpdatePlaybackCb 音樂  1 0 2 121238
+04-17 05:45:44.250:D: MediaScanProgeessCb 71
+04-17 05:45:44.453:D: UpdatePlaybackCb 音樂  1 0 2 121693
+04-17 05:45:44.907:D: UpdatePlaybackCb 音樂  1 0 2 122147
+04-17 05:45:45.363:D: UpdatePlaybackCb 音樂  1 0 2 122602
+04-17 05:45:45.818:D: UpdatePlaybackCb 音樂  1 0 2 123057
+04-17 05:45:46.271:D: UpdatePlaybackCb 音樂  1 0 2 123509
+04-17 05:45:46.727:D: UpdatePlaybackCb 音樂  1 0 2 123966
+04-17 05:45:47.182:D: UpdatePlaybackCb 音樂  1 0 2 124421
+04-17 05:45:47.637:D: UpdatePlaybackCb 音樂  1 0 2 124876
+04-17 05:45:48.091:D: UpdatePlaybackCb 音樂  1 0 2 125329
+04-17 05:45:48.547:D: UpdatePlaybackCb 音樂  1 0 2 125785
+04-17 05:45:49.002:D: UpdatePlaybackCb 音樂  1 0 2 126240
+04-17 05:45:49.457:D: UpdatePlaybackCb 音樂  1 0 2 126695
+04-17 05:45:49.917:D: UpdatePlaybackCb 音樂  1 0 2 127154
+04-17 05:45:50.633:D: UpdatePlaybackCb 音樂  1 0 2 127871
+04-17 05:45:51.088:D: UpdatePlaybackCb 音樂  1 0 2 128325
+04-17 05:45:51.542:D: UpdatePlaybackCb 音樂  1 0 2 128779
+04-17 05:45:51.997:D: UpdatePlaybackCb 音樂  1 0 2 129233
+04-17 05:45:52.452:D: UpdatePlaybackCb 音樂  1 0 2 129688
+04-17 05:45:52.906:D: UpdatePlaybackCb 音樂  1 0 2 130143
+04-17 05:45:53.362:D: UpdatePlaybackCb 音樂  1 0 2 130598
+04-17 05:45:53.816:D: UpdatePlaybackCb 音樂  1 0 2 131051
+04-17 05:45:54.271:D: UpdatePlaybackCb 音樂  1 0 2 131506
+04-17 05:45:54.725:D: UpdatePlaybackCb 音樂  1 0 2 131961
+04-17 05:45:55.180:D: UpdatePlaybackCb 音樂  1 0 2 132415
+04-17 05:45:55.634:D: UpdatePlaybackCb 音樂  1 0 2 132869
+04-17 05:45:55.755:E: err! MediaItem ID 42777
+04-17 05:45:55.756:D: parse err item Whitehouse Meeting04-17 05:45:56.091:D: UpdatePlaybackCb 音樂  1 0 2 133325
+04-17 05:45:56.921:D: UpdatePlaybackCb 音樂  1 0 2 134155
+04-17 05:45:57.621:D: UpdatePlaybackCb 音樂  1 0 2 134856
+04-17 05:45:58.076:D: UpdatePlaybackCb 音樂  1 0 2 135310
+04-17 05:45:58.529:D: UpdatePlaybackCb 音樂  1 0 2 135763
+04-17 05:45:58.984:D: UpdatePlaybackCb 音樂  1 0 2 136217
+04-17 05:45:59.438:D: UpdatePlaybackCb 音樂  1 0 2 136671
+04-17 05:45:59.895:D: UpdatePlaybackCb 音樂  1 0 2 137126
+04-17 05:46:00.350:D: UpdatePlaybackCb 音樂  1 0 2 137582
+04-17 05:46:00.805:D: UpdatePlaybackCb 音樂  1 0 2 138037
+04-17 05:46:01.514:D: UpdatePlaybackCb 音樂  1 0 2 138746
+04-17 05:46:01.970:D: UpdatePlaybackCb 音樂  1 0 2 139202
+04-17 05:46:02.675:D: UpdatePlaybackCb 音樂  1 0 2 139907
+04-17 05:46:03.130:D: UpdatePlaybackCb 音樂  1 0 2 140361
+04-17 05:46:03.585:D: UpdatePlaybackCb 音樂  1 0 2 140816
+04-17 05:46:04.040:D: UpdatePlaybackCb 音樂  1 0 2 141270
+04-17 05:46:04.496:D: UpdatePlaybackCb 音樂  1 0 2 141726
+04-17 05:46:04.951:D: UpdatePlaybackCb 音樂  1 0 2 142180
+04-17 05:46:05.406:D: UpdatePlaybackCb 音樂  1 0 2 142634
+04-17 05:46:05.862:D: UpdatePlaybackCb 音樂  1 0 2 143088
+04-17 05:46:06.575:D: UpdatePlaybackCb 音樂  1 0 2 143803
+04-17 05:46:07.030:D: UpdatePlaybackCb 音樂  1 0 2 144258
+04-17 05:46:07.485:D: UpdatePlaybackCb 音樂  1 0 2 144713
+04-17 05:46:07.940:D: UpdatePlaybackCb 音樂  1 0 2 145168
+04-17 05:46:08.396:D: UpdatePlaybackCb 音樂  1 0 2 145624
+04-17 05:46:09.165:D: UpdatePlaybackCb 音樂  1 0 2 146393
+04-17 05:46:09.723:D: Playlist 165884891361538106 size:36
+04-17 05:46:09.724:D: Playlist 18322127039227497503 size:26
+04-17 05:46:09.725:D: Playlist 4413629817164062606 size:24
+04-17 05:46:09.726:D: Playlist 11042881241632670609 size:21
+04-17 05:46:09.727:D: Playlist 14000937961882563996 size:12
+04-17 05:46:09.731:D: Playlist 8453037308138428384 size:16
+04-17 05:46:09.736:D: Playlist 18395644466136553354 size:50
+04-17 05:46:09.738:D: Playlist 11118634058783266951 size:41
+04-17 05:46:09.738:D: Playlist 14073078952260260812 size:0
+04-17 05:46:09.740:D: Playlist 5351030200784119570 size:10
+04-17 05:46:09.752:D: Playlist 17458038127334688751 size:387
+04-17 05:46:10.155:D: MediaScanProgeessCb 72
+04-17 05:46:10.155:D: UpdatePlaybackCb 音樂  1 0 2 147383
+04-17 05:46:10.619:D: Playlist 1318982715410503489 size:14
+04-17 05:46:10.620:D: Playlist 6723107950179014646 size:25
+04-17 05:46:10.622:D: Playlist 5926796795041380681 size:37
+04-17 05:46:10.622:D: Playlist 7296516811623814285 size:17
+04-17 05:46:10.624:D: Playlist 11190493615525215023 size:12
+04-17 05:46:10.626:D: Playlist 12774707400316010201 size:5
+04-17 05:46:10.627:D: Playlist 7080861039902446093 size:30
+04-17 05:46:10.631:D: Playlist 4921471913962774005 size:16
+04-17 05:46:10.635:D: Playlist 14864972801975084080 size:41
+04-17 05:46:10.641:D: Playlist 14717906080697106930 size:202
+04-17 05:46:10.652:D: Playlist 2687649785705265981 size:413
+04-17 05:46:10.655:D: Playlist 884947848655593156 size:139
+04-17 05:46:10.655:D: Playlist 4630489497987904092 size:0
+04-17 05:46:10.658:D: Playlist 5784377553861393105 size:18
+04-17 05:46:10.659:D: Playlist 1316599050656367937 size:24
+04-17 05:46:10.662:D: Playlist 15514222914310955719 size:109
+04-17 05:46:10.663:D: Playlist 2324362899839220625 size:2
+04-17 05:46:11.053:D: UpdatePlaybackCb 音樂  1 0 2 148281
+04-17 05:46:12.156:D: UpdatePlaybackCb 音樂  1 0 2 149384
+04-17 05:46:12.568:D: Playlist 3480794863424116268 size:26
+04-17 05:46:12.574:D: Playlist 9242733738194984027 size:177
+04-17 05:46:12.574:D: Playlist 3766994368579458971 size:2
+04-17 05:46:12.576:D: Playlist 5207742984531680509 size:2
+04-17 05:46:12.589:D: Playlist 7082795682075114153 size:31
+04-17 05:46:12.590:D: Playlist 15223205501841834581 size:23
+04-17 05:46:12.607:D: Playlist 12343950177519379792 size:33
+04-17 05:46:12.610:D: Playlist 9893660500348317507 size:2
+04-17 05:46:12.612:D: Playlist 15802331625767441709 size:25
+04-17 05:46:12.617:D: Playlist 454493655834939537 size:16
+04-17 05:46:12.622:D: Playlist 3262891286995856575 size:27
+04-17 05:46:12.629:D: Playlist 10037995495769614091 size:0
+04-17 05:46:12.631:D: Playlist 11333354081405756482 size:32
+04-17 05:46:12.636:D: Playlist 11911622795519892556 size:33
+04-17 05:46:12.642:D: Playlist 9460677793834185479 size:7
+04-17 05:46:12.651:D: Playlist 17963853851034480850 size:30
+04-17 05:46:12.677:D: Playlist 11260166729123773888 size:177
+04-17 05:46:12.678:D: Playlist 4197440927323135426 size:6
+04-17 05:46:12.687:D: Playlist 7728870894627934635 size:7
+04-17 05:46:12.697:D: Playlist 6938508148412508465 size:35
+04-17 05:46:12.707:D: Playlist 4631294621751635395 size:15
+04-17 05:46:12.741:D: Playlist 6360663263399484864 size:4675
+04-17 05:46:13.009:D: UpdatePlaybackCb 音樂  1 0 2 150235
+04-17 05:46:13.465:D: UpdatePlaybackCb 音樂  1 0 2 150690
+04-17 05:46:13.486:D: Playlist 16089005210640705475 size:351
+04-17 05:46:13.920:D: UpdatePlaybackCb 音樂  1 0 2 151145
+04-17 05:46:14.624:D: UpdatePlaybackCb 音樂  1 0 2 151849
+04-17 05:46:15.078:D: UpdatePlaybackCb 音樂  1 0 2 152303
+04-17 05:46:15.113:D: Playlist 12628225247182555055 size:1218
+04-17 05:46:15.531:D: UpdatePlaybackCb 音樂  1 0 2 152756
+04-17 05:46:15.984:D: UpdatePlaybackCb 音樂  1 0 2 153209
+04-17 05:46:16.436:D: UpdatePlaybackCb 音樂  1 0 2 153661
+04-17 05:46:16.890:D: UpdatePlaybackCb 音樂  1 0 2 154115
+04-17 05:46:17.344:D: UpdatePlaybackCb 音樂  1 0 2 154569
+04-17 05:46:17.798:D: UpdatePlaybackCb 音樂  1 0 2 155023
+04-17 05:46:18.253:D: UpdatePlaybackCb 音樂  1 0 2 155478
+04-17 05:46:18.709:D: UpdatePlaybackCb 音樂  1 0 2 155934
+04-17 05:46:19.163:D: UpdatePlaybackCb 音樂  1 0 2 156388
+04-17 05:46:19.617:D: UpdatePlaybackCb 音樂  1 0 2 156842
+04-17 05:46:20.071:D: UpdatePlaybackCb 音樂  1 0 2 157295
+04-17 05:46:20.083:D: Playlist 17386552669516965553 size:34
+04-17 05:46:20.525:D: UpdatePlaybackCb 音樂  1 0 2 157749
+04-17 05:46:20.979:D: UpdatePlaybackCb 音樂  1 0 2 158202
+04-17 05:46:20.990:D: Playlist 4199695349930247808 size:11
+04-17 05:46:21.432:D: UpdatePlaybackCb 音樂  1 0 2 158655
+04-17 05:46:21.886:D: UpdatePlaybackCb 音樂  1 0 2 159109
+04-17 05:46:22.583:D: UpdatePlaybackCb 音樂  1 0 2 159806
+04-17 05:46:23.039:D: UpdatePlaybackCb 音樂  1 0 2 160262
+04-17 05:46:23.492:D: UpdatePlaybackCb 音樂  1 0 2 160715
+04-17 05:46:23.947:D: UpdatePlaybackCb 音樂  1 0 2 161170
+04-17 05:46:24.401:D: UpdatePlaybackCb 音樂  1 0 2 161624
+04-17 05:46:24.855:D: UpdatePlaybackCb 音樂  1 0 2 162077
+04-17 05:46:25.567:D: UpdatePlaybackCb 音樂  1 0 2 162789
+04-17 05:46:26.020:D: UpdatePlaybackCb 音樂  1 0 2 163242
+04-17 05:46:26.736:D: UpdatePlaybackCb 音樂  1 0 2 163958
+04-17 05:46:27.189:D: UpdatePlaybackCb 音樂  1 0 2 164411
+04-17 05:46:27.644:D: UpdatePlaybackCb 音樂  1 0 2 164865
+04-17 05:46:28.097:D: UpdatePlaybackCb 音樂  1 0 2 165318
+04-17 05:46:28.552:D: UpdatePlaybackCb 音樂  1 0 2 165772
+04-17 05:46:29.005:D: UpdatePlaybackCb 音樂  1 0 2 166226
+04-17 05:46:29.460:D: UpdatePlaybackCb 音樂  1 0 2 166681
+04-17 05:46:29.712:D: MediaScanProgeessCb 73
+04-17 05:46:29.913:D: UpdatePlaybackCb 音樂  1 0 2 167134
+04-17 05:46:30.367:D: UpdatePlaybackCb 音樂  1 0 2 167588
+04-17 05:46:31.075:D: UpdatePlaybackCb 音樂  1 0 2 168296
+04-17 05:46:31.782:D: UpdatePlaybackCb 音樂  1 0 2 169002
+04-17 05:46:32.236:D: UpdatePlaybackCb 音樂  1 0 2 169456
+04-17 05:46:32.689:D: UpdatePlaybackCb 音樂  1 0 2 169909
+04-17 05:46:33.143:D: UpdatePlaybackCb 音樂  1 0 2 170363
+04-17 05:46:33.597:D: UpdatePlaybackCb 音樂  1 0 2 170817
+04-17 05:46:34.051:D: UpdatePlaybackCb 音樂  1 0 2 171271
+04-17 05:46:34.103:E: err! MediaItem ID 55057
+04-17 05:46:34.103:D: parse err item Oblivion (feat. Susanne Sundfør)04-17 05:46:34.505:D: UpdatePlaybackCb 音樂  1 0 2 171725
+04-17 05:46:34.960:D: UpdatePlaybackCb 音樂  1 0 2 172179
+04-17 05:46:35.414:D: UpdatePlaybackCb 音樂  1 0 2 172633
+04-17 05:46:35.867:D: UpdatePlaybackCb 音樂  1 0 2 173086
+04-17 05:46:36.323:D: UpdatePlaybackCb 音樂  1 0 2 173542
+04-17 05:46:36.777:D: UpdatePlaybackCb 音樂  1 0 2 173996
+04-17 05:46:37.230:D: UpdatePlaybackCb 音樂  1 0 2 174449
+04-17 05:46:37.684:D: UpdatePlaybackCb 音樂  1 0 2 174903
+04-17 05:46:38.137:D: UpdatePlaybackCb 音樂  1 0 2 175356
+04-17 05:46:38.591:D: UpdatePlaybackCb 音樂  1 0 2 175810
+04-17 05:46:38.843:D: MediaScanProgeessCb 74
+04-17 05:46:39.045:D: UpdatePlaybackCb 音樂  1 0 2 176264
+04-17 05:46:39.499:D: UpdatePlaybackCb 音樂  1 0 2 176718
+04-17 05:46:39.954:D: UpdatePlaybackCb 音樂  1 0 2 177173
+04-17 05:46:40.407:D: UpdatePlaybackCb 音樂  1 0 2 177626
+04-17 05:46:40.862:D: UpdatePlaybackCb 音樂  1 0 2 178080
+04-17 05:46:40.956:D: HID 6
+04-17 05:46:41.032:D: HID 0
+04-17 05:46:41.316:D: UpdatePlaybackCb 音樂  1 0 2 178535
+04-17 05:46:41.509:D: UpdatePlaybackCb 音樂  2 0 2 178262
+04-17 05:46:41.520:D: UpdatePlaybackCb 音樂  2 0 2 178262
+04-17 05:46:53.075:D: Playlist 8163292661096954328 size:44
+04-17 05:47:04.430:D: Playlist 18251069186092945169 size:26
+04-17 05:47:05.887:D: Playlist 4705497759154797159 size:33
+04-17 05:47:09.778:D: MediaScanProgeessCb 75
+04-17 05:47:35.199:D: Playlist 10539640675815180531 size:8
+04-17 05:47:37.392:D: Playlist 8668167503093509125 size:53
+04-17 05:47:38.111:D: Playlist 5855492306301219364 size:68
+04-17 05:47:38.112:D: Playlist 14215587037575674220 size:15
+04-17 05:47:47.408:D: Playlist 8233779211422589566 size:82
+04-17 05:47:49.651:D: Playlist 6938461842285307460 size:473
+04-17 05:47:51.278:D: MediaScanProgeessCb 76
+04-17 05:47:53.929:E: err! MediaItem ID 29537
+04-17 05:47:53.930:D: parse err item Chopin: Polonaise In A-Flat Major "Heroic" Op. 5304-17 05:47:58.086:E: item err! szid 84 szlen 0(946)
+04-17 05:48:02.003:W: playlist: 6938461842285307460, Great Main Themes exist
+04-17 05:48:02.674:D: Playlist 8451751826179013387 size:41
+04-17 05:48:02.684:D: Playlist 6938461842285307460 size:473
+04-17 05:48:02.693:D: Playlist 5566743528131816430 size:387
+04-17 05:48:03.406:D: Playlist 15872118118826590844 size:17
+04-17 05:48:03.407:D: Playlist 7153268502015785494 size:40
+04-17 05:48:04.180:W: playlist: 17386552669516965553, Lindsey Stirling exist
+04-17 05:48:04.187:D: Playlist 17386552669516965553 size:34
+04-17 05:48:14.262:W: playlist: 15802331625767441709, 最喜愛的歌曲 exist
+04-17 05:48:14.930:D: Playlist 13136748174674516335 size:41
+04-17 05:48:14.931:D: Playlist 4053526082209729615 size:43
+04-17 05:48:14.932:D: Playlist 15802331625767441709 size:25
+04-17 05:48:17.057:D: Playlist 3913425673177790788 size:25
+04-17 05:48:19.207:D: Playlist 13856231432623044760 size:84
+04-17 05:48:19.916:D: Playlist 12484374587632276551 size:23
+04-17 05:48:21.778:D: MediaScanProgeessCb 77
+04-17 05:49:00.376:W: MediaLibraryUpdate too big
+04-17 05:49:00.412:E: err! MediaLibraryUpdate ID 0x4c
+04-17 05:49:05.517:E: err! MediaItem ID 28275
+04-17 05:49:05.517:D: parse err item Concerto for oboe (or violin), strings & continuo in G minor (reconstruction), BWV 1056R: 1. (Allegro)04-17 05:49:19.278:D: MediaScanProgeessCb 78
+04-17 05:49:48.195:E: err! MediaItem ID 8268
+04-17 05:49:48.195:D: parse err item Chopin: Polonaise In A-Flat Major "Heroic" Op. 5304-17 05:49:48.225:E: err! MediaItem ID 8258
+04-17 05:49:48.225:D: parse err item Chopin: Nocturne No. 8 In D Flat, Op. 27 No. 204-17 05:50:29.028:D: MediaScanProgeessCb 79
+04-17 05:51:14.093:D: Playlist 3981951932379000548 size:89
+04-17 05:51:32.278:D: MediaScanProgeessCb 80
+04-17 05:51:38.651:D: Playlist 91987069605277192 size:244
+04-17 05:51:46.397:D: Playlist 14865257064050332462 size:33
+04-17 05:51:47.073:D: Playlist 12916691522127747217 size:0
+04-17 05:51:56.450:D: Playlist 17096833971623727332 size:1218
+04-17 05:52:24.311:D: Update RemoteLib Rev:(null)
+04-17 05:52:24.340:D: HidingRemoteItems 0
+04-17 05:52:24.529:D: MediaScanProgeessCb 100
+04-17 05:52:24.530:D: playlist-GeniusMix : 0
+04-17 05:52:24.530:D: playlist-folder : 0
+04-17 05:52:24.530:D: playlist-mediaitem : 77
+04-17 05:52:24.530:D: MediaScanFinishCb +
+04-17 05:52:24.531:D: nativeGetIPodMediaItemList
+04-17 05:52:24.546:D: nativeGetIPodMediaItemList
+04-17 05:52:24.577:D: MediaScanFinishCb -
+04-17 05:52:26.323:W: Reset remote lib
+04-17 05:52:27.623:D: mPlaylist 82, mPlaylistData 77
+04-17 05:52:27.623:D: MediaPlaylistReadyCb
+04-17 05:52:28.124:D: playlist-RadioStation : 0
