@@ -5,12 +5,7 @@
 use pollard rho brent method to factorize an integer
 '''
 
-# will output error if python3
-
-from __future__ import print_function
-import sys
 import random
-import locale
 
 def gcd(mm, nn):
     '''
@@ -51,23 +46,7 @@ def brent(N):
             g = gcd(abs(x - ys), N)
             if g > 1:
                 break
-
     return g
-
-def demo():
-    '''
-    demo function to factorize random numbers
-    '''
-
-    # the following n is a large prime will take a while to know the result
-    # n = 1238926361552897
-    rep = 5
-    for _ in range(rep):
-        n = random.randint(0x1419a9a8, 0x4d95a41b)
-        n = 2*n + 1    # make sure number is odd
-        print("%d: " % (n))
-        fact = factorize(n)
-        print(fact)
 
 
 def factorize(n):
@@ -80,20 +59,32 @@ def factorize(n):
         factors.append(b)
         if b == n:
             break
-        n = n / b
+        n = n // b
     factors.sort()
     return factors
 
+def main(argv):
+    ''' main '''
+    if argv == []:
+        # the following n is a large prime will take a while to know the result
+        # n = 1238926361552897
+        rep = 5
+        for _ in range(rep):
+            n = random.randint(0x1419a9a8, 0x4d95a41b)
+            n = 2 * n + 1
+            argv.append(n)
+
+    for v in argv:
+        try:
+            if isinstance(v, str):
+                num = int(v)
+            else:
+                num = v
+            print("{}: {}".format(num, factorize(num)))
+        except ValueError:
+            print('Not a valid number: {}'.format(v))
+
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        for v in sys.argv[1:]:
-            try:
-                num = locale.atoi(v)
-                print(num, ": {}".format(factorize(num)))
-            except ValueError:
-                print('not valid number: {}'.format(v))
-                print('please input integer')
-                quit()
-    else:
-        demo()
+    import sys
+    main(sys.argv[1:])
