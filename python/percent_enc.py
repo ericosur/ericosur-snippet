@@ -1,17 +1,21 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 '''
-demo percentage encoding
+demo percentage encoding, could run both python2, python3
 '''
 
-from __future__ import print_function
-import urllib
+try:
+    from urllib.parse import quote
+    print('using urllib.parse.quote')
+except ImportError:
+    from urllib import quote
+    print('using urllib.quote')
+
 
 def percent_enc(tok):
     ''' print percent encoded string '''
-    print(tok)
-    print(urllib.quote(tok.encode("utf-8")))
+    print(quote(tok.encode("utf-8")))
 
 
 # for unicdoe codepage 0000 to FFFF, use lower case \u, eg: u'\u1234'
@@ -27,13 +31,14 @@ def main():
         u"\u00D0 \u00D1 \u00DD \u00DE",
         u"\u00D2 \u00D3 \u00D4 \u00D5 \u00D6 \u00D8",
         u"\u00D9 \u00DA \u00DB \u00DC",
-
+        u"長度會有變化",
         u"长度会有变化",
         u"\U0001f648\U0001f649\U0001f64a",
         u"\U0001F1F9\U0001F1FC"
     ]
 
     for tok in tokens:
+        print(tok)
         percent_enc(tok)
 
 
