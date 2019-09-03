@@ -6,25 +6,37 @@
     practice for getting environment variables
 
     The way to get env var:
-        os.environ.get('path')
+        os.environ.get('PATH')
     OR
-        os.getenv('path')
+        os.getenv('PATH')
+
+    may input argument from CLI, or nothing to see demo
 '''
 
-from __future__ import print_function
 import sys
 import os
 
-def main():
-    ''' main function '''
-    if len(sys.argv) == 1:
-        print("usage: %s [arg1] [arg2]..." % sys.argv[0])
-        quit()
+def pick_one():
+    ''' pick one element from os.environ '''
+    from random import choice
+    print('random choose one env variable to show:')
+    arr = [x for x in os.environ]
+    k = choice(arr)
+    en = os.environ.get(k)
+    print('{} = {}'.format(k, en))
 
-    for x in range(1, len(sys.argv)):
-        if sys.argv[x]:
-            en = os.environ.get(sys.argv[x])
-        print(sys.argv[x], "=", en)
+def main(argv):
+    ''' main function '''
+    if argv == []:
+        assert False    # should not happen
+
+    for x in argv:
+        en = os.environ.get(x)
+        print('{} = {}'.format(x, en))
 
 if __name__ == '__main__':
-    main()
+    if len(sys.argv) > 1:
+        main(sys.argv[1:])
+    else:
+        print("usage: argv_env.py [arg1] [arg2]...\n")
+        pick_one()
