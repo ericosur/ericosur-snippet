@@ -8,4 +8,8 @@ set(CMAKE_VERBOSE_MAKEFILE OFF)
 set(CMAKE_CXX_FLAGS  "-Wall -O3")
 set(CMAKE_C_FLAGS  "-Wall -O3")
 
-add_executable(sk  sendkey.cpp)
+add_executable(sk
+    sendkey.h
+    main.cpp
+    sendkey.cpp
+)
