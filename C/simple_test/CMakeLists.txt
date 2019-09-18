@@ -20,16 +20,10 @@ set(CMAKE_C_FLAGS "-Wall -O3")
 
 include_directories("/usr/local/include")
 
-project(easytest)
 
 add_executable(rfind rfind.cpp)
 add_executable(getret getret.cpp)
 add_executable(gete gete.cpp)
-add_executable(hello_world
-    hello_world.cpp
-    boxmuller.cpp
-    test_func.cpp
-)
 add_executable(mul mul.cpp)
 add_executable(fib fib.c)
 add_executable(memmove memmove.c)
@@ -38,3 +32,13 @@ add_executable(shift  shift.cpp)
 #add_executable(atan  atan.cpp)
 
 add_executable(test_jvs  test_jvs.c  jvs.c)
+
+# for library __fmt__
+set(FMT_BASEDIR     "../fmt")
+include_directories("${FMT_BASEDIR}/include")
+add_executable(hello_world
+    hello_world.cpp
+    boxmuller.cpp
+    test_func.cpp
+    ${FMT_BASEDIR}/src/format.cc
+)
