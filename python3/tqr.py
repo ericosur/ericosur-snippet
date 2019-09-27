@@ -6,8 +6,12 @@ input text from CLI and generate qrcode image
 '''
 
 import sys
-import qrcode
 #from PIL import Image
+try:
+    import qrcode
+except ImportError:
+    print('need install module **qrcode**')
+    sys.exit()
 
 def main(argv):
     ''' main '''
