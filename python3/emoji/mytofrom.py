@@ -34,3 +34,19 @@ def to_from_u16(cc: str):
     u16s = json.dumps(cc).replace('"', '')
     print('unicode-escape: ' + ue)
     print('      utf16-be: ' + u16s)
+
+def main():
+    ''' main '''
+    to_from_u8('Malmö')    # Malm\xf6
+    to_from_u8('高畑')    # \u9ad8\u7551
+    to_from_u8('🇧🇴')    # \U0001f1e7\U0001f1f4
+    to_from_u8('قِبْلَة')    # \u0642\u0650\u0628\u0652\u0644\u064e\u0629
+
+    to_utf8('中文')   # e4b8ade69687
+    to_utf8('قِبْلَة')  # d982d990d8a8d992d984d98ed8a9
+
+    # a = b'\xf0\x9f\x98\x80'
+    # a.decode('utf-8') # 😀
+
+if __name__ == '__main__':
+    main()
