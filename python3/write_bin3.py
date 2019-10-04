@@ -38,6 +38,7 @@ def main():
             barr = fill_bytearray()
             binfile.write(barr)
             print('{}\r'.format(c), end='')
+    print('100\noutput to {}'.format(fn))
 
 if __name__ == '__main__':
     main()
