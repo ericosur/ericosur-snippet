@@ -6,8 +6,10 @@
 from __future__ import print_function
 import os
 import sys
-from math import floor
+import re
+from math import floor, isnan
 #from datetime import time
+import numpy as np
 import pandas as pd
 import myutil
 
@@ -29,7 +31,7 @@ class DrivingData(object):
         self.jsonpath = home + '/Private/driving_data.json'
         if not myutil.isfile(self.jsonpath):
             print('setting file not found', self.jsonpath)
-            exit(1)
+            sys.exit(1)
         self.jsondata = myutil.read_jsonfile(self.jsonpath)
         self.docid = self.jsondata.get('docid', '')
         self.sheetid = self.jsondata.get('sheetid', '')
@@ -63,26 +65,49 @@ class DrivingData(object):
 
         # read csv file as dataframe
         data = pd.read_csv(self.csvfile)
+        #print(type(data))
+        #print_sep()
+        duration = data['duration']
+        #print(duration)
+        #print(data['date'])
+        #print_sep()
 
-        s1 = data['duration']
         dates = []
         secs = []
         for ii, ds in enumerate(data['date']):
-            dates.append(ds)
-            secs.append(str2sec(s1[ii]))
+            try:
+                v = duration[ii]
+                if isinstance(v, float):
+                    # data exists at col "date", but empty at col "duration"
+                    #print('float?')
+                    break
+                dates.append(ds)
+                secs.append(str2sec(v))
+            except ValueError:
+                print('[ERROR] at {} on {}, invalid format: {}'.format(ii, ds, duration[ii]))
+                return
+
+        if len(dates) != len(secs):
+            print('[ERROR] not the same length {} vs {}'.format(len(dates), len(secs)))
+            return
 
         ndict = {"date": dates, "seconds": secs}
         res = pd.DataFrame(ndict)
-        #print(res.info())
 
-        print_sep()
+        # show details of res
+        # print('res.info?')
+        # res.info()
+        # print_sep()
         des = res.describe()
-        #print('all description...', des)
-        #print_sep()
+        # print('all description...', des)
+        # print_sep()
 
         queries = ['count', 'max', 'min', 'mean', '50%', 'std']
         for qq in queries:
             ans = peek_target(des, qq)
+            # if not isinstance(ans, str):
+            #     print('peek not a string:', ans)
+            #     break
             if qq != 'count':
                 result = sec2str(ans)
             else:
@@ -90,9 +115,17 @@ class DrivingData(object):
             print('{:5s}: {:20s}'.format(qq, result.rjust(10, ' ')))
         print_sep()
 
+# return: float64
+def str2sec(timestr: str):
+    ''' translate mm:ss.nn into float64 numeric '''
+    if not isinstance(timestr, str):
+        print('str2sec: not a string?', timestr)
+        raise ValueError
+    m = re.match('\d\d:\d\d\.\d\d', timestr)
+    if m is None:
+        print('invalid format for', timestr)
+        raise ValueError
 
-def str2sec(timestr):
-    ''' string to seconds '''
     minutes = 0.0
     seconds = 0.0
     total = 0.0
@@ -111,10 +144,17 @@ def strify(nn):
     ''' strify '''
     return '{:02}'.format(nn)
 
-def sec2str(sec):
+def sec2str(sec: str):
     ''' seconds to string '''
+    # if not isinstance(sec, str):
+    #     print('{} is not a string'.format(sec))
+    #     return ''
     ss = []
-    nn = int(sec)
+    try:
+        nn = int(sec)
+    except ValueError:
+        print('ValueError at {}'.format(sec))
+        nn = 0
     while nn >= 60:
         qq = nn / 60
         rr = nn % 60
@@ -138,7 +178,8 @@ def peek_target(desc_table, target):
         midx = desc_list.index(target)
         mean_value = desc_table.iloc[midx, 0]
         #result = sec2str(mean_value)
-        result = mean_value
+        result = np.int64(mean_value)
+        #print('result:{}, type:{}'.format(result, type(result)))
         return result
     except ValueError as e:
         print('WARN: ValueError: {}'.format(e.args))
