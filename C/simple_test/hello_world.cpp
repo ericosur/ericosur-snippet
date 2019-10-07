@@ -1,5 +1,6 @@
 #include "test_func.h"
 
+#include <stdio.h>
 #include <iostream>
 #include <time.h>
 
@@ -14,6 +15,19 @@ public:
 // the ctor will be run before main()
 HelloWorld hw;
 
+void test_fopen()
+{
+    FILE* fp = fopen("nosuchfile.txt", "rt");
+    if (fp == nullptr) {
+        printf("no such file... nullptr\n");
+    }
+    if (fp == NULL) {
+        printf("no such file... NULL\n");
+    }
+    if (NULL == nullptr) {
+        printf("they are the same!\n");
+    }
+}
 
 int main()
 {
@@ -32,6 +46,8 @@ int main()
     test_foo_string();
 
     test_lamb();
+
+    test_fopen();
 
     return 0;
 }
