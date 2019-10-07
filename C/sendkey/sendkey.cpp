@@ -76,7 +76,7 @@ BOOL OnWindowEnum(HWND hwnd, LPARAM lparam)
 	(void)lparam;  // make compiler happy
 
     GetWindowText(hwnd, title, TITLE_SIZE);
-    if (strstr(title, TARGET_TITLE) != NULL) {
+    if (strstr(title, TARGET_TITLE) != nullptr) {
         // found hwnd will goes to foreground and get keyboard focus
 
 		show_window(hwnd);
@@ -88,7 +88,7 @@ BOOL OnWindowEnum(HWND hwnd, LPARAM lparam)
         //    g_foundPPT = 1;
         //}
     } else {
-        if (strlen(title) > 3 && strstr(title, "IME") == NULL) {
+        if (strlen(title) > 3 && strstr(title, "IME") == nullptr) {
             printf("title:%s\n", title);
         }
     }
@@ -138,7 +138,7 @@ void show_window(HWND hwnd)
 // const wchar_t *classname = L"Total Commander";
 int find_window(LPCSTR classname)
 {
-    HWND hwnd = NULL;
+    HWND hwnd = nullptr;
     for (;;) {
         hwnd = FindWindowEx(0, hwnd, (LPCSTR)classname, 0);
 		if (!hwnd) {

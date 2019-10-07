@@ -55,8 +55,8 @@ int main()
 
 #ifdef USE_GLIB
     // dst is null-terminated, so pass 2nd arg as -1
-    // and no need to get last validate pos, pass 3nd arg as NULL
-    if ( g_utf8_validate(dst, -1, NULL) == TRUE ) {
+    // and no need to get last validate pos, pass 3nd arg as null
+    if ( g_utf8_validate(dst, -1, nullptr) == TRUE ) {
         printf("g_utf8_validate: ok\n");
     } else {
         printf("g_utf8_validate: fail\n");

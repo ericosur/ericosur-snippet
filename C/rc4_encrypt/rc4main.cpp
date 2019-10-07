@@ -12,18 +12,18 @@ int main(int argc, char **argv)
 		exit(-2);
 	}
 
-	FILE *in = NULL;
-	FILE *out = NULL;
+	FILE *in = nullptr;
+	FILE *out = nullptr;
 
 	printf("myrc starting...\n");
 
-	if ( (in = fopen(argv[1], "rb")) == NULL )
+	if ( (in = fopen(argv[1], "rb")) == nullptr )
 	{
 		printf("error while open 'in' for writing\n");
 		exit(-1);
 	}
 
-	if ( (out = fopen(argv[2], "wb")) == NULL )
+	if ( (out = fopen(argv[2], "wb")) == nullptr )
 	{
 		printf("error while open 'ccc' for writing\n");
 		exit(-1);

@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.0)
 project(rc4_encrypt)
 
 #set(BUILD_DOCUMENTATION YES)
-
+set(CMAKE_CXX_STANDARD 11)
 #set(CMAKE_BINARY_DIR ${PROJECT_SOURCE_DIR}"/bin/")
 set(CMAKE_CXX_FLAGS "-Wall -O3")
 #find_package(OpenSSL REQUIRED)

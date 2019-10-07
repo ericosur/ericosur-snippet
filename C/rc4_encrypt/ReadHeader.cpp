@@ -24,7 +24,7 @@ void ShowHeader(const Header& header, const char* fname);
 int main(int argc, char** argv)
 {
     char FileName[TEMP_BUFFER_SIZE];
-	FILE* fptr = NULL;
+	FILE* fptr = nullptr;
 	Header header;
 	byte header_digest[MY_MD5_DIGEST_LENGTH];
 	byte calculated_digest[MY_MD5_DIGEST_LENGTH];
@@ -38,7 +38,7 @@ int main(int argc, char** argv)
 		printf("not enough arguments\n");
 		return -2;
 	}
-	if ( (fptr = fopen(argv[1], "rb")) == NULL )
+	if ( (fptr = fopen(argv[1], "rb")) == nullptr )
 	{
 		printf("error: cannot open [%s] to read\n", argv[1]);
 		return -1;

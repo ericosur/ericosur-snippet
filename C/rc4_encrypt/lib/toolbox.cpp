@@ -20,7 +20,7 @@ int CalculateFileMD5(FILE* fptr, byte* md5_hash, size_t& total_read)
 	size_t size_read = 0;
 	MD5_CTX ctx;
 
-	if (md5_hash == NULL)
+	if (md5_hash == nullptr)
 	{
 		printf("error: hash buffer is null\n");
 		return -1;
@@ -51,7 +51,7 @@ int CalculateBufferMD5(byte* buffer, size_t buffer_size, byte *md5_hash)
 	//size_t size_read = 0;
 	MD5_CTX ctx;
 
-	if (md5_hash == NULL)
+	if (md5_hash == nullptr)
 	{
 		printf("error: hash buffer is null\n");
 		return -1;
@@ -75,7 +75,7 @@ int CalculateFileSHA1(FILE *fptr, byte *sha1_hash, size_t& total_read)
 	size_t size_read = 0;
 	SHA_CTX ctx;
 
-	if (sha1_hash == NULL)
+	if (sha1_hash == nullptr)
 	{
 		printf("error: hash buffer is null\n");
 		return (-3);
@@ -102,7 +102,7 @@ int CalculateFileSHA1(FILE *fptr, byte *sha1_hash, size_t& total_read)
 void PrintHashValue(const byte *hash, const int len)
 {
 	int i;
-	if (hash == NULL && len > 0)
+	if (hash == nullptr && len > 0)
 		return;
 //	printf("dump size = %d\n", len);
 	for (i = 0; i < len; i ++)

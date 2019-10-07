@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 /*
-   See if it is ok to delete NULL?
+   See if it is ok to delete a null pointer?
 */
 
 void testfunc(char* ptr)

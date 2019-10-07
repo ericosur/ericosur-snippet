@@ -15,6 +15,7 @@ public:
 // the ctor will be run before main()
 HelloWorld hw;
 
+// MUST NOT replace NULL here !!
 void test_fopen()
 {
     FILE* fp = fopen("nosuchfile.txt", "rt");

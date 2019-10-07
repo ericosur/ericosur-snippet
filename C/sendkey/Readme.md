@@ -42,7 +42,7 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE, LPSTR cmdline, int nshow)
 {
     const wchar_t *classname = L"Chrome_WidgetWin_1";
 
-    HWND hwnd = NULL;
+    HWND hwnd = NULL;   // use nullptr if C++11
     for (;;)
     {
         hwnd = FindWindowEx(0, hwnd, classname, 0);

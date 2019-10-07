@@ -30,7 +30,7 @@ void dump(const char* buf, int size)
 bool is_alac(const char* fn)
 {
     FILE* fptr = fopen(fn, "rb");
-    if (fptr == NULL) {
+    if (fptr == nullptr) {
         perror("fopen");
         return false;
     }
@@ -44,7 +44,7 @@ bool is_alac(const char* fn)
     //printf("readsize: %lu\n", readsize);
     //dump(buffer, CHECK_SIZE);
     char* p = (char*)memchr(buffer, 'a', readsize);
-    if (p != NULL && strncmp(p, "alac", 4) == 0) {
+    if (p != nullptr && strncmp(p, "alac", 4) == 0) {
         return true;
     }
     return false;

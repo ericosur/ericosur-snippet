@@ -23,7 +23,7 @@ int Md5(const uint8_t* buffer, const size_t size, uint8_t *hash)
 {
     MD5_CTX ctx;
 
-    if (hash == NULL)
+    if (hash == nullptr)
     {
         printf("error: hash buffer is null\n");
         return -1;
@@ -43,7 +43,7 @@ int Sha(const uint8_t* buffer, const size_t size, uint8_t *hash)
 {
     SHA_CTX ctx;
 
-    if (hash == NULL)
+    if (hash == nullptr)
     {
         printf("error: hash buffer is null\n");
         return -1;
@@ -63,7 +63,7 @@ int Sha1(const uint8_t* buffer, const size_t size, uint8_t *hash)
 {
     SHA_CTX ctx;
 
-    if (hash == NULL)
+    if (hash == nullptr)
     {
         printf("error: hash buffer is null\n");
         return -1;
@@ -85,7 +85,7 @@ int Sha256(const uint8_t* buffer, const size_t size, uint8_t *hash)
 {
     SHA256_CTX ctx;
 
-    if (hash == NULL)
+    if (hash == nullptr)
     {
         printf("error: hash buffer is null\n");
         return -1;
@@ -109,7 +109,7 @@ int CalculateFileSHA1(FILE *fptr, byte *sha1_hash, size_t& total_read)
     size_t size_read = 0;
     SHA_CTX ctx;
 
-    if (sha1_hash == NULL)
+    if (sha1_hash == nullptr)
     {
         printf("error: hash buffer is null\n");
         return (-3);

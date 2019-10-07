@@ -21,8 +21,8 @@ int SetHeaderSize(Header_struct& header);
 
 int main(int argc, char **argv)
 {
-	FILE *in = NULL;
-	FILE *out = NULL;
+	FILE *in = nullptr;
+	FILE *out = nullptr;
 
 	// we need 3 arguments
 	if (argc != 3)
@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 	printf("starting...\n");
 
 	// open input file
-	if ( (in = fopen(argv[1], "rb")) == NULL )
+	if ( (in = fopen(argv[1], "rb")) == nullptr )
 	{
 		printf("error: open file [%s] for reading\n", argv[1]);
 		exit(-1);
@@ -42,14 +42,14 @@ int main(int argc, char **argv)
 	printf("open '%s' as reading\n", argv[1]);
 
 	// get the input filename
-	char* fname = NULL;
+	char* fname = nullptr;
 	size_t len = strlen(argv[1]) + 1;
 	fname = new char[len];
 	memset(fname, 0, len);
 	strcpy(fname, argv[1]);
 
 // open output file
-	if ( (out = fopen(argv[2], "wb")) == NULL )
+	if ( (out = fopen(argv[2], "wb")) == nullptr )
 	{
 		printf("error: open file [%s] for writing\n", argv[2]);
 		exit(-2);
@@ -57,8 +57,8 @@ int main(int argc, char **argv)
 	printf("open '%s' as writing\n", argv[2]);
 
 	// take command line arguments
-	assert(in != NULL);
-	assert(out != NULL);
+	assert(in != nullptr);
+	assert(out != nullptr);
 
 	Header_struct file_header;
 	// init file_header

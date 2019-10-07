@@ -29,7 +29,7 @@ void foo::setPolicy(FOOENUM f)
 void foo::init()
 {
     m_value = 0;
-    m_fp = NULL;
+    m_fp = nullptr;
 }
 
 // it's public

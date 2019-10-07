@@ -19,8 +19,8 @@ void my_truncate(const char* fname, size_t to_size);
 int main(int argc, char** argv)
 {
 	char TMPFILE[] = "tmp1234";
-	FILE *in = NULL;
-	FILE *out = NULL;
+	FILE *in = nullptr;
+	FILE *out = nullptr;
 
 	// we need one argument
 	if (argc != 2)
@@ -30,7 +30,7 @@ int main(int argc, char** argv)
 	}
 
 	// open input file
-	if ( (in = fopen(argv[1], "rb")) == NULL )
+	if ( (in = fopen(argv[1], "rb")) == nullptr )
 	{
 		printf("error: canot open file [%s] for reading\n", argv[1]);
 		return (-1);
@@ -38,7 +38,7 @@ int main(int argc, char** argv)
 	printf("open '%s' for reading\n", argv[1]);
 
 	// open output file
-	if ( (out = fopen(TMPFILE, "wb")) == NULL )
+	if ( (out = fopen(TMPFILE, "wb")) == nullptr )
 	{
 		printf("error: open file [%s] for writing\n", TMPFILE);
 		return (-3);
@@ -48,7 +48,7 @@ int main(int argc, char** argv)
 // get header from input file
 	Header header;
 	byte header_md5[MY_MD5_DIGEST_LENGTH];
-	char *filename = NULL;
+	char *filename = nullptr;
 	size_t size_read;
 
 	fseek(in, 0, SEEK_SET);
@@ -96,8 +96,8 @@ int main(int argc, char** argv)
 #endif
 
 // final check the output file
-	FILE* check = NULL;
-	if ( (check = fopen(TMPFILE, "rb")) == NULL )
+	FILE* check = nullptr;
+	if ( (check = fopen(TMPFILE, "rb")) == nullptr )
 	{
 		printf("open tmpfile for checking md5 error\n");
 	}
@@ -138,7 +138,7 @@ void my_truncate(const char* fname, size_t to_size)
 	const char out_fname[] = "tmp9876";
 	FILE *in = fopen(fname, "rb");
 	FILE *out = fopen(out_fname, "wb");
-	if (in == NULL || out == NULL)
+	if (in == nullptr || out == nullptr)
 	{
 		printf("something wrong\n");
 		return;

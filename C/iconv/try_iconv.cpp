@@ -15,16 +15,16 @@ char* ConvertEnc(const char* encFrom, const char* encTo, const char* in)
 
     if ((c_pt = iconv_open(encTo, encFrom)) == (iconv_t)-1) {
         printf("iconv_open false: %s ==> %s\n", encFrom, encTo);
-        return NULL;
+        return nullptr;
     }
-    iconv(c_pt, NULL, NULL, NULL, NULL);
+    iconv(c_pt, nullptr, nullptr, nullptr, nullptr);
     lenin  = strlen(in) + 1;
     lenout = 1024;
     sin    = (char *)in;
     sout   = bufout;
     ret = iconv(c_pt, &sin, (size_t *)&lenin, &sout, (size_t *)&lenout);
     if (ret == -1) {
-        return NULL;
+        return nullptr;
     }
     iconv_close(c_pt);
     return bufout;

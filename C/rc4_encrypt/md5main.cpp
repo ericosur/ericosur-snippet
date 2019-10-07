@@ -20,13 +20,13 @@ int main(int argc, char **argv)
 		exit(-2);
 	}
 
-	FILE *in = NULL;
+	FILE *in = nullptr;
 	byte md5_hash[MY_MD5_DIGEST_LENGTH];
 	byte sha1_hash[MY_SHA_DIGEST_LENGTH];
 
 	printf("mymd5 starting...\n");
 
-	if ( (in = fopen(argv[1], "rb")) == NULL )
+	if ( (in = fopen(argv[1], "rb")) == nullptr )
 	{
 		printf("error: cannot open file for writing\n");
 		exit(-1);
