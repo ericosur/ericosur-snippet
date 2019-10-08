@@ -13,7 +13,8 @@ from fisher_yates_shuffle import shuffle_array
 
 SIZE = 10000
 DEFAULT_NUMBER = 5000
-ARR = [i for i in range(SIZE)]
+#ARR = [i for i in range(SIZE)]
+ARR = list(range(SIZE))
 
 def test1():
     ''' test1 '''

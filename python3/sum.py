@@ -27,7 +27,7 @@ class SumUp():
 
     def sum2(self):
         ''' fill arr '''
-        arr = [i for i in range(self.max_num + 1)]
+        arr = list(range(self.max_num + 1))
         return sum(arr)
 
     def test(self):

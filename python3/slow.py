@@ -18,7 +18,8 @@ class JustData():
 def slow():
     ''' slow function '''
     from random import randint
-    a = [x for x in range(JustData.lower, JustData.upper +1)]
+    #a = [x for x in range(JustData.lower, JustData.upper +1)]
+    a = list(range(JustData.lower, JustData.upper +1))
     for _ in range(JustData.arr_size):
         v = randint(JustData.lower, JustData.upper)
         if v in a:

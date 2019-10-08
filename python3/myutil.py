@@ -9,6 +9,7 @@ import sys
 import json
 
 # pylint: disable=no-member
+# pylint: disable=import-outside-toplevel
 
 __version__ = '0.0.2'
 

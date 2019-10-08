@@ -19,7 +19,7 @@ def test0():
     data = read_jsonfile(fn)
     if data is None:
         print('failed to read data from json')
-        exit()
+        sys.exit()
 
     strs = data['string']
     for cc in strs:
@@ -69,7 +69,7 @@ def main(argv: list):
         test0()
         #test2()
         #test3()
-        quit()
+        sys.exit()
 
     for s in argv:
         to_from_u16(s)

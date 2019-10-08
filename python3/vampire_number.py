@@ -29,9 +29,8 @@ def find_vampire_in_4digit(num):
         if n1 * n2 == num:
             if num in vampires:
                 continue
-            else:
-                print(str(num) + " is a vampire number! " + str(n1) + " x " + str(n2))
-                vampires.append(num)
+            print(str(num) + " is a vampire number! " + str(n1) + " x " + str(n2))
+            vampires.append(num)
 
 
 def main():

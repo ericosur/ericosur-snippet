@@ -3,11 +3,14 @@
 
 """access_file test file existence before using it"""
 
+import errno
+import sys
+
 try:
     import cv2
 except ImportError:
     print("ImportError: pip install opencv-python")
-    quit()
+    sys.exit()
 
 # pylint: disable=no-member
 
@@ -15,7 +18,7 @@ def test_file(fn: str) -> bool:
     '''
     use open() to test file could be accessed
     '''
-    import errno
+
     try:
         fp = open(fn)
     except IOError as e:
@@ -49,5 +52,4 @@ def main(argv):
     cv2.destroyAllWindows()
 
 if __name__ == '__main__':
-    import sys
     main(sys.argv[1:])

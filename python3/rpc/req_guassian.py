@@ -10,6 +10,7 @@ import json
 try:
     import requests
     import myutil
+    import getapikey
 except ImportError as err:
     print('ImportError:', err)
 
@@ -40,7 +41,6 @@ class RequestGuassian(object):
     @staticmethod
     def get_apikey():
         ''' get apikey '''
-        import getapikey
         return getapikey.get_randomorg_apikey()
 
     def save_resp(self, resp):

@@ -20,7 +20,9 @@ def shuffle_array(arr, debug=False):
 
 def get_array(max_size=20):
     '''fill array with index, [0, 1, 2, ... max-size-1] '''
-    return [i for i in range(0, max_size)]
+    # R1721: Unnecessary use of a comprehension (unnecessary-comprehension)
+    #return [i for i in range(0, max_size)]
+    return list(range(0, max_size))
 
 def show_array(arr):
     '''dump array'''

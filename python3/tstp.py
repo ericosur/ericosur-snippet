@@ -31,7 +31,7 @@ class TestWork(TestBase):
 
     def work(self):
         ''' real work '''
-        arr = [x for x in range(self.lower, self.upper + 1)]
+        arr = list(range(self.lower, self.upper + 1))
         print(sum(arr))
 
 

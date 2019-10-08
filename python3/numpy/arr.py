@@ -7,6 +7,8 @@ from __future__ import print_function
 import timeit
 import numpy as np
 
+# pylint: disable=no-member
+
 MAXCNT = 75000
 L = np.random.random(MAXCNT)
 
