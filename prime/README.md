@@ -4,6 +4,8 @@
 
 [TOC]
 
+###### tags: ```python3``` ```script``` ```python``` ```prime```
+
 ## scripts
 
 - ```factor.pl``` takes **basic_prime.txt** as prime number table
@@ -29,10 +31,32 @@
 > tables could be downloaded at
 [millions primes](http://primes.utm.edu/lists/small/millions/)
 
+## tips
+
 ### how to cut the prime colume from head 100 lines
+
+The format of prime_100k.txt is:
+
+id  prime
+\d+\s+\d+
+
 ```
 head -100 prime_100k.txt | cut -d ' ' -f 2
 ```
+
+### pick several lines from a large file randomly
+
+big.txt and large.txt are rather large file, use **shuf** to pick random lines
+from such file
+
+```
+shuf -n 10 large.txt
+```
+and use **check_prime.py** to test
+```
+shuf -n 10 large.txt | python3 check_prime.py -
+```
+
 
 ## somehow curios
 

@@ -2,7 +2,16 @@
 # coding: utf-8
 
 '''
-read lines from stdin
+check if input number is prime or not
+support read lines from stdin
+
+eg:
+# pick from file
+shuf -n 10 large.txt | python3 check_prime.py -
+
+# random generate (range from 1001 to 9999)
+shuf -i 1001-9999 -n 10 | python3 check_prime.py -
+
 '''
 
 import sys
