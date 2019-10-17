@@ -3,6 +3,8 @@
 
 ''' alpha beta charlie '''
 
+import sys
+
 def get_arr():
     ''' get_arr '''
     arr = '''
@@ -28,28 +30,39 @@ def translate(s):
     print()
 
 
-def test():
-    ''' test '''
+def random_pick(n: int = 3):
+    ''' random_pick '''
     from random import choice
     arr = get_arr()
-    for _ in range(3):
+    for _ in range(n):
         print(choice(arr))
 
+def read_from_stdin():
+    ''' read from stdin '''
+    args = []
+    for line in sys.stdin:
+        args.append(line.strip())
+    main(args)
 
-def main(argv):
+
+def main(args: list):
     ''' main '''
-    if argv == []:
+    if args == []:
         print('alphabeta.py [arg1] [arg2] ...')
-        print('\nbasic choice:')
-        test()
+        print('\nrandom choice:')
+        random_pick(3)
         print()
-        argv.append('hello')
-        argv.append('world')
-
-    for e in argv:
+        args.append('hello')
+        args.append('world')
+    for e in args:
         translate(e)
 
 
 if __name__ == '__main__':
-    import sys
-    main(sys.argv[1:])
+    if len(sys.argv) > 1:
+        if sys.argv[1] == '-':
+            read_from_stdin()
+        else:
+            main(sys.argv[1:])
+    else:
+        print('use "{} -"'.format(sys.argv[0]))
