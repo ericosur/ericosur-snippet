@@ -39,6 +39,20 @@ These files are not included in git repository because of license issue.
 
 ## rule
 
+| file        | font | frequency | code range | count |
+|-------------|------|-----------|------------|-------|
+| stdfont.24? |standard | 常用字  | A440-C67E | 5401 |
+|(handstd.24) |         |次常用字 | C940-F9D5 | 7652 |
+|             |         |倚天字   |F9D6-F9FE  | 41 |
+| spcfont.24  |特殊符號  |標準字   |A140-A3BF  | 408 |
+|(han-gr.24)  |         |控制字   |A3C0-A3E0  | 33 |
+|保留          |        |可造字   |A3E1-A3FE  | 30  |
+|spcfsupp.24 |特殊字型|           | C6A1-C8FE | 365|
+|(han-gr1.24)|          |        |han's 24 | |
+| ascfont.24 | |||
+| (han-asc.24) | ascii      | | | | 256 |
+
+
 ```
 /*
 
@@ -107,4 +121,9 @@ These files are not included in git repository because of license issue.
 ```
 $ echo "中" | iconv -f UTF-8 -t BIG5 |hexdump -C
 00000000  a4 a4 0a                                          |...|
+```
+
+also **uconv**
+```
+$ echo "中" | uconv -f UTF-8 -t BIG5 |hexdump -C
 ```
