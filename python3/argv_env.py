@@ -1,6 +1,6 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#
+
 
 '''
     practice for getting environment variables
@@ -15,20 +15,13 @@
 
 import sys
 import os
-
-def pick_one():
-    ''' pick one element from os.environ '''
-    from random import choice
-    print('random choose one env variable to show:')
-    arr = [x for x in os.environ]
-    k = choice(arr)
-    en = os.environ.get(k)
-    print('{} = {}'.format(k, en))
+from random import choice
 
 def main(argv):
     ''' main function '''
     if argv == []:
-        assert False    # should not happen
+        print('random choose one env variable to show:')
+        argv.append(choice(list(os.environ)))
 
     for x in argv:
         en = os.environ.get(x)
@@ -39,4 +32,4 @@ if __name__ == '__main__':
         main(sys.argv[1:])
     else:
         print("usage: argv_env.py [arg1] [arg2]...\n")
-        pick_one()
+        main([])

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 '''
@@ -13,7 +13,7 @@ http://www.algorithmist.com/index.php/Prime_Sieve_of_Eratosthenes
 from __future__ import print_function
 import math
 
-class Sieve(object):
+class Sieve():
     ''' class Sieve demos "Prime Sieve of Eratosthenes" '''
 
     def __init__(self, max_number):
@@ -61,8 +61,7 @@ class Sieve(object):
                 for bb in self.arr:
                     self.primes.append(bb)
             return
-        else:
-            self.del_elem()
+        self.del_elem()
 
     def get_count(self):
         ''' return number of pass '''
