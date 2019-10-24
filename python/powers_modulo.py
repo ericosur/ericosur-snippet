@@ -7,7 +7,7 @@ try to calculate p ** q mod n
 it is used by last-digit-power.py
 '''
 
-from __future__ import print_function
+import random
 
 def _powmod(p, q, n):
     '''
@@ -31,7 +31,6 @@ def test(rep):
     '''
     n: repeat time
     '''
-    import random
     for _ in range(rep):
         (p, q, n) = (random.randint(10001, 99999),
                      random.randint(3001, 7999),
@@ -43,4 +42,4 @@ def test(rep):
             print("error!!!")
 
 if __name__ == '__main__':
-    test(99)
+    test(9)
