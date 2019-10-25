@@ -8,6 +8,9 @@
 # http://utcc.utoronto.ca/~cks/programs/python/marshal-vs-cpickle.py
 # http://www.dup2.org/node/789
 
+# will not port to python3
+# pylint: skip-file
+
 import sys
 import marshal, cPickle
 import timeit
@@ -39,7 +42,7 @@ t2 = timeit.Timer(stmt = "dopickle()", setup="from __main__ import dopickle")
 t3 = timeit.Timer(stmt = "unmarsh()", setup="from __main__ import unmarsh")
 t4 = timeit.Timer(stmt = "unpickle()", setup="from __main__ import unpickle")
 
-print "big tests"
+print("big tests")
 for i in ( {'a': {'b': {'c': {}, 'd': {}}, 'e': {'f': 'g'}}, 'h': 'i'},
 	   {'a': [10]*10, 'b': [20]*10},
 	  obj, obj2, 10, "abc", [10] * 10, (10,) * 10, ("abc",) * 10,
@@ -56,11 +59,11 @@ for i in ( {'a': {'b': {'c': {}, 'd': {}}, 'e': {'f': 'g'}}, 'h': 'i'},
 		msg = str(tobj)
 		if len(msg) > 40:
 			msg = msg[:30]+"<trunc>"
-	print msg, t1.timeit(), t3.timeit(), t2.timeit(), t4.timeit()
+	print(msg, t1.timeit(), t3.timeit(), t2.timeit(), t4.timeit())
 
-print "string length"
+print("string length")
 for i in (1, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 32768):
 	tobj = "*" * i
 	robj1 = domarsh(); robj2 = dopickle()
-	print i, t1.timeit(), t3.timeit(), t2.timeit(), t4.timeit()
+	print(i, t1.timeit(), t3.timeit(), t2.timeit(), t4.timeit())
 

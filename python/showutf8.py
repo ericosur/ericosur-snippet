@@ -1,7 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-''' provide funtion show_utf8char() '''
+'''
+provide funtion show_utf8char()
+
+use this script under python2 only
+'''
 
 from __future__ import print_function
 
@@ -20,8 +24,8 @@ if __name__ == '__main__':
     show_utf8char('中')
     print()
 
-    ss = u' '.join(u"\u037E").encode('utf-8').strip()
-    print("greek question mark: {}".format(ss))
+    S = u' '.join(u"\u037E").encode('utf-8').strip()
+    print("greek question mark: {}".format(S))
     print()
 
     print("char: {}\nhex: {}".format(';', hex(ord(';'))))

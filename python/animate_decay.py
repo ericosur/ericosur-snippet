@@ -6,8 +6,8 @@ from http://matplotlib.sourceforge.net/examples/animation/animate_decay_tk_blit.
 
 from __future__ import print_function
 import time
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def data_gen():

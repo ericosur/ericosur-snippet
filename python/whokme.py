@@ -4,12 +4,11 @@
 ''' whokme to list python objects '''
 
 from __future__ import print_function
+import gc
 
 # show_objs.py
 def who_kick_me():
     ''' use gc to list python objects '''
-    import gc
-
     total_list_len = 0
     total_tuple_len = 0
     total_dict_len = 0

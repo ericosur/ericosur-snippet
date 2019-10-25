@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 '''
@@ -22,16 +22,28 @@
 
 '''
 
-from __future__ import print_function
+import sys
 from powers_modulo import powmod
 
-def main():
-    '''main'''
-    base = 4381
-    radix = 5003
+def calc(base: int, radix: int):
+    '''calc'''
     m = powmod(base, radix, 10000)
     print("%d ** %d 的未四位數: %d" % (base, radix, m))
 
+def main(argv):
+    ''' main '''
+    v = []
+    try:
+        for i in argv:
+            v.append(int(i))
+    except ValueError:
+        print('value error at {}'.format(i))
+
+    calc(v[0], v[1])
 
 if __name__ == '__main__':
-    main()
+    if len(sys.argv) != 3:
+        print('demo mode')
+        main([4381, 5003])
+    else:
+        main(sys.argv[1:])

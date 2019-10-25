@@ -12,7 +12,9 @@ import sys
 def main(args: list):
     ''' input list of items to search '''
     if args == []:
-        args.append('git')
+        d = 'git'
+        print('demo: use "{}"'.format(d))
+        args.append(d)
 
     res = os.environ['PATH']
 

@@ -1,9 +1,10 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#
+
+
 ''' provide a recursive version of gcd '''
 
-from __future__ import print_function
+import sys
 
 __version__ = '1.0.0'
 
@@ -17,10 +18,6 @@ def gcd(m, n):
 
 def main():
     ''' main function '''
-    import sys
-    #import locale
-    #import os
-
     if len(sys.argv) == 1:  # no arguments
         print("you may input two number by argument")
         a = 1280
@@ -31,7 +28,7 @@ def main():
             b = int(sys.argv[2])
         except ValueError:
             print("not a numeric value")
-            quit()
+            sys.exit()
         except:
             print("unexpected error:", sys.exc_info()[0])
             raise
