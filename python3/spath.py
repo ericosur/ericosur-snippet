@@ -10,10 +10,17 @@ then list them
 # alias path='echo $PATH | sed "s/:/\n/g"'
 
 import os
-from colorama import Fore, Style
+
+USE_COLOR = True
+try:
+    from colorama import Fore, Style
+except ImportError:
+    USE_COLOR = False
 
 def main():
     ''' main '''
+    global USE_COLOR
+
     PATH = os.environ['PATH']
     # or this way:
     #    str = os.getenv('path')
@@ -25,11 +32,12 @@ def main():
         else:
             if not i in warnlist:
                 warnlist.append(i)
-
-    print(Fore.YELLOW)
+    if USE_COLOR:
+        print(Fore.YELLOW)
     for w in warnlist:
         print('[WARN] path not exists:', w)
-    print(Style.RESET_ALL, end='')
+    if USE_COLOR:
+        print(Style.RESET_ALL, end='')
 
 if __name__ == '__main__':
     main()
