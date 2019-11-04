@@ -16,13 +16,16 @@ def test0():
     and print unicode escape sequence
     '''
     fn = 'emj.json'
+    print('test0, read {}'.format(fn))
     data = read_jsonfile(fn)
     if data is None:
         print('failed to read data from json')
         sys.exit()
 
+    # use **string**
     strs = data['string']
-    for cc in strs:
+    for i, cc in enumerate(strs):
+        print('*' * 10, i, '*' * 10)
         to_from_u16(cc)
 
 def test1():
@@ -37,8 +40,9 @@ def test1():
     #print(arr)
     payload = {'icons': arr}
     print(json.dumps(payload))
-    fn = 'out.json'
-    write_json(fn, payload)
+    print()
+    #fn = 'out.json'
+    #write_json(fn, payload)
 
 
 def test2():
@@ -66,7 +70,7 @@ def test3():
 def main(argv: list):
     ''' main '''
     if argv == []:
-        test0()
+        test1()
         #test2()
         #test3()
         sys.exit()

@@ -1,12 +1,16 @@
 # readme
 
+[TOC]
+
 This readme describes how to translate emoji icons into unicode sequence for
 maximum compatability without losing any code. Normally using utf-8 encoding
 could keep most of information and ok to exchange. But emoji are not always
 perfectly editable in the editor. Currently I suggest that use **unicode
 escape sequence** to represent unicode characters.
 
-## flow
+## basics
+
+### flow
 
 for example I got a test string:
 ```
@@ -33,7 +37,7 @@ utf16-be: \ud83d\ude03
 utf-8: f09f9883
 ```
 
-## json or qml
+### json or qml
 
 json and qml using javascript sytle string literals, so using utf16-be would be
 good.
@@ -48,7 +52,7 @@ good.
     readonly property string smile: "\ud83d\ude03"
 ```
 
-## c++11
+### c++11
 
 for c++11, using unicode escape sequence by ==\u== and ==\U== like python3
 
@@ -65,9 +69,22 @@ void unicode_char()
 }
 ```
 
-## howto
+### howto
 
 > utf-16 surrogate characters ranges from U+D800 to U+DFFF
 
 - script **surgg.py** demos how to translate utf-16 characters to a string
 - may put it into a json file, and use **jq** to view
+
+## cldr
+
+There are two script to process cldr data files that I could reference manually.
+1. Go to page to [CLDR Releases/Downloads](http://cldr.unicode.org/index/downloads)
+2. navigate into table, for example: **CLDR36**,
+3. download **cldr-common-36.0.zip**,
+4. Unzip it, here we need **common/annotations/en.xml**
+5. ``` perl cldr_xml2csv.pl ``` to pre-process en.xml into cldr.csv
+6. ``` python3 cldr_insert_cp.py ``` to insert one columne with codepoint,
+   read cldr.csv and write **emoji.csv**
+
+TODO: use one script to do all things
