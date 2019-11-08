@@ -4,7 +4,7 @@
 
 [TOC]
 
-###### tags: ```python3``` ```script``` ```python``` ```prime```
+###### tags: ```python3``` ```script``` ```python``` ```prime``` ```shuf``` ```sed``` ```cut```
 
 ## scripts
 
@@ -57,6 +57,18 @@ and use **check_prime.py** to test
 shuf -n 10 large.txt | python3 check_prime.py -
 ```
 
+### pick specified line from file
+
+print line 23 from large.txt (show the 23rd prime)
+
+```
+sed -n 23p large.txt
+```
+
+print line 100 to 120
+```
+sed -n 100,120p large.txt
+```
 
 ## somehow curios
 

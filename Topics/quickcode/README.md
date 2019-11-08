@@ -1,6 +1,11 @@
 eat.pl
 ======
 
+###### tags: ```boshiamy``` ```input``` ```ime``` ```quick```
+
+
+## description
+
 This script helps to reformat quick 2-keystoke boshiamy table into
 a compact form.
 
