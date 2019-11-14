@@ -34,10 +34,11 @@ int main()
 {
     srand(time(nullptr));
 
-    std::cout << "hello world from " << __func__ << std::endl;
-    show_jsonhpp_version();
+    //std::cout << "hello world from " << __func__ << std::endl;
 
-    test_read_json();
+    test_jsonhpp_related();
+
+#if 0
     test_re();
     test_string_connect();
 
@@ -49,6 +50,7 @@ int main()
     test_lamb();
 
     test_fopen();
+#endif
 
     return 0;
 }

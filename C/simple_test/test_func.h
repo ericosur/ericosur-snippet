@@ -3,13 +3,14 @@
 
 #include <iostream>
 
-#define JSONPATH    "../test.json"
-
 void print_title(const std::string& s);
 void dump(const char* buf, size_t size);
 
+void test_jsonhpp_related();
 void test_read_json();
 void show_jsonhpp_version();
+void test_cbor();
+
 void test_string_connect();
 void test_re();
 

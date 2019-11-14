@@ -29,6 +29,7 @@ add_executable(hello_world
     hello_world.cpp
     boxmuller.cpp
     test_func.cpp
+    test_json.cpp
 )
 add_executable(mul mul.cpp)
 add_executable(fib fib.c)

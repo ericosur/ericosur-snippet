@@ -3,10 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <iostream>
-#include <fstream>
-#include <iomanip>
 #include <regex>
-#include <nlohmann/json.hpp>
 
 void print_title(const std::string& s)
 {
@@ -28,39 +25,6 @@ void dump(const char* buf, size_t size)
         }
     }
     printf("\n");
-}
-
-void test_read_json()
-{
-    print_title(__func__);
-
-    using namespace std;
-    try {
-        std::ifstream infile(JSONPATH);
-        nlohmann::json j;
-        infile >> j;
-
-        string smiles = j["smiles"].get<std::string>().c_str();
-        cout << smiles << endl;
-
-    } catch (nlohmann::json::parse_error& e) {
-        // output exception information
-        std::cout << "message: " << e.what() << '\n'
-                  << "exception id: " << e.id << '\n'
-                  << "byte position of error: " << e.byte << std::endl;
-    }
-
-}
-
-void show_jsonhpp_version()
-{
-    print_title(__func__);
-    using namespace std;
-    nlohmann::json json = {{"apple", 31}, {"ball", 43}, {"egg", 71}};
-    cout << setw(4) << json << endl;
-
-    auto query = json.meta();
-    cout << "json.hpp version: " << query["version"]["string"] << endl;
 }
 
 void test_string_connect()
