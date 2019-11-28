@@ -11,20 +11,21 @@ BASE 越大交叉的點會在越後面
 X 軸是 n, Y 軸是取 ln() 的值
 '''
 
+# pylint: disable=wrong-import-order
+#
 from math import log
-from pylab import plot, show, gca
-
-
-# for class CalcFactorial
 from calc_factorial import CalcFactorial
+from pylab import plot, show, gca
+# if you want to save plot to image file, turn it True
+OPTION_SAVEIMAGE = False
+if OPTION_SAVEIMAGE:
+    from pylab import gcf
 
 
 def main():
     ''' main '''
     BASE = 25
     MAXREPEAT = 100
-    # if you want to save plot to image file, turn it True
-    OPTION_SAVEIMAGE = False
 
     nlvl = []   # base !
     expo = []   # base ** n
@@ -45,7 +46,6 @@ def main():
     show()
 
     if OPTION_SAVEIMAGE:
-        from pylab import gcf
         fig = gcf()
         fig.savefig("test.png")
 
