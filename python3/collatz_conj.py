@@ -10,6 +10,8 @@ n/2 if n==0 (mod 2)
 
 '''
 
+from random import randint
+
 class Collatz():
     ''' collatz conjecture '''
     def __init__(self):
@@ -48,7 +50,6 @@ class Collatz():
 
 def main(argv: list):
     ''' main '''
-    from random import randint
     if argv == []:
         argv.append(randint(2, 97))
 

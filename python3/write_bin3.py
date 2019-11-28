@@ -11,6 +11,7 @@ demo to write a binary file
 #hb = binascii.a2b_hex(hs)
 
 from __future__ import print_function
+from timeit import timeit
 import numpy as np
 
 '''
@@ -19,7 +20,6 @@ r = random.randint(0, 0xffffffff).to_bytes(4, byteorder='big', signed=False)
 
 def test():
     ''' which method is quicker ? '''
-    from timeit import timeit
     print(timeit(r'b"\0" * 100'))  # 0.04987576772443264
     print(timeit('bytes(100)'))  # 0.1353608166305015
 

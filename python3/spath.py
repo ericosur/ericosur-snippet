@@ -11,15 +11,16 @@ then list them
 
 import os
 
-USE_COLOR = True
+USE_COLOR = False
 try:
     from colorama import Fore, Style
+    USE_COLOR = True
 except ImportError:
-    USE_COLOR = False
+    pass
+
 
 def main():
     ''' main '''
-    global USE_COLOR
 
     PATH = os.environ['PATH']
     # or this way:
@@ -41,4 +42,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

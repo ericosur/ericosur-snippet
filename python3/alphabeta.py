@@ -4,6 +4,7 @@
 ''' alpha beta charlie '''
 
 import sys
+from random import choice
 
 def get_arr():
     ''' get_arr '''
@@ -32,7 +33,6 @@ def translate(s):
 
 def random_pick(n: int = 3):
     ''' random_pick '''
-    from random import choice
     arr = get_arr()
     for _ in range(n):
         print(choice(arr))
