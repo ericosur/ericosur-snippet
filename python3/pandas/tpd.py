@@ -5,6 +5,7 @@
 from __future__ import print_function
 import os
 import pandas as pd
+from perfect_square import gen_csv
 
 def main():
     ''' main '''
@@ -12,7 +13,6 @@ def main():
 
     if not os.path.isfile(FILEN):
         print('[INFO] file not found, call perfect_square to generate:', FILEN)
-        from perfect_square import gen_csv
         gen_csv(FILEN)
 
     df = pd.read_csv(FILEN)
