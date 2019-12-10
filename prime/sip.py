@@ -11,11 +11,12 @@ pip install compress_pickle
 
 '''
 
+import sys
 try:
     import compress_pickle
 except ImportError:
     print('cannot load module **compress_pickle**')
-    quit()
+    sys.exit(0)
 
 from store_prime import StorePrime
 

@@ -8,6 +8,7 @@ handle one million lines of text file with reading all lines into memory
 
 import random
 from itertools import islice
+import os
 from line_count import bufcount
 from myutil import read_setting
 
@@ -33,7 +34,6 @@ def get_nth_line_from_file(fn, line_num):
 
 def search_from_file(val, fn, total_lines=0):
     ''' search value at index or between '''
-    import os
     if not os.path.exists(fn):
         print('[ERROR] file not found', fn)
         return (None, None)
@@ -90,7 +90,6 @@ def search_from_file(val, fn, total_lines=0):
 
 def get_filesize(fn):
     ''' get size of file '''
-    import os
     file_size = os.stat(fn)[6]
     return file_size
 

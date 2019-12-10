@@ -3,11 +3,13 @@
 
 ''' check need '''
 
+from store_prime import StorePrime
+
 def main():
     ''' main '''
     fn = 'need_check.txt'
     cnt = 0
-    from store_prime import StorePrime
+
     with StorePrime() as sp:
         with open(fn, 'rt') as f:
             while True:

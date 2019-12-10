@@ -46,11 +46,14 @@ def profile():
     time_method_set_in = []
     time_method_bisect = []
 
-    Nls = [x for x in range(1000, 20000, 1000)]
+    #Nls = [x for x in range(1000, 20000, 1000)]
+    Nls = list(range(1000, 20000, 1000))
     for N in Nls:
-        a = [x for x in range(0, N)]
+        #a = [x for x in range(0, N)]
+        a = list(range(0, N))
         random.shuffle(a)
-        b = [x for x in range(0, N)]
+        #b = [x for x in range(0, N)]
+        b = list(range(0, N))
         random.shuffle(b)
         c = [0 for x in range(0, N)]
 

@@ -16,6 +16,8 @@ for example: 20190823
 yay! it's a prime day
 '''
 
+from datetime import date, timedelta
+
 # try to import StorePrime class
 try:
     # larger and slower for loading pickle
@@ -55,7 +57,6 @@ class TestDate():
 
     def run(self):
         ''' run '''
-        from datetime import date, timedelta
         start_d = date(2001, 1, 1)
         end_d = date(2099, 12, 31)
         curr = start_d

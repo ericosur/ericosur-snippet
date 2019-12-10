@@ -62,30 +62,27 @@ def miller_rabin(n):
     return True
 
 
-def print_result(n):
-    ''' show result '''
-    print('{} is {}'.format(n, miller_rabin(n) and "PRIME" or "COMPOSITE"))
+def test_and_print(values):
+    ''' test_and_print '''
+    if not values:
+        values.append(795028841)
 
-'''
-if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        n = long(sys.argv[1])
-    else:
-        n = 795028841
+    for v in values:
+        try:
+            n = int(v)
+            print('{} is {}'.format(n, miller_rabin(n) and "PRIME" or "COMPOSITE"))
+        except ValueError:
+            print('{} is not valid'.format(v))
 
-    print n, "is",
-    if miller_rabin(n):
-        print "prime"
-    else:
-        print "composite"
-'''
+
 if __name__ == "__main__":
-    if len(sys.argv) == 3:
+    if len(sys.argv) >= 2:
         if sys.argv[1] == "test":
-            v = int(sys.argv[2])
-            print_result(v)
-        elif sys.argv[1] == "genprime":
-            nbits = int(sys.argv[2])
+            test_and_print(sys.argv[2:])
+            sys.exit(0)
+
+        if sys.argv[1] == "genprime":
+            nbits = 32
             while True:
                 p = random.randrange(2 ** nbits)
                 if p % 2 == 0:
@@ -99,11 +96,9 @@ if __name__ == "__main__":
                 if miller_rabin(p):
                     print(p)
                     break
-        exit(0)
+        sys.exit(0)
 
-    if len(sys.argv) == 2:
-        print('MillerRabin.py [test|genprime] integer')
-        exit(0)
-
-    v = 795028841
-    print_result(v)
+    print('usage: 1) MillerRabin.py test <integer>')
+    print('usage: 2) MillerRabin.py genprime')
+    print('\n...demo...')
+    test_and_print([])

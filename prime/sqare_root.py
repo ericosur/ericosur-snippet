@@ -7,11 +7,14 @@ to find P, which satisfy:
     m and n are primes as well
 '''
 
+from math import sqrt
+from MillerRabin import miller_rabin
+
 def is_prime(nn):
     '''
         a wrapper function of miller_rabin()
     '''
-    from MillerRabin import miller_rabin
+
     return miller_rabin(nn)
 
 def test():
@@ -19,7 +22,6 @@ def test():
         m, n, P are primes,
         only n = 2 would make P odd because m and m*m are odd
     '''
-    from math import sqrt
     L = 3
     U = int(sqrt(99999))
     cnt = 0

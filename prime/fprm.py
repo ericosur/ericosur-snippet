@@ -25,7 +25,7 @@ def main():
     LOWER = 2
     UPPER = 100000
     print('integers from {} to {}'.format(LOWER, UPPER - 1))
-    target = [i for i in range(LOWER, UPPER)]
+    target = list(range(LOWER, UPPER))
     for pp in small_primes:
         cnt = 0
         print('use {} to filter, count {} before start '.format(pp, len(target)), end='')

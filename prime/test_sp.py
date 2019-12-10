@@ -5,14 +5,15 @@
 test StorePrime
 '''
 
+import random
 from myutil import read_setting
+from store_prime import StorePrime
+from sip import LoadCompressPrime
+
 
 def test(argv, sp):
     ''' test '''
-    import random
-
     print(sp)
-    #print(sp)
     #rint(sp.get_count())
 
     if argv == []:
@@ -41,11 +42,9 @@ def main(argv, item):
     print(txtfn, pfn)
 
     if item == 'sp':
-        from store_prime import StorePrime
         with StorePrime(txtfn, pfn) as sp:
             test(argv, sp)
     else:
-        from sip import LoadCompressPrime
         with LoadCompressPrime() as sp:
             test(argv, sp)
 

@@ -8,9 +8,9 @@ given cli argument to get lower/upper prime
 
 import sys
 import random
+from sip import LoadCompressPrime
 
 # pylint: disable=invalid-name
-
 def test(argv, sp):
     ''' test '''
     print(sp)
@@ -49,7 +49,6 @@ def test(argv, sp):
 
 def main(argv):
     ''' main function '''
-    from sip import LoadCompressPrime
     with LoadCompressPrime() as sp:
         test(argv, sp)
 
