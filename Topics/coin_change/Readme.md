@@ -8,3 +8,6 @@ Using [411, 295, 161] to combine the sumation to target.
 List all the combination and check which one meets the target.
 
 
+### appendix
+
+also may refer to [mcnugget.py](../../mcnugget.py)
