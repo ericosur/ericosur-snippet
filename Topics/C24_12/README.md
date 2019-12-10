@@ -8,11 +8,15 @@ $ C^{12}_{24} = 2,704,156 $
 
 
 * All hit case is 1.
+```math
+1 \cdot 1 \cdot ... \cdot 1 = 1
+```
+
 * All miss case is 1.
 
 * Only one hit, 11 misses case is 144.
 ```math
-C^{1}_{12} * C^{11}_{12} = 144
+C^{1}_{12} \cdot C^{11}_{12} = 144
 ```
 and its ratio is
 ```math
@@ -21,7 +25,7 @@ and its ratio is
 
 * Two hits, 10 misses
 ```math
-C^{2}_{12} * C^{10}_{12} = 4356
+C^{2}_{12} \cdot C^{10}_{12} = 4356
 ```
 
 and its ratio is
@@ -31,7 +35,9 @@ and its ratio is
 
 ## appendix
 
-Use my own Casio fx-3650P, input
+Use my own Casio fx-3650P, to calculate $ C^{12}_{24} $
 24 SHIFT ÷ (nCr) 12 EXE
 
 * ÷ (U+00F7)
+
+###### tags: ```math``` ```combination``` ```lottery```
