@@ -9,9 +9,10 @@ to get position of matched string token
 
 '''
 
+import os
+
 def get_pipath():
     ''' return pi-billion.txt full path '''
-    import os
     home = os.environ["HOME"]
     fn = home + '/Dropbox/src/pi_digits/pi-billion.txt'
     return fn
@@ -30,7 +31,7 @@ def main():
             for pp in pos_list:
                 pi.seek(pp, 0)
                 buf = pi.read(len(target))
-                print(buf)
+                print('{} @{}'.format(buf, pp))
                 if buf != target:
                     print('[ERROR] not matched!')
     except FileNotFoundError as e:
