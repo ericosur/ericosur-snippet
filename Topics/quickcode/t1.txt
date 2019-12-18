@@ -1,12 +1,12 @@
 寸 = AA  金 = AE  也 = AL  不 = BA  半 = BJ  比 = BL  人 = BN  入 = BP  夕 = CA  中 = CI
 車 = CJ  巴 = CL  央 = CN  西 = CO  尸 = CP  史 = CX  歹 = DA  豆 = DE  鬥 = DI  斗 = DJ
-大 = DN  日 = DO  刀 = DP  力 = DX/DY   與 = EA  丑 = EE  山 = EI  屯 = EL  尹 = EX  下 = FA
+大 = DN  日 = DO  刀 = DP  力 = DX  力 = DY  與 = EA  丑 = EE  山 = EI  屯 = EL  尹 = EX  下 = FA
 上 = FE  飛 = FJ  亡 = FL  火 = FN  曲 = FO  戶 = FP  方 = FY  瓜 = GA  千 = GJ  夾 = GN
 甘 = GO  干 = GV  女 = GX  心 = HA  手 = HJ  工 = IE  欠 = IN  言 = IO  我 = IX  井 = JJ
-黃 = KA  王 = KE  斤 = KI  立 = LE  辛 = LJ  來 = LN  且 = ME  門 = MI/MY   冊 = MJ  毛 = ML
+黃 = KA  王 = KE  斤 = KI  立 = LE  辛 = LJ  來 = LN  且 = ME  門 = MI  門 = MY  冊 = MJ  毛 = ML
 米 = MN  目 = MO  矛 = MP  角 = NE  巾 = NJ  亞 = OE  口 = OO  卜 = PA  至 = PE  平 = PJ
 皮 = PX  片 = PY  里 = QE  弓 = QK  兼 = QN  田 = QO  丈 = QX  臣 = RE  耳 = RJ  儿 = RL
 乃 = RP  爾 = RX  小 = SA  生 = SE  川 = SI  牛 = SJ  世 = SL  少 = SP  身 = SX  丁 = TI
 木 = TN  雨 = UA  月 = UE  予 = UI  于 = UJ  永 = UN  才 = UP  又 = UX  鬼 = VA  佳 = VE
 弗 = VJ  万 = VY  瓦 = WA  了 = WI  午 = WJ  水 = WN  巫 = WV  文 = WX  升 = XJ  食 = XN
-牙 = XP/YP   氏 = XX  士 = YE  土 = YV  舟 = ZA  止 = ZE  竹 = ZI  子 = ZJ  乙 = ZL/ZZ   丸 = ZX
+牙 = XP  牙 = YP  氏 = XX  士 = YE  土 = YV  舟 = ZA  止 = ZE  竹 = ZI  子 = ZJ  乙 = ZL  乙 = ZZ  丸 = ZX
