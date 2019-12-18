@@ -28,8 +28,9 @@ def get_qrcode(text='The quick brown fox jumps over the lazy dog'):
         'ecc': 'M'
     }
     r = requests.get(url, params=payload)
-    fn = show_results(r)
-    GenerateBarcode.show_image(fn, fillbackground=False)
+    show_results(r)
+    #fn = show_results(r)
+    #GenerateBarcode.show_image(fn, fillbackground=False)
 
 
 class GenerateBarcode():

@@ -10,20 +10,27 @@ import sys
 
 from testqr import get_qrcode
 
-def main(stockid='4938'):
+def main(argv):
     ''' main '''
-    url = 'https://goodinfo.tw/StockInfo/StockDetail.asp?STOCK_ID={}'.format(stockid)
-    print(url)
-    get_qrcode(url)
 
-    nfn = 'stock-{}.png'.format(stockid)
-    os.rename('image.png', nfn)
-    print('rename as', nfn)
+    if argv == []:
+        argv.append('2330')
+
+    for stockid in argv:
+        url = 'https://goodinfo.tw/StockInfo/StockDetail.asp?STOCK_ID={}'.format(stockid)
+        print(url)
+        get_qrcode(url)
+
+        nfn = 'goodinfo-{}.png'.format(stockid)
+        os.rename('image.png', nfn)
+        print('rename as', nfn)
 
 
 if __name__ == '__main__':
     if len(sys.argv) == 1:
-        main()
-    else:
-        for tt in sys.argv[1:]:
-            main(tt)
+        print('goodinfo_qrcode.py [id] [id] ...')
+        print('\ndemo mode...')
+        main([])
+        sys.exit(0)
+
+    main(sys.argv[1:])

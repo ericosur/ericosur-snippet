@@ -6,7 +6,11 @@ to request API key:
 https://github.com/google/open-location-code/wiki/Plus-codes-API#api-keys
 
 
-## migrate to python3
+## geo.py
+
+[geo.py](./geo.py)
+
+### migrate to python3
 
 old geo.py
   - python2
@@ -16,7 +20,18 @@ new geo.py
   - python3
   - **requests**
 
-## for plus.codes, encrypt geo api key request
+### denied
+
+At Dec 16 2019, current status:
+
+```json
+r.text: {
+  "error_message": "You must enable Billing on the Google Cloud Project at https://console.cloud.google.com/project/_/billing/enable Learn more at https://developers.google.com/maps/gmp-get-started",
+  "status": "REQUEST_DENIED"
+}
+```
+
+### for plus.codes, encrypt geo api key request
 
 ```
 curl https://plus.codes/api?encryptkey=abcdefkey

@@ -7,12 +7,14 @@ reference: https://api.random.org/json-rpc/2/basic
 
 from __future__ import print_function
 import json
+import sys
 try:
     import requests
     import myutil
     import getapikey
 except ImportError as err:
     print('ImportError:', err)
+    sys.exit(0)
 
 # pylint: disable=useless-object-inheritance
 class RequestGuassian(object):
