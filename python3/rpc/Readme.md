@@ -9,32 +9,43 @@
 * [data sheet and chart](https://docs.google.com/spreadsheets/d/1yi2goF-OSH_rKFlH2_A7yfTvG3HU46xLPHsHz1wlOj4/edit#gid=1453399585)
 
 
-## existed files
+## scripts and data files
+
+* [concat.py](./concat.py)
+  read *resp?.json* and output result into *data.txt*
+
+* [dogapi.py](./dogapi.py)
+  call dog api and download image from [dog api](https://dog.ceo/api/breeds/image/random)
+
+* [fetch_pi.py](./fetch_pi.py)
+  fetch pi digits from [pi delivery](https://api.pi.delivery/v1/pi)
 
 * resp?.json (request and save) **NOT IN GIT**
-  previously fetched results from *req-guassian.py*,
+  previously fetched results from *[req_guassian.py](./req_guassian.py)*,
   responsed json rpc result
 
 * data.txt (generated) **NOT IN GIT**
   one number one line text format
 
-* req-guassian.py
-  call random.org API *generateGaussians* with parameter
+* [req_guassian.py](./req_guassian.py)
+  call [random.org](https://www.random.org/) API *generateGaussians* with parameter
   mean = 100, stdev = 15, 1000 numbers
 
-* req-random-int.py
-  call random.org API to simulate rolling a dice (1 to 6)
+* [req_random_int.py](./req_random_int.py)
+  call [random.org](https://www.random.org/) API to simulate rolling a dice (1 to 6)
 
-* validate_gaussian.py
+* [validate_gaussian.py](./validate_gaussian.py)
   read *data.txt* and calculate mean, median, stdev
   and try-and-error to test how many numbers to figure out it is
   a normal distribution
 
-* concat.py
-  read *resp?.json* and output result into *data.txt*
+* [getapikey.py](./getapikey.py)
+  common function to fetch API key of [random.org](https://www.random.org/)
 
-* getapikey.py
-  common function to fetch API key of random.org
+* [getimgur.py](./getimgur.py)
+  download image from imgur
+
+
 
 ## web api
 
