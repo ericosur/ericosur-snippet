@@ -2,16 +2,18 @@
 
 ## toolchain
 
-* toolchain for raspberry pi:
-https://github.com/raspberrypi/tools.git
+Several ways to get arm toolchains
 
-**or**
-
-ubuntu package for ARM cross compiler:
+* [toolchain for raspberry pi](https://github.com/raspberrypi/tools.git)
+* ubuntu package for ARM cross compiler:
 
 ```
 apt-get install binutils-arm-linux-gnueabi
 ```
+
+* [developer.arm.com](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads)
+
+
 
 ## fetch CLI source tarball of MediaInfo:
 
@@ -49,6 +51,7 @@ cp ~/src/ericosur-snippet/rpi/mediainfo/rpi-tools/build-all.sh ./
 cp ~/src/ericosur-snippet/rpi/mediainfo/linaro/linaro-env.sh ./
 cp ~/src/ericosur-snippet/rpi/mediainfo/linaro/linaro.sh ./
 ```
+
 
 * build zlib first
 ```
