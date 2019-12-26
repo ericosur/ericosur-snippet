@@ -35,6 +35,7 @@
   }
 
   console.log('request random.org for random numbers...');
+  console.log('options.host: ' + options['host']);
   var http = require('https');
   http.request(options, callback).end();
 
