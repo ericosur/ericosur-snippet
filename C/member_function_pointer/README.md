@@ -9,3 +9,11 @@ a function pointer to member function.
 
 [1]: ./foo.h
 [2]: ./foo.cpp
+
+## note
+
+apply c++11 option for **nullptr**
+
+```
+set(CMAKE_CXX_STANDARD 11)
+```
