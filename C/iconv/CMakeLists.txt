@@ -19,5 +19,3 @@ add_executable(
 
 link_directories("/home/rasmus/anaconda2/lib")
 target_link_libraries(${PN} libiconv.so)
-
-

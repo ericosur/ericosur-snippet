@@ -1,10 +1,10 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.0)
 
 # uncomment the next line if using android ndk standalone toolchain
 #include (ndk.txt)
 
-message("CMAKE_SOURCE_DIR= ${CMAKE_SOURCE_DIR}")
-message("CMAKE_BINARY_DIR= ${CMAKE_BINARY_DIR}")
+message("CMAKE_SOURCE_DIR=${CMAKE_SOURCE_DIR}")
+message("CMAKE_BINARY_DIR=${CMAKE_BINARY_DIR}")
 
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 
