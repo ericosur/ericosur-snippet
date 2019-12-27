@@ -8,12 +8,12 @@ Readme
 
 ## featured
 
-* fisher_yates_shuffle.py and shuf.py
+* [fisher_yates_shuffle.py](./fisher_yates_shuffle.py) and [shuf.py](./shuf.py)
   * https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
 
-* mcnugget.py
-  * http://mathworld.wolfram.com/McNuggetNumber.html
+* [mcnugget.py](./mcnugget.py)
+  * [McNuggetNumber](http://mathworld.wolfram.com/McNuggetNumber.html)
   * to find the largest mcnugget number
-  * a good example to use itertools
+  * a good example to use [itertools](https://docs.python.org/3.5/library/itertools.html)
 
 ###### tags: ```python3``` ```pylint``` ```script``` ```python```
