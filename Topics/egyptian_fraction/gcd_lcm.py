@@ -23,12 +23,40 @@ def gcd_lcm(m, n):
     l = m // g * n
     return (g, l)
 
-def main():
-    ''' main '''
+def gcd_list(values: list):
+    ''' input list of values and calculate gcd of them '''
+    hh = values[0]
+    for nn in values[1:]:
+        g = gcd(hh, nn)
+        hh = g
+    print(hh)
+
+
+def lcm_list(values: list):
+    ''' lcm of a list '''
+    hh = values[0]
+    for nn in values[1:]:
+        ll = lcm(hh, nn)
+        hh = ll
+    print(hh)
+
+
+def test():
+    ''' test '''
     m = 1280
     n = 1024
     (g, l) = gcd_lcm(m, n)
     print('{} {}: {}, {}'.format(m, n, g, l))
+
+def test2():
+    ''' test2 '''
+    v = [2, 3, 7, 78, 91]
+    gcd_list(v)
+    lcm_list(v)
+
+def main():
+    ''' main '''
+    test2()
 
 if __name__ == '__main__':
     main()

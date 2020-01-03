@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
-''' sympy rational '''
+'''
+need Rational of sympy
+
+* using greedy algorithm to solve egyptian fraction,
+  the answer is not always optimized
+'''
 
 import sys
 from sympy import Rational
