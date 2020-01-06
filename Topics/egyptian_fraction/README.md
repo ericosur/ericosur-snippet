@@ -43,6 +43,11 @@ An elderly shepherd, died and left his entire flock of 17 sheep to his three son
 ```math
 \frac{17}{18} =
 \frac{1}{2} + \frac{1}{3} + \frac{1}{9}
+
+\frac{19}{20} =
+\frac{1}{2} + \frac{1}{4} + \frac{1}{5}
+
 ```
 
 lcm of multiple numbers: https://www.calculatorsoup.com/calculators/math/lcm.php
+
