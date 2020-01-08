@@ -11,15 +11,22 @@ ip addr show eth0 |grep -w inet
 '''
 
 # update google spread sheet
-import gspread
-import time
+import os
+import sys
 import socket
-import getopt, sys
+import time
+import getopt
 from myiputil import get_iface_ip, get_ssid, get_extip
+try:
+    import gspread
+    from oauth2client.service_account import ServiceAccountCredentials
+except ImportError as e:
+    print('ImportError:', e)
+    sys.exit(-1)
 
 # oauth2
 def auth_gss_client(path, scopes):
-    from oauth2client.service_account import ServiceAccountCredentials
+    ''' auth_gss_client '''
     try:
         credentials = ServiceAccountCredentials.from_json_keyfile_name(path, scopes)
         gs_client = gspread.authorize(credentials)
@@ -32,30 +39,36 @@ def auth_gss_client(path, scopes):
         print("gspread exception!")
 
 
-def update_sheet(gss_client, key, host, date, eth0, wlan0, ssid, extip):
+def update_sheet(gss_client, key, **kwargs):
+    ''' update_sheet '''
+    # host, date, eth0, wlan0, ssid, extip
     try:
         wks = gss_client.open_by_key(key)
         sheet = wks.sheet1
-        sheet.insert_row([date, host, eth0, wlan0, ssid, extip], 2)
-    except:
-        print("unexpect error at update_sheet()");
+        sheet.insert_row([kwargs['date'], kwargs['host'], kwargs['eth0'],
+                          kwargs['wlan0'], kwargs['ssid'], kwargs['extip']], 2)
+    except gspread.GSpreadException as e:
+        print("gspread exception!", e)
 
 
 def usage():
+    ''' usage '''
     print("--auth, -a: auth json path")
     print("--key, -k: spreadsheet key path")
 
 def main():
+    ''' main '''
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "ha:k:", ["help", "auth=", "key="])
+        opts, _ = getopt.getopt(sys.argv[1:], "ha:k:", ["help", "auth=", "key="])
     except getopt.GetoptError as err:
         # print help information and exit:
         print(str(err))  # will print something like "option -a not recognized"
         usage()
         sys.exit(2)
 
-    auth_json_path = 'auth.json'
-    spreadsheet_key_path = 'spreadsheet_key'
+    home = os.environ.get('HOME')
+    auth_json_path = home + '/Private/auth.json'
+    spreadsheet_key_path = home + '/Private/spreadsheet_key'
     for o, a in opts:
         if o in ("-h", "--help"):
             usage()
@@ -73,24 +86,20 @@ def main():
     gss_scopes = ['https://spreadsheets.google.com/feeds']
     gss_client = auth_gss_client(auth_json_path, gss_scopes)
 
-    today = time.strftime("%c")
-    host = socket.gethostname()
-    eth0 = get_iface_ip("eth0")
-    wlan0 = get_iface_ip("wlan0")
-    ssid = get_ssid()
-    extip = get_extip()
-
+    kwargs = dict()
     try:
-        f = open(spreadsheet_key_path)
+        kwargs['host'] = socket.gethostname()
+        kwargs['date'] = time.strftime("%c")
+        kwargs['eth0'] = get_iface_ip("eth0")
+        kwargs['wlan0'] = get_iface_ip("wlan0")
+        kwargs['ssid'] = get_ssid()
+        kwargs['extip'] = get_extip()
+        with open(spreadsheet_key_path) as f:
+            spreadsheet_key = f.read().strip()
+            update_sheet(gss_client, spreadsheet_key, **kwargs)
     except IOError:
         print('IOError')
-    else:
-        with f:
-            spreadsheet_key = f.read().strip()
-            update_sheet(gss_client, spreadsheet_key,
-                host, today, eth0, wlan0, ssid, extip)
 
 
 if __name__ == "__main__":
     main()
-

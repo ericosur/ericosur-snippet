@@ -1,13 +1,30 @@
-import gspread
+#!/usr/bin/env python3
+# coding: utf-8
 
-from oauth2client.service_account import ServiceAccountCredentials
+''' try to oauth with gspread '''
+
+import os
+import sys
+try:
+    import gspread
+    from oauth2client.service_account import ServiceAccountCredentials
+except ImportError:
+    print('ImportError')
+    sys.exit(1)
+
 
 def auth_gss_client(path, scopes):
-    credentials = ServiceAccountCredentials.from_json_keyfile_name(path,
-                                                                   scopes)
+    ''' auth gss client '''
+    credentials = ServiceAccountCredentials.from_json_keyfile_name(path, scopes)
     return gspread.authorize(credentials)
 
-auth_json_path = 'auth.json'
-gss_scopes = ['https://spreadsheets.google.com/feeds']
+def main():
+    ''' main '''
+    home = os.environ['HOME']
+    auth_json_path = home + '/Private/auth.json'
+    gss_scopes = ['https://spreadsheets.google.com/feeds']
+    gss_client = auth_gss_client(auth_json_path, gss_scopes)
+    print(gss_client)
 
-gss_client = auth_gss_client(auth_json_path, gss_scopes)
+if __name__ == '__main__':
+    main()

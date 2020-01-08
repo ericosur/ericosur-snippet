@@ -10,6 +10,12 @@ if [ "$HOSTNAME" == "rpi3" ] ; then
     TOP=/home/pi
     SRC=$TOP/rebootlog
 fi
+if [ "$HOSTNAME" == "kitty" ] ; then
+    echo "machine kitty"
+    TOP=$PWD
+    SRC=$TOP/rebootlog
+fi
+
 
 AUTHPATH=$TOP/Private/auth.json
 KEYPATH=$TOP/Private/spreadsheet_key
