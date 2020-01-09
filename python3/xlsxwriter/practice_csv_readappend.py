@@ -7,27 +7,30 @@ A simple CSV practice by using python module csv
 import csv
 import random
 
-def getTenNumbers():
-    ten = 10
+def get_ten_numbers():
+    ''' get_ten_numbers '''
+    TEN = 10
     arr = []
-    for i in xrange(ten):
+    for _ in range(TEN):
         arr.append(random.randint(0, 99))
     return arr
 
-def writeCsv(csvfn):
+def write_csv(csvfn):
+    ''' write csv '''
     with open(csvfn, 'wb') as csvfile:
         sw = csv.writer(csvfile, delimiter=',',
                         quotechar='"', quoting=csv.QUOTE_ALL)
-        for i in xrange(1,10):
-           sw.writerow(getTenNumbers())
+        for _ in range(1, 10):
+            sw.writerow(get_ten_numbers())
     csvfile.close()
 
-def appendCsv(input_fn, output_fn):
+def append_csv(input_fn, output_fn):
+    ''' append_csv '''
     with open(input_fn, 'rb') as csvin, open(output_fn, 'wb') as csvout:
         cin = csv.reader(csvin, delimiter=',',
-                        quotechar='"', quoting=csv.QUOTE_ALL)
+                         quotechar='"', quoting=csv.QUOTE_ALL)
         cout = csv.writer(csvout, delimiter=',',
-                        quotechar='"', quoting=csv.QUOTE_ALL)
+                          quotechar='"', quoting=csv.QUOTE_ALL)
         for row in cin:
             mysum = 0
             for rr in row:
@@ -40,12 +43,13 @@ def appendCsv(input_fn, output_fn):
 
 
 def main():
+    ''' main '''
     RANDOM_CSV = 'random.csv'
     OUTCOME_CSV = 'outcome.csv'
     print('generate random numbers and output to ' + RANDOM_CSV)
-    writeCsv(RANDOM_CSV)
+    write_csv(RANDOM_CSV)
     print('read' + RANDOM_CSV + ' sum up and output to ' + OUTCOME_CSV)
-    appendCsv(RANDOM_CSV, OUTCOME_CSV)
+    append_csv(RANDOM_CSV, OUTCOME_CSV)
 
 if __name__ == '__main__':
     main()
