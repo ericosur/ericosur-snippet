@@ -1,27 +1,37 @@
-#!/usr/bin/python
+#!/usr/bin/python3
+# coding: utf-8
 
-from string import upper, join, split
+'''
+string functions
+'''
 
 def flip(s):
-	a = list(s)
-	a.reverse()
-	return join(a,'')
+    ''' flip string '''
+    a = list(s)
+    a.reverse()
+    return ''.join(a)
 
-def capize(s):
-	a = split(s, ' ')
-	def mycap(s):
-		sl = list(s)
-		sl[0] = upper(sl[0])
-		return join(sl,'')
-	a = map(mycap, a)
-	#print a
-	return join(a,' ')
+def capitalize(s):
+    ''' captalize '''
+    a = s.split()
+    def mycap(s):
+        sl = list(s)
+        sl[0] = sl[0].upper()
+        return ''.join(sl)
+    a = map(mycap, a)
+    return ' '.join(a)
 
-normalize = lambda s: join(split(s), ' ')
+def main():
+    ''' main '''
+    normalize = lambda s: ' '.join(s.split())
 
-s = '''once upon a time,
-there was a castle in
-the bad land'''
+    s = '''once upon a time,
+    there was a castle in
+    the bad land
+    '''
 
-print flip(s)
-print capize(normalize(s))
+    print('      flip:', flip(s))
+    print('capitalize:', capitalize(normalize(s)))
+
+if __name__ == '__main__':
+    main()

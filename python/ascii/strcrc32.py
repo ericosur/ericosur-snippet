@@ -1,11 +1,18 @@
-#!/usr/bin/python
+#!/usr/bin/python3
+# coding: utf-8
 
-import binascii 
+''' binascii '''
 
-print binascii.crc32("hello world")
-# Or, in two pieces:
-crc = binascii.crc32("hello")
-crc = binascii.crc32(" world", crc) & 0xffffffff
-print 'crc32 = 0x%08x' % crc
+import binascii
 
+def main():
+    ''' main '''
+    one = binascii.crc32(b"hello world")
+    print('crc1 = 0x%08x' % one)
+    # Or, in two pieces:
+    two = binascii.crc32(b"hello")
+    two = binascii.crc32(b" world", two) & 0xffffffff
+    print('crc2 = 0x%08x' % two)
 
+if __name__ == '__main__':
+    main()

@@ -1,14 +1,22 @@
-#!/usr/bin/python
+#!/usr/bin/python3
+# coding: utf-8
 
 '''
 try types
 '''
-from types import *
 
-def foo(x):
-	if type(x) is FloatType: print "float", x
-	elif type(x) is IntType: print "int", x
-	elif type(x) is LongType: print "long", x
+def main():
+    ''' main '''
+    def test(x):
+        ''' test '''
+        print(type(x))
+        if isinstance(x, float):
+            print("float", x)
+        elif isinstance(x, int):
+            print("int", x)
 
-arr = [3.14159, 3982, 4397913753];
-map(foo, arr)
+    arr = [3.14159, 3982, 4397913753]
+    map(test, arr)
+
+if __name__ == '__main__':
+    main()

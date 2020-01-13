@@ -1,10 +1,14 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+# coding: utf-8
 
+''' list file in zip '''
+
+#import re
+import zipfile
 import myutil
-import re, zipfile
-
 
 def main():
+    ''' main '''
     jsonf = 'setting.json'
     data = myutil.read_jsonfile(jsonf)
     # use get() instead of 'operator []' to prevent exeception
@@ -13,17 +17,14 @@ def main():
     if not myutil.isfile(zfile):
         print('specified file not found: %s' % zfile)
         return
-    else:
-        #print("zfile:{}".format(zfile))
-        pass
 
-    foo = zipfile.ZipFile(zfile, 'r')
+    zf = zipfile.ZipFile(zfile, 'r')
     print('zipfile: {}\n{}'.format(zfile, '-' * 40))
-    flist = foo.namelist()
+    flist = zf.namelist()
     for ff in flist:
         print(ff)
 
-    foo.close()
+    zf.close()
 
 if __name__ == '__main__':
     main()
