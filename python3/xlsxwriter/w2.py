@@ -6,7 +6,12 @@ practice
 '''
 
 import itertools as it
-import xlsxwriter
+import sys
+try:
+    import xlsxwriter
+except ImportError:
+    print('cannot import module xlsxriter')
+    sys.exit(1)
 
 def main():
     ''' main '''
