@@ -36,6 +36,7 @@ class Miranda():
         return self.zh
 
     def get_fn(self, p):
+        ''' compose file path '''
         return p + '/' + self.fn
 
     def collect_phrash(self):

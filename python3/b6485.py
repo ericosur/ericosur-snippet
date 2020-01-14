@@ -7,10 +7,16 @@ base64
 base85
 '''
 
+import sys
 import base64
 from random import randint
-import base58
 import numpy as np
+
+try:
+    import base58
+except ImportError:
+    print('cannot import module: base58')
+    sys.exit(1)
 
 def int_to_bytes(x: int) -> bytes:
     ''' int to bytes '''
