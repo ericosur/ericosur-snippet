@@ -78,13 +78,23 @@ void unicode_char()
 
 ## cldr
 
-There are two script to process cldr data files that I could reference manually.
-1. Go to page to [CLDR Releases/Downloads](http://cldr.unicode.org/index/downloads)
-2. navigate into table, for example: **CLDR36**,
-3. download **cldr-common-36.0.zip**,
-4. Unzip it, here we need **common/annotations/en.xml**
+1. table for current all [CLDR Releases/Downloads](http://cldr.unicode.org/index/downloads)
+
+2. specify release file to download (manually)
+
+----
+
+### auto download and do the rest
+
+execute mkcldrtable.sh and do all the rest
+```
+$ ./mkcldrtable.sh
+```
+
+details:
+4. Unzip **common/annotations/en.xml**
 5. ``` perl cldr_xml2csv.pl ``` to pre-process en.xml into cldr.csv
 6. ``` python3 cldr_insert_cp.py ``` to insert one columne with codepoint,
    read cldr.csv and write **emoji.csv**
 
-TODO: use one script to do all things
+and get **emoji.csv**
