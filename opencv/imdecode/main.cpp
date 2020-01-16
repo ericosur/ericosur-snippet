@@ -21,6 +21,10 @@ typedef unsigned char byte;
 int main()
 {
     Mat tstMat = imread("../lena.jpg");
+    if (tstMat.empty()) {
+        cout << "[ERROR] load image failed\n";
+        return 0;
+    }
     //imshow("picture",tstMat);
     //waitKey(0);
 
@@ -36,7 +40,7 @@ int main()
 #endif
     vector<unsigned char> buffVec;
     buffVec.insert(buffVec.end(), &buffer[0], &buffer[datalen]);
-    Mat show = imdecode(buffVec, CV_LOAD_IMAGE_COLOR);
+    Mat show = imdecode(buffVec, IMREAD_COLOR);
 
     imshow("copied", show);
     cv::waitKey(0);
