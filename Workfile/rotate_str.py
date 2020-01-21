@@ -1,33 +1,28 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+# coding: utf-8
 
-# input "ab"
-# output "ab" "aB" "Ab" "AB"
-def rotate_upper(input_str):
-	#input_str = "flac"
-	input_list = list(input_str)
-	max = 2**len(input_str)
-	format_str = '0' + str(len(input_str)) + 'b'
-	res = ''
-	hh = {}
-	for i in xrange(max):
-		s = format(i, format_str)
-		#print(s)
-		dgt = 0
-		for j in list(s):
-			if j=='1':
-				res = res + input_list[dgt].upper()
-			else:
-				res = res + input_list[dgt].lower()
-			dgt = dgt + 1
-		#print(res)
-		hh[res] = 1
-		res = ''
-	for x in hh:
-		print('*.' + x + ','),
-	print
+''' rotate string '''
+
+import itertools as it
+
+def rotate_string(token):
+    ''' rotate_string '''
+    sss = [set(), set(), set()]
+    for ii, cc in enumerate(list(token)):
+        sss[ii].add(cc.upper())
+        sss[ii].add(cc.lower())
+
+    for x in it.product(sss[0], sss[1], sss[2]):
+        print(''.join(x))
+
+
+def main():
+    ''' main '''
+    tails = ['mp3', 'wav', 'aac', 'm4a', 'wma', 'mp4', 'wmv', 'png', 'jpg']
+    for x in tails:
+        rotate_string(x)
+        print('-' * 20)
+
 
 if __name__ == "__main__":
-	tails = ['mp3', 'wav', 'aac', 'm4a', 'wma', 'mp4', 'wmv', 'png', 'jpg']
-	for x in tails:
-		rotate_upper(x)
-
+    main()
