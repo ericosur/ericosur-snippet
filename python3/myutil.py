@@ -113,6 +113,12 @@ def write_json(fn, data):
         ofile.write(json.dumps(data))
         print('output json to {0}'.format(fn))
 
+def print_stderr(*args, **kwargs):
+    '''
+    from: https://stackoverflow.com/questions/5574702/how-to-print-to-stderr-in-python
+    '''
+    print(*args, file=sys.stderr, **kwargs)
+
 
 def main():
     '''main function'''
