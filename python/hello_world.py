@@ -40,7 +40,7 @@ def hello_py3(msg):
 def main():
     '''main function'''
     # utf-8
-    msg = "哈囉"
+    msg = "是在哈囉"
     print('input:', msg)
     print('hex: ', end='')
     # py2: will get utf-8 hex
