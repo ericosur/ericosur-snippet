@@ -54,3 +54,4 @@ add_executable(shift  shift.cpp)
 add_executable(test_jvs  test_jvs.c  jvs.c)
 add_executable(nullptr  nullptr.cpp)
 
+add_executable(validate_utf8 validate_utf8.cpp)
