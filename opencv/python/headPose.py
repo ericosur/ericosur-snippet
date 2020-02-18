@@ -7,6 +7,8 @@ it is a example of learnopencv from: https://github.com/spmallick/learnopencv.gi
 import cv2
 import numpy as np
 
+# pylint: skip-file
+
 # Read Image
 im = cv2.imread("headPose.jpg");
 if im is None:
@@ -33,7 +35,7 @@ model_points = np.array([
                             (225.0, 170.0, -135.0),      # Right eye right corne
                             (-150.0, -150.0, -125.0),    # Left Mouth corner
                             (150.0, -150.0, -125.0)      # Right mouth corner
-                        
+
                         ])
 
 

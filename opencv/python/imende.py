@@ -5,10 +5,11 @@
 refer to: https://blog.csdn.net/dcrmg/article/details/79155233
 '''
 
-import numpy as np
 import cv2
+import numpy as np
 
 def main():
+    ''' main '''
     fn = 'lena.png'
     img = cv2.imread(fn)
     if img is None:
@@ -29,7 +30,7 @@ def main():
     ofn = 'img_encode.bin'
     with open(ofn, 'wb') as f:
         f.write(str_encode)
-        f.flush
+        f.flush()
 
     # read it back and show
     with open(ofn, 'rb') as f:

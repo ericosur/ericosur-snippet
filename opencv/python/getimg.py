@@ -7,6 +7,8 @@
 https://pillow.readthedocs.io/en/3.0.x/handbook/tutorial.html#reading-and-writing-images
 '''
 
+# pylint: skip-file
+
 from __future__ import print_function
 # using Pillow, not PIL itself
 from PIL import Image

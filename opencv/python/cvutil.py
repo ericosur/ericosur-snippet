@@ -5,6 +5,7 @@
 
 
 from __future__ import print_function
+import sys
 import cv2
 import numpy
 from myutil import isfile
@@ -67,7 +68,7 @@ def combine_two_images(ofn, inf1, inf2, debug=False):
 
 def main():
     '''main function'''
-    import sys
+
     # strData = translate_img_to_str('lena.jpg')
     # print strData
     ofn = 'out.jpg'

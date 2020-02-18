@@ -45,6 +45,8 @@
 #   via the command:
 #       pip install numpy
 
+# pylint: skip-file
+
 import sys
 import os
 import dlib

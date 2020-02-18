@@ -13,6 +13,8 @@ import os
 import sys
 import cv2
 
+# pylint: disable=too-many-locals
+
 OUTPUT_FN = 'outpy.avi'
 
 def delete_if_exists(fn):

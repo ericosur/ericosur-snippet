@@ -5,6 +5,7 @@
 
 from __future__ import print_function
 import os
+import sys
 import cv2
 import numpy as np
 import myutil
@@ -70,7 +71,7 @@ def main():
 
     if not os.path.exists(image):
         print("image not found {}!".format(image))
-        exit(1)
+        sys.exit(1)
 
     setup_windows()
 

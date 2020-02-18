@@ -12,7 +12,7 @@ import cv2
 import myutil
 
 
-class MyCap(object):
+class MyCap():
     ''' class MyCap to capture video from webcam and perform blur '''
 
     def __init__(self, readConfig=True, name='gblur.py'):

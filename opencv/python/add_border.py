@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
+# coding: utf-8
+
+''' add border from a image '''
 
 import cv2
-import numpy as np
+#import numpy as np
 from loadimgur import load_image
 
 def add_border(src):
+    ''' add border '''
     #borderType = cv2.BORDER_DEFAULT | cv2.BORDER_ISOLATED
     borderType = cv2.BORDER_ISOLATED
     top = 80
@@ -15,11 +19,13 @@ def add_border(src):
     return dst
 
 def show_img(img):
+    ''' show image '''
     cv2.namedWindow('img')
     cv2.moveWindow('img', 0, 0)
     cv2.imshow('img', img)
 
 def main():
+    ''' main '''
     # load sample image from imgur
     img = load_image('https://i.imgur.com/Dd30pDt.jpg')
     print(img.shape) # height, width, channel

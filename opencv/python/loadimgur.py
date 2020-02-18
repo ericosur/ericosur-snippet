@@ -14,6 +14,7 @@ def fetch_image(url, ofn):
     return img
 
 def load_image(url):
+    ''' load image from url '''
     img = io.imread(url)
     return img
 
@@ -24,6 +25,7 @@ def main():
     url = data[app_name]['lego']
 
     print('url: {}'.format(url))
+    # pylint: disable=using-constant-test
     if False:
         ofn = "output.jpg"
         print('url:{} => {}'.format(url, ofn))

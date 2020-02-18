@@ -10,16 +10,16 @@ refer: https://stackoverflow.com/questions/17124381/determine-skeleton-joints-wi
 refer: https://www.researchgate.net/publication/262371199_Explicit_image_detection_using_YCbCr_space_color_model_as_skin_detection
 
 '''
-# pylint: enable=line-too-long
+
 
 from __future__ import print_function
 import math
-import numpy as np
 import cv2
+import numpy as np
 import myutil
 
 
-class MyCap(object):
+class MyCap():
     ''' class to do video capturing '''
 
     # pylint: disable=too-many-instance-attributes
@@ -213,7 +213,7 @@ def hough_lines(src):
     if use_houghlinep: # HoughLinesP
         lines = cv2.HoughLinesP(dst, 1, math.pi/180.0, 40, np.array([]), 50, 10)
         try:
-            a, b, c = lines.shape
+            a, b, _ = lines.shape
             for i in range(a):
                 cv2.line(cdst, (lines[i][0][0], lines[i][0][1]), (lines[i][0][2], lines[i][0][3]),
                          (0, 0, 255), 3, cv2.LINE_AA)
@@ -223,7 +223,7 @@ def hough_lines(src):
     else:    # HoughLines
         lines = cv2.HoughLines(dst, 1, math.pi/180.0, 50, np.array([]), 0, 0)
         if lines is not None:
-            a, b, c = lines.shape
+            a, b, _ = lines.shape
             for i in range(a):
                 rho = lines[i][0][0]
                 theta = lines[i][0][1]

@@ -14,12 +14,13 @@ refer: https://www.researchgate.net/publication/262371199_Explicit_image_detecti
 
 from __future__ import print_function
 import math
-import numpy as np
 import cv2
+import numpy as np
 import myutil
 
-
-class MyCap(object):
+# pylint: disable=line-too-long
+# pylint: disable=too-many-locals
+class MyCap():
     ''' class to do video capturing '''
 
     # pylint: disable=too-many-instance-attributes
@@ -47,7 +48,8 @@ class MyCap(object):
             print('no such key, fallback using default values')
         print('config read...')
 
-    def init_window(self):
+    @staticmethod
+    def init_window():
         ''' init multiple showing windows '''
         #cv2.namedWindow('rgb', flags=cv2.WINDOW_AUTOSIZE)
         #cv2.moveWindow('rgb', 0, 0)
@@ -64,7 +66,7 @@ class MyCap(object):
             cap.release()
             return
 
-        self.init_window()
+        MyCap.init_window()
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.width)
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.height)
         cap.set(cv2.CAP_PROP_FPS, 30)
@@ -125,7 +127,7 @@ def hough_lines(src):
         max_line_gap = 30
         lines = cv2.HoughLinesP(dst, 1, math.pi/180.0, threshold, np.array([]), min_line_len, max_line_gap)
         try:
-            a, b, c = lines.shape
+            a, b, _ = lines.shape
             for i in range(a):
                 p1 = (lines[i][0][0], lines[i][0][1])
                 p2 = (lines[i][0][2], lines[i][0][3])
@@ -137,7 +139,7 @@ def hough_lines(src):
     else:    # HoughLines
         lines = cv2.HoughLines(dst, 1, math.pi/180.0, 50, np.array([]), 0, 0)
         if lines is not None:
-            a, b, c = lines.shape
+            a, b, _ = lines.shape
             for i in range(a):
                 rho = lines[i][0][0]
                 theta = lines[i][0][1]
