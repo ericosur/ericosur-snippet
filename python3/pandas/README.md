@@ -1,19 +1,18 @@
-# readme
+# README on pandas
 
-In this folder, some python scripts uses module *__*csv*__* and *__*pandas*__*
-to manipulate data table.
+In this folder, python scripts uses the following modules to manipulate data table:
+    - csv
+    - pandas
+    - openpyxl
 
-hello_pd.py is a simple python script that uses module pandas to do some
-filter on data table.
-
-[reference](https://ithelp.ithome.com.tw/articles/10194003)
+[hello_pd.py](./hello_pd.py) is a simple python script that uses module pandas to do some filter on data table. _[reference](https://ithelp.ithome.com.tw/articles/10194003)_
 
 ## module
 
-install **pandas** module if needed
+use the following command to install necessary modules
 
 ```
-$ sudo -H pip install pandas
+$ sudo -H pip install -r requirement.txt
 ```
 
 ### hello_pd.py ###
@@ -32,10 +31,10 @@ config: ```$HOME/Private/driving_data.json```
 This script uses *__*driving_data.csv*__* which is located at google spreadsheet.
 The table will look like:
 
-| date | duration |
-|:----:|:--------:|
-|2018-09-05|54:15.96|
-|2018-09-07|52:09.26|
+| date     | duration |
+|:--------:|:--------:|
+|2018-09-05|54:15.96  |
+|2018-09-07|52:09.26  |
 
 Actions of this script:
   * downloads data table from gspread by itself (need network, apikey)
@@ -45,3 +44,7 @@ Actions of this script:
 
 There is a sample script to demo how to use curl to download gspread worksheet
 by curl.
+
+### empty_book.py ###
+
+A trivia sample of module *openpyxl* that could read/write xlsx format file.
