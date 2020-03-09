@@ -8,8 +8,7 @@ http://stackoverflow.com/questions/68645/python-static-variable
 
 from __future__ import print_function
 
-# pylint: disable=useless-object-inheritance
-class MyClass(object):
+class MyClass():
     '''demo static data member of a python class'''
 
     val = 3   # looks like a static var, but not similar as C++/Java
