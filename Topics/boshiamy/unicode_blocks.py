@@ -36,6 +36,24 @@ class UnicodeBlock():
             # else:
             #     print('__exit__ no need to save...')
 
+    def get_blocks(self):
+        ''' return blocks '''
+        return self.blocks
+
+    def get_cjkblocks(self):
+        ''' get_cjkblocks '''
+        _debug = False
+        cjk_blocks = list()
+        for start, end, name in self.blocks:
+            try:
+                _ = name.index('CJK')
+                if _debug:
+                    print('{:06x} ... {:06x}  {}'.format(start, end, name))
+                cjk_blocks.append([start, end, name])
+            except ValueError:
+                pass
+        return cjk_blocks
+
     def block(self, ch):
         '''
         Return the Unicode block name for ch, or None if ch has no block.

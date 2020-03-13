@@ -7,14 +7,14 @@ search radicals from Boshiamy.txt and show unicode code point
 
 import sys
 import re
-import show_block
+import unicode_blocks
 
 class Solution:
     ''' solution '''
     def __init__(self):
         self.data_file = 'boshiamy_radicals.txt'
         self.fileobj = None
-        self.block_obj = show_block.UnicodeBlock()
+        self.block_obj = unicode_blocks.UnicodeBlock()
 
     def __enter__(self):
         #print('__enter__')
