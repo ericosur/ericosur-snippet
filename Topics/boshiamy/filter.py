@@ -54,8 +54,8 @@ def main():
     # with open(ofn, 'wt') as of:
     #     of.write(json.dumps(subset, indent=2, sort_keys=True))
 
-    print('len of cjk_b:', len(subset['CJK Unified Ideographs Extension B']))
-    check_cjk_b(subset['CJK Unified Ideographs Extension B'])
+    # print('len of cjk_b:', len(subset['CJK Unified Ideographs Extension B']))
+    # check_cjk_b(subset['CJK Unified Ideographs Extension B'])
 
 if __name__ == '__main__':
     main()

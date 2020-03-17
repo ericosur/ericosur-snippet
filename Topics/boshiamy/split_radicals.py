@@ -2,9 +2,7 @@
 # coding: utf-8
 
 '''
-search radicals from Boshiamy.txt and show unicode code point
-
-3400..4DBF; CJK Unified Ideographs Extension A
+read boshiamy_radicals.txt and output into lui.json
 
 '''
 
@@ -36,9 +34,15 @@ class Solution:
                 except TypeError:
                     pass
         print('process cnt:', cnt)
-        with open('liu.json', 'wt') as of:
+        self.output_to_json('liu.json')
+
+    def output_to_json(self, fn):
+        ''' output to json '''
+        print('ouput to {}...'.format(fn))
+        with open(fn, 'wt') as of:
             of.write(json.dumps(self.rad_dict, indent=2, sort_keys=True))
         print('size: {}'.format(len(self.rad_dict)))
+
 
     @staticmethod
     def split_line(s):

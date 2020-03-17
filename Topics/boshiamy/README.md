@@ -46,11 +46,13 @@ wiki: https://en.wikipedia.org/wiki/CJK_Unified_Ideographs_Extension_B
 U+20000 .. U+2A6DF
 42,720 code points
 42,711 assigned
-> filter.py got 42,708 (need check)
+> filter.py got 42,708 (3 missing)
 missing (in hex)
-20085,𠂅
-22028,𢀨
-22029,𢀩
+20085,𠂅,lwvz
+雍丸
+22028,𢀨,ffab
+巨郎
+22029,𢀩,pbbi
 
 2a6d7 .. 2a6df (no char here)
 
@@ -99,4 +101,9 @@ https://unicode.org/charts/PDF/U2CEB0.pdf
 * sed specified line from a text file
 ```
 sed -n 25709,39137p many_lines_text.txt
+```
+
+* combine
+```
+cat common.txt ext-a.txt ext-b.txt ext-c.txt ext-d.txt > cc.txt
 ```

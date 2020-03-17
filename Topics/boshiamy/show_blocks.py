@@ -1,27 +1,46 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
-''' show input character in which unicode block '''
+'''
+output specified section into
+codepoint char
+format
+
+eg:
+1234  我
+'''
 
 from unicode_blocks import UnicodeBlock
 
-def get_cjkblocks():
+def get_cjkblocks(n):
     ''' main '''
-    with UnicodeBlock() as s:
-        blocks = s.get_blocks()
-        cjk_blocks = list()
-        for start, end, name in blocks:
-            try:
-                _ = name.index('CJK')
+    s = 0
+    e = 0
+    u = UnicodeBlock()
+    bs = u.get_blocks()
+
+    for start, end, name in bs:
+        try:
+            if name == n:
+                s = start
+                e = end
                 print('{:06x} ... {:06x}  {}'.format(start, end, name))
-                cjk_blocks.append([start, end, name])
-            except ValueError:
-                pass
-    return cjk_blocks
+                break
+        except ValueError:
+            pass
+
+    cnt = 0
+    with open('ext-e.txt', 'wt') as f:
+        for i in range(s, e + 1):
+            cnt += 1
+            l = '{:5x} {}\n'.format(i, chr(i))
+            f.write(l)
+    print('cnt:', cnt)
 
 def main():
     ''' main '''
-    get_cjkblocks()
+    t = 'CJK Unified Ideographs Extension E'
+    get_cjkblocks(t)
 
 
 if __name__ == '__main__':
