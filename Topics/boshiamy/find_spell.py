@@ -41,7 +41,7 @@ class Solution:
         [in] p is the boshiamy radicals
         [in] q is the CJK characters
         '''
-        print('{:6s} {:4s} {:5X}  '.format(p, q, ord(q)), end='')
+        print('{:6s} {:4s} {:5X} @{} '.format(p, q, ord(q), self.lineno), end='')
         print(self.block_obj.block(q))
 
 

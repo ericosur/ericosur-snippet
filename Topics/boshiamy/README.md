@@ -53,6 +53,7 @@ missing (in hex)
 22028,𢀨,ffab
 巨郎
 22029,𢀩,pbbi
+𠂹左
 
 2a6d7 .. 2a6df (no char here)
 
