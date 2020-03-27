@@ -21,8 +21,8 @@ Such string could be safely displayed and edited with **sublime text 3**
 in ubuntu 18.04. But it is not properly displayed nor edited at windows and
 ubuntu 16.04.
 
-To avoid losing information, transfrom such string into unicode sequence could
-be a safe way to keep such string.
+To avoid losing information, transfrom such string into unicode sequence could be a safe way to keep such string.
+
 ```
 $ ./u8u16.py ❤️
 ❤️
@@ -80,7 +80,8 @@ void unicode_char()
 
 1. table for current all [CLDR Releases/Downloads](http://cldr.unicode.org/index/downloads)
 
-2. specify release file to download (manually)
+2. specify release file to download (manually), look for file like:
+**cldr-common-36.0.zip**
 
 ----
 
