@@ -15,14 +15,21 @@ from decimal import Decimal
 import locale
 import os
 import sys
-from bs4 import BeautifulSoup
+
+try:
+    from bs4 import BeautifulSoup
+except ImportError:
+    print('use pip install beautifulsoup4')
+    print('use pip install lxml')
+    sys.exit(1)
 
 XLSWRITER_OK = False
 try:
     import xlsxwriter
     XLSWRITER_OK = True
 except ImportError:
-    print('cannot import module xlsxriter')
+    print('cannot import module xlsxwriter')
+    sys.exit(1)
 
 
 def conv_big5_to_utf8(fn):
