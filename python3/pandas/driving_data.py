@@ -6,24 +6,31 @@
 from __future__ import print_function
 import os
 import sys
-import re
 from math import floor
 #from datetime import time
 import numpy as np
 import pandas as pd
 import myutil
+from strutil import print_sep, str2sec, sec2str
 
-# pylint: disable=useless-object-inheritance
-class DrivingData(object):
+class DrivingData():
     ''' fetch driving data from gdrive or local csv '''
-    def __init__(self, csvfile='/tmp/driving_data.csv'):
+    def __init__(self):
         self.debug = True
         self.jsonpath = ''
         self.jsondata = None
-        self.csvfile = csvfile
+        self.csvfile = ''
         self.docid = ''
         self.sheetid = ''
         self.url = ''
+
+    def set_csvfile(self, csvfile):
+        ''' setter csvfile '''
+        if myutil.is_path_exist(csvfile):
+            self.csvfile = csvfile
+        else:
+            print('[ERROR] specified file not found:', csvfile)
+            sys.exit(1)
 
     def read_setting(self):
         ''' read setting '''
@@ -54,6 +61,9 @@ class DrivingData(object):
         ''' request data '''
         csvdata = myutil.query_url_for_data(self.url)
         #print('csvdata: ', csvdata)
+        if not myutil.is_path_exist(self.csvfile):
+            print('[ERROR] MUST specify csvfile path before calling request_data()')
+            sys.exit(1)
         with open(self.csvfile, 'wb') as ofile:
             ofile.write(csvdata)
             if self.debug:
@@ -113,61 +123,6 @@ class DrivingData(object):
             else:
                 result = str(int(floor(ans)))
             print('{:5s}: {:20s}'.format(qq, result.rjust(10, ' ')))
-        print_sep()
-
-# return: float64
-def str2sec(timestr: str):
-    ''' translate mm:ss.nn into float64 numeric '''
-    if not isinstance(timestr, str):
-        print('str2sec: not a string?', timestr)
-        raise ValueError
-    m = re.match(r'\d\d:\d\d\.\d\d', timestr)
-    if m is None:
-        print('invalid format for', timestr)
-        raise ValueError
-
-    minutes = 0.0
-    seconds = 0.0
-    total = 0.0
-    try:
-        arr = timestr.split(':')
-        #print('in:{} out:{}'.format(timestr, arr))
-        if len(arr) == 2:
-            minutes = float(arr[0]) * 60.0
-            seconds = float(arr[1])
-            total = minutes + seconds
-    except ValueError as e:
-        print('ValueError with {}: {}'.format(timestr, e.args))
-    return total
-
-def strify(nn):
-    ''' strify '''
-    return '{:02}'.format(nn)
-
-def sec2str(sec: str):
-    ''' seconds to string '''
-    # if not isinstance(sec, str):
-    #     print('{} is not a string'.format(sec))
-    #     return ''
-    ss = []
-    try:
-        nn = int(sec)
-    except ValueError:
-        print('ValueError at {}'.format(sec))
-        nn = 0
-    while nn >= 60:
-        qq = nn / 60
-        rr = nn % 60
-        ss.append(strify(rr))
-        nn = int(qq)
-    ss.append(strify(nn))
-    ss.reverse()
-    res = ':'.join(ss)
-    return res
-
-def print_sep():
-    ''' print seperator '''
-    print('-' * 50)
 
 # return type: numpy.float64
 def peek_target(desc_table, target):
@@ -186,25 +141,29 @@ def peek_target(desc_table, target):
         return ''
 
 
-def load_data_from_gdrive():
-    ''' load data from google drive '''
+def main(files):
+    ''' main '''
     dd = DrivingData()
-    dd.read_setting()
-    #dd.dump_setting()
-    dd.request_data()
-    dd.action()
 
-def load_data_from_file(fn):
-    ''' load data from file '''
-    dd = DrivingData(fn)
-    dd.action()
+    # request from google drive
+    if files == []:
+        dd.set_csvfile('/tmp/driving_data.csv')
+        dd.read_setting()
+        #dd.dump_setting()
+        dd.request_data()
+        dd.action()
+        return
 
+    # file list from CLI
+    for ff in files:
+        print_sep()
+        print('load csv data from: {}'.format(ff))
+        dd.set_csvfile(ff)
+        dd.action()
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
-        FN = sys.argv[1]
-        print('load csv data from: {}'.format(FN))
-        load_data_from_file(FN)
+        main(sys.argv[1:])
     else:
         print('will request data from gdrive...')
-        load_data_from_gdrive()
+        main([])
