@@ -36,6 +36,7 @@ def conv_big5_to_utf8(fn):
     ''' convert input file encoding from big5 to utf8,
         output content as str
     # iconv -f BIG-5 -t UTF-8 un0304.xls > u.html
+    # or *_*uconv*_*
     cmd = 'iconv -f BIG-5 -t UTF-8 {} > {}'.format(in_fn, out_fn)
     os.system(cmd)
     '''
