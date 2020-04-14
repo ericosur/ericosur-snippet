@@ -166,7 +166,7 @@ def output_xls(data):
     ws.write_formula(i, 7, "=G{0}/E{0}".format(i+1), x.percent_format)
 
     # it's ARRAYFORMULA in excel format
-    f = "{=SUM(ROUND(C2:" + "C{}".format(i) + "/1000))}"
+    f = "{=SUM(ROUNDDOWN(C2:" + "C{}".format(i) + "/1000))}"
     ws.write_formula(i+1, 2, f, x.currency_format)
     ws.write_formula(i+1, 4, "=E{0}/C{0}".format(i+1), x.decimal_format)
     ws.write_formula(i+1, 5, "=F{0}/C{0}".format(i+1), x.decimal_format)
