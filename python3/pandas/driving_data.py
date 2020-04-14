@@ -16,7 +16,7 @@ from strutil import print_sep, str2sec, sec2str
 class DrivingData():
     ''' fetch driving data from gdrive or local csv '''
     def __init__(self):
-        self.debug = True
+        self.debug = False
         self.jsonpath = ''
         self.jsondata = None
         self.csvfile = ''
@@ -26,14 +26,13 @@ class DrivingData():
 
     def set_csvfile(self, csvfile):
         ''' setter csvfile '''
-        if myutil.is_path_exist(csvfile):
-            self.csvfile = csvfile
-        else:
-            print('[ERROR] specified file not found:', csvfile)
-            sys.exit(1)
+        self.csvfile = csvfile
 
     def read_setting(self):
         ''' read setting '''
+        if self.debug:
+            print('read_setting()')
+
         home = os.getenv('HOME')
         self.jsonpath = home + '/Private/driving_data.json'
         if not myutil.isfile(self.jsonpath):
@@ -49,19 +48,25 @@ class DrivingData():
         part1 = 'https://docs.google.com/spreadsheets/d/'
         part2 = '/gviz/tq?tqx=out:csv&sheet='
         self.url = part1 + self.docid + part2 + self.sheetid
+        # if self.debug:
+        #     print('url:', self.url)
 
     def dump_setting(self):
         ''' dump settings '''
+        print('dump settings =====>')
         print('jsonpath:', self.jsonpath)
         print('docid:', self.docid)
         print('sheetid', self.sheetid)
         print('url:', self.url)
+        print('====================')
 
     def request_data(self):
         ''' request data '''
+        if self.debug:
+            print('request_data()')
         csvdata = myutil.query_url_for_data(self.url)
         #print('csvdata: ', csvdata)
-        if not myutil.is_path_exist(self.csvfile):
+        if not self.csvfile:
             print('[ERROR] MUST specify csvfile path before calling request_data()')
             sys.exit(1)
         with open(self.csvfile, 'wb') as ofile:
@@ -147,14 +152,17 @@ def main(files):
 
     # request from google drive
     if files == []:
+        print('no file specified...')
         dd.set_csvfile('/tmp/driving_data.csv')
         dd.read_setting()
-        #dd.dump_setting()
+        if dd.debug:
+            dd.dump_setting()
         dd.request_data()
         dd.action()
         return
 
     # file list from CLI
+    print('file list from CLI...')
     for ff in files:
         print_sep()
         print('load csv data from: {}'.format(ff))
