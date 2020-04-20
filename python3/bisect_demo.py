@@ -4,6 +4,9 @@
 '''
 bisect demo:
 https://docs.python.org/zh-tw/3/library/bisect.html
+
+At [test_exist.py](../prime/test_exist.py), it demos how slow "item in a large list".
+
 '''
 
 from bisect import bisect_left, bisect_right
