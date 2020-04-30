@@ -9,7 +9,7 @@ README
 
 - [Blocks.txt](http://unicode.org/Public/UNIDATA/Blocks.txt)
 - [boshiamy_radicals.txt](https://terryhung.pixnet.net/blog/post/27952497)
-
+- [phone.txt](https://github.com/chinese-opendesktop/cin-tables)
 - [r12a converter](https://r12a.github.io/app-conversion/)
 
 
