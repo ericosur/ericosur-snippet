@@ -38,8 +38,8 @@ project(easytest)
 add_executable(rfind rfind.cpp)
 add_executable(getret getret.cpp)
 add_executable(gete gete.cpp)
-add_executable(hello_world
-    hello_world.cpp
+add_executable(hello_tester
+    hello_tester.cpp
     boxmuller.cpp
     test_func.cpp
     test_json.cpp
@@ -56,3 +56,6 @@ add_executable(nullptr  nullptr.cpp)
 
 add_executable(validate_utf8 validate_utf8.cpp)
 add_executable(hexdec hexdec.cpp)
+
+add_executable(boss    boss.c)
+add_executable(worker  worker.c)

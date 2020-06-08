@@ -4,16 +4,16 @@
 #include <iostream>
 #include <time.h>
 
-class HelloWorld
+class HelloWorker
 {
 public:
-    HelloWorld()  {
+    HelloWorker()  {
         std::cout << "hello world from " << __func__ << std::endl;
     }
 };
 
 // the ctor will be run before main()
-HelloWorld hw;
+HelloWorker hw;
 
 // MUST NOT replace NULL here !!
 void test_fopen()
