@@ -34,6 +34,7 @@ def main(argv):
             print("unexpected error:", sys.exc_info()[0])
             raise
 
+    # pylint: disable=unbalanced-tuple-unpacking
     [a, b] = vals
     if a == 0 or b == 0:
         print("cannot be zero")

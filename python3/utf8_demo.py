@@ -5,6 +5,7 @@
 demo utf-8 string token as variable name
 '''
 
+# pylint: disable=non-ascii-name
 def main():
     ''' main '''
     總和 = 0

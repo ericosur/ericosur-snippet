@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 '''
 A simple CSV practice by using python module csv
@@ -10,14 +10,12 @@ import random
 def get_ten_numbers():
     ''' get_ten_numbers '''
     TEN = 10
-    arr = []
-    for _ in range(TEN):
-        arr.append(random.randint(0, 99))
+    arr = [random.randint(0, 99) for _ in range(TEN)]
     return arr
 
 def write_csv(csvfn):
     ''' write csv '''
-    with open(csvfn, 'wb') as csvfile:
+    with open(csvfn, 'wt') as csvfile:
         sw = csv.writer(csvfile, delimiter=',',
                         quotechar='"', quoting=csv.QUOTE_ALL)
         for _ in range(1, 10):
@@ -26,7 +24,7 @@ def write_csv(csvfn):
 
 def append_csv(input_fn, output_fn):
     ''' append_csv '''
-    with open(input_fn, 'rb') as csvin, open(output_fn, 'wb') as csvout:
+    with open(input_fn, 'rt') as csvin, open(output_fn, 'wt') as csvout:
         cin = csv.reader(csvin, delimiter=',',
                          quotechar='"', quoting=csv.QUOTE_ALL)
         cout = csv.writer(csvout, delimiter=',',

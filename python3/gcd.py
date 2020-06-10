@@ -43,7 +43,11 @@ def main(argv):
             print("unexpected error:", sys.exc_info()[0])
             raise
 
-    [a, b] = vals
+    if len(vals) == 2:
+        # pylint: disable=unbalanced-tuple-unpacking
+        [a, b] = vals
+    else:
+        print('something wrong: ', vals)
     if a == 0 or b == 0:
         print("cannot be zero")
         sys.exit(-1)
