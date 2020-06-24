@@ -7,7 +7,7 @@ from __future__ import print_function
 import os
 import sys
 from math import floor
-#from datetime import time
+from datetime import date
 import numpy as np
 import pandas as pd
 import myutil
@@ -74,6 +74,31 @@ class DrivingData():
             if self.debug:
                 print('output csv to {}'.format(self.csvfile))
 
+    @staticmethod
+    def str2date(s):
+        ''' date string to date object
+            [in] 2020-01-01
+        '''
+        arr = s.split('-')
+        try:
+            vals = [int(x) for x in arr]
+        except ValueError:
+            print('[ERROR] str2date: invalid string to integer')
+            return None
+        return date(vals[0], vals[1], vals[2])
+
+    @staticmethod
+    def get_between_dates(start, end):
+        ''' get dates between
+            [in] str start date 2020-01-01
+            [out] str end date 2020-02-29
+        '''
+        start_date = DrivingData.str2date(start)
+        end_date = DrivingData.str2date(end)
+        between = end_date - start_date
+        #print(type(between), repr(between))
+        return between
+
     def action(self):
         ''' main function '''
         #print("pd.__version__: {}".format(pd.__version__))
@@ -101,6 +126,10 @@ class DrivingData():
             except ValueError:
                 print('[ERROR] at {} on {}, invalid format: {}'.format(ii, ds, duration[ii]))
                 return
+
+        print('[INFO]    first date: {}'.format(dates[0]))
+        print('[INFO]     last date: {}'.format(dates[-1]))
+        print('[INFO] dates between: {}'.format(DrivingData.get_between_dates(dates[0], dates[-1])))
 
         if len(dates) != len(secs):
             print('[ERROR] not the same length {} vs {}'.format(len(dates), len(secs)))
@@ -152,7 +181,7 @@ def main(files):
 
     # request from google drive
     if files == []:
-        print('no file specified...')
+        print('will request file from google drive...')
         dd.set_csvfile('/tmp/driving_data.csv')
         dd.read_setting()
         if dd.debug:
