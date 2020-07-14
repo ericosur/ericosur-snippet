@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # use bash shell script to count numbers
 #
@@ -36,4 +36,3 @@ echo "variable2 = $variable2"
 mycmd=`echo -n "cat $variable2 > x.tgz"`
 echo $mycmd
 `$mycmd`
-
