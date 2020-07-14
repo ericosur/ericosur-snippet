@@ -17,6 +17,7 @@ import re
 
 # pylint: disable=import-error
 # pylint: disable=unused-import
+# pylint: disable=no-member
 # pythonista
 import clipboard
 import console

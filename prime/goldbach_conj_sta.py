@@ -13,13 +13,13 @@ import bisect
 import random
 import time
 
-import search_in_primes
-
 # pylint: disable=import-error
 # pylint: disable=unused-import
 # pythonista
 import clipboard
 import console
+
+import search_in_primes
 
 # pylint: disable=invalid-name
 # too-many-statements

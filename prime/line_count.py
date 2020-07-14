@@ -49,7 +49,7 @@ def bufcount(filename):
 
 def wccount(filename):
     ''' external __wc -l__ '''
-    out = subprocess.Popen(['wc', '-l', filename],
+    out = subprocess.Popen(['/usr/bin/wc', '-l', filename],
                            stdout=subprocess.PIPE,
                            stderr=subprocess.STDOUT
                            ).communicate()[0]
@@ -86,7 +86,7 @@ except ImportError:
 
 def clear_cache():
     """Clear disk cache on Linux."""
-    os.system("sync ; sudo /bin/sh -c 'echo 3 > /proc/sys/vm/drop_caches'")
+    os.system("/bin/sync ; /usr/bin/sudo /bin/sh -c '/bin/echo 3 > /proc/sys/vm/drop_caches'")
 
 def main():
     ''' main '''
