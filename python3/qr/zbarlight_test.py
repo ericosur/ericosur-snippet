@@ -4,6 +4,8 @@
 '''
 apt-get install libzbar-dev
 pip install zbarlight
+
+I do not recomment use this module to decode qrcode.
 '''
 
 import sys
@@ -32,7 +34,7 @@ def process():
         print('fn:', fn)
         im = read_image(fn)
         codes = zbarlight.scan_codes(['qrcode'], im)
-        ''' codes in type 'byte' '''
+        # codes in type 'byte'
         for s in codes:
             print(s)
             print(s.decode('utf-8'))
