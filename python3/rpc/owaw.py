@@ -5,6 +5,8 @@
 script to query openweather and accuweather
 '''
 
+# pylint: skip-file
+
 # TODO: UNIFINISHED
 #
 # pylint: disable=unreachable
