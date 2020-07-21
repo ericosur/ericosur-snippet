@@ -11,8 +11,14 @@ reference:
 
 from __future__ import print_function
 import os
+import sys
 import time
-import yagmail
+try:
+    import yagmail
+except ImportError:
+    print('cannot import module: yagmail')
+    sys.exit(1)
+
 from myutil import read_jsonfile, isfile
 
 # pylint: disable=useless-object-inheritance
