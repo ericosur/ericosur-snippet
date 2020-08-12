@@ -7,6 +7,7 @@ profiling a slow function
 
 from time import time
 from time import perf_counter as pc
+from time import sleep
 from random import randint
 
 class JustData():
@@ -26,30 +27,38 @@ def slow():
             return True
     return False
 
+def mysleep():
+    ''' sleep 500 ms '''
+    sleep(0.5)
+    return 0
 
-def basic():
+def basic(func=slow):
     ''' using time '''
     start_time = time()
-    slow()
+    func()
     duration = time() - start_time
     return duration
 
-def high_performance():
+def high_performance(func=slow):
     ''' using perf_counter '''
     start_time = pc()
-    slow()
+    func()
     duration = pc() - start_time
     return duration
 
 def main():
     ''' main '''
-    def run_func(func):
-        d = func()
-        print('duration of {:20s}: {:.20f}'.format(func.__name__, d))
+    def run(func, method):
+        d = func(method)
+        print('duration of {:20s}: {:.10f}'.format(func.__name__, d*1000))
 
-    run_func(basic)
-    print('-' * 40)
-    run_func(high_performance)
+    run(basic, slow)
+    print('-' * 50)
+    run(high_performance, slow)
+    print('=' * 50)
+    run(basic, mysleep)
+    print('-' * 50)
+    run(high_performance, mysleep)
 
 if __name__ == '__main__':
     main()
