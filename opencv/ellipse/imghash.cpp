@@ -1,3 +1,7 @@
+/**
+ * reference from: https://docs.opencv.org/4.4.0/d4/d93/group__img__hash.html
+ */
+
 #include <iostream>
 #include <opencv2/opencv.hpp>
 #include <opencv2/img_hash.hpp>
