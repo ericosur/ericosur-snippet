@@ -18,16 +18,15 @@ def test_file(fn: str) -> bool:
     '''
     use open() to test file could be accessed
     '''
-
     try:
         fp = open(fn)
     except IOError as e:
         if e.errno == errno.EACCES:
-            print('errno: %s' % 'EACCES')
+            print('errno: EACCES')
             return False
         # other than permission error
         if e.errno == errno.ENOENT:
-            print('errno: %s' % 'ENOENT')
+            print('errno: ENOENT')
             return False
         #pass
     else:
@@ -47,6 +46,7 @@ def main(argv):
         test_file(f)
         img = cv2.imread(f)
         if img is not None:
+            print('press any key to continue, file:{}'.format(f))
             cv2.imshow(f, img)
             cv2.waitKey(0)
     cv2.destroyAllWindows()

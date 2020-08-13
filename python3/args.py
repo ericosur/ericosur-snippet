@@ -9,14 +9,14 @@ def test_args(*args):
     ''' test args '''
     print('test_args:', args)
     print('sum:', sum(args))
-    print('-----')
+    print('-' * 20)
 
 def test_kwargs(**kwargs):
     ''' test kwargs '''
     print('kwargs:', kwargs)
     s = kwargs['x']**3 + 2 * kwargs['y']**2 + 3 * kwargs['z']
     print("s:", s)
-    print('-----')
+    print('-' * 20)
 
 def fill_zero(a, max_size=10):
     '''
@@ -24,7 +24,6 @@ def fill_zero(a, max_size=10):
     assign the max_size of new list
     and element will be filled with zero
     '''
-
     print('len(a):', len(a))
     a = a + [0] * (max_size - len(a))
     return a
