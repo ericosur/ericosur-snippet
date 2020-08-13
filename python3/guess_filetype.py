@@ -7,6 +7,8 @@ demo of module filetype
 
 import os
 import sys
+from myutil import read_from_stdin
+
 try:
     import filetype
 except ImportError as e:
@@ -24,13 +26,6 @@ def call_guess(f: str):
         print('{}\t{}\t{}'.format(f, kind.extension, kind.mime))
     else:
         print('cannot determine such file:', f)
-
-def read_from_stdin():
-    ''' read from stdin '''
-    args = []
-    for line in sys.stdin:
-        args.append(line.strip())
-    main(args)
 
 
 def main(argv):
@@ -54,6 +49,6 @@ if __name__ == '__main__':
         sys.exit()
 
     if sys.argv[1] == '-':
-        read_from_stdin()
+        read_from_stdin(main)
     else:
         main(sys.argv[1:])

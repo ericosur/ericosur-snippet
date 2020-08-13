@@ -34,9 +34,10 @@ https://github.com/ericosur/ericosur-snippet/tree/master/root/epoch
 
 '''
 
-import time
 from random import randint
 import sys
+import time
+from myutil import read_from_stdin
 
 def epoch2timestr(epoch: int):
     ''' Replace time.localtime with time.gmtime for GMT time '''
@@ -45,13 +46,6 @@ def epoch2timestr(epoch: int):
 
     msg = time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime(epoch))
     return [epoch, msg]
-
-def read_from_stdin():
-    ''' read from stdin '''
-    args = []
-    for line in sys.stdin:
-        args.append(line.strip())
-    main(args)
 
 def main(args: list):
     ''' main '''
@@ -70,6 +64,21 @@ def main(args: list):
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
-        main(sys.argv[1:])
+        if sys.argv[1] == '-':
+            read_from_stdin(main)
+        else:
+            main(sys.argv[1:])
     else:
-        read_from_stdin()
+        msg = '''
+        Usage:
+        {0} [arg1] [arg2] ...
+
+        For stdin:
+        {0} -
+
+        DEMO ====>
+
+        '''.format(sys.argv[0])
+        msg = msg.replace('    ', '')
+        print(msg)
+        main([])

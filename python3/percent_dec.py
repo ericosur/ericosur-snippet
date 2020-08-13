@@ -6,6 +6,7 @@ demo percentage decoding
 '''
 
 import sys
+from myutil import read_from_stdin
 
 try:
     from urllib.parse import unquote
@@ -25,13 +26,6 @@ def percent_dec(tok: str):
 #     ue = cc.encode('unicode-escape').decode('utf-8')
 #     print('unicode-escape:', ue)
 
-
-def read_from_stdin():
-    ''' read from stdin '''
-    args = []
-    for line in sys.stdin:
-        args.append(line.strip())
-    main(args)
 
 
 # for unicdoe codepage 0000 to FFFF, use lower case \u, eg: u'\u1234'
@@ -54,7 +48,7 @@ def main(argv):
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         if sys.argv[1] == '-':
-            read_from_stdin()
+            read_from_stdin(main)
         else:
             main(sys.argv[1:])
     else:

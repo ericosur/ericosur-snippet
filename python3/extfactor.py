@@ -10,6 +10,7 @@ import os
 from random import randint
 import re
 import sys
+from myutil import read_from_stdin
 
 def call_factor(n: int):
     ''' call external factor '''
@@ -26,13 +27,6 @@ def call_factor(n: int):
         print('a prime number')
     else:
         print(vals)
-
-def read_from_stdin():
-    ''' read from stdin '''
-    args = []
-    for line in sys.stdin:
-        args.append(line.strip())
-    main(args)
 
 
 def main(argv):
@@ -55,6 +49,6 @@ if __name__ == '__main__':
         sys.exit()
 
     if sys.argv[1] == '-':
-        read_from_stdin()
+        read_from_stdin(main)
     else:
         main(sys.argv[1:])

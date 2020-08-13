@@ -119,6 +119,13 @@ def print_stderr(*args, **kwargs):
     '''
     print(*args, file=sys.stderr, **kwargs)
 
+def read_from_stdin(func):
+    ''' read from stdin '''
+    args = []
+    for line in sys.stdin:
+        args.append(line.strip())
+    func(args)
+
 
 def main():
     '''main function'''
