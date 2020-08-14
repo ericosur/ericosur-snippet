@@ -7,7 +7,6 @@ simple demo to test against https://httpbin.org/
 it is a great website to test http requests
 '''
 
-# pylint: disable=broad-except
 
 from __future__ import print_function
 import requests
@@ -65,9 +64,8 @@ def test2():
         url = 'https://httpbin.org/links/{}/{}'.format(n, offset)
         r = requests.get(url)
         show_results(r)
-    except Exception as e:
-        print(type(e))
-        print(e.args)
+    except ConnectionError as e:
+        print("type: {}, args: {}".format(type(e), e.args))
 
 def test3():
     '''
@@ -78,9 +76,8 @@ def test3():
         url = 'https://httpbin.org/range/{}'.format(n)
         r = requests.get(url)
         show_results(r)
-    except Exception as e:
-        print(type(e))
-        print(e.args)
+    except ConnectionError as e:
+        print("type: {}, args: {}".format(type(e), e.args))
 
 def test4():
     '''
@@ -90,9 +87,8 @@ def test4():
         url = 'https://httpbin.org/anything/{anything}'
         r = requests.get(url)
         show_results(r)
-    except Exception as e:
-        print(type(e))
-        print(e.args)
+    except ConnectionError as e:
+        print("type: {}, args: {}".format(type(e), e.args))
 
 
 def main():

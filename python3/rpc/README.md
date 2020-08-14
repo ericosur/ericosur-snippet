@@ -26,6 +26,7 @@
 
 * data.txt (generated) **NOT IN GIT**
   one number one line text format
+  use [req_guassian.py](./req_guassian.py) to generate it
 
 * [req_guassian.py](./req_guassian.py)
   call [random.org](https://www.random.org/) API *generateGaussians* with parameter

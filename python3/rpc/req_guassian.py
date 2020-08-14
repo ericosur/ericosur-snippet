@@ -8,13 +8,13 @@ reference: https://api.random.org/json-rpc/2/basic
 from __future__ import print_function
 import json
 import sys
+import myutil
 try:
     import requests
-    import myutil
     import getapikey
 except ImportError as err:
     print('ImportError:', err)
-    sys.exit(0)
+    sys.exit(1)
 
 
 class RequestGuassian():
