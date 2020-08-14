@@ -7,9 +7,14 @@ use yagmail to send mail via gmail
 
 from __future__ import print_function
 import os
+import sys
 import time
-import yagmail
 from myutil import read_jsonfile, isfile
+try:
+    import yagmail
+except ImportError:
+    print('cannot import yagmail, need install such module...')
+    sys.exit(1)
 
 def append_path(fn):
     ''' append path '''
