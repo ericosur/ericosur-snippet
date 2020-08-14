@@ -10,7 +10,9 @@ n/2 if n==0 (mod 2)
 
 '''
 
+import sys
 from random import randint
+
 
 class Collatz():
     ''' collatz conjecture '''
@@ -66,5 +68,4 @@ def main(argv: list):
             print('{} is not a valid integer'.format(e))
 
 if __name__ == '__main__':
-    import sys
     main(sys.argv[1:])

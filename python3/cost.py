@@ -30,7 +30,8 @@ def main(argv):
             print('nstock:{mm[1]:.0f} -> {nstock:.0f}, avg: {old_avg:.2f} -> {avg:.2f}')
         else:
             print('total: {:.2f}'.format(total))
-            print('nstock:{:.0f} -> {:.0f}, avg: {:.2f} -> {:.2f}'.format(mm[1], nstock, old_avg, avg))
+            print('nstock:{:.0f} -> {:.0f}, avg: {:.2f} -> {:.2f}'.format(mm[1], \
+                nstock, old_avg, avg))
 
     printOut()
 

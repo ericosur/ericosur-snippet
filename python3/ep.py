@@ -62,6 +62,20 @@ def main(args: list):
         except ValueError:
             print('{} is not a valid integer'.format(v))
 
+def usage():
+    ''' help '''
+    msg = '''
+    Usage:
+    {0} [arg1] [arg2] ...
+
+    For stdin:
+    {0} -
+
+    DEMO ====>
+    '''.format(sys.argv[0])
+    msg = msg.replace('    ', '')
+    print(msg)
+
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         if sys.argv[1] == '-':
@@ -69,16 +83,5 @@ if __name__ == "__main__":
         else:
             main(sys.argv[1:])
     else:
-        msg = '''
-        Usage:
-        {0} [arg1] [arg2] ...
-
-        For stdin:
-        {0} -
-
-        DEMO ====>
-
-        '''.format(sys.argv[0])
-        msg = msg.replace('    ', '')
-        print(msg)
+        usage()
         main([])
