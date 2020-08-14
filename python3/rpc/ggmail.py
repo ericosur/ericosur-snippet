@@ -21,8 +21,8 @@ except ImportError:
 
 from myutil import read_jsonfile, isfile
 
-# pylint: disable=useless-object-inheritance
-class FoolMail(object):
+
+class FoolMail():
     ''' class to send mail via gmail '''
     def __init__(self):
         self.auth = None

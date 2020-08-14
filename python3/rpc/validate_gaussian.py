@@ -7,14 +7,13 @@ get data from file and try to fetch part of them, to see
 how many data will match the range of mu and sigma
 '''
 
-# pylint: disable=broad-except
+# ---pylint: disable=broad-except---
 
 from __future__ import print_function
 import random
 import statistics
 
-# pylint: disable=useless-object-inheritance
-class ValidateGuassian(object):
+class ValidateGuassian():
     ''' class ValidateGuassian '''
     def __init__(self):
         self.orig_arr = []

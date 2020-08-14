@@ -9,22 +9,23 @@ validate how many items fetch from array to get similar mu and sigma
 
 from __future__ import print_function
 import numpy as np
+from random import randint
 
-# pylint: disable=useless-object-inheritance
-class ValidateGuassian(object):
+
+class ValidateGuassian():
     ''' class ValidateGuassian '''
     def __init__(self):
-        self.orig_arr = []
+        self.data_arr = []
         self.target_mean = (100.0, 0.5)    # target mean, and limit
         self.target_stdev = (15.0, 0.75)   # target stdev, and limit
         self.result_mean = 0.0
         self.result_stdev = 0.0
-        self.target_array_size = 10000
+        self.target_array_size = randint(9999, 999999)
         self.fill_array()
 
     def fill_array(self):
         ''' fill array '''
-        self.orig_arr = np.random.normal(self.target_mean[0], self.target_stdev[0],
+        self.data_arr = np.random.normal(self.target_mean[0], self.target_stdev[0],
                                          self.target_array_size)
 
     def validate_array(self, arr):
@@ -43,22 +44,23 @@ class ValidateGuassian(object):
             and abs(self.target_stdev[0] - stdev) < self.target_stdev[1]:
             self.result_mean = mean
             self.result_stdev = stdev
-            return True
+        else:
+            print('NOT pass!')
 
-        return False
+
+    def printOut(self):
+        ''' print out '''
+        print('size: {:7d}'.format(self.target_array_size), end=' ')
+        print('mean: {:8.3f}, stdev: {:6.3f}'.format(self.result_mean, self.result_stdev), end=' ')
+        print('({:.3f}, {:.3f})'.format(min(self.data_arr), max(self.data_arr)))
+
 
     def test(self):
         ''' test '''
-        np.random.shuffle(self.orig_arr)
-        max_bound = len(self.orig_arr)
-        step_bound = 50
-        curr_bound = step_bound
-        while curr_bound <= max_bound:
-            if self.validate_array(self.orig_arr[:curr_bound]):
-                break
-            curr_bound += step_bound
-        print('fetch {} elements and pass critria'.format(curr_bound))
-        print('mean: {:.3f}\nstdev: {:.3f}'.format(self.result_mean, self.result_stdev))
+        self.fill_array()
+        self.validate_array(self.data_arr)
+        self.printOut()
+
 
 def main():
     ''' main '''

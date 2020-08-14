@@ -16,8 +16,8 @@ except ImportError as err:
     print('ImportError:', err)
     sys.exit(0)
 
-# pylint: disable=useless-object-inheritance
-class RequestGuassian(object):
+
+class RequestGuassian():
     ''' request guassian random numbers from random.org '''
     def __init__(self):
         self.sett_json = 'sett.json'
