@@ -7,9 +7,14 @@ pip install pyzxing
 It is hard to build my own zxing jar library.
 '''
 
-from pyzxing import BarCodeReader
+import sys
 import common
 
+try:
+    from pyzxing import BarCodeReader
+except ImportError:
+    print('cannot import pyzxing...')
+    sys.exit(1)
 
 def main():
     ''' main '''
