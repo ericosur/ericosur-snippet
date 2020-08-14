@@ -3,8 +3,13 @@
 
 ''' xlsx practice '''
 
-from openpyxl import Workbook
-#from openpyxl.utils import get_column_letter
+import sys
+try:
+    from openpyxl import Workbook
+    #from openpyxl.utils import get_column_letter
+except ImportError:
+    print('cannot import openpyxl, quit...')
+    sys.exit(1)
 
 def main():
     ''' main '''
