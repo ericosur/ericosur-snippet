@@ -38,7 +38,7 @@ def read_setting(fn):
     '''get json object from file'''
     return read_jsonfile(fn)
 
-def get_python_version():
+def get_python_version() -> str:
     ''' return version string of python '''
     py_ver = ".".join(map(str, sys.version_info[:2]))
     return py_ver
