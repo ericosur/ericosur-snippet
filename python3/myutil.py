@@ -43,6 +43,13 @@ def get_python_version() -> str:
     py_ver = ".".join(map(str, sys.version_info[:2]))
     return py_ver
 
+def need_python36():
+    ''' if not python version >= 3.6, raise exception '''
+    if sys.version_info.major == 3 and sys.version_info.minor >= 6:
+        pass
+    else:
+        raise RuntimeError
+
 def request_value(data, key, default_value=None):
     '''
     given json object and request key, if key does not exist, return None
