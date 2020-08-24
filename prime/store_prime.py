@@ -8,6 +8,7 @@ provide a basic interface/class for load/save/search primes
 import os
 import pickle
 import re
+import sys
 from bisect import bisect_left, bisect_right
 
 # pylint: disable=invalid-name
@@ -99,12 +100,18 @@ class StorePrime():
         try:
             return self.load_pickle_impl()
         except IOError:
-            print('pickle file not found, try to load text file')
+            print('store_prime: pickle file not found, try to load text file')
             self.pvalues = []
 
         if not os.path.exists(self.txtfile):
-            print('{} not found, exit'.format(self.txtfile))
-            return False
+            print(sys.argv[0])
+            try_path = os.path.dirname(sys.argv[0]) + '/' + self.txtfile
+            print('store_prime: try:', try_path)
+            if os.path.exists(try_path):
+                self.txtfile = try_path
+            else:
+                print('store_prime: {} not found, exit'.format(self.txtfile))
+                return False
 
         with open(self.txtfile, "rt") as txtinf:
             self.need_save = True
