@@ -10,6 +10,7 @@ import random
 import bisect
 import math
 import time
+import matplotlib
 import matplotlib.pyplot as plt
 
 def method_in(a, b, c):
@@ -61,6 +62,7 @@ def profile():
         time_method_set_in.append(math.log(method_set_in(a, b, c)))
         time_method_bisect.append(math.log(method_bisect(a, b, c)))
 
+    matplotlib.use('TkAgg')
     plt.plot(Nls, time_method_in, marker='o', color='r', linestyle='-', label='in')
     plt.plot(Nls, time_method_set_in, marker='o', color='b', linestyle='-', label='set')
     plt.plot(Nls, time_method_bisect, marker='o', color='g', linestyle='-', label='bisect')
