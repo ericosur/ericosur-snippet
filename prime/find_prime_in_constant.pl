@@ -1,7 +1,10 @@
 #!/usr/bin/perl
 #
-# §ä¥X¦b pi ©Î¬O e ¤p¼ÆÂI«á³sÄò¤Q¦ì¼Æ¦r¬O½è¼Æ
-# »İ­n e/pi ¥H¤Î½è¼Æªº¸ê®ÆÀÉ
+# æ‰¾å‡ºåœ¨ pi æˆ–æ˜¯ e å°æ•¸é»å¾Œé€£çºŒåä½æ•¸å­—æ˜¯è³ªæ•¸
+# éœ€è¦ e/pi ä»¥åŠè³ªæ•¸çš„è³‡æ–™æª”
+#
+# also refer to:
+# https://www.hanshq.net/eprime.html
 #
 
 use strict;
@@ -83,7 +86,7 @@ sub load_largefile($)
 
 sub load_prime_table()
 {
-	# 100K ªº½è¼Æªí¡A¥i¥H¨ó§U§P§O¨ì 9,999,999,999 ªº¼Æ¦r¨S¦³°İÃD
+	# 100K çš„è³ªæ•¸è¡¨ï¼Œå¯ä»¥å”åŠ©åˆ¤åˆ¥åˆ° 9,999,999,999 çš„æ•¸å­—æ²’æœ‰å•é¡Œ
 	my $plain_file = "prime_100k.txt";	# prime_(100k|1M).txt
 	# load from plain text file
 	open my $ifh, $plain_file or die;
@@ -145,7 +148,7 @@ sub main
 	my $load_file;
 	getopts("el:", \%opts);
 	$load_file = ( $opts{e} ? $e_file : $pi_file );
-	
+
 	my $rr = load_largefile($load_file);
 	print "result prime: ", $rr, "\n";
 	#print "last pos: ", $last_pos,"\n";
@@ -159,7 +162,7 @@ main;
 
 To determine the 10 consequenced digits from e and pi is
 prime or not, we need a table with 8500 prime (87553), and
-pi/e table with 1024 digits. The answer shows up not far 
+pi/e table with 1024 digits. The answer shows up not far
 away the beginning.
 
 =cut

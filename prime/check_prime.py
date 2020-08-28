@@ -17,9 +17,10 @@ shuf -i 1001-9999 -n 10 | python3 check_prime.py -
 import sys
 try:
     import sympy
-except ImportError:
-    print('need install module **sympy**')
-    sys.exit()
+    from myutil import read_from_stdin
+except ImportError as e:
+    print('Import Error while:', e)
+    sys.exit(1)
 
 def is_prime(n: int):
     ''' check if a prime with sympy '''
@@ -59,3 +60,5 @@ if __name__ == '__main__':
             main(sys.argv[1:])
     else:
         print('use "{} -"'.format(sys.argv[0]))
+        print("\ndemo mode...")
+        main([7427466391])
