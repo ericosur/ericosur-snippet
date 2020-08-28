@@ -1,4 +1,11 @@
-''' module kidrsa '''
+''' module kidrsa
+
+kid RSA
+https://www.cs.uri.edu/cryptography/publickeykidkrypto.htm
+
+'''
+
+__version__ = '0.0.1'
 
 # encryption C = P * e (mod n)
 def encrypt(P, n, e):
@@ -20,3 +27,9 @@ def make_pair(a, b, a1, b1):
     n = ((e * d) - 1) // M
     return n, e, d, M
 
+def main():
+    ''' main '''
+    print('This is module kid_rsa')
+
+if __name__ == '__main__':
+    main()
