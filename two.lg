@@ -1,0 +1,201 @@
+to choices :menu [:sofar []]
+if emptyp :menu [print :sofar stop]
+foreach first :menu [(choices butfirst :menu sentence :sofar ?)]
+end
+
+to snow
+; draw a snowflake
+    pu
+    fd 20
+    rt 120
+    pd
+    repeat 6 [lt 60 fd 20 rt 120 fd 20]
+    lt 120
+    bk 20
+    repeat 6 [
+        fd 40
+        bk 10
+        rt 60
+        fd 10
+        bk 10
+
+        lt 120
+        fd 10
+        bk 10
+        rt 60
+        bk 30
+        rt 60
+    ]
+end
+
+to two
+; draw a han character 2
+    make "short 100
+    make "long  200
+    make "dist  80
+    ; start "
+    rt 90
+    pd
+    fd short
+    pu
+    bk short
+    bk 50
+    rt 90
+    fd dist
+    lt 90
+    pd
+    fd long
+    ; go back
+    pu
+    bk 200
+    lt 90
+    fd 80
+    rt 90
+    fd 100
+end
+
+
+to two2
+; draw a arabic number 2
+lt 90
+arc 180 50
+rt 90
+rt 90
+pu
+fd 50
+pd
+rt 135
+fd 100
+lt 135
+fd 100
+end
+
+
+to whatever
+; draw a random path
+    repeat 100 [
+        fd random 100
+    rt random 180
+    ]
+end
+
+to square
+; draw a random size square
+  pu lt 90 fd random 400 rt 90 pd
+    make "len (random 1000)
+    repeat 4 [
+        fd :len
+        rt 90
+    ]
+end
+
+to sq
+; draw a random size square
+  make "len (random 600)
+  repeat 4 [
+        fd :len
+        rt 90
+    ]
+end
+
+to sq2
+  repeat 4 [
+    sq
+    rt 90
+  ]
+end
+
+to sq3
+  repeat 8 [
+    sq
+    rt 45
+  ]
+end
+
+to spiral
+    pd
+    make "len 1
+    repeat 40 [
+        rt 5
+        fd :len
+        make "len (len + 10)
+        rt 90
+    ]
+end
+
+to chinese1
+    pu
+    rt 90
+    fd 40
+    pd
+    fd 120
+    lt 90
+end
+
+to chinese2
+    pd
+    fd 120
+    pu
+    lt 90
+    fd 160
+    lt 90
+    fd 120
+    rt 90
+    lt 90
+end
+
+to chinese3
+    rt 90
+    rt 45
+    pd
+    fd 120
+    pu
+    bk 120
+    lt 45
+    fd 160
+    lt 90
+end
+
+to chinese4
+    rt 90
+    rt 135
+    pd
+    fd 100
+    pu
+    bk 100
+    lt 135
+    fd 160
+    lt 90
+end
+
+to chinese5
+    rt 90
+    rt 45
+    pd
+    fd 60
+    pu
+    bk 60
+    lt 45
+    fd 160
+    lt 90
+end
+
+to chinese6
+    rt 90
+    rt 90
+    pd
+    fd 80
+    rt 25
+    fd 40
+    rt 25
+    fd 40
+    pu
+    bk 40
+    lt 25
+    bk 40
+    lt 25
+    bk 80
+    lt 90
+    fd 160
+    lt 90
+end
