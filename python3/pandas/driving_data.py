@@ -9,7 +9,12 @@ import sys
 from math import floor
 from datetime import date
 import numpy as np
-import pandas as pd
+try:
+    import pandas as pd
+except ImportError:
+    print('[ERROR] cannot import module pandas...')
+    sys.exit(1)
+
 import myutil
 from strutil import print_sep, str2sec, sec2str
 
