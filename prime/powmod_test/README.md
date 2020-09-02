@@ -8,9 +8,13 @@ For perl verion you need extra module:
   - Math::BigInt
   - bigint
 
-NOTE: will not maintain perl script further. Use python version.
+## note
+
+* will not maintain perl script further. Use python version.
+* __powmod-bigint.pl__ is rather slow.
+
 
 ### reference:
 * https://en.wikipedia.org/wiki/Modular_exponentiation
 * https://reference.wolfram.com/language/ref/PowerMod.html
-
+* https://github.com/csknk/fast-modular-exponentiation

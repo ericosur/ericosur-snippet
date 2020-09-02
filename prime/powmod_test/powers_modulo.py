@@ -4,7 +4,7 @@
 '''
 try to calculate p ** q mod n
 
-it is used by last-digit-power.py
+it is used by last_digit_power.py
 '''
 
 import random
@@ -37,9 +37,11 @@ def test(rep):
                      random.randint(1001, 3001))
         cc = _powmod(p, q, n)
         dd = powmod(p, q, n)
-        print("%d ** %d %% %d = %d" % (p, q, n, dd))
-        if cc != dd:
-            print("error!!!")
+        print('{:6d} ** {:5d} % {:5d} = {}'.format(p, q, n, dd))
+
+        assert dd == pow(p, q, n)
+        assert dd == cc
+
 
 if __name__ == '__main__':
-    test(9)
+    test(20)

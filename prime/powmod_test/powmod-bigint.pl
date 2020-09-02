@@ -12,5 +12,6 @@ Use C<Math::BigInt> instead;
 
 use bigint;
 
+print "NOTICE: very slow!\n";
 $vv = 104857 ** 32768 % 4294;
 print $vv, "\n";

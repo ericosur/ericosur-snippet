@@ -12,13 +12,14 @@
 
 此計算相當於 4001^5003 mod 10000 的結果
 
-
 4003**5003 有 41497 個數字 5003 * log10(4007) (無條件進入整數)
 
 
 ```math
 4001^{5003} mod 10000
 ```
+
+There is a built-in function **pow** in python.
 
 '''
 
@@ -27,8 +28,10 @@ from powers_modulo import powmod
 
 def calc(base: int, radix: int):
     '''calc'''
-    m = powmod(base, radix, 10000)
-    print("%d ** %d 的未四位數: %d" % (base, radix, m))
+    n = 10000
+    m = powmod(base, radix, n)
+    print("%d ** %d 的末四位數: %d" % (base, radix, m))
+    assert m == pow(base, radix, n)
 
 def main(argv):
     ''' main '''
