@@ -1,7 +1,7 @@
 # Readme
 
 Problem:
-Using [411, 295, 161] to combine the sumation to target.
+Using [411, 295, 161] to combine the simulation to target.
 
 ## my solution
 
