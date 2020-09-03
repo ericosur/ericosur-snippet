@@ -4,3 +4,6 @@
 [submodule "prime/powmod_test/fast-modular-exponentiation"]
 	path = prime/powmod_test/fast-modular-exponentiation
 	url = https://github.com/csknk/fast-modular-exponentiation
+[submodule "phrase/sc-dictionary"]
+	path = phrase/sc-dictionary
+	url = https://github.com/samejack/sc-dictionary.git

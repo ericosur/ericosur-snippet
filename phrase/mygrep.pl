@@ -37,7 +37,7 @@ sub process($$$)
     my $ofile = shift;
     my $datafile = shift;
 
-    open my $fh, $ifile or die;
+    open my $fh, $ifile or die "$ifile not found";
     binmode($fh, ':encoding(utf8)');
     open my $ofh, "> $ofile" or die;
     binmode($ofh, ':encoding(utf8)');

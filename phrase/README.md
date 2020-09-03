@@ -8,7 +8,8 @@
 
 ## reference
 
-[main.txt](./main.txt) is downloaded from [phrash dictionary](https://github.com/samejack/sc-dictionary)
+- data file: [main.txt](./main.txt) comes from [phrash dictionary](https://github.com/samejack/sc-dictionary) by using git-submodule
+  - setup **setting.json** to indicate file location
 
 *mygrep.pl* will filter out:
   * start with 0-9 a-z A-Z and chinese number characters.
@@ -21,13 +22,21 @@ and outputs two files:
 
 ## helper scripts and setting.json
 
-[mygrep.pl](./mygrep.pl) will filter out unwanted lines from main.txt
-[listarr.pl](./listarr.pl) read from storage.dat and pick some items to ofile
+* [mygrep.pl](./mygrep.pl) will filter out unwanted lines from main.txt
+
+* [listarr.pl](./listarr.pl) read from storage.dat and pick some items to
+  **"listarr.pl"."ofile"**
+
+* **CMakeLists.txt** and **main.cpp** is a simple sample to load json and print.
+  It needs **out.json** as input. Use cmake to build it.
 
 * common:
     * ifile: path to phrase dictionary, one phrase/word one line
     * ofile: output text file
     * datafile: perl storage data file
+
 * listarr.pl:
     * ofile: output json file
     * repeat: number of picked items
+
+* [Makefile](./Makefile), help to clean intermediate files

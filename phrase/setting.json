@@ -1,6 +1,6 @@
 {
     "common": {
-        "ifile": "../../github/sc-dictionary/main.txt",
+        "ifile": "sc-dictionary/main.txt",
         "ofile": "out.txt",
         "datafile": "storable.dat"
     },
