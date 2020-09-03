@@ -10,7 +10,7 @@ cmake_minimum_required(VERSION 3.0)
 # cmake -DUSE_CLANG=1 ..
 
 
-project(fmt)
+project(fmt_demo)
 
 
 if(USE_INTEL)

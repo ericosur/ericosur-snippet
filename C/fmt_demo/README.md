@@ -13,3 +13,8 @@ https://fmt.dev/latest/usage.html
 
 - python format usage:
 https://github.com/gto76/python-cheatsheet#format
+
+## submodule of fmt
+
+- Using [fmt github repository](https://github.com/fmtlib/fmt.git)
+- ```git submodule sync```
