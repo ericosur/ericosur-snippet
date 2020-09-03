@@ -172,6 +172,8 @@ def output_xls(data):
     ws.write_formula(i+1, 5, "=F{0}/C{0}".format(i+1), x.decimal_format)
     ws.write_formula(i+1, 6, "=G{0}/C{0}".format(i+1), x.decimal_format)
 
+    ws.set_column('E:F', 10) # width of column
+
     wb.close()
 
 
