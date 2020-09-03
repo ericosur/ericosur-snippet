@@ -1,3 +1,6 @@
 [submodule "C/fmt"]
 	path = C/fmt
 	url = https://github.com/fmtlib/fmt.git
+[submodule "prime/powmod_test/fast-modular-exponentiation"]
+	path = prime/powmod_test/fast-modular-exponentiation
+	url = https://github.com/csknk/fast-modular-exponentiation
