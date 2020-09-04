@@ -62,23 +62,25 @@ class Solution():
         else:
             print('no answers at all')
 
-    @staticmethod
-    def dot_product(coins, ans):
-        ''' stupid way to do dot product '''
-        val = 0
-        for ii, cc in enumerate(coins):
-            val = val + cc * ans[ii]
-        return val
+    # replaced by: sum(map(operator.mul, aa, bb))
+    # @staticmethod
+    # def dot_product(coins, ans):
+    #     ''' stupid way to do dot product '''
+    #     val = 0
+    #     for ii, cc in enumerate(coins):
+    #         val = val + cc * ans[ii]
+    #     return val
 
-    @staticmethod
-    def make_arr(all_limits, all_ans):
-        ''' compose array '''
-        for k in range(0, all_limits[2]):
-            for j in range(0, all_limits[1]):
-                for i in range(0, all_limits[0]):
-                    one_val = [i, j, k]
-                    all_ans.append(one_val)
-        print('len(all_ans): ', len(all_ans))
+    # replaced by: it.product(ii, jj, kk)
+    # @staticmethod
+    # def make_arr(all_limits, all_ans):
+    #     ''' compose array '''
+    #     for k in range(0, all_limits[2]):
+    #         for j in range(0, all_limits[1]):
+    #             for i in range(0, all_limits[0]):
+    #                 one_val = [i, j, k]
+    #                 all_ans.append(one_val)
+    #     print('len(all_ans): ', len(all_ans))
 
 
 def main():
