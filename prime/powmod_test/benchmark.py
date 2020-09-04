@@ -10,6 +10,7 @@ import sys
 from random import randint
 #from math import ceil
 import timeit
+from statistics import stdev, mean
 
 def powmod(b, e, m):
     ''' power modulus '''
@@ -21,6 +22,15 @@ def powmod(b, e, m):
         s -= 1
     return v    # the remainder
 
+def show_stat(arr: list, msg: str):
+    ''' show stat '''
+    s = stdev(arr)
+    m = mean(arr)
+    print('{}: stdev:{:-12.0f}, mean:{:-12.0f}'.format(msg, milli(s), milli(m)))
+
+def milli(n):
+    ''' get milli '''
+    return round(n * 1e8, 0)
 
 def main():
     ''' main '''
@@ -32,40 +42,43 @@ def main():
         print('[WARN] need submodule fast-modular-exponentiation...')
         sys.exit(1)
 
-    def milli(start, end):
-        ''' get milli '''
-        return round((start - end) * 1e6, 2)
-
     def myfmt(n: int) -> str:
         ''' my format '''
         s = '{:-10.2f}'.format(n)
         return s
 
-    print('{:12s}{:12s}{:12s}'.format('   builtin', '   powmod', 'fast_exp'))
-    print('-' * 40)
-    time_takes = list()
-    for _ in range(10):
-        time_takes.clear()
-        b = randint(999999, 9999999)
-        e = randint(99999, 999999)
-        m = randint(9999, 999999)
+    #print('{:12s}{:12s}{:12s}'.format('   builtin', '   powmod', 'fast_exp'))
+    #print('-' * 40)
+
+    builtin_time = list()
+    powmod_time = list()
+    fastexp_time = list()
+
+    for _ in range(100):
+        b = randint(9999, 99999)
+        e = randint(999999, 9999999)
+        m = randint(9999, 99999)
 
         t0 = timeit.default_timer()
         a = pow(b, e, m)    # python built-in
-        time_takes.append(milli(timeit.default_timer(), t0))
+        builtin_time.append(timeit.default_timer() - t0)
 
         t0 = timeit.default_timer()
         r1 = powmod(b, e, m)
         assert a == r1
-        time_takes.append(milli(timeit.default_timer(), t0))
+        powmod_time.append(timeit.default_timer() - t0)
 
         t0 = timeit.default_timer()
         r2 = fast_exp(b, e, m)
         assert a == r2
-        time_takes.append(milli(timeit.default_timer(), t0))
+        fastexp_time.append(timeit.default_timer() - t0)
 
-        print(' '.join(map(myfmt, time_takes)))
+        #print(' '.join(map(myfmt, time_takes)))
         #print('builtin vs powmod vs fast_exp:', time_takes)
+
+    show_stat(builtin_time, "builtin")
+    show_stat(powmod_time, " powmod")
+    show_stat(fastexp_time, "fastexp")
 
 if __name__ == '__main__':
     main()
