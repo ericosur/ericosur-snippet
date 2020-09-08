@@ -87,20 +87,20 @@ class Solution():
 
     def test_02(self):
         ''' test '''
-        self.start = '3686167107'
+        self.start = '3686197107'
         print(self.get_left('87107'))
 
 
 def main():
     ''' main '''
     # 1
-    s = Solution(3686167107)
+    s = Solution(3686197107)
     s.test()
     # 2
-    for _ in range(10):
-        m = Solution()
-        m.test()
-        del m
+    # for _ in range(10):
+    #     m = Solution()
+    #     m.test()
+    #     del m
 
 
 if __name__ == '__main__':
