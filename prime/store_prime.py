@@ -169,7 +169,8 @@ class StorePrime():
         if p is None:
             print('[ERROR] cannot operate')
             return None
-        plist = self.pvalues[:p]
+        # ????
+        plist = self.pvalues[:p+1]
         return plist
 
     def bisect_between_idx(self, val: int) -> tuple:

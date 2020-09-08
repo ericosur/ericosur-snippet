@@ -2,6 +2,8 @@
 *.pkl
 *.gz
 *.lzma
+*.xls
+*.xlsx
 py*.txt
 *need_check.txt
 prime.dat

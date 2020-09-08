@@ -6,6 +6,7 @@ load prime numbers from table and output to a xlsx file
 '''
 
 import sys
+import sympy
 
 sys.path.insert(0, '../')
 
@@ -46,7 +47,7 @@ class Solution():
     def output(self):
         ''' show result of list '''
         self._check()
-        print('size of arr:', len(self.arr))
+        #print('size of arr:', len(self.arr))
         # for ii in arr:
         #     print('{:8d}'.format(ii), end='')
         # print()
@@ -69,13 +70,30 @@ class Solution():
     def run(self):
         ''' run '''
         self.arr = self.sp.get_primes_less_than(self.upper)
+
+        # double confirm
+        prime_n = sympy.ntheory.generate.primepi(self.upper)
+        assert prime_n == len(self.arr)
+
+        print('[INFO] There are {} primes under {}'.format(prime_n, self.upper))
         self.output()
         if XLSWRITER_OK:
             self.output_xls()
 
+    def test(self):
+        ''' test '''
+        for n in [10, 100, 1000, 10000]:
+            self.arr = self.sp.get_primes_less_than(n)
+            #print(self.arr)
+            prime_n = sympy.ntheory.generate.primepi(n)
+            #print(type(prime_n))
+            #print('arr:{:6d} vs sympy:{:6d}'.format(len(self.arr), int(prime_n)))
+            assert len(self.arr) == prime_n
+
 def main():
     ''' main '''
     s = Solution(10000)
+    # s.test()
     s.run()
 
 if __name__ == '__main__':
