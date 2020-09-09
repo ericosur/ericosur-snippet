@@ -5,19 +5,14 @@ hanning window
 https://numpy.org/doc/stable/reference/generated/numpy.hanning.html
 '''
 
-import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 from numpy.fft import fft, fftshift
-from myutil import get_python_version
 
 def main():
     ''' main '''
-    if float(get_python_version()) < 3.6:
-        # explicitly assign TkAgg, default maybe Qt
-        matplotlib.use('TkAgg')
-
     window = np.hanning(51)
+    plt.style.use('dark_background')
     plt.plot(window)
     plt.title('Hann Window')
     plt.ylabel('Amplitude')

@@ -1,9 +1,9 @@
 ''' dft test '''
 
-import matplotlib
+#import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-from myutil import get_python_version
+#from myutil import get_python_version
 
 # pylint: disable=unused-variable
 def main():
@@ -16,9 +16,9 @@ def main():
     t = np.linspace(0, 2, 2 * f_s, endpoint=False)
     x = np.sin(f * 2 * np.pi * t)
 
-    if float(get_python_version()) < 3.6:
-        # explicitly assign TkAgg, default maybe Qt
-        matplotlib.use('TkAgg')
+    # if float(get_python_version()) < 3.6:
+    #     # explicitly assign TkAgg, default maybe Qt
+    #     matplotlib.use('TkAgg')
 
     fig, ax = plt.subplots()
     ax.plot(t, x)

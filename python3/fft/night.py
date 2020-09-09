@@ -7,21 +7,14 @@
 
 import os
 import sys
+from scipy.io import wavfile
 import matplotlib.pyplot as plt
 #from scipy import fftpack
-from scipy.io import wavfile
 import numpy as np
-from myutil import need_python36
+from skimage import util
 
-try:
-    need_python36()
-    from skimage import util
-except RuntimeError:
-    print("[ERROR] need python 3.6+ to use skimage.util correctly")
-    sys.exit(1)
 
 # pylint: disable=unused-variable
-
 def main(fn):
     ''' main '''
     if not os.path.exists(fn):
