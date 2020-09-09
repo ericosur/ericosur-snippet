@@ -45,7 +45,7 @@ class Solution():
 class SumUp(Solution):
     ''' different method for sum '''
     def __init__(self, max_num=9999999):
-        super(SumUp, self).__init__(max_num)
+        super().__init__(max_num)
 
     def sum1(self):
         ''' fill arr '''

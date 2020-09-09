@@ -29,18 +29,16 @@ except ImportError:
 
 class FoolMail():
     ''' class to send mail via gmail '''
-    def __init__(self, fn=None):
-        self.auth = None
+    def __init__(self, filename=None):
         self.appkey = None
         self.oathfile = None
         self.from_ = None
         self.to_ = None
         self.subject = None
         self.bodyfile = None
-        self.fn = fn
-        self.load_config()
+        self.load_config(filename)
 
-    def load_config(self):
+    def load_config(self, fn):
         ''' load api key from config '''
         home = os.environ.get('HOME')
         app_conf = home + '/set-send-attach.json'
@@ -49,17 +47,17 @@ class FoolMail():
         if d is None:
             print('[FAIL] failed to load config:', app_conf)
         else:
-            self.auth = d.get('auth')
-            if self.auth == 'appkeyfile':
+            auth_method = d.get('auth')
+            if auth_method == 'appkeyfile':
                 self.get_appkey(self.append_path(d.get('appkeyfile')))
             else:
                 self.oathfile = self.append_path(d.get('oathfile'))
             self.from_ = d.get('from')
             self.to_ = d.get('to')
             self.subject = d.get('subject')
-            if self.fn:
-                print('body file is override by:', self.fn)
-                self.bodyfile = self.fn
+            if fn:
+                print('body file is override by:', fn)
+                self.bodyfile = fn
             else:
                 self.bodyfile = d.get('bodyfile')
             #self.load_body()
@@ -110,7 +108,7 @@ class FoolMail():
     def send(self):
         ''' send mail '''
         print('[INFO] Send file via gmail...')
-        if self.auth == 'appkeyfile':
+        if self.appkey:
             yag = yagmail.SMTP(self.from_, self.appkey)
         else:
             yag = yagmail.SMTP(self.from_, oauth2_file=self.oathfile)
@@ -124,7 +122,7 @@ def main(fn=None):
     ''' main '''
     fmail = None
     if fn and os.path.isfile(fn):
-        fmail = FoolMail(fn=fn)
+        fmail = FoolMail(filename=fn)
     else:
         fmail = FoolMail()
     if fmail:

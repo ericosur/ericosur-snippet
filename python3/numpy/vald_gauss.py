@@ -8,8 +8,8 @@ validate how many items fetch from array to get similar mu and sigma
 '''
 
 from __future__ import print_function
-import numpy as np
 from random import randint
+import numpy as np
 
 
 class ValidateGuassian():

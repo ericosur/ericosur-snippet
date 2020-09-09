@@ -4,25 +4,27 @@
 
 import sys
 
+SHRUG = '¯\\_(ツ)_/¯'
+
 def dump(s: str):
     ''' dump '''
     for c in list(s):
         print(hex(ord(c)))
 
-def help():
+def help_message():
     ''' help '''
     print('parameters: show or dump(default if not provided)')
     print()
 
 if __name__ == '__main__':
-    shrug = '¯\\_(ツ)_/¯'
+
     if len(sys.argv) == 1:
         help()
-        dump(shrug)
+        dump(SHRUG)
     else:
         if sys.argv[1] == 'show':
-            print(shrug)
+            print(SHRUG)
         elif sys.argv[1] == 'dump':
-            dump(shrug)
+            dump(SHRUG)
         else:
-            help()
+            help_message()

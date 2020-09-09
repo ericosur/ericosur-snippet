@@ -151,9 +151,8 @@ def main():
                 print('p: {}  s: 0.({})...'.format(str(p), s))
                 retl = tl
                 break
-            else:
-                tl += 2
-                retl = 0
+            tl += 2
+            retl = 0
 
         if retl > maxlen:
             maxlen = tl

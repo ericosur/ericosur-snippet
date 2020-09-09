@@ -1,0 +1,37 @@
+# a simple yaml example
+
+fruit:
+  apple: 37
+  melon: 29
+  berry: 31
+
+# one line with multiple newline
+fruit_names: |
+  strawberry
+  watermelon
+  grapes
+
+# one line between space to seperate
+alpha_names: >
+  alpha
+  bravo
+  charlie
+
+# three primes
+primes:
+  - 41
+  - 43
+  - 47
+
+# person data
+persons:
+  - [name        , hr, avg  ]
+  - [Mark McGwire, 65, 0.278]
+  - [Sammy Sosa  , 63, 0.288]
+
+empoyee:
+  Mark McGwire: {hr: 65, avg: 0.278}
+  Sammy Sosa: {
+    hr: 63,
+    avg: 0.288
+  }

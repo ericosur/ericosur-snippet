@@ -5,7 +5,7 @@
 benchmark of powmod implementation
 '''
 
-import os
+#import os
 import sys
 from random import randint
 #from math import ceil
@@ -35,17 +35,19 @@ def milli(n):
 def main():
     ''' main '''
     p = './fast-modular-exponentiation/python/'
-    if os.path.isdir(p):
-        sys.path.insert(0, './fast-modular-exponentiation/python/')
+    try:
+        sys.path.insert(0, p)
+        # pylint: disable=import-outside-toplevel
         from main import fast_exp
-    else:
-        print('[WARN] need submodule fast-modular-exponentiation...')
+    except ImportError:
+        print('[WARN] need submodule: fast-modular-exponentiation...')
         sys.exit(1)
 
-    def myfmt(n: int) -> str:
-        ''' my format '''
-        s = '{:-10.2f}'.format(n)
-        return s
+
+    # def myfmt(n: int) -> str:
+    #     ''' my format '''
+    #     s = '{:-10.2f}'.format(n)
+    #     return s
 
     #print('{:12s}{:12s}{:12s}'.format('   builtin', '   powmod', 'fast_exp'))
     #print('-' * 40)

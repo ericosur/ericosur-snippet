@@ -10,14 +10,16 @@ int dow2(int y, int m, int d)
 '''
 
 def dow(y, m, d):
+    ''' get day of week '''
     if m < 3:
         d += y
         y -= 1
     else:
         d += y - 2
-    return ((23*m//9+d+4+y//4-y//100+y//400)%7)
+    return (23*m//9+d+4+y//4-y//100+y//400)%7
 
 def getyy(y):
+    ''' get doomday of specified year '''
     cc = y // 100
     if cc < 17 or cc > 24:
         print('[FAIL] y is out-of-bound')

@@ -34,11 +34,11 @@ class SolveProblem8():
             x = self.quest[ii:ii+test_len]
             if 0 in x:
                 continue
-            else:
-                count += 1
-                p = np.prod(x)
-                if not p in self.result:
-                    self.result[p] = x
+
+            count += 1
+            p = np.prod(x)
+            if not p in self.result:
+                self.result[p] = x
 
         print('non-zero count', count)
         keys = list(self.result.keys())

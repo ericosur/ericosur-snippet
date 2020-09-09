@@ -18,20 +18,13 @@ import sys
 try:
     import sympy
     from myutil import read_from_stdin
-except ImportError as e:
-    print('Import Error while:', e)
+except ImportError as err:
+    print('Import Error while:', err)
     sys.exit(1)
 
 def is_prime(n: int):
     ''' check if a prime with sympy '''
     return sympy.ntheory.primetest.isprime(n)
-
-def read_from_stdin():
-    ''' read from stdin '''
-    args = []
-    for line in sys.stdin:
-        args.append(line.strip())
-    main(args)
 
 def main(argv: list):
     ''' main '''
@@ -55,7 +48,7 @@ def main(argv: list):
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         if sys.argv[1] == '-':
-            read_from_stdin()
+            read_from_stdin(main)
         else:
             main(sys.argv[1:])
     else:

@@ -8,4 +8,3 @@ import sys
 
 print("platform is {}".format(sys.platform))
 print("python version:", sys.version_info)
-

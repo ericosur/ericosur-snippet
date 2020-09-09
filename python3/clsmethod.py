@@ -37,7 +37,7 @@ class MyRect():
 class Area(MyRect):
     ''' area '''
     def __init__(self, w=0, h=0):
-        super(Area, self).__init__(w, h)
+        super().__init__(w, h)
 
     # @classmethod
     # def get_demo_class(cls):

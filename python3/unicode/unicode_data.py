@@ -8,8 +8,13 @@ example from https://docs.python.org/3/howto/unicode.html
 import sys
 import unicodedata
 
-sys.path.insert(0, '../')
-from myutil import read_from_stdin
+try:
+    sys.path.insert(0, '../')
+    from myutil import read_from_stdin
+except ImportError:
+    print('cannot import **myutil**')
+    sys.exit(1)
+
 
 def show_unicodedata(u):
     ''' main '''
@@ -21,7 +26,7 @@ def show_unicodedata(u):
             print('Numeric character: ', unicodedata.numeric(c))
         except ValueError:
             pass
-def help():
+def help_message():
     ''' help '''
     print("demo mode, use '-' to use stdin, or CLI parameters")
     print()
@@ -44,6 +49,6 @@ if __name__ == '__main__':
         else:
             main(sys.argv[1:])
     else:
-        help()
+        help_message()
         # demo mode
         main([])
