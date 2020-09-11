@@ -2,8 +2,7 @@
 
 '''
 try to find McNugget Number
-http://mathworld.wolfram.com/McNuggetNumber.html
-
+https://mathworld.wolfram.com/McNuggetNumber.html
 '''
 
 import itertools as it
