@@ -16,16 +16,18 @@ def main():
     '''main function'''
     pi = 3.141592653589
     city_name = 'Taipei'
+    geo_place = 10036
 
     # a multi line long string with extra spaces
     # need python 3.6+ to parse this format-string
     tmp = f'''
     select {pi:.6f} from weather.forecast
     where woeid in (select woeid
-    from geo.places(1)
+    from geo.places({geo_place})
     where text =\'{city_name}\') and u=\'c\'
     '''
 
+    print('Result:')
     # remove '\n' and spaces at head/tail
     msg = tmp.strip().replace('\n', '').replace('    ', ' ')
     print(msg)
