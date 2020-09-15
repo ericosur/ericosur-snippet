@@ -7,8 +7,11 @@ refer to https://github.com/davidaurelio/hashids-python
 '''
 
 from random import randint
-from hashids import Hashids
-
+try:
+    from hashids import Hashids
+except ImportError:
+    print('lack of required module: Hashids')
+    print('pip install -r requirement.txt')
 
 def main():
     ''' main '''
