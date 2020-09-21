@@ -15,6 +15,7 @@ import sys
 import time
 try:
     import yagmail
+    print('yagmail:', yagmail.__version__)
 except ImportError:
     print('ggmail: cannot import module: yagmail')
     sys.exit(1)
