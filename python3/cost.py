@@ -12,6 +12,7 @@ def main(argv):
     if argv == []:
         mm = [27.41, 29209, 24.49, 1000]
 
+    print(mm)
     for aa in argv:
         mm.append(float(aa))
     if len(mm) == 3:
@@ -26,8 +27,8 @@ def main(argv):
         ''' print out '''
         ver = float(get_python_version())
         if ver >= 3.6:
-            print('total: {total:.2f}')
-            print('nstock:{mm[1]:.0f} -> {nstock:.0f}, avg: {old_avg:.2f} -> {avg:.2f}')
+            print(f'total: {total:.2f}')
+            print(f'nstock:{mm[1]:.0f} -> {nstock:.0f}, avg: {old_avg:.2f} -> {avg:.2f}')
         else:
             print('total: {:.2f}'.format(total))
             print('nstock:{:.0f} -> {:.0f}, avg: {:.2f} -> {:.2f}'.format(mm[1], \
@@ -36,8 +37,9 @@ def main(argv):
     printOut()
 
 if __name__ == '__main__':
-    print('old price, old stocks, new price, add stocks')
     if len(sys.argv) <= 1:
         main([])
-    elif 3 < len(sys.argv) <= 4:
+    elif 3 < len(sys.argv) <= 5:
         main(sys.argv[1:])
+    else:
+        print('old price, old stocks, new price, add stocks')
