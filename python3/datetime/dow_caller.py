@@ -20,6 +20,7 @@ def main(dt):
         td = date.today()
         tdow = int(td.weekday() + 1) % 7
         print('today: {}, dow: {}'.format(td, tdow))
+        print('#week:', td.strftime("%V"))
         return
 
     try:
