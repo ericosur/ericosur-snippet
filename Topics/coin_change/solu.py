@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # coding: utf-8
 
 '''
@@ -33,9 +33,9 @@ class Solution():
 
     def list_all_candidate(self):
         ''' list all candidate '''
-        ii = list(range(0, self.limits[0]))
-        jj = list(range(0, self.limits[1]))
-        kk = list(range(0, self.limits[2]))
+        ii = list(range(self.limits[0]))
+        jj = list(range(self.limits[1]))
+        kk = list(range(self.limits[2]))
         self.candidates = list(it.product(ii, jj, kk))
 
     def solve(self):
@@ -45,7 +45,7 @@ class Solution():
             sys.exit(1)
 
         MAX_FOR_PRINT = 30
-        answers = []
+        answers = list()
         self.list_all_candidate()
         for aa in self.candidates:
             # may use numpy.dot(coins, aa) if available
