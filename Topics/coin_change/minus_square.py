@@ -53,17 +53,28 @@ def get_dist(v):
     #print(t)
     return t
 
-def check_dist(v):
-    ''' v is a len=4 list '''
-    if v[0] == v[1] == v[2] == v[3] == 0:
-        return True
-    return False
+def is_all_zeros(v):
+    ''' input v, check if it is all zeros '''
+    t = v if isinstance(v, list) else list(v)
+    zeros = [0 for _ in range(len(v))]
+    return t == zeros
+
+# https://stackoverflow.com/questions/3844801/check-if-all-elements-in-a-list-are-identical
+def checkEqual3(lst):
+    ''' check if all elements are equal in list '''
+    return lst[1:] == lst[:-1]
 
 def test():
     ''' test '''
     v = [3, 2, 3, 2]
     t = get_dist(v)
-    ret = check_dist(t)
+    ret = is_all_zeros(t)
+    print(ret)
+
+def test2():
+    ''' test2 '''
+    pairs = [(1,2,3,4), (5,6,7,8)]
+    ret = check_duplicated(pairs, [2,3,4,1])
     print(ret)
 
 def show_answer(vv):
@@ -72,37 +83,142 @@ def show_answer(vv):
     for v in vv:
         print(v)
 
+# refer to: https://www.techiedelight.com/rotate-list-python/
+def rotate(seq, k):
+    ''' rotate a list k position, for example,
+    '''
+    try:
+        return seq[k:] + seq[:k]
+    except IndexError:
+        print('[ERROR] out of bound')
+        return None
+
+
+def check_rotated(m: list, n: list):
+    ''' m is answer, n is to test
+        sometimes n is tuple, need to cast to 'list', or list != tuple
+        return true if m = [2, 3, 5, 7], n belongs to [3, 5, 7, 2] or [5, 7, 2, 3]
+        raise exception if size mismatched
+    '''
+    #print('{} vs {}... '.format(m, n), end='')
+    p = m if isinstance(m, list) else list(m)
+    q = n if isinstance(n, list) else list(n)
+
+    # should be same length
+    if not len(p) == len(q):
+        raise IndexError
+
+    # obviously not a same rotated list (if all positive numbers)
+    if sum(p) != sum(q):
+        return False
+
+    if p == q:
+        #print('same 1')
+        return True
+
+    max_rotate = len(m)
+    for k in range(max_rotate):
+        tmp = rotate(p, k)
+        #print(tmp, ' vs ', q)
+        if tmp == q:
+            #print('same 2')
+            return True
+
+    return False
+
+def check_duplicated(pairs, v):
+    ''' pairs are checked (no matter best answer or not), v is a list '''
+    print('there are {} items in pairs'.format(len(pairs)))
+    for i in pairs:
+        if check_rotated(i, v):
+            print('dup: {} vs {}'.format(i, v))
+            return True
+    return False
+
+def remove_duplicated(pairs):
+    ''' remove duplicated '''
+    ans = list()
+    pivot = 0
+    while len(pairs) > 0:
+        try:
+            head = pairs[pivot]
+            #print('head:', head)
+            remove_list = list()
+            for i in pairs[pivot+1:]:
+                if check_rotated(head, i):
+                    #print('dupe', head, 'vs', i)
+                    remove_list.append(i)
+            for r in remove_list:
+                #print('removed:', r)
+                pairs.remove(r)
+            remove_list.clear()
+            #print('add:', head)
+            ans.append(head)
+            pivot += 1
+        except IndexError:
+            #ans.append(head)
+            #print('add:', head)
+            break
+
+    #print('remove_duplicated: ', len(pairs), pairs)
+    return pairs
+
+def get_inner_loop(v):
+    ''' get inner loop
+        return the repeat times
+    '''
+    MAX_REPEAT = 999
+    inner = 0
+    tmp = v
+    while True:
+        t = get_dist(tmp)
+        inner += 1
+        if is_all_zeros(t):
+            #print('break because ending condition:', t)
+            break
+        tmp = t
+        if inner > MAX_REPEAT:  # shit happens
+            raise IndexError
+
+    return inner
+
 def main():
     ''' main '''
-    pp = list(range(10))
-    #print(pp)
-    cnt = 0
     MAX_LOOP = 8
+    MAX_ELEM = 4
+    pp = list(range(10))    # [0, 1, 2, 3, ..., 9]
+    cnt = 0
     max_pairs = list()
-    tmp = list()
+    stat = dict()
+
     # why permutation not combination?
     # the depth would be different if the position of numbers changes
-    for v in permutations(pp, 4):
+    for v in permutations(pp, MAX_ELEM):
         cnt += 1
         # if cnt > 5:
         #   print('break because count limit')
         #   break
-        inner = 0
-        tmp = v
-        while True:
-            t = get_dist(tmp)
-            inner += 1
-            if check_dist(t):
-                #print('break because ending condition:', t)
-                break
-            tmp = t
-        tmp.clear()
+        inner = get_inner_loop(v)
+
+        if not inner in stat:
+            stat[inner] = list()
+        stat[inner].append(v)
+
         if inner >= MAX_LOOP:
             max_pairs.append(v)
 
+    print('total checked: {}'.format(cnt))
+    print('=====> before removing duplicated items...')
     show_answer(max_pairs)
+    max_pairs = remove_duplicated(max_pairs)
+    print('=====> after removing duplicated items...')
+    show_answer(max_pairs)
+
+    print('the distribution...')
+    for k in sorted(stat.keys()):
+        print('{}: {}'.format(k, len(stat[k])))
 
 
 if __name__ == '__main__':
     main()
-    #test()
+    #test2()
