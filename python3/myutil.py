@@ -7,11 +7,12 @@ from __future__ import print_function
 import os
 import sys
 import json
+import hashlib
 
 # pylint: disable=no-member
 # pylint: disable=import-outside-toplevel
 
-__version__ = '0.0.2'
+__version__ = '0.0.3'
 
 def read_jsonfile(fn, debug=False):
     '''
@@ -119,6 +120,33 @@ def write_json(fn, data):
     with open(fn, 'w') as ofile:
         ofile.write(json.dumps(data))
         print('output json to {0}'.format(fn))
+
+
+def md5sum(fn):
+    ''' get md5sum from a file, return string of md5sum '''
+    BUFSIZE = 65536
+    md5 = hashlib.md5()
+    with open(fn, 'rb') as f:
+        while True:
+            data = f.read(BUFSIZE)
+            if not data:
+                break
+            md5.update(data)
+    return md5.hexdigest()
+
+
+def sha256sum(fn):
+    ''' get sha256 from a file, return string of sha256sum '''
+    BUFSIZE = 65536
+    sha256 = hashlib.sha256()
+    with open(fn, 'rb') as f:
+        while True:
+            data = f.read(BUFSIZE)
+            if not data:
+                break
+            sha256.update(data)
+    return sha256.hexdigest()
+
 
 def print_stderr(*args, **kwargs):
     '''
