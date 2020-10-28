@@ -20,6 +20,8 @@ for example I got a test string:
 Such string could be safely displayed and edited with **sublime text 3**
 in ubuntu 18.04. But it is not properly displayed nor edited at windows and
 ubuntu 16.04.
+UPDATE: with proper emoji fonts and later version of **sublime text 3**, it
+could be shown as B/W color.
 
 To avoid losing information, transfrom such string into unicode sequence could be a safe way to keep such string.
 
@@ -54,7 +56,7 @@ good.
 
 ### c++11
 
-for c++11, using unicode escape sequence by ==\u== and ==\U== like python3
+for c++11, using unicode escape sequence by ```\u``` and ```\U``` like python3
 
 ```c++
 void unicode_char()
@@ -76,14 +78,25 @@ void unicode_char()
 - script **surgg.py** demos how to translate utf-16 characters to a string
 - may put it into a json file, and use **jq** to view
 
-## cldr
+## unicode definition data files
 
-1. table for current all [CLDR Releases/Downloads](http://cldr.unicode.org/index/downloads)
+* CLDR
 
-2. specify release file to download (manually), look for file like:
-**cldr-common-36.0.zip**
+    * table for all [CLDR Releases/Downloads](http://cldr.unicode.org/index/downloads)
 
-----
+    * specify release file to download (manually), look for file like: [CLDR common](http://unicode.org/Public/cldr/37/cldr-common-37.0.zip)
+
+* emoji data files
+
+    * [emoji 13.1](https://unicode.org/Public/emoji/13.1/)
+        - ReadMe.txt
+        - emoji-sequences.txt
+        - emoji-test.txt
+        - emoji-zwj-sequences.txt
+
+    * [emoji ucd 13.0.0](https://unicode.org/Public/13.0.0/ucd/emoji/)
+        - emoji-data.txt
+        - emoji-variation-sequences.txt
 
 ### auto download and do the rest
 
@@ -92,10 +105,3 @@ execute mkcldrtable.sh and do all the rest
 $ ./mkcldrtable.sh
 ```
 
-details:
-4. Unzip **common/annotations/en.xml**
-5. ``` perl cldr_xml2csv.pl ``` to pre-process en.xml into cldr.csv
-6. ``` python3 cldr_insert_cp.py ``` to insert one columne with codepoint,
-   read cldr.csv and write **emoji.csv**
-
-and get **emoji.csv**
