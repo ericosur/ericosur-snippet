@@ -1,3 +1,4 @@
-cldr.csv
-emoji.csv
+*.csv
+emoji-*.txt
+ReadMe.txt
 
