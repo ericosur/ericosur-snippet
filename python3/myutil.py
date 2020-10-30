@@ -122,30 +122,29 @@ def write_json(fn, data):
         print('output json to {0}'.format(fn))
 
 
+def hash_factory(fn, hash_func):
+    ''' hash factory '''
+    BUFSIZE = 65536
+    dgst = hash_func()
+    with open(fn, 'rb') as f:
+        while True:
+            data = f.read(BUFSIZE)
+            if not data:
+                break
+            dgst.update(data)
+    return dgst.hexdigest()
+
+
+# demo at filesum.py
 def md5sum(fn):
     ''' get md5sum from a file, return string of md5sum '''
-    BUFSIZE = 65536
-    md5 = hashlib.md5()
-    with open(fn, 'rb') as f:
-        while True:
-            data = f.read(BUFSIZE)
-            if not data:
-                break
-            md5.update(data)
-    return md5.hexdigest()
+    return hash_factory(fn, hashlib.md5)
 
 
+# demo at filesum.py
 def sha256sum(fn):
     ''' get sha256 from a file, return string of sha256sum '''
-    BUFSIZE = 65536
-    sha256 = hashlib.sha256()
-    with open(fn, 'rb') as f:
-        while True:
-            data = f.read(BUFSIZE)
-            if not data:
-                break
-            sha256.update(data)
-    return sha256.hexdigest()
+    return hash_factory(fn, hashlib.sha256)
 
 
 def print_stderr(*args, **kwargs):
