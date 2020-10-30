@@ -7,9 +7,6 @@ read en.xml and output to csv
 
 import csv
 from datetime import date
-from decimal import Decimal
-import locale
-import os
 import sys
 
 try:
@@ -19,13 +16,13 @@ except ImportError:
     print('use pip install lxml')
     sys.exit(1)
 
-XLSWRITER_OK = False
-try:
-    import xlsxwriter
-    XLSWRITER_OK = True
-except ImportError:
-    print('cannot import module xlsxwriter')
-    sys.exit(1)
+# XLSWRITER_OK = False
+# try:
+#     import xlsxwriter
+#     XLSWRITER_OK = True
+# except ImportError:
+#     print('cannot import module xlsxwriter')
+#     sys.exit(1)
 
 
 class Solution():
@@ -83,7 +80,7 @@ class Solution():
         print('len: {}'.format(len(self.emoji)))
         outfn = 'output.csv'
         with open(outfn, 'wt') as f:
-            for i, (k, v) in enumerate(self.emoji.items()):
+            for _, (k, v) in enumerate(self.emoji.items()):
                 vals = Solution.value_to_string(v)
                 print(f'\"{k}\",{vals}', file=f)
         print('output to {}'.format(outfn))
@@ -98,6 +95,12 @@ class Solution():
             self.make_soup()
             self.output_data()
 
+
+def get_datetag():
+    ''' string in UMMDD '''
+    today = date.today()
+    s = 'U{:02d}{:02d}'.format(today.month, today.day)
+    return s
 
 def output_csv(data):
     ''' output data as csv format in UMMDD.csv '''

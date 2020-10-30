@@ -26,9 +26,3 @@ else
 fi
 
 python3.6 read_enxml.py
-
-# echo "calling cldr_xml2csv.pl ..."
-# perl cldr_xml2csv.pl
-
-# echo "calling cldr_insert_cp.py ..."
-# python3 cldr_insert_cp.py
