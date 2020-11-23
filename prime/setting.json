@@ -1,4 +1,5 @@
 {
+    "prime_path": ".prime",
     "prime_large": "large.txt",
     "pickle_large": "large.p",
     "prime_big": "big.txt",
@@ -6,3 +7,4 @@
     "prime_small": "small.txt",
     "pickle_small": "small.p"
 }
+

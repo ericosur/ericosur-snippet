@@ -5,13 +5,12 @@
 provide a basic interface/class for load/save/search primes
 '''
 
+import errno
 import os
 import pickle
 import re
-import sys
 from bisect import bisect_left, bisect_right
 
-# pylint: disable=invalid-name
 
 def index(a: list, x: int):
     ''' return index of the leftmost value exactly equal to x '''
@@ -86,8 +85,41 @@ class StorePrime():
         ''' get length of pickle '''
         return len(self.pvalues)
 
+    @staticmethod
+    def get_local_data_path():
+        ''' get data file from local '''
+        p = os.getenv('HOME') + '/.prime/'
+        if os.path.exists(p):
+            return p
+        return None
+
+    def _try_pickle_file(self):
+        ''' _try_pickle_file '''
+        if not os.path.exists(self.pfile):
+            p = self.get_local_data_path()
+            if p:
+                f = p + self.pfile
+                if os.path.exists(f):
+                    self.pfile = f
+        if not os.path.exists(self.pfile):
+            raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), self.pfile)
+
+    def _try_text_file(self):
+        ''' _try_text_file '''
+        if not os.path.exists(self.txtfile):
+            p = self.get_local_data_path()
+            if p:
+                f = p + self.txtfile
+                if os.path.exists(f):
+                    self.txtfile = f
+        if not os.path.exists(self.txtfile):
+            raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), self.txtfile)
+
     def load_pickle_impl(self):
         ''' load pickle implementation '''
+        print('store_prime: load_pickle_imple()')
+
+        self._try_pickle_file()
         with open(self.pfile, "rb") as inf:
             self.pvalues = pickle.load(inf)
             self.need_save = False
@@ -99,19 +131,11 @@ class StorePrime():
         '''
         try:
             return self.load_pickle_impl()
-        except IOError:
+        except FileNotFoundError:
             print('store_prime: pickle file not found, try to load text file')
             self.pvalues = []
 
-        if not os.path.exists(self.txtfile):
-            print(sys.argv[0])
-            try_path = os.path.dirname(sys.argv[0]) + '/' + self.txtfile
-            print('store_prime: try:', try_path)
-            if os.path.exists(try_path):
-                self.txtfile = try_path
-            else:
-                print('store_prime: {} not found, exit'.format(self.txtfile))
-                return False
+        self._try_text_file()
 
         with open(self.txtfile, "rt") as txtinf:
             self.need_save = True

@@ -6,11 +6,12 @@
 handle one million lines of text file with reading all lines into memory
 '''
 
+import errno
+import os
 import random
 from itertools import islice
-import os
 from line_count import bufcount
-from myutil import read_setting
+from myutil import read_setting, get_home
 
 
 # pylint: disable=global-statement
@@ -93,10 +94,23 @@ def get_filesize(fn):
     file_size = os.stat(fn)[6]
     return file_size
 
+def _try_fn(fn, paths):
+    ''' try if file exists '''
+    for p in paths:
+        ff = p + '/' + fn
+        if os.path.exists(ff):
+            return ff
+    raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), fn)
+
 def main(argv):
     ''' main '''
     data = read_setting('setting.json')
-    fn = data['prime_big']
+    prime_big = data['prime_big']
+    prime_path = data['prime_path']
+    paths = list()
+    paths.append(get_home())
+    paths.append(get_home() + '/' + prime_path)
+    fn = _try_fn(prime_big, paths)
     sz = get_filesize(fn)
     lnc = bufcount(fn)
     print('text file: {}, size: {}, lines: {}'.format(fn, sz, lnc))

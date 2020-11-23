@@ -82,6 +82,9 @@ def isdir(url):
     '''test dir exists'''
     return os.path.isdir(url)
 
+def get_home():
+    ''' return $HOME '''
+    return os.getenv('HOME')
 
 def query_url_for_data(url):
     ''' query url and return data
