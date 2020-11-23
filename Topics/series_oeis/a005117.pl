@@ -1,6 +1,10 @@
 #!/usr/bin/env perl
 
-# OEIS A005117
+#
+# [OEIS A005117](https://oeis.org/A005117)
+# Squarefree numbers: numbers that are not divisible by a square greater than 1.
+# (Formerly M0617)
+#
 # 1, 2, 3, 5, 6, 7, 10, 11, 13, 14, 15, 17, 19, 21, 22, 23, 26, 29, 30, 31,
 # 33, 34, 35, 37, 38, 39, 41, 42, 43, 46, 47, 51, 53, 55, 57, 58, 59, 61, 62,
 # 65, 66, 67, 69, 70, 71, 73, 74, 77, 78, 79, 82, 83, 85, 86, 87, 89, 91, 93,

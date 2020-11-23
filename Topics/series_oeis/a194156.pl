@@ -1,8 +1,12 @@
 #!/usr/bin/env perl
 
-# OEIS A194156
+# [OEIS A194156](https://oeis.org/A194156)
+# Prime number that appears the most often as the n-th prime factor of an
+# integer in a factorization given in ascending order.
+#
 # a(4) .. a(15)
 # 13,23,47,113,199,283,467,887,1627,2803,4297,6397
+#
 
 use strict;
 
