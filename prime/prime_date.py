@@ -62,7 +62,7 @@ class TestDate():
         curr = start_d
         cnt = 0
         while curr <= end_d:
-            ds = curr.strftime('%Y%m%d')    # 20190823
+            ds = curr.strftime('%Y%m%d')    # YYYYmmdd, ie: 20190823
             if self.test(ds):
                 # if curr.month == 8 and curr.day == 23:
                 #     print('it is my birthday!')
