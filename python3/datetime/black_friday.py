@@ -3,6 +3,8 @@
 
 '''
 to list black Friday
+Here "black Friday" means date 13 for each month and it's Friday.
+Not the "Black Friday" after the Thanksgiving
 '''
 
 from __future__ import print_function
