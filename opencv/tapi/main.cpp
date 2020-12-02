@@ -12,8 +12,14 @@ void show_and_wait(const char* title, const T& img)
 
 int test1(const char* imgfn)
 {
-    Mat img, gray;
-    img = imread(imgfn, 1);
+    using namespace std;
+
+    Mat gray;
+    Mat img = imread(imgfn, 1);
+    if (img.empty()) {
+        cout << "imread failed: " << imgfn << endl;
+        return -1;
+    }
 
     cvtColor(img, gray, COLOR_BGR2GRAY);
     GaussianBlur(gray, gray,Size(7, 7), 1.5);
@@ -53,10 +59,10 @@ int main(int argc, char** argv)
 
     if (argc == 1) {
         cout << "test1 " << imgfn << endl;
-        test1(imgfn);
+        assert(test1(imgfn)==0);
     } else {
         cout << "test2 " << imgfn << endl;
-        test2(imgfn);
+        assert(test2(imgfn)==0);
     }
 
     return 0;
