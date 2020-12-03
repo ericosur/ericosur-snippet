@@ -18,11 +18,15 @@ using namespace cv;
 
 typedef unsigned char byte;
 
-int main()
+int main(int argc, char* argv[])
 {
-    Mat tstMat = imread("../lena.jpg");
+    string fn = "../lena.jpg";
+    if (argc > 1) {
+        fn = string(argv[1]);
+    }
+    Mat tstMat = imread(fn);
     if (tstMat.empty()) {
-        cout << "[ERROR] load image failed\n";
+        cout << "[ERROR] load image failed: " << fn << endl;
         return 0;
     }
     //imshow("picture",tstMat);
