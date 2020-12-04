@@ -10,5 +10,6 @@ set(CMAKE_C_FLAGS "-Wall -O3")
 
 project(dow)
 
-add_executable(dow dow.cpp)
+include_directories("/usr/local/include")
 
+add_executable(dow main.cpp dow.cpp)
