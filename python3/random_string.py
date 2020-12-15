@@ -3,6 +3,9 @@
 
 '''
 read eff wordlist
+https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt
+also refer to
+https://en.wikipedia.org/wiki/Diceware
 '''
 
 import os
