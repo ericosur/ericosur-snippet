@@ -65,9 +65,9 @@ class Solution():
 def main():
     ''' main '''
     s = Solution()
-    for _ in range(10):
+    for i in range(10):
         r = s.request_words(7)
-        print(r)
+        print('{}: {}'.format(i, r))
 
 if __name__ == '__main__':
     main()
