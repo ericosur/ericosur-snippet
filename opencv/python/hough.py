@@ -95,10 +95,24 @@ class MyCap():
             key = cv2.waitKey(1)
             if key & 0xFF == ord('q') or key == 27:
                 break
+            if key == ord('s'):
+                self.save_image(result_img)
 
         # When everything done, release the capture
         cap.release()
         cv2.destroyAllWindows()
+
+    def save_image(self, img):
+        ''' save image '''
+        import os
+        cnt = 0
+        while True:
+            fn = 'hough{:03d}.jpg'.format(cnt)
+            if os.path.exists(fn):
+                cnt += 1
+            else:
+                break
+        cv2.imwrite(fn, img)
 
 
 def show_fps(img, elapsed_time):
@@ -112,10 +126,25 @@ def show_fps(img, elapsed_time):
     cv2.putText(img, msg, (10, 30), fontface, scale, (255, 0, 255), 1, cv2.LINE_AA)
     return img
 
+def auto_canny(image, sigma=0.33):
+    # compute the median of the single channel pixel intensities
+    v = np.median(image)
+
+    # apply automatic Canny edge detection using the computed median
+    lower = int(max(0, (1.0 - sigma) * v))
+    upper = int(min(255, (1.0 + sigma) * v))
+    #print('lower:{} upper:{}'.format(lower, upper))
+    edged = cv2.Canny(image, lower, upper)
+
+    # return the edged image
+    return edged
+
 
 def hough_lines(src):
     ''' reference from opencv python examples houghlines.py '''
-    dst = cv2.Canny(src, 50, 200)
+    #dst = cv2.Canny(src, 50, 200)
+    dst = auto_canny(src, sigma=0.5)
+
     #cv2.imshow('test', dst)
     cdst = cv2.cvtColor(dst, cv2.COLOR_GRAY2BGR)
     #cdst = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
@@ -123,7 +152,7 @@ def hough_lines(src):
     use_houghlinep = True
     if use_houghlinep: # HoughLinesP
         threshold = 75
-        min_line_len = 140
+        min_line_len = 80
         max_line_gap = 30
         lines = cv2.HoughLinesP(dst, 1, math.pi/180.0, threshold, np.array([]), min_line_len, max_line_gap)
         try:
@@ -137,7 +166,8 @@ def hough_lines(src):
             print('.', end='')
 
     else:    # HoughLines
-        lines = cv2.HoughLines(dst, 1, math.pi/180.0, 50, np.array([]), 0, 0)
+        threshold = 150
+        lines = cv2.HoughLines(dst, 1, math.pi/180.0, threshold, np.array([]), 0, 0)
         if lines is not None:
             a, b, _ = lines.shape
             for i in range(a):
