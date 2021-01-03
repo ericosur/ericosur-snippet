@@ -2,7 +2,10 @@
 # coding: utf-8
 #
 
-''' just call dow '''
+''' just call dow
+    note it is invalid before 1752-Sep-14, dow() uses the new
+    rule for all dates before that day.
+'''
 
 import sys
 from datetime import date
