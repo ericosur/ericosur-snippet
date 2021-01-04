@@ -76,9 +76,10 @@ def make_soup(content):
     return data
 
 def get_datetag():
-    ''' string in UMMDD '''
+    ''' string in UYYMMDD '''
     today = date.today()
-    s = 'U{:02d}{:02d}'.format(today.month, today.day)
+    yy = today.year - 2000
+    s = 'U{:02d}{:02d}{:02d}'.format(yy, today.month, today.day)
     return s
 
 def output_csv(data):
