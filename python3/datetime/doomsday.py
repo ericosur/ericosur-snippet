@@ -117,15 +117,15 @@ def full_test():
 
     # check 1700/1/1 to 2099/12/31 weekday is ok
     try:
-        for yy in range(1700, 2099):
-            for mm in range(1, 13):
-                for dd in range(1, 32):
+        for yy in range(1750, 1753):
+            for mm in range(1, 12):
+                for dd in range(1, 31):
                     try:
                         assert test_tmm(yy, mm, dd)
                         assert test_dow(yy, mm, dd)
                     except ValueError:
                         # here pass all invalid date like 1701/2/29 ...
-                        #print("[WARN] value error at: {}/{}/{}".format(yy, mm, dd))
+                        print("[WARN] value error at: {}/{}/{}".format(yy, mm, dd))
                         pass
     except AssertionError:
         print("failed at {}/{}/{}".format(yy, mm, dd))
@@ -149,6 +149,8 @@ def main():
 
 if __name__ == '__main__':
     import sys
+    print('```py3 doomsday.py t``` to do full test')
     if len(sys.argv) > 1:
         full_test()
     main()
+
