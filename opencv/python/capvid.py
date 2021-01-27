@@ -15,7 +15,7 @@ import cv2
 
 # pylint: disable=too-many-locals
 
-OUTPUT_FN = 'outpy.avi'
+OUTPUT_FN = 'capvid.avi'
 
 def delete_if_exists(fn):
     '''
