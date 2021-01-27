@@ -17,6 +17,7 @@ import math
 import cv2
 import numpy as np
 import myutil
+from time import sleep
 
 
 class MyCap():
@@ -62,6 +63,7 @@ class MyCap():
 
     def init_window(self):
         ''' init multiple showing windows '''
+        print('window init...')
         if self.has_gray:
             cv2.namedWindow('gray', flags=cv2.WINDOW_AUTOSIZE)
             self.win_count += 1
@@ -76,7 +78,7 @@ class MyCap():
         if self.has_skin:
             cv2.namedWindow('skin')
             cv2.moveWindow('skin', 0, 300)
-        print('init_window...')
+        print('window initialized...')
 
     @staticmethod
     def split_blue(img):
@@ -146,6 +148,8 @@ class MyCap():
             # Capture frame-by-frame
             ret, frame = cap.read()
             if not ret:
+                print('.')
+                sleep(0.05)
                 break
 
             if self.has_skin:
