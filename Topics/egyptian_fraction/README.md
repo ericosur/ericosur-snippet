@@ -51,3 +51,8 @@ An elderly shepherd, died and left his entire flock of 17 sheep to his three son
 
 lcm of multiple numbers: https://www.calculatorsoup.com/calculators/math/lcm.php
 
+### egyptian numbers
+
+https://discoveringegypt.com/egyptian-hieroglyphic-writing/egyptian-mathematics-numbers-hieroglyphs/
+
+http://www.alanwood.net/unicode/egyptian-hieroglyphs.html
