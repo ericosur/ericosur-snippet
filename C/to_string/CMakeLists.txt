@@ -22,3 +22,5 @@ set(CMAKE_C_FLAGS "-Wall -O3")
 project(tostring)
 
 add_executable(app main.cpp)
+
+add_executable(v2d v2d.cpp)
