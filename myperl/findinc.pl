@@ -3,8 +3,8 @@
 # findinc.pl
 #
 # July 17 2002 by Eric
-#    ¦C¥X­ì©l½X©Ò¥Î¨ìªº #include files
-#    ±q stdin ¿é¤J
+#    åˆ—å‡ºåŽŸå§‹ç¢¼æ‰€ç”¨åˆ°çš„ #include files
+#    å¾ž stdin è¼¸å…¥
 #
 
 my $line;
