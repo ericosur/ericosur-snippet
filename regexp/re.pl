@@ -3,8 +3,8 @@
 # re.pl
 #
 # July 17 2002 by ericosur
-# ®³¨Ó§@ regular expression ªº´ú¸Õ
-# ±qstdin¿é¤J
+# æ‹¿ä¾†ä½œ regular expression çš„æ¸¬è©¦
+# å¾žstdinè¼¸å…¥
 
 my $line;
 
