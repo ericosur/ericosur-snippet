@@ -7,6 +7,8 @@ cmake_minimum_required(VERSION 3.0)
 # turn it on via CLI:
 # cmake -DUSE_INTEL=1 ..
 
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+
 ####### use clang #######
 # cd path/to/clang/bin/
 # export PATH=$PWD:$PATH
@@ -33,7 +35,8 @@ set(CMAKE_C_FLAGS "-Wall -O3")
 
 include_directories("/usr/local/include")
 
-project(easytest)
+project(easytest C CXX)
+find_package(Threads REQUIRED)
 
 add_executable(rfind rfind.cpp)
 add_executable(getret getret.cpp)
@@ -59,3 +62,6 @@ add_executable(hexdec hexdec.cpp)
 
 add_executable(boss    boss.c)
 add_executable(worker  worker.c)
+
+add_executable(foo foo.cpp)
+target_link_libraries(foo PRIVATE Threads::Threads)
