@@ -126,7 +126,6 @@ def full_test():
                     except ValueError:
                         # here pass all invalid date like 1701/2/29 ...
                         print("[WARN] value error at: {}/{}/{}".format(yy, mm, dd))
-                        pass
     except AssertionError:
         print("failed at {}/{}/{}".format(yy, mm, dd))
     print("pass")
@@ -153,4 +152,3 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         full_test()
     main()
-

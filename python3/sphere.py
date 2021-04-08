@@ -16,7 +16,7 @@ def main(argv):
         try:
             r = float(t)
             r2 = r * r
-            c = math.pi * r2
+            #c = math.pi * r2
             a = 4.0 * math.pi * r2
             v = 4.0 / 3.0 * math.pi * r2 * r
             print('r: {}, a: {:.3f}, v: {:.3f}'.format(r, a, v))
