@@ -8,7 +8,6 @@ u8u16 tests, apply string directly from CLI or json file
 import sys
 import json
 from myutil import read_jsonfile
-#from myutil import write_json
 from mytofrom import to_from_u8, to_from_u16, to_utf8
 
 def test0():

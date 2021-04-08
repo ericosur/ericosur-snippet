@@ -16,26 +16,27 @@ import itertools as it
 import numpy as np
 
 class Solution():
+    ''' class to solve the problem '''
     def __init__(self):
-        self.A = np.array((6, 7, 8))
+        self.arr = np.array((6, 7, 8))
         #self.A = np.array((2, 3, 4))
 
     def test1(self):
         ''' test1 '''
-        r = np.lcm.reduce(self.A)
+        r = np.lcm.reduce(self.arr)
         print('lcm:', r)
 
     def action(self):
         ''' action '''
         self.test1()
-        C = self.A - np.ones((1, 1))
+        C = self.arr - np.ones((1, 1))
         #print(C)
         #print(C.shape)
         p = list(range(1, 50))
         cnt = 0
         for x in it.product(p, p, p):
             cnt += 1
-            r = self.A * np.array(x) + C
+            r = self.arr * np.array(x) + C
             #print("x:{} r:{}".format(x, r))
             if np.max(r) == np.min(r):
                 print("x:{} r:{}".format(x, r))

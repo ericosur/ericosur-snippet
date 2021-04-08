@@ -9,10 +9,9 @@ import os
 import sys
 from scipy.io import wavfile
 import matplotlib.pyplot as plt
-#from scipy import fftpack
 import numpy as np
 from skimage import util
-
+#from scipy import fftpack
 
 # pylint: disable=unused-variable
 def main(fn):

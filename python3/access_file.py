@@ -28,10 +28,11 @@ def test_file(fn: str) -> bool:
         if e.errno == errno.ENOENT:
             print('errno: ENOENT')
             return False
-        #pass
     else:
         fp.close()
         return True
+    # should not be here?
+    return False
 
 def main(argv):
     '''
