@@ -5,15 +5,15 @@
 demo percentage encoding, could run both python2, python3
 '''
 
-import sys
+import argparse
 from myutil import read_from_stdin
 
 try:
     from urllib.parse import quote
-    print('using urllib.parse.quote')
+    print('>>>>> using urllib.parse.quote')
 except ImportError:
     from urllib import quote
-    print('using urllib.quote')
+    print('>>>>> using urllib.quote')
 
 
 def percent_enc(tok):
@@ -32,7 +32,7 @@ def show_unicode_escape(cc: str):
 def main(argv):
     '''main function'''
     if argv == []:
-        print('use predefined tokens...')
+        print('>>>>> use predefined tokens...')
         tokens = [
             u"\u00A1 \u00BF",
             u"\u00C0 \u00C1 \u00C2 \u00C3 \u00C4 \u00C5 \u00C6",
@@ -54,15 +54,17 @@ def main(argv):
         percent_enc(tok)
         show_unicode_escape(tok)
 
+def argp():
+    ''' prepare and parse CLI arguments '''
+    parser = argparse.ArgumentParser(description='perform percentage encoding on input strings')
+    parser.add_argument("-s", "--stdin", dest='readFromStdin', action='store_true', help='read from STDIN')
+    parser.add_argument("arg", nargs='*', default=None)
+    args = parser.parse_args()
+    #print(args)
+    if args.readFromStdin:
+        read_from_stdin(main)
+    else:
+        main(args.arg)
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        if sys.argv[1] == '-':
-            read_from_stdin(main)
-        else:
-            main(sys.argv[1:])
-    else:
-        # demo mode
-        print('usage: percent_enc.py [arg1] [arg2] ...')
-        print('OR from stdin by calling percent_enc.py -')
-        main([])
+    argp()

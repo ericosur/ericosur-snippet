@@ -34,6 +34,7 @@ https://github.com/ericosur/ericosur-snippet/tree/master/root/epoch
 
 '''
 
+import argparse
 from random import randint
 import sys
 import time
@@ -50,9 +51,10 @@ def epoch2timestr(epoch: int):
 def main(args: list):
     ''' main '''
     if args == []:
+        print('apply sample numbers...')
         args.append(time.time())
         args.append(172162800)
-        for _ in range(5):
+        for _ in range(3):
             args.append(randint(946656000, 1609344000))
 
     for v in args:
@@ -62,26 +64,18 @@ def main(args: list):
         except ValueError:
             print('{} is not a valid integer'.format(v))
 
-def usage():
-    ''' help '''
-    msg = '''
-    Usage:
-    {0} [arg1] [arg2] ...
-
-    For stdin:
-    {0} -
-
-    DEMO ====>
-    '''.format(sys.argv[0])
-    msg = msg.replace('    ', '')
-    print(msg)
+def argp():
+    ''' prepare and parse CLI arguments '''
+    parser = argparse.ArgumentParser(description='convert epoch value to date/time string',
+        epilog='try ```$(date +%s)``` as argument')
+    parser.add_argument("-s", "--stdin", dest='readFromStdin', action='store_true', help='read from STDIN')
+    parser.add_argument("arg", nargs='*', type=int, default=None)
+    args = parser.parse_args()
+    #print(args)
+    if args.readFromStdin:
+        read_from_stdin(main)
+    else:
+        main(args.arg)
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        if sys.argv[1] == '-':
-            read_from_stdin(main)
-        else:
-            main(sys.argv[1:])
-    else:
-        usage()
-        main([])
+    argp()

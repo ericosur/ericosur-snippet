@@ -5,15 +5,15 @@
 demo percentage decoding
 '''
 
-import sys
+import argparse
 from myutil import read_from_stdin
 
 try:
     from urllib.parse import unquote
-    print('using urllib.parse.quote')
+    print('>>>>> using urllib.parse.quote')
 except ImportError:
     from urllib import unquote
-    print('using urllib.quote')
+    print('>>>>> using urllib.quote')
 
 
 def percent_dec(tok: str):
@@ -33,7 +33,7 @@ def percent_dec(tok: str):
 def main(argv):
     '''main function'''
     if argv == []:
-        print('use predefined tokens...')
+        print('>>>>> use predefined tokens...')
         tokens = [
             '/El%20Ni%C3%B1o/'
         ]
@@ -44,15 +44,17 @@ def main(argv):
         #show_unicode_escape(tok)
         print('input: {}\noutput: {}'.format(inp, oup))
 
+def argp():
+    ''' prepare and parse CLI arguments '''
+    parser = argparse.ArgumentParser(description='perform percentage encoding on input strings')
+    parser.add_argument("-s", "--stdin", dest='readFromStdin', action='store_true', help='read from STDIN')
+    parser.add_argument("arg", nargs='*', default=None)
+    args = parser.parse_args()
+    #print(args)
+    if args.readFromStdin:
+        read_from_stdin(main)
+    else:
+        main(args.arg)
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        if sys.argv[1] == '-':
-            read_from_stdin(main)
-        else:
-            main(sys.argv[1:])
-    else:
-        # demo mode
-        print('usage: percent_dec.py [arg1] [arg2] ...')
-        print('OR from stdin by calling percent_dec.py -\n')
-        main([])
+    argp()
