@@ -7,7 +7,7 @@ https://en.wikipedia.org/wiki/NATO_phonetic_alphabet
 
 '''
 
-import sys
+import argparse
 from random import sample
 from myutil import read_from_stdin
 
@@ -67,9 +67,8 @@ class AlphaBravoCharlie():
 def main(args: list):
     ''' main '''
     abc = AlphaBravoCharlie()
-
     if args == []:
-        print('\nrandom pick:')
+        print('\n>>>>> random pick:')
         abc.random_pick(3)
         print()
         args.append('hello')
@@ -79,15 +78,18 @@ def main(args: list):
         print('>>>>> translate:', e)
         abc.translate(e)
 
+def argp():
+    ''' prepare and parse CLI arguments '''
+    parser = argparse.ArgumentParser(description='convert string into NATO call name',
+        epilog="echo 'wtf' | PROG -s")
+    parser.add_argument("-s", "--stdin", dest='readFromStdin', action='store_true', help='read from STDIN')
+    parser.add_argument("arg", nargs='*', default=None)
+    args = parser.parse_args()
+    #print(args)
+    if args.readFromStdin:
+        read_from_stdin(main)
+    else:
+        main(args.arg)
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        if sys.argv[1] == '-':
-            read_from_stdin(main)
-        else:
-            main(sys.argv[1:])
-    else:
-        print('For stdin: use "{} -"'.format(sys.argv[0]))
-        print('OR "alphabeta.py [arg1] [arg2] ..."')
-        print('\nDEMO: random pick & hello world')
-        main([])
+    argp()

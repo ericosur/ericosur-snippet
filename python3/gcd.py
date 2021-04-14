@@ -5,6 +5,7 @@
 ''' provide a recursive version of gcd '''
 
 import sys
+from myutil import read_from_stdin
 
 __version__ = '1.0.0'
 
@@ -15,16 +16,6 @@ def gcd(m, n):
     if n == 0:
         return m
     return gcd(n, m % n)
-
-def read_from_stdin():
-    ''' read from stdin '''
-    args = []
-    for line in sys.stdin:
-        l = line.strip()
-        vs = l.split(' ')
-        args.extend(vs)
-        #args.append(line.strip())
-    main(args)
 
 def main(argv):
     ''' main function '''
@@ -63,7 +54,7 @@ if __name__ == '__main__':
         main([])
     if len(sys.argv) == 2:  # not enough arguments?
         if sys.argv[1] == '-' or sys.argv[1] == '--':
-            read_from_stdin()
+            read_from_stdin(main)
             sys.exit(0)
         else:
             print("NOT enough arguments, need 2, given 1")

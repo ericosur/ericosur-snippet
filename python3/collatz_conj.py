@@ -10,7 +10,7 @@ n/2 if n==0 (mod 2)
 
 '''
 
-import sys
+import argparse
 from random import randint
 
 
@@ -49,12 +49,15 @@ class Collatz():
             print(n, end='  ')
         print('\nsize:', len(self.result))
 
+def argp():
+    ''' prepare and parse CLI arguments '''
+    parser = argparse.ArgumentParser(description='calculate Collatz Conjecture')
+    parser.add_argument("ints", metavar='int', type=int, nargs='*', default=[randint(2, 97)])
+    args = parser.parse_args()
+    main(args.ints)
 
 def main(argv: list):
     ''' main '''
-    if argv == []:
-        argv.append(randint(2, 97))
-
     for e in argv:
         obj = Collatz()
         try:
@@ -68,4 +71,4 @@ def main(argv: list):
             print('{} is not a valid integer'.format(e))
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    argp()
