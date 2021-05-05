@@ -149,6 +149,9 @@ def sha256sum(fn):
     ''' get sha256 from a file, return string of sha256sum '''
     return hash_factory(fn, hashlib.sha256)
 
+def sha1sum(fn):
+    ''' get sha1 from a file, return string of sha1sum '''
+    return hash_factory(fn, hashlib.sha1)
 
 def print_stderr(*args, **kwargs):
     '''
