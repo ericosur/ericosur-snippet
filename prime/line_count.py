@@ -19,12 +19,12 @@ from timeit import default_timer as timer
 
 def mapcount(filename):
     ''' memory map '''
-    f = open(filename, "r+")
-    buf = mmap.mmap(f.fileno(), 0)
-    lines = 0
-    readline = buf.readline
-    while readline():
-        lines += 1
+    with open(filename, "r+") as f:
+        buf = mmap.mmap(f.fileno(), 0)
+        lines = 0
+        readline = buf.readline
+        while readline():
+            lines += 1
     return lines
 
 def simplecount(filename):
@@ -36,15 +36,14 @@ def simplecount(filename):
 
 def bufcount(filename):
     ''' buf count '''
-    f = open(filename)
     lines = 0
     buf_size = 1024 * 1024
-    read_f = f.read # loop optimization
-
-    buf = read_f(buf_size)
-    while buf:
-        lines += buf.count('\n')
+    with open(filename) as f:
+        read_f = f.read # loop optimization
         buf = read_f(buf_size)
+        while buf:
+            lines += buf.count('\n')
+            buf = read_f(buf_size)
     return lines
 
 def wccount(filename):
@@ -81,8 +80,7 @@ try:
         return c
 except ImportError:
     import warnings
-    warnings.warn("can't import fadvise: fadvcount() will be unavailable",
-                  UserWarning)
+    warnings.warn("can't import fadvise: fadvcount() will be unavailable", UserWarning)
 
 def clear_cache():
     """Clear disk cache on Linux."""

@@ -59,7 +59,5 @@ class LoadCompressPrime(StorePrime):
         #compress_pickle.dump(self.pvalues, self.pfile, compression="lzma")
         compress_pickle.dump(self.pvalues, self.pfile)
 
-
-
 if __name__ == '__main__':
-    print('run **test_sp.py sip** to see the demo...')
+    print('run **test_sp.py lcp** to see the demo...')
