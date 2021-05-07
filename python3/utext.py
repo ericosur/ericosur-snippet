@@ -19,7 +19,8 @@ def main():
     ''' main '''
     parser = argparse.ArgumentParser(description='use emoji.mytofrom to show unicode sequence')
     parser.add_argument("s1", nargs='?', type=str, default='大道之行')
-    parser.add_argument("-c", "--chars", action='store_true', help="show utf-8 hex by each character")
+    parser.add_argument("-c", "--chars", action='store_true',
+        help="show utf-8 hex by each character")
     args = parser.parse_args()
 
     s = args.s1

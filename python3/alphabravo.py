@@ -82,7 +82,8 @@ def argp():
     ''' prepare and parse CLI arguments '''
     parser = argparse.ArgumentParser(description='convert string into NATO call name',
         epilog="echo 'wtf' | PROG -s")
-    parser.add_argument("-s", "--stdin", dest='readFromStdin', action='store_true', help='read from STDIN')
+    parser.add_argument("-s", "--stdin", dest='readFromStdin', action='store_true',
+        help='read from STDIN')
     parser.add_argument("arg", nargs='*', default=None)
     args = parser.parse_args()
     #print(args)

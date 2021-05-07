@@ -13,6 +13,8 @@ import sys
 import re
 import subprocess
 
+# pylint: disable=consider-using-with
+
 DEBUG = False
 CLIPBOARD_AVAILABLE = False
 try:
