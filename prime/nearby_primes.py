@@ -8,7 +8,7 @@ given cli argument to get lower/upper prime
 
 import sys
 import random
-from sip import LoadCompressPrime
+from lcp import LoadCompressPrime
 
 # pylint: disable=invalid-name
 def test(argv, sp):

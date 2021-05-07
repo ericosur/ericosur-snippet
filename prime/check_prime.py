@@ -18,14 +18,14 @@ shuf -i 1001-9999 -n 10 | python3 check_prime.py -s
 import argparse
 import sys
 from myutil import read_from_stdin
+try:
+    import sympy
+except ImportError as err:
+    print('Import Error while:', err)
+    sys.exit(1)
 
 def is_prime(n: int):
     ''' check if a prime with sympy '''
-    try:
-        import sympy
-    except ImportError as err:
-        print('Import Error while:', err)
-        sys.exit(1)
     return sympy.ntheory.primetest.isprime(n)
 
 def main(argv: list):
@@ -50,7 +50,8 @@ def main(argv: list):
 def argp():
     ''' prepare and parse CLI arguments '''
     parser = argparse.ArgumentParser(description='check if specified integer is a prime number')
-    parser.add_argument("-s", "--stdin", dest='readFromStdin', action='store_true', help='read from STDIN')
+    parser.add_argument("-s", "--stdin", dest='readFromStdin', action='store_true',
+        help='read from STDIN')
     parser.add_argument("arg", nargs='*', type=int, default=None)
     args = parser.parse_args()
     #print(args)
