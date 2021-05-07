@@ -13,6 +13,7 @@ except ImportError:
     sys.exit()
 
 # pylint: disable=no-member
+# pylint: disable=consider-using-with
 
 def test_file(fn: str) -> bool:
     '''

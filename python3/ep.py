@@ -36,7 +36,6 @@ https://github.com/ericosur/ericosur-snippet/tree/master/root/epoch
 
 import argparse
 from random import randint
-import sys
 import time
 from myutil import read_from_stdin
 
@@ -68,7 +67,8 @@ def argp():
     ''' prepare and parse CLI arguments '''
     parser = argparse.ArgumentParser(description='convert epoch value to date/time string',
         epilog='try ```$(date +%s)``` as argument')
-    parser.add_argument("-s", "--stdin", dest='readFromStdin', action='store_true', help='read from STDIN')
+    parser.add_argument("-s", "--stdin", dest='readFromStdin', action='store_true',
+        help='read from STDIN')
     parser.add_argument("arg", nargs='*', type=int, default=None)
     args = parser.parse_args()
     #print(args)
