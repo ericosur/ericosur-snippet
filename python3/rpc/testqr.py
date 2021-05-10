@@ -1,15 +1,16 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.6
 # coding: utf-8
 
 '''
 test qrcode generator
 '''
 
+import argparse
 import os
 from collections import OrderedDict
 from urllib.parse import urlencode
+from PIL import Image
 
-import cv2
 import requests
 #import numpy as np
 from httpbin import show_results
@@ -17,7 +18,7 @@ from httpbin import show_results
 # pylint: disable=no-member
 # pylint: disable=using-constant-test
 
-def get_qrcode(text='The quick brown fox jumps over the lazy dog'):
+def get_qrcode(text='The quick brown fox jumps over the lazy dog', showimage=True):
     ''' qrcode '''
     # http://goqr.me/api/doc/
     # https://api.qrserver.com/v1/create-qr-code/?data=[URL-encoded-text]&size=[pixels]x[pixels]
@@ -28,21 +29,26 @@ def get_qrcode(text='The quick brown fox jumps over the lazy dog'):
         'ecc': 'M'
     }
     r = requests.get(url, params=payload)
-    show_results(r)
-    #fn = show_results(r)
-    #GenerateBarcode.show_image(fn, fillbackground=False)
-
+    fn = show_results(r)
+    if showimage:
+        GenerateBarcode.show_image(fn)
 
 class GenerateBarcode():
     ''' barcode: https://github.com/metafloor/bwip-js/wiki/Online-Barcode-API '''
-    def __init__(self):
-        self.url = 'http://bwipjs-api.metafloor.com/'
+    def __init__(self, showimage=True):
+        self.url = 'https://bwipjs-api.metafloor.com/'
         self.resp = None
+        self.showimage = showimage
 
     def show_resp(self):
         ''' show resp data '''
+        if self.resp is None:
+            return
         fn = show_results(self.resp)
-        self.show_image(fn)
+        if fn is None:
+            return
+        if self.showimage:
+            self.show_image(fn)
 
     def get_code128(self, text='AB1234567890'):
         ''' code 128 '''
@@ -55,10 +61,8 @@ class GenerateBarcode():
         }
         self.resp = requests.get(self.url, params=payload)
 
-
     def get_ean13(self, text='4901991570014'):
         ''' generate ean13 barcode '''
-
         params = OrderedDict(
             [('bcid', 'ean13'), ('text', text), ('scale', 3),
              ('rotate', 'N'), ('includetext', 'null')]
@@ -67,6 +71,9 @@ class GenerateBarcode():
 
     def get_isbn(self, text='978-986-137-195-5'):
         ''' generate ean13 barcode '''
+        if text.find('-') < 0:
+            print('[get_isbn] need add proper hypen in ISBN')
+            return
         params = OrderedDict(
             [('bcid', 'isbn'), ('text', text), ('scale', 3),
              ('rotate', 'N'), ('includetext', 'null')]
@@ -74,15 +81,22 @@ class GenerateBarcode():
         self.resp = requests.get(self.url, params=urlencode(params))
 
     @staticmethod
-    def show_image(fn, fillbackground=True):
+    def show_image(fn):
+        ''' show image '''
+        if fn is None or not os.path.isfile(fn):
+            print('failed to get image:', fn)
+            return
+        image = Image.open(fn)
+        image.show()
+
+    # pylint: disable=import-outside-toplevel
+    @staticmethod
+    def show_image_cv2(fn, fillbackground=True):
         '''
         because of returned image with transparent background color,
         this function will replace it into white
         '''
-        if not os.path.isfile(fn):
-            print('failed to get image:', fn)
-            return
-
+        import cv2
         img = cv2.imread(fn, cv2.IMREAD_UNCHANGED)
         if img is None:
             print('failed to read image')
@@ -99,23 +113,36 @@ class GenerateBarcode():
         cv2.waitKey()
 
 
+def do_isbn(arg, showimage=True):
+    ''' test '''
+    print('isbn:', arg)
+    gen = GenerateBarcode(showimage)
+    # help to hypenate isbn
+    # http://www.otzberg.net/isbn/index.php?isbn=9789861772080
+    gen.get_isbn(arg)
+    gen.show_resp()
+
+def do_urls(args, showimage=True):
+    '''
+    text = 'https://goodinfo.tw/StockInfo/StockDetail.asp?STOCK_ID=4938'
+    '''
+    for t in args:
+        get_qrcode(t, showimage)
+
 def main():
     ''' main '''
+    parser = argparse.ArgumentParser(description='use web API to generate barcode')
+    parser.add_argument("urls", nargs='*', help='qrcode')
+    parser.add_argument("--isbn", nargs='?', help='ISBN need hypenated, eg: 978-986-998-168-2')
+    parser.add_argument("-v", "--verbose", action='store_true', default=True,
+        help='show resp results')
+    parser.add_argument("-s", "--showimage", action='store_true', help='show generated image')
+    args = parser.parse_args()
 
-    if False:
-        gen = GenerateBarcode()
-        # help to hypenate isbn
-        # http://www.otzberg.net/isbn/index.php?isbn=9789861772080
-        gen.get_isbn('978-986-177-208-0')
-        gen.show_resp()
-
-    if True:
-        text = 'https://goodinfo.tw/StockInfo/StockDetail.asp?STOCK_ID=4938'
-        get_qrcode(text)
+    if args.isbn:
+        do_isbn(args.isbn, args.showimage)
+    if args.urls:
+        do_urls(args.urls, args.showimage)
 
 if __name__ == '__main__':
-    import sys
-    if len(sys.argv) == 1:
-        main()
-    else:
-        get_qrcode(sys.argv[1])
+    main()

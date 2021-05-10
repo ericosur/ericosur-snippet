@@ -9,6 +9,7 @@ it is a great website to test http requests
 
 
 from __future__ import print_function
+import time
 import requests
 
 def show_results(r):
@@ -29,7 +30,9 @@ def show_results(r):
         # maybe not printable
         print('may not printable...')
         #print('r.content', r.content)
-        fn = content_type.replace('/', '.')
+        epoch = time.time()
+        fn = content_type.replace('/', '-{:.0f}.'.format(epoch))
+        # will overwrite if file exists
         with open(fn, 'wb') as ofh:
             ofh.write(r.content)
         print('save content into', fn)
