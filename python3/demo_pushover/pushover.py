@@ -10,13 +10,13 @@ it is fully self-contained function sample
 from __future__ import print_function
 import os
 from datetime import datetime
+import sys
 import time
 import http.client
 import urllib
 import myutil
 
-# pylint: disable=useless-object-inheritance
-class FooBar(object):
+class FooBar():
     ''' basic class to send notification '''
     def __init__(self, msg):
         (self.userkey, self.apitoken) = self.get_apikey()
@@ -75,10 +75,18 @@ class FooBar(object):
         apitoken = data.get('apitoken')
         return userkey, apitoken
 
-def main():
+def main(msg):
     ''' main '''
-    gg = FooBar('test pushover notification!')
+    if msg:
+        print(msg)
+    else:
+        msg = 'test pushover notification!'
+
+    gg = FooBar(msg)
     gg.shoot()
 
 if __name__ == '__main__':
-    main()
+    if len(sys.argv) > 1:
+        main(sys.argv[1])
+    else:
+        main(None)
