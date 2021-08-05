@@ -65,6 +65,11 @@ def try_fastboot():
     msg = 'fbkey {} {} 100'.format(device_id, cpuid)
     return msg
 
+def write_to_file(fn, msg):
+    ''' write msg into file '''
+    with open(fn, 'wt') as f:
+        print(msg, file=f)
+    print('write msg into file: {}'.format(fn))
 
 def main():
     ''' main '''
@@ -81,6 +86,8 @@ def main():
     if msg and CLIPBOARD_AVAILABLE:
         print('[INFO] result is also stored into clipboard')
         clipboard.copy(msg)
+
+    write_to_file('fbkey.txt', msg)
 
 if __name__ == '__main__':
     main()
