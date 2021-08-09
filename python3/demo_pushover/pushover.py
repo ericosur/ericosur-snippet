@@ -15,13 +15,24 @@ import time
 import http.client
 import urllib
 import myutil
+import platform
+
+def get_host():
+    ''' get host name '''
+    r = platform.node()
+    if r is None or len(r) < 1:
+        r = "kitty"
+    return r
 
 class FooBar():
     ''' basic class to send notification '''
+
+    default_mobile_device = "erimx"
+
     def __init__(self, msg):
         (self.userkey, self.apitoken) = self.get_apikey()
         self.title = 'pushover.py'
-        self.message = '{} at {}'.format(msg, datetime.now())
+        self.message = '{}: {} at {}'.format(get_host(), msg, datetime.now())
 
     def __str__(self):
         return 'userkey: {}\napitoken: {}'.format(self.userkey, self.apitoken)
@@ -39,6 +50,7 @@ class FooBar():
                          "user": self.userkey,
                          "title": self.title,
                          "message": self.message,
+                         "device": self.default_mobile_device
                      }), {"Content-type": "application/x-www-form-urlencoded"})
         resp = conn.getresponse()
         print('status: {} reason: {}'.format(resp.status, resp.reason))
