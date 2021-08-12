@@ -6,6 +6,8 @@ use perl module Image::ExifTool to show exif metadata from an image
 
 ## usage
 
+reference: https://stackoverflow.com/questions/841785/how-do-i-include-a-perl-module-thats-in-a-different-directory
+
 If Image::Exiftool does not install into perl include path (@INC), use
 
 ```perl
