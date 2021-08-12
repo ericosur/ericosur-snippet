@@ -12,7 +12,7 @@ import hashlib
 # pylint: disable=no-member
 # pylint: disable=import-outside-toplevel
 
-__version__ = '0.0.3'
+__version__ = '0.0.4'
 
 def read_jsonfile(fn, debug=False):
     '''
@@ -26,11 +26,11 @@ def read_jsonfile(fn, debug=False):
     # read from json file
 
     # method #1
-#    with open(filename) as sec_file:
-#        data = json.load(sec_file)
+    with open(fn) as fstream:
+        data = json.load(fstream)
 
     # kiss method #2
-    data = json.load(open(fn))
+    #data = json.load(open(fn))
 
     return data
 
@@ -99,11 +99,13 @@ def query_url_for_data(url):
         if float(py_ver) >= 3.0:
             #print("python >= 3.0")
             import urllib.request
-            result = urllib.request.urlopen(url).read()
+            with urllib.request.urlopen(url) as f:
+                result = f.read()
         else:
             #print("python < 3.0")
             import urllib
-            result = urllib.urlopen(url).read()
+            with urllib.urlopen(url) as f:
+                result = f.read()
     except ImportError:
         print('[ERROR] import error!')
     return result
@@ -166,6 +168,17 @@ def read_from_stdin(func):
         args.append(line.strip())
     func(args)
 
+def get_random_str(lens=15):
+    ''' get secret '''
+    import secrets
+    import re
+    #r = secrets.token_hex(LENS)
+    r = ''
+    while len(r) < lens:
+        r = secrets.token_urlsafe(lens*2)   # may contains _ or -
+        r = re.sub(r'[-_]+', '', r)     # remove [-_]
+        r = re.sub(r'^[0-9]+', '', r)   # remove leading digits 0-9
+    return r[:lens]
 
 def main():
     '''main function'''
