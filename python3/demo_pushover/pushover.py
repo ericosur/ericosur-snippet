@@ -7,15 +7,14 @@ pushover.net is a web service to send notification to specified device
 it is fully self-contained function sample
 '''
 
-from __future__ import print_function
-import os
+import argparse
 from datetime import datetime
-import sys
-import time
 import http.client
+import os
+import platform
+import time
 import urllib
 import myutil
-import platform
 
 def get_host():
     ''' get host name '''
@@ -24,7 +23,7 @@ def get_host():
         r = "kitty"
     return r
 
-class FooBar():
+class Foobar():
     ''' basic class to send notification '''
 
     default_mobile_device = "erimx"
@@ -87,18 +86,21 @@ class FooBar():
         apitoken = data.get('apitoken')
         return userkey, apitoken
 
-def main(msg):
+def main():
     ''' main '''
-    if msg:
-        print(msg)
-    else:
-        msg = 'test pushover notification!'
+    parser = argparse.ArgumentParser(description='python script to issue pushover notification')
+    parser.add_argument("strings", metavar='str', type=str, nargs='*',
+        help="issue notification with specific string")
 
-    gg = FooBar(msg)
-    gg.shoot()
+    args = parser.parse_args()
+
+    msg = ' '.join(args.strings)
+    if len(msg) == 0:
+        msg = 'test pushover notification!'
+    print(msg)
+
+    notif = Foobar(msg)
+    notif.shoot()
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        main(sys.argv[1])
-    else:
-        main(None)
+    main()
