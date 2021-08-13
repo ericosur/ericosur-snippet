@@ -16,7 +16,7 @@ thumbnail within ''input.jpg''.
 
 
 use strict;
-use v5.10;
+use v5.22;
 use warnings;
 use Image::Magick;
 
@@ -49,6 +49,7 @@ sub process($)
 			my $im2 = $im->Clone();
 			my $geo = get_crop_cmd($ii, $jj);
 			my $ofile = sprintf("cr%02dx%02d.jpg", $ii, $jj);
+			say "$geo";
 			$rc = $im2->Crop(geometry =>  $geo);
 			warn $rc if $rc;
 			say "writing $ofile...";
