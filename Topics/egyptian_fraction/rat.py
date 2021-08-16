@@ -8,6 +8,7 @@ need Rational of sympy
   the answer is not always optimized
 '''
 
+import argparse
 import sys
 from sympy import Rational
 #from sympy import Float
@@ -44,8 +45,9 @@ def action(m, n):
         print(nd)
         v = v - nd
     print(v)
+    print()
 
-def main(argv):
+def test(argv):
     ''' main '''
     if argv == []:
         print('.....demo.....')
@@ -57,14 +59,25 @@ def main(argv):
     except ValueError as e:
         print(e)
 
+def main():
+    ''' main '''
+    parser = argparse.ArgumentParser(description='to show an egyptian fraction, m over n')
+    parser.add_argument("integers", metavar='ints', type=int, nargs='*',
+        help="fractions")
+
+    parser.add_argument("-d", "--demo", action='store_true', default=False,
+        help='apply demo values')
+
+    args = parser.parse_args()
+
+    if args.demo:
+        print('.....demo.....')
+        action(5, 121)
+        action(27, 29)
+    elif len(args.integers) == 2:
+        action(args.integers[0], args.integers[1])
+    else:
+        parser.print_help()
 
 if __name__ == '__main__':
-    if len(sys.argv) == 1:
-        print('rat.py [p] [q]')
-        main([])
-        sys.exit(0)
-
-    if len(sys.argv) == 3:
-        main(sys.argv[1:])
-    else:
-        print('need two numbers')
+    main()
