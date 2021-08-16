@@ -86,6 +86,11 @@ def get_home():
     ''' return $HOME '''
     return os.getenv('HOME')
 
+def get_hostname():
+    ''' get hostname '''
+    import platform
+    return platform.node()
+
 def query_url_for_data(url):
     ''' query url and return data
     refer to: https://stackoverflow.com/questions/2792650/import-error-no-module-name-urllib2
