@@ -1,4 +1,4 @@
-#!/usr/bin/python3.6
+#!/usr/bin/python3
 # coding: utf-8
 
 ''' to calculate days between two dates '''
