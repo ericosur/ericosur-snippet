@@ -22,6 +22,7 @@ https://stackoverflow.com/questions/11090289/find-longest-repetitive-sequence-in
 https://xlinux.nist.gov/dads/HTML/shortestCommonSuperstring.html
 '''
 
+import argparse
 from lcs import longestRepeatedSubstring
 
 class Cons:
@@ -76,11 +77,11 @@ def show(r):
 
 def test(n):
     ''' test '''
-    print('n =', n)
     r = stupid_div(n)
     raw_digits = l2s(r)
     max_repeat = len(raw_digits)
 
+    ans = list()
     s = raw_digits
     lrs = ''
     cnt = 0
@@ -88,30 +89,64 @@ def test(n):
         cnt += 1
         lrs = longestRepeatedSubstring(s)
         if len(lrs) <= 1:
-            print('[info] lrs is empty')
+            #print('[info] lrs is empty')
             break
+        ans.append(lrs)
         s = lrs
         if cnt > max_repeat:
             print('too much?')
             break
-    print('raw_digits:')
+
+    print('n = {}: raw_digits: ({})'.format(n, len(raw_digits)))
     print(raw_digits)
+    print('=' * 20 + ">")
 
-    print('repeat:')
-    print(s)
-    print('len(s):')
-    print(len(s))
-    print('-' * 40)
+    for a in ans:
+        print('repeat:')
+        print(a)
+        print('len(s):')
+        print(len(a))
+        print('-' * 40)
 
+
+'''
+2*37   # l=3,135
+7*31  # l=30,004608294930875576036866359447
+7    # l=6,142857
+23    # l=22,0434782608695652173913
+37    # l=3,027
+97
+103
+421   # 140
+'''
+def perform_test():
+    test(7)
+    test(2*37)
+    test(7*31)
+
+def proc(argv):
+    ''' proc '''
+    for a in argv:
+        test(a)
 
 def main():
     ''' main '''
-    #test(7)
-    #test(97)
-    # test(103)
-    # test(421)
-    #test(23)
-    test(421)
+    parser = argparse.ArgumentParser(description='brief description for this script')
+    parser.add_argument("integers", metavar='ints', type=int, nargs='*', help="integers")
+    parser.add_argument("-t", "--test", action='store_true', default=False,
+        help='perform tests')
+
+    args = parser.parse_args()
+
+    if args.test:
+        perform_test()
+        return
+
+    if len(args.integers) == 0:
+        print('apply demo number...')
+        args.integers.append(23)
+    #print(args.integers)
+    proc(args.integers)
 
 if __name__ == '__main__':
     main()
