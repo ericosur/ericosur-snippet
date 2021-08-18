@@ -13,6 +13,8 @@ def main():
     parser.add_argument("strings", metavar='str', type=str, nargs='+',
         help="show these strings")
     parser.add_argument('-o', '--output', help='Output file name', default='stdout')
+    parser.add_argument("-v", "--verbose", action='store_true', default=False,
+        help='verbose mode')
     requiredNamed = parser.add_argument_group('required named arguments')
     requiredNamed.add_argument('-i', '--input', help='Input file name', required=True)
 
