@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-""" want to know if randint is uniform """
+'''
+fill array with random.randint, test it if uniform distributed
+'''
 
 import random
 from statistics import stdev
