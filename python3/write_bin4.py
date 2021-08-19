@@ -28,9 +28,10 @@ class Solution():
     def fill_buffer(self):
         ''' fill buffer '''
         #self.buffer = np.zeros(self.COUNT*self.X_1MB, dtype='uint8')
-        rng = np.random.default_rng(int(time.time()))
+        rng = np.random.default_rng(int(time.time()))   # np's random number generator
         print(rng)
-        self.buffer = rng.integers(0, 255, self.COUNT*self.X_1MB, dtype='uint8')
+        # value = 0 .. 255
+        self.buffer = rng.integers(0, 256, self.COUNT*self.X_1MB, dtype='uint8')
 
     def ask(self):
         x = self.COUNT * self.X_1MB
@@ -52,6 +53,7 @@ class Solution():
 
 def main():
     '''main function'''
+    print(__doc__)
     testrun = Solution()
     testrun.run()
 
