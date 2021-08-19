@@ -105,7 +105,12 @@ def process(inp, outp):
 
 def main():
     ''' main '''
-    parser = argparse.ArgumentParser(description='grep necessary data from data sheet (ODS format)')
+    desc = '''
+    fetch necessary data from GTA vehicle data sheet,
+    input ODS format, output XLSX format
+    '''
+    # exit_on_error=False (after py3.9)
+    parser = argparse.ArgumentParser(description=desc)
     # parser.add_argument("strings", metavar='str', type=str, nargs='*',
     #     help="show these strings")
     parser.add_argument('-o', '--output', help='Output file name', default='out.xlsx')
@@ -113,6 +118,7 @@ def main():
     requiredNamed.add_argument('-i', '--input', help='Input file name', required=True)
 
     args = parser.parse_args()
+    print(args)
 
     if args.input:
         print('input:', args.input)
