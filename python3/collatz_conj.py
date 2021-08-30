@@ -71,4 +71,5 @@ def main(argv: list):
             print('{} is not a valid integer'.format(e))
 
 if __name__ == '__main__':
+    print(__doc__)
     argp()
