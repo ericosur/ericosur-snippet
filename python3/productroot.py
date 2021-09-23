@@ -8,7 +8,7 @@ here we define a "product root", multiple each digits till smaller than 10
 
 def product_root(n):
     ''' product root '''
-    ans = list()
+    ans = []
     # n must be larger than 10
     if n <= 10:
         return ans

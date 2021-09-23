@@ -22,7 +22,7 @@ class Solution():
         s = '9876543210'
         l = list(s)
         while True:
-            a = list()
+            a = []
             for _ in range(10):
                 a.append(l[random.randint(0, 9)])
                 #a.append(random.choice(s))
@@ -58,7 +58,7 @@ class Solution():
         begin = self.start
         arr = list(begin)
         print('begin: {}, remove: {}'.format(begin, remove_part))
-        res = list()
+        res = []
         for cc in list(remove_part):
             i = arr.index(cc)
             lhs = arr[0:i]
@@ -72,7 +72,7 @@ class Solution():
         ''' test '''
         #print('self.start', self.start)
         cnt = 0
-        arr = list()
+        arr = []
         for ii in it.combinations(self.start, 5):
             cnt += 1
             s = ''.join(ii)

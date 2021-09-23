@@ -6,6 +6,7 @@ randomly pick one hash algorithm and apply to a text
 '''
 
 import hashlib
+import random
 
 def hash_factory(fn, hash_func):
     ''' hash factory '''
@@ -34,7 +35,6 @@ def main():
     # will throw an exception here
     #get_hash(MSG, 'NO_ALGORITHM')
 
-    import random
     a = random.choice(list(hashlib.algorithms_guaranteed))
     print(a)
     h = get_hash(MSG, a)

@@ -44,7 +44,7 @@ class AlphaBravoCharlie():
 
     def __get_dict__(self):
         ''' get dict '''
-        d = dict()
+        d = {}
         for ww in self.alpha_arr:
             cap = ww[0]
             d[cap] = ww

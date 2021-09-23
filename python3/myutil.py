@@ -26,7 +26,7 @@ def read_jsonfile(fn, debug=False):
     # read from json file
 
     # method #1
-    with open(fn) as fstream:
+    with open(fn, 'r', encoding='utf8') as fstream:
         data = json.load(fstream)
 
     # kiss method #2
@@ -127,7 +127,7 @@ def query_url_for_json(url):
 
 def write_json(fn, data):
     ''' write json into specified file '''
-    with open(fn, 'w') as ofile:
+    with open(fn, 'w', encoding='utf8') as ofile:
         ofile.write(json.dumps(data))
         print('output json to {0}'.format(fn))
 

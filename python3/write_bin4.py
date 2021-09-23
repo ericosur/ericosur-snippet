@@ -12,21 +12,24 @@ python3 -m memory_profiler write_bin4.py
 
 '''
 
+import argparse
 import time
 import numpy as np
 
 class Solution():
+    ''' class to write buffer with random bytes into a file '''
 
-    X_1MB = 1024 * 1024
     COUNT = 100
+    X_1MB = 1024 * 1024
 
+    # pylint: disable=invalid-name
     def __init__(self):
         self.fn = 'write_bin4.bin'
         self.buffer = None
         self.fill_buffer()
 
     def fill_buffer(self):
-        ''' fill buffer '''
+        ''' fill buffer with fixed size '''
         #self.buffer = np.zeros(self.COUNT*self.X_1MB, dtype='uint8')
         rng = np.random.default_rng(int(time.time()))   # np's random number generator
         print(rng)
@@ -34,6 +37,7 @@ class Solution():
         self.buffer = rng.integers(0, 256, self.COUNT*self.X_1MB, dtype='uint8')
 
     def ask(self):
+        ''' test '''
         x = self.COUNT * self.X_1MB
         b = 2**16
         if b > x:
@@ -43,7 +47,7 @@ class Solution():
 
     #@profile
     def run(self):
-        ''' run '''
+        ''' output pre-filled buffer into file '''
         with open(self.fn, 'wb') as binfile:
             binfile.write(self.buffer)
         del self.buffer

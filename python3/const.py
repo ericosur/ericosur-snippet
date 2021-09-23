@@ -4,9 +4,12 @@
 '''
 demo of const variable in python
 
-reference: http://web.archive.org/web/20100523132518/http://code.activestate.com/recipes/65207-constants-in-python/?in=user-97991
+reference: http://web.archive.org/web/20100523132518/http://
+code.activestate.com/recipes/65207-constants-in-python/?in=user-97991
 
 '''
+
+import sys
 
 # Put in const.py...:
 class _const():
@@ -15,8 +18,10 @@ class _const():
             raise TypeError("Can't rebind a const: {}".format(name))
         self.__dict__[name] = value
 
-import sys
 sys.modules[__name__]=_const()
+
+# pylint: disable=import-outside-toplevel
+# pylint: disable=import-self
 
 def main():
     ''' demo '''
@@ -26,7 +31,7 @@ def main():
     # and bind an attribute ONCE:
     const.magic = 23
     # but NOT re-bind it:
-    const.magic = 88      # raises const.ConstError
+    #const.magic = 88      # raises const.ConstError
     # you may also want to add the obvious __delattr__
 
 if __name__ == '__main__':

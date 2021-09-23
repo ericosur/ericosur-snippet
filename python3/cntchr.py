@@ -10,7 +10,7 @@ from random import randint
 def get_freq(s: str):
     ''' get frequency, got a dict with key and frequency '''
     cc = sorted(list(s))
-    d = dict()
+    d = {}
     for c in cc:
         if c == ' ':    # skip space
             continue
@@ -23,7 +23,7 @@ def get_freq(s: str):
 
 def test_group(a: list):
     ''' test group returns a dict '''
-    d = dict()
+    d = {}
     for key, group in groupby(a):
         d[key] = len(list(group))
     return d

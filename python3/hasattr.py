@@ -14,7 +14,8 @@ def hooray(obj, stm):
 
 def main():
     ''' main '''
-    arr = [dict(), set(), list(), tuple()]
+    #arr = [dict(), set(), list(), tuple()]
+    arr = [{}, set(), [], tuple()]
     for aa in arr:
         print('type:', type(aa))
         hooray(aa, 'add')

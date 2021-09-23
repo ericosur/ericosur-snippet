@@ -20,7 +20,7 @@ def test_file(fn: str) -> bool:
     use open() to test file could be accessed
     '''
     try:
-        fp = open(fn)
+        fp = open(fn, encoding='utf8')
     except IOError as e:
         if e.errno == errno.EACCES:
             print('errno: EACCES')

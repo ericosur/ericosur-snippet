@@ -19,7 +19,7 @@ def sqrt_sum(a, b):
 def test():
     ''' test '''
     max_side = 256
-    a1 = list()
+    a1 = []
     for (m, n) in it.combinations(range(1, max_side), 2):
         r = sqrt_sum(m, n)
         if math.floor(r) == math.ceil(r):

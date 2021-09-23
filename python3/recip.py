@@ -17,7 +17,7 @@ def wala(m, n):
 
     (p, q, r, stop, prev_r) = (m*10, 0, 0, 0, -1)
     cnt = 0
-    ns = list()
+    ns = []
     while True:
         cnt += 1
         # if p < n:
