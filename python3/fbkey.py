@@ -67,7 +67,7 @@ def try_fastboot():
 
 def write_to_file(fn, msg):
     ''' write msg into file '''
-    with open(fn, 'wt') as f:
+    with open(fn, 'wt', encoding='utf8') as f:
         print(msg, file=f)
     print('write msg into file: {}'.format(fn))
 

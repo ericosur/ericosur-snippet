@@ -8,7 +8,7 @@ from myutil import get_python_version
 
 def main(argv):
     ''' main '''
-    mm = list()
+    mm = []
     if argv == []:
         mm = [27.41, 29209, 24.49, 1000]
 

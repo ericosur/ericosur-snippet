@@ -20,7 +20,7 @@ def solve(n):
     print("=======> solve this: {}".format(n))
     upper = n // 2
     s = 0
-    ans = list()
+    ans = []
     for i in range(1, upper+1):
         s = 0
         r = i

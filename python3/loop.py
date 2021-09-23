@@ -8,7 +8,7 @@ LOOP
 use a quick/rough way to estimate how many years you need
 if wannt to go double insterest
 
-year \approx 72 / insterest
+year \\approx 72 / insterest
 
 for example, i = 5% one year iteration
 72/5 = 14.4
@@ -31,7 +31,7 @@ def loop2(r: float, _limit=2.0):
     ''' loop2 '''
     assert r > 0.0
     assert r < 1.0
-    _limit
+
     v = 1 + r
     base = 1
     term = base * v
@@ -49,13 +49,16 @@ def loop2(r: float, _limit=2.0):
 def main():
     ''' main '''
 
-    tryloop(0.01)
+    tryloop(0.03)
 
-    l = 1.12
-    r = 0.02
+    print('=' * 40)
+    t = 1.5
+    r = 0.05
+    inc = 0.005
+    print('start from: {} target: {} inc: {}'.format(r, t, inc))
     for _ in range(5):
-        loop2(r, l)
-        r += 0.005
+        loop2(r, t)
+        r += inc
 
 if __name__ == '__main__':
     print(__doc__)

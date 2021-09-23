@@ -11,6 +11,7 @@ https://www.geeksforgeeks.org/how-to-encrypt-and-decrypt-strings-in-python/
 from cryptography.fernet import Fernet
 
 def main():
+    ''' demo '''
     # we will be encryting the below string.
     message = "hello geeks"
 

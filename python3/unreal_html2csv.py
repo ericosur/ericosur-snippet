@@ -41,7 +41,7 @@ def conv_big5_to_utf8(fn):
     os.system(cmd)
     '''
     c = None
-    with open(fn, 'rb') as f:
+    with open(fn, 'rb', encoding='utf8') as f:
         c = f.read()
     #print(c)
     d = c.decode('big5').encode('utf-8')
@@ -52,11 +52,11 @@ def make_soup(content):
     ''' make soup from content '''
     def remove_some_col(data):
         ''' remove col#2, col#-1, col#-2 '''
-        t = list()
+        t = []
         t.extend(data[0:2])
         t.extend(data[3:-2])
         return t
-    data = list()
+    data = []
     soup = BeautifulSoup(content, 'lxml')
     t = soup.find('table', attrs={'class':'tablesorter'})
     header = t.find('tr', attrs={'class':'tablebg0'})
@@ -86,7 +86,7 @@ def output_csv(data):
     ''' output data as csv format in UMMDD.csv '''
     fn = get_datetag() + '.csv'
     print('[INFO] output to:', fn)
-    with open(fn, 'wt') as csvfile:
+    with open(fn, 'wt', encoding='utf8') as csvfile:
         sw = csv.writer(csvfile, delimiter=',',
                         quotechar='"', quoting=csv.QUOTE_ALL)
         for dd in data:

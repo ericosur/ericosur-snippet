@@ -42,7 +42,7 @@ class ChangeJson():
         ''' action '''
         self.prepare()
         self.data['subject'] = self.request_random_string()
-        with open(self.ofn, 'wt') as f:
+        with open(self.ofn, 'wt', encoding='utf8') as f:
             f.write(json.dumps(self.data, indent=4, sort_keys=False))
 
 

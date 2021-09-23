@@ -23,12 +23,12 @@ class Solution():
     def __init__(self):
         #self.wordfile = HOME + '/Downloads/eff_large_wordlist.txt'
         self.wordfile = UTILPATH + '/eff_large_wordlist.txt'
-        self.words = dict()
+        self.words = {}
         self.read_data()
 
     def read_data(self):
         ''' read data '''
-        with open(self.wordfile, 'rt') as f:
+        with open(self.wordfile, 'rt', encoding='utf8') as f:
             cnt = 0
             for ln in f.readlines():
                 cnt += 1
@@ -55,7 +55,7 @@ class Solution():
 
     def request_words(self, n):
         ''' request words '''
-        results = list()
+        results = []
         for _ in range(n):
             results.append(self.rand_words())
         res = ' '.join(results)
