@@ -5,43 +5,83 @@
 easy dump
 '''
 
-from __future__ import print_function
-import sys
+import argparse
 import os
+
+class MyConfig():
+    ''' a glass that stores a shared variable '''
+    _v = False
+    def get_v(self):
+        ''' getter '''
+        return type(self)._v
+    def set_v(self, v):
+        ''' setter '''
+        type(self)._v = v
+    demo = property(get_v, set_v)
+
 
 def dump_file(fname):
     ''' dump specified file '''
+    config = MyConfig()
     cnt = 0
+    total_cnt = 0
     msg = ''
-    for byt in open(fname, 'rb').read():
-        cnt += 1
-        msg = msg + '{:02x} '.format(byt)
-        if cnt != 0 and not cnt % 16:
+    isforcebreak = False
+    with open(fname, 'rb') as fin:
+        for byt in fin.read():
+            total_cnt += 1
+            cnt += 1
+            msg = msg + '{:02x} '.format(byt)
+            if cnt != 0 and not cnt % 16:
+                print(msg)
+                msg = ''
+                cnt = 0
+            if config.demo and total_cnt > 64:
+                isforcebreak = True
+                msg = ''
+                break
+        if msg != '':
             print(msg)
-            msg = ''
-            cnt = 0
+    if isforcebreak:
+        print('[INFO] break due to DEMO mode')
 
 
-def main(args):
+def test(args):
     ''' main function '''
-
+    config = MyConfig()
     if args == []:
-        print('should not be empty...')
-        sys.exit()
+        print('apply DEMO mode...')
+        config.demo = True
+        args.append('ranit.py')
 
     for fn in args:
         if not os.path.isfile(fn):
             print("file not found: {}".format(fn))
             continue
 
-        print("=====> process {}:".format(fn))
+        print("{}:".format(fn))
         dump_file(fn)
 
+def main():
+    ''' main '''
+    parser = argparse.ArgumentParser(description='trivia script to dump a file')
+    parser.add_argument("files", type=str, nargs='*', help="specified files to dump")
+    parser.add_argument("-d", "--demo", action='store_true', default=False, help='apply demo mode')
+
+    #parser.parse_args(['-i input.txt -o out.txt str1 str2'])
+
+    args = parser.parse_args()
+
+    if args.demo:
+        #print('demo:', args.demo)
+        test([])
+        return
+
+    if args.files == []:
+        parser.print_help()
+        return
+
+    test(args.files)
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        main(sys.argv[1:])
-    else:
-        print('usage: easy_dump.py [file1] [file2]...')
-        print('demo:')
-        main([sys.argv[0]])
+    main()
