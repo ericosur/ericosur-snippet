@@ -11,8 +11,8 @@ class Solution():
     def __init__(self):
         self.sheet_name = 'translation_CIS008_Plus_2020012'
         self.src_xlsx = 'src.xlsx'
-        self.trans_dict = dict()
-        self.src_dict = dict()
+        self.trans_dict = {}
+        self.src_dict = {}
 
     @staticmethod
     def getcn(col, row):
@@ -28,7 +28,7 @@ class Solution():
         # wb_src = load_workbook(filename='src.xlsx')
         # src = wb_src[SHEET_NAME]
 
-        mydict = dict()
+        mydict = {}
         for i in range(cfrom, cto):
             myvalues = tuple()
             acol = Solution.getcn('A', i)

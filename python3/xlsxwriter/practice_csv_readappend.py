@@ -15,16 +15,16 @@ def get_ten_numbers():
 
 def write_csv(csvfn):
     ''' write csv '''
-    with open(csvfn, 'wt') as csvfile:
+    with open(csvfn, 'wt', encoding='utf8') as csvfile:
         sw = csv.writer(csvfile, delimiter=',',
                         quotechar='"', quoting=csv.QUOTE_ALL)
         for _ in range(1, 10):
             sw.writerow(get_ten_numbers())
     csvfile.close()
 
-def append_csv(input_fn, output_fn):
+def append_csv(ifn, ofn):
     ''' append_csv '''
-    with open(input_fn, 'rt') as csvin, open(output_fn, 'wt') as csvout:
+    with open(ifn, 'rt', encoding='utf8') as csvin, open(ofn, 'wt', encoding='utf8') as csvout:
         cin = csv.reader(csvin, delimiter=',',
                          quotechar='"', quoting=csv.QUOTE_ALL)
         cout = csv.writer(csvout, delimiter=',',
