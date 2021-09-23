@@ -24,7 +24,7 @@ def main():
         print('remove {} first...'.format(FILEN))
         os.remove(FILEN)
 
-    with open(FILEN, 'w') as csvfile:
+    with open(FILEN, 'w', encoding='utf8') as csvfile:
         sw = csv.writer(csvfile, delimiter=',',
                         quotechar='"', quoting=csv.QUOTE_ALL)
         sw.writerow(get_filled_array())
