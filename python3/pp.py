@@ -16,4 +16,4 @@ import sys
 
 # list each item of sys.path
 for idx, pp in enumerate(sys.path):
-    print('[{:02d}]: {}'.format(idx, pp))
+    print(f'[{idx:02d}]: {pp}')

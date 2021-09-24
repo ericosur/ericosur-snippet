@@ -2,9 +2,10 @@
 # utf-8
 
 '''
-base58
-base64
-base85
+demo for the following base-N functions:
+    base58
+    base64
+    base85
 '''
 
 import sys
@@ -37,7 +38,7 @@ def test(v: bytes):
 
     def show(m, n):
         ''' show '''
-        print('{:<14s}: {}'.format(m, n))
+        print(f'{m:<14s}: {n}')
 
     #hx = binascii.hexlify(v)    # bytes: b'([0-9a-f][0-9a-f])+'
     #show('input', hx)
@@ -90,7 +91,7 @@ def main(argv):
             test(v)
             print()
         except ValueError:
-            print('invalid input: {}'.format(e))
+            print(f'invalid input: {e}')
 
 
 if __name__ == '__main__':

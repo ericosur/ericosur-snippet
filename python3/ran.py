@@ -16,12 +16,12 @@ def demo():
     print('use random.randint as index:')
     for _ in range(REPEAT):
         idx = random.randint(0, size - 1) # int(random.random() * size)
-        print("name picked: {}".format(name_list[idx]))
+        print(f"name picked: {name_list[idx]}")
 
     # another way
     print('use random.choice:')
     for _ in range(REPEAT):
-        print("name picked: {}".format(random.choice(name_list)))
+        print(f"name picked: {random.choice(name_list)}")
 
 if __name__ == '__main__':
     demo()

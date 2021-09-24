@@ -80,9 +80,10 @@ def main(argv):
                 num = int(v)
             else:
                 num = v
-            print("{}: {}".format(num, factorize(num)))
+            r = factorize(num)
+            print(f"{num}: {r}")
         except ValueError:
-            print('Not a valid number: {}'.format(v))
+            print('Not a valid number: {v}')
 
 
 if __name__ == '__main__':

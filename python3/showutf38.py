@@ -9,18 +9,19 @@ from __future__ import print_function
 
 def test0(ch):
     ''' show '''
-    print('ch: {}, len: {}, hex: {}'.format(ch, len(ch), hex(ord(ch))))
+    print(f'ch: {ch}, len: {len(ch)}, hex: {hex(ord(ch))}')
     bb = ch.encode('utf8')
-    print('bb: {}, len: {}'.format(bb, len(bb)))
+    print(f'bb: {bb}, len: {len(bb)}')
     uu = ch.encode('unicode-escape')
-    print('uu: {}'.format(uu))
+    print(f'uu: {uu}')
 
 
 def test1():
     ''' from 16bit codepint '''
     ss = u'\u037e'
-    print("greek question mark: {}    codepoint: {}".format(ss, hex(ord(ss))))
-    print("  normal semi colon: {}    codepoint: {}".format(';', hex(ord(';'))))
+    print(f"greek question mark: {ss}    codepoint: {hex(ord(ss))}")
+    n1 = ';'
+    print(f"  normal semi colon: {n1}    codepoint: {hex(ord(n1))}")
 
 
 if __name__ == '__main__':

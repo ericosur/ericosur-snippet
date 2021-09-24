@@ -84,10 +84,10 @@ def main():
     sieve_obj = Sieve(MAX_NUMBER)
     sieve_obj.run()
 
-    print('# filter primes from 1 to {}'.format(MAX_NUMBER))
-    print("# total pass: %d" % sieve_obj.get_count())
+    print(f'# filter primes from 1 to {MAX_NUMBER}')
+    print(f"# total pass: {sieve_obj.get_count()}" )
     primes = sieve_obj.get_primes()
-    print("# found %d primes" % len(primes))
+    print(f"# found {len(primes)} primes")
 
     for pr in primes:
         print(pr)

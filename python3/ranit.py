@@ -16,9 +16,9 @@ def main():
     for _ in range(REPEAT):
         n = random.randint(MIN, MAX)
         (q, r) = divmod(n, DIVISOR)
-        print('{} / {} = {}'.format(n, DIVISOR, q), end='')
+        print(f'{n} / {DIVISOR} = {q}', end='')
         if r:
-            print(' ... {}'.format(r))
+            print(f' ... {r}')
         else:
             print()
 

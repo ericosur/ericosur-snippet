@@ -20,12 +20,13 @@ class Solution():
 
     def print_out(self):
         ''' printOut '''
-        print("sum from 1 to {} = {}, takes {:.3f} ms".format(self.max_num, self.sum,
-                                                              self.duration * 1000))
+        print(f"sum from 1 to {self.max_num} = {self.sum}, ", end='')
+        print(f"takes {self.duration * 1000:.3f} ms")
 
     @staticmethod
     def do_work():
         ''' just sleep 500 ms '''
+        print('sleep 0.5 seconds')
         sleep(0.5)
         return 0
 
@@ -48,20 +49,19 @@ class SumUp(Solution):
         super().__init__(max_num)
 
     def sum1(self):
-        ''' fill arr '''
-        # sum from 0 to 100
+        ''' using for-loop to sum up '''
         s = 0
         for i in range(self.max_num + 1):
             s += i
         return s
 
     def sum2(self):
-        ''' fill arr '''
+        ''' using list() and sum() '''
         arr = list(range(self.max_num + 1))
         return sum(arr)
 
     def sum3(self):
-        ''' sum #3 '''
+        ''' using np.sum '''
         arr = np.arange(1, self.max_num + 1)
         return np.sum(arr)
 

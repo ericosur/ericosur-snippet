@@ -19,7 +19,7 @@ def read_jsonfile(fn, debug=False):
     specify json filename and return whole json object
     '''
     if debug:
-        print('load json from {}'.format(fn))
+        print(f'load json from {fn}')
     if not os.path.exists(fn):
         print('file not found')
         return None
@@ -61,13 +61,13 @@ def request_value(data, key, default_value=None):
     try:
         ret = data[key]
     except KeyError:
-        print('key "{}" not found, will use default_value'.format(key))
+        print(f'key "{key}" not found, will use default_value')
     return ret
 
 def insert_syspath(p):
     ''' help to insert path into module search path '''
     if is_path_exist(p):
-        print('insert {} into sys path'.format(p))
+        print(f'insert {p} into sys path')
         sys.path.insert(0, p)
 
 def is_path_exist(p):
@@ -129,7 +129,7 @@ def write_json(fn, data):
     ''' write json into specified file '''
     with open(fn, 'w', encoding='utf8') as ofile:
         ofile.write(json.dumps(data))
-        print('output json to {0}'.format(fn))
+        print(f'output json to {fn}')
 
 
 def hash_factory(fn, hash_func):
@@ -203,7 +203,7 @@ def test():
         ret = request_value(data, 'name')
         print('ret:', ret)
     else:
-        print('file not found: {}'.format(fn))
+        print('file not found: {fn}')
 
 if __name__ == '__main__':
     test()

@@ -20,12 +20,13 @@ from random import choice
 def main(argv):
     ''' main function '''
     if argv == []:
-        print('random choose one env variable to show:')
-        argv.append(choice(list(os.environ)))
+        print('random choose three env variables to show:\n')
+        for _ in range(3):
+            argv.append(choice(list(os.environ)))
 
     for x in argv:
         en = os.environ.get(x)
-        print('{} = {}'.format(x, en))
+        print(f'{x} = {en}')
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 '''
-easy dump
+easy dump a specified file
 '''
 
 import argparse
@@ -31,7 +31,7 @@ def dump_file(fname):
         for byt in fin.read():
             total_cnt += 1
             cnt += 1
-            msg = msg + '{:02x} '.format(byt)
+            msg = msg + f'{byt:02x} '
             if cnt != 0 and not cnt % 16:
                 print(msg)
                 msg = ''
@@ -56,10 +56,10 @@ def test(args):
 
     for fn in args:
         if not os.path.isfile(fn):
-            print("file not found: {}".format(fn))
+            print(f"file not found: {fn}")
             continue
 
-        print("{}:".format(fn))
+        print(f"{fn}:")
         dump_file(fn)
 
 def main():

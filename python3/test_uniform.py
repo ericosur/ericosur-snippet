@@ -26,8 +26,8 @@ def test(n=100000):
 def show(arr: list):
     ''' show '''
     s = stdev(arr)
-    print('max: {:3f}, min: {:.3f}, '.format(max(arr), min(arr)), end='')
-    print('stddev: {:.3f}'.format(s))
+    print(f'max: {max(arr):.3f}, min: {min(arr):.3f}, ', end='')
+    print(f'stddev: {s:.3f}')
 
 
 def main():

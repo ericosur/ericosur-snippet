@@ -44,8 +44,8 @@ def main(argv):
         sys.exit(-1)
 
     gcd_num = gcd(a, b)
-    print("gcd(%d, %d) = %d" % (a, b, gcd_num))
-    print("(%d : %d) = (%d : %d)" % (a, b, a/gcd_num, b/gcd_num))
+    print(f"gcd({a}, {b}) = {gcd_num}")
+    print(f"({a} : {b} = ({a/gcd_num} : {b/gcd_num})")
 
 
 if __name__ == '__main__':

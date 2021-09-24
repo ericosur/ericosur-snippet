@@ -54,14 +54,14 @@ def test(x):
          73, 79, 83, 89, 97]
     i = index(a, x)
     if i != -1:
-        print('{} found at index {}'.format(x, i))
+        print(f'{x} found at index {i}')
         return
     try:
         m, _ = find_le(a, x)
         p, _ = find_ge(a, x)
-        print('{} between {} and {}'.format(x, m, p))
+        print(f'{x} between {m} and {p}')
     except ValueError:
-        print('something wrong for {}, OOB?'.format(x))
+        print(f'something wrong for {x}, OOB?')
 
 
 def main():

@@ -15,14 +15,14 @@ from myutil import read_from_stdin
 def call_factor(n: int):
     ''' call external factor '''
     if n <= 0:
-        print('{} cannot be zero or negative'.format(n))
+        print(f'{n} cannot be zero or negative')
         return
-    cmd = '/usr/bin/factor {}'.format(n)
+    cmd = f'/usr/bin/factor {n}'
     a = os.popen(cmd).read()
     #print(res)
     b = re.sub(r'^(\d+: )(.+)$', '\\2', a.strip())
     vals = b.split(' ')
-    print('{}: '.format(n), end='')
+    print(f'{n}: ', end='')
     if len(vals) == 1:
         print('a prime number')
     else:
@@ -42,7 +42,7 @@ def main(argv):
 
 if __name__ == '__main__':
     if len(sys.argv) == 1:
-        print('use "{} -" read input from STDIN'.format(sys.argv[0]))
+        print(f'use "{sys.argv[0]} -" read input from STDIN')
         # demo mode
         print('demo mode...')
         main([])
