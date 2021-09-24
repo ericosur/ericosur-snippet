@@ -15,7 +15,7 @@ import sys
 class _const():
     def __setattr__(self, name, value):
         if name in self.__dict__:
-            raise TypeError("Can't rebind a const: {}".format(name))
+            raise TypeError(f"Can't rebind a const: {name}")
         self.__dict__[name] = value
 
 sys.modules[__name__]=_const()

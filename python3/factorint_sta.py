@@ -31,8 +31,7 @@ def show(value):
     # factorint() will return dict with factor and its
     myd = factorint(value)
     # output the result...
-    msg = ''
-    msg = '{} = '.format(value)
+    msg = f'{value} = '
     #print(value, "= ", end='')
     arr = list(myd.keys())
     arr.sort()
@@ -45,11 +44,11 @@ def show(value):
             isFirst = False
         val = myd[key]
         if val == 1:
-            msg = msg + '{}'.format(key)
+            msg = msg + str(key)
             #print(key, end='')
         else:
             #print("{}**{}".format(key, myd[key]), end='')
-            msg = msg + "{}**{}".format(key, myd[key])
+            msg = msg + f"{key}**{myd[key]}"
     if HAS_CONSOLE_MODULE:
         console.alert(msg)
     else:
@@ -85,7 +84,7 @@ def run_this():
         if val <= 0:
             raise ValueError
     except ValueError:
-        print('{} not a number'.format(ret))
+        print(f'{ret} not a number')
         val = randint(1001, 99999)
         print('invalid number, use random number:', val)
     argv.append(val)

@@ -65,12 +65,12 @@ def main():
     cnt = 0
     while cnt < MAX_COUNT:
         r = random.choice(items)
-        print('playing {} ...'.format(r))
+        print(f'playing {r} ...')
         cnt += 1
         # for oa18.local
         #cmd = 'play -t raw -b 16 -r 48000 -e signed -c 1 {}'.format(p)
         # for kitty.local
-        cmd = 'play -t raw -b 16 -r 24000 -e signed -c 2 {}'.format(mm.get_fn(r))
+        cmd = f'play -t raw -b 16 -r 24000 -e signed -c 2 {mm.get_fn(r)}'
         os.system(cmd)
         time.sleep(.75)
 

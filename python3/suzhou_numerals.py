@@ -9,6 +9,7 @@ https://zh.wikipedia.org/zh-tw/%E8%8B%8F%E5%B7%9E%E7%A0%81%E5%AD%90
 
 '''
 
+import sys
 import random
 
 def rep_suzhou(s):
@@ -33,26 +34,23 @@ def rep_suzhou(s):
         try:
             ans += arr[int(cc)]
         except ValueError as e:
-            print('{}: {}'.format(e, cc))
+            print(f'{e}: {cc}')
         except IndexError as e:
-            print('{}: {}'.format(e, cc))
+            print(f'{e}: {cc}')
 
     return ans
 
-def main(n=None):
+def main(args):
     ''' main '''
-    if n is None:
+    if args == []:
+        print('using default values...')
         for _ in range(10):
             r = random.randint(100, 999999999)
-            print('{} => {}'.format(str(r), rep_suzhou(str(r))))
-    else:
-        print('{} => {}'.format(n, rep_suzhou(n)))
+            args.append(str(r))
+
+    for s in args:
+        print(f'{s:>10s} => {rep_suzhou(s)}')
 
 
 if __name__ == '__main__':
-    import sys
-    if len(sys.argv) == 1:
-        main()
-    else:
-        for arg in sys.argv[1:]:
-            main(arg)
+    main(sys.argv[1:])

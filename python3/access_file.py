@@ -41,14 +41,14 @@ def main(argv):
     '''
     if argv == []:
         fn = '/dev/shm/reid.jpg'
-        print('specify an image file path, using default: %s' % fn)
+        print(f'specify an image file path, using default: {fn}')
         argv.append(fn)
 
     for f in argv:
         test_file(f)
         img = cv2.imread(f)
         if img is not None:
-            print('press any key to continue, file:{}'.format(f))
+            print(f'press any key to continue, file: {f}')
             cv2.imshow(f, img)
             cv2.waitKey(0)
     cv2.destroyAllWindows()

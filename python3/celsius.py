@@ -17,13 +17,13 @@ def convert_temperature(argv):
         try:
             fahrenheit = float(locale.atof(i))  # note: string.atoi ==> locale.atoi
         except ValueError:
-            print('invalid value: {}'.format(i))
+            print('invalid value: {i}')
         else:
             celsius = (fahrenheit - 32.0) * 5.0 / 9.0
             #print '%i\260F = %i\260C' % (int(fahrenheit), int(celsius+.5))
             #   print '%i degree F = %i degree C' % (int(fahrenheit), int(celsius+.5))
             #print('%i degree F = %i degree C' % (fahrenheit, celsius))
-            print("{:.2f} °F = {:.2f} °C".format(fahrenheit, celsius))
+            print(f"{fahrenheit:.2f} °F = {celsius:.2f} °C")
 
 def main():
     '''main function'''

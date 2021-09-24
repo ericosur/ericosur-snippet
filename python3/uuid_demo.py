@@ -6,21 +6,23 @@ uuid demo
 from: https://docs.python.org/2/library/uuid.html
 '''
 
-from __future__ import print_function
 import uuid
 
 def main():
     ''' main test function '''
+    print('-' * 40)
     for _ in range(2):
         # uuid1: host id and current time
-        print("uuid1: %s" % (uuid.uuid1()))
+        print(f"uuid1: {uuid.uuid1()}")
         # uuid3: md5 hash namespace and a name
-        print("uuid3: %s" % (uuid.uuid3(uuid.NAMESPACE_DNS, 'python.org')))
+        uid3 = uuid.uuid3(uuid.NAMESPACE_DNS, 'python.org')
+        print(f"uuid3: {uid3}")
         # uuid4: random uuid
-        print("uuid4: %s" % (uuid.uuid4()))
+        print(f"uuid4: {uuid.uuid4()}")
         # uuid5: sha1 hash namespace and a name
-        print("uuid5: %s" % (uuid.uuid5(uuid.NAMESPACE_DNS, 'python.org')))
-        #time.sleep(1)
+        uid5 = uuid.uuid5(uuid.NAMESPACE_DNS, 'python.org')
+        print(f"uuid5: {uid5}")
+
         print('-' * 40)
 
 if __name__ == "__main__":

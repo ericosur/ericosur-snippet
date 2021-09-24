@@ -6,7 +6,6 @@ use api.myip.com to get current public ip
 and use ip-api.com to get location of such ip
 '''
 
-from __future__ import print_function
 import sys
 import json
 import requests
@@ -23,7 +22,7 @@ def get_current_ip():
 
 def get_ip_info(ip):
     ''' use this to get IP location and related data '''
-    iploc = 'http://ip-api.com/json/{}'.format(ip)
+    iploc = f'http://ip-api.com/json/{ip}'
     r = requests.get(iploc)
     print('url:', r.url)
     print('r.json:\n', json.dumps(r.json()))

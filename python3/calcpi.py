@@ -51,16 +51,17 @@ class CalcPi(object):
     def get_duration(self):
         ''' print duration '''
         d = abs(self.start - self.end)
-        print("duration: {:.3f} seconds".format(d))
+        print(f"duration: {d:.3f} seconds")
 
 def main():
     '''main function'''
     mypi = CalcPi()
     got_pi = mypi.get_pi()
     dist = abs(math.pi - got_pi)
-    print('got {} and distance: {:.6f}'.format(got_pi, dist))
+    print(f'got {got_pi} and distance: {dist:.6f}')
     mypi.get_duration()
 
 
 if __name__ == '__main__':
+    print(__doc__)
     main()

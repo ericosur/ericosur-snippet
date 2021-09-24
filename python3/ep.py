@@ -61,7 +61,7 @@ def main(args: list):
             num = int(v)
             print(epoch2timestr(num))
         except ValueError:
-            print('{} is not a valid integer'.format(v))
+            print(f'{v} is not a valid integer')
 
 def argp():
     ''' prepare and parse CLI arguments '''

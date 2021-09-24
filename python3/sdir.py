@@ -13,7 +13,7 @@ def main(args: list):
     ''' input list of items to search '''
     if args == []:
         d = 'git'
-        print('demo: use "{}"'.format(d))
+        print(f'demo: use "{d}"')
         args.append(d)
 
     res = os.environ['PATH']
@@ -23,10 +23,10 @@ def main(args: list):
         for p in res.split(os.pathsep):
             fp = p + '/' + a
             if os.path.isfile(fp):
-                print('found: {}'.format(fp))
+                print(f'found: {fp}')
                 found = True
         if not found:
-            print('not found: {}'.format(a))
+            print(f'not found: {a}')
 
 
 if __name__ == '__main__':

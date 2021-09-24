@@ -48,9 +48,9 @@ def try_adb(device_id):
     ''' try to use adb to get fbkey '''
     print('[INFO] using adb to collect...')
     remain = exec_and_extract_hex('adb shell getprop ro.boot.remainrebootcount')
-    print('[INFO] current remain: {}'.format(remain))
+    print(f'[INFO] current remain: {remain}')
     cpuid = exec_and_extract_hex('adb shell getprop ro.boot.msmserialno')
-    msg = 'fbkey {} {} 100'.format(device_id, cpuid)
+    msg = f'fbkey {device_id} {cpuid} 100'
     return msg
 
 def try_fastboot():
@@ -62,14 +62,14 @@ def try_fastboot():
         sys.exit(1)
     cpuid = exec_and_extract_hex('fastboot getvar msmserialno 2>&1')
     print('cpuid:', cpuid)
-    msg = 'fbkey {} {} 100'.format(device_id, cpuid)
+    msg = f'fbkey {device_id} {cpuid} 100'
     return msg
 
 def write_to_file(fn, msg):
     ''' write msg into file '''
     with open(fn, 'wt', encoding='utf8') as f:
         print(msg, file=f)
-    print('write msg into file: {}'.format(fn))
+    print(f'write msg into file: {fn}')
 
 def main():
     ''' main '''
