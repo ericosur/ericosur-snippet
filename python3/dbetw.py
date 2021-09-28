@@ -45,6 +45,9 @@ class Solution():
 
     @staticmethod
     def get_eoy():
+        ''' return the string of the date at the end of this year
+            eg: 2021-12-31
+        '''
         t = date.today()
         nd = date(t.year, 12, 31)
         #print(f'eoy: {nd}')
@@ -62,7 +65,6 @@ def main():
     test('2019-01-01', '2019-12-31')
     print('Days from today to end of this year...')
     test(Solution.get_today_str(), Solution.get_eoy())
-
 
 
 if __name__ == '__main__':
