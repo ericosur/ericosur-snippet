@@ -23,7 +23,7 @@ def call_guess(f: str):
 
     kind = filetype.guess(f)
     if kind:
-        print('{}\t{}\t{}'.format(f, kind.extension, kind.mime))
+        print(f'{f}\t{kind.extension}\t{kind.mime}')
     else:
         print('cannot determine such file:', f)
 
@@ -42,7 +42,7 @@ def main(argv):
 
 if __name__ == '__main__':
     if len(sys.argv) == 1:
-        print('use "{} -" read input from STDIN'.format(sys.argv[0]))
+        print(f'use "{sys.argv[0]} -" read input from STDIN')
         # demo mode
         print('demo mode...')
         main(['/home/rasmus/Pictures/data/lena.jpg'])

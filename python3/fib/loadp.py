@@ -14,9 +14,9 @@ def load_pickle(fn):
     try:
         with open(fn, "rb") as fh:
             mydata = pickle.load(fh)
-            print("{}: {} entries".format(fn, len(mydata)))
+            print(f"{fn}: {len(mydata)} entries")
     except IOError as e:
-        print('IOError', e)
+        print('IOError:', e)
 
 def main():
     ''' main '''

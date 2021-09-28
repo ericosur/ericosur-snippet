@@ -12,7 +12,7 @@ def utf8_seq(cc: str):
     ''' utf8 sequence in hex format '''
     for ch in cc:
         s = ch.encode('utf-8').hex()
-        print('{}({})'.format(ch, s), end=' ')
+        print(f'{ch}({s})', end=' ')
     print()
 
 def main():

@@ -19,7 +19,7 @@ def main():
         for i in range(99999):
             v = i * b
             if test_n(v, TAIL):
-                print('tail of {}/{} is {}'.format(b, v, TAIL))
+                print(f'tail of {b}/{v} is {TAIL}')
                 break
 
 

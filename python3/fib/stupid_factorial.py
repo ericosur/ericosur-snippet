@@ -31,7 +31,7 @@ def try3k(n):
 
     '''
     val = math.log10(math.sqrt(2 * math.pi * n)) + n * math.log10(n / math.e)
-    print("estimated digits length of {}! = {}".format(n, math.ceil(val)))
+    print(f"estimated digits length of {n}! = {math.ceil(val)}")
 
 def get_digit_len(n):
     ''' get ceiling( log10(n) ) '''
@@ -45,7 +45,8 @@ if __name__ == '__main__':
         try:
             intv = int(v)
             ans = stupid_factorial(intv)
-            print("{}! = {}\ndigit len: {}".format(intv, ans, get_digit_len(ans)))
+            #print("{}! = {}\ndigit len: {}".format(intv, ans, get_digit_len(ans)))
+            print(f"{intv}! = {ans}\ndigit len: {get_digit_len(ans)}")
             try3k(intv)
         except ValueError as e:
             print('cannot translate into integer', e)

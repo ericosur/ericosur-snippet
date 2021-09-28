@@ -6,7 +6,7 @@
 from __future__ import print_function
 import sys
 
-print("OS platform is {}".format(sys.platform))
+print(f"OS platform is {sys.platform}")
 print("python version:", sys.version_info)
 print('version:', sys.version)
 print("lib path:", sys.path)

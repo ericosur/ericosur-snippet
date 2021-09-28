@@ -31,7 +31,7 @@ def main():
     MyClass.show()
 
     m = MyClass()
-    print('m.i = {}'.format(m.val))
+    print(f'm.val = {m.val}')
     MyClass.val = 5
     m.show2()
     MyClass.show()

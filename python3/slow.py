@@ -50,7 +50,7 @@ def main():
     ''' main '''
     def run(func, method):
         d = func(method)
-        print('duration of {:20s}: {:.10f}'.format(func.__name__, d*1000))
+        print(f'duration of {func.__name__:20s}: {d*1000:.10f}')
 
     run(basic, slow)
     print('-' * 50)

@@ -79,7 +79,7 @@ def get_datetag():
     ''' string in UYYMMDD '''
     today = date.today()
     yy = today.year - 2000
-    s = 'U{:02d}{:02d}{:02d}'.format(yy, today.month, today.day)
+    s = f'U{yy:02d}{today.month:02d}{today.day:02d}'
     return s
 
 def output_csv(data):
@@ -134,6 +134,7 @@ def to_float(v):
         pass
     return r
 
+# pylint: disable=consider-using-f-string
 def output_xls(data):
     ''' using xlsxwriter to output '''
     fn = get_datetag() + '.xls'

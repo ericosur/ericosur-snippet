@@ -17,7 +17,7 @@ import argparse
 
 def solve(n):
     ''' solve '''
-    print("=======> solve this: {}".format(n))
+    print(f"=======> solve this: {n}")
     upper = n // 2
     s = 0
     ans = []
