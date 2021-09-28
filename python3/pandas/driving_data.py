@@ -77,7 +77,7 @@ class DrivingData():
         with open(self.csvfile, 'wb') as ofile:
             ofile.write(csvdata)
             if self.debug:
-                print('output csv to {}'.format(self.csvfile))
+                print(f'output csv to {self.csvfile}')
 
     @staticmethod
     def str2date(s):
@@ -129,15 +129,15 @@ class DrivingData():
                 dates.append(ds)
                 secs.append(str2sec(v))
             except ValueError:
-                print('[ERROR] at {} on {}, invalid format: {}'.format(ii, ds, duration[ii]))
+                print(f'[ERROR] at {ii} on {ds}, invalid format: {duration[ii]}')
                 return
 
-        print('[INFO]    first date: {}'.format(dates[0]))
-        print('[INFO]     last date: {}'.format(dates[-1]))
-        print('[INFO] dates between: {}'.format(DrivingData.get_between_dates(dates[0], dates[-1])))
+        print(f'[INFO]    first date: {dates[0]}')
+        print(f'[INFO]     last date: {dates[-1]}'.format())
+        print(f'[INFO] dates between: {DrivingData.get_between_dates(dates[0], dates[-1])}')
 
         if len(dates) != len(secs):
-            print('[ERROR] not the same length {} vs {}'.format(len(dates), len(secs)))
+            print(f'[ERROR] not the same length {len(dates)} vs {len(secs)}')
             return
 
         ndict = {"date": dates, "seconds": secs}
@@ -150,7 +150,11 @@ class DrivingData():
         des = res.describe()
         # print('all description...', des)
         # print_sep()
+        self.show_details(des)
 
+    @staticmethod
+    def show_details(des):
+        ''' show details of res '''
         queries = ['count', 'max', 'min', 'mean', '50%', 'std']
         for qq in queries:
             ans = peek_target(des, qq)
@@ -161,7 +165,8 @@ class DrivingData():
                 result = sec2str(ans)
             else:
                 result = str(int(floor(ans)))
-            print('{:5s}: {:20s}'.format(qq, result.rjust(10, ' ')))
+            j = result.rjust(10, ' ')
+            print(f'{qq:5s}: {j:20s}')
 
 # return type: numpy.float64
 def peek_target(desc_table, target):
@@ -176,7 +181,7 @@ def peek_target(desc_table, target):
         #print('result:{}, type:{}'.format(result, type(result)))
         return result
     except ValueError as e:
-        print('WARN: ValueError: {}'.format(e.args))
+        print(f'WARN: ValueError: {e.args}')
         return ''
 
 
@@ -199,7 +204,7 @@ def main(files):
     print('file list from CLI...')
     for ff in files:
         print_sep()
-        print('load csv data from: {}'.format(ff))
+        print(f'load csv data from: {ff}')
         dd.set_csvfile(ff)
         dd.action()
 

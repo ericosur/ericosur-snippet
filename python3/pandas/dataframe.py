@@ -17,7 +17,7 @@ def main():
 
     df = pd.DataFrame(arr, columns=["name", "num"])
     print(df)
-    print("==> df.head {}".format(df.columns))
+    print(f"==> df.head {df.columns}")
 
 if __name__ == '__main__':
     main()

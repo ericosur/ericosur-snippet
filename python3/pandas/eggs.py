@@ -21,7 +21,7 @@ def main():
     '''main function'''
     FILEN = 'eggs.csv'
     if os.path.isfile(FILEN):
-        print('remove {} first...'.format(FILEN))
+        print(f'remove {FILEN} first...')
         os.remove(FILEN)
 
     with open(FILEN, 'w', encoding='utf8') as csvfile:
@@ -29,7 +29,7 @@ def main():
                         quotechar='"', quoting=csv.QUOTE_ALL)
         sw.writerow(get_filled_array())
     csvfile.close()
-    print('output {} random numbers to {}'.format(COUNT, FILEN))
+    print(f'output {COUNT} random numbers to {FILEN}')
 
 if __name__ == '__main__':
     main()
