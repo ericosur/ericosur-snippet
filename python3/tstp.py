@@ -10,7 +10,7 @@ class TestBase():
     tag = 'TestBase'
 
     def __str__(self):
-        return '{}.__str__'.format(TestBase.tag)
+        return f'{TestBase.tag}.__str__'
 
     def do_work(self):
         ''' do_work '''

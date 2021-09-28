@@ -12,7 +12,7 @@ class MyRect():
         self.height = h
 
     def __str__(self):
-        msg = 'W, H = ({}, {})'.format(self.width, self.height)
+        msg = f'W, H = ({self.width}, {self.height})'
         return msg
 
     @classmethod

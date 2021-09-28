@@ -37,8 +37,6 @@ class Solution():
                     self.words[m[1]] = m[2]
                 else:
                     print('invalid?', ln)
-            #print('read {} lines'.format(cnt))
-            #print('len:', len(self.words))
             if cnt != len(self.words):
                 print('[WARN] number of data does not match')
 
@@ -67,7 +65,7 @@ def main():
     s = Solution()
     for i in range(10):
         r = s.request_words(7)
-        print('{}: {}'.format(i, r))
+        print(f'{i}: {r}')
 
 if __name__ == '__main__':
     main()

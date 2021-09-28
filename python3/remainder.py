@@ -37,12 +37,12 @@ class Solution():
         for x in it.product(p, p, p):
             cnt += 1
             r = self.arr * np.array(x) + C
-            #print("x:{} r:{}".format(x, r))
+            #print(f"x:{x} r:{r}")
             if np.max(r) == np.min(r):
-                print("x:{} r:{}".format(x, r))
+                print(f"x:{x} r:{r}")
                 print("all same")
                 break
-        print('{} tried'.format(cnt))
+        print(f'{cnt} tried')
 
 
 def main():

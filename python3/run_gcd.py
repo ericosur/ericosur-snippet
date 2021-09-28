@@ -15,7 +15,8 @@ def main():
     parser.add_argument("n2", type=int, nargs='?', default=768)
     args = parser.parse_args()
 
-    print('gcd({}, {}) = {}'.format(args.n1, args.n2, gcd(args.n1, args.n2)))
+    r = gcd(args.n1, args.n2)
+    print(f'gcd({args.n1}, {args.n2}) = {r}')
 
 if __name__ == '__main__':
     main()

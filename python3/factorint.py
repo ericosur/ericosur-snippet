@@ -33,7 +33,7 @@ def show(value):
         if val == 1:
             print(key, end='')
         else:
-            print("{}**{}".format(key, myd[key]), end='')
+            print(f"{key}**{myd[key]}", end='')
 
 
 def main(argv: list):

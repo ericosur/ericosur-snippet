@@ -37,8 +37,8 @@ def main():
         for c in range(COUNT):
             barr = fill_bytearray()
             binfile.write(barr)
-            print('{}\r'.format(c), end='')
-    print('100\noutput to {}'.format(fn))
+            print(f'{c}\r', end='')
+    print(f'100\noutput to {fn}')
 
 if __name__ == '__main__':
     main()

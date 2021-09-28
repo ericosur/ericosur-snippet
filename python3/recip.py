@@ -36,8 +36,8 @@ def wala(m, n):
         p = r
         prev_r = r
         if stop == 1:
-            print('{}'.format(q), end='')
-            print('*', end='')
+            print(f'{q}*', end='')
+            #print('*', end='')
             #print(q)
             #ns.append(q) # should not append into list
             #stop += 1
@@ -57,7 +57,7 @@ def wala(m, n):
 def show_answer(m, n, ns):
     ''' show ns '''
     if ns:
-        print('{} / {} =>'.format(m, n))
+        print(f'{m} / {n} =>')
         s = [str(x) for x in ns]
         print(''.join(s))
 

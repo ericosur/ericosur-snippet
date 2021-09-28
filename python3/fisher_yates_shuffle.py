@@ -15,7 +15,7 @@ def shuffle_array(arr, debug=False):
         n = n - 1
         arr[n], arr[k] = arr[k], arr[n]
         if debug:
-            print('k:{} exchange:{} and {}'.format(k, arr[n], arr[k]))
+            print(f'k:{k} exchange:{arr[n]} and {arr[k]}')
             show_array(arr)
 
 def get_array(max_size=20):

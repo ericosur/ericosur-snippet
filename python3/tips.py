@@ -21,7 +21,7 @@ class Tip():
     @staticmethod
     def title(s):
         ''' show title '''
-        print('=====> {} =====>'.format(s))
+        print(f'=====> {s} =====>')
 
     def tip1(self):
         ''' tip1 '''

@@ -68,7 +68,7 @@ def main(argv: list):
             print('  another way:')
             obj.loop_collatz(n)
         except ValueError:
-            print('{} is not a valid integer'.format(e))
+            print(f'{e} is not a valid integer')
 
 if __name__ == '__main__':
     print(__doc__)
