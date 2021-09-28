@@ -51,15 +51,38 @@ class Solution():
         with open(self.fn, 'wb') as binfile:
             binfile.write(self.buffer)
         del self.buffer
-        print('output to file {}'.format(self.fn))
+        print(f'output to file {self.fn}')
 
         self.ask()
 
+def test(files):
+    ''' test '''
+    for f in files:
+        print(f)
+
 def main():
     '''main function'''
-    print(__doc__)
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("files", type=str, nargs='*', help="specified files to dump")
+    parser.add_argument("-d", "--demo", action='store_true', default=False, help='apply demo mode')
+
+    args = parser.parse_args()
+
+    if args.demo:
+        #print('demo:', args.demo)
+        test([])
+        return
+
+    if args.files == []:
+        parser.print_help()
+        return
+
+    #print(__doc__)
     testrun = Solution()
     testrun.run()
+
+    test(args.files)
+
 
 if __name__ == '__main__':
     main()

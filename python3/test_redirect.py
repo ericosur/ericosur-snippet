@@ -20,10 +20,10 @@ def main():
     rep = 1000000
     try:
         for i in range(rep):
-            print('stdout: {}'.format(i))
-            print_stderr('stderr: {}'.format(i))
+            print(f'stdout: {i}')
+            print_stderr(f'stderr: {i}')
     except KeyboardInterrupt:
-        print('KeyboardInterrupt at:', i)
+        print(f'KeyboardInterrupt at: {i}')
         sys.exit(1)
 
 if __name__ == '__main__':

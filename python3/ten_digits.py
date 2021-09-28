@@ -29,7 +29,7 @@ class Solution():
             #print('picked:', a)
             try:
                 m = ''.join(a)
-                #print('m:{} len:{}'.format(m, len(m)))
+                #print(f'm:{m} len:{len(m)}')
                 if int(m) >= 1e9:
                     break
             except ValueError:
@@ -57,7 +57,7 @@ class Solution():
         '''
         begin = self.start
         arr = list(begin)
-        print('begin: {}, remove: {}'.format(begin, remove_part))
+        print(f'begin: {begin}, remove: {remove_part}')
         res = []
         for cc in list(remove_part):
             i = arr.index(cc)
@@ -78,12 +78,12 @@ class Solution():
             s = ''.join(ii)
             arr.append(int(s))
 
-        #print('max:{}, cnt:{}'.format(max(arr), cnt))
+        #print(f'max:{max(arr)}, cnt:{cnt}')
         # find the max number in all combination
         mpart = str(max(arr))
         # get the left part, remove the max number digits
         misc = self.get_left(mpart)
-        print("max: {}, misc: {}".format(mpart, misc))
+        print(f"max: {mpart}, misc: {misc}")
 
     def test_02(self):
         ''' test '''

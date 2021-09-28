@@ -10,7 +10,7 @@ def main():
     '''main function'''
     STR = '黿鼇龜鼈竈黿鼇龜鼈竈黿鼇龜鼈竈'
     for cc in list(STR):
-        print('ch: {} codepoint: {}'.format(cc, hex(ord(cc))))
+        print(f'ch: {cc} codepoint: {ord(cc)}')
 
 if __name__ == '__main__':
     main()

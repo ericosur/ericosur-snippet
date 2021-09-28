@@ -19,7 +19,7 @@ def get_freq(s: str):
         else:
             d[c] = 1
     for k in sorted(d.keys()):
-        print('{}: {}, '.format(k, d[k]), end='')
+        print(f'{k}: {d[k]}, ', end='')
 
 def test_group(a: list):
     ''' test group returns a dict '''
