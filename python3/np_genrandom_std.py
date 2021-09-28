@@ -36,8 +36,11 @@ class GenerateStdNormal():
     @staticmethod
     def show(arr: list):
         ''' show '''
-        print('{:.2f}, {:.2f}, {:.2f}, {:.2f}, {:.2f}, {}'.format(np.amax(arr), np.amin(arr),
-            np.mean(arr), np.median(arr), np.std(arr), len(arr)))
+        print(f'{np.amax(arr):.2f}, {np.amin(arr):.2f}, ', end='')
+        print(f'{np.mean(arr):.2f}, {np.median(arr):.2f}, ', end='')
+        print(f'{np.std(arr):.2f}, {len(arr)}')
+
+
 
     def test2(self):
         ''' use lambda, add 4 into all elements '''
@@ -56,7 +59,7 @@ class GenerateStdNormal():
     @staticmethod
     def header():
         ''' print header '''
-        print('   max,   min,  mean, median, stddev')
+        print('  max,   min,  mean, median, stddev')
 
     def action(self):
         ''' flow '''
@@ -65,7 +68,9 @@ class GenerateStdNormal():
         for _ in range(10):
             r = self.fill_stdnorm()
             rb = self.filter_arr(r)
-            print("filter:", r.mean()-n*r.std(), r.mean()+n*r.std())
+            llimit = r.mean()-n*r.std()
+            rlimit = r.mean()+n*r.std()
+            print(f"filter:{llimit:.2f}  {rlimit:.2f}")
             self.show(r)
             self.show(rb)
             print('-' * 40)

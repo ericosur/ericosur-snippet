@@ -20,7 +20,7 @@ def calc_sphere(t):
         #c = math.pi * r2
         a = 4.0 * math.pi * r2
         v = 4.0 / 3.0 * math.pi * r2 * r
-        print('r: {}, a: {:.3f}, v: {:.3f}'.format(r, a, v))
+        print(f'r: {r}, a: {a:.3f}, v: {v:.3f}')
     except ValueError:
         print('value error:', t)
 

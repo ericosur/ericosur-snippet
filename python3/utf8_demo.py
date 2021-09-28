@@ -17,7 +17,7 @@ def main():
         for i in range(初值, 最大值+1):
             總和 += i
 
-    print('在重覆 {} 次後，總和為: {}'.format(次數, 總和))
+    print(f'在重覆 {次數} 次後，總和為: {總和}')
 
 if __name__ == '__main__':
     main()

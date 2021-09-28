@@ -74,13 +74,13 @@ def main():
     MAX_REPEAT_TIME = 10
 
     with CalcFib() as fibv:
-        print('before loop, fibvalues has {} entries'.format(fibv.get_pickle_len()))
+        print(f'before loop, fibvalues has {fibv.get_pickle_len()} entries')
 
         for _ in range(MAX_REPEAT_TIME):
             n = random.randint(1, MAX_UPPER_LIMIT)
-            print('fib({}) = {}'.format(n, fibv.fib(n)))
+            print(f'fib({n}) = {fibv.fib(n)}')
 
-        print('after loop, fibvalues has {} entries'.format(fibv.get_pickle_len()))
+        print('after loop, fibvalues has {fibv.get_pickle_len()} entries')
 
 
 if __name__ == '__main__':

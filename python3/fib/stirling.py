@@ -33,9 +33,9 @@ def main():
         real = cfact.factorial(n)
         ret = float(real)
         est = est_fib(n)
-        print("{}! = {}".format(n, ret))
-        print(" est = {}".format(est))
-        print('abs = {}'.format(abs(ret-est)))
+        print(f"{n:>10d}! = {ret}")
+        print(f"        est = {est}")
+        print(f'        abs = {abs(ret-est)}')
 
 if __name__ == '__main__':
     main()

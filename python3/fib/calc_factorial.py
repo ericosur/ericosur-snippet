@@ -69,19 +69,19 @@ def calc(n):
     with CalcFactorial() as fact:
         #print('before loop, has {} entries'.format(foo.get_pickle_len()))
         ret = fact.factorial(n)
-        print("{}! = {}, log10()={}".format(n, ret, ceil(log10(ret))))
+        print(f"{n}! = {ret}, log10()={ceil(log10(ret))}")
         #sret = str(ret)
-        #print('len:{}'.format(len(sret)))
-        #print(' after loop, has {} entries'.format(foo.get_pickle_len()))
+        #print(f'len:{len(sret)}')
+        #print(f' after loop, has {foo.get_pickle_len()} entries')
 
 
 if __name__ == '__main__':
     try:
         if len(sys.argv) > 1:
             for v in sys.argv[1:]:
-                print('try v: {}'.format(v))
+                print(f'try v: {v}')
                 calc(int(v))
         else:
             calc(170)
     except ValueError as e:
-        print('shit happens at {}, exception: {}'.format(v, e))
+        print('shit happens at {v}, exception: {e}')

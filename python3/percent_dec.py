@@ -42,7 +42,7 @@ def main(argv):
     for inp in argv:
         oup = percent_dec(inp)
         #show_unicode_escape(tok)
-        print('input: {}\noutput: {}'.format(inp, oup))
+        print(f'input: {inp}\noutput: {oup}')
 
 def argp():
     ''' prepare and parse CLI arguments '''

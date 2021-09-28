@@ -38,7 +38,7 @@ class Singleton(object):
 
     def __str__(self):
         ''' stringify '''
-        return '{}'.format(self.value)
+        return str(self.value)
 
     @staticmethod
     def do_something():
