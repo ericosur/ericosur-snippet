@@ -11,7 +11,7 @@ def print_sep():
 
 def strify(nn):
     ''' strify '''
-    return '{:02}'.format(nn)
+    return f'{nn:02}'
 
 # return: float64
 def str2sec(timestr: str):
@@ -35,7 +35,7 @@ def str2sec(timestr: str):
             seconds = float(arr[1])
             total = minutes + seconds
     except ValueError as e:
-        print('ValueError with {}: {}'.format(timestr, e.args))
+        print(f'ValueError with {timestr}: {e.args}')
     return total
 
 def sec2str(sec: str):
@@ -47,7 +47,7 @@ def sec2str(sec: str):
     try:
         nn = int(sec)
     except ValueError:
-        print('ValueError at {}'.format(sec))
+        print(f'ValueError at {sec}')
         nn = 0
     while nn >= 60:
         qq = nn / 60

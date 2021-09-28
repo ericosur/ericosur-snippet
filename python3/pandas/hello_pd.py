@@ -8,7 +8,7 @@ import pandas as pd
 
 def main():
     ''' main '''
-    print("pd.__version__: {}".format(pd.__version__))
+    print(f"pd.__version__: {pd.__version__}")
 
     print('[WARN] This is not a current updated rates!!!')
     FILEN = 'rates.csv'
@@ -23,10 +23,12 @@ def main():
     # filter values from this column
     mask1 = (rates[CN] > 30.0)
     mask2 = (rates[CN] < 1.0)
-    print('apply mask1 | mask2 ===>\n{}'.format(rates[mask1 | mask2]))
+    t = rates[mask1 | mask2]
+    print(f'apply mask1 | mask2 ===>\n{t}')
 
     mask3 = (rates['CName'].isin(['USD', 'GBP', 'EUR']))
-    print('apply mask3 ===>\n{}'.format(rates[mask3]))
+    t = rates[mask3]
+    print(f'apply mask3 ===>\n{t}')
 
 if __name__ == '__main__':
     main()

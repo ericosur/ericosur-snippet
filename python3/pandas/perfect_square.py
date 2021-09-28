@@ -29,7 +29,7 @@ def main():
         print("remove existed file...")
         os.remove(OUTPUT_CSV)
 
-    print("generating {}...".format(OUTPUT_CSV))
+    print(f"generating {OUTPUT_CSV}...")
     gen_csv(OUTPUT_CSV)
 
 

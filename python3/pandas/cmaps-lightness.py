@@ -31,7 +31,7 @@ _DC = {'Perceptually Uniform Sequential': 1.4, 'Sequential': 0.7,
 # Indices to step through colormap
 x = np.linspace(0.0, 1.0, 100)
 
-
+# pylint: disable=too-many-locals
 def draw(cmap_category, cmap_list):
     ''' draw '''
 
