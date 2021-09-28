@@ -17,7 +17,7 @@ class Solution():
     @staticmethod
     def getcn(col, row):
         ''' get cell name '''
-        cn = '{}{}'.format(col, row)
+        cn = f'{col}{row}'
         return cn
 
 
@@ -48,7 +48,7 @@ class Solution():
         ''' output '''
         for kk in sorted(data_dict.keys()):
             vv = data_dict[kk]
-            print('[{}]__{}__'.format(kk, vv))
+            print(f'[{kk}]__{vv}__')
 
     def check(self, dict1, src_dict):
         ''' compare values '''
@@ -67,14 +67,14 @@ class Solution():
                 sh[src_vv[0]] = vv[1]
             else:
                 no_same += 1
-        print('diff({}), same({}), save xlsx...'.format(no_diff, no_same))
+        print(f'diff({no_diff}), same({no_same}), save xlsx...')
         wb.save(filename=self.src_xlsx)
         #wb.save(filename='new.xlsx')
 
     def run(self):
         ''' run '''
         fn = 'Arabic.XLSX'
-        print('process {}...'.format(fn))
+        print(f'process {fn}...')
         self.trans_dict = self.read_xlsx(fn, 2, 47, 'D')
         #self.output(self.ar_dict)
         self.src_dict = self.read_xlsx(self.src_xlsx, 2, 448, 'D')
@@ -83,14 +83,14 @@ class Solution():
         sleep(1)
 
         fn = 'RUssian.XLSX'
-        print('process {}...'.format(fn))
+        print(f'process {fn}...')
         self.trans_dict = self.read_xlsx(fn, 2, 47, 'G')
         self.src_dict = self.read_xlsx(self.src_xlsx, 2, 448, 'G')
         self.check(self.trans_dict, self.src_dict)
         sleep(1)
 
         fn = 'Portuguese and Spanish.XLSX'
-        print('process {}...'.format(fn))
+        print(f'process {fn}...')
         self.trans_dict = self.read_xlsx(fn, 2, 47, 'E')
         self.src_dict = self.read_xlsx(self.src_xlsx, 2, 448, 'E')
         self.check(self.trans_dict, self.src_dict)

@@ -8,9 +8,9 @@
 def hooray(obj, stm):
     ''' hooray '''
     if hasattr(obj, stm):
-        print('has {}'.format(stm))
+        print(f'has {stm}')
     else:
-        print('NO such attr: {}'.format(stm))
+        print(f'NO such attr: {stm}')
 
 def main():
     ''' main '''

@@ -43,17 +43,25 @@ class Solution():
         ''' get string of today '''
         return Solution.date2str(date.today())
 
+    @staticmethod
+    def get_eoy():
+        t = date.today()
+        nd = date(t.year, 12, 31)
+        #print(f'eoy: {nd}')
+        return nd.__str__()
+
 def main():
     ''' main '''
     def test(m, n):
         ''' test '''
         r = Solution.get_between_dates(m, n)
-        print('{} days'.format(r))
+        print(f'Days between {m} to {n} is {r} days')
 
     test('2020-01-01', '2020-01-02')
     test('2020-01-01', '2020-12-31')
     test('2019-01-01', '2019-12-31')
-    test(Solution.get_today_str(), '2020-12-31')
+    print('Days from today to end of this year...')
+    test(Solution.get_today_str(), Solution.get_eoy())
 
 
 

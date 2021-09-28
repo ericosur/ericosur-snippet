@@ -23,7 +23,7 @@ def hash_factory(fn, hash_func):
 def get_hash(data: bytes, hash_name: str) -> str:
     ''' get digest hash '''
     if not hash_name in hashlib.algorithms_guaranteed:
-        raise ValueError('algorithm ({}) is not in guaranteed list'.format(hash_name))
+        raise ValueError(f'algorithm ({hash_name}) is not in guaranteed list')
 
     m = hashlib.new(hash_name)
     m.update(data)
