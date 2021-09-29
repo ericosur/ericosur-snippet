@@ -10,14 +10,12 @@ import argparse
 import re
 import os
 
-
-
-
 class Solution():
+    ''' Solution for bmpf table lookup '''
     def __init__(self):
         self.data = 'bpmf.txt'
         self.binf = 'bp.txt'
-        self.mydict = dict()
+        self.mydict = {}
         self.debug = False
         self.ime = list(',-./0123456789;abcdefghijklmnopqrstuvwxyz')
         self.load_table()
@@ -27,24 +25,24 @@ class Solution():
         cnt = 0
         if os.path.exists(self.binf):
             self.data = self.binf
-        with open(self.data, "rt") as f:
+        with open(self.data, "rt", encoding='utf8') as f:
             for ln in f.readlines():
                 cnt += 1
                 m = re.search(r'^(\S+) (\S+)$', ln)
                 if m:
                     if self.debug:
-                        print('{} <=> {}'.format(m[1], m[2]))
+                        print(f'{m[1]} <=> {m[2]}')
                     if not m[1] in self.mydict:
                         self.mydict[m[1]] = m[2]
         if self.debug:
             print('cnt:', cnt)
             print('len:', len(self.mydict))
         if os.path.exists(self.binf):
-            print('{} exists'.format(self.binf))
+            print(f'{self.binf} exists')
         else:
-            with open(self.binf, "wt") as fo:
-                for kk in self.mydict:
-                    print('{} {}'.format(kk, self.mydict[kk]), file=fo)
+            with open(self.binf, "wt", encoding='utf8') as fo:
+                for kk, vv in self.mydict.items():
+                    print(f'{kk} {vv}', file=fo)
 
     def test(self):
         ''' test '''
@@ -67,13 +65,13 @@ class Solution():
         key = key.strip()
         if key in self.mydict:
             return self.mydict[key]
-        else:
-            return None
+
+        return None
 
     def parse_chars(self, inp):
         ''' parse '''
         s = ''
-        ll = list()
+        ll = []
         for cc in list(inp):
             if not cc in self.ime:
                 ll.append(s)
@@ -81,7 +79,8 @@ class Solution():
                 continue
             if cc in ['3','4','6','7',' ']:
                 s = s + cc
-                if self.debug: print('append:', s)
+                if self.debug:
+                    print('append:', s)
                 ll.append(s)
                 s = ''
             else:
@@ -96,6 +95,7 @@ class Solution():
         self.run(t)
 
     def run(self, sentence):
+        ''' get a sentence to parse '''
         ll = self.parse_chars(sentence)
         self.lookup_list(ll)
 
@@ -111,15 +111,18 @@ def main():
     args = parser.parse_args()
 
     if args.demo:
-        foo = Solution()
-        foo.demo()
-    elif len(args.strings) == 0:
+        obj = Solution()
+        obj.demo()
+        return
+
+    if len(args.strings) == 0:
         parser.print_help()
-    else:
-        #print(args.strings)
-        foo = Solution()
-        for s in args.strings:
-            foo.run(s)
+        return
+
+    obj = Solution()
+    #print(args.strings)
+    for s in args.strings:
+        obj.run(s)
 
 
 if __name__ == '__main__':
