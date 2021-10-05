@@ -5,10 +5,10 @@
 
 def main():
     ''' main '''
-    with open("twopp.txt", "rt") as f:
+    with open("twopp.txt", "rt", encoding='utf8') as f:
         for l in f.readlines():
             c = l.strip()
-            print('[{}]: U+{:04X}'.format(c, ord(c)))
+            print(f'[{c}]: U+{ord(c):04X}')
 
 if __name__ == '__main__':
     main()

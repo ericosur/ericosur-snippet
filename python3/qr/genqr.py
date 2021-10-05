@@ -28,7 +28,7 @@ except ImportError:
 def get_random_filename():
     ''' random hex '''
     i = random.randint(0, 0xffffffff)
-    return '{:08x}.png'.format(i)
+    return f'{i:08x}.png'
 
 def apply_shiftjis(s: str):
     ''' apply shift-jis encoding '''

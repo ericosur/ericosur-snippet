@@ -21,7 +21,7 @@ def append_path(fn):
     home = os.environ.get('HOME')
     path = home + '/Private/' + fn
     if not isfile(path):
-        print('[FAIL] key file not exist: {}'.format(path))
+        print(f'[FAIL] key file not exist: {path}')
         return None
     return path
 
@@ -45,8 +45,8 @@ def main():
     #yagmail.register('ericosur@gmail.com', appkey)
     yag = yagmail.SMTP('ericosur@gmail.com', appkey)
     to = email
-    subject = 'yagmail + pushover @{}'.format(int(time.time()))
-    body = 'img @imgur: {}'.format(imgurl)
+    subject = f'yagmail + pushover @{int(time.time())}'
+    body = f'img @imgur: {imgurl}'
     img = '/home/rasmus/Pictures/picked/794724259_0f5edb1cd4.jpg'
     yag.send(to=to, subject=subject, contents=[body, img])
 

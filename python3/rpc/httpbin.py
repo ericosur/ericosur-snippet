@@ -31,7 +31,7 @@ def show_results(r):
         print('may not printable...')
         #print('r.content', r.content)
         epoch = time.time()
-        fn = content_type.replace('/', '-{:.0f}.'.format(epoch))
+        fn = content_type.replace('/', f'-{epoch:.0f}.')
         # will overwrite if file exists
         with open(fn, 'wb') as ofh:
             ofh.write(r.content)
@@ -64,11 +64,11 @@ def test2():
     try:
         n = 3
         offset = 5
-        url = 'https://httpbin.org/links/{}/{}'.format(n, offset)
+        url = f'https://httpbin.org/links/{n}/{offset}'
         r = requests.get(url)
         show_results(r)
     except ConnectionError as e:
-        print("type: {}, args: {}".format(type(e), e.args))
+        print(f"type: {type(e)}, args: {e.args}")
 
 def test3():
     '''
@@ -76,11 +76,11 @@ def test3():
     '''
     try:
         n = 32
-        url = 'https://httpbin.org/range/{}'.format(n)
+        url = f'https://httpbin.org/range/{n}'
         r = requests.get(url)
         show_results(r)
     except ConnectionError as e:
-        print("type: {}, args: {}".format(type(e), e.args))
+        print(f"type: {type(e)}, args: {e.args}")
 
 def test4():
     '''
@@ -91,7 +91,7 @@ def test4():
         r = requests.get(url)
         show_results(r)
     except ConnectionError as e:
-        print("type: {}, args: {}".format(type(e), e.args))
+        print(f"type: {type(e)}, args: {e.args}")
 
 
 def main():

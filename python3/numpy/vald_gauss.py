@@ -50,9 +50,9 @@ class ValidateGuassian():
 
     def printOut(self):
         ''' print out '''
-        print('size: {:7d}'.format(self.target_array_size), end=' ')
-        print('mean: {:8.3f}, stdev: {:6.3f}'.format(self.result_mean, self.result_stdev), end=' ')
-        print('({:.3f}, {:.3f})'.format(min(self.data_arr), max(self.data_arr)))
+        print(f'size: {self.target_array_size:7d}'.format(), end=' ')
+        print(f'mean: {self.result_mean:8.3f}, stdev: {self.result_stdev:6.3f}', end=' ')
+        print(f'({min(self.data_arr):.3f}, {max(self.data_arr):.3f})')
 
 
     def test(self):

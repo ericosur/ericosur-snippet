@@ -16,7 +16,7 @@ def test0():
     and print unicode escape sequence
     '''
     fn = 'emj.json'
-    print('test0, read {}'.format(fn))
+    print(f'test0, read {fn}')
     data = read_jsonfile(fn)
     if data is None:
         print('failed to read data from json')

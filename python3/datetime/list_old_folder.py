@@ -35,12 +35,12 @@ def showlist(folders, arg=1):
         foldertime = datetime.datetime.fromtimestamp(ctime)
         if foldertime <= ago:
             if arg == 1:
-                print("!!! {} is one month ago ({})".format(xx, foldertime))
+                print(f"!!! {xx} is one month ago ({foldertime})")
             else:
                 print(xx)
         else:
             if arg == 1:
-                print('{} is newer ({})'.format(xx, foldertime))
+                print(f'{xx} is newer ({foldertime})')
         #print xx, ":", time.strftime('%c', time.localtime(ctime))
 
 def main():

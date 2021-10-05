@@ -24,13 +24,12 @@ class PushOverBase(object):
             print('[FAIL] failed to load config')
         # default data fields
         self._title = 'pushover.py'
-        self._message = '{} at {}'.format(msg, datetime.now())
+        self._message = f'{msg} at {datetime.now()}'
         self.resp_str = None
 
     def __str__(self):
-        s = 'userkey: {}\napitoken: {}\n'.format(self.userkey, self.apitoken)
-        s += 'title: {}\nmessage: {}\ndevice: {}\n'.format(
-            self.title, self.message, self.device)
+        s = f'userkey: {self.userkey}\napitoken: {self.apitoken}\n'
+        s += f'title: {self.title}\nmessage: {self.message}\ndevice: {self.device}\n'
         return s
 
     @staticmethod
@@ -75,7 +74,7 @@ class PushOverBase(object):
         home = os.environ.get('HOME')
         keypath = home + '/Private/' + keyfile
         if not myutil.isfile(keypath):
-            print('[FAIL] key file not exist: {}'.format(keypath))
+            print(f'[FAIL] key file not exist: {keypath}')
             return False
         data = myutil.read_jsonfile(keypath)
         if data is None:

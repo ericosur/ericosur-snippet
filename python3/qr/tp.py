@@ -11,28 +11,30 @@ online gernerator: https://the-burtons.xyz/barcode-generator/
 
 import argparse
 import treepoem
-import numpy as np
+#import numpy as np
+import cv2
 
 class BarCodeTest():
+    ''' class barcode test '''
     def __init__(self, args):
-        self.isTemp = False
+        self.is_temp = False
         if args.output:
             self.output = args.output
         else:
             self.output = '/tmp/treepoem.png'
-            self.isTemp = True
+            self.is_temp = True
         self.content = args.str1
         self.verbose = args.verbose
         self.desired_size = 240
 
     def show_image(self):
         ''' show_image '''
-        import cv2
         img = cv2.imread(self.output)
-        w, h = img.shape[:2]
+        w, _ = img.shape[:2]
         #print(img.shape[:2])
         if w < self.desired_size:
-            res = cv2.resize(img, (self.desired_size, self.desired_size), interpolation=cv2.INTER_CUBIC)
+            res = cv2.resize(img, (self.desired_size, self.desired_size), \
+                interpolation=cv2.INTER_CUBIC)
         cv2.imshow('treepoem', res)
         cv2.waitKey()
 
@@ -45,9 +47,9 @@ class BarCodeTest():
             options=opts
         )
         img.convert('1').save(self.output)
-        if self.isTemp and not self.verbose:
+        if self.is_temp and not self.verbose:
             print('output temp:', self.output)
-        if not self.isTemp:
+        if not self.is_temp:
             print('output image:', self.output)
         if self.verbose:
             self.show_image()

@@ -20,11 +20,11 @@ def test(fn):
         print('file exists, use "at"')
         mode = 'at'
 
-    with open('data.txt', mode) as datafile:
+    with open('data.txt', mode, encoding='utf8') as datafile:
         for elem in arr:
-            print('{}'.format(elem), file=datafile)
+            print(f'{elem}', file=datafile)
             cnt += 1
-    print('cnt: {}'.format(cnt))
+    print(f'cnt: {cnt}')
 
 def main():
     ''' main '''

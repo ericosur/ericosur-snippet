@@ -31,10 +31,10 @@ class Foobar():
     def __init__(self, msg):
         (self.userkey, self.apitoken) = self.get_apikey()
         self.title = 'pushover.py'
-        self.message = '{}: {} at {}'.format(get_host(), msg, datetime.now())
+        self.message = f'{get_host()}: {msg} at {datetime.now()}'
 
     def __str__(self):
-        return 'userkey: {}\napitoken: {}'.format(self.userkey, self.apitoken)
+        return 'userkey: {self.userkey}\napitoken: {self.apitoken}'
 
     def shoot(self):
         ''' shoot notification '''
@@ -52,7 +52,7 @@ class Foobar():
                          "device": self.default_mobile_device
                      }), {"Content-type": "application/x-www-form-urlencoded"})
         resp = conn.getresponse()
-        print('status: {} reason: {}'.format(resp.status, resp.reason))
+        print(f'status: {resp.status} reason: {resp.reason}')
 
     def set_title(self, title):
         ''' set title '''
@@ -76,7 +76,7 @@ class Foobar():
         home = os.environ.get('HOME')
         keypath = home + '/Private/' + keyfile
         if not myutil.isfile(keypath):
-            print('[FAIL] key file not exist: {}'.format(keypath))
+            print(f'[FAIL] key file not exist: {keypath}')
             return None, None
         data = myutil.read_jsonfile(keypath)
         if data is None:

@@ -24,8 +24,8 @@ def test2():
 
 def get_statistics(arr):
     ''' get statistics '''
-    print('min: {}, max: {}'.format(np.min(arr), np.max(arr)))
-    print('std: {}, mean: {} avg: {}'.format(np.std(arr), np.mean(arr), np.average(arr)))
+    print(f'min: {np.min(arr)}, max: {np.max(arr)}')
+    print(f'std: {np.std(arr)}, mean: {np.mean(arr)} avg: {np.average(arr)}')
 
 def test():
     ''' test '''
@@ -33,7 +33,7 @@ def test():
     print('array filled with 0 to 1')
     get_statistics(arr)
     mu, sigma = 0.5, 0.25
-    print('array filled with normal distribution mu:{} sigma:{}'.format(mu, sigma))
+    print(f'array filled with normal distribution mu:{mu} sigma:{sigma}')
     arr = np.random.normal(mu, sigma, MAXCNT)
     get_statistics(arr)
 

@@ -19,7 +19,7 @@ except ImportError:
 def show_unicodedata(u):
     ''' main '''
     for i, c in enumerate(u):
-        print('{}: {}  {:04x}  {}'.format(i, c, ord(c), unicodedata.category(c), end=" "))
+        print(f'{i}: {c}  {ord(c):04x}  {unicodedata.category(c)}', end=" ")
         print(unicodedata.name(c))
         try:
             # Get numeric value of second character

@@ -30,7 +30,7 @@ class Solution:
 
     def print_festival(self):
         ''' print festivals, using English or Chinese '''
-        print("----- print all festivals on {} in chinese: -----".format(self.year))
+        print(f"----- print all festivals on {self.year} in chinese: -----")
         for fest in festivals:
             print(fest.get_lang('zh_hant'), fest(self.year))
 
@@ -59,7 +59,7 @@ class Solution:
             try:
                 (y, m) = n
                 lunar = Lunar(y, m, 1, isleap=True)
-                print('{} => {}'.format(lunar, lunar.to_date()))
+                print(f'{lunar} => {lunar.to_date()}')
             except DateNotExist:
                 #print(e)
                 pass
@@ -71,7 +71,7 @@ class Solution:
             ''' solar date to lunar date '''
             ss = Solar(yy, 2, 10)
             ll = Converter.Solar2Lunar(ss)
-            print('{} => {}'.format(ss.to_date(), ll))
+            print(f'{ss.to_date()} => {ll}')
 
         s2l(2012)
         for yy in range(2019, 2028):
