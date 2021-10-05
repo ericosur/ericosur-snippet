@@ -15,7 +15,7 @@ def get_randomorg_apikey():
     home = os.environ.get('HOME')
     keypath = home + '/' + 'Private/random-org.json'
     if not myutil.isfile(keypath):
-        print('[FAIL] key file not exist: {}'.format(keypath))
+        print(f'[FAIL] key file not exist: {keypath}')
         return ""
     data = myutil.read_jsonfile(keypath)
     apiKey = data.get('apiKey')
@@ -26,7 +26,8 @@ def get_randomorg_apikey():
 
 def main():
     ''' main '''
-    print("apiKey: {}".format(get_randomorg_apikey()))
+    key = get_randomorg_apikey()
+    print(f"apiKey: {key}")
 
 if __name__ == '__main__':
     main()

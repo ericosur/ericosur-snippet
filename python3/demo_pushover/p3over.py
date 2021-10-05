@@ -39,7 +39,7 @@ class PushOverUrllib(PushOverBase):
                          "sound": "incoming"
                      }), {"Content-type": "application/x-www-form-urlencoded"})
         resp = conn.getresponse()
-        self.resp_str = 'status: {} reason: {}'.format(resp.status, resp.reason)
+        self.resp_str = f'status: {resp.status} reason: {resp.reason}'
         self.show_resp()
 
 def main():

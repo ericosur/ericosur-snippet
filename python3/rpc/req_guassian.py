@@ -29,15 +29,15 @@ class RequestGuassian():
     def load_setting(self):
         ''' load setting '''
         if not myutil.isfile(self.sett_json):
-            print('[FAIL] setting file not found: {}'.format(self.sett_json))
+            print(f'[FAIL] setting file not found: {self.sett_json}')
         sett = myutil.read_jsonfile(self.sett_json)
         self.data_file_name = sett.get('data_file_name')
         self.resp_json = sett.get('resp_json')
 
     def dump(self):
         ''' dump varialbes '''
-        print('data_file_name: {}'.format(self.data_file_name))
-        print('resp_json: {}'.format(self.resp_json))
+        print(f'data_file_name: {self.data_file_name}')
+        print(f'resp_json: {self.resp_json}')
         #print('apiKey: {}'.format(self.apiKey))
 
     @staticmethod
@@ -47,7 +47,7 @@ class RequestGuassian():
 
     def save_resp(self, resp):
         ''' save resp to json file '''
-        with open(self.resp_json, 'w') as outj:
+        with open(self.resp_json, 'wt', encoding='utf8') as outj:
             outj.write(resp)
 
     def save_data(self, arr):
@@ -56,9 +56,9 @@ class RequestGuassian():
         if myutil.isfile('data.txt'):
             #print('file exists, use "at"')
             mode = 'at'
-        with open(self.data_file_name, mode) as datafile:
+        with open(self.data_file_name, mode, encoding='utf8') as datafile:
             for elem in arr:
-                print('{}'.format(elem), file=datafile)
+                print(f'{elem}', file=datafile)
 
     def action(self):
         '''
@@ -90,7 +90,7 @@ class RequestGuassian():
         resp = requests.post(
             url, data=json.dumps(payload), headers=headers).json()
 
-        print('save resp into file: {}'.format(self.resp_json))
+        print('save resp into file: {self.resp_json}')
         self.save_resp(json.dumps(resp))
 
         # responded id should the same as request
@@ -100,14 +100,14 @@ class RequestGuassian():
         # fetch a field not existed
         ret_data = resp.get('abc')
         if not ret_data is None:
-            print('ret_data: {}'.format(ret_data))
+            print(f'ret_data: {ret_data}')
 
         ret_data = []
         # get results
         if resp.get('result') is None:
             print('[FAIL] no result')
             errmsg = resp.get('error').get('message')
-            print('[FAIL] error message: {}'.format(errmsg))
+            print(f'[FAIL] error message: {errmsg}')
             return
 
         ret_data = resp.get('result').get('random').get('data')
@@ -115,7 +115,7 @@ class RequestGuassian():
             print('[FAIL] ret_data is None')
             return
 
-        print('save to data file: {}'.format(self.data_file_name))
+        print(f'save to data file: {self.data_file_name}')
         self.save_data(ret_data)
 
 

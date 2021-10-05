@@ -17,11 +17,11 @@ def main(argv):
         argv.append('2330')
 
     for stockid in argv:
-        url = 'https://goodinfo.tw/StockInfo/StockDetail.asp?STOCK_ID={}'.format(stockid)
+        url = f'https://goodinfo.tw/StockInfo/StockDetail.asp?STOCK_ID={stockid}'
         print(url)
         get_qrcode(url)
 
-        nfn = 'goodinfo-{}.png'.format(stockid)
+        nfn = f'goodinfo-{stockid}.png'
         os.rename('image.png', nfn)
         print('rename as', nfn)
 

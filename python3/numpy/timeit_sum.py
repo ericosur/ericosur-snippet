@@ -26,7 +26,8 @@ class TestSum(object):
     @staticmethod
     def print_duration(start, end, msg=''):
         ''' print duration '''
-        print('{} duration: {:.3f} seconds (wall clock)'.format(msg, end - start))
+        between = end - start
+        print(f'{msg} duration: {between:.3f} seconds (wall clock)')
 
     def test_sum(self):
         ''' test_sum '''

@@ -47,7 +47,7 @@ def main():
             ans = do_request(r, 60)
         else:
             ans = do_request(r)
-        print('pos {}: {}'.format(r, ans))
+        print(f'pos {r}: {ans}')
         # I do not know if such server would block massive continuous requests
         # so make a little sleep
         time.sleep(1.57)

@@ -52,7 +52,7 @@ def main():
     ''' main '''
     r0 = timeit.timeit("test1()", setup='from __main__ import test1', number=DEFAULT_NUMBER)
     r1 = timeit.timeit("test2()", setup='from __main__ import test2', number=DEFAULT_NUMBER)
-    print('r0: {}\nr1: {}\n'.format(r0, r1))
+    print(f'r0: {r0}\nr1: {r1}\n')
 
 if __name__ == '__main__':
     main()

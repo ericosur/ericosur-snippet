@@ -44,12 +44,12 @@ def main():
     # fetch a field not existed
     ret_data = resp.get('abc')
     if not ret_data is None:
-        print('ret_data: {}'.format(ret_data))
+        print(f'ret_data: {ret_data}')
 
     # get results
     ret_data = resp.get('result').get('random').get('data')
     if not ret_data is None:
-        print('ret_data: {}'.format(ret_data))
+        print(f'ret_data: {ret_data}')
 
 
 if __name__ == "__main__":

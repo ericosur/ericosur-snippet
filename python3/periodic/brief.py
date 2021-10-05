@@ -13,7 +13,7 @@ def read_jsonfile(fn, debug=False):
     specify json filename and return whole json object
     '''
     if debug:
-        print('load json from {}'.format(fn))
+        print(f'load json from {fn}')
     if not os.path.exists(fn):
         print('file not found')
         return None
@@ -24,18 +24,19 @@ def read_jsonfile(fn, debug=False):
 #        data = json.load(sec_file)
 
     # kiss method #2
-    data = json.load(open(fn))
-
+    with open(fn, 'rt', encoding='utf8') as fobj:
+        data = json.load(fobj)
     return data
+
 
 def main():
     ''' main '''
     data = read_jsonfile('periodic-table-lookup.json')
-    for i, n in enumerate(data['order']):
-        #print(i, n)
+    for n in data['order']:
         t = data[n]
-        print('{} {} {}'.format(t['number'], t['symbol'], t['name']))
-
+        num = t['number']
+        if num >= 82:
+            print(f"{t['number']:3d} {t['symbol']:3s} {t['name']:22s}")
 
 if __name__ == '__main__':
     main()

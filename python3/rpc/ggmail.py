@@ -69,7 +69,7 @@ class FoolMail():
         home = os.environ.get('HOME')
         path = home + '/Private/' + fn
         if not isfile(path):
-            print('[FAIL] key file not exist: {}'.format(path))
+            print(f'[FAIL] key file not exist: {path}')
             return None
         return path
 
@@ -81,7 +81,7 @@ class FoolMail():
     def load_body(self):
         ''' load content of body from file '''
         body = None
-        with open(self.bodyfile, "rt") as bodyf:
+        with open(self.bodyfile, "rt", encoding='utf8') as bodyf:
             body = bodyf.read()
         print('finish loading body')
         return body
@@ -93,7 +93,7 @@ class FoolMail():
             yag = yagmail.SMTP(self.from_, self.appkey)
         else:
             yag = yagmail.SMTP(self.from_, oauth2_file=self.oathfile)
-        subject = '{} @{}'.format(self.subject, int(time.time()))
+        subject = f'{self.subject} @{int(time.time())}'
         ret = yag.send(to=self.to_, subject=subject,
                        contents=['please refer to my attchment', self.bodyfile])
         print(ret)

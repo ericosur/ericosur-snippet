@@ -29,12 +29,12 @@ class ValidateGuassian():
         ''' read array from file '''
         arr = []
         try:
-            with open(fn, 'rt') as ifile:
+            with open(fn, 'rt', encoding='utf8') as ifile:
                 for ln in ifile:
                     val = float(ln.strip())
                     arr.append(val)
         except IOError:
-            print('[ERROR] IOError while open: {}'.format(fn))
+            print(f'[ERROR] IOError while open: {fn}')
             print('[INFO] may execute **req_guassian.py** to generate data.txt')
             sys.exit(1)
         return arr
@@ -43,11 +43,11 @@ class ValidateGuassian():
     def save_array_to_file(arr, fn):
         ''' save array to file '''
         try:
-            with open(fn, 'wt') as ofile:
+            with open(fn, 'wt', encoding='utf8') as ofile:
                 for val in arr:
-                    print('{}'.format(val), file=ofile)
+                    print(f'{val}', file=ofile)
         except IOError as e:
-            print('Except happens: {}'.format(e))
+            print(f'Except happens: {e}')
 
     @staticmethod
     def shuffle_array(arr):
@@ -85,7 +85,7 @@ class ValidateGuassian():
 
         def _show(n, low, high):
             ''' show '''
-            print('{:.3f} not in range ({}, {}) =====>'.format(n, low, high))
+            print(f'{n:.3f} not in range ({low}, {high}) =====>')
 
         #print('median: {:.3f}\n'.format(media))
         #print('mean: {:.3f}\nstdev: {:.3f}\n'.format(mean, stdev))
@@ -112,9 +112,9 @@ class ValidateGuassian():
 
     def printOut(self):
         ''' print out '''
-        print('mean: {:.3f}, stdev: {:.3f}'.format(self.result_mean, self.result_stdev), end='')
+        print(f'mean: {self.result_mean:.3f}, stdev: {self.result_stdev:.3f}', end='')
         if self.result_mode != 0:
-            print(', mode: {:.3f}'.format(self.result_mode))
+            print(f', mode: {self.result_mode:.3f}')
         else:
             print()
 

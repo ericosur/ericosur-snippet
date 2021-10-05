@@ -10,15 +10,15 @@ def grep_keyword(data, keyword):
     for kk in data.keys():
         try:
             kk.index(keyword)
-            print('{}: {}'.format(kk, data[kk]))
+            print(f'{kk}: {data[kk]}')
         except ValueError:
             pass
 
 def dump_to_json(fn, data):
     ''' dump dict to file as json '''
-    with open(fn, 'wt') as f:
+    with open(fn, 'wt', encoding='utf8') as f:
         f.write(json.dumps(data))
-    print('output to {}'.format(fn))
+    print(f'output to {fn}')
 
 
 def main():

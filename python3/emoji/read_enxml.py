@@ -29,7 +29,7 @@ class Solution():
     ''' solution to read en.xml and output as csv-like data '''
     def __init__(self):
         self.content = None
-        self.emoji = dict()
+        self.emoji = {}
 
     @staticmethod
     def to_codepoint(cc: str):
@@ -44,7 +44,7 @@ class Solution():
     def read_file(fn):
         ''' read specified file and return file content '''
         content = None
-        with open(fn, 'rt') as fh:
+        with open(fn, 'rt', encoding='utf8') as fh:
             content = fh.read()
         return content
 
@@ -61,7 +61,7 @@ class Solution():
                 else:
                     self.emoji[key].append(i.text)
             else:
-                self.emoji[key] = list()
+                self.emoji[key] = []
                 self.emoji[key].append(Solution.to_codepoint(key))
                 self.emoji[key].append(i.text)
 
@@ -77,19 +77,19 @@ class Solution():
 
     def output_data(self):
         ''' output data '''
-        print('len: {}'.format(len(self.emoji)))
+        print(f'len: {len(self.emoji)}')
         outfn = 'output.csv'
-        with open(outfn, 'wt') as f:
+        with open(outfn, 'wt', encoding='utf8') as f:
             for _, (k, v) in enumerate(self.emoji.items()):
                 vals = Solution.value_to_string(v)
                 print(f'\"{k}\",{vals}', file=f)
-        print('output to {}'.format(outfn))
+        print(f'output to {outfn}')
 
 
     def action(self):
         ''' action '''
         for fn in ['en-basic.xml', 'en-derived.xml']:
-            print('fn: {}'.format(fn))
+            print(f'fn: {fn}')
             self.content = self.read_file(fn)
             # parsing xml and store into list()
             self.make_soup()
@@ -99,14 +99,14 @@ class Solution():
 def get_datetag():
     ''' string in UMMDD '''
     today = date.today()
-    s = 'U{:02d}{:02d}'.format(today.month, today.day)
+    s = f'U{today.month:02d}{today.day:02d}'
     return s
 
 def output_csv(data):
     ''' output data as csv format in UMMDD.csv '''
     fn = get_datetag() + '.csv'
     print('[INFO] output to:', fn)
-    with open(fn, 'wt') as csvfile:
+    with open(fn, 'wt', encoding='utf8') as csvfile:
         sw = csv.writer(csvfile, delimiter=',',
                         quotechar='"', quoting=csv.QUOTE_ALL)
         for dd in data:

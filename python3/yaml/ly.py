@@ -8,7 +8,7 @@ import yaml
 
 def main():
     ''' main '''
-    with open('invoice.yaml', 'r') as f:
+    with open('invoice.yaml', 'rt', encoding='utf8') as f:
         #data = yaml.load(f)
         data = yaml.load(f, Loader=yaml.FullLoader)
     print(data)
