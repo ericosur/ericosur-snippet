@@ -45,7 +45,7 @@ from itertools import permutations
 def get_dist(v):
     ''' v is a len=4 list '''
     #print(v)
-    t = list()
+    t = []
     t.append(abs(v[1] - v[0]))
     t.append(abs(v[2] - v[1]))
     t.append(abs(v[3] - v[2]))
@@ -79,7 +79,7 @@ def test2():
 
 def show_answer(vv):
     ''' vv is list of list '''
-    print('There are {} items for answer:'.format(len(vv)))
+    print(f'There are {len(vv)} items for answer:')
     for v in vv:
         print(v)
 
@@ -128,22 +128,22 @@ def check_rotated(m: list, n: list):
 
 def check_duplicated(pairs, v):
     ''' pairs are checked (no matter best answer or not), v is a list '''
-    print('there are {} items in pairs'.format(len(pairs)))
+    print(f'there are {len(pairs)} items in pairs')
     for i in pairs:
         if check_rotated(i, v):
-            print('dup: {} vs {}'.format(i, v))
+            print(f'dup: {i} vs {v}')
             return True
     return False
 
 def remove_duplicated(pairs):
     ''' remove duplicated '''
-    ans = list()
+    ans = []
     pivot = 0
     while len(pairs) > 0:
         try:
             head = pairs[pivot]
             #print('head:', head)
-            remove_list = list()
+            remove_list = []
             for i in pairs[pivot+1:]:
                 if check_rotated(head, i):
                     #print('dupe', head, 'vs', i)
@@ -188,8 +188,8 @@ def main():
     MAX_ELEM = 4
     pp = list(range(10))    # [0, 1, 2, 3, ..., 9]
     cnt = 0
-    max_pairs = list()
-    stat = dict()
+    max_pairs = []
+    stat = {}
 
     # why permutation not combination?
     # the depth would be different if the position of numbers changes
@@ -201,13 +201,13 @@ def main():
         inner = get_inner_loop(v)
 
         if not inner in stat:
-            stat[inner] = list()
+            stat[inner] = []
         stat[inner].append(v)
 
         if inner >= MAX_LOOP:
             max_pairs.append(v)
 
-    print('total checked: {}'.format(cnt))
+    print(f'total checked: {cnt}')
     print('=====> before removing duplicated items...')
     show_answer(max_pairs)
     max_pairs = remove_duplicated(max_pairs)
@@ -216,7 +216,7 @@ def main():
 
     print('the distribution...')
     for k in sorted(stat.keys()):
-        print('{}: {}'.format(k, len(stat[k])))
+        print(f'{k}: {len(stat[k])}')
 
 
 if __name__ == '__main__':

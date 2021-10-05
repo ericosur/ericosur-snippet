@@ -14,9 +14,6 @@ full reptend primes: 7, 17, 19, 23, 29, 47, 59, 61, 97... OEIS A001913
 Examples of primes p such that the decimal period length of 1/p is (p-1)/K
 k=3: 103, 127, 139, 331...
 
-'''
-
-'''
 http://web.ntnu.edu.tw/~algo/Substring4.html
 https://stackoverflow.com/questions/11090289/find-longest-repetitive-sequence-in-a-string
 https://xlinux.nist.gov/dads/HTML/shortestCommonSuperstring.html
@@ -36,13 +33,13 @@ def stupid_div(p):
         raise ValueError
     n = 1
     cnt = 0
-    decs = list()
+    decs = []
     first = True
     while cnt < p*Cons.multiple:
         q = n // p
         r = n % p
         if first:
-           first = False
+            first = False
         else:
             decs.append(q)
         n = r
@@ -81,7 +78,7 @@ def test(n):
     raw_digits = l2s(r)
     max_repeat = len(raw_digits)
 
-    ans = list()
+    ans = []
     s = raw_digits
     lrs = ''
     cnt = 0
@@ -97,7 +94,7 @@ def test(n):
             print('too much?')
             break
 
-    print('n = {}: raw_digits: ({})'.format(n, len(raw_digits)))
+    print(f'n = {n}: raw_digits: ({len(raw_digits)})')
     print(raw_digits)
     print('=' * 20 + ">")
 
@@ -120,6 +117,7 @@ def test(n):
 421   # 140
 '''
 def perform_test():
+    ''' shoot tests '''
     test(7)
     test(2*37)
     test(7*31)

@@ -27,7 +27,7 @@ class Solution():
         ''' check max '''
         max_value = np.dot(self.coins, self.limits)
         if self.target > max_value or self.target < 0:
-            print('impossible REACH the target({}), max({})'.format(self.target, max_value))
+            print(f'impossible REACH the target({self.target}), max({max_value})')
             return False
         return True
 
@@ -45,7 +45,7 @@ class Solution():
             sys.exit(1)
 
         MAX_FOR_PRINT = 30
-        answers = list()
+        answers = []
         self.list_all_candidate()
         for aa in self.candidates:
             # may use numpy.dot(coins, aa) if available
@@ -53,7 +53,7 @@ class Solution():
             if t == self.target:
                 answers.append(aa)
         if answers:
-            print('number of possible answers: {}'.format(len(answers)))
+            print(f'number of possible answers: {len(answers)}')
             for ii, val in enumerate(answers):
                 if ii >= MAX_FOR_PRINT:
                     print('......')
@@ -94,9 +94,9 @@ def main():
     coins = [411, 295, 161]
     limits = [8, 11, 20]
     target = 3200
-    print('target: {}'.format(target))
-    print('coins: {}'.format(coins))
-    print('limits: {}'.format(limits))
+    print(f'target: {target}')
+    print(f'coins: {coins}')
+    print(f'limits: {limits}')
     s = Solution(coins, limits, target)
     s.solve()
 

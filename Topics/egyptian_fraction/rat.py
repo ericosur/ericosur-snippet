@@ -32,12 +32,12 @@ def get_next(m, n):
 def action(m, n):
     ''' action '''
     if m >= n:
-        print('{} MUST be smaller than {}'.format(m, n))
+        print(f'{m} MUST be smaller than {n}')
         sys.exit(1)
     v = Rational(m, n)
-    print('input: {}'.format(v))
+    print(f'input: {v}')
     if v.p == 1:
-        print('{} is unit fration and stop'.format(v))
+        print(f'{v} is unit fration and stop')
         return
     while v.p != 1:
         d = get_next(v.p, v.q)

@@ -46,7 +46,7 @@ def test():
     m = 1280
     n = 1024
     (g, l) = gcd_lcm(m, n)
-    print('{} {}: {}, {}'.format(m, n, g, l))
+    print(f'{m} {n}: {g}, {l}')
 
 def test2():
     ''' test2 '''

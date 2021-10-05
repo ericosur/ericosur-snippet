@@ -41,9 +41,9 @@ def main(argv):
         sys.exit(-1)
 
     (g, l) = gcd_lcm(a, b)
-    print("gcd(%d, %d) = %d" % (a, b, g))
-    print("(%d : %d) = (%d : %d)" % (a, b, a/g, b/g))
-    print("lcm({}, {}) = {}".format(a, b, l))
+    print(f"gcd({a}, {b}) = {g}")
+    print(f"({a} : {b}) = ({a/g} : {b/g})")
+    print(f"lcm({a}, {b}) = {l}")
 
 
 if __name__ == '__main__':

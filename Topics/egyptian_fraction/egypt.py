@@ -23,7 +23,7 @@ import math
 def egyptianFraction(nr, dr):
     ''' egyptian fraction '''
     print("The Egyptian Fraction " +
-          "Representation of {0}/{1} is".format(nr, dr), end="\n")
+          f"Representation of {nr}/{dr} is", end="\n")
 
     # empty list ef to store
     # denominator
@@ -47,9 +47,9 @@ def egyptianFraction(nr, dr):
     # printing the values
     for i, m in enumerate(ef):
         if i != len(ef) - 1:
-            print(" 1/{0} +".format(m), end='')
+            print(f" 1/{m} +", end='')
         else:
-            print(" 1/{0}".format(m), end='')
+            print(f" 1/{m}", end='')
     print()
 
 def main():
