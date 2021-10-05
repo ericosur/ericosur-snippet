@@ -11,9 +11,9 @@ substring in str
 This code is contributed by ita_c
 '''
 
-def longestRepeatedSubstring(str):
-
-    n = len(str)
+def longestRepeatedSubstring(msg):
+    ''' longest repeated sub string '''
+    n = len(msg)
     LCSRe = [[0 for x in range(n + 1)]
                 for y in range(n + 1)]
 
@@ -27,14 +27,13 @@ def longestRepeatedSubstring(str):
 
             # (j-i) > LCSRe[i-1][j-1] to remove
             # overlapping
-            if (str[i - 1] == str[j - 1] and
-                LCSRe[i - 1][j - 1] < (j - i)):
+            if msg[i - 1] == msg[j - 1] and LCSRe[i - 1][j - 1] < (j - i):
                 LCSRe[i][j] = LCSRe[i - 1][j - 1] + 1
 
                 # updating maximum length of the
                 # substring and updating the finishing
                 # index of the suffix
-                if (LCSRe[i][j] > res_length):
+                if LCSRe[i][j] > res_length:
                     res_length = LCSRe[i][j]
                     index = max(i, index)
 
@@ -44,14 +43,19 @@ def longestRepeatedSubstring(str):
     # If we have non-empty result, then insert
     # all characters from first character to
     # last character of string
-    if (res_length > 0):
+    if res_length > 0:
         for i in range(index - res_length + 1,
                                     index + 1):
-            res = res + str[i - 1]
+            res = res + msg[i - 1]
 
     return res
 
+def main():
+    ''' main '''
+    text = "geeksforgeeks"
+    print(longestRepeatedSubstring(text))
+
+
 # Driver Code
 if __name__ == "__main__":
-    str = "geeksforgeeks"
-    print(longestRepeatedSubstring(str))
+    main()

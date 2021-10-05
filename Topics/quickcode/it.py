@@ -13,12 +13,12 @@ class Solution():
     def __init__(self):
         self.all_vals = set()
         self.csv_vals = set()
-        self.radicals = dict()
-        self.table = dict()
+        self.radicals = {}
+        self.table = {}
 
     def read_file(self, fn):
         ''' read file '''
-        with open(fn, 'r') as f:
+        with open(fn, 'rt', encoding='utf8') as f:
             for ll in f:
                 m = re.search(r'[A-Z][A-Z]', ll)
                 if m:
@@ -34,7 +34,7 @@ class Solution():
 
     def read_table(self, fn):
         ''' read table '''
-        with open(fn, 'r') as f:
+        with open(fn, 'rt', encoding='utf8') as f:
             for ll in f:
                 m = re.findall(r'^([a-z][a-z])\s+(\S+)$', ll)
                 if m:
@@ -48,14 +48,14 @@ class Solution():
         print('list radicals not listed at table #1, #2, #3, #7 =====>')
         for _, ll in enumerate(list_diff):
             #print('[{}] {}: {}'.format(ii, ll, self.table[ll]))
-            print('{},{}'.format(ll, self.table[ll]))
+            print(f'{ll},{self.table[ll]}')
 
     def solve(self):
         ''' solve '''
         self.read_table('table.txt')    # whole boshiamy radicals
         self.read_file('gg.csv')        # 4 part of two-code table
         self.make_all_combination()
-        print('len all({}) csv({})'.format(len(self.all_vals), len(self.csv_vals)))
+        print(f'len all({len(self.all_vals)}) csv({len(self.csv_vals)})')
         diff = self.all_vals.difference(self.csv_vals)
         list_diff = list(diff)
         list_diff.sort()

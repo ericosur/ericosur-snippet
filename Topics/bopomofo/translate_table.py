@@ -19,8 +19,8 @@ class Solution():
         self.fn = fn
         self.key = ''
         self.val = ''
-        self.words = dict()
-        self.chars = dict()
+        self.words = {}
+        self.chars = {}
 
     def parse_one_line(self):
         ''' parse one line '''
@@ -31,7 +31,7 @@ class Solution():
             if cc in self.chars:
                 phs = self.chars[cc]
             else:
-                phs = list()
+                phs = []
             phs.append(self.key)
             self.chars[cc] = phs
 
@@ -40,7 +40,7 @@ class Solution():
         key=,-./0123456789;abcdefghijklmnopqrstuvwxyz
         '''
         cnt = 0
-        with open(self.fn, "rt") as f:
+        with open(self.fn, "rt", encoding='utf8') as f:
             for ln in f.readlines():
                 m = re.search(r'^([,-.;/0-9a-z]{,4}) (.+)$', ln.strip())
                 if m:
@@ -57,14 +57,14 @@ class Solution():
             cnt += 1
             if cnt > 10:
                 break
-            print("{}: {}".format(k, self.words[k]))
+            print(f"{k}: {self.words[k]}")
 
     def dump(self):
         ''' dump '''
-        with open('phone.json', 'wt') as of:
+        with open('phone.json', 'wt', encoding='utf8') as of:
             of.write(json.dumps(self.words, indent=2, sort_keys=True))
         print('output to phone.json, len:', len(self.words))
-        with open('bpmf.json', 'wt') as of:
+        with open('bpmf.json', 'wt', encoding='utf8') as of:
             of.write(json.dumps(self.chars, indent=2, sort_keys=True))
         print('output bpmf.json, len:', len(self.chars))
 

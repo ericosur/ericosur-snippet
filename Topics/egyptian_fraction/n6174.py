@@ -25,7 +25,7 @@ class Solution():
 
     def get_digits(self) -> list:
         ''' get digits '''
-        res = list()
+        res = []
         for _ in range(4):
             res.append(random.choice(self.list_digit))
         return res
@@ -51,7 +51,7 @@ class Solution():
     @staticmethod
     def stringify(n: int) -> list:
         ''' stringify and keep 4 digits '''
-        s = '{:04d}'.format(n)
+        s = f'{n:04d}'
         return list(s)
 
     @staticmethod
@@ -90,7 +90,7 @@ class Solution():
                 break
 
             ans = p - q
-            print('{:4d} - {:4d} = {:4d}'.format(p, q, ans))
+            print(f'{p:4d} - {q:4d} = {ans:4d}')
             if ans == self.kaprekar:
                 break
 

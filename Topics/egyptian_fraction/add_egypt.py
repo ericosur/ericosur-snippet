@@ -12,7 +12,7 @@ from sympy import Rational
 def sum_fraction(values):
     ''' sum of egytian fraction '''
     fracts = [Rational(1, x) for x in values]
-    print('sum of {}'.format(fracts))
+    print(f'sum of {fracts}')
     r = sum(fracts)
     print(r)
 

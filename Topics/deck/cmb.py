@@ -12,14 +12,14 @@ PRINT_TO_STDOUT = False
 
 def output_list_to_file(output_file, cclist):
     ''' output list to file '''
-    with  open(output_file, "w") as text_file:
+    with  open(output_file, "wt", encoding='utf8') as text_file:
         cnt = 0
         for cc in cclist:
             if PRINT_TO_STDOUT:
                 print(cc)
             text_file.write(str(cc)+'\n')
             cnt = cnt + 1
-    print("output to file {}, total {} items".format(output_file, cnt))
+    print("output to file {output_file}, total {cnt} items")
 
 
 def main():

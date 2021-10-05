@@ -28,7 +28,7 @@ def main():
         if r > max_r:
             print('repeat: ', r, ' and its: ', v)
             max_r = r
-    print('{} tested'.format(cnt))
+    print(f'{cnt} tested')
 
 if __name__ == '__main__':
     main()

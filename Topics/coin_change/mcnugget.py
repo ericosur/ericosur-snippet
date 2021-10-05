@@ -52,10 +52,10 @@ def main():
             bisect.insort(res, ans)
             #print('n: {} ans: {}'.format(n, ans))
 
-    print('res: {}'.format(res))
+    print(f'res: {res}')
     missing = check_missing(res, MAXNUMBER)
     #print('missing: {}'.format(missing))
-    print('McNugget Number: {}'.format(missing[-1]))
+    print(f'McNugget Number: {missing[-1]}')
 
 if __name__ == '__main__':
     main()

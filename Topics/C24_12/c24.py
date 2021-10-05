@@ -9,12 +9,12 @@ from itertools import combinations
 
 def output_list_to_file(output_file, cclist):
     ''' output list to file '''
-    with  open(output_file, "w") as text_file:
+    with  open(output_file, "wt", encoding='utf8') as text_file:
         cnt = 0
         for cc in cclist:
             text_file.write(str(cc)+'\n')
             cnt = cnt + 1
-    print("output to file {0}, total {1} items".format(output_file, cnt))
+    print(f"output to file {output_file}, total {cnt} items")
 
 
 def output_list(result_list):
@@ -42,13 +42,13 @@ def perfrom_stupid_filter(cclist):
     def show(msg, values):
         print(msg)
         MAX_LEN = 40
-        print('value list length: {}'.format(len(values)))
+        print(f'value list length: {len(values)}')
         if len(values) > MAX_LEN:
             print('list too long to show... consider output to file...')
         else:
             output_list(values)
 
-    print('>>> total combination checked: {}'.format(cnt))
+    print(f'>>> total combination checked: {cnt}')
 
     show('>>> allmiss', allmiss)
     show('>>> onehit', onehit)

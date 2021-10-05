@@ -51,12 +51,12 @@ class Solution():
         一 3 ㄧ  ㄧˊ  ㄧˋ
         '''
         fn = 'dump-bpmf.txt'
-        with open(fn, 'wt') as f:
+        with open(fn, 'wt', encoding='utf8') as f:
             for k in sorted(self.data):
                 v = self.data[k]
                 r = self.translate_key(v)
-                print('{} {} {}'.format(k, len(v), r), file=f)
-        print('output to {}'.format(fn))
+                print(f'{k} {len(v)} {r}', file=f)
+        print(f'output to {fn}')
 
 def test():
     ''' test '''
@@ -65,7 +65,7 @@ def test():
 
 def main(argv):
     ''' main '''
-    query = list()
+    query = []
     if argv == []:
         query = list('零一二三四五六七八九○')
     else:

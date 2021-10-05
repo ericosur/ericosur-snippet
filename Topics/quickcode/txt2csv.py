@@ -15,8 +15,8 @@ def parse_file(fn):
     ''' parse_file '''
     words = []
     ofn = fn.replace('.txt', '.csv')
-    print('output to {}'.format(ofn))
-    with open(fn, 'r') as f:
+    print(f'output to {ofn}')
+    with open(fn, 'rt', encoding='utf8') as f:
         for ln in f:
             m = re.findall(r'(\S+)\s+=\s+(\S+)', ln.strip())
             for item in m:
@@ -26,9 +26,10 @@ def parse_file(fn):
     radical_dict = dict(words)
     radical_keys = list(radical_dict.keys())
     radical_keys.sort()
-    with open(ofn, 'w') as csv:
+    with open(ofn, 'wt', encoding='utf8') as csv:
         for ii in radical_keys:
-            oline = '{},{}\n'.format(ii, radical_dict[ii])
+            vv = radical_dict[ii]
+            oline = f'{ii},{vv}\n'.format(ii, )
             csv.write(oline)
 
 
