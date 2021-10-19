@@ -7,7 +7,7 @@ check Readme.md
 
 from itertools import combinations
 
-def output_list_to_file(output_file, cclist):
+def output_list_to_file(output_file: str, cclist: combinations):
     ''' output list to file '''
     with  open(output_file, "wt", encoding='utf8') as text_file:
         cnt = 0
@@ -17,12 +17,12 @@ def output_list_to_file(output_file, cclist):
     print(f"output to file {output_file}, total {cnt} items")
 
 
-def output_list(result_list):
+def output_list(result_list: list):
     ''' print list '''
     for ii in result_list:
         print(ii)
 
-def perfrom_stupid_filter(cclist):
+def perfrom_stupid_filter(cclist: combinations):
     ''' cclist is complete combination list '''
     allmiss = []
     onehit = []
@@ -39,7 +39,7 @@ def perfrom_stupid_filter(cclist):
         elif len(union_set) == 2:
             twohit.append(cc)
 
-    def show(msg, values):
+    def show(msg: str, values: list):
         print(msg)
         MAX_LEN = 40
         print(f'value list length: {len(values)}')
