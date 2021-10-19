@@ -14,7 +14,7 @@ class UnicodeBlock():
     def __init__(self):
         self.txtfile = 'Blocks.txt'
         self.pfile = 'blocks.p'
-        self.blocks = list()
+        self.blocks = []
         self.need_save = False
         self.data_loaded = False
         #print('__init__')
@@ -43,12 +43,12 @@ class UnicodeBlock():
     def get_cjkblocks(self):
         ''' get_cjkblocks '''
         _debug = False
-        cjk_blocks = list()
+        cjk_blocks = []
         for start, end, name in self.blocks:
             try:
                 _ = name.index('CJK')
                 if _debug:
-                    print('{:06x} ... {:06x}  {}'.format(start, end, name))
+                    print(f'{start:06x} ... {end:06x}  {name}')
                 cjk_blocks.append([start, end, name])
             except ValueError:
                 pass
@@ -96,14 +96,14 @@ class UnicodeBlock():
             return ret
         except IOError:
             print('pickle file not found, try to load text file')
-            self.blocks = list()
+            self.blocks = []
 
         if not os.path.exists(self.txtfile):
-            print('{} not found, exit'.format(self.txtfile))
+            print(f'{self.txtfile} not found, exit')
             return False
 
         pattern = re.compile(r'([0-9A-F]+)\.\.([0-9A-F]+);\ (\S.*\S)')
-        with open(self.txtfile) as f:
+        with open(self.txtfile, 'rt', encoding='utf8') as f:
             for line in f.readlines():
                 m = pattern.match(line)
                 if m:
@@ -136,7 +136,7 @@ def main():
     with UnicodeBlock() as s:
         for _ in range(10):
             r = random.randint(0, 0x2ffff)
-            print('{:6X}'.format(r), end='  ')
+            print(f'{r:6X}', end='  ')
             print(s.block(chr(r)))
 
 if __name__ == '__main__':

@@ -7,6 +7,7 @@ search radicals from Boshiamy.txt and show unicode code point
 
 import sys
 import re
+from typing import List
 import unicode_blocks
 
 class Solution:
@@ -19,35 +20,35 @@ class Solution:
 
     def __enter__(self):
         #print('__enter__')
-        self.fileobj = open(self.data_file)
+        self.fileobj = open(self.data_file, 'rt', encoding='utf8')
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
         #print('__exit__')
         self.fileobj.close()
 
-    def split_line(self, s):
+    def split_line(self, s: str) -> (str, str):
         ''' split line into two part '''
         #print(s)
         arr = s.split(' ')
         if len(arr) != 2:
-            print('[WARN][{}] cannot split into two parts: {}'.format(self.lineno, s))
+            print(f'[WARN][{self.lineno}] cannot split into two parts: {s}')
             return (None, None)
         #print(arr)
         return (arr[0], arr[1])
 
-    def show_ans(self, p, q):
+    def show_ans(self, p: str, q: str):
         ''' show answer
         [in] p is the boshiamy radicals
         [in] q is the CJK characters
         '''
-        print('{:6s} {:4s} {:5X} @{} '.format(p, q, ord(q), self.lineno), end='')
+        print(f'{p:6s} {q:4s} {ord(q):5X} @{self.lineno} ', end='')
         print(self.block_obj.block(q))
 
 
-    def find_ch(self, regexp):
+    def find_ch(self, regexp: str):
         ''' find character '''
-        print('=====> regexp: __{}__'.format(regexp))
+        print(f'=====> regexp: __{regexp}__')
         self.fileobj.seek(0)
         self.lineno = 0
         for ll in self.fileobj.readlines():
@@ -58,7 +59,7 @@ class Solution:
                 if m:
                     self.show_ans(pp, qq)
 
-def main(argv):
+def main(argv: List[str]):
     ''' main '''
     with Solution() as s:
         for rr in argv:
