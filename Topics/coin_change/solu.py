@@ -12,18 +12,19 @@ what is the combination to target?
 import itertools as it
 import operator
 import sys
+from typing import List
 import numpy as np
 
 class Solution():
     ''' solution for coin change problem '''
-    def __init__(self, coins, limits, target):
+    def __init__(self, coins: List, limits: List, target: int):
         self.coins = coins
         self.limits = limits
         self.target = target
         self.candidates = []
         self.valid = self.check_max()
 
-    def check_max(self):
+    def check_max(self) -> bool:
         ''' check max '''
         max_value = np.dot(self.coins, self.limits)
         if self.target > max_value or self.target < 0:
