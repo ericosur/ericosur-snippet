@@ -41,8 +41,9 @@ four corner
 
 #import itertools as it
 from itertools import permutations
+from typing import List
 
-def get_dist(v):
+def get_dist(v: List) -> List:
     ''' v is a len=4 list '''
     #print(v)
     t = []
@@ -53,14 +54,14 @@ def get_dist(v):
     #print(t)
     return t
 
-def is_all_zeros(v):
+def is_all_zeros(v: List) -> bool:
     ''' input v, check if it is all zeros '''
     t = v if isinstance(v, list) else list(v)
     zeros = [0 for _ in range(len(v))]
     return t == zeros
 
 # https://stackoverflow.com/questions/3844801/check-if-all-elements-in-a-list-are-identical
-def checkEqual3(lst):
+def checkEqual3(lst: List):
     ''' check if all elements are equal in list '''
     return lst[1:] == lst[:-1]
 
@@ -77,15 +78,16 @@ def test2():
     ret = check_duplicated(pairs, [2,3,4,1])
     print(ret)
 
-def show_answer(vv):
+def show_answer(vv: List):
     ''' vv is list of list '''
     print(f'There are {len(vv)} items for answer:')
     for v in vv:
         print(v)
 
 # refer to: https://www.techiedelight.com/rotate-list-python/
-def rotate(seq, k):
+def rotate(seq: List, k: int) -> List:
     ''' rotate a list k position, for example,
+        a=[1,2,3,4,5], k=2, returns: [3,4,5,1,2]
     '''
     try:
         return seq[k:] + seq[:k]
@@ -94,7 +96,7 @@ def rotate(seq, k):
         return None
 
 
-def check_rotated(m: list, n: list):
+def check_rotated(m: list, n: list) -> bool:
     ''' m is answer, n is to test
         sometimes n is tuple, need to cast to 'list', or list != tuple
         return true if m = [2, 3, 5, 7], n belongs to [3, 5, 7, 2] or [5, 7, 2, 3]
@@ -126,7 +128,7 @@ def check_rotated(m: list, n: list):
 
     return False
 
-def check_duplicated(pairs, v):
+def check_duplicated(pairs, v) -> bool:
     ''' pairs are checked (no matter best answer or not), v is a list '''
     print(f'there are {len(pairs)} items in pairs')
     for i in pairs:
@@ -135,7 +137,7 @@ def check_duplicated(pairs, v):
             return True
     return False
 
-def remove_duplicated(pairs):
+def remove_duplicated(pairs) -> List:
     ''' remove duplicated '''
     ans = []
     pivot = 0
@@ -163,7 +165,7 @@ def remove_duplicated(pairs):
     #print('remove_duplicated: ', len(pairs), pairs)
     return pairs
 
-def get_inner_loop(v):
+def get_inner_loop(v: List) -> int:
     ''' get inner loop
         return the repeat times
     '''
