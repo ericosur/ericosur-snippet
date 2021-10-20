@@ -5,14 +5,13 @@
 This code is contributed
 by Anubhav Raj Singh
 https://www.geeksforgeeks.org/greedy-algorithm-egyptian-fraction/
+
+Python3 program to print a fraction
+in Egyptian Form using Greedy Algorithm
 '''
 
-# Python3 program to print a fraction
-# in Egyptian Form using Greedy
-# Algorithm
 
-# import math package to use
-# ceiling function
+# import math package to use ceiling function
 import math
 
 # pylint: disable=invalid-name
@@ -20,7 +19,7 @@ import math
 # define a function egyptianFraction
 # which receive parameter nr as
 # numerator and dr as denominator
-def egyptianFraction(nr, dr):
+def egyptianFraction(nr: int, dr: int):
     ''' egyptian fraction '''
     print("The Egyptian Fraction " +
           f"Representation of {nr}/{dr} is", end="\n")
@@ -55,8 +54,10 @@ def egyptianFraction(nr, dr):
 def main():
     ''' main '''
     # calling the function
-    egyptianFraction(6, 14)
-    egyptianFraction(27, 29)
+    egyptianFraction(14, 15)
+    egyptianFraction(24, 25)
+    egyptianFraction(39, 40)
+
     # raise OverflowError
     #egyptianFraction(5, 121)
 

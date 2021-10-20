@@ -5,7 +5,9 @@
 
 __version__ = '1.0.0'
 
-def gcd(m, n):
+from typing import List
+
+def gcd(m: int, n: int) -> int:
     '''
     calculate gcd number by rescursive
     '''
@@ -13,17 +15,17 @@ def gcd(m, n):
         return m
     return gcd(n, m % n)
 
-def lcm(m, n):
+def lcm(m: int, n: int) -> int:
     ''' least common multiple '''
     return m // gcd(m, n) * n
 
-def gcd_lcm(m, n):
+def gcd_lcm(m: int, n: int) -> int:
     ''' return both gcd and lcm '''
     g = gcd(m, n)
     l = m // g * n
     return (g, l)
 
-def gcd_list(values: list):
+def gcd_list(values: List[int]):
     ''' input list of values and calculate gcd of them '''
     hh = values[0]
     for nn in values[1:]:
@@ -32,7 +34,7 @@ def gcd_list(values: list):
     print(hh)
 
 
-def lcm_list(values: list):
+def lcm_list(values: List[int]):
     ''' lcm of a list '''
     hh = values[0]
     for nn in values[1:]:
