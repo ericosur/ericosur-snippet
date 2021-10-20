@@ -2,9 +2,13 @@
 # -*- coding: utf-8 -*-
 
 
-''' provide a recursive version of gcd and lcm '''
+'''
+provide a recursive version of gcd and lcm
+TODO: apply argparse
+'''
 
 import sys
+from typing import List
 from gcd_lcm import gcd_lcm
 
 def read_from_stdin():
@@ -17,7 +21,7 @@ def read_from_stdin():
         #args.append(line.strip())
     main(args)
 
-def main(argv):
+def main(argv: List):
     ''' main function '''
     vals = []
     if argv == []:  # no arguments

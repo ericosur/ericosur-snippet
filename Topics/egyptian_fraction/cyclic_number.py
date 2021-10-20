@@ -20,13 +20,14 @@ https://xlinux.nist.gov/dads/HTML/shortestCommonSuperstring.html
 '''
 
 import argparse
+from typing import List
 from lcs import longestRepeatedSubstring
 
 class Cons:
     ''' use 2 to detect longest repeated substring '''
     multiple = 2
 
-def stupid_div(p):
+def stupid_div(p: int) -> List[int]:
     ''' stupid divide '''
     if p < 3:
         print('[ERROR] need p >= 3')
@@ -51,14 +52,14 @@ def stupid_div(p):
     # eg: "[1,4,2,8,5,7]"
     return decs
 
-def l2s(l):
+def l2s(l: List[int]) -> str:
     ''' l2s, join a integer list into a string '''
     a = [ str(x) for x in l ]
     s = ''.join(a)
     return s
 
 
-def show(r):
+def show(r: List):
     ''' show '''
     if not isinstance(r, list):
         print('[ERROR] should be a list')
@@ -72,7 +73,7 @@ def show(r):
         cnt += 1
     print("\n")
 
-def test(n):
+def test(n: int):
     ''' test '''
     r = stupid_div(n)
     raw_digits = l2s(r)
@@ -96,14 +97,14 @@ def test(n):
 
     print(f'n = {n}: raw_digits: ({len(raw_digits)})')
     print(raw_digits)
-    print('=' * 20 + ">")
+    rep = min(n - 1, 40)
+    print('=' * rep + ">" * rep)
 
     for a in ans:
         print('repeat:')
         print(a)
-        print('len(s):')
-        print(len(a))
-        print('-' * 40)
+        print('len(a):', len(a))
+        print('-' * len(a))
 
 
 '''
@@ -122,7 +123,7 @@ def perform_test():
     test(2*37)
     test(7*31)
 
-def proc(argv):
+def proc(argv: List[int]):
     ''' proc '''
     for a in argv:
         test(a)
