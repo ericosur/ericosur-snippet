@@ -26,7 +26,20 @@ The following tables are copied from [boshiamy.com][1]
 - [it.py](./it.py) reads __t?.csv__ and __[table.txt][2]__ to show difference those
   combination (70 radicals) which does not exist in t[1,2,3,7].txt.
 
+A complete two by two character table is [here][3].
+  - One code to one character: 26 characters
+  - Two codes to one characters:
+    - total 676 characters
+    - listed in t1,t2,t3,t7, total 606 characters
+    - still 70 two-code-character
+
+
+## files
+
+- [table.txt](./table.txt)
+
 
 
 [1]: https://boshiamy.com/tutorial_advance.php?page=2
 [2]: https://github.com/ericosur/charencoding/blob/master/ime/little_prince/table.txt
+[3]: https://boshiamy.com/tutorial_advance.php?page=3#tab_tab1
