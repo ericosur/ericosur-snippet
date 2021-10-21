@@ -133,7 +133,7 @@ class DrivingData():
                 return
 
         print(f'[INFO]    first date: {dates[0]}')
-        print(f'[INFO]     last date: {dates[-1]}'.format())
+        print(f'[INFO]     last date: {dates[-1]}')
         print(f'[INFO] dates between: {DrivingData.get_between_dates(dates[0], dates[-1])}')
 
         if len(dates) != len(secs):
