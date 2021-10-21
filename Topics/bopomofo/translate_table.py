@@ -53,11 +53,11 @@ class Solution():
     def show(self):
         ''' show '''
         cnt = 0
-        for k in self.words:
+        for k,v in self.words.items():
             cnt += 1
             if cnt > 10:
                 break
-            print(f"{k}: {self.words[k]}")
+            print(f"{k}: {v}")
 
     def dump(self):
         ''' dump '''
