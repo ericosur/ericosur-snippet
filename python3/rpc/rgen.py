@@ -37,7 +37,7 @@ def get_sha256(data: bytes) -> str:
     m.update(data)
     return m.hexdigest()
 
-def main(argv: list):
+def main(argv: list) -> None:
     ''' main test function '''
     if argv == []:
         print(__doc__)

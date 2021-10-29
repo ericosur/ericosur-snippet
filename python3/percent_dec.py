@@ -16,7 +16,7 @@ except ImportError:
     print('>>>>> using urllib.quote')
 
 
-def percent_dec(tok: str):
+def percent_dec(tok: str) -> str:
     ''' decode percent encoded string '''
     return unquote(tok, encoding='utf-8')
 
@@ -44,7 +44,7 @@ def main(argv):
         #show_unicode_escape(tok)
         print(f'input: {inp}\noutput: {oup}')
 
-def argp():
+def argp() -> None:
     ''' prepare and parse CLI arguments '''
     parser = argparse.ArgumentParser(description='perform percentage encoding on input strings')
     parser.add_argument("-s", "--stdin", dest='readFromStdin', action='store_true',

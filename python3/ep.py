@@ -63,7 +63,7 @@ def main(args: list):
         except ValueError:
             print(f'{v} is not a valid integer')
 
-def argp():
+def argp() -> None:
     ''' prepare and parse CLI arguments '''
     parser = argparse.ArgumentParser(description='convert epoch value to date/time string',
         epilog='try ```$(date +%s)``` as argument')
