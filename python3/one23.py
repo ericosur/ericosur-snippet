@@ -6,7 +6,7 @@ the tail of multipler of 13? 17? 19? is 123
 find the smallest one
 '''
 
-def test_n(n, t):
+def test_n(n: int, t: int) -> bool:
     ''' test n '''
     if n % 1000 == t:
         return True

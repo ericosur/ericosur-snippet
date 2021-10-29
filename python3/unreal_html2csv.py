@@ -15,6 +15,7 @@ from decimal import Decimal
 import locale
 import os
 import sys
+from typing import List
 
 try:
     from bs4 import BeautifulSoup
@@ -32,7 +33,7 @@ except ImportError:
     sys.exit(1)
 
 
-def conv_big5_to_utf8(fn):
+def conv_big5_to_utf8(fn: str) -> str:
     ''' convert input file encoding from big5 to utf8,
         output content as str
     # iconv -f BIG-5 -t UTF-8 un0304.xls > u.html
@@ -41,16 +42,16 @@ def conv_big5_to_utf8(fn):
     os.system(cmd)
     '''
     c = None
-    with open(fn, 'rb', encoding='utf8') as f:
+    with open(fn, 'rb') as f:
         c = f.read()
     #print(c)
     d = c.decode('big5').encode('utf-8')
     utf8 = d.decode('utf-8')    # str in utf-8 encoding
     return utf8
 
-def make_soup(content):
+def make_soup(content: str) -> List:
     ''' make soup from content '''
-    def remove_some_col(data):
+    def remove_some_col(data: List) -> List:
         ''' remove col#2, col#-1, col#-2 '''
         t = []
         t.extend(data[0:2])
@@ -75,14 +76,14 @@ def make_soup(content):
             data.append(remove_some_col(cells))
     return data
 
-def get_datetag():
+def get_datetag() -> str:
     ''' string in UYYMMDD '''
     today = date.today()
     yy = today.year - 2000
     s = f'U{yy:02d}{today.month:02d}{today.day:02d}'
     return s
 
-def output_csv(data):
+def output_csv(data: List) -> None:
     ''' output data as csv format in UMMDD.csv '''
     fn = get_datetag() + '.csv'
     print('[INFO] output to:', fn)
@@ -111,7 +112,7 @@ class XlsFormat():
         self.head_format = wb.add_format({'bold': True, 'align': 'center',
                                           'valign': 'vcenter'})
 
-def to_currency(v):
+def to_currency(v: str) -> Decimal:
     ''' convert str to Decimal according to locale, return "" if empty
         eg: "1,234,567.89" to 1234567.89
     '''
@@ -124,7 +125,7 @@ def to_currency(v):
         pass
     return r
 
-def to_float(v):
+def to_float(v: str) -> float:
     ''' convert str to float, return "" if empty '''
     r = ""
     try:
@@ -135,7 +136,7 @@ def to_float(v):
     return r
 
 # pylint: disable=consider-using-f-string
-def output_xls(data):
+def output_xls(data: List) -> None:
     ''' using xlsxwriter to output '''
     fn = get_datetag() + '.xls'
     print('[INFO] output to:', fn)
@@ -180,7 +181,7 @@ def output_xls(data):
     wb.close()
 
 
-def main(argv):
+def main(argv: List) -> None:
     ''' main '''
     in_fn = None
     if argv == []:

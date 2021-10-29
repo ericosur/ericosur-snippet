@@ -4,9 +4,10 @@
 ''' get new cost and avg '''
 
 import sys
+from typing import List
 from myutil import get_python_version
 
-def main(argv):
+def main(argv: List) -> None:
     ''' main '''
     mm = []
     if argv == []:
@@ -23,7 +24,7 @@ def main(argv):
     old_avg = mm[0]
     avg = total / nstock
 
-    def printOut():
+    def printOut() -> None:
         ''' print out '''
         ver = float(get_python_version())
         if ver >= 3.6:

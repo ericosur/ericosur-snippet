@@ -26,7 +26,7 @@ class Solution():
         self.words = {}
         self.read_data()
 
-    def read_data(self):
+    def read_data(self) -> None:
         ''' read data '''
         with open(self.wordfile, 'rt', encoding='utf8') as f:
             cnt = 0
@@ -40,7 +40,7 @@ class Solution():
             if cnt != len(self.words):
                 print('[WARN] number of data does not match')
 
-    def rand_words(self):
+    def rand_words(self) -> str:
         ''' return a random word '''
         idx = ""
         MAX_DIGITS = 5
@@ -51,7 +51,7 @@ class Solution():
         #print('res:', res)
         return res
 
-    def request_words(self, n):
+    def request_words(self, n: int) -> str:
         ''' request words '''
         results = []
         for _ in range(n):

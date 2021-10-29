@@ -5,11 +5,12 @@
 ''' provide a recursive version of gcd '''
 
 import sys
+from typing import List
 from myutil import read_from_stdin
 
 __version__ = '1.0.0'
 
-def gcd(m, n):
+def gcd(m: int, n: int) -> int:
     '''
     calculate gcd number by rescursive
     '''
@@ -17,7 +18,7 @@ def gcd(m, n):
         return m
     return gcd(n, m % n)
 
-def main(argv):
+def main(argv: List[str]) -> None:
     ''' main function '''
     vals = []
     if argv == []:  # no arguments
