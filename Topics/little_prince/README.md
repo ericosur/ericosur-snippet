@@ -8,6 +8,8 @@ that is, one or two radicals could compose one Han character.
 
 * [rad.txt](./rad.txt)
 
+also see [quick code](../quickcode/README.md)
+
 ## reference
 
 * __littleprince.txt__ is downloaded and transformed from [boshiamy practice](https://boshiamy.com/LiuCAI/article_prince.html)
