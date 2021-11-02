@@ -35,8 +35,7 @@ class Bosha:
         ''' main flow '''
         self.data = read_jsonfile(self.json_fn)
         cdefs = self.data["chardefs"]
-        #size = len(self.data)
-        #print(f'read size: {size}')
+        print(f'cdefs size: {len(cdefs)}')
         with open(self.fn, 'rt', encoding='utf-8') as fobj:
             for ln in fobj.readlines():
                 ln = ln.strip()
