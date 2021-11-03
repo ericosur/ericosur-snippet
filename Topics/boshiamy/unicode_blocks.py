@@ -8,6 +8,7 @@ import re
 import random
 import pickle
 import os
+from typing import List
 
 class UnicodeBlock():
     ''' solution '''
@@ -36,25 +37,36 @@ class UnicodeBlock():
             # else:
             #     print('__exit__ no need to save...')
 
-    def get_blocks(self):
+    def get_blocks(self) -> List:
         ''' return blocks '''
         return self.blocks
 
-    def get_cjkblocks(self):
-        ''' get_cjkblocks '''
+    def get_cjkblocks(self) -> List:
+        ''' get_cjkblocks, return a list [start, end, block_name] '''
         _debug = False
         cjk_blocks = []
+        extra_match_targets = [
+            'Kangxi Radicals',
+            'Ideographic Description Characters',
+            'Enclosed Ideographic Supplement'
+        ]
         for start, end, name in self.blocks:
+
+            if name in extra_match_targets:
+                print('[info] extra matched block:', name)
+                cjk_blocks.append([start, end, name])
+
             try:
                 _ = name.index('CJK')
                 if _debug:
                     print(f'{start:06x} ... {end:06x}  {name}')
                 cjk_blocks.append([start, end, name])
+
             except ValueError:
                 pass
         return cjk_blocks
 
-    def block(self, ch):
+    def block(self, ch: str) -> str:
         '''
         Return the Unicode block name for ch, or None if ch has no block.
 
@@ -79,7 +91,7 @@ class UnicodeBlock():
             self.need_save = False
             return True
 
-    def load_pickle(self):
+    def load_pickle(self) -> bool:
         '''
         load pickle file, or from text
         https://stackoverflow.com/questions/243831/unicode-block-of-a-character-in-python
@@ -114,12 +126,12 @@ class UnicodeBlock():
         self.save_pickle()
         return True
 
-    def save_pickle_impl(self):
+    def save_pickle_impl(self) -> None:
         ''' implementation of save pickle '''
         with open(self.pfile, 'wb') as outf:
             pickle.dump(self.blocks, outf)
 
-    def save_pickle(self):
+    def save_pickle(self) -> None:
         ''' save pvalues into pickle file '''
         if self.blocks is None:
             return

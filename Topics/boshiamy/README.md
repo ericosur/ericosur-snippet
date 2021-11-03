@@ -8,12 +8,16 @@ README
 ## data from
 
 - [Blocks.txt](http://unicode.org/Public/UNIDATA/Blocks.txt)
+    - updated on 2021-11-03 (v14.0.0)
 - [boshiamy_radicals.txt](https://terryhung.pixnet.net/blog/post/27952497)
+    - which is close to __terry_THLiu.txt__
 - [phone.txt](https://github.com/chinese-opendesktop/cin-tables)
 - [r12a converter](https://r12a.github.io/app-conversion/)
 
 
 ## usage
+
+### lookup
 
 Launch python script with boshiamy radicals.
 It will list all possible characters.
@@ -23,10 +27,17 @@ May also use regular expression like:
 python3 find_spell.py ix qm ^jn ^.gz$ ^uue$
 ```
 
+### cin -> json
+
+* convert boshiamy_radicals.txt to liu.json by using __split_radicals.py__
+
+
 ### unicode reference
 
+result from __filter.py__
+
 CJK Unified Ideographs
-CJK Unified Ideographs Extension A-F
+CJK Unified Ideographs Extension A-G
 
 http://zht.glyphwiki.org/
 
@@ -96,6 +107,15 @@ U+2CEB0 .. U+2EBEF
 7,473 assigned
 > filter.py got 0
 https://unicode.org/charts/PDF/U2CEB0.pdf
+
+
+#### CJK Unified Ideographs Extension G
+
+wiki: https://en.wikipedia.org/wiki/CJK_Unified_Ideographs_Extension_F
+U+30000..U+3134F
+4,944 code points
+4,939 assigned
+https://www.unicode.org/charts/PDF/U30000.pdf
 
 ### tips
 

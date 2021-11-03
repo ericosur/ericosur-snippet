@@ -8,6 +8,7 @@ read liu.json
 '''
 
 import json
+from typing import List, Dict
 from unicode_blocks import UnicodeBlock
 
 def check_cjk_b(items: list):
@@ -24,6 +25,13 @@ def check_cjk_b(items: list):
     print('cnt:', cnt)
     print('c:', c)
 
+def get_available_codepoint_in_block(cjk_blocks: List) -> Dict:
+    ''' return a dict of {block name: number of codepoints} '''
+    cjk = {}
+    for start, end, name in cjk_blocks:
+        cjk[name] = end - start + 1
+    return cjk
+
 def main():
     ''' main '''
     fn = 'liu.json'
@@ -32,6 +40,9 @@ def main():
         data = json.load(fobj)
     ub = UnicodeBlock()
     cjk_blocks = ub.get_cjkblocks()
+    # store how many codepoint available in this block
+    cjk = get_available_codepoint_in_block(cjk_blocks)
+    # if char in this block, store here
     subset = {}
     cnt = 0
     for k in data.keys():
@@ -48,10 +59,10 @@ def main():
         except ValueError as e:
             print(f"err: {e} at {k}")
 
-    print('processed cnt:', cnt)
-    print(f'len of subset: {len(subset)}')
+    print(f'[INFO] From {fn} it could output {cnt} han characters/symbols')
+    print(f'[INFO] There are {len(subset)} blocks name with CJK')
     for category in sorted(subset.keys()):
-        print(f'category {category}: {len(subset[category])}')
+        print(f'Block [{category:40s}]: {len(subset[category]):6d} / {cjk[category]}')
     # ofn = 'cjks.json'
     # with open(ofn, 'wt') as of:
     #     of.write(json.dumps(subset, indent=2, sort_keys=True))
