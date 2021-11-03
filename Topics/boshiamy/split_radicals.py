@@ -2,10 +2,10 @@
 # coding: utf-8
 
 '''
-read boshiamy_radicals.txt and output into lui.json
+read boshiamy_radicals.txt and output into liu.json
 
+The format of liu.json is unicode codepoint number vs its boshiamy radical.
 '''
-
 
 import json
 
@@ -42,7 +42,6 @@ class Solution:
         with open(fn, 'wt', encoding='utf8') as of:
             of.write(json.dumps(self.rad_dict, indent=2, sort_keys=True))
         print(f'size: {len(self.rad_dict)}')
-
 
     @staticmethod
     def split_line(s: str) -> (str, str):
