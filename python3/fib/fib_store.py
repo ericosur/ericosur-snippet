@@ -2,10 +2,12 @@
 # coding: utf-8
 
 '''
+Fibonacci number
+
 to demo a fib function which would store calculated fib(n)
 to elimate unnecessary recursive and calculation
 
-Fibonacci number
+using pickle as cache
 '''
 
 import pickle
