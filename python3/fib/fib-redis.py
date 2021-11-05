@@ -12,11 +12,13 @@ Fibonacci number
 
 import sys
 import redis
+from random import randint
 
 class FibRedis():
     ''' fib w/ redis '''
     def __init__(self):
-        self.redis = redis.Redis(host='localhost', port=6379, decode_responses=True)
+        self.redis = redis.Redis(host='localhost', port=6379, \
+            decode_responses=True, charset='utf-8', password=None)
         self.key = 'fibhash'
         self.query = 0
         # field pattern
@@ -57,7 +59,9 @@ class FibRedis():
 
     def action(self):
         ''' action '''
-        for i in range(190, 200):
+        # demo 50 <= x <= 200
+        LOWER = 50 + randint(1, 150)
+        for i in range(LOWER, LOWER+10):
             ret = self.fib(i)
             print(f'fib({i}) = {ret}')
 
