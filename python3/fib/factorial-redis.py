@@ -12,11 +12,13 @@ require redis server is running!
 
 import sys
 import redis
+from random import randint
 
 class FactorialRedis():
     ''' fib w/ redis '''
     def __init__(self):
-        self.redis = redis.Redis(host='localhost', port=6379, decode_responses=True)
+        self.redis = redis.Redis(host='localhost', port=6379, \
+            decode_responses=True, charset='utf-8', password=None)
         self.key = 'fachash'
         self.query = 0
         # field pattern
@@ -60,7 +62,9 @@ class FactorialRedis():
 
     def action(self):
         ''' action '''
-        for i in range(30, 40):
+        # demo 50 <= x <= 200
+        LOWER = 10 + randint(1, 30)
+        for i in range(LOWER, LOWER+10):
             ret = self.factorial(i)
             print(f'factorial({i}) = {ret}')
 
