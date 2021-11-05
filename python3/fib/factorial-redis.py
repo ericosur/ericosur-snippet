@@ -10,9 +10,9 @@ It will save calculated n! into redis.
 require redis server is running!
 '''
 
+from random import randint
 import sys
 import redis
-from random import randint
 
 class FactorialRedis():
     ''' fib w/ redis '''

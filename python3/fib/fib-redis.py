@@ -10,9 +10,9 @@ Fibonacci number
 
 '''
 
+from random import randint
 import sys
 import redis
-from random import randint
 
 class FibRedis():
     ''' fib w/ redis '''
