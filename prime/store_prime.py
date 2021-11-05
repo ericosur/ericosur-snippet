@@ -9,43 +9,7 @@ import errno
 import os
 import pickle
 import re
-from bisect import bisect_left, bisect_right
-
-
-def index(a: list, x: int):
-    ''' return index of the leftmost value exactly equal to x '''
-    i = bisect_left(a, x)
-    if i != len(a) and a[i] == x:
-        return i
-    return -1
-
-def find_lt(a: list, x: int):
-    ''' Find rightmost value less than x '''
-    i = bisect_left(a, x)
-    if i:
-        return a[i-1], i-1
-    raise ValueError
-
-def find_le(a: list, x: int):
-    ''' Find rightmost value less than or equal to x '''
-    i = bisect_right(a, x)
-    if i:
-        return a[i-1], i-1
-    raise ValueError
-
-def find_gt(a: list, x: int):
-    ''' Find leftmost value greater than x '''
-    i = bisect_right(a, x)
-    if i != len(a):
-        return a[i], i
-    raise ValueError
-
-def find_ge(a: list, x: int):
-    ''' Find leftmost item greater than or equal to x '''
-    i = bisect_left(a, x)
-    if i != len(a):
-        return a[i], i
-    raise ValueError
+from findlist_func import index, find_le, find_ge
 
 class StorePrime():
     ''' class will help to handle read pickle file '''
@@ -77,8 +41,8 @@ class StorePrime():
             self.init_size = 0
         else:
             self.init_size = len(self.pvalues)
-        msg = 'min: {}, max: {}, '.format(self.pvalues[0], self.pvalues[-1])
-        msg = msg + 'total primes: {}'.format(self.init_size)
+        msg = f'min: {self.pvalues[0]}, max: {self.pvalues[-1]}, '
+        msg = msg + f'total primes: {self.init_size}'
         return msg
 
     def get_count(self):
@@ -137,7 +101,7 @@ class StorePrime():
 
         self._try_text_file()
 
-        with open(self.txtfile, "rt") as txtinf:
+        with open(self.txtfile, "rt", encoding='utf8') as txtinf:
             self.need_save = True
             error_count = 0
             while True:
@@ -215,7 +179,7 @@ class StorePrime():
             _, q = find_ge(a, x)
             return (p, q)
         except ValueError:
-            print('something wrong for {}, OOB?'.format(x))
+            print(f'something wrong for {x}, OOB?')
             return (None, None)
 
 
@@ -229,10 +193,10 @@ class StorePrime():
         if val in self.pvalues:
             return (val, None)
         if val < self.pvalues[0]:
-            print('{} is smaller than lower bound'.format(val))
+            print(f'{val} is smaller than lower bound')
             return (None, None)
         if val > self.pvalues[-1]:
-            print('{} is larger than upper bound'.format(val))
+            print(f'{val} is larger than upper bound')
             return (None, None)
 
         # start to binary search
@@ -268,15 +232,15 @@ class StorePrime():
         if p is None and q is None:
             return
         if q is None:
-            print('{} is a prime {}'.format(v, p))
+            print(f'{v} is a prime {p}')
         else:
             lhs = abs(v - p)
             rhs = abs(v - q)
             if lhs <= rhs:
-                arrow = "<<<<<"
+                arrow = "<-----"
             else:
-                arrow = ">>>>>"
-            print('{} is in the range of ({} {} {})'.format(v, p, arrow, q))
+                arrow = "----->"
+            print(f'{v} is in the range of ({p} {arrow} {q})'.format(v, p, arrow, q))
 
     def test(self, v: int):
         ''' test '''
@@ -305,4 +269,4 @@ class StorePrime():
         return arr
 
 if __name__ == '__main__':
-    print('run **test_sp.py sp** to see the demo...')
+    print('run **run_example.py sp** to see the demo...')
