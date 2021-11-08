@@ -70,9 +70,11 @@ def test_and_print(values):
     for v in values:
         try:
             n = int(v)
-            print('{} is {}'.format(n, miller_rabin(n) and "PRIME" or "COMPOSITE"))
+            #r = miller_rabin(n) and "PRIME" or "COMPOSITE"
+            r = "PRIME" if miller_rabin(n) else 'COMPOSITE'
+            print(f'{n} is {r}')
         except ValueError:
-            print('{} is not valid'.format(v))
+            print(f'{v} is not valid'.format(v))
 
 
 if __name__ == "__main__":

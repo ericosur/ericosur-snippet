@@ -93,7 +93,7 @@ def impl3(val, ret):
 def gold_bach(val, debug=False):
     ''' it could be found if val < 4 * 10^17 '''
     if debug:
-        print('test {}...'.format(val))
+        print(f'test {val}...')
     with StorePrime() as sp:
         if val % 2 != 0:
             print('[ERROR] must be an even number')
@@ -108,13 +108,13 @@ def gold_bach(val, debug=False):
 
         if debug:
             ans, cnt, duration = impl1(val, ret)
-            print('len: {}, cnt: {}, time: {}'.format(len(ans), cnt, duration))
+            print(f'len: {len(ans)}, cnt: {cnt}, time: {duration}')
             ans, cnt, duration = impl2(val, ret)
-            print('len: {}, cnt: {}, time: {}'.format(len(ans), cnt, duration))
+            print(f'len: {len(ans)}, cnt: {cnt}, time: {duration}')
 
         ans, cnt, duration = impl3(val, ret)
         if debug:
-            print('len: {}, cnt: {}, time: {}'.format(len(ans), cnt, duration))
+            print(f'len: {len(ans)}, cnt: {cnt}, time: {duration}')
         return ans
 
 def profile():
@@ -123,7 +123,7 @@ def profile():
 
 def print_duration(start, end, msg=''):
     ''' print duration '''
-    print('{} duration: {:.3f} seconds (wall clock)'.format(msg, end - start))
+    print(f'{msg} duration: {end-start:.3f} seconds (wall clock)')
 
 def main(argv):
     ''' main '''
@@ -151,14 +151,14 @@ def main(argv):
             val = int(ss)
             res = gold_bach(val)
             if res is not None:
-                print('test {} goldbach ====>'.format(val), end='')
-                print('  total combination: {}'.format(len(res)))
+                print(f'test {val} goldbach ====>', end='')
+                print(f'  total combination: {len(res)}')
                 a = random.sample(res, min(listnum, len(res)))
                 for e in a:
-                    print('  pick random one: {}'.format(e))
-                print('    pick last one: {}'.format(res[-1]))
+                    print(f'  pick random one: {e}')
+                print(f'    pick last one: {res[-1]}')
         except ValueError:
-            print('{} is a ValueError'.format(ss))
+            print(f'{ss} is a ValueError')
 
 
 if __name__ == '__main__':

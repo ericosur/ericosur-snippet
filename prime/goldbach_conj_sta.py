@@ -15,7 +15,10 @@ import time
 
 # pylint: disable=import-error
 # pylint: disable=unused-import
+# pylint: disable=consider-using-f-string
+#
 # pythonista
+#
 import clipboard
 import console
 

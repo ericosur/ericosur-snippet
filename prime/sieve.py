@@ -22,7 +22,7 @@ class SieveOfEratosthenes():
         self.inner_limit = math.sqrt(self.upper-1)
 
     def __str__(self):
-        r = 'SieveOfEratosthenes: from {} to {}'.format(2, self.upper)
+        r = f'SieveOfEratosthenes: from 2 to {self.upper}'
         return r
 
     def init_target(self):
@@ -65,8 +65,8 @@ class SieveOfEratosthenes():
                     pass
         d = time.time() - start_time
         if d > 1.0:
-            print('>>>>>> start filter {} len: {}'.format(p, len(self.target)))
-            print('<<<<<< took:{:.2f}: end filter'.format(d))
+            print(f'>>>>>> start filter {p} len: {len(self.target)}')
+            print(f'<<<<<< took:{d:.2f}: end filter')
 
     def run_filter(self):
         ''' filter primes from target '''
@@ -107,10 +107,10 @@ class SieveOfEratosthenes():
     @staticmethod
     def output_to_file(fn, primes):
         ''' output list into text file '''
-        with open(fn, "wt") as ofh:
+        with open(fn, "wt", encoding='utf8') as ofh:
             for pp in primes:
-                ofh.write("{}\n".format(pp))
-        print('output to {}, count = {}'.format(fn, len(primes)))
+                ofh.write(f"{pp}\n")
+        print(f'output to {fn}, count = {len(primes)}')
 
 
 def main():

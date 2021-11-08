@@ -3,10 +3,11 @@
 
 '''
 table: small.txt / big.txt / large.txt
-will load/save it as pickle format (need compress_pickle)
+will load/save it as pickle format
 
 given cli argument to get lower/upper prime
 
+requires: compress_pickle
 pip install compress_pickle
 
 '''
@@ -37,9 +38,9 @@ class LoadCompressPrime(StorePrime):
         else:
             self.init_size = len(self.pvalues)
         msg = "LoadCompressPrime: "
-        msg = msg + 'min: {} '.format(self.pvalues[0])
-        msg = msg + 'max: {} '.format(self.pvalues[-1])
-        msg = msg + 'total primes: {}'.format(self.init_size)
+        msg = msg + f'min: {self.pvalues[0]} '
+        msg = msg + f'max: {self.pvalues[-1]} '
+        msg = msg + f'total primes: {self.init_size}'
         return msg
 
     def load_pickle_impl(self):
@@ -60,4 +61,4 @@ class LoadCompressPrime(StorePrime):
         compress_pickle.dump(self.pvalues, self.pfile)
 
 if __name__ == '__main__':
-    print('run **test_sp.py lcp** to see the demo...')
+    print('run **run_example.py -l** to see the demo of this implementation...')

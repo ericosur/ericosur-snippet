@@ -49,7 +49,7 @@ def test():
         p = pow(a, b, n)
         q = modulo(a, b, n)
         assert p == q
-        print("pow(%d, %d, %d) = %d" % (a, b, n, p))
+        print(f'pow({a}, {b}, {n}) = {p}')
         #print("pow(%d, %d, %d) = %d" % (a, b, n, modulo(a, b, n)))
 
 
@@ -71,4 +71,4 @@ if __name__ == '__main__':
                 try:
                     main(int(i))
                 except ValueError:
-                    print('cannot convert "{}" into integer'.format(i))
+                    print(f'cannot convert "{i}" into integer')

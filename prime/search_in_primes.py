@@ -56,8 +56,8 @@ class LoadPrimeFromText():
             self.init_size = 0
         else:
             self.init_size = len(self.pvalues)
-        msg = 'min: {}, max: {}, '.format(self.pvalues[0], self.pvalues[-1])
-        msg = msg + 'total primes: {}'.format(self.init_size)
+        msg = f'min: {self.pvalues[0]}, max: {self.pvalues[-1]}, '
+        msg = msg + f'total primes: {self.init_size}'
         return msg
 
     def get_count(self):
@@ -78,10 +78,10 @@ class LoadPrimeFromText():
             self.pvalues = []
 
         if not os.path.exists(self.txtfile):
-            print('{} not found, exit'.format(self.txtfile))
+            print(f'{self.txtfile} not found, exit')
             return False
 
-        with open(self.txtfile, "rt") as txtinf:
+        with open(self.txtfile, "rt", encoding='utf8') as txtinf:
             self.need_save = True
             while True:
                 ln = txtinf.readline().strip()
@@ -125,10 +125,10 @@ class LoadPrimeFromText():
         if val in self.pvalues:
             return (self.pvalues.index(val), None)
         if val < self.pvalues[0]:
-            print('{} is smaller than lower bound'.format(val))
+            print(f'{val} is smaller than lower bound')
             return (None, None)
         if val > self.pvalues[-1]:
-            print('{} is larger than upper bound'.format(val))
+            print(f'{val} is larger than upper bound')
             return (None, None)
 
         # start to binary search
@@ -176,15 +176,15 @@ def show(v, p, q):
     if p is None and q is None:
         return
     if q is None:
-        print('{} is a prime {}'.format(v, p))
+        print(f'{v} is a prime {p}')
     else:
         lhs = abs(v - p)
         rhs = abs(v - q)
         if lhs <= rhs:
-            arrow = "<<<<<"
+            arrow = "<----"
         else:
-            arrow = ">>>>>"
-        print('{} is in the range of ({} {} {})'.format(v, p, arrow, q))
+            arrow = "---->"
+        print(f'{v} is in the range of ({p} {arrow} {q})')
 
 
 def main(argv):
@@ -220,7 +220,7 @@ def main(argv):
                     val = int(ss)
                     test(val)
                 except ValueError:
-                    print('{} is a ValueError'.format(ss))
+                    print(f'{ss} is a ValueError')
                     continue
 
 

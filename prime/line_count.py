@@ -6,9 +6,6 @@ https://gist.github.com/zed/0ac760859e614cd03652
 https://stackoverflow.com/questions/845058/how-to-get-line-count-cheaply-in-python
 '''
 
-#from __future__ import with_statement
-#import time
-#import random
 import mmap
 import os
 import subprocess
@@ -17,9 +14,12 @@ import sys
 from collections import defaultdict
 from timeit import default_timer as timer
 
+# pylint: disable=consider-using-f-string
+# pylint: disable=consider-using-with
+
 def mapcount(filename):
     ''' memory map '''
-    with open(filename, "r+") as f:
+    with open(filename, "r+t", encoding='utf8') as f:
         buf = mmap.mmap(f.fileno(), 0)
         lines = 0
         readline = buf.readline
@@ -30,15 +30,17 @@ def mapcount(filename):
 def simplecount(filename):
     ''' simple count '''
     lines = 0
-    for _ in open(filename):
-        lines += 1
+
+    with open(filename, 'rt', encoding='utf8') as fobj:
+        for _ in fobj:
+            lines += 1
     return lines
 
 def bufcount(filename):
     ''' buf count '''
     lines = 0
     buf_size = 1024 * 1024
-    with open(filename) as f:
+    with open(filename, encoding='utf8') as f:
         read_f = f.read # loop optimization
         buf = read_f(buf_size)
         while buf:
@@ -61,14 +63,17 @@ def itercount(filename):
 def opcount(fname):
     ''' use enumerate '''
     line_number = 0
-    with open(fname) as f:
+    with open(fname, encoding='utf8') as f:
         for line_number, _ in enumerate(f, 1):
             pass
     return line_number
 
 def kylecount(fname):
     ''' kyle count '''
-    return sum(1 for line in open(fname))
+    with open(fname, encoding='utf8') as fobj:
+        res = sum(1 for line in fobj)
+    return res
+    #return sum(1 for line in open(fname))
 
 try:
     from fadvise import sequential, normal # http://chris-lamb.co.uk/projects/python-fadvise/
@@ -123,8 +128,7 @@ def main():
         "ratio".rjust(6)))
     absmin_ = min(x[1] for x in timings.values())
     for name, (av, min_) in sorted(timings.items(), key=lambda x: x[1][1]):
-        print("%s %11.2g %7.2g %6.2f" % (
-            name.ljust(width), av, min_, min_/absmin_))
+        print(f'{name.ljust(width)} {av:11.2g} {min_:7.2g} {min_/absmin_:6.2f}')
 
 if __name__ == '__main__':
     main()
