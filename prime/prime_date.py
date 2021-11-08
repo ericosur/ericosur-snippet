@@ -52,7 +52,7 @@ class TestDate():
             #     print('{:>8s} is PRIME'.format(v))
             v = v[1:]
         if allprime:
-            print('{} is a prime day!'.format(argv))
+            print(f'{argv} is a prime day!')
         return allprime
 
     def run(self):
@@ -69,7 +69,7 @@ class TestDate():
                 cnt += 1
             #print(ds)
             curr += timedelta(days=1)
-        print('from {} to {}, there are {} prime days'.format(start_d, end_d, cnt))
+        print(f'from {start_d} to {end_d}, there are {cnt} prime days')
 
 def main():
     ''' main '''

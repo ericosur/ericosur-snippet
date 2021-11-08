@@ -3,7 +3,7 @@
 
 '''
 check if input number is prime or not
-support read lines from stdin
+may input numbers from CLI and stdin
 use 'sympy.ntheory.primetest.isprime()'
 
 eg:
@@ -19,14 +19,16 @@ import argparse
 import sys
 from myutil import read_from_stdin
 try:
-    import sympy
+    #from sympy import sympy.ntheory.primetest.isprime
+    from sympy import ntheory
 except ImportError as err:
     print('Import Error while:', err)
     sys.exit(1)
 
 def is_prime(n: int):
     ''' check if a prime with sympy '''
-    return sympy.ntheory.primetest.isprime(n)
+    #return sympy.ntheory.primetest.isprime(n)
+    return ntheory.primetest.isprime(n)
 
 def main(argv: list):
     ''' main '''
@@ -38,14 +40,14 @@ def main(argv: list):
         try:
             m = int(e)
             ret = is_prime(m)
-            print('{} is '.format(m), end='')
+            print(f'{m} is ', end='')
             if ret:
                 print('a PRIME')
             else:
                 print('NOT a prime')
 
         except ValueError:
-            print('value error: {}'.format(m))
+            print('value error:', m)
 
 def argp():
     ''' prepare and parse CLI arguments '''
@@ -59,7 +61,6 @@ def argp():
         read_from_stdin(main)
     else:
         main(args.arg)
-
 
 if __name__ == '__main__':
     argp()

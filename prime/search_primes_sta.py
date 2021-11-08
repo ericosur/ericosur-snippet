@@ -18,6 +18,7 @@ import re
 # pylint: disable=import-error
 # pylint: disable=unused-import
 # pylint: disable=no-member
+# pylint: disable=consider-using-f-string
 # pythonista
 import clipboard
 import console
@@ -78,7 +79,7 @@ class StorePrime():
             print('{} not found, exit'.format(self.txtfile))
             return False
 
-        with open(self.txtfile, "rt") as txtinf:
+        with open(self.txtfile, "rt", encoding='utf8') as txtinf:
             self.need_save = True
             while True:
                 ln = txtinf.readline().strip()

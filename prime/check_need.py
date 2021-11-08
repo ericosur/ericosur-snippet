@@ -11,7 +11,7 @@ def main():
     cnt = 0
 
     with StorePrime() as sp:
-        with open(fn, 'rt') as f:
+        with open(fn, 'rt', encoding='utf8') as f:
             while True:
                 cnt += 1
                 ln = f.readline().strip()

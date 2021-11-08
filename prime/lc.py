@@ -26,7 +26,7 @@ def get_nth_line_from_file(fn, line_num):
     if line_num == 0:
         return None
     line = None
-    with open(fn) as f:
+    with open(fn, encoding='utf8') as f:
         try:
             line = next(islice(f, line_num - 1, line_num))
         except StopIteration as e:
@@ -107,15 +107,17 @@ def main(argv):
     data = read_setting('setting.json')
     prime_big = data['prime_big']
     prime_path = data['prime_path']
-    paths = list()
+    paths = []
     paths.append(get_home())
     paths.append(get_home() + '/' + prime_path)
     fn = _try_fn(prime_big, paths)
     sz = get_filesize(fn)
     lnc = bufcount(fn)
-    print('text file: {}, size: {}, lines: {}'.format(fn, sz, lnc))
-    print('first line: {}'.format(get_nth_line_from_file(fn, 1)))
-    print('last line: {}'.format(get_nth_line_from_file(fn, lnc)))
+    print(f'text file: {fn}, size: {sz}, lines: {lnc}')
+    res = get_nth_line_from_file(fn, 1)
+    print(f'first line: {res}')
+    res = get_nth_line_from_file(fn, lnc)
+    print(f'last line: {res}')
 
     targets = [2, 15485863, 1, 16999777]
     if not argv:
@@ -126,10 +128,10 @@ def main(argv):
 
 
     for t in targets:
-        print('search {} ... '.format(t), end='')
+        print(f'search {t} ... ', end='')
         (p, q) = search_from_file(t, fn, lnc)
         if p is not None:
-            print('between ({}, {})'.format(p, q))
+            print(f'between ({p}, {q})')
     print('total IO calls:', TOTAL_CALLS)
 
 

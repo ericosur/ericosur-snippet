@@ -31,7 +31,7 @@ def test(argv, sp):
             val = int(ss)
             sp.test(val)
         except ValueError:
-            print('    {} is a ValueError'.format(ss))
+            print(f'    {ss} is a ValueError')
             continue
 
 

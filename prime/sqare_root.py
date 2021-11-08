@@ -29,14 +29,14 @@ def test():
         if is_prime(m):
             p = m**2 + 4
             if is_prime(p):
-                print('{} = {}^2 + 2^2'.format(p, m))
+                print(f'{p} = {m}^2 + 2^2')
                 cnt += 1
     return cnt
 
 def main():
     ''' main '''
     result = test()
-    print('get {} results'.format(result))
+    print(f'get {result} results')
 
 
 if __name__ == '__main__':
