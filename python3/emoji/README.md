@@ -98,10 +98,17 @@ void unicode_char()
         - emoji-data.txt
         - emoji-variation-sequences.txt
 
+### 2021-11-09
+
+http://unicode.org/Public/cldr/40/
+
+
 ### auto download and do the rest
 
 execute mkcldrtable.sh and do all the rest
 ```
 $ ./mkcldrtable.sh
 ```
+
+replace the __output.csv__ to __emoji.csv__
 
