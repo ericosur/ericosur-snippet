@@ -21,7 +21,11 @@ def gen_otp():
             res = res + ' '
     return res
 
-if __name__ == '__main__':
+def main():
+    ''' main '''
     REPEAT = 1
     for _ in range(REPEAT):
         print(gen_otp())
+
+if __name__ == '__main__':
+    main()
