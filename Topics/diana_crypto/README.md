@@ -6,6 +6,10 @@ This article describes about [programming praxis][1] or [dodona][2], and how to 
 [1]: https://programmingpraxis.com/2014/12/19/diana-cryptosystem/
 [2]: https://dodona.ugent.be/en/exercises/2088793301/
 
+## TODO
+
+- 2021-11-09: rewrite encrypt/decrypt scripts in python
+
 ## usage
 
 **how to generate trigraph table**
