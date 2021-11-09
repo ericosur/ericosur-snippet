@@ -8,22 +8,33 @@ Fibonacci number
 - Demo a fib function which would store calculated fib_redis(n) to redis
   to elimate unnecessary recursive and calculation
 
+require redis server is running!
 '''
 
 from random import randint
 import sys
 import redis
+from myutil import read_jsonfile, get_home
 
 class FibRedis():
     ''' fib w/ redis '''
     def __init__(self):
-        self.redis = redis.Redis(host='localhost', port=6379, \
-            decode_responses=True, charset='utf-8', password=None)
+        self.redis = None
         self.key = 'fibhash'
         self.query = 0
+        self._connect()
         # field pattern
         # fib{n}
+
+    def _connect(self):
+        ''' connect to redis '''
+        h = get_home()
+        fn = h + '/Private/redis.json'
+        data = read_jsonfile(fn)
+        print(f"host: {data['host']}, port: {data['port']}")
         try:
+            self.redis = redis.Redis(host=data['host'], port=data['port'], \
+                decode_responses=True, charset='utf-8', password=None)
             self.redis.ping()
         except redis.exceptions.ConnectionError as e:
             print('Need redis server running\n', e)
@@ -59,7 +70,7 @@ class FibRedis():
 
     def action(self):
         ''' action '''
-        # demo 50 <= x <= 200
+        # demo 51 <= x <= 200
         LOWER = 50 + randint(1, 150)
         for i in range(LOWER, LOWER+10):
             ret = self.fib(i)
