@@ -1,7 +1,7 @@
 #!/bin/bash
 
-LOCALPATH=/home/rasmus/Dropbox/unicode/cldr/37
-CLDRFILE=cldr-common-37.0.zip
+LOCALPATH=/home/rasmus/Dropbox/unicode/cldr/40
+CLDRFILE=cldr-common-40.0.zip
 ENXML=en.xml
 
 # check local cldr file
