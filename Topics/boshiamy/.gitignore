@@ -1,2 +1,5 @@
+# pickle files
 *.p
 
+# liu.json is excluded
+liu.json
