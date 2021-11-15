@@ -6,23 +6,7 @@ read in __liu.json__
 input boshiamy radicals, output characters
 '''
 
-import os
-import json
-
-def read_jsonfile(fn, debug=False):
-    '''
-    specify json filename and return whole json object
-    '''
-    if debug:
-        print(f'load json from {fn}')
-    if not os.path.exists(fn):
-        print('file not found')
-        return None
-
-    # read from json file
-    with open(fn, 'r', encoding='utf8') as fstream:
-        data = json.load(fstream)
-    return data
+from myutil import read_jsonfile
 
 class Bosha:
     ''' read liu.json and rad.txt output han characters '''
