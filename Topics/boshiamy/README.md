@@ -29,7 +29,27 @@ python3 find_spell.py ix qm ^jn ^.gz$ ^uue$
 
 ### cin -> json
 
-* convert boshiamy_radicals.txt to liu.json by using __split_radicals.py__
+* __split_radicals.py__ converts boshiamy_radicals.txt to liu.json
+
+The format of liu.json like the following:
+
+```
+"23383": [
+    "nzj"
+]
+```
+
+The "23383" is the unicode codepoint in decimal string. It is \u5B57 "字".
+The value "nzj" is the radical spelling of boshiamy for this character.
+
+#### how to use jq
+
+The first one is correct, and the 2nd will print .23383 not query result.
+
+```bash
+jq '."23383"' liu.json
+jq ."23383" liu.json
+```
 
 
 ### unicode reference
