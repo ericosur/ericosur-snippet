@@ -8,6 +8,18 @@ need redis service running
 
 Compares to text file, pickle, and redis
 
+---------------------------------------------------------------------
+The size of primelist is 3 million numbers.
+
+Time to read/parse a text file and store into list: 5.773188352584839 sec
+Time to store prime list into redis one-by-one: 439.2567970752716 sec
+Time to load a list from redis (LRANGE) :
+    14.280343770980835 sec
+    15.271966218948364 sec
+
+Time to save python list slice (200_000 elements) bulkly to redis:
+    7.947754621505737 sec
+
 '''
 
 import os
@@ -16,8 +28,10 @@ import sys
 import time
 from random import randint
 
+# if hiredis is installed as well, it will improve the query speed a lot
 import redis
 from findlist_func import index, find_le, find_ge
+from myutil import read_jsonfile, get_home
 
 class StorePrimeToRedis():
     ''' class will help to handle read pickle file '''
@@ -26,33 +40,63 @@ class StorePrimeToRedis():
         # init values
         self.txtfile = 'large.txt'
         self.primes = []
-        self.redis = redis.Redis(host='localhost', port=6379, decode_responses=True)
+        self.redis = None
         self.key = 'primelist'
-        self._test_redis()
+        self.test_key = "primelist-test"
+        self._connect()
+        self._test_primes_in_redis()
 
-    def _test_redis(self):
+    def _connect(self):
+        ''' connect to redis '''
+        h = get_home()
+        fn = h + '/Private/redis.json'
+        data = read_jsonfile(fn)
+        print(f"host: {data['host']}, port: {data['port']}")
         try:
+            self.redis = redis.Redis(host=data['host'], port=data['port'], \
+                decode_responses=True, charset='utf-8', password=None)
             self.redis.ping()
+        except redis.exceptions.ConnectionError as e:
+            print('Need redis server running\n', e)
+            sys.exit(1)
+
+    def _test_primes_in_redis(self):
+        try:
             r = self.redis.exists(self.key)
             if r == 1:
                 print(f'[INFO] yes, {self.key} exists in redis server...')
                 r = self.redis.llen(self.key)
                 print(f"[INFO] there are {r} values in {self.key} from redis")
                 # load primes from redis to local list
+
                 print('[INFO] load primes from database...')
                 start = time.time()
                 r = self.redis.lrange(self.key, 0, -1)
+                during = time.time() - start
+                print(f'redis.lrange need: {during} sec')
+
+                start = time.time()
                 self.primes = [ int(v) for v in r ]
                 during = time.time() - start
-                print(f'load from redis during: {during}')
+                print(f'convert str to int: {during} sec')
             else:
-                print(f'{self.key} not found...')
+                print(f'{self.key} not found... load from text file instead...')
                 self.load_text()
         except redis.exceptions.ConnectionError as e:
             print('Need redis server running\n', e)
             sys.exit(1)
 
         print('[INFO] the last prime number is:', self.primes[-1])
+
+    def _test_store(self):
+        '''
+        if test_key exists, remove it and then store list into redis
+        '''
+        if self.redis.exists(self.test_key):
+            print(f"test: yes {self.test_key} exists, will unlink it...")
+            self.redis.unlink(self.test_key)
+
+        self.store_wholelist_to_redis(self.test_key)
 
     @staticmethod
     def get_local_data_path() -> str:
@@ -109,17 +153,46 @@ class StorePrimeToRedis():
             during = time.time() - start
         print(f'[INFO] Read from text file: {count} lines...')
         print(f'[INFO] It takes {during} sec to read into a python list')
-        self.store_list_to_reids()
+        self.store_wholelist_to_redis(self.key)
 
 
-    def store_list_to_reids(self) -> None:
-        ''' store the primelist into redis '''
+    def store_list_to_redis(self, redis_key: str) -> None:
+        ''' store the primelist into redis
+        [INFO] It takes 439.2567970752716 sec to store a list into redis
+        '''
         start = time.time()
         for v in self.primes:
-            self.redis.rpush(self.key, v)
+            self.redis.rpush(redis_key, v)
         during = time.time() - start
         print(f'[INFO] It takes {during} sec to store a list into redis')
 
+    def store_wholelist_to_redis(self, redis_key: str) -> None:
+        ''' store the primelist into redis
+            if the len of list = 3M, cannot store it at one time
+            so store it batchly
+            [INFO] It takes 7.790482997894287 sec to store (slice_size=500k)
+        '''
+        SLICE_SIZE = 500000
+        start = time.time()
+
+        left_cnt = len(self.primes)
+        pivot_start = 0
+        pivot_end = pivot_start + SLICE_SIZE
+        ssize = SLICE_SIZE
+        while True:
+            send_primes = self.primes[pivot_start:pivot_end]
+            self.redis.rpush(redis_key, *send_primes)
+            left_cnt -= ssize
+            print('left cnt:', left_cnt)
+            if left_cnt <= 0:
+                break
+            if left_cnt < SLICE_SIZE:
+                ssize = left_cnt
+            pivot_start += ssize
+            pivot_end = pivot_start + ssize
+
+        during = time.time() - start
+        print(f'[INFO] It takes {during} sec to store a list into redis ({redis_key})')
 
     def find(self, val: int) -> int:
         ''' find val in list of primes '''
@@ -237,11 +310,36 @@ class StorePrimeToRedis():
             return
         self.show(v, self.at(p), self.at(q))
 
+    @staticmethod
+    def check_by_small_primes(v: int) -> bool:
+        ''' use small primes to filter out non-prime numbers '''
+        small_primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29,
+                31, 37, 41, 43, 47, 53, 59, 61, 67, 71,
+                73, 79, 83, 89, 97]
+
+        for p in small_primes:
+            if v <= p:  # ==: small primes, <: no need to test more
+                return True
+            if v % p == 0:
+                return False
+        # pass small primes test
+        return True
+
     def test_redis(self, v: int):
         ''' for current version of py-redis, no lpos() available '''
-        #r = self.redis.lpos(self.key, v)
-        cmd = f'lpos {self.key} {v}'
-        r = self.redis.execute_command(cmd)
+        USE_LOCAL_FILTER = False
+        if USE_LOCAL_FILTER:
+            r = self.check_by_small_primes(v)
+            if not r:   # pass the small prime test
+                print(f'{v} cannot pass easy prime test, not a prime')
+                return
+        # before py-reids 4.0.0, there is no redis.lpos()
+        USE_LPOS = True
+        if USE_LPOS:
+            r = self.redis.lpos(self.key, v)
+        else:
+            cmd = f'lpos {self.key} {v}'
+            r = self.redis.execute_command(cmd)
         if r:
             print(f'{v} in the pos {r} of list')
         else:
@@ -268,18 +366,23 @@ class StorePrimeToRedis():
         arr = self.primes[begin:end]
         return arr
 
-def main():
-    ''' main '''
-    sol = StorePrimeToRedis()
+def demo(sol):
+    ''' demo '''
+    print()
     print('[INFO] Running tests...')
     print('-' * 50)
-    REPEAT = 10
+    REPEAT = 20
     start = time.time()
     for _ in range(REPEAT):
         sol.test_redis(randint(10e5, 49999999))
         print('-' * 50)
     during = time.time() - start
     print(f'[INFO] takes {during} sec to query {REPEAT} times')
+
+def main():
+    ''' main '''
+    sol = StorePrimeToRedis()
+    demo(sol)
 
 if __name__ == '__main__':
     main()
