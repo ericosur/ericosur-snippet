@@ -62,6 +62,7 @@ class SumUp(Solution):
 
     def sum3(self):
         ''' using np.sum '''
+        # np.arange fill an array with inc/dec numbers
         arr = np.arange(1, self.max_num + 1)
         return np.sum(arr)
 
