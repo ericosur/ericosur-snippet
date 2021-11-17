@@ -8,18 +8,42 @@ pick one of miranda's pre-recorded voices to play
 import os
 import random
 import re
+import sys
 import time
+from typing import List
+
+from myutil import read_jsonfile, get_home
 
 # pylint: disable=invalid-name
 class Miranda():
     ''' miranda tts '''
+    DEBUG = False
+
     def __init__(self):
         self.fn = 'miranda1.bin'
         self.zh = []
         self.en = []
+        self.path = None
+
+        self._load_config()
+        self.collect_phrash()
+
+    def _load_config(self):
+        ''' load miranda.json from ${HOME}/Private '''
+        h = get_home()
+        conf = h + '/Private/miranda.json'
+        data = None
+        if os.path.exists(conf):
+            data = read_jsonfile(conf)
+        else:
+            print(f'cannot load config file from {conf}')
+            sys.exit(1)
+        if data:
+            self.path = data["path"]
+            print(f'[INFO] path of miranda: {self.path}')
 
     @staticmethod
-    def get_immediate_subdirectories(a_dir):
+    def get_immediate_subdirectories(a_dir: str) -> List:
         '''
         refer from:
         https://stackoverflow.com/questions/800197/how-to-get-all-of-the-immediate-subdirectories-in-python
@@ -37,42 +61,57 @@ class Miranda():
 
     def get_fn(self, p):
         ''' compose file path '''
-        return p + '/' + self.fn
+        r = self.path + '/' + p + '/' + self.fn
+        if self.DEBUG:
+            print(f'get_fn: {r}')
+        return r
 
     def collect_phrash(self):
         ''' collect en/zh phrases from directory names '''
-        ret = Miranda.get_immediate_subdirectories('.')
+        ret = Miranda.get_immediate_subdirectories(self.path)
         for d in ret:
             m = re.match(r'^[a-zA-Z_0-9]+$', d)
             if m:
                 self.en.append(m.group(0))
             else:
                 self.zh.append(d)
-        print('len(en):', len(self.en))
-        print('len(zh):', len(self.zh))
+        print('size of en phrases:', len(self.en))
+        print('size of zh phrases:', len(self.zh))
         if not self.zh:
             raise ValueError('does not collect any zh phrases...')
         self.en.sort()
 
+    def play_phrase(self, phrase: str) -> None:
+        ''' specify phrase to play tts '''
+        if not phrase in self.zh and not phrase in self.en:
+            print(f'phrase [{phrase}] not found...')
+            return
+
+        tts_fn = self.get_fn(phrase)
+        if os.path.exists(tts_fn):
+            # for oa18.local
+            # oa18_cmd = f'play -t raw -b 16 -r 48000 -e signed -c 1 {tts_fn}'
+
+            # for kitty.local
+            cmd = f'play -t raw -b 16 -r 24000 -e signed -c 2 {tts_fn}'
+
+            os.system(cmd)
+            time.sleep(.75)
+        else:
+            print(f'file not found: {tts_fn}')
 
 def main():
     ''' main '''
     mm = Miranda()
-    mm.collect_phrash()
+
     #items = mm.get_en()
     items = mm.get_zh()
     MAX_COUNT = 1
-    cnt = 0
-    while cnt < MAX_COUNT:
+
+    for _ in range(MAX_COUNT):
         r = random.choice(items)
-        print(f'playing {r} ...')
-        cnt += 1
-        # for oa18.local
-        #cmd = 'play -t raw -b 16 -r 48000 -e signed -c 1 {}'.format(p)
-        # for kitty.local
-        cmd = f'play -t raw -b 16 -r 24000 -e signed -c 2 {mm.get_fn(r)}'
-        os.system(cmd)
-        time.sleep(.75)
+        print(f'request playing {r} ...')
+        mm.play_phrase(r)
 
 if __name__ == '__main__':
     main()
