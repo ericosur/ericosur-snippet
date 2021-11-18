@@ -16,6 +16,8 @@ except ImportError:
     print('use pip install lxml')
     sys.exit(1)
 
+from myutil import read_textfile
+
 # XLSWRITER_OK = False
 # try:
 #     import xlsxwriter
@@ -40,16 +42,8 @@ class Solution():
         ue = cc.encode('unicode-escape').decode('utf-8')
         return ue
 
-    @staticmethod
-    def read_file(fn):
-        ''' read specified file and return file content '''
-        content = None
-        with open(fn, 'rt', encoding='utf8') as fh:
-            content = fh.read()
-        return content
-
-    def make_soup(self):
-        ''' make soup from content '''
+    def make_soup(self) -> None:
+        ''' parse xml from content, store into self.emoji '''
         soup = BeautifulSoup(self.content, 'lxml')
         t = soup.find('annotations')
         anns = t.find_all('annotation')
@@ -66,7 +60,7 @@ class Solution():
                 self.emoji[key].append(i.text)
 
     @staticmethod
-    def value_to_string(v: list):
+    def value_to_string(v: list) -> list:
         ''' value to string '''
         s = str()
         for i in v:
@@ -75,7 +69,7 @@ class Solution():
         return s[:-1]
 
 
-    def output_data(self):
+    def output_data(self) -> None:
         ''' output data '''
         print(f'len: {len(self.emoji)}')
         outfn = 'output.csv'
@@ -86,23 +80,23 @@ class Solution():
         print(f'output to {outfn}')
 
 
-    def action(self):
+    def action(self) -> None:
         ''' action '''
         for fn in ['en-basic.xml', 'en-derived.xml']:
             print(f'fn: {fn}')
-            self.content = self.read_file(fn)
+            self.content = read_textfile(fn)
             # parsing xml and store into list()
             self.make_soup()
             self.output_data()
 
 
-def get_datetag():
+def get_datetag() -> str:
     ''' string in UMMDD '''
     today = date.today()
     s = f'U{today.month:02d}{today.day:02d}'
     return s
 
-def output_csv(data):
+def output_csv(data) -> None:
     ''' output data as csv format in UMMDD.csv '''
     fn = get_datetag() + '.csv'
     print('[INFO] output to:', fn)
