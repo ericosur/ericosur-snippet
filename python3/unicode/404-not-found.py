@@ -19,7 +19,7 @@ def help_message():
 if __name__ == '__main__':
 
     if len(sys.argv) == 1:
-        help()
+        help_message()
         dump(SHRUG)
     else:
         if sys.argv[1] == 'show':

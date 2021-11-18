@@ -14,7 +14,7 @@ import hashlib
 
 __version__ = '0.0.4'
 
-def read_jsonfile(fn, debug=False):
+def read_jsonfile(fn:str, debug=False):
     '''
     specify json filename and return whole json object
     '''
@@ -33,6 +33,15 @@ def read_jsonfile(fn, debug=False):
     #data = json.load(open(fn))
 
     return data
+
+def read_textfile(fn: str, debug=False) -> str:
+    ''' read specified file and return file content '''
+    if debug:
+        print(f'read text file content from: {fn}')
+    content = None
+    with open(fn, 'rt', encoding='utf8') as fh:
+        content = fh.read()
+    return content
 
 # in order not to break client scripts
 def read_setting(fn):
