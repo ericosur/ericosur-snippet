@@ -7,11 +7,17 @@ from U+D800 to U+DFFF
 while comes from U+10000 to U+10FFFF
 '''
 
-from __future__ import print_function
-
 def main():
     ''' main '''
-    surgg = u"\uD83D\uDE1C\uD83D\uDE17\uD83D\uDE0A\uD83D\uDE1C\uD83D\uDE1D\uD83D\uDE1D\uD83D\uDE09"
+    print('Test UTF-16 surrogatepass...')
+    surgg = u"""
+\uD83D\uDE1C
+\uD83D\uDE17
+\uD83D\uDE0A
+\uD83D\uDE1C
+\uD83D\uDE1D
+\uD83D\uDE1D
+\uD83D\uDE09"""
     a = surgg.encode('utf-16', 'surrogatepass').decode('utf-16')
     print('str: ' + a)
     print(f'len: {len(a)}')
