@@ -6,12 +6,11 @@ script to query openweather and accuweather
 '''
 
 # pylint: skip-file
-
-# TODO: UNIFINISHED
 #
-# pylint: disable=unreachable
-# pylint: disable=undefined-variable
-# pylint: disable=unused-variable
+# API request to openweather or accuweather need to be re-written or
+# re-apply the key service. So this script is suitable to read, not
+# for running.
+#
 
 import os
 import json
@@ -126,4 +125,8 @@ def main():
     query_accuweather(latitude, longitude)
 
 if __name__ == '__main__':
+    print("""
+This script should be reviewed or rewrite.
+The API keys and requests MAY be out of date.
+""")
     main()
