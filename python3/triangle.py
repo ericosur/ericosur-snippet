@@ -26,7 +26,6 @@ reference:
 import math
 import itertools as it
 import time
-from typing import List
 
 import numpy as np
 
@@ -66,7 +65,7 @@ class Pythag():
         return d
 
     @staticmethod
-    def show_list(tripes: List) -> None:
+    def show_list(tripes: list) -> None:
         ''' show list of tuples '''
         COLS = 5
         cnt = 0
@@ -153,7 +152,7 @@ class Pythag():
 
 
     @staticmethod
-    def sort_and_output(tripes: List, fn: str) -> None:
+    def sort_and_output(tripes: list, fn: str) -> None:
         ''' sort the list and output to file '''
         result_list = sorted(tripes, key=lambda x: (x[0], x[1], x[2]))
         print('length:', len(result_list))
