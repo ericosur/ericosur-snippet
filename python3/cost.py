@@ -4,10 +4,9 @@
 ''' get new cost and avg '''
 
 import sys
-from typing import List
 from myutil import get_python_version
 
-def main(argv: List) -> None:
+def main(argv: list) -> None:
     ''' main '''
     mm = []
     if argv == []:
