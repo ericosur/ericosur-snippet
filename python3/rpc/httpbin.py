@@ -5,6 +5,9 @@
 '''
 simple demo to test against https://httpbin.org/
 it is a great website to test http requests
+
+its docker:
+docker run -p 80:80 kennethreitz/httpbin
 '''
 
 
@@ -14,18 +17,18 @@ import requests
 
 def show_results(r):
     ''' show data member of **response** '''
-    print('r.url', r.url)
-    print('r.elapsed', r.elapsed)
-    print('r.ok', r.ok)
-    print('r.status_code', r.status_code)
-    print('r.reason', r.reason)
-    print('r.headers', r.headers)
-    print('r.links', r.links)
-    print('r.encoding', r.encoding)
+    print('r.url:', r.url)
+    print('r.elapsed:', r.elapsed)
+    print('r.ok:', r.ok)
+    print('r.status_code:', r.status_code)
+    print('r.reason:', r.reason)
+    print('r.headers:', r.headers)
+    print('r.links:', r.links)
+    print('r.encoding:', r.encoding)
     content_type = r.headers['Content-Type']
     print('Content-Type:', content_type)
     if content_type == 'application/json':
-        print('r.json()', r.json())
+        print('r.json():', r.json())
     elif 'image' in content_type:
         # maybe not printable
         print('may not printable...')
@@ -35,27 +38,42 @@ def show_results(r):
         # will overwrite if file exists
         with open(fn, 'wb') as ofh:
             ofh.write(r.content)
-        print('save content into', fn)
+        print('save content into:', fn)
         return fn
     elif 'text' in content_type:
-        print('r.text', r.text)
+        print('r.text:', r.text)
     elif 'octet' in content_type:
-        print('r.content', r.content)
+        print('r.content:', r.content)
     return None
 
-def test0():
-    ''' query ip '''
-    url = 'https://httpbin.org/ip'
-    r = requests.get(url)
-    show_results(r)
+class TestHttpbin():
+    ''' class test httpbin '''
+    server = 'https://httpbin.org'
 
-def test1():
-    '''
-    TODO: save fetched image into file
-    '''
-    url = 'https://httpbin.org/image/jpeg'
-    r = requests.get(url)
-    show_results(r)
+    def __init__(self):
+        pass
+
+    def test_url(self, subcmd: str) -> None:
+        ''' test with given subcmd '''
+        url = f'{self.server}/{subcmd}'
+        r = requests.get(url)
+        show_results(r)
+
+    def test_getip(self):
+        ''' query ip '''
+        self.test_url('ip')
+
+    def test_jpeg(self):
+        ''' request an image '''
+        self.test_url('image/jpeg')
+
+
+    def run(self):
+        ''' run '''
+        self.test_getip()
+        print('-' * 48)
+        self.test_jpeg()
+        print('-' * 48)
 
 def test2():
     '''
@@ -87,18 +105,24 @@ def test4():
     fetch anything
     '''
     try:
-        url = 'https://httpbin.org/anything/{anything}'
+        url = 'https://httpbin.org/anything/{anything}' # it isn't a f-string
         r = requests.get(url)
         show_results(r)
     except ConnectionError as e:
         print(f"type: {type(e)}, args: {e.args}")
 
+def test_post():
+    ''' test post '''
+    print("test_post() =========>")
+    url = 'https://httpbin.org/post'
+    r = requests.post(url)
+    show_results(r)
 
 def main():
     ''' main test function '''
-    test4()
-    print('-' * 60)
-
+    # httpbin = TestHttpbin()
+    # httpbin.run()
+    test_post()
 
 if __name__ == '__main__':
     main()
