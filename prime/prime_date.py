@@ -14,16 +14,22 @@ for example: 20190823
       23 is prime
        3 is prime
 yay! it's a prime day
+
+Note that your prime number table should cover the test number or you cannot
+find any prime dates.
 '''
 
 from datetime import date, timedelta
+import time
 
+#
 # try to import StorePrime class
-try:
-    # larger and slower for loading pickle
-    from sip import LoadCompressPrime as StorePrime
+#
+USE_LCP = True
+if USE_LCP:
+    from lcp import LoadCompressPrime as StorePrime
     print('use **LoadCompressPrime**')
-except ImportError:
+else:
     # smaller and quicker for loading pickle
     from store_prime import StorePrime
     print('use **store_prime**')
@@ -35,8 +41,16 @@ except ImportError:
 class TestDate():
     ''' test date is a prime '''
     def __init__(self):
+        start = time.time()
         self.sp = StorePrime()
         self.sp.load_pickle()
+        duration = time.time() - start
+        self._print_info(duration)
+
+    def _print_info(self, duration: int) -> None:
+        ''' print info of loaded primes '''
+        print(f'[info] it takes {duration:.3f} sec to load...')
+        print(f'[info] {self.sp}')
 
     def test(self, argv: str):
         ''' test_prime_date '''
@@ -57,7 +71,7 @@ class TestDate():
 
     def run(self):
         ''' run '''
-        start_d = date(2001, 1, 1)
+        start_d = date(2000, 1, 1)
         end_d = date(2099, 12, 31)
         curr = start_d
         cnt = 0
