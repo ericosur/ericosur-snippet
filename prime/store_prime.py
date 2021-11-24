@@ -136,12 +136,16 @@ class StorePrime():
 
     def find(self, val: int) -> int:
         ''' find val in list of primes '''
-        #if val in self.pvalues:
+        if val > self.pvalues[-1]:
+            raise IndexError(f'{val} is larger than the most number' \
+                f'in prime table {self.pvalues[-1]}')
         return self.pvalues.index(val)
-        #return -1
 
     def index(self, val: int) -> int:
         ''' use external index() '''
+        if val > self.pvalues[-1]:
+            raise IndexError(f'{val} is larger than the most number' \
+                f'in prime table {self.pvalues[-1]}')
         return index(self.pvalues, val)
 
     def get_primes_less_than(self, val: int) -> list:
