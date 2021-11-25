@@ -48,8 +48,8 @@ class CalcWork():
 def main():
     ''' main '''
     calc = CalcWork()
-    calc.calc("year2021")
-    calc.calc("year2022")
+    for c in ["year2019", "year2020", "year2021", "year2022"]:
+        calc.calc(c)
 
 if __name__ == '__main__':
     main()
