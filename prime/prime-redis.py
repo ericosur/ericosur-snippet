@@ -334,8 +334,9 @@ class StorePrimeToRedis():
                 print(f'{v} cannot pass easy prime test, not a prime')
                 return
         # before py-reids 4.0.0, there is no redis.lpos()
-        USE_LPOS = False
-        if USE_LPOS:
+        ver = redis.__version__ # got 3.5.3
+        ver.replace('.', '')    # got 353
+        if int(ver) >= 400:
             r = self.redis.lpos(self.key, v)
         else:
             cmd = f'lpos {self.key} {v}'

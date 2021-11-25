@@ -141,10 +141,7 @@ def main(argv):
                 r += 1
             argv.append(r)
 
-    if len(argv) == 1:
-        listnum = 6
-    else:
-        listnum = 3
+    listnum = 6 if len(argv) == 1 else 3
 
     for ss in argv:
         try:
