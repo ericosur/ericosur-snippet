@@ -135,6 +135,8 @@ class DrivingData():
         print(f'[INFO]    first date: {dates[0]}')
         print(f'[INFO]     last date: {dates[-1]}')
         print(f'[INFO] dates between: {DrivingData.get_between_dates(dates[0], dates[-1])}')
+        print('[INFO] for 2021, total working days are 239')
+        print('[INFO] for 2022, total working days are 242')
 
         if len(dates) != len(secs):
             print(f'[ERROR] not the same length {len(dates)} vs {len(secs)}')
