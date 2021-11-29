@@ -10,22 +10,24 @@ given cli argument to get lower/upper prime
 '''
 
 import bisect
+import sys
 import random
 import time
 
+from store_prime import StorePrime
+
 # pylint: disable=import-error
 # pylint: disable=unused-import
-# pylint: disable=consider-using-f-string
-#
-# pythonista
-#
-import clipboard
-import console
-
-import search_in_primes
+PYTHONISTA=False
+if PYTHONISTA:
+    # pythonista
+    import clipboard
+    import console
 
 # pylint: disable=invalid-name
 # too-many-statements
+
+version = '2021.11.25.18.01'
 
 def get_bisect(a, x):
     ''' Locate the leftmost value exactly equal to value **x** from list **a** '''
@@ -89,8 +91,8 @@ def impl3(val, ret):
 def gold_bach(val, debug=False):
     ''' it could be found if val < 4 * 10^17 '''
     if debug:
-        print('test {}...'.format(val))
-    with search_in_primes.LoadPrimeFromText() as sp:
+        print(f'test {val}...')
+    with StorePrime() as sp:
         if val % 2 != 0:
             print('[ERROR] must be an even number')
             return None
@@ -101,13 +103,13 @@ def gold_bach(val, debug=False):
 
         if debug:
             ans, cnt, duration = impl1(val, ret)
-            print('len: {}, cnt: {}, time: {}'.format(len(ans), cnt, duration))
+            print(f'len: {len(ans)}, cnt: {cnt}, time: {duration:.3f}')
             ans, cnt, duration = impl2(val, ret)
-            print('len: {}, cnt: {}, time: {}'.format(len(ans), cnt, duration))
+            print(f'len: {len(ans)}, cnt: {cnt}, time: {duration:.3f}')
 
         ans, cnt, duration = impl3(val, ret)
         if debug:
-            print('len: {}, cnt: {}, time: {}'.format(len(ans), cnt, duration))
+            print(f'len: {len(ans)}, cnt: {cnt}, time: {duration:.3f}')
         return ans
 
 def profile():
@@ -116,7 +118,7 @@ def profile():
 
 def print_duration(start, end, msg=''):
     ''' print duration '''
-    print('{} duration: {:.3f} seconds (wall clock)'.format(msg, end - start))
+    print(f'{msg} duration: {end-start:.3f} seconds (wall clock)')
 
 
 def run_this():
@@ -125,18 +127,22 @@ def run_this():
     try:
         val = int(ret)
         if val <= 0 or val % 2 == 1:
-            print('invalid number, use auto demo')
             val = random.randint(5000, 15000) * 2
+            console.alert('invalid number, randint: {}'.format(val))
 
         res = gold_bach(val)
         if res is not None:
-            print('test {} goldbach ====>'.format(val), end='')
-            print('  total combination: {}'.format(len(res)))
-            print('  pick random one: {}'.format(res[random.randint(0, len(res)-1)]))
-            print('  pick last one: {}'.format(res[-1]))
+            console.alert('pick: {}'.format(res[-1]))
+            # print('test {} goldbach ====>'.format(val), end='')
+            # print('  total combination: {}'.format(len(res)))
+            # print('  pick random one: {}'.format(res[random.randint(0, len(res)-1)]))
+            # print('  pick last one: {}'.format(res[-1]))
     except ValueError:
         print('{} is a ValueError'.format(ret))
 
 
 if __name__ == '__main__':
-    run_this()
+    if PYTHONISTA:
+        run_this()
+    else:
+        profile()
