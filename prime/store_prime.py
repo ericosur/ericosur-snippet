@@ -9,6 +9,7 @@ import errno
 import os
 import pickle
 import re
+from time import time
 from findlist_func import index, find_le, find_ge
 
 class StorePrime():
@@ -79,15 +80,17 @@ class StorePrime():
         if not os.path.exists(self.txtfile):
             raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), self.txtfile)
 
-    def load_pickle_impl(self):
+    def load_pickle_impl(self) -> bool:
         ''' load pickle implementation '''
-        print('store_prime: load_pickle_imple()')
-
+        print('store_prime: load_pickle_impl()')
+        start = time()
         self._try_pickle_file()
         with open(self.pfile, "rb") as inf:
             self.pvalues = pickle.load(inf)
             self.need_save = False
-            return True
+        duration = time() - start
+        print(f'store_prime: duration: {duration:.3f} sec')
+        return True
 
     def load_pickle(self):
         '''
@@ -100,7 +103,7 @@ class StorePrime():
             self.pvalues = []
 
         self._try_text_file()
-
+        start = time()
         with open(self.txtfile, "rt", encoding='utf8') as txtinf:
             self.need_save = True
             error_count = 0
@@ -117,6 +120,8 @@ class StorePrime():
                     self.pvalues.append(el)
                 else:
                     error_count += 1
+        duration = time() - start
+        print(f'store_prime: load from text file duration: {duration:.3f} sec')
         return True
 
     def save_pickle_impl(self):

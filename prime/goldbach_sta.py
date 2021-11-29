@@ -10,7 +10,6 @@ given cli argument to get lower/upper prime
 '''
 
 import bisect
-import sys
 import random
 import time
 
@@ -127,18 +126,18 @@ def run_this():
     try:
         val = int(ret)
         if val <= 0 or val % 2 == 1:
-            val = random.randint(5000, 15000) * 2
-            console.alert('invalid number, randint: {}'.format(val))
+            console.alert(f'invalid number, need an even number')
+            return
 
         res = gold_bach(val)
-        if res is not None:
-            console.alert('pick: {}'.format(res[-1]))
-            # print('test {} goldbach ====>'.format(val), end='')
-            # print('  total combination: {}'.format(len(res)))
-            # print('  pick random one: {}'.format(res[random.randint(0, len(res)-1)]))
-            # print('  pick last one: {}'.format(res[-1]))
+        if res is None:
+            console.alert('no valid answers')
+            return
+
+        msg = f'the first: {res[0]}, the last: {res[-1]}'
+        console.alert(msg)
     except ValueError:
-        print('{} is a ValueError'.format(ret))
+        print(f'{ret} is a ValueError')
 
 
 if __name__ == '__main__':

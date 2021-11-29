@@ -13,6 +13,8 @@ pip install compress_pickle
 '''
 
 import sys
+from time import time
+
 try:
     import compress_pickle
 except ImportError:
@@ -45,11 +47,14 @@ class LoadCompressPrime(StorePrime):
 
     def load_pickle_impl(self):
         ''' overrides StorePrime::load_pickle_impl() '''
+        start = time()
         #self.pvalues = compress_pickle.load(self.pfile, compression="lzma")
         super()._try_pickle_file()
         self.pvalues = compress_pickle.load(self.pfile)
         self.need_save = False
         print('load_pickle_impl pvalues from:', self.pfile)
+        duration = time() - start
+        print(f'load_pickle_impl duration: {duration:.3f} sec')
         return True
 
     def save_pickle_impl(self):
