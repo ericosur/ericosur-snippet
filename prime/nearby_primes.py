@@ -31,18 +31,19 @@ def test(argv, sp):
             if ans is None:
                 print('[ERROR] error happens')
                 continue
+
             isShown = False
             isPrime = False
             if len(ans) % 2 == 1:   # val is a prime
                 isPrime = True
-            if ans is not None:
-                for n in ans:
-                    if n == val:
-                        print(f'prime idx#{sp.index(val)}  ', end='')
-                    if n > val and not isShown and not isPrime:
-                        print('input ', val)
-                        isShown = True
-                    print(n)
+
+            for n in ans:
+                if n == val:
+                    print(f'prime idx#{sp.index(val)}  ', end='')
+                if n > val and not isShown and not isPrime:
+                    print('input ', val)
+                    isShown = True
+                print(n)
         except ValueError:
             print(f'    {ss} is a ValueError')
             continue

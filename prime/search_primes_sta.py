@@ -8,23 +8,20 @@ use StorePrime
 
 '''
 
-import os
-import sys
-import pickle
-import re
-import random
+from store_prime import StorePrime
+
+__version__ = '2021.11.25.11.46'
 
 # pythonista
 PYTHONISTA=False
 DEBUG=False
 
+# pylint: disable=import-error
+# pylint: disable=unused-import
 if PYTHONISTA:
     import clipboard
     import console
 
-from store_prime import StorePrime
-
-__version__ = '2021.11.25.11.46'
 
 # pylint: disable=invalid-name
 def show(v, p, q):
@@ -41,10 +38,12 @@ def show(v, p, q):
     else:
         lhs = abs(v - p)
         rhs = abs(v - q)
-        if lhs <= rhs:
-            arrow = "<<<<<"
+        if lhs < rhs:
+            arrow = "<-----"
+        elif lhs == rhs:
+            arrow = "<---->"
         else:
-            arrow = ">>>>>"
+            arrow = "----->"
         s = f'{v} is in the range of ({p} {arrow} {q})'
         if PYTHONISTA:
             console.alert(s)
@@ -58,7 +57,8 @@ def main():
         def test(v):
             ''' test '''
             (p, q) = sp.search_between_idx(v)
-            if DEBUG: print(f'p:{p}, q:{q}')
+            if DEBUG:
+                print(f'p:{p}, q:{q}')
             if p is None:
                 print('\tno answer for this')
                 return
