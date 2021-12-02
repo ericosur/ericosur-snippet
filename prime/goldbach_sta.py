@@ -10,7 +10,6 @@ given cli argument to get lower/upper prime
 '''
 
 import bisect
-import random
 import time
 
 from store_prime import StorePrime
@@ -126,7 +125,7 @@ def run_this():
     try:
         val = int(ret)
         if val <= 0 or val % 2 == 1:
-            console.alert(f'invalid number, need an even number')
+            console.alert(f'invalid number: {val}, need an even number')
             return
 
         res = gold_bach(val)
