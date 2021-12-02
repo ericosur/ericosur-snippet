@@ -64,7 +64,7 @@ def main():
     parser.add_argument("-v", "--verbose", action='store_true', default=False,
         help='verbose mode')
     requiredNamed = parser.add_argument_group('required named arguments')
-    requiredNamed.add_argument('-d', '--data', required=True
+    requiredNamed.add_argument('-d', '--data', required=True,
         help='The data file (compressed file recommended)')
 
     args = parser.parse_args()
