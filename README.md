@@ -12,7 +12,7 @@ windows batch/cmd, and etc...
 
 ## note
 
-Though the most scripts are written in perl, they are not used or reviewed recently. In recent year I write python scripts for soving my problems.
+Though the most scripts are written in perl, they are not used or reviewed recently. In recent year I write python scripts to solve my problems.
 
 ## history
 

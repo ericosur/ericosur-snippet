@@ -35,13 +35,14 @@ class MakeReurl():
         self.server = conf['server']
         self.apikey = conf['apikey']
 
+    #pylint: disable=consider-using-with
     def handle_results(self, r):
         ''' show data member of **response** '''
 
         if self.verbose:
             out = sys.stderr
         else:
-            out = open(os.devnull, 'w')
+            out = open(os.devnull, 'wb')
 
         if self.verbose:
             print('r.url:', r.url, file=out)
@@ -54,16 +55,18 @@ class MakeReurl():
             #print('r.encoding:', r.encoding, file=out)
             content_type = r.headers['Content-Type']
             print('Content-Type:', content_type, file=out)
-            if 'application/json' in content_type:
+        if 'application/json' in content_type:
+            if self.verbose:
                 print('r.json():', r.json(), file=out)
                 #print('r.content():', r.content)
                 #print('r.text():', r.text)
-                if r.ok:
-                    return r.json()
+            if r.ok:
+                return r.json()
 
         return None
 
     def do_request(self):
+        ''' issue request '''
         server = f'{self.server}/shorten'
         headers = {
             'content-type': 'application/json',
@@ -71,10 +74,11 @@ class MakeReurl():
         }
         j = {'url': self.long_url}
 
-        #print('will requst with:', j)
-        if self.verbose:
-            print(headers)
-            print(json.dumps(j))
+
+        # if self.verbose:
+        #     print('will requst with:')
+        #     print(headers)
+        #     print(json.dumps(j))
         r = requests.post(server, data=json.dumps(j), headers=headers)
         # r is a Response class, useless to print it, use handle_results()
         j = self.handle_results(r)
@@ -124,7 +128,7 @@ def main():
     if args.verbose:
         print('verbose:', args.verbose)
 
-    reurl = MakeReurl(args.url[0], output=args.output, verbose=args.verbose)
+    _ = MakeReurl(args.url[0], output=args.output, verbose=args.verbose)
 
 if __name__ == '__main__':
     main()
