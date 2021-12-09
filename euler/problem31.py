@@ -37,12 +37,12 @@ def main():
                 count += 1
                 res.append(n)
         except (KeyboardInterrupt, SystemExit):
-            print('try: {}, hit: {}'.format(try_count, count))
+            print(f'try: {try_count}, hit: {count}')
             raise
-    time_end = timeit.default_timer()
+    time_during = timeit.default_timer() - time_start
     count += 7  # for 1x200p, 2x100p, 4x50p, 10x20p, 20x10p, 40x5p, 100x2p
-    print('finished: try: {}, hit: {}'.format(try_count, count))
-    print('takes: {} seconds'.format(time_end - time_start))
+    print(f'finished: try: {try_count}, hit: {count}')
+    print(f'takes: {time_during:.3f} seconds')
 
     # with open('ans31.txt', 'wt') as ofh:
     #     for rr in res:

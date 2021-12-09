@@ -27,7 +27,7 @@ def find_max_factor(nn):
 def test(nn):
     ''' test '''
     maxf, factors = find_max_factor(nn)
-    print('{} max factor: {}\nfactors: {}\n'.format(nn, maxf, factors))
+    print(f'{nn} max factor: {maxf}\nfactors: {factors}\n')
 
 def main():
     ''' main '''

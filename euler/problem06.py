@@ -36,7 +36,7 @@ def main():
     mm = sum_series(upper)
     nn = sqare_sum(upper)
     dist = int(mm - nn)
-    print('{}, {}, {}'.format(mm, nn, dist))
+    print(f'{mm}, {nn}, {dist}')
     print('r:', pyramidal(upper))
 
 if __name__ == '__main__':

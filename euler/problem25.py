@@ -18,7 +18,7 @@ def main():
             strlen = len(str(result))
             if strlen > 1000:
                 break
-            print("fib({}) = {}, len({})".format(i, result, strlen))
+            print(f"fib({i}) = {result}, len({strlen})")
             i += 1
 
 if __name__ == '__main__':
