@@ -44,6 +44,7 @@ class MakeReurl():
         else:
             out = open(os.devnull, 'wb')
 
+        content_type = r.headers['Content-Type']
         if self.verbose:
             print('r.url:', r.url, file=out)
             print('r.elapsed:', r.elapsed, file=out)
@@ -53,7 +54,6 @@ class MakeReurl():
             print('r.headers:', r.headers, file=out)
             #print('r.links:', r.links, file=out)
             #print('r.encoding:', r.encoding, file=out)
-            content_type = r.headers['Content-Type']
             print('Content-Type:', content_type, file=out)
         if 'application/json' in content_type:
             if self.verbose:

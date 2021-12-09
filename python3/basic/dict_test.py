@@ -9,13 +9,10 @@ replace lambda in map()
 
 '''
 
-from __future__ import print_function
-
-
 def print_dict(**foo):
     ''' print content of dict '''
-    for x in foo:
-        print(x, "=>", foo[x])
+    for k, v in foo.items():
+        print(k, "=>", v)
 
 # map() test
 def cube(x):
@@ -31,15 +28,15 @@ def main():
     print("print( rec ==> ")
     print_dict(**rec)
 
-    print('''access rec[] ==>
-rec['name']: {0}
-rec['name']['first']: {1}
-rec['name']['last']: {2}
-'''.format(rec['name'], rec['name']['first'], rec['name']['last']))
+    print(f'''access rec[] ==>
+rec['name']: {rec['name']}
+rec['name']['first']: {rec['name']['first']}
+rec['name']['last']: {rec['name']['last']}
+''')
 
     rec['job'].append('foo')
-
-    print("if age in rec? {0}".format('age' in rec))
+    existed = 'age' in rec
+    print(f"if age in rec? {existed}")
 
     # demo of map()
     items = [11, 13, 17, 19, 23, 29]
