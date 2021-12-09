@@ -5,13 +5,11 @@
 simple python dict usage
 '''
 
-from __future__ import print_function
-
 def main():
     '''main function'''
     d = {'name':'bob', 'number':99, 'phone':'123456789'}
     for key, value in d.items():
-        print("{} => {}".format(key, value))
+        print(f"{key} => {value}")
 
     # pylint not recommend:
     #for key in d.keys():
