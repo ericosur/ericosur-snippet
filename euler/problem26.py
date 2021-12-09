@@ -43,12 +43,13 @@ def read_primes():
     primes = []
     cnt = 0
     fname = 'basic_prime.txt'
-    for line in open(fname, 'r').readlines():
-        m = p.match(line)
-        if m is None:
-            cnt += 1
-        else:
-            primes.append(int(m.group()))
+    with open(fname, 'rt', encoding='utf-8') as fobj:
+        for line in fobj.readlines():
+            m = p.match(line)
+            if m is None:
+                cnt += 1
+            else:
+                primes.append(int(m.group()))
     return primes
 
 '''
@@ -148,7 +149,7 @@ def main():
         while tl < len(result):
             s = result[0:tl]
             if check_nines(s):
-                print('p: {}  s: 0.({})...'.format(str(p), s))
+                print(f'p: {str(p)}  s: 0.({s})...')
                 retl = tl
                 break
             tl += 2

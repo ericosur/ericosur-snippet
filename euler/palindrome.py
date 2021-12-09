@@ -46,7 +46,7 @@ def main():
             result.append(multi)
             if multi > mymax:
                 mymax = multi
-                print('{} = {} x {}'.format(multi, nn[0], nn[1]))
+                print(f'{multi} = {nn[0]} x {nn[1]}')
                 break
 
     print("after test", cnt, "numbers to get max palindrome")

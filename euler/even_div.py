@@ -9,19 +9,20 @@ import numpy as np
 
 def test_even_divide(nn):
     ''' test even divide '''
+    block = []
     for i in range(1, 20):
         if nn % i != 0:
-            print('{} cannot divided by {}'.format(nn, i))
-            return False
-    return True
+            block.append(i)
+
+    return len(block)==0, block
 
 def test_number(nn):
     ''' main '''
-    if test_even_divide(nn):
-        res = 'can'
+    res, block = test_even_divide(nn)
+    if res:
+        print(f"{nn} can be evenly divided")
     else:
-        res = 'cannot'
-    print("{} {} be evenly divided".format(nn, res))
+        print(f'{nn} cannot be evenly divided due to: {block}')
 
 
 def gen_number():

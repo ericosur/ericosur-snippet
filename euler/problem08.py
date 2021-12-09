@@ -16,12 +16,12 @@ class SolveProblem8():
         self.load()
 
     def __str__(self):
-        ret = 'length = {}'.format(len(self.quest))
+        ret = f'length = {len(self.quest)}'
         return ret
 
     def load(self):
         ''' load '''
-        with open('data8.txt', 'rt') as fh:
+        with open('data8.txt', 'rt', encoding='utf-8') as fh:
             raw_str = fh.read()
             self.quest = [int(ii) for ii in list(raw_str.strip().replace('\n', ''))]
 
@@ -37,7 +37,7 @@ class SolveProblem8():
 
             count += 1
             p = np.prod(x)
-            if not p in self.result:
+            if p not in self.result:
                 self.result[p] = x
 
         print('non-zero count', count)
@@ -45,7 +45,7 @@ class SolveProblem8():
         keys.sort()
         for ii in range(15):
             kk = keys[len(keys) - ii - 1]
-            print("#{:02d} {:12d}: {}".format(ii, kk, self.result[kk]))
+            print(f"#{ii:02d} {kk:12d}: {self.result[kk]}")
 
 
 def main():
