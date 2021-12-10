@@ -28,10 +28,10 @@ def delete_if_exists(fn):
 
 def main(video_id=0):
     '''main'''
-    doWriteAVI = False
+    doWriteAVI = True
     ofn = OUTPUT_FN
-    DEFAULT_WIDTH = 640
-    DEFAULT_HEIGHT = 480
+    DEFAULT_WIDTH = 320
+    DEFAULT_HEIGHT = 240
 
     cv2.namedWindow('aframe')
     cv2.moveWindow('aframe', 0, 0)
@@ -57,11 +57,11 @@ def main(video_id=0):
         fourcc = cv2.VideoWriter_fourcc(*'XVID')
         #fourcc = cv2.VideoWriter_fourcc(*'8BPS')
         # Define the codec and create VideoWriter object.The output is stored in 'outpy.avi' file.
-        out = cv2.VideoWriter(ofn, fourcc, 30, (frame_width, frame_height), False)
+        out = cv2.VideoWriter(ofn, fourcc, 20, (frame_width, frame_height))
 
     print('press "q" or ESC to quit...')
     cnt = 1
-    while True:
+    while cap.isOpened():
         ret, frame = cap.read()
         if ret:
             #aframe = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
