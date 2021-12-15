@@ -16,7 +16,7 @@ from rejson import  Client, Path
 import redis
 from myutil import read_jsonfile
 
-
+# pylint: disable=invalid-name
 class StoreAndQuery():
     ''' read a json and store it into redis and then query '''
     def __init__(self):
@@ -31,6 +31,7 @@ class StoreAndQuery():
 
     def check_and_store(self):
         ''' if no data here, read json and store it '''
+        #print('[INFO] check_and_store')
         try:
             res = self.test_one_query('284', show=False)
             if res is None:
@@ -38,9 +39,14 @@ class StoreAndQuery():
                 self.data = read_jsonfile(self.fn)
                 self.rj.jsonset(self.objname, Path.rootPath(), self.data)
                 print(f'[INFO] read {self.fn} and store as {self.objname}')
+            print('[TEST] res:', res)
         except redis.exceptions.ConnectionError as e:
             print('[ERROR] cannot connect to redis server:\n', e)
             print('\nNeed start the service of redis/rejson first.')
+            sys.exit(1)
+        except redis.exceptions.ResponseError as e:
+            print('[ERROR]', e)
+            print('SHOULD USE rejson docker, not redis docker')
             sys.exit(1)
 
     @staticmethod
@@ -54,8 +60,12 @@ class StoreAndQuery():
         '''
         u8ans = []
         for m in ans:
-            ansi = m.encode('ISO8859-1')    # m is str, ansi is bytes
-            s = ansi.decode('UTF-8')    # s is str in correct unicode char
+            s = ''
+            if isinstance(m, bytes):
+                ansi = m.encode('ISO8859-1')    # m is str, ansi is bytes
+                s = ansi.decode('UTF-8')    # s is str in correct unicode char
+            elif isinstance(m, str):
+                s = m
             u8ans.append(s)
         return u8ans
 
@@ -86,22 +96,22 @@ class StoreAndQuery():
                 if show:
                     print(key)
                 res = self.transcode(r)
-                if len(res) and show:
+                if show:
                     self.show_result(res)
                 return res
-            else:
-                return None
         except redis.exceptions.ResponseError as e:
             print(e)
 
+        return None
+
     def test_query(self) -> None:
         ''' test redis json '''
-        for v in tests.vals:
+        for v in self.tests:
             self.test_one_query(v)
 
     def test_json(self) -> None:
         ''' test json obj '''
-        for v in tests.vals:
+        for v in self.tests:
             try:
                 print(self.data[v])
             except KeyError as e:
