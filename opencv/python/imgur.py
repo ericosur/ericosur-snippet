@@ -14,7 +14,7 @@ def try_to_download(json_data, title):
         if img['title'] == title:
             url = img['url']
             fn = img['fn']
-            print('download url({0}) as fn({1})'.format(url, fn))
+            print(f'download url({url}) as fn({fn})')
             fetch_image(url, fn)
             return fn
     return None
@@ -29,7 +29,7 @@ def main():
     fn = 'deer.png'
 
     if myutil.isfile(fn):
-        print('file {} already exists, will not download'.format(fn))
+        print(f'file {fn} already exists, will not download')
     else:
         fn = try_to_download(json_data, title)
 

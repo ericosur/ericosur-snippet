@@ -79,8 +79,8 @@ def main(video_id=0):
             if key & 0xFF == ord('q') or key == 0x1B:
                 break
             if key & 0xFF == ord('s'):
-                fn = 'pic{:04d}.png'.format(cnt)
-                print('imwrite {}...'.format(fn))
+                fn = f'pic{cnt:04d}.png'
+                print(f'imwrite {fn}...')
                 cv2.imwrite(fn, aframe)
                 cnt += 1
         # Break the loop

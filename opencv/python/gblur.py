@@ -36,7 +36,7 @@ class MyCap():
         try:
             #self.foobar = data[app_name]['foo_bar']
             self.video_index = data[app_name]['video_index']
-            print("video input from: {}".format(self.video_index))
+            print("video input from:", self.video_index)
             self.width = data[app_name]['width']
             self.height = data[app_name]['height']
             self.sigma_x = data[app_name]['sigma_x']

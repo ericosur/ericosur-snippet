@@ -13,12 +13,12 @@ refer: https://www.researchgate.net/publication/262371199_Explicit_image_detecti
 # pylint: enable=line-too-long
 
 from __future__ import print_function
+import os
 import math
 import cv2
 import numpy as np
 import myutil
 
-# pylint: disable=line-too-long
 # pylint: disable=too-many-locals
 class MyCap():
     ''' class to do video capturing '''
@@ -102,16 +102,16 @@ class MyCap():
         cap.release()
         cv2.destroyAllWindows()
 
-    def save_image(self, img):
+    @staticmethod
+    def save_image(img):
         ''' save image '''
-        import os
         cnt = 0
         while True:
-            fn = 'hough{:03d}.jpg'.format(cnt)
-            if os.path.exists(fn):
-                cnt += 1
-            else:
+            fn = f'hough{cnt:03d}.jpg'
+            if not os.path.exists(fn):
                 break
+            cnt += 1
+
         cv2.imwrite(fn, img)
 
 
@@ -122,11 +122,12 @@ def show_fps(img, elapsed_time):
     #baseline = 0
     #thickness = 2
     fps = 1.0 / elapsed_time
-    msg = "elapsed: {:.3f} fps({:.1f})".format(elapsed_time, fps)
+    msg = f"elapsed: {elapsed_time:.3f} fps({fps:.1f})"
     cv2.putText(img, msg, (10, 30), fontface, scale, (255, 0, 255), 1, cv2.LINE_AA)
     return img
 
 def auto_canny(image, sigma=0.33):
+    ''' auto determine the parameters of canny '''
     # compute the median of the single channel pixel intensities
     v = np.median(image)
 
@@ -154,7 +155,8 @@ def hough_lines(src):
         threshold = 75
         min_line_len = 80
         max_line_gap = 30
-        lines = cv2.HoughLinesP(dst, 1, math.pi/180.0, threshold, np.array([]), min_line_len, max_line_gap)
+        lines = cv2.HoughLinesP(dst, 1, math.pi/180.0, threshold, np.array([]),
+            min_line_len, max_line_gap)
         try:
             a, b, _ = lines.shape
             for i in range(a):

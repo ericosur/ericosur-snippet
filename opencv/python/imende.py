@@ -13,7 +13,7 @@ def main():
     fn = 'lena.png'
     img = cv2.imread(fn)
     if img is None:
-        print('cannot load image: {}'.format(fn))
+        print('cannot load image:', fn)
         return
 
     # '.jpg'表示把当前图片img按照jpg格式编码，按照不同格式编码的结果不一样
