@@ -2,61 +2,19 @@
 
 practice for python / opencv
 
-depends on:
-opencv-python
-numpy
-scikit-image
-dlib
+recommended modules:
+
+* opencv-contrib-python
+* opencv-python
+* numpy
+* scikit-image
+* dlib
 
 --
 
 [TOC]
 
 --
-
-## notes
-
-* how to know outdated python modules by pip?
-  refer from: https://stackoverflow.com/questions/2720014/upgrading-all-packages-with-pip
-
-```
-pip list --outdated --format=freeze
-```
-
-* most python scripts here could run by python3, if not, it will croak while running
-
-## how to install
-
-for pip2
-```
-sudo -H pip2 install -U opencv-python
-```
-
-> For raspberry pi, there is no python2 opencv module
-
-for pip3
-```
-sudo -H pip3 install -U opencv-python
-```
-
-## sample worthy to refer
-
-[python cv2 module](https://www.programcreek.com/python/index/2663/cv2)
-
-
-## some tips
-
-At python script, may use
-```python
-import cv2 as cv
-```
-Then refer to openCV functons by using
-```
-cv.imshow('image', img)
-cv.waitKey()
-```
-Just like namespace 'cv' as C++.
-
 
 ## setting.json
 
@@ -82,3 +40,52 @@ dlib example for:
 Need predictor data file to make predictor work. It could be downloaded from:
 http://dlib.net/face_landmark_detection.py.html
 
+
+## notes
+
+### pip
+
+* how to know outdated python modules by pip?
+  refer from: https://stackoverflow.com/questions/2720014/upgrading-all-packages-with-pip
+
+```
+pip list --outdated --format=freeze
+```
+
+* most python scripts here could run by python3, if not, it will croak while running
+
+#### how-to
+
+First need to confirm the version of **pip** by using ```pip -V```, ```pip2 -V```,
+or ```pip3 -V```
+
+* install
+
+```
+pip install opencv-python opencv-contrib-python
+```
+
+* upgrade
+
+```
+pip install -U numpy
+```
+
+
+#### sample worthy to refer
+
+[python cv2 module](https://www.programcreek.com/python/index/2663/cv2)
+
+
+### CV tips
+
+At python script, may use
+```python
+import cv2 as cv
+```
+Then refer to openCV functons by using
+```
+cv.imshow('image', img)
+cv.waitKey()
+```
+Just like namespace 'cv' as C++.
