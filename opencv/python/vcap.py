@@ -14,10 +14,10 @@ refer: https://www.researchgate.net/publication/262371199_Explicit_image_detecti
 
 from __future__ import print_function
 import math
+from time import sleep
 import cv2
 import numpy as np
 import myutil
-from time import sleep
 
 
 class MyCap():
@@ -51,7 +51,7 @@ class MyCap():
         try:
             #self.foobar = data[app_name]['foo_bar']
             self.video_index = data[app_name]['video_index']
-            print("video input from: {}".format(self.video_index))
+            print(f"video input from: {self.video_index}")
             self.width = data[app_name]['width']
             self.height = data[app_name]['height']
             self.has_gray = data[app_name]['gray']
@@ -201,7 +201,7 @@ def show_fps(img, elapsed_time):
     #baseline = 0
     #thickness = 2
     fps = 1.0 / elapsed_time
-    msg = "elapsed: {:.3f} fps({:.1f})".format(elapsed_time, fps)
+    msg = f"elapsed: {elapsed_time:.3f} fps({fps:.1f})"
     cv2.putText(img, msg, (10, 35), fontface, scale, (127, 0, 255), 1, cv2.LINE_AA)
     return img
 

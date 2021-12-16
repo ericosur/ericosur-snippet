@@ -24,11 +24,11 @@ def main():
     data = myutil.read_setting('setting.json')
     url = data[app_name]['lego']
 
-    print('url: {}'.format(url))
+    print('url:', url)
     # pylint: disable=using-constant-test
     if False:
         ofn = "output.jpg"
-        print('url:{} => {}'.format(url, ofn))
+        print(f'url:{url} => {ofn}')
         img = fetch_image(url, ofn)
     else:
         img = load_image(url)

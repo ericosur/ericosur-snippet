@@ -36,14 +36,14 @@ def main():
     cv2.moveWindow(WIN_NAME, 50, 50)
     if len(sys.argv) > 1:   # has argument
         for ff in sys.argv[1:]:
-            print('imread {}'.format(ff))
+            print(f'imread {ff}')
             img = cv2.imread(ff)
             cv2.imshow(WIN_NAME, img)
             cv2.waitKey(0)
     else:
         setting_fn = 'setting.json'
         if not myutil.isfile(setting_fn):
-            print('[ERROR] cannot find setting: {}'.format(setting_fn))
+            print(f'[ERROR] cannot find setting: {setting_fn}')
             print('[INFO] may use argument')
         else:
             app_name = 'readim.py'
@@ -58,7 +58,7 @@ def main():
             if os.path.isfile(pic1):
                 cv_test(pic1)
             else:
-                print("file not found: {}".format(pic1))
+                print("file not found:",pic1)
 
     #cv_drawline()
     cv2.destroyAllWindows()

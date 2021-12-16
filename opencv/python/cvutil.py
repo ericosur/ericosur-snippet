@@ -48,10 +48,10 @@ def combine_two_images(ofn, inf1, inf2, debug=False):
     new_width = max(img1.shape[1], img2.shape[1])
 
     if debug:
-        print('img1:{}'.format(img1.shape))
-        print('img2:{}'.format(img2.shape))
-        print('===> combine_two_images: fn:{0} fn:{1}'.format(inf1, inf2))
-        print('new height:{0}, new width:{1}'.format(new_height, new_width))
+        print('img1:', img1.shape)
+        print('img2:', img2.shape)
+        print(f'===> combine_two_images: fn:{inf1} fn:{inf2}')
+        print(f'new height:{new_height}, new width:{new_width}')
 
     #if img1.shape[0] != new_height or img1.shape[1] != new_width:
     img1 = cv2.resize(img1, (new_width, new_height))
@@ -86,9 +86,9 @@ def main():
 
     if isfile(fn1) and isfile(fn2):
         combine_two_images(ofn, fn1, fn2, debug)
-        print('output to {}'.format(ofn))
+        print('output to:', ofn)
     else:
-        print('{} and/or {} is not available'.format(fn1, fn2))
+        print(f'{fn1} and/or {fn2} is not available')
 
 if __name__ == '__main__':
     main()
