@@ -1,9 +1,19 @@
 {
-  "name": "socket-chat-example",
+  "name": "socket",
   "version": "0.0.1",
-  "description": "my first socket.io app",
+  "description": "My First socket.io demo application",
+  "main": "server.js",
+  "scripts": {
+    "test": "server.js",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "socket.io"
+  ],
+  "author": "ericosur",
+  "license": "MIT",
   "dependencies": {
-    "express": "^4.11.0",
-    "socket.io": "^1.2.1"
+    "express": "^4.17.1",
+    "socket.io": "^4.4.0"
   }
 }
