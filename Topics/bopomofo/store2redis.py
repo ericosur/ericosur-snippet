@@ -88,6 +88,9 @@ class StoreAndQuery():
         ''' test one query
         127.0.0.1:6379> json.get  obj  noescape "zul4"
         "[\"\xe8\xa6\x85\",\"\xf0\xa1\xa0\x8d\"]"
+
+        list all keys in json obj:
+          > json.objkeys obj
         '''
         qkey = '["' + key + '"]'    # like ["su;6"]
         try:
