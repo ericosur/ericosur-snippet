@@ -52,7 +52,7 @@ def main():
     foo = Converter()
     foo.set_density(args.density)
     for dp in args.dp:
-        print("px=", foo.dp2px(dp))
+        print(f"dp = {dp} => px = {foo.dp2px(dp)}")
 
 if __name__ == '__main__':
     main()
