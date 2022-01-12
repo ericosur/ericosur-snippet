@@ -25,7 +25,7 @@ def main():
     start = datetime.datetime(2020, 12, 21)
     b = 31
     while b <= 240:
-        print('{}: {}'.format(b, start))
+        print(f'{b}: {start}')
         start = add_months(start, 1)
         b += 1
 

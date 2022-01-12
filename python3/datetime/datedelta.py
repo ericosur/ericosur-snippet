@@ -26,7 +26,7 @@ def main():
     sorted_v = sorted(deltas.items(), key=operator.itemgetter(1))
     for (k, v) in sorted_v:
         result = start + v
-        print('add {:12s}: {}'.format(k, result))
+        print(f'add {k:12s}: {result}')
 
 
 if __name__ == '__main__':
