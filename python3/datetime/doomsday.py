@@ -72,9 +72,9 @@ def test_leap(y, ans):
     ''' test leap year '''
     ret = is_leap_year(y)
     if ret is ans:
-        print('correct: {}'.format(y))
+        print(f'correct: {y}')
     else:
-        print('wrong: {}'.format(y))
+        print(f'wrong: {y}')
 
 def get_month_modifier(year):
     ''' get month modifier of specified year '''
@@ -82,7 +82,7 @@ def get_month_modifier(year):
     if is_leap_year(year):
         arr[0] += 1
         arr[1] += 1
-    #print("arr: {}".format(arr))
+    #print(f"arr: {arr}")
     return arr
 
 def get_tmm(year, month, day):
@@ -105,7 +105,7 @@ def test_tmm(y, m, d):
     tmm = get_tmm(y, m, d)
     td = date(y, m, d)
     wd = (td.weekday() + 1) % 7
-    #print("{}/{}/{} ==> {}".format(y, m, d, ret))
+    #print(f"{y}/{m}/{d} ==> {ret}")
     return tmm == wd, tmm, wd
 
 
@@ -125,9 +125,9 @@ def full_test():
                         assert test_dow(yy, mm, dd)
                     except ValueError:
                         # here pass all invalid date like 1701/2/29 ...
-                        print("[WARN] value error at: {}/{}/{}".format(yy, mm, dd))
+                        print(f"[WARN] value error at: {yy}/{mm}/{dd}")
     except AssertionError:
-        print("failed at {}/{}/{}".format(yy, mm, dd))
+        print(f"failed at {yy}/{mm}/{dd}")
     print("pass")
 
 
@@ -138,7 +138,7 @@ def get_doom_offset():
         doomv = get_doom_num(yy)
         if yy == td.year:
             print('\x1b[33m', end='')
-        print("doom number for year {} = {}".format(yy, doomv))
+        print(f"doom number for year {yy} = {doomv}")
         if yy == td.year:
             print('\x1b[00m', end='')
 

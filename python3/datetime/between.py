@@ -31,10 +31,11 @@ def main():
         print("ok, long enough")
     else:
         real_work_hour = from_time + work_hour
-        if real_work_hour < most_early_time:
-            real_work_hour = most_early_time
-        print("nok, should be:", real_work_hour)
-        print("need hour:", most_early_time - now_time)
+        real_work_hour = max(real_work_hour, most_early_time)
+        print("+++++ should be:", real_work_hour)
+        diff_hour = real_work_hour - now_time
+        print(f'diff: {diff_hour}')
+
 
 if __name__ == '__main__':
     main()

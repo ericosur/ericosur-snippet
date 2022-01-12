@@ -22,13 +22,13 @@ def main(dt):
     if dt is None:
         td = date.today()
         tdow = int(td.weekday() + 1) % 7
-        print('today: {}, dow: {}'.format(td, tdow))
+        print(f'today: {td}, dow: {tdow}')
         print('#week:', td.strftime("%V"))
         return
 
     try:
         ans = check_and_call(dt)
-        print('{}/{}/{}: {}'.format(dt[0], dt[1], dt[2], ans))
+        print(f'{dt[0]}/{dt[1]}/{dt[2]}: {ans}')
     except ValueError as e:
         print('ValueError:', e)
 
