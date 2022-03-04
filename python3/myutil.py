@@ -14,6 +14,8 @@ import hashlib
 
 __version__ = '0.0.4'
 
+DEBUG = False
+
 def read_jsonfile(fn:str, debug=False):
     '''
     specify json filename and return whole json object
@@ -90,6 +92,19 @@ def isfile(url):
 def isdir(url):
     '''test dir exists'''
     return os.path.isdir(url)
+
+def mkdir(url) -> bool:
+    ''' simulate mkdir -p '''
+    try:
+        if not os.path.exists(url):
+            os.makedirs(url)
+            if DEBUG:
+                print(f'mkdir: {url}')
+            return True
+    except FileExistsError as e:
+        if DEBUG:
+            print(e)
+    return False
 
 def get_home():
     ''' return $HOME '''
