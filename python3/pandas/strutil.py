@@ -58,3 +58,22 @@ def sec2str(sec: str):
     ss.reverse()
     res = ':'.join(ss)
     return res
+
+def sec2mmss(sec: str):
+    ''' seconds to mm:ss string '''
+    ss = []
+    try:
+        nn = int(sec)
+    except ValueError:
+        print(f'ValueError at {sec}')
+        nn = 0
+
+    if nn >= 60:
+        qq = nn / 60
+        rr = nn % 60
+        ss.append(strify(rr))
+        nn = int(qq)
+    ss.append(strify(nn))
+    ss.reverse()
+    res = ':'.join(ss)
+    return res
