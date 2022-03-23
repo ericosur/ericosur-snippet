@@ -16,7 +16,7 @@ except ImportError:
     sys.exit(1)
 
 import myutil
-from strutil import print_sep, str2sec, sec2str
+from strutil import print_sep, str2sec, sec2str, sec2mmss
 
 class DrivingData():
     ''' fetch driving data from gdrive or local csv '''
@@ -150,21 +150,24 @@ class DrivingData():
         # res.info()
         # print_sep()
         des = res.describe()
-        # print('all description...', des)
-        # print_sep()
+        if self.debug:
+            print_sep()
+            print('item', des)
+        print_sep()
         self.show_details(des)
 
     @staticmethod
     def show_details(des):
         ''' show details of res '''
-        queries = ['count', 'max', 'min', 'mean', '50%', 'std']
+        queries = ['count', 'max', '75%', 'mean', '50%', '25%', 'min', 'std']
         for qq in queries:
             ans = peek_target(des, qq)
             # if not isinstance(ans, str):
             #     print('peek not a string:', ans)
             #     break
             if qq != 'count':
-                result = sec2str(ans)
+                #result = sec2str(ans)
+                result = sec2mmss(ans)
             else:
                 result = str(int(floor(ans)))
             j = result.rjust(10, ' ')
