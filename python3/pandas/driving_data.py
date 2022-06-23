@@ -16,7 +16,7 @@ except ImportError:
     sys.exit(1)
 
 import myutil
-from strutil import print_sep, str2sec, sec2str, sec2mmss
+from strutil import print_sep, str2sec, sec2mmss
 
 class DrivingData():
     ''' fetch driving data from gdrive or local csv '''

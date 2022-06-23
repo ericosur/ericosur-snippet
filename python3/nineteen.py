@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
-# 191919....19 mod 99
+'''
+a large number n = 191919....19
+what is a mod 99 ?
+'''
 
 import math
 
@@ -9,7 +12,7 @@ def main():
     ''' main '''
     tok = '19'
     res = ''
-    for i in range(20):
+    for _ in range(20):
         res = res + tok
     print('len:', len(res))
     big_value = int(res)
