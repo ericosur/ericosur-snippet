@@ -133,7 +133,7 @@ def main(argv):
         _max = 65536
         _min = 1024
         #print("max:{}, min:{}".format(_max, _min))
-        REPEAT = 5
+        REPEAT = 3
         for _ in range(REPEAT):
             r = random.randint(_min, _max)
             # an odd number, plus 1
@@ -141,7 +141,7 @@ def main(argv):
                 r += 1
             argv.append(r)
 
-    listnum = 6 if len(argv) == 1 else 3
+    listnum = 5 if len(argv) == 1 else REPEAT
 
     for ss in argv:
         try:
@@ -153,6 +153,7 @@ def main(argv):
                 a = random.sample(res, min(listnum, len(res)))
                 for e in a:
                     print(f'  pick random one: {e}')
+                print(f'    pick first one: {res[0]}')
                 print(f'    pick last one: {res[-1]}')
         except ValueError:
             print(f'{ss} is a ValueError')
