@@ -52,8 +52,22 @@ def read_setting(fn):
 
 def get_python_version() -> str:
     ''' return version string of python '''
+    minor = sys.version_info.minor
+    if minor >= 10:
+        print("you should not turn this string into a float number")
+        raise RuntimeError
     py_ver = ".".join(map(str, sys.version_info[:2]))
     return py_ver
+
+def require_python_version(major, minor) -> bool:
+    ''' raise exception if not match the minimum version '''
+    sys_major = sys.version_info.major
+    if sys_major > major:
+        return True
+    if sys_major == major:
+        if sys.version_info.minor >= minor:
+            return True
+    return False
 
 def need_python36():
     ''' if not python version >= 3.6, raise exception '''

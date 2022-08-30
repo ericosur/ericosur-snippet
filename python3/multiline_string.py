@@ -9,7 +9,7 @@ need python 3.6+
 '''
 
 from __future__ import print_function
-from myutil import get_python_version
+from myutil import require_python_version
 
 
 def main():
@@ -33,7 +33,7 @@ def main():
     print(msg)
 
 if __name__ == '__main__':
-    if float(get_python_version()) >= 3.6:
+    if require_python_version(3, 6):
         main()
     else:
         print('need python 3.6+')
