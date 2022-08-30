@@ -4,7 +4,7 @@
 ''' get new cost and avg '''
 
 import sys
-from myutil import get_python_version
+from myutil import require_python_version
 
 def main(argv: list) -> None:
     ''' main '''
@@ -25,8 +25,7 @@ def main(argv: list) -> None:
 
     def printOut() -> None:
         ''' print out '''
-        ver = float(get_python_version())
-        if ver >= 3.6:
+        if require_python_version(3, 6):
             print(f'total: {total:.2f}')
             print(f'nstock:{mm[1]:.0f} -> {nstock:.0f}, avg: {old_avg:.2f} -> {avg:.2f}')
         else:
