@@ -29,13 +29,13 @@ To avoid losing information, transfrom such string into unicode sequence could b
 $ ./u8u16.py ❤️
 ❤️
 unicode-escape: \u2764\ufe0f
-utf16-be: \u2764\ufe0f
+      utf16-be: \u2764\ufe0f
 utf-8: e29da4efb88f
 
 $ ./u8u16.py 😃
 😃
 unicode-escape: \U0001f603
-utf16-be: \ud83d\ude03
+      utf16-be: \ud83d\ude03
 utf-8: f09f9883
 ```
 
