@@ -12,8 +12,9 @@ import os.path
 
 def main():
     ''' main '''
+    print('demo os.path.join()')
     folder_output_name = 'output'
-    for frame_number in range(10):
+    for frame_number in range(6):
         fn = f'frame_{frame_number:05d}.png'
         f = os.path.join(folder_output_name, fn)
         print(f)
