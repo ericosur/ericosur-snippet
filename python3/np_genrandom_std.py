@@ -40,11 +40,12 @@ class GenerateStdNormal():
         print(f'{np.mean(arr):.2f}, {np.median(arr):.2f}, ', end='')
         print(f'{np.std(arr):.2f}, {len(arr)}')
 
-
-
     def test2(self):
-        ''' use lambda, add 4 into all elements '''
-        add2 = lambda x: x + 4
+        ''' add2() will add 4 into all elements '''
+        def add2(x):
+            ''' add 4 for each input '''
+            return x + 4
+
         for _ in range(10):
             r = add2(self.fill_stdnorm())
             self.show(r)
