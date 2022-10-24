@@ -11,7 +11,7 @@ class Solution():
     @staticmethod
     def date2str(d):
         ''' date object to string '''
-        return d.__str__()
+        return str(d)
 
     @staticmethod
     def str2date(s):
@@ -51,7 +51,7 @@ class Solution():
         t = date.today()
         nd = date(t.year, 12, 31)
         #print(f'eoy: {nd}')
-        return nd.__str__()
+        return str(nd)
 
 def main():
     ''' main '''
