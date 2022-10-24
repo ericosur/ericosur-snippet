@@ -18,7 +18,8 @@ def test0(ch):
 
 def test1():
     ''' from 16bit codepint '''
-    ss = u'\u037e'
+    # The u prefix for strings is no longer necessary in Python >=3.0
+    ss = '\u037e'
     print(f"greek question mark: {ss}    codepoint: {hex(ord(ss))}")
     n1 = ';'
     print(f"  normal semi colon: {n1}    codepoint: {hex(ord(n1))}")
