@@ -50,9 +50,11 @@ class Sieve():
         inc = self.arr[0]
 
         while pp <= self.arr[-1]:
-            if self.arr.__contains__(pp):
-                self.arr.remove(pp)  # remove the multiples
-                #print(pp, " removed")
+            # Unnecessarily calls dunder method __contains__
+            # Use in keyword
+            # if self.arr.__contains__(pp):
+            if pp in self.arr:
+                self.arr.remove(pp)
             pp += inc           # next multiple
 
         if self.arr[0] > math.sqrt(self.arr_max):
