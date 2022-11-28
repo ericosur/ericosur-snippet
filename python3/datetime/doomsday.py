@@ -12,8 +12,14 @@ http://people.se.cmich.edu/graha1sw/pub/doomsday/doomsday.html
 
 '''
 
-from datetime import date
+import argparse
 import calendar
+from datetime import date
+import sys
+
+def eprint(*args, **kwargs):
+    ''' print to stderr '''
+    print(*args, file=sys.stderr, **kwargs)
 
 def is_leap_year(y):
     ''' is **y** a leap year? '''
@@ -147,25 +153,101 @@ def full_test():
         print(f"failed at {yy}/{mm}/{dd}")
     print("pass")
 
+def show_month_magic_number(year=-1, show_header=True):
+    ''' display magic number for this year '''
+    if year <= 0:
+        tdyear = date.today().year
+    else:
+        tdyear = year
 
-def get_doom_offset():
+    ret = get_month_modifier(tdyear)
+
+    # output as json
+    #print('If leap year, Feb magic number will be 1')
+    if show_header:
+        print("{")
+    print('  "month_magic": {')
+    print(f'    "year": {tdyear},')
+    print(f'    "month_magic": {ret},')
+    for i in range(11):
+        print(f'    "{calendar.month_name[i+1]}": {ret[i]},')
+    print(f'    "{calendar.month_name[12]}": {ret[11]}')
+    print("  }")
+    if show_header:
+        print('}')
+
+
+def show_doom_number(year_list=None, full_list=False):
     ''' print out doom offset number within range '''
     td = date.today()
-    for yy in range(td.year-2, td.year+4):
+
+    if not year_list:
+        CONTEXT = 2
+        year_list = list(range(td.year-CONTEXT, td.year+CONTEXT+1))
+
+    print("{")
+    print('  "doom_number": {')
+    for yy in year_list:
         doomv = get_doom_num(yy)
         if yy == td.year:
             print('\x1b[33m', end='')
-        print(f"doom number for year {yy} = {doomv}")
+        print(f'    "year_{yy}": {doomv},')
         if yy == td.year:
             print('\x1b[00m', end='')
 
+        if full_list:
+            print("  },")
+            show_month_magic_number(yy, show_header=False)
+
+    print("}")
+
 def main():
     ''' main '''
-    get_doom_offset()
+
+    # define argparse
+    parser = argparse.ArgumentParser(description='shows doomsday number for specified years')
+    # nargs like regexp, '*' means 0+, '+' means 1+
+    parser.add_argument("years", metavar='year', type=int, nargs='*',
+        help="specify year, like 2022")
+    parser.add_argument('-t', '--test', action='store_true', default=False,
+        help='perform self test')
+    parser.add_argument('-m', '--month', action='store_true', default=False,
+        help='show magic number for each month')
+    parser.add_argument("-f", "--full", action="store_true", default=False,
+        help='show full variables')
+    # parser.add_argument("-v", "--verbose", action='store_true', default=False,
+    #     help='verbose mode')
+
+    # define the required args
+    # requiredNamed = parser.add_argument_group('required named arguments')
+    # requiredNamed.add_argument('-i', '--input', help='Input file name', required=True)
+
+    args = parser.parse_args()
+
+    if args.test:
+        print('perform self test...')
+        full_test()
+        return
+
+    if args.month:
+        # show magic number for each month
+        if args.years:
+            eprint('[WARN] the specified years are ignored\n')
+        show_month_magic_number()
+        return
+
+    if args.years:
+        if len(args.years) > 1 and args.full:
+            eprint("[WARN] only the first one arg will be used")
+            show_doom_number([args.years[0]], args.full)
+        else:
+            show_doom_number(args.years)
+        return
+
+    print('no arguments specified, use "-h" to see the help, will run default function...\n')
+    #parser.print_help()
+    show_doom_number()
+
 
 if __name__ == '__main__':
-    import sys
-    print('```py3 doomsday.py t``` to do full test')
-    if len(sys.argv) > 1:
-        full_test()
     main()
