@@ -9,13 +9,13 @@
 
 import sys
 from datetime import date
-from doomsday import dow
+from dooms_day import DoomsDay
 
 def check_and_call(dt):
     ''' input str list, and return dow '''
     dt = list(map(int, dt))
     #print(dt)
-    return dow(dt[0], dt[1], dt[2])
+    return DoomsDay.dow(dt[0], dt[1], dt[2])
 
 def main(dt):
     ''' main '''
@@ -35,8 +35,7 @@ def main(dt):
 
 if __name__ == '__main__':
     if len(sys.argv) <= 1:
+        print('usage: dow_caller.py yyyy mm dd')
         main(None)
     elif len(sys.argv) == 4:
         main(sys.argv[1:])
-    else:
-        print('dow_caller.py yy mm dd')
