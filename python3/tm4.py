@@ -9,16 +9,32 @@ import random
 
 class Solution():
     ''' try to find solution '''
-    def __init__(self, lower, upper):
+    def __init__(self, lower, upper, from_list=[], to_list=[]):
         self.debug = False
-        self.fubon = [18107, 50000]
-        self.ctbc = [20601, 5176, 50000]
+        if from_list:
+            self.fubon = from_list
+        else:
+            self.fubon = [18107, 50000]
+        if to_list:
+            self.ctbc = to_list
+        else:
+            self.ctbc = [20601, 5176, 50000]
+        self.check_accounts()
         if upper <= lower:
             raise ValueError("upper must be larger than lower")
         self.upper = upper
         self.lower = lower
         self.last_try = -1
         self.report_init()
+
+    def check_accounts(self):
+        ''' check values in accounts is valid '''
+        for m in self.fubon:
+            if m < 0:
+                raise ValueError("src account must >= 0")
+        for n in self.ctbc:
+            if n < 0:
+                raise ValueError("dst account must >= 0")
 
     @staticmethod
     def has_digit4(val):
@@ -141,6 +157,8 @@ class Solution():
 
 def main():
     ''' main '''
+    fubon = [18107, 50000]
+    ctbc = [20601, 5176, 50000]
     sol = Solution(11500, 13999)
     sol.run()
 
