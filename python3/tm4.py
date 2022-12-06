@@ -9,14 +9,14 @@ import random
 
 class Solution():
     ''' try to find solution '''
-    def __init__(self, lower, upper, from_list=[], to_list=[]):
-        self.debug = False
-        if from_list:
-            self.fubon = from_list
+    def __init__(self, lower, upper, src=[], dst=[], debug=False):
+        self.debug = debug
+        if src:
+            self.fubon = src
         else:
             self.fubon = [18107, 50000]
-        if to_list:
-            self.ctbc = to_list
+        if dst:
+            self.ctbc = dst
         else:
             self.ctbc = [20601, 5176, 50000]
         self.check_accounts()
@@ -56,7 +56,9 @@ class Solution():
 
     def pick_value(self):
         ''' pick value between lower to upper '''
-        if self.upper - self.lower > 5000:
+        use_random = True
+
+        if use_random:
             t = random.randint(self.lower, self.upper)
             self.last_try = t
             if self.debug:
@@ -65,9 +67,9 @@ class Solution():
 
         if self.last_try <= 0:
             t = self.lower
-            self.last_try = t
         else:
             t = self.last_try + 1
+        self.last_try = t
         if self.debug:
             print(f'2nd: t is {t}')
         return t
@@ -87,7 +89,7 @@ class Solution():
             if self.test_fubon(t) and self.test_ctbc(t):
                 need_more_try = False
                 self.report(t)
-            if repeat > 100:
+            if repeat > (self.upper - self.lower):
                 raise ValueError("exceed limit, repeat too many times")
         print(f"[INFO] has tried {repeat} times")
 
@@ -157,9 +159,9 @@ class Solution():
 
 def main():
     ''' main '''
-    fubon = [18107, 50000]
-    ctbc = [20601, 5176, 50000]
-    sol = Solution(11500, 13999)
+    fubon = [6839, 50000]
+    ctbc = [1960, 21301, 50000]
+    sol = Solution(4294, 5000, src=fubon, dst=ctbc, debug=False)
     sol.run()
 
 if __name__ == '__main__':
