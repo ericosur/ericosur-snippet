@@ -9,8 +9,9 @@ import random
 
 class Solution():
     ''' try to find solution '''
-    def __init__(self, lower, upper, src=[], dst=[], debug=False):
+    def __init__(self, lower, upper, src=[], dst=[], random=True, debug=False):
         self.debug = debug
+        self.random = random
         if src:
             self.fubon = src
         else:
@@ -56,15 +57,23 @@ class Solution():
 
     def pick_value(self):
         ''' pick value between lower to upper '''
-        use_random = True
+        if self.random:
+            #print('USE random method...')
+            return self.pick_value_random()
+        #print('USE increasing number method...')
+        return self.pick_value_inc()
 
-        if use_random:
-            t = random.randint(self.lower, self.upper)
-            self.last_try = t
-            if self.debug:
-                print('use random: {t}')
-            return t
 
+    def pick_value_random(self):
+        ''' pick value from random '''
+        t = random.randint(self.lower, self.upper)
+        self.last_try = t
+        if self.debug:
+            print('use random: {t}')
+        return t
+
+    def pick_value_inc(self):
+        ''' pick value increasingly '''
         if self.last_try <= 0:
             t = self.lower
         else:
@@ -73,6 +82,7 @@ class Solution():
         if self.debug:
             print(f'2nd: t is {t}')
         return t
+
 
     def run(self):
         ''' find a proper ammount to meet all criteria '''
@@ -90,18 +100,19 @@ class Solution():
                 need_more_try = False
                 self.report(t)
             if repeat > (self.upper - self.lower):
-                raise ValueError("exceed limit, repeat too many times")
+                msg = f"NO ANSWER: repeat too many times: {repeat}"
+                raise ValueError(msg)
         print(f"[INFO] has tried {repeat} times")
 
     def report(self, t):
         ''' report the result '''
-        print(f'take out from fubon: {t} and result ==>')
+        print(f'take out from src: {t}')
         self.fubon[0] -= t
         sumup = sum(self.fubon)
-        print(f'fubon: {self.fubon}, total: {sumup}')
+        print(f'src: {self.fubon}, total: {sumup}')
         self.ctbc[0] += t
         sumup = sum(self.ctbc)
-        print(f'ctbc: {self.ctbc}, total: {sumup}')
+        print(f'dst: {self.ctbc}, total: {sumup}')
 
     def test_fubon(self, take_out):
         ''' minus amount out of fubon '''
@@ -159,10 +170,13 @@ class Solution():
 
 def main():
     ''' main '''
-    fubon = [6839, 50000]
-    ctbc = [1960, 21301, 50000]
-    sol = Solution(4294, 5000, src=fubon, dst=ctbc, debug=False)
+    src = [15891, 17733, 39000]
+    dst = [1693, 50000]
+    sol = Solution(200, 500, src=src, dst=dst, random=False, debug=False)
     sol.run()
 
 if __name__ == '__main__':
     main()
+
+# yuanta, 2876, -4068
+#
