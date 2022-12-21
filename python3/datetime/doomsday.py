@@ -195,7 +195,8 @@ def main():
         # show magic number for each month
         yy = -1
         if args.years:
-            eprint('[WARN] only the first specified year is used\n')
+            if len(args.years) > 1:
+                eprint('[WARN] only the first specified year is used\n')
             yy = args.years[0]
 
         show_month_magic_number(yy)
