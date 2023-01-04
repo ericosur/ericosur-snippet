@@ -1,8 +1,20 @@
 #!/bin/bash
 
-LOCALPATH=/home/rasmus/Dropbox/unicode/cldr/40
-CLDRFILE=cldr-common-40.0.zip
+SCRIPT_DIR=$PWD
+VER=42
+LOCALPATH=/home/rasmus/Dropbox/unicode/cldr/${VER}
+CLDRFILE=cldr-common-${VER}.0.zip
 ENXML=en.xml
+
+if [ -d ${LOCALPATH} ] ; then
+    echo "local path exists - OK"
+else
+    echo "local path not exists - mkdir..."
+    mkdir -p ${LOCALPATH}
+fi
+
+TOP=${LOCALPATH}
+cd $TOP
 
 # check local cldr file
 if [ -e "$LOCALPATH/$CLDRFILE" ] ; then
@@ -10,16 +22,16 @@ if [ -e "$LOCALPATH/$CLDRFILE" ] ; then
     CLDRFILE=$LOCALPATH/$CLDRFILE
 else
     echo "fetch cldr file from unicode.org..."
-    curl -O http://unicode.org/Public/cldr/37/$CLDRFILE
+    curl -O http://unicode.org/Public/cldr/${VER}/${CLDRFILE}
 fi
 
 if [ -e "$CLDRFILE" ] ; then
     unzip -j $CLDRFILE common/annotations/en.xml
     echo "annotations/en.xml extracted..."
-    mv en.xml en-basic.xml
+    mv en.xml $SCRIPT_DIR/en-basic.xml
     unzip -j $CLDRFILE common/annotationsDerived/en.xml
     echo "annotationsDerived/en.xml extracted..."
-    mv en.xml en-derived.xml
+    mv en.xml $SCRIPT_DIR/en-derived.xml
 else
     echo "failed to download $CLDRFILE"
     exit 1
@@ -68,5 +80,6 @@ else
     fi
 fi
 
+cd $SCRIPT_DIR
 echo $PY read_enxml.py
 ${PY} read_enxml.py

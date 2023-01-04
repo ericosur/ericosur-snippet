@@ -20,8 +20,7 @@ for example I got a test string:
 Such string could be safely displayed and edited with **sublime text 3**
 in ubuntu 18.04. But it is not properly displayed nor edited at windows and
 ubuntu 16.04.
-UPDATE: with proper emoji fonts and later version of **sublime text 3**, it
-could be shown as B/W color.
+UPDATE: with proper emoji fonts and later version of **sublime text 3**, these emoji characters should be colorful
 
 To avoid losing information, transfrom such string into unicode sequence could be a safe way to keep such string.
 
@@ -87,6 +86,11 @@ void unicode_char()
     * specify release file to download (manually), look for file like: [CLDR common](http://unicode.org/Public/cldr/37/cldr-common-37.0.zip)
 
 * emoji data files
+    * [emoji 15.0](https://unicode.org/Public/emoji/15.0/)
+        - ReadMe.txt
+        - emoji-sequences.txt
+        - emoji-test.txt
+        - emoji-zwj-sequences.txt
 
     * [emoji 13.1](https://unicode.org/Public/emoji/13.1/)
         - ReadMe.txt
@@ -94,9 +98,6 @@ void unicode_char()
         - emoji-test.txt
         - emoji-zwj-sequences.txt
 
-    * [emoji ucd 13.0.0](https://unicode.org/Public/13.0.0/ucd/emoji/)
-        - emoji-data.txt
-        - emoji-variation-sequences.txt
 
 ### 2021-11-09
 
