@@ -44,7 +44,7 @@ class Solution():
 
     def make_soup(self) -> None:
         ''' parse xml from content, store into self.emoji '''
-        soup = BeautifulSoup(self.content, 'lxml')
+        soup = BeautifulSoup(self.content, features='xml')
         t = soup.find('annotations')
         anns = t.find_all('annotation')
         for i in anns:
@@ -69,10 +69,10 @@ class Solution():
         return s[:-1]
 
 
-    def output_data(self) -> None:
+    def output_data(self, ofilename) -> None:
         ''' output data '''
         print(f'len: {len(self.emoji)}')
-        outfn = 'output.csv'
+        outfn = ofilename
         with open(outfn, 'wt', encoding='utf8') as f:
             for _, (k, v) in enumerate(self.emoji.items()):
                 vals = Solution.value_to_string(v)
@@ -87,7 +87,7 @@ class Solution():
             self.content = read_textfile(fn)
             # parsing xml and store into list()
             self.make_soup()
-            self.output_data()
+            self.output_data(f'{fn}.csv')
 
 
 def get_datetag() -> str:
