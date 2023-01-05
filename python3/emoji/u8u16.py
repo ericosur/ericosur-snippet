@@ -30,6 +30,7 @@ def test0():
 
 def test1():
     ''' test1 '''
+    print('test1...')
     arr = [
         u'\u2764\ufe0f',
         u'\U0001f1e7\U0001f1f4',
@@ -47,6 +48,7 @@ def test1():
 
 def test2():
     ''' test2 '''
+    print('test2...')
     s = '漢  χαν  хан'
     #to_from_u8(s)
     to_from_u16(s)
@@ -56,23 +58,35 @@ def test2():
     s = '👨🏻‍🦰'
     to_from_u16(s)
 
+def common_test(cc):
+    ''' common test '''
+    to_from_u8(cc)
+    to_from_u16(cc)
+
+
 def test3():
     '''
     if I want to get utf-16-be encoding unicode escape, need json.dumps()
     '''
+    print('test3...')
     cc = u'\U0001f3c8'
-    to_from_u8(cc)
-    to_from_u16(cc)
+    common_test(cc)
     cc = chr(0x0001f603)
     to_from_u16(cc)
+
+def test4():
+    ''' test4 '''
+    cc = u'\U0001faa2'
+    common_test(cc)
 
 
 def main(argv: list):
     ''' main '''
     if argv == []:
-        test1()
+        #test1()
         #test2()
         #test3()
+        test4()
         sys.exit()
 
     for s in argv:
