@@ -1,0 +1,105 @@
+#!/usr/bin/python3
+# coding: utf-8
+
+'''
+read en.xml and output to csv
+'''
+
+import csv
+from datetime import date
+import sys
+
+try:
+    from bs4 import BeautifulSoup
+except ImportError:
+    print('use pip install beautifulsoup4')
+    print('use pip install lxml')
+    sys.exit(1)
+
+from myutil import read_textfile
+
+# XLSWRITER_OK = False
+# try:
+#     import xlsxwriter
+#     XLSWRITER_OK = True
+# except ImportError:
+#     print('cannot import module xlsxwriter')
+#     sys.exit(1)
+
+
+class Solution():
+    ''' solution to read en.xml and output as csv-like data '''
+    def __init__(self):
+        self.content = None
+        self.emoji = {}
+
+    @staticmethod
+    def to_codepoint(cc: str):
+        '''
+        cc [in] unicode char
+        calling: to_from_u16(chr(0x0001f3c8))
+        '''
+        ue = cc.encode('unicode-escape').decode('utf-8')
+        return ue
+
+    def make_soup(self) -> None:
+        ''' parse xml from content, store into self.emoji '''
+        soup = BeautifulSoup(self.content, features='xml')
+        t = soup.find('annotations')
+        anns = t.find_all('annotation')
+        for i in anns:
+            if 'type' in i.attrs:
+                value = i['cp']
+                key = self.normalize(i.text)
+                if key == "backslash":
+                    continue
+                if key in self.emoji:
+                    print(f"Warn: duplicated key: [key]")
+                else:
+                    self.emoji[key] = []
+                    self.emoji[key].append(value)
+
+    def normalize(self, s: str) -> str:
+        ''' substitue space to underscore, and lower case '''
+        ret = s.lower().replace(':', '').replace(' ', '_')
+        return ret
+
+    @staticmethod
+    def value_to_string(v: list) -> list:
+        ''' value to string '''
+        s = str()
+        for i in v:
+            s += '"' + i + '"' + ','
+        # remove the extra ,
+        return s[:-1]
+
+    # ref: https://github.com/carpedm20/emoji/tree/master/utils
+    def output_data(self, ofilename) -> None:
+        ''' output data '''
+        print(f'len: {len(self.emoji)}')
+        outfn = ofilename
+        with open(outfn, 'wt', encoding='utf8') as f:
+            print("EMOJI = {", file=f)
+            for _, (k, v) in enumerate(sorted(self.emoji.items())):
+                print(f'    \"{k}\": \"{v[0]}\",', file=f)
+            print("}", file=f)
+        print(f'output to {outfn}')
+
+
+    def action(self) -> None:
+        ''' action '''
+        for fn in ['en-basic.xml', 'en-derived.xml']:
+            print(f'fn: {fn}')
+            self.content = read_textfile(fn)
+            # parsing xml and store into list()
+            self.make_soup()
+        self.output_data(f'_emoji.py')
+
+
+def main():
+    ''' main '''
+    s = Solution()
+    s.action()
+
+if __name__ == '__main__':
+    main()
