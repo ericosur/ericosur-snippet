@@ -1,6 +1,32 @@
 Readme
 ======
 
+## f-string
+
+The minimum python version to support f-strings is python 3.6.
+
+### use conda
+
+```
+source $(goto -x conda)/conda.sh
+```
+
+
+```
+conda create --name mypy python=3.10
+```
+
+```
+conda activate # use base conda
+
+conda activate mypy # created by prior command
+```
+
+```
+conda deactivate
+```
+
+
 ## Useful python cheat sheet
 
 - https://github.com/gto76/python-cheatsheet
