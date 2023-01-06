@@ -81,5 +81,6 @@ else
 fi
 
 cd $SCRIPT_DIR
-echo $PY read_enxml.py
+echo parsing xml, composing table and output
 ${PY} read_enxml.py
+${PY} parse_enxml.py
