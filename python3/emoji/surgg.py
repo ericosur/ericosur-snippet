@@ -10,7 +10,7 @@ while comes from U+10000 to U+10FFFF
 def main():
     ''' main '''
     print('Test UTF-16 surrogatepass...')
-    surgg = u"""
+    surgg = """
 \uD83D\uDE1C
 \uD83D\uDE17
 \uD83D\uDE0A

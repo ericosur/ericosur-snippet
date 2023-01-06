@@ -32,11 +32,11 @@ def test1():
     ''' test1 '''
     print('test1...')
     arr = [
-        u'\u2764\ufe0f',
-        u'\U0001f1e7\U0001f1f4',
-        u'\U0001f64b\u200d\u2640\ufe0f',
-        u'\U0001f3c8',
-        u'\U0001f603'
+        '\u2764\ufe0f',
+        '\U0001f1e7\U0001f1f4',
+        '\U0001f64b\u200d\u2640\ufe0f',
+        '\U0001f3c8',
+        '\U0001f603'
     ]
     #print(arr)
     payload = {'icons': arr}
@@ -69,14 +69,14 @@ def test3():
     if I want to get utf-16-be encoding unicode escape, need json.dumps()
     '''
     print('test3...')
-    cc = u'\U0001f3c8'
+    cc = '\U0001f3c8'
     common_test(cc)
     cc = chr(0x0001f603)
     to_from_u16(cc)
 
 def test4():
     ''' test4 '''
-    cc = u'\U0001faa2'
+    cc = '\U0001faa2'
     common_test(cc)
 
 
