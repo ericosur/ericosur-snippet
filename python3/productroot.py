@@ -32,13 +32,15 @@ def main():
     # print header
     last_two_digits = set()
     print("number,1st,2nd,3rd,4th")
-    for i in range(1, 100):
+    for i in range(11, 100):
         a = product_root(i)
-        if len(a) > 3:
-            last_two_digits.add(a[-2])
-    r = list(last_two_digits)
-    r.sort()
-    print(r)
+        if a:
+            output_csv(a)
+    #     if len(a) > 3:
+    #         last_two_digits.add(a[-2])
+    # r = list(last_two_digits)
+    # r.sort()
+    # print(r)
 
 if __name__ == '__main__':
     main()
