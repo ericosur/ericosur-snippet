@@ -7,11 +7,13 @@ transfer between account, not want to see four
 
 import random
 
+# pylint: disable=too-many-arguments
+
 class Solution():
     ''' try to find solution '''
-    def __init__(self, lower, upper, src=[], dst=[], random=True, debug=False):
+    def __init__(self, lower, upper, src=None, dst=None, rand=True, debug=False):
         self.debug = debug
-        self.random = random
+        self.random = rand
         if src:
             self.fubon = src
         else:
@@ -172,11 +174,10 @@ def main():
     ''' main '''
     src = [15891, 17733, 39000]
     dst = [1693, 50000]
-    sol = Solution(200, 500, src=src, dst=dst, random=False, debug=False)
+    sol = Solution(200, 500, src=src, dst=dst, rand=False, debug=False)
     sol.run()
 
 if __name__ == '__main__':
     main()
 
 # yuanta, 2876, -4068
-#

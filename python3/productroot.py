@@ -30,7 +30,7 @@ def output_csv(vals):
 def main():
     ''' main '''
     # print header
-    last_two_digits = set()
+    #last_two_digits = set()
     print("number,1st,2nd,3rd,4th")
     for i in range(11, 100):
         a = product_root(i)
