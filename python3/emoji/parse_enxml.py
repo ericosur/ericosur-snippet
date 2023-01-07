@@ -45,6 +45,14 @@ class Solution():
         ue = cc.encode('unicode-escape').decode('utf-8')
         return ue
 
+    def need_filter(self, k):
+        ''' check if this key could be filtered out '''
+        if k == "backslash":
+            return True
+        if "skin_tone" in k:
+            return True
+        return False
+
     def make_soup(self) -> None:
         ''' parse xml from content, store into self.emoji '''
         soup = BeautifulSoup(self.content, features='xml')
@@ -54,7 +62,8 @@ class Solution():
             if 'type' in i.attrs:
                 value = i['cp']
                 key = self.normalize(i.text)
-                if key == "backslash":
+                if self.need_filter(key):
+                    print(f'filtered: {key}')
                     continue
                 if key in self.emoji:
                     print(f"Warn: duplicated key: {key}")

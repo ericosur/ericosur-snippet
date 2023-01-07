@@ -1,0 +1,24 @@
+#!/usr/bin/python3
+# coding: utf-8
+
+'''
+run this before other script to check python version
+'''
+
+import sys
+
+def require_python_version(major, minor):
+    ''' raise exception if not match the minimum version '''
+    sys_major = sys.version_info.major
+    if sys_major > major:
+        return True
+    if sys_major == major:
+        if sys.version_info.minor >= minor:
+            return True
+    return False
+
+if require_python_version(3, 6):
+    import test_emoji
+    test_emoji.main()
+else:
+    print('need python > 3.6')
