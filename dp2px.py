@@ -2,7 +2,7 @@
 # coding: utf-8
 
 '''
-brief description for this script
+android dp to px and verse
 '''
 
 import argparse
