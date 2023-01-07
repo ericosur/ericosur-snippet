@@ -62,7 +62,8 @@ class Solution():
                     self.emoji[key] = []
                     self.emoji[key].append(value)
 
-    def normalize(self, s: str) -> str:
+    @staticmethod
+    def normalize(s: str) -> str:
         ''' substitue space to underscore, and lower case '''
         tmp = s.lower()
         tmp = re.sub(r'[:!+\']', '', tmp)
