@@ -9,8 +9,6 @@ ref: https://en.wikipedia.org/wiki/Fermat%27s_theorem_on_sums_of_two_squares
 
 '''
 
-from random import randint
-
 try:
     # larger and slower
     from sip import LoadCompressPrime as StorePrime
@@ -29,11 +27,10 @@ class Solution():
     def __init__(self):
         pass
 
-
-    def is_prime(self, n):
-        ''' is a prime ? '''
-        ret = self.sp.find(n)
-        return ret is not None
+    # def is_prime(self, n):
+    #     ''' is a prime ? '''
+    #     ret = self.sp.find(n)
+    #     return ret is not None
 
     @staticmethod
     def is_quadratic(n):
