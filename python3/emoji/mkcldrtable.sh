@@ -82,5 +82,8 @@ fi
 
 cd $SCRIPT_DIR
 echo parsing xml, composing table and output
+# generate csv
 ${PY} read_enxml.py
+# generate py
 ${PY} parse_enxml.py
+
