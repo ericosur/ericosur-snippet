@@ -12,8 +12,12 @@ for example, smaller than 1000, 840 has most factors (32)
 '''
 
 import sys
-from random import randint
-from sympy import factorint
+
+try:
+    from sympy import factorint
+except ImportError:
+    print("need module sympy")
+    sys.exit(1)
 
 def get_num_factors(value):
     '''
@@ -26,7 +30,7 @@ def get_num_factors(value):
     # output the result...
     #print(value, "= ", end='')
     t = 1
-    for k,v in myd.items():
+    for v in myd.values():
         #print(v)
         t *= (v + 1)
     return t
