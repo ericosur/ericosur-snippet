@@ -8,6 +8,7 @@ import os
 import sys
 import json
 import hashlib
+import platform
 
 # pylint: disable=no-member
 # pylint: disable=import-outside-toplevel
@@ -126,8 +127,22 @@ def get_home():
 
 def get_hostname():
     ''' get hostname '''
-    import platform
     return platform.node()
+
+def is_cygwin():
+    ''' check if cygwin '''
+    system_name = platform.system().lower()
+    return "cygwin" in system_name
+
+def is_linux():
+    ''' check if linux '''
+    system_name = platform.system().lower()
+    return "linux" in system_name
+
+def is_windows():
+    ''' check if windows '''
+    system_name = platform.system().lower()
+    return "windows" in system_name
 
 def query_url_for_data(url):
     ''' query url and return data
