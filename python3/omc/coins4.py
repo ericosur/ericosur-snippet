@@ -28,7 +28,6 @@ def main():
         print(c, x, v)
         ans[v] = 1
 
-    print('cnt:', cnt)
     print(len(ans.keys()))
 
 if __name__ == '__main__':
