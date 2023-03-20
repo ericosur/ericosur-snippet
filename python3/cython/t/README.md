@@ -31,3 +31,8 @@ fibo.py and fibo.pyx is the same
 1. prepare **setup.py**
 2. run this: ```python3 setup.py build_ext --inplace```
 3. using **call_fibo.py** to run the function
+
+## note
+
+2023-03-20 validate against python 3.10
+

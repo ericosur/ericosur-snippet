@@ -1,2 +1,2 @@
-python3.6 trp.py -i c50.jpg \
+python3 trp.py -i c50.jpg \
   -c "[(112,193),(481,81),(611,242),(186,405)]"
