@@ -1,0 +1,3 @@
+build/*
+fibo.c
+fibo.cpython*.so

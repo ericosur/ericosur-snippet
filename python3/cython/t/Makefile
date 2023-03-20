@@ -1,7 +1,7 @@
 .phony:	help
 
 
-PY3='python3.6'
+PY3='python3'
 
 help:
 	@echo "__make target__ or __make clean__"
