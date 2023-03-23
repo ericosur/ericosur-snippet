@@ -12,6 +12,7 @@ def main():
 
     print('[WARN] This is not a current updated rates!!!')
     FILEN = 'rates.csv'
+    print('[INFO] data read from: ', FILEN)
     # read csv file as dataframe
     rates = pd.read_csv(FILEN)
 
@@ -21,8 +22,8 @@ def main():
     CN = '賣出'
 
     # filter values from this column
-    mask1 = (rates[CN] > 30.0)
-    mask2 = (rates[CN] < 1.0)
+    mask1 = rates[CN] > 30.0
+    mask2 = rates[CN] < 1.0
     t = rates[mask1 | mask2]
     print(f'apply mask1 | mask2 ===>\n{t}')
 
