@@ -8,6 +8,8 @@ notice now this file is stored as ansi (cp950) text
 the text file nned to be stored in utf-8
 '''
 
+# useless to disable bad-file-encoding warning/error
+# pylint: disable=bad-file-encoding
 
 def print_hex(in_string):
     ''' print string in hex '''

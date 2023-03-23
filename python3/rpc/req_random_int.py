@@ -32,8 +32,8 @@ def main():
         "id": myid
     }
 
-    resp = requests.post(
-        url, data=json.dumps(payload), headers=headers).json()
+    resp = requests.post(url, data=json.dumps(payload), headers=headers,
+                            timeout=5.0).json()
 
     print(json.dumps(resp))
 

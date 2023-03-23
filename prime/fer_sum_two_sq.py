@@ -9,6 +9,8 @@ ref: https://en.wikipedia.org/wiki/Fermat%27s_theorem_on_sums_of_two_squares
 
 '''
 
+import sys
+
 try:
     # larger and slower
     from sip import LoadCompressPrime as StorePrime
@@ -18,6 +20,7 @@ except ImportError:
     from store_prime import StorePrime
     print('use **store_prime**')
 
+# pylint: disable=invalid-name
 class Solution():
     ''' it is similar to goldbach conf? '''
 
@@ -25,7 +28,8 @@ class Solution():
     LOWER_BOUND = 3
 
     def __init__(self):
-        pass
+        self.sp = StorePrime()
+        # self.sp.load
 
     # def is_prime(self, n):
     #     ''' is a prime ? '''
@@ -37,20 +41,20 @@ class Solution():
         ''' check if meets p = 4k + 1 '''
         return (n % 4) == 1
 
-    @staticmethod
-    def run():
+    def run(self):
         ''' run this '''
         tests = [97, 37, 41]
-        with StorePrime() as sp:
-            for p in tests:
-                ret = sp.get_primes_less_than(p)
-                if ret is not None:
-                    print(p)
+        for p in tests:
+            ret = self.sp.get_primes_less_than(p)
+            if ret is not None:
+                print(p)
 
 def main():
     ''' main '''
-    #solution = Solution()
-    Solution.run()
+    print('it is a unfinished scripts')
+    sys.exit(1)
+    # solution = Solution()
+    # solution.run()
 
 if __name__ == '__main__':
     main()

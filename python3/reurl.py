@@ -79,9 +79,13 @@ class MakeReurl():
         #     print('will requst with:')
         #     print(headers)
         #     print(json.dumps(j))
-        r = requests.post(server, data=json.dumps(j), headers=headers)
-        # r is a Response class, useless to print it, use handle_results()
-        j = self.handle_results(r)
+        try:
+            r = requests.post(server, data=json.dumps(j), headers=headers, timeout=5.0)
+            # r is a Response class, useless to print it, use handle_results()
+            j = self.handle_results(r)
+        except ConnectionError as e:
+            print(e)
+            return
 
         if j is None:
             print('ERROR')

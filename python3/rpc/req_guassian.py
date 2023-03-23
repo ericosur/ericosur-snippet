@@ -87,8 +87,8 @@ class RequestGuassian():
             "id": myid
         }
 
-        resp = requests.post(
-            url, data=json.dumps(payload), headers=headers).json()
+        resp = requests.post(url, data=json.dumps(payload),
+                                headers=headers, timeout=5.0).json()
 
         print('save resp into file: {self.resp_json}')
         self.save_resp(json.dumps(resp))

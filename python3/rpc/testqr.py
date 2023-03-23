@@ -28,7 +28,7 @@ def get_qrcode(text='The quick brown fox jumps over the lazy dog', showimage=Tru
         'size': '256x256',
         'ecc': 'M'
     }
-    r = requests.get(url, params=payload)
+    r = requests.get(url, params=payload, timeout=5.0)
     fn = show_results(r)
     if showimage:
         GenerateBarcode.show_image(fn)
@@ -59,7 +59,7 @@ class GenerateBarcode():
             'rotate': 'N',
             'includetext': 'null'
         }
-        self.resp = requests.get(self.url, params=payload)
+        self.resp = requests.get(self.url, params=payload, timeout=5.0)
 
     def get_ean13(self, text='4901991570014'):
         ''' generate ean13 barcode '''
@@ -67,7 +67,8 @@ class GenerateBarcode():
             [('bcid', 'ean13'), ('text', text), ('scale', 3),
              ('rotate', 'N'), ('includetext', 'null')]
         )
-        self.resp = requests.get(self.url, params=urlencode(params))
+        self.resp = requests.get(self.url, params=urlencode(params),
+                                    timeout=5.0)
 
     def get_isbn(self, text='978-986-137-195-5'):
         ''' generate ean13 barcode '''
@@ -78,7 +79,8 @@ class GenerateBarcode():
             [('bcid', 'isbn'), ('text', text), ('scale', 3),
              ('rotate', 'N'), ('includetext', 'null')]
         )
-        self.resp = requests.get(self.url, params=urlencode(params))
+        self.resp = requests.get(self.url, params=urlencode(params),
+                                    timeout=5.0)
 
     @staticmethod
     def show_image(fn):
@@ -141,8 +143,10 @@ def main():
 
     if args.isbn:
         do_isbn(args.isbn, args.showimage)
-    if args.urls:
+    elif args.urls:
         do_urls(args.urls, args.showimage)
+    else:
+        print('no aruments provided, use --help to see')
 
 if __name__ == '__main__':
     main()

@@ -13,7 +13,7 @@ import requests
 def get_current_ip():
     ''' use this to get myip '''
     url = 'https://api.myip.com'
-    r = requests.get(url)
+    r = requests.get(url, timeout=5.0)
     print('url:', r.url)
     print('r.json:\n', r.json())
     data = r.json()
@@ -23,7 +23,7 @@ def get_current_ip():
 def get_ip_info(ip):
     ''' use this to get IP location and related data '''
     iploc = f'http://ip-api.com/json/{ip}'
-    r = requests.get(iploc)
+    r = requests.get(iploc, timeout=5.0)
     print('url:', r.url)
     print('r.json:\n', json.dumps(r.json()))
 

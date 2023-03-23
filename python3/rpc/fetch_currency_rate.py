@@ -23,7 +23,7 @@ def dump_to_json(fn, data):
 
 def main():
     ''' main '''
-    r = requests.get('https://tw.rter.info/capi.php')
+    r = requests.get('https://tw.rter.info/capi.php', timeout=5.0)
     currency = r.json()
 
     grep_keyword(currency, 'TWD')
