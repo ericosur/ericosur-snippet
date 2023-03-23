@@ -56,7 +56,7 @@ class TestHttpbin():
     def test_url(self, subcmd: str) -> None:
         ''' test with given subcmd '''
         url = f'{self.server}/{subcmd}'
-        r = requests.get(url)
+        r = requests.get(url, timeout=5.0)
         show_results(r)
 
     def test_getip(self):
@@ -83,7 +83,7 @@ def test2():
         n = 3
         offset = 5
         url = f'https://httpbin.org/links/{n}/{offset}'
-        r = requests.get(url)
+        r = requests.get(url, timeout=5.0)
         show_results(r)
     except ConnectionError as e:
         print(f"type: {type(e)}, args: {e.args}")
@@ -95,7 +95,7 @@ def test3():
     try:
         n = 32
         url = f'https://httpbin.org/range/{n}'
-        r = requests.get(url)
+        r = requests.get(url, timeout=5.0)
         show_results(r)
     except ConnectionError as e:
         print(f"type: {type(e)}, args: {e.args}")
@@ -106,7 +106,7 @@ def test4():
     '''
     try:
         url = 'https://httpbin.org/anything/{anything}' # it isn't a f-string
-        r = requests.get(url)
+        r = requests.get(url, timeout=5.0)
         show_results(r)
     except ConnectionError as e:
         print(f"type: {type(e)}, args: {e.args}")
@@ -115,7 +115,7 @@ def test_post():
     ''' test post '''
     print("test_post() =========>")
     url = 'https://httpbin.org/post'
-    r = requests.post(url)
+    r = requests.post(url, timeout=5.0)
     show_results(r)
 
 def main():

@@ -55,10 +55,15 @@ def get_python_version() -> str:
     ''' return version string of python '''
     minor = sys.version_info.minor
     if minor >= 10:
-        print("you should not turn this string into a float number")
+        print("minor >= 10, wrong value if convert to a float number"
+            ", use get_python_versions instead")
         raise RuntimeError
     py_ver = ".".join(map(str, sys.version_info[:2]))
     return py_ver
+
+def get_python_versions() -> tuple:
+    ''' return python version in (major, minor) integers '''
+    return (sys.version_info[0], sys.version_info[1])
 
 def require_python_version(major, minor) -> bool:
     ''' raise exception if not match the minimum version '''
@@ -152,10 +157,9 @@ def query_url_for_data(url):
     debug = False
     if debug:
         print(url)
-    py_ver = get_python_version()
+    pyver = get_python_versions()
     try:
-        if float(py_ver) >= 3.0:
-            #print("python >= 3.0")
+        if pyver[0] >= 3:
             import urllib.request
             with urllib.request.urlopen(url) as f:
                 result = f.read()

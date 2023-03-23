@@ -38,7 +38,7 @@ def getimg(url):
     '''
     TODO: save fetched image into file
     '''
-    r = requests.get(url)
+    r = requests.get(url, timeout=5.0)
     show_results(r)
 
 

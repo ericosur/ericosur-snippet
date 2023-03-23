@@ -29,7 +29,13 @@ import time
 from random import randint
 
 # if hiredis is installed as well, it will improve the query speed a lot
-import redis
+# pylint: disable=import-error
+try:
+    import redis
+except ImportError:
+    print("ImportError: import redist")
+
+# local modules
 from findlist_func import index, find_le, find_ge
 from myutil import read_jsonfile, get_home
 
@@ -122,7 +128,6 @@ class StorePrimeToRedis():
             return True
         print(f'[ERROR] cannot find data file: {self.txtfile}')
         sys.exit(1)
-        return False
 
     def load_text(self) -> None:
         '''

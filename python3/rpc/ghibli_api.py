@@ -23,7 +23,7 @@ class Ghibli():
 def fetch_random_dog():
     ''' test '''
     url = 'https://dog.ceo/api/breeds/image/random'
-    r = requests.get(url)
+    r = requests.get(url, timeout=5.0)
     if r.status_code == 200:
         j = r.json()
         # {'message': 'https://images.dog.ceo/breeds/entlebucher/n02108000_1122.jpg',
@@ -56,7 +56,7 @@ def grep_breed_name(url):
 # https://stackoverflow.com/questions/13137817/how-to-download-image-using-requests
 def save_image_from_url(url, fn):
     ''' save image from specified url '''
-    r = requests.get(url, stream=True)
+    r = requests.get(url, stream=True, timeout=5.0)
     if r.status_code == 200:
         with open(fn, 'wb') as f:
             r.raw.decode_content = True
