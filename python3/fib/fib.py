@@ -7,6 +7,7 @@ a simple and stupid fib function test
 It is time/memory consuming while n is large.
 It took 23.81 sec to calculate fib(40)
 
+2023/04/07 It takes 14.63 sec to get fib(40) (zen33.local)
 '''
 
 #import random
@@ -21,6 +22,8 @@ def fib(n):
 def main():
     ''' main '''
     m = 40
+    print(f'calculate fib({m}) from scratch, for cached fib(), use')
+    print('fib_store.py')
     time_start = timeit.default_timer()
     r = fib(m)
     time_end = timeit.default_timer()
