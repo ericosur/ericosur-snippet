@@ -12,14 +12,13 @@ pip install compress_pickle
 
 '''
 
-import sys
 from time import time
 
 try:
     import compress_pickle
-except ImportError:
-    print('cannot load module **compress_pickle**')
-    sys.exit(0)
+except ImportError as err:
+    print('lcp.py: cannot load module **compress_pickle**')
+    raise ImportError("lcp.py cannot load module") from err
 
 from store_prime import StorePrime
 

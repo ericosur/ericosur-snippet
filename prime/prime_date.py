@@ -21,19 +21,20 @@ find any prime dates.
 
 from datetime import date, timedelta
 import time
+import sys
 
 #
 # try to import StorePrime class
 #
-USE_LCP = True
-if USE_LCP:
+try:
     from lcp import LoadCompressPrime as StorePrime
     print('use **LoadCompressPrime**')
-else:
+except ImportError:
     # smaller and quicker for loading pickle
-    from store_prime import StorePrime
-    print('use **store_prime**')
-
+    #from store_prime import StorePrime
+    #print('use **store_prime**')
+    print("ERROR: cannot use StorePrime to calculate")
+    sys.exit(1)
 
 # pylint: disable=invalid-name
 # too-many-statements
