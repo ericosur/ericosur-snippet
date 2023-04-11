@@ -8,12 +8,17 @@ use StorePrime
 
 '''
 
+import sys
 from store_prime import StorePrime
 
-__version__ = '2021.11.25.11.46'
+__version__ = '2023.04.10.11.02'
 
 # pythonista
-PYTHONISTA=False
+if sys.platform == 'linux':
+    PYTHONISTA=False
+else:
+    PYTHONISTA=True
+
 DEBUG=False
 
 # pylint: disable=import-error
@@ -31,7 +36,7 @@ def show(v, p, q):
     if q is None:
         s = f'{v} is a prime'
         if PYTHONISTA:
-            console.alert(s)
+            console.alert('result', s, 'OK', hide_cancel_button=True)
         else:
             print(s)
 
@@ -46,9 +51,10 @@ def show(v, p, q):
             arrow = "----->"
         s = f'{v} is in the range of ({p} {arrow} {q})'
         if PYTHONISTA:
-            console.alert(s)
+            console.alert('result', s, 'OK', hide_cancel_button=True)
         else:
             print(s)
+
 def main():
     ''' main function '''
     with StorePrime() as sp:
@@ -66,14 +72,17 @@ def main():
             if PYTHONISTA:
                 clipboard.set(str(sp.at(p)))
 
-
         if PYTHONISTA:
-            ret = console.input_alert('input a number')
-            try:
-                val = int(ret)
-                test(val)
-            except ValueError:
-                print(f'{ret} is a ValueError')
+            while True:
+                ret = console.input_alert('input a number')
+                try:
+                    val = int(ret)
+                    if val <= 0:
+                        break
+                    test(val)
+                except ValueError:
+                    msg = f'ValueError: {ret}'
+                    console.alert(msg)  # will break while-loop
         else:
             for r in [101, 103, 202, 301, 307]:
                 test(r)
