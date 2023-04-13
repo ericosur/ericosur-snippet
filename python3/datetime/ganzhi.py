@@ -13,75 +13,55 @@
 '''
 
 from __future__ import print_function
-from datetime import datetime
-import time
+import argparse
+from gngan_yaljux import GanChi, do_ab, do_tests, do_values, do_verbose
 
-class GanChi():
-    MAGIC_START = 2997
-
-    def __init__(self):
-        self.gnn = list("甲乙丙丁戊己庚辛壬癸")
-        self.sesue = list("鼠牛虎兔龍蛇馬羊猴雞狗豬")
-        self.yal = list("子丑寅卯辰巳午未申酉戌亥")
-
-    def to_gc(self, y):
-        ''' to_gc '''
-        if y == 0:
-            raise ValueError("ERROR: cannot assign 0 as year")
-        if y < 0:
-            _y = y + self.MAGIC_START
-        else:
-            _y = y + self.MAGIC_START - 1
-        g = self.gnn[_y % 10]
-        y = self.yal[_y % 12]
-        s = self.sesue[_y % 12]
-        res = f'{g}{y}({s})'
-        return res
-
-    def get_reminder(self, y):
-        ''' reminder '''
-        _y = y + self.MAGIC_START - 1
-        g = _y % 10
-        y = _y % 12
-        return (g, y)
-
-    def brute_force_try(self, gnn, yal):
-        ''' given 天干 (from 0) 地支 (from 0)  guess year '''
-        this_year = datetime.today().year
-        max_try = 60
-        test_year = 0
-        # after this year
-        for i in range(max_try):
-            test_year = this_year + i
-            (_m, _n) = self.get_reminder(test_year)
-            if _m == gnn and _n == yal:
-                print(test_year, self.to_gc(test_year))
-                break
-        _y = test_year
-        for i in range(4):
-            _y -= 60
-            print(_y)
-
-    def test0(self):
-        ''' test '''
-        for y in [-720, 1894, 1912, 1975, 1995, 2012, 2023]:
-            res = self.to_gc(y)
-            print(f'{y} is {res}')
-
-    def test1(self):
-        ''' test 1 '''
-        self.brute_force_try(0, 0)
-        self.brute_force_try(6, 0)
-        self.brute_force_try(0, 6)
-
-    def run(self):
-        self.test0()
-        self.test1()
+def setup_arg_parser():
+    ''' setup arg parser '''
+    parser = argparse.ArgumentParser(description='script helps to get GanChi')
+    # nargs like regexp, '*' means 0+, '+' means 1+
+    parser.add_argument("values", metavar='val', type=int, nargs='*',
+        help="show these strings")
+    parser.add_argument('-a', '--apple', help='GnGan')
+    parser.add_argument('-b', '--ball', help='YalJux')
+    parser.add_argument('-c', '--cat', help='center year')
+    parser.add_argument("-t", "--test", action='store_true', default=False,
+        help='test and demo')
+    parser.add_argument("-v", "--verbose", action='store_true', default=False,
+        help='verbose')
+    return parser
 
 def main():
-    '''main function'''
-    gc = GanChi()
-    gc.run()
+    ''' main '''
+    parser = setup_arg_parser()
+    args = parser.parse_args()
+
+    if args.values:
+        print(args.values)
+        do_values(args.values)
+        return
+    if args.test:
+        #print('test:', args.test)
+        do_tests()
+        return
+    if args.verbose:
+        do_verbose()
+        return
+
+    if args.apple or args.ball:
+        _a = 0
+        _b = 0
+        if args.apple:
+            print('apple:', args.apple)
+            _a = int(args.apple)
+        if args.ball:
+            print('ball:', args.ball)
+            _b = int(args.ball)
+        do_ab(_a, _b)
+        return
+
+    # to show help message directly
+    parser.print_help()
 
 
 if __name__ == '__main__':
