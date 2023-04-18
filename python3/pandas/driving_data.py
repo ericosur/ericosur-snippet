@@ -158,8 +158,8 @@ class DrivingData():
 
     @staticmethod
     def show_details(des):
-        ''' show details of res '''
-        queries = ['count', 'max', '75%', 'mean', '50%', '25%', 'min', 'std']
+        ''' show details of res² '''
+        queries = ['count', 'max', '75%', 'mean(μ)', '50%', '25%', 'min', 'stddev(σ)']
         for qq in queries:
             ans = peek_target(des, qq)
             # if not isinstance(ans, str):
@@ -171,7 +171,7 @@ class DrivingData():
             else:
                 result = str(int(floor(ans)))
             j = result.rjust(10, ' ')
-            print(f'{qq:5s}: {j:20s}')
+            print(f'{qq:10s}: {j:20s}')
 
 # return type: numpy.float64
 def peek_target(desc_table, target):
