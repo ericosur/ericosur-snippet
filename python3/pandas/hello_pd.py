@@ -27,7 +27,7 @@ def main():
     t = rates[mask1 | mask2]
     print(f'apply mask1 | mask2 ===>\n{t}')
 
-    mask3 = (rates['CName'].isin(['USD', 'GBP', 'EUR']))
+    mask3 = rates['CName'].isin(['USD', 'GBP', 'EUR'])
     t = rates[mask3]
     print(f'apply mask3 ===>\n{t}')
 
