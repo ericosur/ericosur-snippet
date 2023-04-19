@@ -159,7 +159,8 @@ class DrivingData():
     @staticmethod
     def show_details(des):
         ''' show details of res² '''
-        queries = ['count', 'max', '75%', 'mean(μ)', '50%', '25%', 'min', 'stddev(σ)']
+        queries = ['count', 'max', '75%', 'mean', '50%', '25%', 'min', 'std']
+        #labels = ['count', 'max', '75%', 'mean(μ)', '50%', '25%', 'min', 'stddev(σ)']
         for qq in queries:
             ans = peek_target(des, qq)
             # if not isinstance(ans, str):
