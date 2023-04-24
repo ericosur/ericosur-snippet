@@ -166,12 +166,13 @@ class DrivingData():
             # if not isinstance(ans, str):
             #     print('peek not a string:', ans)
             #     break
-            if qq != 'count':
-                #result = sec2str(ans)
-                result = sec2mmss(ans)
-            else:
+            if qq == 'count':
                 result = str(int(floor(ans)))
-            j = result.rjust(10, ' ')
+                j = result.rjust(10, ' ')
+            else:
+                mmss = sec2mmss(ans)
+                result = f'{mmss}  ({ans:4d})'
+                j = result.rjust(20, ' ')
             print(f'{qq:10s}: {j:20s}')
 
 # return type: numpy.float64
