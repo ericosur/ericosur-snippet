@@ -57,7 +57,7 @@ class PushOverRequests(PushOverBase):
         }
         '''
 
-        r = requests.post(url, data=json.dumps(payload), headers=headers)
+        r = requests.post(url, data=json.dumps(payload), headers=headers, timeout=5.0)
 
         print(r.status_code)
 

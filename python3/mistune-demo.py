@@ -7,7 +7,12 @@ demo of mistune
 cannot upgrade to mistune 2.0.0 because of nbconvert or networkx?
 '''
 
-import mistune
+import sys
+try:
+    import mistune
+except ImportError:
+    print('cannot import mistune')
+    sys.exit(1)
 
 def main():
     ''' main '''

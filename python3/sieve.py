@@ -79,7 +79,6 @@ class Sieve():
         self.del_elem()
 
 
-
 def main():
     '''main function'''
     MAX_NUMBER = 1000

@@ -9,8 +9,7 @@ from __future__ import print_function
 import timeit
 import numpy as np
 
-# pylint: disable=useless-object-inheritance
-class TestSum(object):
+class TestSum():
     ''' class TestSum '''
     def __init__(self):
         self.data_arr = []

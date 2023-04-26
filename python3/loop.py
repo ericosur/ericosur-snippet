@@ -42,7 +42,6 @@ def loop2(r: float, _limit=2.0):
         ii += 1
         s += term
         b += base
-        #print('y{}: {} vs {:.3f}'.format(ii, b, s))
         term *= v
     print(f'loop2: for r={r*100:.2f}%, need {ii} years to exceed {_limit}')
 

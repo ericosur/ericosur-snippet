@@ -19,7 +19,7 @@ def main():
     img = Image.new('HSV', (width, height))
     img.putdata([(int(a), 255, 255) for a in pixels])
     img.convert(mode='RGB').save(fn)
-    print('save to {}'.format(fn))
+    print(f'save to {fn}')
     img.show()
 
 if __name__ == '__main__':
