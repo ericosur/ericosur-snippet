@@ -1,10 +1,27 @@
 #!/usr/bin/python3
 # coding: utf-8
 
+'''
+柯玲芬、柯伊芬、柯芭芬和柯淑芬與她們的先生一起去大賣場買生活用品，
+八人身上所帶的錢，加起來剛好是四萬元 (40)
+
+四位先生各花了一千元、二千元、三千元及四千元
+⇒ 各位丈夫花的錢是 (1,2,3,4)
+
+柯玲芬、柯伊芬、柯芭芬和柯淑芬花的錢是她先生的 (1,2,3,4)
+
+⇒ 柯玲芬、柯伊芬、柯芭芬和柯淑芬設為符號 A B C D
+四個先生設為符號 a b c d  所以有24種組合
+
+以下列出四對夫婦的組合，以及他們一共花費的錢，還有剩下的錢
+⇒ 因為大家都有剩下錢，且剩下一樣多的錢，所以餘錢必定是8的倍數,
+
+'''
+
 import itertools as it
 
-
 class SpendMoney():
+    ''' try to find answer '''
     def __init__(self):
         self.husband = list("abcd")
         self.wife = list("ABCD")
@@ -14,7 +31,7 @@ class SpendMoney():
         self.cases = []
 
     def check_cases(self):
-
+        ''' check cases if valid '''
         for c in self.cases:
             spend_total = 0
             pair_text = []
