@@ -10,6 +10,7 @@ different numbers
 import itertools as it
 
 class Solution():
+    ''' solution '''
     def __init__(self):
         self.target = 21
         self.minimum = 1
@@ -25,7 +26,7 @@ class Solution():
     @staticmethod
     def is_small2big(a, b, c):
         ''' a, b, c small to big '''
-        if c > b and b > a:
+        if c > b > a:   # c > b and b > a
             return True
         return False
 
@@ -37,20 +38,22 @@ class Solution():
         return False
 
     def test(self):
-        assert self.is_different(1, 1, 2)==False
-        assert self.is_different(1, 2, 2)==False
-        assert self.is_different(2, 1, 2)==False
+        ''' test '''
+        assert self.is_different(1, 1, 2) is False
+        assert self.is_different(1, 2, 2) is False
+        assert self.is_different(2, 1, 2) is False
         assert self.is_different(1, 2, 3)
         assert self.is_sum_match(7, 7, 7)
         assert self.is_sum_match(6, 7, 8)
 
     def run(self):
+        ''' run '''
         pp = list(range(self.minimum, self.maximum+1))
         # qq = list(range(self.minimum, self.maximum+1))
         # rr = list(range(self.minimum, self.maximum+1))
         cnt = 0
         for n in it.combinations(pp, 3):
-            p = n[0]; q = n[1]; r = n[2]
+            (p, q, r) = n
             if self.is_different(p, q, r):
                 if self.is_small2big(p, q, r):
                     cnt += 1

@@ -6,12 +6,15 @@
 how many way to take
 '''
 
+# pylint: disable=invalid-name
 class Solution():
+    ''' try to find the solution '''
     def __init__(self):
         self.m = [60, 7]
         self.n = [1000, -8]
 
     def find_answer(self):
+        ''' find answer '''
         delta = 1000 - 60
         x = self.m[0]
         y = self.n[0]

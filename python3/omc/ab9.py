@@ -6,13 +6,13 @@
 '''
 
 def test_number():
+    ''' test number '''
     for n in range(900, 1000):
         for ab in range(21, 99):
             if n // ab == 25:
                 r = n % ab
                 if 29 >= r >= 20:
-                    print(n, ab, r)
-
+                    print(f'{n} ÷ {ab} = 25 ... {r}')
 
 def main():
     ''' main '''

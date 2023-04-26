@@ -2,14 +2,17 @@
 # coding: utf-8
 
 '''
-find 11n that number root = 15
+x = 11k
+find x, number root of x is 15
 '''
 
 def get_numroot(n):
+    ''' get number root '''
     v = [int(x) for x in list(str(n))]
     return sum(v)
 
 def find_answer():
+    ''' find answer '''
     for n in range(100, 1000):
         r = get_numroot(n)
         if r == 15:
@@ -20,7 +23,6 @@ def find_answer():
 
 def main():
     ''' main '''
-    print('main')
     find_answer()
 
 if __name__ == '__main__':

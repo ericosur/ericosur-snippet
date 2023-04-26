@@ -1,6 +1,10 @@
 #!/usr/bin/python3
 # coding: utf-8
 
+'''
+2k but not 4k between (low, high)
+'''
+
 def main():
     ''' main '''
     low = 150
@@ -13,10 +17,10 @@ def main():
         if v % 2 == 0:
             if v % 4 == 0:
                 continue
-            else:
-                print(v)
-                total += v
-                cnt += 1
+
+            print(v)
+            total += v
+            cnt += 1
     print()
     print(total)
     print(cnt)

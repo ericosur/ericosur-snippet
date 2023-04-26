@@ -19,6 +19,7 @@
 '''
 
 class Solution():
+    ''' try to find the number that match residual '''
     def __init__(self):
         self.minimum = 10000
         self.maximum = 99999
@@ -37,10 +38,9 @@ class Solution():
             if r == 12:
                 print('n=13, r=12')
                 return True
-            #return r == 11 or r == 12
             return False
-        else:
-            return r == n - 1
+
+        return r == n - 1
 
     def is_allpass(self, m):
         ''' return true if all pass '''
@@ -54,10 +54,10 @@ class Solution():
     def test(self):
         ''' test '''
         assert self.test_by(25, 13)
-        assert self.test_by(29, 14)==False
+        assert self.test_by(29, 14) is False
         assert self.test_by(27, 14)
         assert self.test_by(8, 3)
-        assert self.test_by(9, 1)==False
+        assert self.test_by(9, 1) is False
 
     def run(self):
         ''' run '''

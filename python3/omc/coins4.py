@@ -6,8 +6,8 @@
 (3,3,2,1)
 '''
 
-import numpy as np
 import itertools as it
+import numpy as np
 
 def main():
     ''' main '''
