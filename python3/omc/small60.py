@@ -6,8 +6,6 @@
 how many way to take
 '''
 
-import itertools as it
-
 class Solution():
     def __init__(self):
         self.m = [60, 7]

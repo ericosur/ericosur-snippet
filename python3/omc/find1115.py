@@ -5,9 +5,6 @@
 find 11n that number root = 15
 '''
 
-import sys
-import itertools as it
-
 def get_numroot(n):
     v = [int(x) for x in list(str(n))]
     return sum(v)
