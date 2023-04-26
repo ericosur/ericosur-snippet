@@ -29,7 +29,6 @@ def str2sec(timestr: str):
     total = 0.0
     try:
         arr = timestr.split(':')
-        #print('in:{} out:{}'.format(timestr, arr))
         if len(arr) == 2:
             minutes = float(arr[0]) * 60.0
             seconds = float(arr[1])
@@ -40,9 +39,6 @@ def str2sec(timestr: str):
 
 def sec2str(sec: str):
     ''' seconds to string '''
-    # if not isinstance(sec, str):
-    #     print('{} is not a string'.format(sec))
-    #     return ''
     ss = []
     try:
         nn = int(sec)
