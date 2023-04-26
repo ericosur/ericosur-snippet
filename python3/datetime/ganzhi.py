@@ -14,7 +14,7 @@
 
 from __future__ import print_function
 import argparse
-from gngan_yaljux import GanChi, do_ab, do_tests, do_values, do_verbose
+from gngan_yaljux import do_ab, do_tests, do_values, do_verbose
 
 def setup_arg_parser():
     ''' setup arg parser '''
