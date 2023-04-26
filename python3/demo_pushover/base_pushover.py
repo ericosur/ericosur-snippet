@@ -6,13 +6,13 @@ pushover base class
 '''
 
 from __future__ import print_function
+import abc
 import os
 from datetime import datetime
 from time import time
 import myutil
 
-# pylint: disable=useless-object-inheritance
-class PushOverBase(object):
+class PushOverBase():
     ''' base class of pushover '''
     def __init__(self, msg):
         # load user, token
@@ -32,10 +32,10 @@ class PushOverBase(object):
         s += f'title: {self.title}\nmessage: {self.message}\ndevice: {self.device}\n'
         return s
 
-    @staticmethod
-    def shoot():
+    @abc.abstractmethod
+    def shoot(self):
         ''' shoot '''
-        print('shoot!')
+        return NotImplemented
 
     @property
     def title(self):

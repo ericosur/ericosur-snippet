@@ -7,8 +7,7 @@ how to use Python Singleton
 '''
 from __future__ import print_function
 
-# pylint: disable=useless-object-inheritance
-class Singleton(object):
+class Singleton():
     ''' single class usage '''
     __single = None
     __inited = False

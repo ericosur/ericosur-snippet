@@ -11,8 +11,7 @@ import time
 import random
 import math
 
-# pylint: disable=useless-object-inheritance
-class CalcPi(object):
+class CalcPi():
     ''' a class to calculate pi from random numbers '''
     def __init__(self):
         self.times = 10000000
