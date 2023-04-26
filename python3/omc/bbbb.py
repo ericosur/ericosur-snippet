@@ -1,6 +1,10 @@
 #!/bin/usr/python3
 # coding: utf-8
 
+'''
+square numbers
+'''
+
 def main():
     ''' main '''
     n = 11

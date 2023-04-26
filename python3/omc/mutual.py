@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 # coding: utf-8
 
+'''
+from 1 to 48, gcd == 1
+'''
 
 def gcd(m: int, n: int) -> int:
     '''
@@ -12,13 +15,14 @@ def gcd(m: int, n: int) -> int:
 
 def main():
     ''' main '''
+    UPPER = 48
     m = []
-    for v in range(1,48+1):
-        if gcd(v, 48) == 1:
+    for v in range(1, UPPER+1):
+        if gcd(v, UPPER) == 1:
             print(v)
             m.append(v)
-    print(sum(m))
-    print(len(m))
+    print('sum(m) is', sum(m))
+    print('len(m) is', len(m))
 
 if __name__ == '__main__':
     main()

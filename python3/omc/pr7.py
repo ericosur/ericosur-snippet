@@ -47,23 +47,28 @@ except ImportError as err:
     sys.exit(1)
 
 class Solution():
+    ''' try to find solution '''
     def __init__(self):
         self.primes = []
         self.init_primes()
 
     @staticmethod
     def is_prime(n):
+        ''' is prime '''
         return ntheory.primetest.isprime(n)
 
     def init_primes(self):
+        ''' primes goes into self.primes '''
         for i in range(1,100):
             if self.is_prime(i):
                 self.primes.append(i)
 
     def dump(self):
+        ''' dump '''
         print(self.primes)
 
     def run(self):
+        ''' run '''
         for p in self.primes:
             if p % 6 == 1:
                 q = int(p / 6)

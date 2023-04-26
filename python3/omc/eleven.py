@@ -21,8 +21,8 @@ def main():
     while True:
         if cnt > 10:
             break
-        else:
-            cnt += 1
+
+        cnt += 1
         t = t + 11
         ds = digit_sum(t)
         print(f'{t}: {ds}')

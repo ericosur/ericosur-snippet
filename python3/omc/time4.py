@@ -11,7 +11,9 @@ import itertools as it
 
 def main():
     ''' main '''
-    v = [x for x in range(1,40+1)]
+    UPPER_LIMIT = 40
+
+    v = list(range(1, UPPER_LIMIT+1))
     p = it.permutations(v, 2)
     cnt = 0
     ans = []

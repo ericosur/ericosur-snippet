@@ -1,10 +1,12 @@
 #!/usr/bin/python3
 # coding: utf-8
 
-''' only coin 4 and coin 7
+'''
+only coin 4 and coin 7
 '''
 
 def no_change(t):
+    ''' find if no change left '''
     curr = t
     diff = 7
     cnt7 = 0
@@ -24,7 +26,7 @@ def main():
     ''' main '''
     t = [80, 90, 100, 110]
     for i in t:
-       no_change(i)
+        no_change(i)
 
 
 if __name__ == '__main__':
