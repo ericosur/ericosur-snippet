@@ -18,7 +18,7 @@ class Solution():
         ''' is valid for question '''
         if p < 1 or q < 1 or r < 1:
             return False
-        if (p+q+r) <= self. TOTAL:
+        if (p+q+r) <= self.TOTAL:
             return True
         return False
 
