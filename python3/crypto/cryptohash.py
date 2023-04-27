@@ -28,7 +28,7 @@ def test():
     #print(hash_object.digest())
 
     print('name:', SHA512.__name__)
-    print(f'digest_size (bytes):', hash_object.digest_size)
+    print('digest_size (bytes):', hash_object.digest_size)
     print('hash:', hash_object.hexdigest())
 
 
