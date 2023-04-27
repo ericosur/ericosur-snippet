@@ -5,6 +5,7 @@
 randomly pick one hash algorithm and apply to a text
 '''
 
+import argparse
 import hashlib
 import random
 
@@ -29,7 +30,7 @@ def get_hash(data: bytes, hash_name: str) -> str:
     m.update(data)
     return m.hexdigest()
 
-def main():
+def test():
     ''' main '''
     MSG = 'hello world'.encode('UTF-8')
     # will throw an exception here
@@ -40,6 +41,33 @@ def main():
     h = get_hash(MSG, a)
     print(h)
 
+def list_algorithms():
+    ''' list algorithms
+        type of hashlib.algorithms_guaranteed is Set
+    '''
+    algos = list(hashlib.algorithms_guaranteed)
+    algos.sort()
+    for x in algos:
+        print(x)
+
+def init_argparse():
+    ''' argparse '''
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("-l", "--list", action='store_true', help='list algorithms')
+    args = parser.parse_args()
+
+    if args.list:
+        list_algorithms()
+    else:
+        test()
+
+    # to show help message directly
+    #parser.print_help()
+    return parser
+
+def main():
+    ''' main '''
+    init_argparse()
+
 if __name__ == '__main__':
-    print(__doc__)
     main()
