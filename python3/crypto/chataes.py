@@ -4,6 +4,8 @@
 '''
 AES encrypt / decrypt sample
 
+https://www.pycryptodome.org/src/examples
+
 install module Crypto by:
 pip install pycryptodome
 '''
