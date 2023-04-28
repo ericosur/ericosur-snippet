@@ -15,10 +15,10 @@ def run_this():
     n = prompt_input('input n')
     e = prompt_input('input e')
 
-    plain_msg = 'plain text is: {}'.format(p)
-    pub_msg = 'public key: (n, e): ({}, {})'.format(n, e)
+    plain_msg = f'plain text is: {p}'
+    pub_msg = f'public key: (n, e): ({n}, {e})'
     C = encrypt(p, n, e)
-    cipher_msg = "cipher: {}".format(C)
+    cipher_msg = f"cipher: {C}"
     msg = plain_msg + '\n' + pub_msg + '\n' + cipher_msg
     prompt_alert(msg)
 

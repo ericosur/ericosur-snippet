@@ -1,7 +1,9 @@
+#!/usr/bin/python3
+# coding: utf-8
+
 '''
 prompt dialog of pythonista
 '''
-
 
 # for pythonista
 #import clipboard
@@ -10,7 +12,7 @@ try:
     import console
     HAS_CONSOLE_MODULE = True
 except ImportError:
-    print('[ERROR] No console module of pythonista')
+    print('[WARN] No console module of pythonista, will run normal CLI')
 
 
 def prompt_input(msg: str):
@@ -25,7 +27,7 @@ def prompt_input(msg: str):
         if val <= 0:
             raise ValueError
     except ValueError:
-        print('{} not a number'.format(ret))
+        print(f'{ret} not a number')
         print('invalid number, use random number:', val)
     return val
 
