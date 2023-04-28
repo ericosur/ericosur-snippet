@@ -13,7 +13,7 @@ def run_this():
     n = prompt_input('input n')
     q = m // n
     r = m % n
-    msg = '{} / {} = {} ... {}'.format(m, n, q, r)
+    msg = f'{m} / {n} = {q} ... {r}'
     prompt_alert(msg)
 
 if __name__ == '__main__':

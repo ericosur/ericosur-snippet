@@ -17,8 +17,8 @@ def run_this():
     b1 = prompt_input('input b1')
 
     n, e, d, _ = make_pair(a, b, a1, b1)
-    pub_msg = 'Your public key: (n, e): ({}, {})\n'.format(n, e)
-    pri_msg = 'Your private key: (d): {}'.format(d)
+    pub_msg = f'Your public key: (n, e): ({n}, {e})\n'
+    pri_msg = f'Your private key: (d): {d}'
     msg = pub_msg + pri_msg
     prompt_alert(msg)
 

@@ -15,10 +15,10 @@ def run_this():
     n = prompt_input('input n')
     d = prompt_input('input d')
 
-    cipher_msg = 'cipher text is: {}'.format(c)
-    priv_msg = 'private key: (n, d): ({}, {})'.format(n, d)
+    cipher_msg = f'cipher text is: {c}'
+    priv_msg = f'private key: (n, d): ({n}, {d})'
     p = decrypt(c, n, d)
-    plain_msg = "plain: {}".format(p)
+    plain_msg = f"plain: {p}"
     msg = cipher_msg + '\n' + priv_msg + '\n' + plain_msg
     prompt_alert(msg)
 

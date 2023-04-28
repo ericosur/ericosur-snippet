@@ -10,7 +10,6 @@ from random import randint
 from kid_rsa import make_pair, encrypt, decrypt
 from sta_prompt import prompt_input, prompt_alert, has_console
 
-
 def test():
     ''' test '''
     n, e, d, M = make_pair(a=9, b=11, a1=5, b1=8)
@@ -19,8 +18,8 @@ def test():
     assert d==795
     assert n==4048
 
-    print('public (n, e): ({}, {})'.format(n, e))
-    print('private (d): {}'.format(d))
+    print(f'public (n, e): ({n}, {e})')
+    print(f'private (d): {d}')
     print('M:', M)
     print('=' * 40)
 
@@ -53,9 +52,9 @@ def proceed():
     a1 = randint(11, 19)
     b1 = randint(20, 29)
     n, e, d, _ = make_pair(a, b, a1, b1)
-    print('public (n, e): ({}, {})'.format(n, e))
-    print('private (d): {}'.format(d))
-    P = 1
+    print(f'public (n, e): ({n}, {e})')
+    print(f'private (d): {d}')
+    P = randint(101, 999)
     assert 0 < P < n
     C = encrypt(P, n, e)
     plain = decrypt(C, n, d)
@@ -70,8 +69,8 @@ def run_in_pythonista():
     b1 = prompt_input('input b1')
 
     n, e, d, _ = make_pair(a, b, a1, b1)
-    pub_msg = 'Your public key: (n, e): ({}, {})\n'.format(n, e)
-    pri_msg = 'Your private key: (d): {}'.format(d)
+    pub_msg = f'Your public key: (n, e): ({n}, {e})\n'
+    pri_msg = f'Your private key: (d): {d}'
     msg = pub_msg + pri_msg
     prompt_alert(msg)
 
