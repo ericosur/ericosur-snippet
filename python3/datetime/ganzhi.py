@@ -14,21 +14,22 @@
 
 from __future__ import print_function
 import argparse
+import sys
 from gngan_yaljux import do_ab, do_tests, do_values, do_verbose
 
 def setup_arg_parser():
     ''' setup arg parser '''
-    parser = argparse.ArgumentParser(description='script helps to get GanChi')
+    parser = argparse.ArgumentParser(description='script helps to get GanChi, '
+                                        'all options will be processed first')
     # nargs like regexp, '*' means 0+, '+' means 1+
     parser.add_argument("values", metavar='val', type=int, nargs='*',
         help="show these strings")
-    parser.add_argument('-a', '--apple', help='GnGan')
-    parser.add_argument('-b', '--ball', help='YalJux')
+    parser.add_argument('-a', '--apple', help='GnGan, 0 < a < 9, a+b mod 2 = 0')
+    parser.add_argument('-b', '--ball', help='YalJux, 0 < b < 11, a+b mod 2 = 0')
     parser.add_argument('-c', '--cat', help='center year')
     parser.add_argument("-t", "--test", action='store_true', default=False,
         help='test and demo')
-    parser.add_argument("-v", "--verbose", action='store_true', default=False,
-        help='verbose')
+    parser.add_argument("-l", "--list", action='store_true', help='list 天干地支')
     return parser
 
 def main():
@@ -36,28 +37,40 @@ def main():
     parser = setup_arg_parser()
     args = parser.parse_args()
 
-    if args.values:
-        print(args.values)
-        do_values(args.values)
-        return
-    if args.test:
-        #print('test:', args.test)
-        do_tests()
-        return
-    if args.verbose:
+    if args.list:
+        if args.values:
+            print('[WARN]: will not process specified values:', args.values)
         do_verbose()
         return
 
-    if args.apple or args.ball:
-        _a = 0
-        _b = 0
-        if args.apple:
-            print('apple:', args.apple)
-            _a = int(args.apple)
-        if args.ball:
-            print('ball:', args.ball)
-            _b = int(args.ball)
-        do_ab(_a, _b)
+    if args.test:
+        if args.values:
+            print('[WARN]: will not process specified values:', args.values)
+        do_tests()
+        return
+
+    try:
+        if args.apple or args.ball:
+            _a = 0
+            _b = 0
+            if args.apple:
+                print('apple:', args.apple)
+                _a = int(args.apple)
+            if args.ball:
+                print('ball:', args.ball)
+                _b = int(args.ball)
+            do_ab(_a, _b)
+            return
+    except ValueError:
+        print("[ERROR] a or b should be integers, and a+b should be even")
+        sys.exit(1)
+
+    if args.values:
+        #print(args.values)
+        if args.cat:
+            do_values(args.values, args.cat)
+        else:
+            do_values(args.values)
         return
 
     # to show help message directly

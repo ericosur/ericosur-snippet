@@ -31,7 +31,7 @@ class GanChi():
         self.sesue = list(self.PREDATA[2])
 
     def __str__(self):
-        return ''.join(self.PREDATA)
+        return '\n'.join(self.PREDATA)
 
     def get_gnn(self):
         ''' 傳回 天干 '''
@@ -128,12 +128,21 @@ class GanChi():
         self.test0()
         self.test1()
 
-def do_values(values):
+def do_values(values, radius=0):
     '''main function'''
     gc = GanChi()
+    center = 0
+    try:
+        center = int(radius)
+    except ValueError:
+        print('[WARN] center must be an integer:', radius)
+        center = 0
     for y in values:
-        res = gc.to_gc(y)
-        print(f'{y} is {res}')
+        #print(f'y: {y}')
+        for r in range(y-center, y+center+1):
+            #print(f'r: {r}')
+            res = gc.to_gc(r)
+            print(f'{r} is {res}')
     del gc
 
 def do_tests():
