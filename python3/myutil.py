@@ -65,13 +65,15 @@ def get_python_versions() -> tuple:
     ''' return python version in (major, minor) integers '''
     return (sys.version_info[0], sys.version_info[1])
 
-def require_python_version(major, minor) -> bool:
+def require_python_version(major, minor, debug=False) -> bool:
     ''' raise exception if not match the minimum version '''
     sys_major = sys.version_info.major
     if sys_major > major:
         return True
     if sys_major == major:
-        if sys.version_info.minor >= minor:
+        if debug:
+            print(f'{sys.version_info.minor=} vs {minor=}')
+        if int(sys.version_info.minor) >= int(minor):
             return True
     return False
 
