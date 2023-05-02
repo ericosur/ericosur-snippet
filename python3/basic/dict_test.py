@@ -19,9 +19,21 @@ def cube(x):
     ''' cube of x '''
     return x * x * x
 
+def merge_dict(p, q):
+    r = {**p, **q}
+    return r
 
-def main():
-    '''main function'''
+def test1():
+    p = {'a': 5, 'b': 7}
+    q = {'b': 11, 'c': 13}
+    print(f'{p=}\n{q=}')
+    # notice the later will overwrite the prior
+    print(f'p then q: {merge_dict(p, q)=}')
+    print(f'q then p: {merge_dict(q, p)=}')
+
+
+def test0():
+    ''' test0 '''
     rec = {'name': {'first': 'Brown', 'last': 'Smith'},
            'job': ['dev', 'mgr'],
            'age': 40.5}
@@ -50,6 +62,9 @@ rec['name']['last']: {rec['name']['last']}
     squared = [x ** 2 for x in items]
     print("squared(): ", squared, type(squared))
 
+def main():
+    ''' main '''
+    test1()
 
 if __name__ == '__main__':
     main()
