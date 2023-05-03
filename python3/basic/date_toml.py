@@ -28,7 +28,7 @@ except ImportError:
 def test0():
     ''' test0 '''
     # Load data from a TOML file
-    with open('dates.toml', 'r', encoding='utf-8') as f:
+    with open('dates.toml', 'rb') as f:
         dates = tml.load(f)
 
     try:

@@ -38,7 +38,7 @@ def test_np():
 def test0():
     ''' test0 '''
     # Load data from a TOML file
-    with open('config.toml', 'r', encoding='utf-8') as f:
+    with open('config.toml', 'rb') as f:
         data = tml.load(f)
 
     # Access data from the loaded TOML file
