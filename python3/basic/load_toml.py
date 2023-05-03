@@ -4,12 +4,14 @@
 '''
 example to read config.toml
 https://docs.python.org/zh-tw/dev/library/tomllib.html
-'''
 
-BUILTIN_LIB = False
+some recommends tomlkit
+
+'''
 
 import sys
 
+# pylint: disable=import-outside-toplevel
 class LoadToml():
     '''
     wrapper class to load toml, for builtin tomllib/toml
@@ -21,6 +23,23 @@ class LoadToml():
     def __init__(self, fn):
         self.tomlfn = fn
         self.data = None
+
+        # load external toml first, then built-in tomllib
+        try:
+            # pip install toml
+            import toml
+            LoadToml.is_builtin = False
+            LoadToml.is_external = True
+            LoadToml.toml_lib = toml
+            if not self.tomlfn is None:
+                with open(self.tomlfn, 'rt', encoding='UTF-8') as f:
+                    self.data = toml.load(f)
+        except ModuleNotFoundError:
+            #print("cannot import tomllib...")
+            self._use_another_lib()
+
+    def _use_another_lib(self):
+        ''' _use_external_lib '''
         try:
             # tomllib is standard library provided by python 3.11
             import tomllib
@@ -30,25 +49,9 @@ class LoadToml():
             if not self.tomlfn is None:
                 with open(self.tomlfn, 'rb') as f:
                     self.data = tomllib.load(f)
-        except ModuleNotFoundError:
-            #print("cannot import tomllib...")
-            self._use_external_lib()
-
-    def _use_external_lib(self):
-        ''' _use_external_lib '''
-        try:
-            # pip install toml
-            import toml
-            LoadToml.is_builtin = True
-            LoadToml.is_external = False
-            LoadToml.toml_lib = toml
-            if not self.tomlfn is None:
-                with open(self.tomlfn, 'rt', encoding='UTF-8') as f:
-                    self.data = toml.load(f)
         except ImportError:
-            print("cannot import toml, exit...")
+            print("cannot import toml nor tomllib, exit...")
             sys.exit(1)
-
 
     @classmethod
     def get_class(cls, fn=None):

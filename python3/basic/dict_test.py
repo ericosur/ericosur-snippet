@@ -20,15 +20,18 @@ def cube(x):
     return x * x * x
 
 def merge_dict(p, q):
+    ''' merge two dict '''
     r = {**p, **q}
     return r
 
 def test1():
+    ''' test1 '''
     p = {'a': 5, 'b': 7}
     q = {'b': 11, 'c': 13}
     print(f'{p=}\n{q=}')
     # notice the later will overwrite the prior
     print(f'p then q: {merge_dict(p, q)=}')
+    # pylint: disable=arguments-out-of-order
     print(f'q then p: {merge_dict(q, p)=}')
 
 
