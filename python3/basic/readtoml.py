@@ -6,17 +6,22 @@ example to read config.toml
 https://docs.python.org/zh-tw/dev/library/tomllib.html
 '''
 
-import numpy as np
 from load_toml import LoadToml
 
+# pylint: disable=import-outside-toplevel
 def test_np():
     ''' numpy vs toml '''
+    import numpy as np
+
     print('test_np')
     n = np.arange(0, 10, dtype=np.double)
     output = {'n': n}
 
     obj = LoadToml.get_class()
     toml = obj.toml_lib
+
+    if LoadToml.is_builtin:
+        print('[INFO] tomllib does not support dumps()')
 
     t = toml.dumps(output)
     #n = [ "0.0", "1.0", "2.0", "3.0", "4.0", "5.0", "6.0", "7.0", "8.0", "9.0",]\n

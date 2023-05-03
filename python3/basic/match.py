@@ -8,6 +8,7 @@ wrapper to check if python >= 3.10
 import sys
 from myutil import require_python_version
 
+# pylint: disable=import-outside-toplevel
 def main():
     ''' main '''
     if require_python_version(3, 10) is False:
