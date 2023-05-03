@@ -6,40 +6,42 @@ example to read config.toml
 https://docs.python.org/zh-tw/dev/library/tomllib.html
 '''
 
-import sys
-try:
-    # tomllib is standard library provided by python 3.11
-    import tomllib as tml
-except ImportError:
-    print("cannot import tomllib, try toml")
-    try:
-        # pip install toml
-        import toml as tml
-    except ImportError:
-        print("cannot import toml")
-        sys.exit(1)
-
 import numpy as np
+from load_toml import LoadToml
 
 def test_np():
     ''' numpy vs toml '''
+    print('test_np')
     n = np.arange(0, 10, dtype=np.double)
     output = {'n': n}
 
-    t = tml.dumps(output)
+    obj = LoadToml.get_class()
+    toml = obj.toml_lib
+
+    t = toml.dumps(output)
     #n = [ "0.0", "1.0", "2.0", "3.0", "4.0", "5.0", "6.0", "7.0", "8.0", "9.0",]\n
     print(t)
 
-    t = tml.dumps(output, encoder=toml.TomlNumpyEncoder())
+    t = toml.dumps(output, encoder=toml.TomlNumpyEncoder())
     #n = [ 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0,]\n
     print(t)
 
 
 def test0():
     ''' test0 '''
-    # Load data from a TOML file
-    with open('config.toml', 'rb') as f:
-        data = tml.load(f)
+    print('test0')
+
+    obj = LoadToml.get_class('config.toml')
+    data = obj.get_data()
+
+    if obj.is_builtin:
+        print('[INFO] use builtin library')
+    else:
+        print('[INFO] use external library')
+
+    if data is None:
+        print('cannot load data')
+        return
 
     # Access data from the loaded TOML file
     print(data['title'])
@@ -55,6 +57,7 @@ def test0():
 def main():
     ''' main '''
     test0()
+    test_np()
 
 if __name__ == '__main__':
     main()
