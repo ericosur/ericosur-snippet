@@ -45,6 +45,12 @@ class GanChi():
         ''' 傳回 生肖 '''
         return self.sesue
 
+    @classmethod
+    def get_class(cls):
+        ''' get class '''
+        #print(cls.__name__)
+        return cls()
+
     def normalize_year(self, y):
         ''' y > -2997 and y != 0'''
         if y == 0:
@@ -147,9 +153,8 @@ def do_values(values, radius=0):
 
 def do_tests():
     ''' test '''
-    gc = GanChi()
-    gc.run()
-    del gc
+    test = GanChi.get_class()
+    test.run()
 
 def do_verbose():
     ''' verbose '''
@@ -159,12 +164,7 @@ def do_verbose():
 
 def do_ab(m, n):
     ''' do ab '''
-    _do_ab(m, n)
-
-
-def _do_ab(m, n):
-    ''' do ab '''
-    gc = GanChi()
+    gc = GanChi.get_class()
     g = gc.get_gnn()
     y = gc.get_yal()
     ret = ""
@@ -181,7 +181,7 @@ def _do_ab(m, n):
 
 def main():
     ''' main '''
-    print("ERROR: run ganzhi.py")
+    print("[INFO] please run ganzhi.py, will run tests here")
     do_tests()
 
 if __name__ == '__main__':
