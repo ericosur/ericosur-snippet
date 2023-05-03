@@ -18,7 +18,7 @@ from load_toml import LoadToml
 def test0():
     ''' test0 '''
     # Load data from a TOML file
-    obj = LoadToml.get_class('date.toml')
+    obj = LoadToml.get_class('dates.toml')
     dates = obj.get_data()
 
     try:

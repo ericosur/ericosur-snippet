@@ -30,21 +30,25 @@ class LoadToml():
             if not self.tomlfn is None:
                 with open(self.tomlfn, 'rb') as f:
                     self.data = tomllib.load(f)
+        except ModuleNotFoundError:
+            #print("cannot import tomllib...")
+            self._use_external_lib()
+
+    def _use_external_lib(self):
+        ''' _use_external_lib '''
+        try:
+            # pip install toml
+            import toml
+            LoadToml.is_builtin = True
+            LoadToml.is_external = False
+            LoadToml.toml_lib = toml
+            if not self.tomlfn is None:
+                with open(self.tomlfn, 'rt', encoding='UTF-8') as f:
+                    self.data = toml.load(f)
         except ImportError:
-            #print("cannot import tomllib, try toml")
-            try:
-                # pip install toml
-                import toml
-                LoadToml.is_builtin = True
-                LoadToml.is_external = False
-                LoadToml.toml_lib = toml
-                if not self.tomlfn is None:
-                    with open(self.tomlfn, 'rt', encoding='UTF-8') as f:
-                        self.data = toml.load(f)
-            except ImportError:
-                print("cannot import toml, exit...")
-                sys.exit(1)
-        #self.load()
+            print("cannot import toml, exit...")
+            sys.exit(1)
+
 
     @classmethod
     def get_class(cls, fn=None):
