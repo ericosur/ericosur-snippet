@@ -13,23 +13,13 @@
 import sys
 import datetime
 
-try:
-    # tomllib is standard library provided by python 3.11
-    import tomllib as tml
-except ImportError:
-    print("cannot import tomllib, try toml")
-    try:
-        # pip install toml
-        import toml as tml
-    except ImportError:
-        print("cannot import toml")
-        sys.exit(1)
+from load_toml import LoadToml
 
 def test0():
     ''' test0 '''
     # Load data from a TOML file
-    with open('dates.toml', 'rb') as f:
-        dates = tml.load(f)
+    obj = LoadToml.get_class('date.toml')
+    dates = obj.get_data()
 
     try:
         start = dates['start']
