@@ -119,7 +119,6 @@ class DrivingData():
         print('[INFO] for 2021, total working days are 239')
         print('[INFO] for 2022, total working days are 242')
 
-
     def action(self):
         ''' main function '''
         #print("pd.__version__: {}".format(pd.__version__))
@@ -188,7 +187,7 @@ def peek_target(desc_table, target):
         return result
     except ValueError as e:
         print(f'WARN: ValueError: {e.args}')
-        return ''
+    return ''
 
 def process_remotefile(out_file=None, conf_file=None):
     ''' request from google drive '''
@@ -200,7 +199,6 @@ def process_remotefile(out_file=None, conf_file=None):
         dd.dump_setting()
     dd.request_data()
     dd.action()
-    return
 
 def process_localfile(in_file):
     ''' use local datasheet '''
@@ -214,7 +212,8 @@ def main():
     ''' main '''
     parser = argparse.ArgumentParser(description='parsing driving data at google drive')
     # nargs like regexp, '*' means 0+, '+' means 1+
-    parser.add_argument('-i', '--input', help='Specify local datasheet, will ignore output and config files')
+    parser.add_argument('-i', '--input', help='Specify local datasheet, '
+                        'will ignore output and config files')
     parser.add_argument('-o', '--output', help='Output file name')
     parser.add_argument('-c', '--conf', help='Specify config for google drive (json format)')
     parser.add_argument("-r", "--run", action='store_true', default=False,
