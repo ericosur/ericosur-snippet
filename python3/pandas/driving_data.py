@@ -4,6 +4,7 @@
 ''' read driving data and make stastics '''
 
 from __future__ import print_function
+import argparse
 import os
 import sys
 from math import floor
@@ -31,17 +32,23 @@ class DrivingData():
 
     def set_csvfile(self, csvfile):
         ''' setter csvfile '''
-        self.csvfile = csvfile
+        if csvfile is None:
+            self.csvfile = '/tmp/__driving_datasheet__.csv'
+        else:
+            self.csvfile = csvfile
 
-    def read_setting(self):
+    def read_setting(self, conf_file):
         ''' read setting '''
         if self.debug:
             print('read_setting()')
 
-        home = os.getenv('HOME')
-        self.jsonpath = home + '/Private/driving_data.json'
+        if conf_file is None:
+            home = os.getenv('HOME')
+            self.jsonpath = home + '/Private/driving_data.json'
+        else:
+            self.jsonpath = conf_file
         if not myutil.isfile(self.jsonpath):
-            print('setting file not found', self.jsonpath)
+            print('[ERROR] setting file not found', self.jsonpath)
             sys.exit(1)
         self.jsondata = myutil.read_jsonfile(self.jsonpath)
         self.docid = self.jsondata.get('docid', '')
@@ -104,18 +111,22 @@ class DrivingData():
         #print(type(between), repr(between))
         return between
 
+    def extra_data(self, d0, d1):
+        ''' show extra data info '''
+        print(f'[INFO]    first date: {d0}')
+        print(f'[INFO]     last date: {d1}')
+        print(f'[INFO] dates between: {DrivingData.get_between_dates(d0, d1)}')
+        print('[INFO] for 2021, total working days are 239')
+        print('[INFO] for 2022, total working days are 242')
+
+
     def action(self):
         ''' main function '''
         #print("pd.__version__: {}".format(pd.__version__))
 
         # read csv file as dataframe
         data = pd.read_csv(self.csvfile)
-        #print(type(data))
-        #print_sep()
         duration = data['duration']
-        #print(duration)
-        #print(data['date'])
-        #print_sep()
 
         dates = []
         secs = []
@@ -132,11 +143,7 @@ class DrivingData():
                 print(f'[ERROR] at {ii} on {ds}, invalid format: {duration[ii]}')
                 return
 
-        print(f'[INFO]    first date: {dates[0]}')
-        print(f'[INFO]     last date: {dates[-1]}')
-        print(f'[INFO] dates between: {DrivingData.get_between_dates(dates[0], dates[-1])}')
-        print('[INFO] for 2021, total working days are 239')
-        print('[INFO] for 2022, total working days are 242')
+        self.extra_data(dates[0], dates[-1])
 
         if len(dates) != len(secs):
             print(f'[ERROR] not the same length {len(dates)} vs {len(secs)}')
@@ -145,10 +152,6 @@ class DrivingData():
         ndict = {"date": dates, "seconds": secs}
         res = pd.DataFrame(ndict)
 
-        # show details of res
-        # print('res.info?')
-        # res.info()
-        # print_sep()
         des = res.describe()
         if self.debug:
             print_sep()
@@ -160,12 +163,8 @@ class DrivingData():
     def show_details(des):
         ''' show details of res² '''
         queries = ['count', 'max', '75%', 'mean', '50%', '25%', 'min', 'std']
-        #labels = ['count', 'max', '75%', 'mean(μ)', '50%', '25%', 'min', 'stddev(σ)']
         for qq in queries:
             ans = peek_target(des, qq)
-            # if not isinstance(ans, str):
-            #     print('peek not a string:', ans)
-            #     break
             if qq == 'count':
                 result = str(int(floor(ans)))
                 j = result.rjust(10, ' ')
@@ -191,33 +190,63 @@ def peek_target(desc_table, target):
         print(f'WARN: ValueError: {e.args}')
         return ''
 
-
-def main(files):
-    ''' main '''
+def process_remotefile(out_file=None, conf_file=None):
+    ''' request from google drive '''
     dd = DrivingData()
+    print('[INFO] request data from google drive...')
+    dd.set_csvfile(out_file)
+    dd.read_setting(conf_file)
+    if dd.debug:
+        dd.dump_setting()
+    dd.request_data()
+    dd.action()
+    return
 
-    # request from google drive
-    if files == []:
-        print('will request file from google drive...')
-        dd.set_csvfile('/tmp/driving_data.csv')
-        dd.read_setting()
-        if dd.debug:
-            dd.dump_setting()
-        dd.request_data()
-        dd.action()
+def process_localfile(in_file):
+    ''' use local datasheet '''
+    print('input file from:', in_file)
+    print_sep()
+    dd = DrivingData()
+    dd.set_csvfile(in_file)
+    dd.action()
+
+def main():
+    ''' main '''
+    parser = argparse.ArgumentParser(description='parsing driving data at google drive')
+    # nargs like regexp, '*' means 0+, '+' means 1+
+    parser.add_argument('-i', '--input', help='Specify local datasheet, will ignore output and config files')
+    parser.add_argument('-o', '--output', help='Output file name')
+    parser.add_argument('-c', '--conf', help='Specify config for google drive (json format)')
+    parser.add_argument("-r", "--run", action='store_true', default=False,
+        help='Specify this parameter to run actually')
+    parser.add_argument("-v", "--verbose", action='store_true', default=False,
+        help='verbose mode')
+
+    #parser.parse_args(['-i input.csv -o out.csv'])
+    args = parser.parse_args()
+
+    if args.run:
+        if args.input:
+            process_localfile(args.input)
+        else:
+            process_remotefile(out_file=args.output, conf_file=args.conf)
         return
 
-    # file list from CLI
-    print('file list from CLI...')
-    for ff in files:
-        print_sep()
-        print(f'load csv data from: {ff}')
-        dd.set_csvfile(ff)
-        dd.action()
+    print('[INFO] show parameters only...')
+    has_parameter = False
+    if args.input:
+        print('input:', args.input)
+        has_parameter = True
+    if args.output:
+        print('output:', args.output)
+        has_parameter = True
+    if args.conf:
+        print('conf:', args.conf)
+        has_parameter = True
+
+    # to show help message directly
+    if has_parameter is False:
+        parser.print_help()
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        main(sys.argv[1:])
-    else:
-        print('will request data from gdrive...')
-        main([])
+    main()
