@@ -16,6 +16,7 @@ class LoadToml():
     '''
     wrapper class to load toml, for builtin tomllib/toml
     '''
+    debug = False
     is_builtin = None
     is_external = None
     toml_lib = None
@@ -39,7 +40,9 @@ class LoadToml():
             self._use_another_lib()
 
     def _use_another_lib(self):
-        ''' _use_external_lib '''
+        ''' load built-in library '''
+        if self.debug:
+            print('use built-in library tomllib')
         try:
             # tomllib is standard library provided by python 3.11
             import tomllib
@@ -66,7 +69,9 @@ class LoadToml():
 
 def test():
     ''' test '''
+    print('test()')
     obj = LoadToml.get_class('config.toml')
+    obj.debug = True
     data = obj.get_data()
     if obj.is_builtin:
         print('[INFO] use builtin library')
@@ -78,3 +83,7 @@ def test():
     else:
         print(data)
         #print(f'owner: {data["owner"]}')
+
+if __name__ == '__main__':
+    test()
+
