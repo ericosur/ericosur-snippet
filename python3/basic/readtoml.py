@@ -22,7 +22,9 @@ def test_np():
 
     if LoadToml.is_builtin:
         print('[INFO] tomllib does not support dumps()')
+        return
 
+    print('toml.dump()...')
     t = toml.dumps(output)
     #n = [ "0.0", "1.0", "2.0", "3.0", "4.0", "5.0", "6.0", "7.0", "8.0", "9.0",]\n
     print(t)
