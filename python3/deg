@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+# coding: utf-8
+
+'''
+brief description for this script
+
+23 deg 23' 30.23" N, 120 deg 27' 52.42" E
+
+23°23'30.23"N 120°27'52.42"E
+
+
+clipboard.copy("abc")  # now the clipboard content will be string "abc"
+text = clipboard.paste()  # text will have the content of clipboard
+
+'''
+
+import clipboard
+
+def replace_token(s):
+    ''' replace '''
+    deg = "°"
+    ret = s.replace('deg', deg).replace(' ', '').replace(',', ' ')
+    return ret
+
+def main():
+    ''' main '''
+    try:
+        text = clipboard.paste()
+        print('text:', text)
+        if 10 < len(text) < 128:
+            ret = replace_token(text)
+            print(ret)
+            clipboard.copy(ret)
+            print('put into clipboard...')
+
+        print('Input GPS position, ctrl-C to exit...')
+        text = input()
+        ret = replace_token(text)
+        print(ret)
+        clipboard.copy(ret)
+    except KeyboardInterrupt:
+        print('exit...')
+
+if __name__ == '__main__':
+    main()
