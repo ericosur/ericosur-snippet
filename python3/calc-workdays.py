@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # coding: utf-8
 #
 
@@ -6,6 +6,8 @@
 calculate total working days
 '''
 
+import os
+import sys
 from myutil import read_jsonfile, get_home
 
 class CalcWork():
@@ -19,7 +21,11 @@ class CalcWork():
         ''' load conf '''
         h = get_home()
         p = h + '/Private/working-days.json'
-        self.data = read_jsonfile(p)
+        if os.path.exists(p):
+            self.data = read_jsonfile(p)
+        else:
+            print('[ERROR] config not found:', p)
+            sys.exit(1)
 
     def calc(self, key):
         ''' calc '''
