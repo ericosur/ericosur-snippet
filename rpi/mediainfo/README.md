@@ -1,18 +1,55 @@
 # HOWTO cross compile mediainfo for raspberry pi
 
+## use docker
+
+```
+cd $TOP
+docker pull docker pull dockcross/android-arm64
+docker run --rm dockcross/android-arm64 > ./dockcross-arm64
+./dockcross-arm64 bash
+
+# in docker bash
+$ make
+```
+
+```
+CLI_compile.sh --host=x86_64-linux-gnu
+
+cannot link -lpthread
+```
+
+before running,
+```
+export LD_LIBRARY_PATH=/data/data/com.termux/files/usr/lib
+```
+
 ## toolchain
 
 Several ways to get arm toolchains
 
-* [toolchain for raspberry pi](https://github.com/raspberrypi/tools.git)
 * ubuntu package for ARM cross compiler:
 
 ```
-apt-get install binutils-arm-linux-gnueabi
+sudo apt-get install \
+  gcc-arm-linux-gnueabihf \
+  g++-arm-linux-gnueabihf \
+  cpp-arm-linux-gnueabihf \
+  binutils-arm-linux-gnueabihf \
+  pkg-config-arm-linux-gnueabihf
+
+sudo apt-get install \
+gcc-aarch64-linux-gnu \
+g++-aarch64-linux-gnu \
+cpp-aarch64-linux-gnu \
+binutils-aarch64-linux-gnu \
+pkg-config-aarch64-linux-gnu
+
 ```
 
-* [developer.arm.com](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads)
+* [toolchain for raspberry pi](https://github.com/raspberrypi/tools.git)
 
+* [developer.arm.com](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads)
+  * it's out of date?
 
 
 ## fetch CLI source tarball of MediaInfo:
