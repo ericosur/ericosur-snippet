@@ -9,7 +9,7 @@ import argparse
 import os
 
 class MyConfig():
-    ''' a glass that stores a shared variable '''
+    ''' a class that stores a shared variable '''
     _v = False
     def get_v(self):
         ''' getter '''

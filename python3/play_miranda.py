@@ -18,6 +18,7 @@ from myutil import read_jsonfile, get_home
 class Miranda():
     ''' miranda tts '''
     DEBUG = False
+    CONF = 'miranda.json'
 
     def __init__(self):
         self.fn = 'miranda1.bin'
@@ -29,14 +30,14 @@ class Miranda():
         self.collect_phrash()
 
     def _load_config(self):
-        ''' load miranda.json from ${HOME}/Private '''
+        ''' load miranda.json '''
         h = get_home()
-        conf = h + '/Private/miranda.json'
+        conf = os.path.join(h, 'Private', self.CONF)
         data = None
         if os.path.exists(conf):
             data = read_jsonfile(conf)
         else:
-            print(f'cannot load config file from {conf}')
+            print(f'[ERROR] cannot load config file: {conf}')
             sys.exit(1)
         if data:
             self.path = data["path"]
@@ -61,7 +62,7 @@ class Miranda():
 
     def get_fn(self, p):
         ''' compose file path '''
-        r = self.path + '/' + p + '/' + self.fn
+        r = os.path.join(self.path, p, self.fn)
         if self.DEBUG:
             print(f'get_fn: {r}')
         return r

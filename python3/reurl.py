@@ -18,8 +18,8 @@ import myutil
 class MakeReurl():
     ''' call reurl to shorten url '''
     def __init__(self, url=None, output=sys.stderr, verbose=False):
-        self.output=output
-        self.verbose=verbose
+        self.output = output
+        self.verbose = verbose
 
         self.server = ''
         self.apikey = ''
@@ -30,10 +30,14 @@ class MakeReurl():
     def _load_config(self) -> None:
         ''' load config '''
         h = myutil.get_home()
-        p = h + '/Private/reurl.json'
-        conf = myutil.read_jsonfile(p)
-        self.server = conf['server']
-        self.apikey = conf['apikey']
+        p = os.path.join(h, 'Private', 'reurl.json')
+        if os.path.exists(p):
+            conf = myutil.read_jsonfile(p)
+            self.server = conf['server']
+            self.apikey = conf['apikey']
+        else:
+            print('[ERROR] conf not found, exit')
+            sys.exit(1)
 
     #pylint: disable=consider-using-with
     def handle_results(self, r):

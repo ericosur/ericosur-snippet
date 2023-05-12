@@ -31,11 +31,12 @@ import numpy as np
 
 class Pythag():
     ''' class to find pythagorean triples '''
+
+    # all three numbers in tuple should smaller than max_num
+    max_num = 1000
+
     def __init__(self):
         self.mnlist = []
-        # all three numbers in tuple should smaller than max_num
-        self.max_num = 1000
-
         # it will slow down if using np.gcd, maybe I cannot benifit from
         # external function call with small mount data. Mostly, I could expect
         # numpy functions quicker than internal function
@@ -162,26 +163,27 @@ class Pythag():
                 print(t, file=fobj)
         print(f'output {len(result_list)} elements to {fn}')
 
-
-    def action(self) -> None:
+    @classmethod
+    def run(cls) -> None:
         ''' trigger this '''
+        obj = cls()
+
         start = time.time()
-        r1 = self.method1()
+        r1 = obj.method1()
         d1 = time.time() - start
-        self.sort_and_output(r1, "r1.txt")
+        obj.sort_and_output(r1, "r1.txt")
 
         start = time.time()
-        r2 = self.method2()
+        r2 = obj.method2()
         d2 = time.time() - start
-        self.sort_and_output(r2, "r2.txt")
+        obj.sort_and_output(r2, "r2.txt")
 
-        print(f'all elements are smaller than {self.max_num}')
+        print(f'all elements are smaller than {obj.max_num}')
         print(f'time duration: d1={d1:.4f}, d2={d2:.4f}')
 
 def main():
     ''' main '''
-    tri = Pythag()
-    tri.action()
+    Pythag.run()
 
 if __name__ == '__main__':
     main()

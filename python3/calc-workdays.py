@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # coding: utf-8
-#
 
 '''
 calculate total working days
@@ -12,20 +11,41 @@ from myutil import read_jsonfile, get_home
 
 class CalcWork():
     ''' calc work class '''
+    DATA_FILE = 'working-days.json'
+    DEBUG = True
+
     def __init__(self):
         self.conf = ""
         self.data = None
+        self.max_year = None
+        self.min_year = None
+        self.all_days = []
         self._load_conf()
+
+    @staticmethod
+    def is_leapyear(y):
+        ''' is **y** a leap year? '''
+        return (y % 4 == 0 and y % 100 != 0) or (y % 400 == 0)
 
     def _load_conf(self):
         ''' load conf '''
-        h = get_home()
-        p = h + '/Private/working-days.json'
-        if os.path.exists(p):
-            self.data = read_jsonfile(p)
-        else:
-            print('[ERROR] config not found:', p)
-            sys.exit(1)
+        homedir = get_home()
+        try_paths = [self.DATA_FILE]
+        p = os.path.join(homedir, self.DATA_FILE)
+        try_paths.append(p)
+        p = os.path.join(homedir, 'Private', self.DATA_FILE)
+
+        for x in try_paths:
+            if os.path.exists(x):
+                if self.DEBUG:
+                    print('read data from:', x)
+                self.data = read_jsonfile(x)
+                self.max_year = self.data['maxyear']
+                self.min_year = self.data['minyear']
+                return
+
+        print('[ERROR] config file not found')
+        sys.exit(1)
 
     def calc(self, key):
         ''' calc '''
@@ -38,6 +58,7 @@ class CalcWork():
         for p in y_twenties:
             for k, v in p.items():
                 cnt += v
+                self.all_days.append(v)
                 if v > max_day:
                     max_mon = k
                     max_day = v
@@ -46,16 +67,34 @@ class CalcWork():
                     min_day = v
 
         y = self.data[key]["year"]
-        r = cnt / 365 * 100
-        print(f"for year: {y}, count: {cnt}, ratio: {r:.2f}%")
-        print(f'max_mon:{max_mon}, max_day:{max_day}')
-        print(f'min_mon:{min_mon}, min_day:{min_day}')
+        if self.is_leapyear(y):
+            r = cnt / 366 * 100
+        else:
+            r = cnt / 365 * 100
+        print(f"year: {y}, count: {cnt}, ratio: {r:.2f}%")
+        print(f'max: {max_mon}, {max_day}')
+        print(f'min: {min_mon}, {min_day}')
+        self.calc_alldays()
+
+    def calc_alldays(self):
+        ''' about all days '''
+        sz = len(self.all_days)
+        t = sum(self.all_days)
+        avg = float(t) / float(sz)
+        print(f'{sz=}, {avg=}')
+
+    @classmethod
+    def run(cls):
+        ''' run '''
+        calc = cls()
+        print(f'{calc.min_year=}\t{calc.max_year=}')
+        for y in range(calc.min_year, calc.max_year+1):
+            k = f'year{y}'
+            calc.calc(k)
 
 def main():
     ''' main '''
-    calc = CalcWork()
-    for c in ["year2019", "year2020", "year2021", "year2022"]:
-        calc.calc(c)
+    CalcWork.run()
 
 if __name__ == '__main__':
     main()

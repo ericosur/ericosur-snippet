@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # coding: utf-8
 
 '''
@@ -35,38 +35,36 @@ from time import time
 
 class MontyHall():
     ''' solution for monty hall problem '''
-    REPEAT = 5000000
+    REPEAT = 5_000_000
+    DOORS = 4
+    EXPECTED = float(3 / 8)
 
-    def __init__(self):
-        self.doors = 4
-
-    def action(self):
-        ''' action, run the simulation '''
+    @classmethod
+    def run(cls):
+        ''' run the simulation '''
         ans = 1
         cnt_car = 0
         cnt_goat = 0
         start = time()
-        for _ in range(self.REPEAT):
-            choose1 = randint(1, self.doors)
+        for _ in range(cls.REPEAT):
+            choose1 = randint(1, cls.DOORS)
             if choose1 == ans:
                 cnt_goat += 1
                 continue
-            choose2 = randint(1, self.doors-2)
+            choose2 = randint(1, cls.DOORS-2)
             if choose2 == ans:
                 cnt_car += 1
             else:
                 cnt_goat += 1
         duration = time() - start
         print(f'cnt_car:{cnt_car}, cnt_goat:{cnt_goat}')
-        expected = 3.0 / 8.0
-        r = cnt_car / self.REPEAT
-        print(f'ratio: {r:.4f}, dist to expected: {abs(r-expected):.4f}')
+        r = cnt_car / cls.REPEAT
+        print(f'ratio: {r:.4f}, distance to expected: {abs(r-cls.EXPECTED):.4f}')
         print(f'it takes {duration} sec')
 
 def main():
     ''' main '''
-    monty = MontyHall()
-    monty.action()
+    MontyHall.run()
 
 if __name__ == '__main__':
     main()

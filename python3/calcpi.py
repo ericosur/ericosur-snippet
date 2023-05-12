@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 '''
@@ -13,10 +13,11 @@ import math
 
 class CalcPi():
     ''' a class to calculate pi from random numbers '''
+    REPEAT_TIME = 10000000
+
     def __init__(self):
-        self.times = 10000000
-        self.i = 0
-        self.isnot = 0
+        self.inside = 0
+        self.outside = 0
         self.start = 0
         self.end = 0
 
@@ -25,23 +26,24 @@ class CalcPi():
         ''' is (x, y) in range of the unit circle '''
         return math.sqrt(x ** 2 + y ** 2) < 1
 
-    def run(self):
+    def _run_repeat(self):
         ''' repeat random tries '''
-        for x in range(self.times):
+        self.outside = 0
+        for x in range(CalcPi.REPEAT_TIME):
             x, y = random.random(), random.random()
             if self.is_on_circle(x, y):
-                self.i += 1
+                self.inside += 1
             else:
-                self.isnot += 1
+                self.outside += 1
 
     def get_results(self):
         ''' return results '''
-        return (float(self.i), float(self.isnot))
+        return (float(self.inside), float(self.outside))
 
     def get_pi(self):
         ''' return guessed pi '''
         self.start = time.time()
-        self.run()
+        self._run_repeat()
         r = self.get_results()
         pi = r[0] / (r[0] + r[1]) * 4
         self.end = time.time()
@@ -52,15 +54,19 @@ class CalcPi():
         d = abs(self.start - self.end)
         print(f"duration: {d:.3f} seconds")
 
+    @classmethod
+    def run(cls):
+        ''' run '''
+        calcpi = cls()
+        got_pi = calcpi.get_pi()
+        dist = abs(math.pi - got_pi)
+        print(f'got {got_pi} and distance: {dist:.6f}')
+        calcpi.get_duration()
+
 def main():
     '''main function'''
-    mypi = CalcPi()
-    got_pi = mypi.get_pi()
-    dist = abs(math.pi - got_pi)
-    print(f'got {got_pi} and distance: {dist:.6f}')
-    mypi.get_duration()
-
+    print(__doc__)
+    CalcPi.run()
 
 if __name__ == '__main__':
-    print(__doc__)
     main()
