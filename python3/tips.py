@@ -23,7 +23,7 @@ class Tip():
         ''' show title '''
         print(f'=====> {s} =====>')
 
-    def tip1(self):
+    def tip1(self) -> None:
         ''' tip1 '''
         self.title('tip1')
         print('m:', self._m)
@@ -32,7 +32,7 @@ class Tip():
         print('sum of p:', sum(self._p))
         print('m + n:', self._m + self._n)
 
-    def tip2(self):
+    def tip2(self) -> None:
         ''' tip2 '''
         self.title('tip2')
         # add m and n element by element
@@ -42,18 +42,20 @@ class Tip():
         s = list(map(operator.add, self._m, self._n))
         print('use operator, map')
 
-    def tip3(self):
+    def tip3(self) -> None:
         ''' tip3 '''
         return self._q
 
-    def test(self):
+    @classmethod
+    def run(cls):
         ''' running tests '''
-        self.tip3()
+        obj = cls()
+        obj.tip2()
+
 
 def main():
     ''' main '''
-    tip = Tip()
-    tip.test()
+    Tip.run()
 
 if __name__ == '__main__':
     main()

@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # coding: utf-8
 
 '''
@@ -44,11 +44,16 @@ class Solution():
                 break
         print(f'{cnt} tried')
 
+    @classmethod
+    def run(cls):
+        ''' run '''
+        c = cls()
+        c.action()
+
 
 def main():
     ''' main '''
-    s = Solution()
-    s.action()
+    Solution.run()
 
 if __name__ == '__main__':
     main()

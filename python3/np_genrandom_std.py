@@ -14,13 +14,13 @@ import numpy as np
 #pylint: disable=invalid-name
 
 class GenerateStdNormal():
-    ''' a class to generate standard normal '''
+    ''' a class to generate normal distribution data '''
 
-    default_size = 100000
+    default_size = 100_000
 
     def __init__(self):
-        self.mu = 55.5
-        self.sigma = 7.87
+        self.mu = 100
+        self.sigma = 15
         self.rng = np.random.default_rng(int(time.time()))   # np's random number generator
 
     def fill_bytes(self):
@@ -62,24 +62,25 @@ class GenerateStdNormal():
         ''' print header '''
         print('  max,   min,  mean, median, stddev')
 
-    def action(self):
-        ''' flow '''
+    @classmethod
+    def run(cls):
+        ''' run demo '''
         n = 1.5
-        self.header()
-        for _ in range(10):
-            r = self.fill_stdnorm()
-            rb = self.filter_arr(r)
+        obj = cls()
+        obj.header()
+        for _ in range(7):
+            r = obj.fill_stdnorm()
+            rb = obj.filter_arr(r)
             llimit = r.mean()-n*r.std()
             rlimit = r.mean()+n*r.std()
-            print(f"filter:{llimit:.2f}  {rlimit:.2f}")
-            self.show(r)
-            self.show(rb)
+            print(f"keep: {llimit:.2f} to {rlimit:.2f}")
+            obj.show(r)
+            obj.show(rb)
             print('-' * 40)
 
 def main():
     """ main function to do test """
-    q = GenerateStdNormal()
-    q.action()
+    GenerateStdNormal.run()
 
 if __name__ == '__main__':
     main()

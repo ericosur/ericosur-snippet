@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # coding: utf-8
 
 '''
@@ -54,29 +54,25 @@ class Solution():
         m2 = v // 10
         m3 = m2 % 10
         m4 = m1 + m2 + m3
-        print(f'{m1} + {m2} + {m3} = {m4}')
-        print()
+        print(f'{m1} + {m2} + {m3} = {m4}\n')
 
-
-def run():
-    ''' run '''
-    cnt = 0
-    for i in range(100,1000):
-        if Solution.has_duplicate(i):
-            #print(f'reject {i}')
-            continue
-        if i < 100:
-            continue
-        sol = Solution(i)
-        if sol.check():
-            sol.report(i)
-
-        cnt += 1
-    #print(f'cnt: {cnt}')
+    @classmethod
+    def run(cls):
+        ''' run '''
+        for i in range(100,1000):
+            if cls.has_duplicate(i):
+                #print(f'reject {i}')
+                continue
+            if i < 100:
+                continue
+            sol = cls(i)
+            if sol.check():
+                sol.report(i)
 
 def main():
     ''' main '''
-    run()
+    #test()
+    Solution.run()
 
 if __name__ == '__main__':
     main()

@@ -13,18 +13,39 @@ import re
 from random import randint
 import sys
 
+# try to add my code snippet into python path
 HOME = os.getenv('HOME')
-UTILPATH = HOME + '/src/ericosur-snippet/python3'
-sys.path.insert(0, UTILPATH)
-#import myutil
+UTILPATH = os.path.join(HOME, '/src/ericosur-snippet/python3')
+if os.path.exists(UTILPATH):
+    sys.path.insert(0, UTILPATH)
 
 class Solution():
     ''' solution '''
+    WORDLIST = 'eff_large_wordlist.txt'
+
     def __init__(self):
-        #self.wordfile = HOME + '/Downloads/eff_large_wordlist.txt'
-        self.wordfile = UTILPATH + '/eff_large_wordlist.txt'
+        self.wordfile = None
         self.words = {}
+        self.prepare_possible_inputs()
         self.read_data()
+
+    def prepare_possible_inputs(self):
+        ''' prepare possible inputs '''
+        candicates = []
+        _fn = Solution.WORDLIST
+        candicates.append(_fn)
+        _fn = os.path.join(HOME, Solution.WORDLIST)
+        candicates.append(_fn)
+        _fn = os.path.join(HOME, 'Downloads', Solution.WORDLIST)
+        candicates.append(_fn)
+        _fn = os.path.join(HOME, UTILPATH, Solution.WORDLIST)
+        candicates.append(_fn)
+        for f in candicates:
+            if os.path.exists(f):
+                self.wordfile = f
+                return
+        print('[ERROR] cannot load WORDLIST')
+        raise FileNotFoundError
 
     def read_data(self) -> None:
         ''' read data '''
@@ -60,12 +81,18 @@ class Solution():
         res = res.strip()
         return res
 
+    @classmethod
+    def run(cls):
+        ''' run demo '''
+        obj = cls()
+        for i in range(10):
+            r = obj.request_words(randint(3,7))
+            print(f'{i}: {r}')
+
 def main():
     ''' main '''
-    s = Solution()
-    for i in range(10):
-        r = s.request_words(7)
-        print(f'{i}: {r}')
+    print('random_string: demo')
+    Solution.run()
 
 if __name__ == '__main__':
     main()
