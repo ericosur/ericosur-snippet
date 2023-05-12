@@ -38,7 +38,5 @@ def main():
     from_y = today.year
     get_blackfriday(from_y, from_y+RANGE)
 
-
 if __name__ == '__main__':
-    #print(get_date_str(date.today()))
     main()

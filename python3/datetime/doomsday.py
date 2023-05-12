@@ -8,14 +8,25 @@ This script uses class DoomsDay and TestDoomsDay, and provides CLI.
 import argparse
 import calendar
 from datetime import date
+import os
 import sys
-from dooms_day import DoomsDay
-from dooms_day_test import TestDoomsDay
+
+# try to add my code snippet into python path
+HOME = os.getenv('HOME')
+UTILPATH = os.path.join(HOME, '/src/ericosur-snippet/python3/datetime')
+if os.path.exists(UTILPATH):
+    sys.path.insert(0, UTILPATH)
+
+try:
+    from dooms_day import DoomsDay
+    from dooms_day_test import TestDoomsDay
+except ImportError:
+    print('cannot import dooms_day, exit')
+    sys.exit(1)
 
 def eprint(*args, **kwargs):
     ''' print to stderr '''
     print(*args, file=sys.stderr, **kwargs)
-
 
 def show_month_magic_number(year=-1, show_header=True):
     ''' display magic number for this year '''
@@ -161,9 +172,8 @@ def show_doom_number(year_list=None, full_list=False):
     print("}")
 
 
-def main():
-    ''' main '''
-
+def init_argparse():
+    ''' argparse '''
     # define argparse
     parser = argparse.ArgumentParser(description='shows doomsday number for specified years')
     # nargs like regexp, '*' means 0+, '+' means 1+
@@ -182,6 +192,11 @@ def main():
     parser.add_argument("-b", "--before", type=int, help="before years")
 
     args = parser.parse_args()
+    return args
+
+def main():
+    ''' main '''
+    args = init_argparse()
 
     if args.test:
         print('perform self test...')
@@ -198,7 +213,6 @@ def main():
             if len(args.years) > 1:
                 eprint('[WARN] only the first specified year is used\n')
             yy = args.years[0]
-
         show_month_magic_number(yy)
         return
 
@@ -206,13 +220,10 @@ def main():
         yy = -1
         if args.years:
             yy = args.years[0] if args.years[0] else 0
-
         if args.context:
             ret = make_year_list(yy, "c", args.context)
-
         if args.after:
             ret = make_year_list(yy, "a", args.after)
-
         if args.before:
             ret = make_year_list(yy, "b", args.before)
 

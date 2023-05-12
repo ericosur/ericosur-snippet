@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # coding: utf-8
 
 ''' to calculate days between two dates '''
@@ -50,22 +50,41 @@ class Solution():
         '''
         t = date.today()
         nd = date(t.year, 12, 31)
-        #print(f'eoy: {nd}')
         return str(nd)
+
+    @staticmethod
+    def get_boy():
+        ''' return the string of the date at the begin of this year
+            eg: 2021-01-01
+        '''
+        t = date.today()
+        nd = date(t.year, 1, 1)
+        return str(nd)
+
+    @staticmethod
+    def show_diff(m, n):
+        ''' test '''
+        r = Solution.get_between_dates(m, n)
+        print(f'Days between {m} to {n}: {r}')
+
+    @classmethod
+    def run(cls):
+        ''' run demo '''
+        cls.show_diff('2020-01-01', '2020-01-02')
+        print('[NOTE] 2020 is leap year')
+        cls.show_diff('2020-01-01', '2020-12-31')
+        print('[NOTE] 2023 is not leap year')
+        cls.show_diff('2023-01-01', '2023-12-31')
+        print()
+        print('Days from today to end of this year...')
+        cls.show_diff(cls.get_today_str(), cls.get_eoy())
+        print('Days from begin of this year to today...')
+        cls.show_diff(cls.get_boy(), cls.get_today_str())
+
 
 def main():
     ''' main '''
-    def test(m, n):
-        ''' test '''
-        r = Solution.get_between_dates(m, n)
-        print(f'Days between {m} to {n} is {r} days')
-
-    test('2020-01-01', '2020-01-02')
-    test('2020-01-01', '2020-12-31')
-    test('2019-01-01', '2019-12-31')
-    print('Days from today to end of this year...')
-    test(Solution.get_today_str(), Solution.get_eoy())
-
+    Solution.run()
 
 if __name__ == '__main__':
     main()

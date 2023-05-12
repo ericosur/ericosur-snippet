@@ -25,28 +25,28 @@ class TestDate():
                 return False
         return True
 
-    def run(self):
+    @classmethod
+    def run(cls):
         ''' run '''
         start_d = date(2000, 1, 1)
         end_d = date(2099, 12, 31)
         curr = start_d
         cnt = 0
+        serial = 0
         while curr <= end_d:
             ds = curr.strftime('%Y%m%d')    # YYYYmmdd, ie: 20190823
-            if self.is_palindrome(ds):
+            serial += 1
+            if cls.is_palindrome(ds):
                 print(f'{ds} is palindrome number')
                 cnt += 1
         # else:
         #     print(f'{s} is NOT palindrome number')
             curr += timedelta(days=1)
-        print(f'from {start_d} to {end_d}, there are {cnt} palindrome days')
+        print(f'from {start_d} to {end_d}, there are {cnt}/{serial} palindrome days')
 
 def main():
     ''' main '''
-    td = TestDate()
-    #td.test('20190823')
-    td.run()
-
+    TestDate.run()
 
 if __name__ == '__main__':
     main()
