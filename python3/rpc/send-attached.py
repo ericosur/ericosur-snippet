@@ -9,6 +9,8 @@ reference:
 - http://blog.macuyiko.com/post/2016/how-to-send-html-mails-with-oauth2-and-gmail-in-python.html
 '''
 
+# pylint: disable=unreachable
+
 from __future__ import print_function
 import os
 import sys
@@ -131,6 +133,8 @@ def main(fn=None):
         fmail.send()
 
 if __name__ == '__main__':
+    print('do not use this script, just for reference')
+    sys.exit(1)
     if len(sys.argv) > 1:
         main(sys.argv[1])
     else:
