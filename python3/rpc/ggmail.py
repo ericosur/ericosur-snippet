@@ -2,6 +2,8 @@
 # coding: utf-8
 
 '''
+just for reference, it is not useful for my own working environment
+
 use yagmail to send mail via gmail
 
 reference:
@@ -9,17 +11,23 @@ reference:
 - http://blog.macuyiko.com/post/2016/how-to-send-html-mails-with-oauth2-and-gmail-in-python.html
 '''
 
+# pylint: disable=unreachable
+
 from __future__ import print_function
 import os
 import sys
 import time
+from myutil import read_jsonfile, isfile
+
+print('Just for reference, exit...')
+sys.exit(1)
+
 try:
     import yagmail
 except ImportError:
     print('cannot import module: yagmail')
     sys.exit(1)
 
-from myutil import read_jsonfile, isfile
 
 
 class FoolMail():
