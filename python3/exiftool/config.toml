@@ -1,0 +1,15 @@
+# config.toml
+# path to pictures
+
+picdirs = [
+		"/home/user/Pictures/99.misc/",
+		"/home/user/Pictures/99.misc/Panoramdo/",
+		"/home/user/Pictures/99.misc/Panoramdo/signed/"
+	]
+
+[GPS]
+# exif gps latitude / longitude key name
+key_lat = "EXIF:GPSLatitude"
+key_latref = "EXIF:GPSLatitudeRef"
+key_lot = "EXIF:GPSLongitude"
+key_lotref = "EXIF:GPSLongitudeRef"
