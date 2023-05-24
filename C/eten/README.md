@@ -1,6 +1,5 @@
 # readme for loading bitmap from eten font files
 
-
 ## what is inside
 
 Font file of ETEN "stdfont.24" has 942768 bytes.
@@ -127,3 +126,4 @@ also **uconv**
 ```
 $ echo "中" | uconv -f UTF-8 -t BIG5 |hexdump -C
 ```
+
