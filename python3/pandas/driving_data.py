@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+#
+# pylint: disable=import-error
+# pylint: disable=wrong-import-position
 
-''' read driving data and make stastics '''
+'''
+read driving data table (at google drive) and calculate stastics
+(or read it from csv file offline)
+'''
 
-from __future__ import print_function
 import argparse
 import os
 import sys
@@ -16,7 +21,12 @@ except ImportError:
     print('[ERROR] cannot import module pandas...')
     sys.exit(1)
 
-import myutil
+HOME = os.getenv('HOME')
+UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
+if os.path.exists(UTILPATH):
+    sys.path.insert(0, UTILPATH)
+
+from myutil import read_jsonfile
 from strutil import print_sep, str2sec, sec2mmss
 
 class DrivingData():
