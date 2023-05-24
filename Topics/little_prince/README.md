@@ -16,9 +16,8 @@ also see [quick code](../quickcode/README.md)
 
 * __a64.txt__ I download it from [myreader](http://myreader.tinpok.com/list.php?bid=66). It is a traditional chinese version of Little Prince.
 
-* __liu.json__ is translated by [UCL_LIU](https://github.com/shadowjohn/UCL_LIU)
+* __liu.json__ is translated by [UCL_LIU](https://github.com/shadowjohn/UCL_LIU) or check **ucl-liu.json**
 
 ## ucl-liu
 
 https://github.com/shadowjohn/UCL_LIU/blob/master/README.md
-
