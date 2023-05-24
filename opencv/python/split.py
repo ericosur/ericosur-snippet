@@ -8,7 +8,9 @@ import os
 import sys
 import cv2 as cv
 import numpy as np
-import myutil
+from imgconfig import read_image_config
+
+# pylint: disable=no-member
 
 THUMBNAIL_HEIGHT = 300
 THUMBNAIL_WIDTH = 300
@@ -64,10 +66,10 @@ def split_and_show(img):
 def main():
     '''main function'''
     app_name = 'split.py'
-    data = myutil.read_setting('setting.json')
+    data = read_image_config()
 
     home = os.environ["HOME"]
-    image = home + '/' + data[app_name]['image_file']
+    image = os.path.join(home, data[app_name]['image_file'])
 
     if not os.path.exists(image):
         print("image not found:", image)

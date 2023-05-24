@@ -41,20 +41,17 @@
         "deer": "https://i.imgur.com/yU4Cbzw.png",
         "lego": "https://i.imgur.com/Y7VTPOi.jpg"
     },
-    "myutil.py": {
-        "data": "a quick fox jumps over the lazy dog"
-    },
     "readim.py" : {
-        "path": "Pictures/data",
+        "path": "/home/user/Pictures/data",
         "images" : [
-            "25r.jpg",
-            "40r.jpg",
-            "flw.jpg"
+            "img2668.jpg",
+            "img2980.jpg",
+            "eefb19f7599a5.jpg"
         ]
     },
     "split.py" : {
         "__image_file": "Pictures/lena.png",
-        "image_file": "Dropbox/Pictures/wallpaper/47916_1600x1200-wallpaper-cb1333465486.jpg"
+        "image_file": "Pictures/data/47916-wallpaper.jpg"
     },
     "vcap.py" : {
         "video_index": 0,

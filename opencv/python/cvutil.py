@@ -1,14 +1,16 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
+# pylint: disable=no-member
 
 '''some cv util functions'''
 
 
 from __future__ import print_function
+import os
 import sys
 import cv2
 import numpy
-from myutil import isfile
 
 __version__ = '0.0,1'
 
@@ -84,7 +86,7 @@ def main():
         print('specify img1 img2...')
         return
 
-    if isfile(fn1) and isfile(fn2):
+    if os.path.exists(fn1) and os.path.exists(fn2):
         combine_two_images(ofn, fn1, fn2, debug)
         print('output to:', ofn)
     else:

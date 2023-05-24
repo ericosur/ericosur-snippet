@@ -5,64 +5,86 @@
 
 from __future__ import print_function
 import os
-import sys
 import cv2
 import numpy as np
-import myutil
-#import matplotlib
+from imgconfig import read_image_config
 
+# pylint: disable=no-member
+class OpencvSample():
+    ''' run opencv sample '''
+    WIN_NAME = 'foobar'
+    app_name = 'readim.py'
+    RED = (0, 0, 255)
+    USE_COLOR = True
 
-def cv_drawline():
-    '''cv drawline'''
-    # Create a black image
-    img = np.zeros((512, 512, 3), np.uint8)
+    def __init__(self):
+        self.data = None
+        self.pics = []
+        self.img = None
+        self._read_config()
 
-    # Draw a diagonal blue line with thickness of 5 px
-    img = cv2.line(img, (0, 0), (511, 511), (255, 0, 0), 5)
-    cv2.imshow("foobar", img)
-    cv2.waitKey(0)
+    def _read_config(self):
+        ''' read config '''
+        self.data = read_image_config()
+        home = os.environ['HOME']
+        picpath = os.path.join(home, self.data[self.app_name]['path'])
+        print(f'{picpath=}')
+        for imgf in self.data[self.app_name]['images']:
+            fn = os.path.join(picpath, imgf)
+            if os.path.exists(fn):
+                self.pics.append(fn)
+        if len(self.pics) <= 0:
+            print('[INFO] pics list is empty, please check:', self.CONFIG_FILE)
 
-def cv_test(filename):
-    '''load and show image file'''
-    #img = cv2.imread(filename, cv2.IMREAD_COLOR)
-    img = cv2.imread(filename, cv2.IMREAD_GRAYSCALE)
-    cv2.imshow("foobar", img)
-    cv2.waitKey(0)
+    def demo_drawline(self):
+        '''cv drawline'''
+        print('draw a diagonal line...')
+
+        (w, h) = (256, 512)
+        if self.img is None:
+            # Create a black image, notice the h, w position
+            img = np.zeros((h, w, 3), np.uint8)
+        else:
+            img = self.img
+            if self.USE_COLOR:
+                (w, h, _) = img.shape
+            else:
+                (w, h) = img.shape
+            print(w, h)
+
+        # Draw a diagonal line with thickness of 5 px
+        img = cv2.line(img, (w, 0), (0, h), self.RED, 5)    # right-upper to left-lower
+        img = cv2.line(img, (0, 0), (w, h), self.RED, 5)    # left-upper to right-lower
+        cv2.imshow("line", img)
+        cv2.waitKey(0)
+
+    def cv_test(self, fn):
+        '''load and show image file'''
+        if self.USE_COLOR:
+            self.img = cv2.imread(fn, cv2.IMREAD_COLOR)
+        else:
+            self.img = cv2.imread(fn, cv2.IMREAD_GRAYSCALE)
+        print('press any key to next, showing:', fn)
+        cv2.imshow(fn, self.img)
+        cv2.waitKey(0)
+
+    def loop_allpics(self):
+        ''' loop pics '''
+        for f in self.pics:
+            self.cv_test(f)
+
+    @classmethod
+    def run(cls):
+        ''' run '''
+        obj = cls()
+        obj.demo_drawline()
+        obj.loop_allpics()
+        obj.demo_drawline()
+        cv2.destroyAllWindows()
 
 def main():
     '''main function'''
-    WIN_NAME = 'foobar'
-    cv2.namedWindow(WIN_NAME)
-    cv2.moveWindow(WIN_NAME, 50, 50)
-    if len(sys.argv) > 1:   # has argument
-        for ff in sys.argv[1:]:
-            print(f'imread {ff}')
-            img = cv2.imread(ff)
-            cv2.imshow(WIN_NAME, img)
-            cv2.waitKey(0)
-    else:
-        setting_fn = 'setting.json'
-        if not myutil.isfile(setting_fn):
-            print(f'[ERROR] cannot find setting: {setting_fn}')
-            print('[INFO] may use argument')
-        else:
-            app_name = 'readim.py'
-            data = myutil.read_setting(setting_fn)
-            home = os.environ['HOME']
-            picpath = home + '/' + data[app_name]['path']
-            print(picpath)
-
-        for img_file in data[app_name]['images']:
-            pic1 = picpath + '/' + img_file
-            print(pic1)
-            if os.path.isfile(pic1):
-                cv_test(pic1)
-            else:
-                print("file not found:",pic1)
-
-    #cv_drawline()
-    cv2.destroyAllWindows()
-
+    OpencvSample.run()
 
 if __name__ == '__main__':
     main()

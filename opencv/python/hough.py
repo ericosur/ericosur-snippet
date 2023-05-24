@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
+#
+# pylint: disable=no-member
 # pylint: disable=line-too-long
+#
+
 '''
 further reading: https://stackoverflow.com/questions/865115/how-do-i-correctly-clean-up-a-python-object
 
@@ -10,14 +13,13 @@ refer: https://stackoverflow.com/questions/17124381/determine-skeleton-joints-wi
 refer: https://www.researchgate.net/publication/262371199_Explicit_image_detection_using_YCbCr_space_color_model_as_skin_detection
 
 '''
-# pylint: enable=line-too-long
 
 from __future__ import print_function
 import os
 import math
 import cv2
 import numpy as np
-import myutil
+from imgconfig import read_image_config
 
 # pylint: disable=too-many-locals
 class MyCap():
@@ -40,7 +42,7 @@ class MyCap():
     def read_config(self):
         ''' read settings from json '''
         app_name = self.name
-        data = myutil.read_setting('setting.json')
+        data = read_image_config()
         try:
             self.width = data[app_name]['width']
             self.height = data[app_name]['height']

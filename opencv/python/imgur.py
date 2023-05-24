@@ -4,8 +4,9 @@
 '''demo fetch image from imgur'''
 
 from __future__ import print_function
+import os
 from PIL import Image
-import myutil
+from imgconfig import read_image_config
 from loadimgur import fetch_image
 
 def try_to_download(json_data, title):
@@ -23,12 +24,12 @@ def try_to_download(json_data, title):
 def main():
     '''main function'''
     app_name = 'imgur.py'
-    data = myutil.read_setting('setting.json')
+    data = read_image_config()
     json_data = data[app_name]['picture']
     title = 'deer'
     fn = 'deer.png'
 
-    if myutil.isfile(fn):
+    if os.path.exists(fn):
         print(f'file {fn} already exists, will not download')
     else:
         fn = try_to_download(json_data, title)
