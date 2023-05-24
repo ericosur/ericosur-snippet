@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-#coding: utf-8
+# coding: utf-8
+#
+# pylint: disable=import-error
+# pylint: disable=wrong-import-position
 
 '''
 
@@ -11,9 +14,16 @@ Fibonacci number
 require redis server is running!
 '''
 
+import os
 from random import randint
 import sys
 import redis
+
+HOME = os.getenv('HOME')
+UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
+if os.path.exists(UTILPATH):
+    sys.path.insert(0, UTILPATH)
+
 from myutil import read_jsonfile, get_home
 
 class FibRedis():
