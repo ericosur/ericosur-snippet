@@ -1,5 +1,8 @@
 #!/usr/bin/python
 # coding: utf-8
+#
+# pylint: disable=no-member
+# pylint: disable=wrong-import-position
 
 '''
 stack two different dimension images into one

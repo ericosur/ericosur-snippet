@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+#
+# pylint: disable=no-member
+#
 
 '''
 further reading:
@@ -9,8 +12,8 @@ https://stackoverflow.com/questions/865115/how-do-i-correctly-clean-up-a-python-
 from __future__ import print_function
 #import numpy as np
 import cv2
-import myutil
 
+from imgconfig import read_image_config
 
 class MyCap():
     ''' class MyCap to capture video from webcam and perform blur '''
@@ -32,7 +35,7 @@ class MyCap():
     def read_config(self):
         ''' read settings from json '''
         app_name = self.name
-        data = myutil.read_setting('setting.json')
+        data = read_image_config()
         try:
             #self.foobar = data[app_name]['foo_bar']
             self.video_index = data[app_name]['video_index']
@@ -77,7 +80,6 @@ class MyCap():
                     blur = cv2.GaussianBlur(frame, (self.sigma_x, self.sigma_y), 0)
                     cv2.imshow('rgb', frame)
                     cv2.imshow('blur', blur)
-
 
                 key = cv2.waitKey(1)
                 if key & 0xFF == ord('q') or key == 27:

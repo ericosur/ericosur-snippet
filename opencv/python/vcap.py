@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
+#
+# pylint: disable=no-member
 # pylint: disable=line-too-long
+#
+
 '''
 further reading: https://stackoverflow.com/questions/865115/how-do-i-correctly-clean-up-a-python-object
 
 refer: https://www.programcreek.com/python/example/70440/cv2.findContours
 refer: https://stackoverflow.com/questions/17124381/determine-skeleton-joints-with-a-webcam-not-kinect/17375222#17375222
 refer: https://www.researchgate.net/publication/262371199_Explicit_image_detection_using_YCbCr_space_color_model_as_skin_detection
-
 '''
 
 
@@ -17,7 +19,7 @@ import math
 from time import sleep
 import cv2
 import numpy as np
-import myutil
+from imgconfig import read_image_config
 
 
 class MyCap():
@@ -47,7 +49,7 @@ class MyCap():
     def read_config(self):
         ''' read settings from json '''
         app_name = self.name
-        data = myutil.read_setting('setting.json')
+        data = read_image_config()
         try:
             #self.foobar = data[app_name]['foo_bar']
             self.video_index = data[app_name]['video_index']
