@@ -1,11 +1,22 @@
 #!/usr/bin/python3
 # coding: utf-8
+#
+# pylint: disable=import-error
+# pylint: disable=wrong-import-position
+
 
 '''
 lookup bpmf from bpmf.json
 '''
 
+import os
 import sys
+
+HOME = os.getenv('HOME')
+UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
+if os.path.exists(UTILPATH):
+    sys.path.insert(0, UTILPATH)
+
 from myutil import read_jsonfile
 
 class Solution():
@@ -58,10 +69,11 @@ class Solution():
                 print(f'{k} {len(v)} {r}', file=f)
         print(f'output to {fn}')
 
-def test():
-    ''' test '''
-    sol = Solution()
-    sol.dump_all()
+    @classmethod
+    def test(cls):
+        ''' run '''
+        obj = Solution()
+        obj.dump_all()
 
 def main(argv):
     ''' main '''
@@ -84,6 +96,6 @@ if __name__ == '__main__':
     if len(sys.argv) == 1:
         main([])
     elif sys.argv[1] == 'dump':
-        test()
+        Solution.test()
     else:
         main(sys.argv[1:])
