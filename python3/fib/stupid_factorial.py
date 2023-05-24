@@ -43,10 +43,10 @@ if __name__ == '__main__':
 
     for v in sys.argv[1:]:
         try:
-            intv = int(v)
-            ans = stupid_factorial(intv)
-            #print("{}! = {}\ndigit len: {}".format(intv, ans, get_digit_len(ans)))
-            print(f"{intv}! = {ans}\ndigit len: {get_digit_len(ans)}")
-            try3k(intv)
+            INTV = int(v)
+            ans = stupid_factorial(INTV)
+            #print("{}! = {}\ndigit len: {}".format(INTV, ans, get_digit_len(ans)))
+            print(f"{INTV}! = {ans}\ndigit len: {get_digit_len(ans)}")
+            try3k(INTV)
         except ValueError as e:
             print('cannot translate into integer', e)

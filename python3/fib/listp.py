@@ -14,6 +14,7 @@ except ImportError as err:
     sys.exit(1)
 
 def is_prime(n):
+    ''' use sympy.ntheory to test primes '''
     return ntheory.primetest.isprime(n)
 
 def load_pickle(fn):

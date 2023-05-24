@@ -12,7 +12,6 @@ using pickle as cache
 
 import pickle
 import random
-#from math import log
 
 class CalcFib():
     ''' class will help to handle read pickle file '''
@@ -82,7 +81,7 @@ def main():
             n = random.randint(1, MAX_UPPER_LIMIT)
             print(f'fib({n}) = {fibv.fib(n)}')
 
-        print('after loop, fibvalues has {fibv.get_pickle_len()} entries')
+        print(f'after loop, fibvalues has {fibv.get_pickle_len()} entries')
 
 
 if __name__ == '__main__':

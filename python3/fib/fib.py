@@ -7,8 +7,7 @@ a simple and stupid fib function test
 It is time/memory consuming while n is large.
 It took 23.81 sec to calculate fib(40)
 
-2023/04/07 It takes 14.63 sec to get fib(40) (zen33.local)
-
+2023-05-24 Host(zen33) takes 15.14 seconds to get fib(40)
 2023-05-24 Host(jeff) takes 8.91 seconds to get fib(40)
 
 '''
