@@ -1,5 +1,8 @@
 #!/usr/bin/python3
 # coding: utf-8
+#
+# pylint: disable=import-error
+# pylint: disable=wrong-import-position
 
 '''
 __phone.json__ is a lookup table from phonetic radicals to han characters.
@@ -10,10 +13,17 @@ Need start the service of redis/rejson first.
 '''
 
 from typing import List
+import os
 import sys
 
 from rejson import  Client, Path
 import redis
+
+HOME = os.getenv('HOME')
+UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
+if os.path.exists(UTILPATH):
+    sys.path.insert(0, UTILPATH)
+
 from myutil import read_jsonfile
 
 # pylint: disable=invalid-name
@@ -120,14 +130,15 @@ class StoreAndQuery():
             except KeyError as e:
                 print('KeyError: ', e)
 
-    def action(self) -> None:
+    @classmethod
+    def action(cls) -> None:
         ''' action '''
-        self.test_query()
+        obj = cls()
+        obj.test_query()
 
 def main():
     ''' main '''
-    sol = StoreAndQuery()
-    sol.action()
+    StoreAndQuery.run()
 
 if __name__ == '__main__':
     main()
