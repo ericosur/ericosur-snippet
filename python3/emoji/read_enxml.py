@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 # coding: utf-8
+#
+# pylint: disable=import-error
+# pylint: disable=wrong-import-position
 
 '''
 read en.xml and output to csv
@@ -7,6 +10,7 @@ read en.xml and output to csv
 
 import csv
 from datetime import date
+import os
 import sys
 
 try:
@@ -16,15 +20,12 @@ except ImportError:
     print('use pip install lxml')
     sys.exit(1)
 
-from myutil import read_textfile
+HOME = os.getenv('HOME')
+UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
+if os.path.exists(UTILPATH):
+    sys.path.insert(0, UTILPATH)
 
-# XLSWRITER_OK = False
-# try:
-#     import xlsxwriter
-#     XLSWRITER_OK = True
-# except ImportError:
-#     print('cannot import module xlsxwriter')
-#     sys.exit(1)
+from myutil import read_textfile
 
 
 class Solution():
