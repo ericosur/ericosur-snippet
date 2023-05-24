@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 # coding: utf-8
+#
+# pylint: disable=import-error
+# pylint: disable=wrong-import-position
+#
 
 '''
 pushover.net is a web service to send notification to specified device
@@ -8,12 +12,18 @@ class PushOverRequests inherits from class PushOverBase for common functions
 use module ==requests==
 '''
 
-from __future__ import print_function
+import os
 import json
+import sys
 import requests
-from base_pushover import PushOverBase
-import myutil
 
+HOME = os.getenv('HOME')
+UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
+if os.path.exists(UTILPATH):
+    sys.path.insert(0, UTILPATH)
+
+from myutil import read_jsonfile
+from base_pushover import PushOverBase
 
 class PushOverRequests(PushOverBase):
     ''' class to request pushover '''
@@ -24,7 +34,7 @@ class PushOverRequests(PushOverBase):
 
     def load_config(self, fn):
         ''' load config '''
-        data = myutil.read_jsonfile(fn)
+        data = read_jsonfile(fn)
         if data is None:
             return
         self.message = data.get('s')
@@ -58,7 +68,6 @@ class PushOverRequests(PushOverBase):
         '''
 
         r = requests.post(url, data=json.dumps(payload), headers=headers, timeout=5.0)
-
         print(r.status_code)
 
         resp = r.json()
@@ -71,7 +80,7 @@ def main():
     gg = PushOverRequests('test pushover notification!')
     #gg.set_title('hello world')
     #gg.set_message('please check: https://i.imgur.com/HVkVKmf.jpg')
-    gg.device = 'erimx'
+    gg.device = 'erixiii'
     print(gg)
     gg.shoot()
 

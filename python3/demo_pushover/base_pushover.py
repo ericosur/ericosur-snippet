@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 # coding: utf-8
+#
+# pylint: disable=import-error
+# pylint: disable=wrong-import-position
+#
 
 '''
 pushover base class
@@ -10,7 +14,14 @@ import abc
 import os
 from datetime import datetime
 from time import time
-import myutil
+import sys
+
+HOME = os.getenv('HOME')
+UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
+if os.path.exists(UTILPATH):
+    sys.path.insert(0, UTILPATH)
+
+from myutil import read_jsonfile
 
 class PushOverBase():
     ''' base class of pushover '''
@@ -21,7 +32,8 @@ class PushOverBase():
         self._device = None
         # load settings of previous three variables
         if not self.get_apikey():
-            print('[FAIL] failed to load config')
+            print('[FAIL] failed to load config, exit...')
+            sys.exit(1)
         # default data fields
         self._title = 'pushover.py'
         self._message = f'{msg} at {datetime.now()}'
@@ -48,9 +60,13 @@ class PushOverBase():
         return self._message
 
     @property
-    def device(self):
+    def device(self) -> str:
         ''' device name of notification '''
         return self._device
+
+    @device.setter
+    def device(self, val: str):
+        self._device = val
 
     @staticmethod
     def get_timestamp():
@@ -70,13 +86,12 @@ class PushOverBase():
 
     def get_apikey(self):
         ''' get apikey '''
-        keyfile = 'pushover-net.json'
         home = os.environ.get('HOME')
-        keypath = home + '/Private/' + keyfile
-        if not myutil.isfile(keypath):
+        keypath = os.path.join(home, 'Private', 'pushover-net.json')
+        if not os.path.exists(keypath):
             print(f'[FAIL] key file not exist: {keypath}')
             return False
-        data = myutil.read_jsonfile(keypath)
+        data = read_jsonfile(keypath)
         if data is None:
             return False
 
