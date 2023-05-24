@@ -1,15 +1,21 @@
 #!/usr/bin/env python3
 # coding: utf-8
+#
+# pylint: disable=import-error
+# pylint: disable=wrong-import-position
+#
 
 '''
 use yagmail to send mail via gmail
+
+DO NOT USE THIS SCRIPT
 '''
 
 from __future__ import print_function
 import os
 import sys
 import time
-from myutil import read_jsonfile, isfile
+
 try:
     import yagmail
 except ImportError:
@@ -24,6 +30,13 @@ def append_path(fn):
         print(f'[FAIL] key file not exist: {path}')
         return None
     return path
+
+HOME = os.getenv('HOME')
+UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
+if os.path.exists(UTILPATH):
+    sys.path.insert(0, UTILPATH)
+
+from myutil import read_jsonfile, isfile
 
 def main():
     ''' main '''
@@ -52,4 +65,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    print('DO NOT USE THIS SCRIPT...')
+    sys.exit(1)

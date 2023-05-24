@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 # coding: utf-8
+#
+# pylint: disable=import-error
+# pylint: disable=wrong-import-position
+#
 
 '''
 pushover.net is a web service to send notification to specified device
@@ -12,9 +16,16 @@ from datetime import datetime
 import http.client
 import os
 import platform
+import sys
 import time
 import urllib
-import myutil
+
+HOME = os.getenv('HOME')
+UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
+if os.path.exists(UTILPATH):
+    sys.path.insert(0, UTILPATH)
+
+from myutil import read_jsonfile
 
 def get_host():
     ''' get host name '''
@@ -74,17 +85,18 @@ class Foobar():
         userkey = None
         apitoken = None
         home = os.environ.get('HOME')
-        keypath = home + '/Private/' + keyfile
-        if not myutil.isfile(keypath):
+        keypath = os.path.join(home, 'Private', keyfile)
+        if not os.path.exists(keypath):
             print(f'[FAIL] key file not exist: {keypath}')
             return None, None
-        data = myutil.read_jsonfile(keypath)
-        if data is None:
-            return None, None
-
-        userkey = data.get('userkey')
-        apitoken = data.get('apitoken')
-        return userkey, apitoken
+        try:
+            data = read_jsonfile(keypath)
+            userkey = data['userkey']
+            apitoken = data['apitoken']
+            return userkey, apitoken
+        except KeyError:
+            print('[FAIL] specific keys/value not found')
+        return None, None
 
 def main():
     ''' main '''
