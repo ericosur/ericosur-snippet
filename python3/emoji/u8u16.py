@@ -1,12 +1,21 @@
 #!/usr/bin/env python3
 # coding: utf-8
+#
+# pylint: disable=import-error
+# pylint: disable=wrong-import-position
 
 '''
 u8u16 tests, apply string directly from CLI or json file
 '''
 
-import sys
 import json
+import os
+import sys
+
+HOME = os.getenv('HOME')
+UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
+if os.path.exists(UTILPATH):
+    sys.path.insert(0, UTILPATH)
 from myutil import read_jsonfile
 from mytofrom import to_from_u8, to_from_u16, to_utf8
 
@@ -76,6 +85,7 @@ def test3():
 
 def test4():
     ''' test4 '''
+    print('test4:')
     cc = '\U0001faa2'
     common_test(cc)
 

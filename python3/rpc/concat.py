@@ -1,23 +1,32 @@
 #!/usr/bin/env python3
 # coding: utf-8
+#
+# pylint: disable=import-error
+# pylint: disable=wrong-import-position
 
 ''' try to concat files '''
 
-from __future__ import print_function
 import glob
-#import json
-import myutil
+import os
+import sys
+
+HOME = os.getenv('HOME')
+UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
+if os.path.exists(UTILPATH):
+    sys.path.insert(0, UTILPATH)
+from myutil import read_jsonfile
 
 def test(fn):
     ''' test '''
-    data = myutil.read_jsonfile(fn)
+    data = read_jsonfile(fn)
     if data is None:
         print('[FAIL] read json fail')
+        sys.exit(1)
     arr = data.get('result').get('random').get('data')
     cnt = 0
     mode = 'wt'
-    if myutil.isfile('data.txt'):
-        print('file exists, use "at"')
+    if os.path.exists('data.txt'):
+        print('file exists, use "at" to append')
         mode = 'at'
 
     with open('data.txt', mode, encoding='utf8') as datafile:

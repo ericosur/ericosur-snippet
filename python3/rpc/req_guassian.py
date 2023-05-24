@@ -1,17 +1,27 @@
 #!/usr/bin/env python3
 # coding: utf-8
+#
+# pylint: disable=import-error
+# pylint: disable=wrong-import-position
 
 '''
 reference: https://api.random.org/json-rpc/2/basic
 '''
 
-from __future__ import print_function
+
 import json
+import os
 import sys
-import myutil
+
+HOME = os.getenv('HOME')
+UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
+if os.path.exists(UTILPATH):
+    sys.path.insert(0, UTILPATH)
+
 try:
     import requests
     import getapikey
+    from myutil import read_jsonfile
 except ImportError as err:
     print('ImportError:', err)
     sys.exit(1)
@@ -19,6 +29,7 @@ except ImportError as err:
 
 class RequestGuassian():
     ''' request guassian random numbers from random.org '''
+    DATAFILE = 'data.txt'
     def __init__(self):
         self.sett_json = 'sett.json'
         self.data_file_name = ''
@@ -28,13 +39,13 @@ class RequestGuassian():
 
     def load_setting(self):
         ''' load setting '''
-        if not myutil.isfile(self.sett_json):
+        if not os.path.exists(self.sett_json):
             print(f'[FAIL] setting file not found: {self.sett_json}')
-        sett = myutil.read_jsonfile(self.sett_json)
+        sett = read_jsonfile(self.sett_json)
         self.data_file_name = sett.get('data_file_name')
         self.resp_json = sett.get('resp_json')
 
-    def dump(self):
+    def show_brief(self):
         ''' dump varialbes '''
         print(f'data_file_name: {self.data_file_name}')
         print(f'resp_json: {self.resp_json}')
@@ -51,9 +62,9 @@ class RequestGuassian():
             outj.write(resp)
 
     def save_data(self, arr):
-        ''' save array to data.txt '''
+        ''' save array to data file '''
         mode = 'wt'
-        if myutil.isfile('data.txt'):
+        if os.path.exists(self.DATAFILE):
             #print('file exists, use "at"')
             mode = 'at'
         with open(self.data_file_name, mode, encoding='utf8') as datafile:
@@ -118,12 +129,16 @@ class RequestGuassian():
         print(f'save to data file: {self.data_file_name}')
         self.save_data(ret_data)
 
+    @classmethod
+    def run(cls):
+        ''' run '''
+        obj = RequestGuassian()
+        obj.show_brief()
+        obj.action()
 
 def main():
     ''' main '''
-    guas = RequestGuassian()
-    guas.dump()
-    guas.action()
+    RequestGuassian.run()
 
 
 if __name__ == "__main__":

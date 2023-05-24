@@ -1,23 +1,31 @@
 #!/usr/bin/env python3
 # coding: utf-8
+#
+# pylint: disable=import-error
+# pylint: disable=wrong-import-position
 
 '''
 get apikey for random.org
 '''
 
-from __future__ import print_function
 import os
-#import json
-import myutil
+import sys
+
+HOME = os.getenv('HOME')
+UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
+if os.path.exists(UTILPATH):
+    sys.path.insert(0, UTILPATH)
+
+from myutil import read_jsonfile
 
 def get_randomorg_apikey():
     ''' get apikey of random.org from json file '''
     home = os.environ.get('HOME')
-    keypath = home + '/' + 'Private/random-org.json'
-    if not myutil.isfile(keypath):
-        print(f'[FAIL] key file not exist: {keypath}')
-        return ""
-    data = myutil.read_jsonfile(keypath)
+    keypath = os.path.join(home, 'Private', 'random-org.json')
+    if not os.path.exists(keypath):
+        print(f'[FAIL] config not exist: {keypath}')
+        sys.exit(1)
+    data = read_jsonfile(keypath)
     apiKey = data.get('apiKey')
     if apiKey is None:
         print('[WARN] apiKey is None')

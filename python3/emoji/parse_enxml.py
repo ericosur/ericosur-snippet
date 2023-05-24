@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 # coding: utf-8
+#
+# pylint: disable=import-error
+# pylint: disable=wrong-import-position
 
 '''
 read en.xml and output to csv
 '''
 
+import os
 import re
 import sys
 
@@ -14,6 +18,11 @@ except ImportError:
     print('use pip install beautifulsoup4')
     print('use pip install lxml')
     sys.exit(1)
+
+HOME = os.getenv('HOME')
+UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
+if os.path.exists(UTILPATH):
+    sys.path.insert(0, UTILPATH)
 
 from myutil import read_textfile
 
