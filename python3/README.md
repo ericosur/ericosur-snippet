@@ -1,6 +1,29 @@
 Readme
 ======
 
+## myutil
+
+in order not to copy myutil.py everywhere
+default path $HOME/src/ericosur-snippet/python3
+
+
+```python
+#
+# pylint: disable=import-error
+# pylint: disable=wrong-import-position
+
+import os
+import sys
+
+HOME = os.getenv('HOME')
+UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
+if os.path.exists(UTILPATH):
+    sys.path.insert(0, UTILPATH)
+
+from myutil import require_python_version
+```
+
+
 ## f-string
 
 The minimum python version to support f-strings is python 3.6.
