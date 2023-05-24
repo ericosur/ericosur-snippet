@@ -24,7 +24,8 @@ def read_jsonfile(fn:str, debug=False):
     if debug:
         print(f'load json from {fn}')
     if not os.path.exists(fn):
-        print('file not found')
+        if debug:
+            print(f'file not found: {fn}')
         return None
     # read from json file
 
