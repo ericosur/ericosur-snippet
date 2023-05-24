@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+#
+# pylint: disable=import-error
+# pylint: disable=wrong-import-position
 
 '''
 demo how to use string.format()
@@ -8,7 +11,14 @@ and multi line string
 need python 3.6+
 '''
 
-from __future__ import print_function
+import os
+import sys
+
+HOME = os.getenv('HOME')
+UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
+if os.path.exists(UTILPATH):
+    sys.path.insert(0, UTILPATH)
+
 from myutil import require_python_version
 
 

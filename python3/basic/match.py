@@ -1,18 +1,30 @@
 #!/usr/bin/python3
 # coding: utf-8
+#
+# pylint: disable=import-error
+# pylint: disable=wrong-import-position
 
 '''
 wrapper to check if python >= 3.10
 '''
 
+import os
 import sys
+
+HOME = os.getenv('HOME')
+UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
+if os.path.exists(UTILPATH):
+    sys.path.insert(0, UTILPATH)
+
 from myutil import require_python_version
 
 # pylint: disable=import-outside-toplevel
 def main():
     ''' main '''
-    if require_python_version(3, 10) is False:
-        print('[ERROR] you need python >= 3.10')
+    major = 3
+    minor = 10
+    if require_python_version(major, minor) is False:
+        print(f'[ERROR] you need python >= {major}.{minor}')
         sys.exit(1)
 
     # ensure python >= 3.10 then import this
