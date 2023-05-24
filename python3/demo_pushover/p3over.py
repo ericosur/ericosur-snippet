@@ -8,7 +8,7 @@ class PushOverRequests inherits from class PushOverBase for common functions
 use module ==urllib== and ==http.client==
 '''
 
-from __future__ import print_function
+from datetime import datetime
 import http.client
 import urllib
 from base_pushover import PushOverBase
@@ -16,9 +16,18 @@ from base_pushover import PushOverBase
 
 class PushOverUrllib(PushOverBase):
     ''' pushover via urllib '''
-    def __init__(self, msg):
+    def __init__(self, msg=""):
         super().__init__(msg)
-        self.title = "push over urllib"
+        self._sound = "incoming"
+
+    @property
+    def sound(self) -> str:
+        ''' sound of notification '''
+        return self._sound
+    @sound.setter
+    def title(self, val: str):
+        ''' setter of sound '''
+        self._sound = val
 
     def shoot(self):
         '''
@@ -36,16 +45,28 @@ class PushOverUrllib(PushOverBase):
                          "user": self.userkey,
                          "title": self.title,
                          "message": self.message,
-                         "sound": "incoming"
+                         "sound": self.sound
                      }), {"Content-type": "application/x-www-form-urlencoded"})
         resp = conn.getresponse()
         self.resp_str = f'status: {resp.status} reason: {resp.reason}'
         self.show_resp()
 
+    @classmethod
+    def run(cls):
+        ''' run '''
+        obj = PushOverUrllib()
+        ts = datetime.today().strftime('%a %d %b %Y, %H:%M') # Wed 24 May 2023, 14:49
+        # strftime('%Y-%m-%d %H:%M:%S')  '2023-05-24 14:50:25'
+        msg = f'notification on {ts} via urllib'
+
+        obj.title = 'demo by p3over.py'
+        obj.message = msg
+        obj.shoot()
+
 def main():
     ''' main '''
-    gg = PushOverUrllib('test pushover notification!')
-    gg.shoot()
+    PushOverUrllib.run()
+
 
 if __name__ == '__main__':
     main()

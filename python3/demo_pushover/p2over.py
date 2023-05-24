@@ -27,29 +27,26 @@ from base_pushover import PushOverBase
 
 class PushOverRequests(PushOverBase):
     ''' class to request pushover '''
+    EXTRA_CONFIG = 'message.json'
     def __init__(self, msg):
         super().__init__(msg)
         self._title = 'p2over pushover'
-        self.load_config('../emoji/f.json')
+        self.load_config(self.EXTRA_CONFIG)
 
     def load_config(self, fn):
         ''' load config '''
         data = read_jsonfile(fn)
         if data is None:
+            print('[INFO] no extra data:', self.EXTRA_CONFIG)
             return
-        self.message = data.get('s')
+        self.message += data.get('sample')
+
+    def is_keyready(self):
+        ''' is apikey and token is ready? '''
+        return self.userkey is None or self.apitoken is None
 
     def shoot(self):
-        '''
-        pushover.net messages api reference:
-        https://pushover.net/api#messages
-
-        https://pushover.net/faq#library-python
-        '''
-        if self.userkey is None or self.apitoken is None:
-            print('[FAIL] key/apitoken not exists, abort...')
-            return
-
+        ''' shoot notification '''
         url = "https://api.pushover.net/1/messages.json"
         headers = {'content-type': 'application/json'}
         payload = {
@@ -66,23 +63,33 @@ class PushOverRequests(PushOverBase):
             "attachment": ("image.jpg", open(img_fn, "rb"), "image/jpeg")
         }
         '''
-
         r = requests.post(url, data=json.dumps(payload), headers=headers, timeout=5.0)
         print(r.status_code)
-
         resp = r.json()
         self.resp_str = json.dumps(resp)
         self.show_resp()
 
 
+    @classmethod
+    def run(cls, msg, device):
+        '''
+        pushover.net messages api reference:
+        https://pushover.net/api#messages
+        https://pushover.net/faq#library-python
+        '''
+        obj = cls(msg)
+        if obj.is_keyready():
+            print('[FAIL] key/apitoken not ready, exit...')
+            sys.exit(1)
+        obj.device = device
+        obj.shoot()
+
 def main():
     ''' main '''
-    gg = PushOverRequests('test pushover notification!')
-    #gg.set_title('hello world')
-    #gg.set_message('please check: https://i.imgur.com/HVkVKmf.jpg')
-    gg.device = 'erixiii'
-    print(gg)
-    gg.shoot()
+    msg = ''' p2over.py
+sends pushover notification
+'''
+    PushOverRequests.run(msg, device='erixiii')
 
 if __name__ == '__main__':
     main()

@@ -9,7 +9,6 @@
 pushover base class
 '''
 
-from __future__ import print_function
 import abc
 import os
 from datetime import datetime
@@ -50,22 +49,30 @@ class PushOverBase():
         return NotImplemented
 
     @property
-    def title(self):
+    def title(self) -> str:
         ''' title of notification '''
         return self._title
+    @title.setter
+    def title(self, val: str):
+        ''' setter of title '''
+        self._title = val
 
     @property
-    def message(self):
+    def message(self) -> str:
         ''' message of notification '''
         return self._message
+    @message.setter
+    def message(self, val: str):
+        ''' setter of message '''
+        self._message = val
 
     @property
     def device(self) -> str:
         ''' device name of notification '''
         return self._device
-
     @device.setter
     def device(self, val: str):
+        ''' setter for device '''
         self._device = val
 
     @staticmethod
