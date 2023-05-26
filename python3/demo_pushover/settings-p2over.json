@@ -1,0 +1,37 @@
+{
+	"_comment": "this json defines each field for pushover notification",
+	"title": "p2over notification",
+	"device": "pixel6a",
+	"messages": [
+		"hellow worlds",
+		"emojis: \uD83D\uDE1C\uD83D\uDE17\uD83D\uDE0A\uD83D\uDE1C\uD83D\uDE1D\uD83D\uDE1D\uD83D\uDE09",
+		"visit https://pushover.net",
+		"learn http requests: https://reqbin.com/req/c-1n4ljxb9/curl-get-request-example"
+	],
+
+	"sounds": {
+	    "pushover": "Pushover (default)",
+	    "bike": "Bike",
+	    "bugle": "Bugle",
+	    "cashregister": "Cash Register",
+	    "classical": "Classical",
+	    "cosmic": "Cosmic",
+	    "falling": "Falling",
+	    "gamelan": "Gamelan",
+	    "incoming": "Incoming",
+	    "intermission": "Intermission",
+	    "magic": "Magic",
+	    "mechanical": "Mechanical",
+	    "pianobar": "Piano Bar",
+	    "siren": "Siren",
+	    "spacealarm": "Space Alarm",
+	    "tugboat": "Tug Boat",
+	    "alien": "Alien Alarm (long)",
+	    "climb": "Climb (long)",
+	    "persistent": "Persistent (long)",
+	    "echo": "Pushover Echo (long)",
+	    "updown": "Up Down (long)",
+	    "vibrate": "Vibrate Only",
+	    "none": "None (silent)"
+	  }
+}
