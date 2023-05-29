@@ -15,7 +15,7 @@ config file from: ```~/Private/gmail-app-local.json```
 
 ### sounds
 
-request sounds list
+request sounds list (GET method)
 
 ```
 curl https://api.pushover.net/1/sounds.json?token=<api token>
