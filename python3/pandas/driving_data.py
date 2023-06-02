@@ -26,7 +26,7 @@ UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
 if os.path.exists(UTILPATH):
     sys.path.insert(0, UTILPATH)
 
-from myutil import read_jsonfile
+from myutil import read_jsonfile, query_url_for_data
 from strutil import print_sep, str2sec, sec2mmss
 
 class DrivingData():
@@ -57,10 +57,10 @@ class DrivingData():
             self.jsonpath = home + '/Private/driving_data.json'
         else:
             self.jsonpath = conf_file
-        if not myutil.isfile(self.jsonpath):
+        if not os.path.exists(self.jsonpath):
             print('[ERROR] setting file not found', self.jsonpath)
             sys.exit(1)
-        self.jsondata = myutil.read_jsonfile(self.jsonpath)
+        self.jsondata = read_jsonfile(self.jsonpath)
         self.docid = self.jsondata.get('docid', '')
         self.sheetid = self.jsondata.get('sheetid', '')
         self.compose_url()
@@ -86,7 +86,7 @@ class DrivingData():
         ''' request data '''
         if self.debug:
             print('request_data()')
-        csvdata = myutil.query_url_for_data(self.url)
+        csvdata = query_url_for_data(self.url)
         #print('csvdata: ', csvdata)
         if not self.csvfile:
             print('[ERROR] MUST specify csvfile path before calling request_data()')
