@@ -53,19 +53,18 @@ class StorePrime():
     @staticmethod
     def get_local_data_path():
         ''' get data file from local '''
-        p = os.getenv('HOME') + '/.prime/'
+        p =  os.path.join(os.getenv('HOME'), '.prime')
         if os.path.exists(p):
             return p
-        return None
+        return ''
 
     def _try_pickle_file(self):
         ''' _try_pickle_file '''
         if not os.path.exists(self.pfile):
             p = self.get_local_data_path()
-            if p:
-                f = p + self.pfile
-                if os.path.exists(f):
-                    self.pfile = f
+            f = os.path.join(p, self.pfile)
+            if os.path.exists(f):
+                self.pfile = f
         if not os.path.exists(self.pfile):
             raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), self.pfile)
 
@@ -73,10 +72,9 @@ class StorePrime():
         ''' _try_text_file '''
         if not os.path.exists(self.txtfile):
             p = self.get_local_data_path()
-            if p:
-                f = p + self.txtfile
-                if os.path.exists(f):
-                    self.txtfile = f
+            f = os.path.join(p, self.txtfile)
+            if os.path.exists(f):
+                self.txtfile = f
         if not os.path.exists(self.txtfile):
             raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), self.txtfile)
 
