@@ -38,9 +38,10 @@ class FibRedis():
 
     def _connect(self):
         ''' connect to redis '''
-        h = get_home()
-        fn = h + '/Private/redis.json'
-        data = read_jsonfile(fn)
+        fn = os.path.join(get_home(), 'Private', 'redis.json')
+        data = read_jsonfile(fn, debug=True)
+        if data is None:
+            print('[FAIL] no data')
         print(f"host: {data['host']}, port: {data['port']}")
         try:
             self.redis = redis.Redis(host=data['host'], port=data['port'], \
@@ -51,11 +52,11 @@ class FibRedis():
             sys.exit(1)
 
     @staticmethod
-    def original_fib(n: int) -> int:
+    def _fib(n: int) -> int:
         ''' simple recursive version to get fib '''
         if n <= 2:
             return 1
-        return FibRedis.original_fib(n - 1) + FibRedis.original_fib(n - 2)
+        return FibRedis._fib(n - 1) + FibRedis._fib(n - 2)
 
     def fib(self, n: int) -> int:
         ''' calculate fib values with redis cache '''
@@ -78,19 +79,33 @@ class FibRedis():
         self.redis.hset(self.key, field, ans)
         return int(ans)
 
-    def action(self):
-        ''' action '''
-        # demo 51 <= x <= 200
-        LOWER = 50 + randint(1, 150)
-        for i in range(LOWER, LOWER+10):
-            ret = self.fib(i)
-            print(f'fib({i}) = {ret}')
+    def show_stat(self) -> None:
+        ''' show stat '''
+        print('key:', self.key)
+        ret = self.redis.hlen(self.key)
+        print('heln:', ret)
+
+    @classmethod
+    def run(cls):
+        ''' run demo '''
+        obj = cls()
+        obj.show_stat()
+        print('-----')
+        RANGE = 2
+        LOWER = 3
+        UPPER = 999
+        REPEAT = 1
+        pivot = randint(LOWER, UPPER)
+        for _ in range(REPEAT):
+            for i in range(pivot-RANGE, pivot+RANGE):
+                ret = obj.fib(i)
+                print(f'fib({i}) = {ret})')
+            print('-----')
 
 
 def main():
     ''' main '''
-    Solution = FibRedis()
-    Solution.action()
+    FibRedis.run()
 
 
 if __name__ == '__main__':
