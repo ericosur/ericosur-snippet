@@ -107,7 +107,8 @@ class StorePrimeToRedis():
     @staticmethod
     def get_local_data_path() -> str:
         ''' get data file from local '''
-        p = os.getenv('HOME') + '/.prime/'
+        home = os.getenv('HOME')
+        p = os.path.join(home, '.prime')
         if os.path.exists(p):
             return p
         return None
