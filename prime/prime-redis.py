@@ -119,7 +119,7 @@ class StorePrimeToRedis():
         '''
         # find data file from data path first
         p = self.get_local_data_path()
-        datafn = p + self.txtfile
+        datafn = os.path.join(p, self.txtfile)
         if os.path.exists(datafn):
             self.txtfile = datafn
             return True
