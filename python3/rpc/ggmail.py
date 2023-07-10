@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 # coding: utf-8
+#
+# pylint: disable=import-error
+# pylint: disable=wrong-import-position
+# pylint: disable=unreachable
 
 '''
 just for reference, it is not useful for my own working environment
@@ -11,13 +15,16 @@ reference:
 - http://blog.macuyiko.com/post/2016/how-to-send-html-mails-with-oauth2-and-gmail-in-python.html
 '''
 
-# pylint: disable=unreachable
 
-from __future__ import print_function
 import os
 import sys
 import time
-from myutil import read_jsonfile, isfile
+
+HOME = os.getenv('HOME')
+UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
+if os.path.exists(UTILPATH):
+    sys.path.insert(0, UTILPATH)
+from myutil import read_jsonfile
 
 print('Just for reference, exit...')
 sys.exit(1)
@@ -27,7 +34,6 @@ try:
 except ImportError:
     print('cannot import module: yagmail')
     sys.exit(1)
-
 
 
 class FoolMail():
@@ -75,8 +81,8 @@ class FoolMail():
     def append_path(fn):
         ''' append $HOME '''
         home = os.environ.get('HOME')
-        path = home + '/Private/' + fn
-        if not isfile(path):
+        path = os.path.join(home, 'Private', fn)
+        if not os.path.exists(path):
             print(f'[FAIL] key file not exist: {path}')
             return None
         return path
