@@ -21,10 +21,26 @@ class Solution():
         total = sum(self.primes)
         print(f'total sum of primes = {total}')
 
-    def action(self):
-        ''' action '''
-        print('action!')
-        self.show_total()
+    def check_pair_sum(self):
+        ''' check sum of two primes '''
+        if self.limit % 2 != 0:
+            print(f'ERROR: limit({self.limit}) must be a even number')
+            return
+        answers = []
+        for p in self.primes[1:len(self.primes)]:
+            left = self.limit - p
+            if left in self.primes:
+                if left > p:
+                    (p, left) = (left, p)
+                t = (left, p)
+                if not t in answers:
+                    answers.append(t)
+        print(f'pair sum is {self.limit}')
+        for i in answers:
+            print(i)
+
+    def find_piece(self):
+        ''' find_piece '''
         for sz in range(len(self.primes)-1, 1, -1):
             for i in range(len(self.primes)-(sz-1)):
                 s = slice(i, i+sz)
@@ -40,7 +56,9 @@ class Solution():
     def run(cls):
         ''' run '''
         obj = cls()
-        obj.action()
+        obj.show_total()
+        obj.check_pair_sum()
+        obj.find_piece()
 
 def main():
     ''' main '''
