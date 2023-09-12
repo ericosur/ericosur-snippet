@@ -2,7 +2,7 @@
 # coding: utf-8
 
 '''
-
+find one square
 '''
 
 def one_square(n):
@@ -15,11 +15,8 @@ def one_square(n):
 def main():
     ''' main '''
     for x in range(9,9+5):
-        r=one_square(x)
+        r = one_square(x)
         print(x, r)
-
-
-
 
 if __name__ == '__main__':
     main()

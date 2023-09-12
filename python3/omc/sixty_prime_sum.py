@@ -33,7 +33,7 @@ class Solution():
                 if left > p:
                     (p, left) = (left, p)
                 t = (left, p)
-                if not t in answers:
+                if t not in answers:
                     answers.append(t)
         print(f'pair sum is {self.limit}')
         for i in answers:

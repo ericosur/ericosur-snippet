@@ -5,9 +5,6 @@
 3 same digit from 1001 to 2008
 '''
 
-import itertools as it
-import operator
-
 class Solution():
     ''' solution '''
     lower = 1001
@@ -24,8 +21,7 @@ class Solution():
         if 3 in counts:
             print(val, counts)
             return True
-        else:
-            return False
+        return False
 
     def count_digits(self, val):
         '''
