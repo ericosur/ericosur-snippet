@@ -8,8 +8,8 @@ sum of a and b is 4m
 
 import itertools as it
 
-
 def get_result(x):
+    ''' get result '''
     a = abs(x[0] - x[1])
     b = abs(x[1] - x[2])
     c = abs(x[2] - x[3])

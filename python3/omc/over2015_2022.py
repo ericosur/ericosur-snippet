@@ -6,7 +6,6 @@ p = 1 + 20 + 39 + 58 + ... + 2015
 q = 2 + 4 + 6 + ... + 2022
 '''
 
-
 def main():
     ''' main '''
     p_limit=2015
@@ -32,7 +31,5 @@ def main():
     print(q[-1], sum(q))
 
 
-
 if __name__ == '__main__':
     main()
-

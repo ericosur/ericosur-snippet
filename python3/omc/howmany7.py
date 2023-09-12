@@ -5,9 +5,6 @@
 3 same digit from 1001 to 2008
 '''
 
-import itertools as it
-import operator
-
 class Solution():
     ''' solution '''
     lower = 1

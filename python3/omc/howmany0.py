@@ -5,9 +5,6 @@
 1 to 10000, how many digit 0 are written
 '''
 
-import itertools as it
-import operator
-
 class Solution():
     ''' solution '''
     lower = 1
