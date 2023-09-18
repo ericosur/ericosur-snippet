@@ -8,13 +8,13 @@ part of 71k
 '''
 
 class Solution():
+    ''' to solve '''
     PART = [(0,1,2), (0,1,3), (0,1,4), (1,2,3), (1,2,4), (2,3,4)]
 
-    def init(self):
-        pass
 
     @staticmethod
     def get_part(v):
+        ''' fetch one combination from PART '''
         parts = []
         t = []
         for p in Solution.PART:
@@ -25,16 +25,20 @@ class Solution():
 
     @staticmethod
     def is_inrange(n):
+        ''' it should be a 2-digit number '''
         return 10<=n<=99
 
     @staticmethod
     def isparts37(parts):
+        ''' is multiple of 37 '''
         for (t, i) in parts:
             if sum(t) % 37 == 0:
                 return (t, i)
         return None
 
+    @staticmethod
     def isparts71(parts):
+        ''' is multiple of 71 '''
         for (t, i) in parts:
             if sum(t) % 71 == 0:
                 return (t, i)
@@ -42,9 +46,10 @@ class Solution():
 
     @staticmethod
     def get_values(start):
+        ''' get values '''
         vals = []
         t = start
-        for i in range(5):
+        for _ in range(5):
             if Solution.is_inrange(t):
                 vals.append(t)
                 t += 1
@@ -54,6 +59,7 @@ class Solution():
 
     @staticmethod
     def show(msg, klist):
+        ''' show results '''
         print(msg)
         for (t, i) in klist:
             s = sum(i[0])

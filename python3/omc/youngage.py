@@ -7,13 +7,8 @@ one guy who's age is the sum of birth year digits in 2017
 '''
 
 class Solution():
+    ''' to solve '''
     UPPER = 2017
-    def init(self):
-        pass
-
-    @staticmethod
-    def is_valid(n):
-        pass
 
     def action(self):
         ''' action '''
