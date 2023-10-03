@@ -3,6 +3,7 @@
 
 ''' read from and write into '''
 
+# pylint: disable=import-error
 from time import sleep
 from openpyxl import load_workbook
 
