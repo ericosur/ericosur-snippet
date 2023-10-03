@@ -27,12 +27,12 @@ def read_secret():
     home = os.environ.get('HOME')
     file = home + '/Private/geocoding-key.json'
     # read from json file
-    with open(file) as sec_file:
+    with open(file, 'rt', encoding='UTF-8') as sec_file:
         data = json.load(sec_file)
     key = data.get('key')
     email = data.get('email')
     if DEBUG:
-        print("apikey:{0}\nemail:{1}".format(key, email))
+        print(f"apikey:{key}\nemail:{email}")
     return (key, email)
 
 
@@ -44,7 +44,7 @@ def query_geocoding(addr, key, email):
     payload = {'address': addr, 'ekey': key, 'email': email}
     url = "https://plus.codes/api"
 
-    r = requests.get(url, params=payload)
+    r = requests.get(url, params=payload, timeout=5.0)
     print('url:', r.url)
     print("r.json():", r.json())
     print("r.text:", r.text)
@@ -52,11 +52,10 @@ def query_geocoding(addr, key, email):
     print('plus code:', j['plus_code']['global_code'])
     print('location:', j['plus_code']['geometry']['location'])
 
-    fn = 'geo-{}.json'.format(time.time())
-    with open(fn, 'wt') as geofile:
+    fn = f'geo-{time.time()}.json'
+    with open(fn, 'wt', encoding='UTF-8') as geofile:
         geofile.write(json.dumps(j))
-    print('output to {}'.format(fn))
-
+    print(f'output to {fn}')
 
 def main(argv):
     ''' main '''
