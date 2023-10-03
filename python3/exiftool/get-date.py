@@ -7,10 +7,6 @@ demo of module PyExifTool
 
 from glob import glob
 import os
-import re
-import sys
-import datetime
-
 
 def main():
     ''' main '''
@@ -22,7 +18,6 @@ def main():
         print(d)
         if cnt > 5:
             break
-
 
 if __name__ == '__main__':
     main()
