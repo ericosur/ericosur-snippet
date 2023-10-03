@@ -15,8 +15,6 @@ try:
     USE_TOML = True
 except ImportError:
     print('[INFO] no toml function')
-    pass
-
 
 try:
     from exiftool import ExifToolHelper
