@@ -9,19 +9,23 @@ sum of serial evens = 60
 
 
 class Solution():
+    ''' find solution of serial odds and evens '''
     LIMIT = 60
-    def init(self):
+
+    def __init__(self):
         self.odds = []
         self.evens = []
 
     @staticmethod
     def gen_odd(k):
+        ''' generate odd numbers '''
         if k < 0:
             raise ValueError
         return 2*k+1
 
     @staticmethod
     def gen_even(k):
+        ''' generate even numbers '''
         if k < 0:
             raise ValueError
         return 2*k
@@ -31,7 +35,7 @@ class Solution():
         ''' n is length '''
         nums = []
         tmp = k
-        for i in range(n):
+        for _ in range(n):
             if isOdd:
                 v = Solution.gen_odd(tmp)
             else:

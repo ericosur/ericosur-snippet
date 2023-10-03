@@ -6,6 +6,7 @@ reference:
 https://matplotlib.org/stable/tutorials/colors/colormaps.html
 '''
 
+# pylint: disable=import-error
 
 import numpy as np
 import matplotlib as mpl
