@@ -5,16 +5,14 @@
 https://en.wikipedia.org/wiki/Faro_shuffle
 '''
 
-import random
-
 # implement fisher-yates shuffle in python
 
-def shuffle_array(arr, debug=False):
+def shuffle_array(arr):
     '''shuffle array using fisher'''
     half = len(arr) // 2
     p = arr[:half]
     q = arr[half:]
-    res = list()
+    res = []
     for i in range(half):
         res.append(p[i])
         res.append(q[i])
