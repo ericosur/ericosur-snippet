@@ -8,12 +8,10 @@ What sum did she obtain?
 '''
 
 class Solution():
+    ''' solution '''
+
     LOWER=1
     UPPER=100
-
-    def __init__(self):
-        pass
-
 
     def get_digits(self, val):
         ''' return true if ascending '''
@@ -38,14 +36,13 @@ class Solution():
 
     @classmethod
     def run(cls):
+        ''' run this '''
         obj = cls()
         obj.check_all()
-
 
 def main():
     ''' main '''
     Solution.run()
-
 
 if __name__ == '__main__':
     main()

@@ -8,13 +8,13 @@ find one square
 def one_square(n):
     ''' square '''
     t = 2 * n
-    for i in range(n-2):
+    for _ in range(n-2):
         t += 2
     return t
 
 def main():
     ''' main '''
-    for x in range(9,9+5):
+    for x in range(9, 9+5):
         r = one_square(x)
         print(x, r)
 

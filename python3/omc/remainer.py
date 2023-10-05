@@ -10,7 +10,7 @@ divides by 8 remain 5
 divides by 13 remain 11
 '''
 
-
+# pylint: disable=invalid-name
 class Solution():
     ''' class solution '''
     def __init__(self):

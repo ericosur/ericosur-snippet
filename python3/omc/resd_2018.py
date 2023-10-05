@@ -9,11 +9,11 @@ today A takes a rest and B will rest next day.
 How many days later will A and B both rest?
 '''
 
-import itertools as it
-
 class Solution():
+    ''' class to find answer '''
     WORK_A = 9
     WORK_B = 6
+
     def __init__(self):
         self.day_over = 0
 
@@ -33,6 +33,7 @@ class Solution():
 
     @classmethod
     def run(cls):
+        ''' run this '''
         obj = cls()
         obj.action()
 

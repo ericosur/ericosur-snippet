@@ -12,6 +12,7 @@ def test() -> None:
     print(pow(56,56,13))
 
 def is_valid(n):
+    ''' is valid for this question '''
     primes = [3,5,7,11,13]
     for p in primes:
         if n % p != 2:
@@ -19,12 +20,11 @@ def is_valid(n):
     return True
 
 def test2():
-    primes = [3,5,7,11,13]
+    ''' test2 '''
     for i in range(3,200000):
         if is_valid(i):
             print(i)
             break
-
 
 def main() -> None:
     ''' main '''
