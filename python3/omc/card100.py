@@ -7,7 +7,7 @@ not 3's multiple, nor not 7's multiple
 
 def main():
     ''' main '''
-    cards = [ x for x in range(1, 101) ]
+    cards = list(range(1, 101))
     t3 = []
     for c in cards:
         if c % 3 == 0:
