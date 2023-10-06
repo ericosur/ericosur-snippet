@@ -47,19 +47,42 @@ class DrivingData():
         else:
             self.csvfile = csvfile
 
+    def get_default_config(self):
+        ''' search config file in default paths '''
+        home = os.getenv('HOME')
+        default_fn = 'driving_data.json'
+        paths = []
+        # 1. home/Private/
+        tmp = os.path.join(home, 'Private', default_fn)
+        paths.append(tmp)
+        # 2. home
+        tmp = os.path.join(home, default_fn)
+        paths.append(tmp)
+        # 3. local
+        tmp = os.path.join('./', default_fn)
+        paths.append(tmp)
+        for q in paths:
+            if os.path.exists(q):
+                return q
+
+        return None
+
     def read_setting(self, conf_file):
         ''' read setting '''
         if self.debug:
             print('read_setting()')
 
-        if conf_file is None:
-            home = os.getenv('HOME')
-            self.jsonpath = home + '/Private/driving_data.json'
-        else:
+        if conf_file:
             self.jsonpath = conf_file
-        if not os.path.exists(self.jsonpath):
-            print('[ERROR] setting file not found', self.jsonpath)
+        else:
+            self.jsonpath = self.get_default_config()
+
+        if self.jsonpath is None or not os.path.exists(self.jsonpath):
+            print('[ERROR] no config is specified, exit...')
             sys.exit(1)
+        print(f'[INFO] using config: {self.jsonpath}')
+
+
         self.jsondata = read_jsonfile(self.jsonpath)
         self.docid = self.jsondata.get('docid', '')
         self.sheetid = self.jsondata.get('sheetid', '')
