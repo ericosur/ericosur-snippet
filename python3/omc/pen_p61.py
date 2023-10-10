@@ -2,9 +2,11 @@
 # coding: utf-8
 
 '''
+how many pens ?
 '''
 
 class Solution():
+    ''' find solution '''
     TOTAL = 100
     def __init__(self):
         self.p = 0
@@ -13,12 +15,14 @@ class Solution():
 
     @staticmethod
     def check(n, p, e):
+        ''' check if valid '''
         return 3*e > n > 2*p > 8*e/3
 
     def action(self):
         '''  action '''
         # n > p > e
         cnt = 0
+        # pylint: disable=too-many-nested-blocks
         for n in range(100,1,-1):
             for p in range(100-n, 1,-1):
                 for e in range(100-n-p, 1,-1):
@@ -31,6 +35,7 @@ class Solution():
 
     @classmethod
     def run(cls):
+        ''' run me '''
         obj = cls()
         obj.action()
 
