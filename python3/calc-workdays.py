@@ -12,7 +12,7 @@ from myutil import read_jsonfile, get_home
 class CalcWork():
     ''' calc work class '''
     DATA_FILE = 'working-days.json'
-    DEBUG = True
+    DEBUG = False
 
     def __init__(self):
         self.conf = ""
@@ -34,6 +34,7 @@ class CalcWork():
         p = os.path.join(homedir, self.DATA_FILE)
         try_paths.append(p)
         p = os.path.join(homedir, 'Private', self.DATA_FILE)
+        try_paths.append(p)
 
         for x in try_paths:
             if os.path.exists(x):
@@ -43,6 +44,9 @@ class CalcWork():
                 self.max_year = self.data['maxyear']
                 self.min_year = self.data['minyear']
                 return
+            else:
+                if self.DEBUG:
+                    print(f'not found at: {x}')
 
         print('[ERROR] config file not found')
         sys.exit(1)
