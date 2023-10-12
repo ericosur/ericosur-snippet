@@ -4,6 +4,8 @@
 '''
 use yagmail to send mail via gmail
 
+NOTE: for reference, not work in my workspace
+
 reference:
 - https://github.com/kootenpv/yagmail
 - http://blog.macuyiko.com/post/2016/how-to-send-html-mails-with-oauth2-and-gmail-in-python.html
@@ -19,14 +21,18 @@ try:
     import yagmail
     print('yagmail:', yagmail.__version__)
 except ImportError:
-    print('ggmail: cannot import module: yagmail')
+    print(f'{__file__}: cannot import module: yagmail')
     sys.exit(1)
 
-sys.path.insert(0, '/home/rasmus/src/ericosur-snippet/python3')
+# try to add my code snippet into python path
+HOME = os.getenv('HOME')
+UTILPATH = os.path.join(HOME, '/src/ericosur-snippet/python3')
+if os.path.exists(UTILPATH):
+    sys.path.insert(0, UTILPATH)
 try:
     from myutil import read_jsonfile, isfile
 except ImportError:
-    print('ggmail: cannot import module: myutil')
+    print(f'{__file__}: cannot import module: myutil')
     sys.exit(1)
 
 
