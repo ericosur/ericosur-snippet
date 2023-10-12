@@ -35,7 +35,7 @@ def main():
     def _show(y):
         print(calculate_easter(y))
 
-    for y in range(2018, 2029):
+    for y in range(2020, 2029):
         _show(y)
 
 if __name__ == '__main__':
