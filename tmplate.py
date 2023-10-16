@@ -6,23 +6,28 @@ template script
 '''
 
 class Solution():
-	''' class solution '''
-	def __init__(self):
-		self.value = 0
+    ''' class solution '''
+    def __init__(self):
+        self.value = 0
 
-	def action(self):
-		''' action '''
-		print('action!')
+    @staticmethod
+    def test():
+        ''' test '''
+        print('test staticmethod')
 
-	@classmethod
-	def run(cls):
-		''' run '''
-		obj = cls()
-		obj.action()
+    def action(self):
+        ''' action '''
+        print('action!')
+
+    @classmethod
+    def run(cls):
+        ''' run '''
+        obj = cls()
+        obj.action()
 
 def main():
-	''' main '''
-	Solution.run()
+    ''' main '''
+    Solution.run()
 
 if __name__ == '__main__':
-	main()
+    main()
