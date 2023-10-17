@@ -23,6 +23,17 @@ if os.path.exists(UTILPATH):
 from myutil import require_python_version
 ```
 
+## config / data serialization
+
+* python, refer to ```emoji/_emoji.py``` and ```emoji/test_emoji.py```
+  * use ```import _emoji``` to use all python built-in data structures
+* json, ```import json```
+  * cannot put comment in the json
+* toml, ```import toml``` or ```import tomllib```
+  * standard library supported from python 3.11+ (need use 3rd module for older version of python)
+* pickle, ```import pickle```
+* txt, use **re** to parse
+
 
 ## f-string
 
@@ -33,7 +44,6 @@ The minimum python version to support f-strings is python 3.6.
 ```
 source $(goto -x conda)/conda.sh
 ```
-
 
 ```
 conda create --name mypy python=3.10
