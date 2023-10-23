@@ -37,7 +37,7 @@ except ImportError:
 
 # local modules
 from findlist_func import index, find_le, find_ge
-from myutil import read_jsonfile, get_home
+from load_myutil import read_jsonfile, get_home
 
 class StorePrimeToRedis():
     ''' class will help to handle read pickle file '''

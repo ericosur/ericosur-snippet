@@ -12,15 +12,18 @@ import re
 from time import time
 from findlist_func import index, find_le, find_ge
 
+MODNAME = "StorePrime"
+
 class StorePrime():
     ''' class will help to handle read pickle file '''
-    def __init__(self, txtfn='small.txt', pfn='small.p'):
+
+    def __init__(self, txtfn="small.txt", pfn="small.p"):
         #print('__init__')
         # init values
         self.pvalues = None
         self.cache_hit = 0
-        self.pfile = pfn
-        self.txtfile = txtfn
+        self.pfn = pfn
+        self.txtfn = txtfn
         self.init_size = 0
         self.need_save = False
 
@@ -34,7 +37,7 @@ class StorePrime():
         #print('__exit__')
         #print('len(self.pvalues)', len(self.pvalues))
         #print('self.init_size', self.init_size)
-        if self.pvalues and not os.path.exists(self.pfile):
+        if self.pvalues and not os.path.exists(self.pfn):
             self.save_pickle()
 
     def __str__(self):
@@ -53,6 +56,7 @@ class StorePrime():
     @staticmethod
     def get_local_data_path():
         ''' get data file from local '''
+        print(f'[INFO] {MODNAME}: try local data dir...')
         p =  os.path.join(os.getenv('HOME'), '.prime')
         if os.path.exists(p):
             return p
@@ -60,49 +64,48 @@ class StorePrime():
 
     def _try_pickle_file(self):
         ''' _try_pickle_file '''
-        if not os.path.exists(self.pfile):
+        if not os.path.exists(self.pfn):
             p = self.get_local_data_path()
-            f = os.path.join(p, self.pfile)
+            f = os.path.join(p, self.pfn)
             if os.path.exists(f):
-                self.pfile = f
-        if not os.path.exists(self.pfile):
-            raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), self.pfile)
+                self.pfn = f
+        if not os.path.exists(self.pfn):
+            raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), self.pfn)
 
     def _try_text_file(self):
         ''' _try_text_file '''
-        if not os.path.exists(self.txtfile):
+        if not os.path.exists(self.txtfn):
             p = self.get_local_data_path()
-            f = os.path.join(p, self.txtfile)
+            f = os.path.join(p, self.txtfn)
             if os.path.exists(f):
-                self.txtfile = f
-        if not os.path.exists(self.txtfile):
-            raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), self.txtfile)
+                self.txtfn = f
+        if not os.path.exists(self.txtfn):
+            raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), self.txtfn)
 
     def load_pickle_impl(self) -> bool:
         ''' load pickle implementation '''
-        print('store_prime: load_pickle_impl()')
+        #print(f'{MODNAME}: load_pickle_impl()')
         start = time()
         self._try_pickle_file()
-        with open(self.pfile, "rb") as inf:
+        with open(self.pfn, "rb") as inf:
             self.pvalues = pickle.load(inf)
             self.need_save = False
         duration = time() - start
-        print(f'store_prime: duration: {duration:.3f} sec')
+        print(f'[INFO] {MODNAME}: load_pickle_impl() from {self.pfn}')
+        print(f'[INFO] {MODNAME}: duration: {duration:.3f} sec')
         return True
 
     def load_pickle(self):
-        '''
-        load pickle file, or from text
-        '''
+        ''' load pickle file, or from text '''
         try:
             return self.load_pickle_impl()
         except FileNotFoundError:
-            print('store_prime: pickle file not found, try to load text file')
+            print(f'[INFO] {MODNAME}: pickle not found, try to load text file')
             self.pvalues = []
 
         self._try_text_file()
         start = time()
-        with open(self.txtfile, "rt", encoding='utf8') as txtinf:
+        with open(self.txtfn, "rt", encoding='utf8') as txtinf:
             self.need_save = True
             error_count = 0
             while True:
@@ -119,17 +122,18 @@ class StorePrime():
                 else:
                     error_count += 1
         duration = time() - start
-        print(f'store_prime: load from text file duration: {duration:.3f} sec')
+        print(f'[INFO] {MODNAME}: load from text file {self.txtfn} duration: {duration:.3f} sec')
         return True
 
     def save_pickle_impl(self):
         ''' implementation of save pickle '''
-        with open(self.pfile, 'wb') as outf:
+        with open(self.pfn, 'wb') as outf:
             pickle.dump(self.pvalues, outf)
+        print(f'[INFO] {MODNAME} save pickle as {self.pfn}')
 
     def save_pickle(self):
         ''' save pvalues into pickle file '''
-        print('save pickle')
+        #print(f'{MODNAME} save pickle')
         if self.pvalues is None:
             return
         if self.need_save:
@@ -156,7 +160,7 @@ class StorePrime():
         _max = self.pvalues[-1]
         _min = self.pvalues[0]
         if val > _max or val < _min:
-            print('[ERROR] out of bound')
+            print(f'[ERROR] out of bound: {_min=} {val=} {_max=}')
             return None
         if val == _min:
             return [2]
@@ -208,6 +212,7 @@ class StorePrime():
 
         # start to binary search
         _max = len(self.pvalues) - 1
+        _max_repeat = _max / 4
         _min = 0
         _mid = 0
         _cnt = 0
@@ -220,8 +225,8 @@ class StorePrime():
                 _min = _mid
             if _min > _max or _min == _max - 1:
                 break
-            if _cnt > 20:
-                print('exceed count')
+            if _cnt > _max_repeat:
+                print(f'{MODNAME}: exceed count')
                 break
         return (_min, _max)
 

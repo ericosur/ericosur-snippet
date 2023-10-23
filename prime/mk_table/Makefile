@@ -1,4 +1,4 @@
-all: smallprimes.xlsx sp.gpg
+all: smallprimes.xlsx
 
 nothing:
 	@echo "**make clean** to cleanup"
@@ -6,8 +6,5 @@ nothing:
 smallprimes.xlsx:	mk_table.py
 	@python3 mk_table.py
 
-sp.gpg: smallprimes.xlsx
-	@bash sendit.sh
-
 clean:
-	rm -f smallprimes.xlsx sp.gpg
+	rm -f smallprimes.xlsx

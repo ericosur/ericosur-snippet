@@ -11,8 +11,7 @@ import os
 import random
 from itertools import islice
 from line_count import bufcount
-from myutil import read_setting, get_home
-
+from load_myutil import read_setting, get_home
 
 # pylint: disable=global-statement
 

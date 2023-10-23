@@ -28,13 +28,13 @@ import random
 
 class LoadPrimeFromText():
     ''' class will help to handle read pickle file '''
-    def __init__(self, txtfn='prime_100k.txt', pfn='small.p'):
+    def __init__(self, txtfn, pfn):
         #print('__init__')
         # init values
         self.pvalues = None
         self.cache_hit = 0
-        self.pfile = pfn
-        self.txtfile = txtfn
+        self.pfn = pfn
+        self.txtfn = txtfn
         self.init_size = 0
         self.need_save = False
 
@@ -48,7 +48,7 @@ class LoadPrimeFromText():
         #print('__exit__')
         #print('len(self.pvalues)', len(self.pvalues))
         #print('self.init_size', self.init_size)
-        if self.pvalues and not os.path.exists(self.pfile):
+        if self.pvalues and not os.path.exists(self.pfn):
             self.save_pickle()
 
     def __str__(self):
@@ -64,24 +64,19 @@ class LoadPrimeFromText():
         ''' get length of pickle '''
         return len(self.pvalues)
 
-    def load_pickle(self):
+    def load_txtfile(self):
+        ''' load primes from txt file, the format is
+            1 2
+            2 3
+            3 5
+            4 7
+            5 11
         '''
-        load pickle file, or from text
-        '''
-        try:
-            with open(self.pfile, "rb") as inf:
-                self.pvalues = pickle.load(inf)
-                self.need_save = False
-                return True
-        except IOError:
-            print('pickle file not found, try to load text file')
-            self.pvalues = []
-
-        if not os.path.exists(self.txtfile):
-            print(f'{self.txtfile} not found, exit')
+        if not os.path.exists(self.txtfn):
+            print(f'{self.txtfn} not found, exit')
             return False
 
-        with open(self.txtfile, "rt", encoding='utf8') as txtinf:
+        with open(self.txtfn, "rt", encoding='utf8') as txtinf:
             self.need_save = True
             while True:
                 ln = txtinf.readline().strip()
@@ -91,7 +86,23 @@ class LoadPrimeFromText():
                 if result and len(result.groups()) == 2:
                     el = int(result.groups()[1])
                     self.pvalues.append(el)
+        print(f'[INFO] {__file__}: load from {self.txtfn}')
         return True
+
+    def load_pickle(self):
+        ''' load pickle file, or from text '''
+        if os.path.exists(self.pfn):
+            try:
+                with open(self.pfn, "rb") as inf:
+                    self.pvalues = pickle.load(inf)
+                    self.need_save = False
+                    print(f'[INFO] {__file__}: load from {self.pfn}')
+                    return True
+            except IOError:
+                print(f'[INFO] {__file__}: pickle file not found, try to load text file')
+
+        self.pvalues = []
+        return self.load_txtfile()
 
     def find(self, val):
         ''' find val in list of primes '''
@@ -162,14 +173,13 @@ class LoadPrimeFromText():
 
     def save_pickle(self):
         ''' save pvalues into pickle file '''
-        print('save pickle')
+        #print(f'[INFO] {__file__}: save_pickle...')
         if self.pvalues is None:
             return
         if self.need_save:
-            with open(self.pfile, 'wb') as outf:
+            print(f'[INFO] save pickle to {self.pfn}')
+            with open(self.pfn, 'wb') as outf:
                 pickle.dump(self.pvalues, outf)
-        else:
-            print('no need to save')
 
 def show(v, p, q):
     ''' show '''
@@ -189,7 +199,7 @@ def show(v, p, q):
 
 def main(argv):
     ''' main function '''
-    with LoadPrimeFromText() as sp:
+    with LoadPrimeFromText("prime_100k.txt", "prime100k.p") as sp:
 
         print(sp)
 
