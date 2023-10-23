@@ -9,6 +9,7 @@ given cli argument to get lower/upper prime
 import sys
 import random
 from lcp import LoadCompressPrime
+from load_myutil import get_largedata_path
 
 # pylint: disable=invalid-name
 def test(argv, sp):
@@ -50,9 +51,9 @@ def test(argv, sp):
 
 def main(argv):
     ''' main function '''
-    with LoadCompressPrime() as sp:
+    txtfn, _, pzfn = get_largedata_path()
+    with LoadCompressPrime(txtfn, pzfn) as sp:
         test(argv, sp)
-
 
 if __name__ == '__main__':
     try:

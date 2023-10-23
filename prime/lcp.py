@@ -17,19 +17,21 @@ from time import time
 try:
     import compress_pickle
 except ImportError as err:
-    print('lcp.py: cannot load module **compress_pickle**')
-    raise ImportError("lcp.py cannot load module") from err
+    print(f'[FAIL] {__file__}: cannot load module **compress_pickle**')
+    raise ImportError(f"[FAIL] {__file__} cannot load module") from err
 
 from store_prime import StorePrime
 
 # pylint: disable=invalid-name
+
+MODNAME = "lcp.py"
 
 class LoadCompressPrime(StorePrime):
     '''
     this class inherits from StorePrime and overrides load_pickle() and
     save_pickle(), which are using "compress_pickle" to load/save pickle data
     '''
-    def __init__(self, txtfn='large.txt', pfn='large.p.lzma'):
+    def __init__(self, txtfn="small.txt", pfn="small.p.lzma"):
         super().__init__(txtfn, pfn)
         #print('__init__')
 
@@ -38,22 +40,22 @@ class LoadCompressPrime(StorePrime):
             self.init_size = 0
         else:
             self.init_size = len(self.pvalues)
-        msg = "LoadCompressPrime: "
-        msg = msg + f'min: {self.pvalues[0]} '
-        msg = msg + f'max: {self.pvalues[-1]} '
-        msg = msg + f'total primes: {self.init_size}'
+
+        msg = f'''
+{MODNAME}: min: {self.pvalues[0]} max: {self.pvalues[-1]} total primes: {self.init_size}
+'''
+        msg = msg.strip()
         return msg
 
     def load_pickle_impl(self):
         ''' overrides StorePrime::load_pickle_impl() '''
         start = time()
-        #self.pvalues = compress_pickle.load(self.pfile, compression="lzma")
         super()._try_pickle_file()
-        self.pvalues = compress_pickle.load(self.pfile)
+        self.pvalues = compress_pickle.load(self.pfn)
         self.need_save = False
-        print('load_pickle_impl pvalues from:', self.pfile)
+        print(f'{MODNAME}: pvalues from:', self.pfn)
         duration = time() - start
-        print(f'load_pickle_impl duration: {duration:.3f} sec')
+        print(f'{MODNAME}: duration: {duration:.3f} sec')
         return True
 
     def save_pickle_impl(self):
@@ -62,7 +64,8 @@ class LoadCompressPrime(StorePrime):
         overrides class StorePrime::save_pickle_impl()
         '''
         #compress_pickle.dump(self.pvalues, self.pfile, compression="lzma")
-        compress_pickle.dump(self.pvalues, self.pfile)
+        compress_pickle.dump(self.pvalues, self.pfn)
+        print(f'[INFO] {MODNAME} save pickle as {self.pfn}')
 
 if __name__ == '__main__':
     print('run **run_example.py -l** to see the demo of this implementation...')

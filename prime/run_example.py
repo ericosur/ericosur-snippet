@@ -7,7 +7,7 @@ test StorePrime
 
 import argparse
 import random
-from myutil import read_setting
+from load_myutil import get_largedata_path, get_bigdata_path
 from store_prime import StorePrime
 from lcp import LoadCompressPrime
 
@@ -49,23 +49,17 @@ def main():
     parser.add_argument("-l", "--lcp", action='store_true', help='run lcp, LoadCompressPrime')
     args = parser.parse_args()
 
-    # if args.lcp:
-    #     print('run lcp')
-    # else:
-    #     print('run sp')
-
-    data = read_setting('setting.json')
-    txtfn = data['prime_large']
-    pfn = data['pickle_large']
-    print(txtfn, pfn)
+    txtfn, pfn, _ = get_bigdata_path()
+    print(f'{__file__}: {txtfn=}, {pfn=}')
 
     if args.lcp:
+        print('args.lcp...')
         with LoadCompressPrime() as lcp:
             test(args.ints, lcp)
     else:
+        print('args.sp...')
         with StorePrime(txtfn, pfn) as sp:
             test(args.ints, sp)
-
 
 if __name__ == '__main__':
     main()

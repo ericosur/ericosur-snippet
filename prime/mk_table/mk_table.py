@@ -5,20 +5,13 @@
 load prime numbers from table and output to a xlsx file
 '''
 
+import os
 import sys
 import sympy
 
-sys.path.insert(0, '../')
-
-# try to import StorePrime class
-try:
-    # larger and slower for loading pickle
-    from sip import LoadCompressPrime as StorePrime
-    print('mk_table: use **LoadCompressPrime**')
-except ImportError:
-    # smaller and quicker for loading pickle
-    from store_prime import StorePrime
-    print('mk_table: use **store_prime**')
+# pylint: disable=import-error
+# disable=unused-import
+# pylint: disable=wrong-import-position
 
 XLSWRITER_OK = False
 try:
@@ -27,21 +20,34 @@ try:
 except ImportError:
     print('cannot import module xlsxwriter, WILL NOT output to xlsx file')
 
+sys.path.insert(0, '../')
+from load_myutil import read_setting, gethome, get_smalltxt_path
+
+# try to import StorePrime class
+try:
+    # larger and slower for loading pickle
+    from sip import LoadCompressPrime as StorePrime
+    print(f'[INFO] {__file__}: use **LoadCompressPrime**')
+except ImportError:
+    # smaller and quicker for loading pickle
+    from store_prime import StorePrime
+    print(f'[INFO] {__file__}: use **store_prime**')
+
 # pylint: disable=invalid-name
 class Solution():
     ''' test date is a prime '''
     def __init__(self, upper=1000):
-        self.sp = StorePrime(txtfn='../small.txt')
+        self.sp = StorePrime(txtfn=get_smalltxt_path())
         if not self.sp.load_pickle():
-            print('mk_table: load_pickle() failed')
+            print(f'[FAIL] {__file__}: load_pickle() failed')
             sys.exit(1)
-        self.arr = list()
+        self.arr = []
         self.upper = upper
 
     def _check(self):
         ''' check '''
         if not self.arr:
-            print('mk_table: arr is empty')
+            print(f'[INFO] {__file__}: arr is empty')
             sys.exit(1)
 
     def output(self):
@@ -65,7 +71,7 @@ class Solution():
         for i, d in enumerate(self.arr):
             ws.write(i%max_item_one_row, i//max_item_one_row, d, cell_format)
         wb.close()
-        print('output to {}'.format(fn))
+        print(f'[INFO] output to {fn}')
 
     def run(self):
         ''' run '''
@@ -75,7 +81,7 @@ class Solution():
         prime_n = sympy.ntheory.generate.primepi(self.upper)
         assert prime_n == len(self.arr)
 
-        print('[INFO] There are {} primes under {}'.format(prime_n, self.upper))
+        print(f'[INFO] There are {prime_n} primes under {self.upper}')
         self.output()
         if XLSWRITER_OK:
             self.output_xls()

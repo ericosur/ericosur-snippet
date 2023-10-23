@@ -17,7 +17,7 @@ shuf -i 1001-9999 -n 10 | python3 check_prime.py -s
 
 import argparse
 import sys
-from myutil import read_from_stdin
+from load_myutil import read_from_stdin
 try:
     #from sympy import sympy.ntheory.primetest.isprime
     from sympy import ntheory

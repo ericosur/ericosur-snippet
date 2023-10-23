@@ -57,7 +57,7 @@ def show(v, p, q):
 
 def main():
     ''' main function '''
-    with StorePrime() as sp:
+    with StorePrime("small.txt", "small.p") as sp:
 
         ''' inner function '''
         def test(v):

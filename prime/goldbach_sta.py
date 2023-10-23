@@ -118,7 +118,7 @@ def print_duration(start, end, msg=''):
     ''' print duration '''
     print(f'{msg} duration: {end-start:.3f} seconds (wall clock)')
 
-
+# pylint: disable=used-before-assignment
 def run_this():
     ''' run this for pythonista '''
     ret = console.input_alert('input a number')

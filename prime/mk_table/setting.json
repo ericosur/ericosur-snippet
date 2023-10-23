@@ -2,10 +2,8 @@
     "prime_path": ".prime",
     "prime_large": "large.txt",
     "pickle_large": "large.p",
-    "pickle_large_compress": "large.p.lzma",
     "prime_big": "big.txt",
     "pickle_big": "big.p",
-    "pickle_big_compress": "big.p.lzma",
     "prime_small": "small.txt",
     "pickle_small": "small.p"
 }

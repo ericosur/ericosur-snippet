@@ -28,12 +28,12 @@ import sys
 #
 try:
     from lcp import LoadCompressPrime as StorePrime
-    print('use **LoadCompressPrime**')
+    print('[INFO] use **LoadCompressPrime**')
 except ImportError:
     # smaller and quicker for loading pickle
     #from store_prime import StorePrime
     #print('use **store_prime**')
-    print("ERROR: cannot use StorePrime to calculate")
+    print("[FAIL] cannot use StorePrime to calculate")
     sys.exit(1)
 
 # pylint: disable=invalid-name
