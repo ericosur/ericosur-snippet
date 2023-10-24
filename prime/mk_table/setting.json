@@ -5,6 +5,8 @@
     "prime_big": "big.txt",
     "pickle_big": "big.p",
     "prime_small": "small.txt",
-    "pickle_small": "small.p"
+    "pickle_small": "small.p",
+    "2t_txt": "2T_p1to6.txt",
+    "2t_pickle": "2T.p",
+    "2t_compress_pickle": "2T.p.lzma"
 }
-
