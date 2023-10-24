@@ -262,6 +262,16 @@ class StorePrime():
             return
         StorePrime.show(v, self.at(p), self.at(q))
 
+    def get_around(self, v: int) -> None:
+        ''' return (p, q) (index, not the value), if p and q is none, p is a prime
+            if both none, has no answer (maybe out-of-bound)
+        '''
+        (p, q) = self.bisect_between_idx(v)
+        if p is None:
+            print('\tno answer for this')
+            return (None, None)
+        return (p, q)
+
     def list_nearby(self, v: int) -> list:
         ''' print primes nearby v '''
         (p, q) = self.bisect_between_idx(v)

@@ -5,7 +5,7 @@
 module that helps to load functions in myutil
 '''
 
-__VERSION__ = "2023.10.23"
+__VERSION__ = "2023.10.24"
 SETTING_FILE = "setting.json"
 
 # pylint: disable=import-error
@@ -41,33 +41,108 @@ def read_from_stdin(fn):
     ''' read from stdin '''
     return myutil.read_from_stdin(fn)
 
-def get_smalltxt_path():
-    ''' get prime data file path '''
-    d = read_setting(SETTING_FILE)
-    if d is None:
-        print(f'[FAIL] {__file__}: fail to read settings')
-        sys.exit(1)
-    txtfn = os.path.join(gethome(), d['prime_path'], d['prime_small'])
-    return txtfn
+class GetConfig():
+    ''' a wrapper class to load config for primes '''
+    sizes = ["small", "big", "large", "h119"]
+    allkeys = ["txt", "pickle", "compress_pickle", "max", "num"]
 
-def get_largedata_path():
-    ''' get large prime data file path '''
-    d = read_setting(SETTING_FILE)
-    if d is None:
-        print(f'[FAIL] {__file__}: fail to read settings')
-        sys.exit(1)
-    txtfn = os.path.join(gethome(), d['prime_path'], d['prime_large'])
-    pfn = os.path.join(gethome(), d['prime_path'], d['pickle_large'])
-    pzfn = os.path.join(gethome(), d['prime_path'], d['pickle_large_compress'])
-    return txtfn, pfn, pzfn
+    def __init__(self, conf="setting.json"):
+        self.home = gethome()
+        self.conf = conf
+        self.d = read_setting(self.conf)
+        if self.d is None:
+            print(f'[FAIL] {__file__}: fail to read settings')
+            sys.exit(1)
+        self.ppath = self.d['prime_path']
+        self.key = None
 
-def get_bigdata_path():
-    ''' get large prime data file path '''
-    d = read_setting(SETTING_FILE)
-    if d is None:
-        print(f'[FAIL] {__file__}: fail to read settings')
-        sys.exit(1)
-    txtfn = os.path.join(gethome(), d['prime_path'], d['prime_big'])
-    pfn = os.path.join(gethome(), d['prime_path'], d['pickle_big'])
-    pzfn = os.path.join(gethome(), d['prime_path'], d['pickle_big_compress'])
-    return txtfn, pfn, pzfn
+    def do_tests(self):
+        ''' test all path and file is available '''
+
+        assert os.path.exists(self.get_full_ppath())
+
+        for k in self.sizes:
+            cs = self.d[k]
+            assert cs is not None
+            msg = f'numbers of primes: {cs.get("num")}, max prime is {cs.get("max")}'
+            print(msg)
+            for i in ["txt", "pickle", "compress_pickle"]:
+                fn = os.path.join(self.get_full_ppath(), cs.get(i))
+                print(fn)
+                assert os.path.exists(fn)
+
+    def set_configkey(self, key):
+        ''' set config key '''
+        if key not in self.sizes:
+            raise ValueError(f"[FAIL] GetConfig has no such key: {key}")
+        self.key = key
+
+    def get_config(self, key=None):
+        ''' input key, get config group '''
+        if key is None:
+            key = self.key
+        self.set_configkey(key)
+        return self.d.get(key)
+
+    def get_full_path(self, item):
+        ''' give item like txt, pickle, compress_pick, num, max '''
+        if item not in self.allkeys:
+            raise ValueError("[FAIL] GetConfig has no such key")
+        # print(self.ppath)
+        # print(self.d)
+        # print(self.d[self.key])
+        p = os.path.join(get_home(), self.ppath, self.d[self.key][item])
+        # print(p)
+        return p
+
+    def get_full_ppath(self):
+        ''' prime path '''
+        return os.path.join(get_home(), self.ppath)
+
+    def get_ppath(self):
+        ''' prime path '''
+        return self.ppath
+
+    def get_small_config(self):
+        ''' get prime data file path '''
+        self.set_configkey("small")
+        return self.get_config()
+
+    def get_big_config(self):
+        ''' get prime data file path '''
+        self.set_configkey("big")
+        return self.get_config()
+
+    def get_large_config(self):
+        ''' get prime data file path '''
+        self.set_configkey("large")
+        return self.get_config()
+
+    def get_h119_config(self):
+        ''' get prime data file path '''
+        self.set_configkey("large")
+        return self.get_config()
+
+    def get_largedata_path(self):
+        ''' get large prime data file path '''
+        ppath = self.d['prime_path']
+        txtfn = os.path.join(gethome(), ppath, self.d['prime_large'])
+        pfn = os.path.join(gethome(), ppath, self.d['pickle_large'])
+        pzfn = os.path.join(gethome(), ppath, self.d['pickle_large_compress'])
+        return txtfn, pfn, pzfn
+
+    def get_bigdata_path(self):
+        ''' get large prime data file path '''
+        txtfn = os.path.join(gethome(), ppath, self.d['prime_big'])
+        pfn = os.path.join(gethome(), ppath, self.d['pickle_big'])
+        pzfn = os.path.join(gethome(), ppath, self.d['pickle_big_compress'])
+        return txtfn, pfn, pzfn
+
+    def get_119_path(self):
+        ''' get large prime data file path '''
+        ppath = self.d['prime_path']
+        itxtfn = os.path.join(gethome(), self.ppath, self.d['ultra_in1'])
+        otxtfn = os.path.join(gethome(), self.ppath, self.d['ultra_out1'])
+        pfn = os.path.join(gethome(), self.ppath, self.d['pickle_u1'])
+        pzfn = os.path.join(gethome(), self.ppath, self.d['pickle_u1_compress'])
+        return itxtfn, otxtfn, pfn, pzfn

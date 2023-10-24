@@ -42,7 +42,7 @@ class LoadCompressPrime(StorePrime):
             self.init_size = len(self.pvalues)
 
         msg = f'''
-{MODNAME}: min: {self.pvalues[0]} max: {self.pvalues[-1]} total primes: {self.init_size}
+{MODNAME}: min: {self.pvalues[0]} max: {self.pvalues[-1]:,} total primes: {self.init_size:,}
 '''
         msg = msg.strip()
         return msg
