@@ -16,6 +16,7 @@ if pickle exists, use it, or load text
 
 given cli argument to get lower/upper prime
 
+run_example.py is an upgraded version
 '''
 
 import os
@@ -23,6 +24,13 @@ import sys
 import pickle
 import re
 import random
+from time import time
+
+MODNAME = __file__
+
+def show_duration(duration):
+    ''' show duration '''
+    print(f'{MODNAME}: duration: {duration:.4f} sec')
 
 # pylint: disable=invalid-name
 
@@ -75,7 +83,7 @@ class LoadPrimeFromText():
         if not os.path.exists(self.txtfn):
             print(f'{self.txtfn} not found, exit')
             return False
-
+        start = time()
         with open(self.txtfn, "rt", encoding='utf8') as txtinf:
             self.need_save = True
             while True:
@@ -86,18 +94,23 @@ class LoadPrimeFromText():
                 if result and len(result.groups()) == 2:
                     el = int(result.groups()[1])
                     self.pvalues.append(el)
+        duration = time() - start
         print(f'[INFO] {__file__}: load from {self.txtfn}')
+        show_duration(duration)
         return True
 
     def load_pickle(self):
         ''' load pickle file, or from text '''
         if os.path.exists(self.pfn):
             try:
+                start = time()
                 with open(self.pfn, "rb") as inf:
                     self.pvalues = pickle.load(inf)
                     self.need_save = False
                     print(f'[INFO] {__file__}: load from {self.pfn}')
-                    return True
+                duration = time() - start
+                show_duration(duration)
+                return True
             except IOError:
                 print(f'[INFO] {__file__}: pickle file not found, try to load text file')
 
@@ -199,7 +212,7 @@ def show(v, p, q):
 
 def main(argv):
     ''' main function '''
-    with LoadPrimeFromText("prime_100k.txt", "prime100k.p") as sp:
+    with LoadPrimeFromText("../data/prime_100k.txt", "prime100k.p") as sp:
 
         print(sp)
 
@@ -235,4 +248,5 @@ def main(argv):
 
 
 if __name__ == '__main__':
+    print('NOTE: run_example.py is an upgraded version')
     main(sys.argv[1:])

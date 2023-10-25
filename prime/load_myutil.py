@@ -5,7 +5,7 @@
 module that helps to load functions in myutil
 '''
 
-__VERSION__ = "2023.10.24"
+__VERSION__ = "2023.10.25"
 SETTING_FILE = "setting.json"
 
 # pylint: disable=import-error
@@ -43,7 +43,7 @@ def read_from_stdin(fn):
 
 class GetConfig():
     ''' a wrapper class to load config for primes '''
-    sizes = ["small", "big", "large", "h119"]
+    sizes = ["small", "big", "large", "h119", "h422"]
     allkeys = ["txt", "pickle", "compress_pickle", "max", "num"]
 
     def __init__(self, conf="setting.json"):
@@ -120,29 +120,25 @@ class GetConfig():
 
     def get_h119_config(self):
         ''' get prime data file path '''
-        self.set_configkey("large")
+        self.set_configkey("h119")
+        return self.get_config()
+
+    def get_h422_config(self):
+        ''' get prime data file path '''
+        self.set_configkey("h422")
         return self.get_config()
 
     def get_largedata_path(self):
         ''' get large prime data file path '''
-        ppath = self.d['prime_path']
-        txtfn = os.path.join(gethome(), ppath, self.d['prime_large'])
-        pfn = os.path.join(gethome(), ppath, self.d['pickle_large'])
-        pzfn = os.path.join(gethome(), ppath, self.d['pickle_large_compress'])
+        pth = self.d['prime_path']
+        txtfn = os.path.join(gethome(), pth, self.d['prime_large'])
+        pfn = os.path.join(gethome(), pth, self.d['pickle_large'])
+        pzfn = os.path.join(gethome(), pth, self.d['pickle_large_compress'])
         return txtfn, pfn, pzfn
 
     def get_bigdata_path(self):
         ''' get large prime data file path '''
-        txtfn = os.path.join(gethome(), ppath, self.d['prime_big'])
-        pfn = os.path.join(gethome(), ppath, self.d['pickle_big'])
-        pzfn = os.path.join(gethome(), ppath, self.d['pickle_big_compress'])
+        txtfn = os.path.join(gethome(), self.ppath, self.d['prime_big'])
+        pfn = os.path.join(gethome(), self.ppath, self.d['pickle_big'])
+        pzfn = os.path.join(gethome(), self.ppath, self.d['pickle_big_compress'])
         return txtfn, pfn, pzfn
-
-    def get_119_path(self):
-        ''' get large prime data file path '''
-        ppath = self.d['prime_path']
-        itxtfn = os.path.join(gethome(), self.ppath, self.d['ultra_in1'])
-        otxtfn = os.path.join(gethome(), self.ppath, self.d['ultra_out1'])
-        pfn = os.path.join(gethome(), self.ppath, self.d['pickle_u1'])
-        pzfn = os.path.join(gethome(), self.ppath, self.d['pickle_u1_compress'])
-        return itxtfn, otxtfn, pfn, pzfn

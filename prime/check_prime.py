@@ -17,6 +17,7 @@ shuf -i 1001-9999 -n 10 | python3 check_prime.py -s
 
 import argparse
 import sys
+from random import randint
 from load_myutil import read_from_stdin
 try:
     #from sympy import sympy.ntheory.primetest.isprime
@@ -30,11 +31,22 @@ def is_prime(n: int):
     #return sympy.ntheory.primetest.isprime(n)
     return ntheory.primetest.isprime(n)
 
+def gen_large_numbers(size):
+    ''' return a list with some large numbers '''
+    rets = []
+    for _ in range(size):
+        n = randint(4222234742, 9999999999)
+        rets.append(n)
+    return rets
+
 def main(argv: list):
     ''' main '''
     if argv == []:
         print('>>>>> demo')
         argv.append(7427466391)
+        argv.append(1190494759)
+        argv.append(4222234741)
+        argv.extend(gen_large_numbers(7))
 
     for e in argv:
         try:

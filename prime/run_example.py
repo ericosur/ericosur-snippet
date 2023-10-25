@@ -7,7 +7,6 @@ test StorePrime
 
 import argparse
 import random
-import sys
 from load_myutil import GetConfig
 from store_prime import StorePrime
 
@@ -20,13 +19,13 @@ except ImportError:
 
 def test(argv, sp):
     ''' test '''
+    REPEAT = 10
     print(sp)
     _max = sp.at(sp.get_count() - 1)
     _min = sp.at(0)
 
     if argv == []:
         #print("max:{}, min:{}".format(_max, _min))
-        REPEAT = 3
         for _ in range(REPEAT):
             r = random.randint(_min, _max)
             argv.append(r)
@@ -35,7 +34,7 @@ def test(argv, sp):
         try:
             val = int(ss)
             if val < _min or val > _max:
-                print(f'[ERROR] {val} is out of bound!')
+                print(f'[ERROR] {val:,} is out of bound!')
                 continue
             (p, q) = sp.get_around(val)
             show_result(sp, val, p, q)
@@ -70,6 +69,7 @@ def make_arrow(lower, v, upper):
     return s
 
 def test_arrow():
+    ''' test arrow '''
     print(make_arrow(12,13,14))
     print(make_arrow(11,15,19))
 
@@ -87,6 +87,27 @@ def show_result(sp, v, p, q):
     arrow = make_arrow(lower, v, upper)
     print(f'{v} is in the range of ({lower} {arrow} {upper})')
 
+def wrap_config(args):
+    ''' wrap config and retrieve settings '''
+    obj = GetConfig()
+    if args.small:
+        obj.set_configkey("small")
+    elif args.big:
+        obj.set_configkey("big")
+    elif args.large:
+        obj.set_configkey("large")
+    elif args.h119:
+        obj.set_configkey("h119")
+    elif args.h422:
+        obj.set_configkey("h422")
+    else:
+        obj.set_configkey("small")
+
+    txtfn = obj.get_full_path("txt")
+    pfn = obj.get_full_path("pickle")
+    cpfn = obj.get_full_path("compress_pickle")
+    return txtfn, pfn, cpfn
+
 def main():
     ''' main function '''
     parser = argparse.ArgumentParser(description='''
@@ -103,30 +124,17 @@ def main():
     parser.add_argument("-2", "--big", action='store_true', help='use big config')
     parser.add_argument("-3", "--large", action='store_true', help='use large config')
     parser.add_argument("-4", "--h119", action='store_true', help='use h119 config')
+    parser.add_argument("-5", "--h422", action='store_true', help='use h119 config')
     args = parser.parse_args()
 
-    obj = GetConfig()
-    if args.small:
-        obj.set_configkey("small")
-    elif args.big:
-        obj.set_configkey("big")
-    elif args.large:
-        obj.set_configkey("large")
-    elif args.h119:
-        obj.set_configkey("h119")
-    else:
-        obj.set_configkey("small")
-
-    txtfn = obj.get_full_path("txt")
-    pfn = obj.get_full_path("pickle")
-    cpfn = obj.get_full_path("compress_pickle")
+    txtfn, pfn, cpfn = wrap_config(args)
 
     if args.lcp and LCP_READY:
-        print('args.lcp...')
+        #print('args.lcp...')
         with LoadCompressPrime(txtfn=txtfn, pfn=cpfn) as lcp:
             test(args.ints, lcp)
     else:
-        print('args.sp...')
+        #print('args.sp...')
         with StorePrime(txtfn=txtfn, pfn=pfn) as sp:
             test(args.ints, sp)
 

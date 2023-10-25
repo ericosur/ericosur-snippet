@@ -1,27 +1,79 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
-''' check need '''
+'''
+load primes from StorePrime and double check by nthoery
+'''
 
-from store_prime import StorePrime
+import sys
+from time import time
+
+try:
+    from sympy import ntheory
+except ImportError:
+    print('[FAIL] to import module sympy')
+    sys.exit(-1)
+
+try:
+    from store_prime import StorePrime
+except ImportError:
+    print('[FAIL] to import module store_prime')
+    sys.exit(-1)
+
+try:
+    from load_myutil import GetConfig
+except ImportError:
+    print('[FAIL] to import module load_myutil')
+    sys.exit(-1)
+
+
+MODNAME = "CheckPrimes"
+
+def show_duration(duration):
+    ''' show duration '''
+    print(f'{MODNAME}: duration: {duration:.3f} sec')
+
+class CheckPrimes():
+    ''' generate a list of numbers and test if a prime number '''
+    def __init__(self):
+        obj = GetConfig()
+        obj.set_configkey("h119")
+        txtfn = obj.get_full_path("txt")
+        pfn = obj.get_full_path("pickle")
+        self.sp = StorePrime(txtfn=txtfn, pfn=pfn)
+        self.sp.get_ready()
+
+    def is_prime(self, val):
+        ''' is a prime ? '''
+        return self.sp.find(val) != -1
+
+    def sympy_prime(self, val):
+        ''' using sympy '''
+        return ntheory.primetest.isprime(val)
+
+    def action(self):
+        ''' action '''
+        maxidx = self.sp.get_count() - 1
+        print(f'{maxidx=}')
+        start = time()
+        for i in range(maxidx, 0, -1):
+            print(f'{i}\r', end='')
+            n = self.sp.at(i)
+            assert self.is_prime(n)
+            assert self.sympy_prime(n)
+        print()
+        duration = time() - start
+        show_duration(duration)
+
+    @classmethod
+    def run(cls):
+        ''' run me '''
+        obj = cls()
+        obj.action()
 
 def main():
     ''' main '''
-    fn = 'need_check.txt'
-    cnt = 0
-
-    with StorePrime() as sp:
-        with open(fn, 'rt', encoding='utf8') as f:
-            while True:
-                cnt += 1
-                ln = f.readline().strip()
-                if ln == '':
-                    break
-                if sp.find(int(ln)) == -1:
-                    print('not prime: ', ln)
-                if cnt % 10000 == 0:
-                    print(cnt)
-    print(cnt)
+    CheckPrimes.run()
 
 if __name__ == '__main__':
     main()
