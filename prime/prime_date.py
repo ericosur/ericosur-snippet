@@ -20,38 +20,39 @@ find any prime dates.
 '''
 
 from datetime import date, timedelta
-import time
+from time import time
 import sys
-
-#
-# try to import StorePrime class
-#
+from load_myutil import GetConfig
 try:
-    from lcp import LoadCompressPrime as StorePrime
+    from lcp import LoadCompressPrime
     print('[INFO] use **LoadCompressPrime**')
 except ImportError:
-    # smaller and quicker for loading pickle
-    #from store_prime import StorePrime
-    #print('use **store_prime**')
-    print("[FAIL] cannot use StorePrime to calculate")
+    print("[FAIL] cannot import LoadCompressPrime")
     sys.exit(1)
+
+MODNAME = "prime_date.py"
 
 # pylint: disable=invalid-name
 # too-many-statements
 
+def show_duration(duration):
+    ''' show duration '''
+    print(f'{MODNAME}: duration: {duration:.3f} sec')
+
+def wrap_config():
+    ''' wrap config and retrieve settings '''
+    obj = GetConfig()
+    obj.set_configkey("large")    # change this to use larger table
+    txtfn = obj.get_full_path("txt")
+    cpfn = obj.get_full_path("compress_pickle")
+    return txtfn, cpfn
+
 class TestDate():
     ''' test date is a prime '''
     def __init__(self):
-        start = time.time()
-        self.sp = StorePrime()
-        self.sp.load_pickle()
-        duration = time.time() - start
-        self._print_info(duration)
-
-    def _print_info(self, duration: int) -> None:
-        ''' print info of loaded primes '''
-        print(f'[info] it takes {duration:.3f} sec to load...')
-        print(f'[info] {self.sp}')
+        txtfn, cpfn = wrap_config()
+        self.sp = LoadCompressPrime(txtfn=txtfn, pfn=cpfn)
+        self.sp.get_ready()
 
     def test(self, argv: str):
         ''' test_prime_date '''
@@ -76,6 +77,7 @@ class TestDate():
         end_d = date(2099, 12, 31)
         curr = start_d
         cnt = 0
+        start = time()
         while curr <= end_d:
             ds = curr.strftime('%Y%m%d')    # YYYYmmdd, ie: 20190823
             if self.test(ds):
@@ -84,7 +86,9 @@ class TestDate():
                 cnt += 1
             #print(ds)
             curr += timedelta(days=1)
+        duration = time() - start
         print(f'from {start_d} to {end_d}, there are {cnt} prime days')
+        show_duration(duration)
 
 def main():
     ''' main '''
