@@ -45,13 +45,24 @@ class StorePrime():
             self.init_size = 0
         else:
             self.init_size = len(self.pvalues)
-        msg = f'min: {self.pvalues[0]}, max: {self.pvalues[-1]}, '
-        msg = msg + f'total primes: {self.init_size}'
+        msg = f'min: {self.pvalues[0]:,}, max: {self.pvalues[-1]:,}, '
+        msg = msg + f'total primes: {self.init_size:,}'
         return msg
+
+    def get_ready(self):
+        ''' load prime data '''
+        if self.pvalues is None:
+            print(f'[INFO] {MODNAME} get ready...')
+            self.load_pickle()
+            self.init_size = len(self.pvalues)
 
     def get_count(self):
         ''' get length of pickle '''
         return len(self.pvalues)
+
+    def get_maxprime(self):
+        ''' return the max prime in this object '''
+        return self.pvalues[-1]
 
     @staticmethod
     def get_local_data_path():
@@ -139,10 +150,12 @@ class StorePrime():
         if self.need_save:
             self.save_pickle_impl()
         else:
-            print('no need to save')
+            print(f'[INFO] {MODNAME} no need to save')
 
     def find(self, val: int) -> int:
-        ''' find val in list of primes '''
+        ''' find val in list of primes, return index
+            raise ValueError if not in the prime list
+        '''
         if val > self.pvalues[-1]:
             raise IndexError(f'{val} is larger than the most number' \
                 f'in prime table {self.pvalues[-1]}')
@@ -266,6 +279,8 @@ class StorePrime():
         ''' return (p, q) (index, not the value), if p and q is none, p is a prime
             if both none, has no answer (maybe out-of-bound)
         '''
+        self.get_ready()
+
         (p, q) = self.bisect_between_idx(v)
         if p is None:
             print('\tno answer for this')
@@ -291,4 +306,4 @@ class StorePrime():
         return arr
 
 if __name__ == '__main__':
-    print('run **run_example.py sp** to see the demo...')
+    print('run **run_example.py** to see the demo...')

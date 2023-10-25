@@ -9,16 +9,16 @@ given cli argument to get lower/upper prime
 import sys
 import random
 from lcp import LoadCompressPrime
-from load_myutil import get_largedata_path
+from load_myutil import GetConfig
 
 # pylint: disable=invalid-name
 def test(argv, sp):
     ''' test '''
     print(sp)
 
+    _max = sp.at(sp.get_count() - 1)
+    _min = _max // 29
     if argv == []:
-        _max = sp.at(sp.get_count() - 1)
-        _min = sp.at(0)
         #print("max:{}, min:{}".format(_max, _min))
         REPEAT = 1
         for _ in range(REPEAT):
@@ -28,6 +28,9 @@ def test(argv, sp):
     for ss in argv:
         try:
             val = int(ss)
+            if val > _max:
+                print(f'[WARN] {val:,} is out of bound (max={_max:,})')
+                continue
             ans = sp.list_nearby(val)
             if ans is None:
                 print('[ERROR] error happens')
@@ -49,14 +52,23 @@ def test(argv, sp):
             print(f'    {ss} is a ValueError')
             continue
 
+def wrap_config():
+    ''' wrap config and retrieve settings '''
+    obj = GetConfig()
+    obj.set_configkey("big")    # change this to use larger table
+    txtfn = obj.get_full_path("txt")
+    pfn = obj.get_full_path("pickle")
+    cpfn = obj.get_full_path("compress_pickle")
+    return txtfn, pfn, cpfn
+
 def main(argv):
     ''' main function '''
-    txtfn, _, pzfn = get_largedata_path()
-    with LoadCompressPrime(txtfn, pzfn) as sp:
+    txtfn, _, cpfn = wrap_config()
+    with LoadCompressPrime(txtfn, cpfn) as sp:
         test(argv, sp)
 
 if __name__ == '__main__':
     try:
         main(sys.argv[1:])
     except IndexError:
-        print('specify numbers to search nearby primes')
+        print('Must specify numbers to search nearby primes')

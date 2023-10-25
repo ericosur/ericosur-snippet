@@ -39,5 +39,13 @@
         "compress_pickle": "h119.p.lzma",
         "max": 1190494759,
         "num": 60000000
+    },
+
+    "h422": {
+        "txt": "h422.txt",
+        "pickle": "h422.p",
+        "compress_pickle": "h422.p.lzma",
+        "max": 4222234741,
+        "num": 200000000
     }
 }

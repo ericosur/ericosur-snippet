@@ -6,15 +6,17 @@
 
 given an even number and list some sum of two primes
 
-* import from store_prime using table prime_100k (100 killo primes)
-* import from sip, it uses larger table
+* import from store_prime using prime number table
+* import from lcp, it uses compress pickle
+
+It will use LoadCompressPrime if possible
 '''
 
 import bisect
 import sys
 from random import randint
 import time
-from load_myutil import get_largedata_path
+from load_myutil import GetConfig
 
 MODNAME = "goldbach"
 LCP_LOADED = False
@@ -109,7 +111,9 @@ class Goldbach():
         else:
             self.values = values
 
-        txtfn, pfn, pzfn = get_largedata_path()
+        obj = GetConfig()
+        txtfn, pfn, pzfn = obj.get_largedata_path()
+
         if LCP_LOADED:
             self.sp = StorePrime(txtfn, pzfn)
         else:

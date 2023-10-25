@@ -68,4 +68,4 @@ class LoadCompressPrime(StorePrime):
         print(f'[INFO] {MODNAME} save pickle as {self.pfn}')
 
 if __name__ == '__main__':
-    print('run **run_example.py -l** to see the demo of this implementation...')
+    print('run **run_example.py --lcp** to see the demo of this implementation...')
