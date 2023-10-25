@@ -10,7 +10,13 @@ import random
 import sys
 from load_myutil import GetConfig
 from store_prime import StorePrime
-from lcp import LoadCompressPrime
+
+LCP_READY = False
+try:
+    from lcp import LoadCompressPrime
+    LCP_READY = True
+except ImportError:
+    print('[WARN] no such module: LoadCompressPrime')
 
 def test(argv, sp):
     ''' test '''
@@ -38,9 +44,18 @@ def test(argv, sp):
             continue
 
 def make_arrow(lower, v, upper):
-    ''' ---#------ '''
+    '''
+    for example, this function returns ===#=== or --#----
+    example lines like the following lines
+
+    914863 is in the range of (914861 =#=== 914867)
+    831004 is in the range of (830989 ----#------ 831023)
+
+    equal sign means this is actual numbers between two primes
+    minus sign mean it is ratio between two primes
+    '''
     s = ''
-    max_len = 19
+    max_len = 11
     step = '-'
     if upper - lower < max_len:
         max_len = upper - lower - 1
@@ -55,8 +70,8 @@ def make_arrow(lower, v, upper):
     return s
 
 def test_arrow():
-    for i in range(0,10):
-        print(make_arrow(i*10/100))
+    print(make_arrow(12,13,14))
+    print(make_arrow(11,15,19))
 
 def show_result(sp, v, p, q):
     ''' show result, not using StorePrime.show() '''
@@ -106,7 +121,7 @@ def main():
     pfn = obj.get_full_path("pickle")
     cpfn = obj.get_full_path("compress_pickle")
 
-    if args.lcp:
+    if args.lcp and LCP_READY:
         print('args.lcp...')
         with LoadCompressPrime(txtfn=txtfn, pfn=cpfn) as lcp:
             test(args.ints, lcp)
