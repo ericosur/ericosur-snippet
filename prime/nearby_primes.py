@@ -8,8 +8,20 @@ given cli argument to get lower/upper prime
 
 import sys
 import random
-from lcp import LoadCompressPrime
 from load_myutil import GetConfig
+
+MODNAME = 'nearby_primes.py'
+OK_TO_USE_LCP = False
+try:
+    import compress_pickle
+    OK_TO_USE_LCP = True
+except ImportError:
+    pass
+
+if OK_TO_USE_LCP:
+    from lcp import LoadCompressPrime
+else:
+    from store_prime import StorePrime
 
 # pylint: disable=invalid-name
 def test(argv, sp):
@@ -63,9 +75,13 @@ def wrap_config():
 
 def main(argv):
     ''' main function '''
-    txtfn, _, cpfn = wrap_config()
-    with LoadCompressPrime(txtfn, cpfn) as sp:
-        test(argv, sp)
+    txtfn, pfn, cpfn = wrap_config()
+    if OK_TO_USE_LCP:
+        with LoadCompressPrime(txtfn, cpfn) as sp:
+            test(argv, sp)
+    else:
+        with StorePrime(txtfn, pfn) as sp:
+            test(argv, sp)
 
 if __name__ == '__main__':
     try:
