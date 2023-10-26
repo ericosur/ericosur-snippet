@@ -33,13 +33,19 @@ def show_duration(duration):
     ''' show duration '''
     print(f'{MODNAME}: duration: {duration:.3f} sec')
 
+def wrap_config():
+    ''' wrap config and retrieve settings '''
+    obj = GetConfig()
+    obj.set_configkey("small")    # change this to use larger table
+    txtfn = obj.get_full_path("txt")
+    pfn = obj.get_full_path("pickle")
+    return txtfn, pfn
+
 class CheckPrimes():
     ''' generate a list of numbers and test if a prime number '''
+
     def __init__(self):
-        obj = GetConfig()
-        obj.set_configkey("h119")
-        txtfn = obj.get_full_path("txt")
-        pfn = obj.get_full_path("pickle")
+        txtfn, pfn = wrap_config()
         self.sp = StorePrime(txtfn=txtfn, pfn=pfn)
         self.sp.get_ready()
 
@@ -51,8 +57,10 @@ class CheckPrimes():
         ''' using sympy '''
         return ntheory.primetest.isprime(val)
 
-    def action(self):
-        ''' action '''
+    def double_check(self):
+        ''' double check by StorePrime and sympy,
+            it is very slow (1e5 numbers takes 22 seconds)
+        '''
         maxidx = self.sp.get_count() - 1
         print(f'{maxidx=}')
         start = time()
@@ -64,6 +72,10 @@ class CheckPrimes():
         print()
         duration = time() - start
         show_duration(duration)
+
+    def action(self):
+        ''' action '''
+        self.double_check()
 
     @classmethod
     def run(cls):
