@@ -14,6 +14,16 @@ import sys
 from collections import defaultdict
 from timeit import default_timer as timer
 
+from load_myutil import GetConfig
+
+def wrap_config():
+    ''' wrap config and retrieve settings '''
+    obj = GetConfig()
+    obj.set_configkey("large")    # change this to use larger table
+    txtfn = obj.get_full_path("txt")
+    return txtfn
+
+
 # pylint: disable=consider-using-f-string
 # pylint: disable=consider-using-with
 
@@ -58,7 +68,8 @@ def wccount(filename):
 
 def itercount(filename):
     ''' itercount, what is U in open ???'''
-    return sum(1 for _ in open(filename, 'rbU'))
+    #return sum(1 for _ in open(filename, 'rbU'))
+    return sum(1 for _ in open(filename, 'rb'))
 
 def opcount(fname):
     ''' use enumerate '''
@@ -94,7 +105,7 @@ def clear_cache():
 def main():
     ''' main '''
     counts = defaultdict(list)
-    default_fn = 'big.txt'
+    default_fn = wrap_config()
 
     if '--clear-cache' in sys.argv:
         sys.argv.remove('--clear-cache')
