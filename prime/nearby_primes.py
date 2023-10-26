@@ -12,6 +12,7 @@ from load_myutil import GetConfig
 
 MODNAME = 'nearby_primes.py'
 OK_TO_USE_LCP = False
+# pylint: disable=unused-import
 try:
     import compress_pickle
     OK_TO_USE_LCP = True
@@ -23,7 +24,7 @@ if OK_TO_USE_LCP:
 else:
     from store_prime import StorePrime
 
-# pylint: disable=invalid-name
+
 def test(argv, sp):
     ''' test '''
     print(sp)
