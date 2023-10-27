@@ -20,6 +20,8 @@ from load_myutil import GetConfig
 
 MODNAME = "goldbach"
 LCP_LOADED = False
+# small, big, large, h211...
+CONFIG_KEY = 'small'
 
 try:
     # larger and slower
@@ -33,6 +35,15 @@ except ImportError:
 
 # pylint: disable=invalid-name
 # too-many-statements
+
+def wrap_config():
+    ''' wrap config and retrieve settings '''
+    obj = GetConfig()
+    obj.set_configkey(CONFIG_KEY)    # change this to use larger table
+    txtfn = obj.get_full_path("txt")
+    pfn = obj.get_full_path("pickle")
+    cpfn = obj.get_full_path("compress_pickle")
+    return txtfn, pfn, cpfn
 
 def index(a, x):
     '''
@@ -98,7 +109,7 @@ def impl3(val, ret):
 class Goldbach():
     ''' find goldbach '''
     MAX_REPEAT = 3
-    MAX_SHOW = 7
+    MAX_SHOW = 6
     MIN_ANS_LEN = 10
 
     def __init__(self, values=None):
@@ -111,14 +122,12 @@ class Goldbach():
         else:
             self.values = values
 
-        obj = GetConfig()
-        txtfn, pfn, pzfn = obj.get_largedata_path()
-
+        txtfn, pfn, pzfn = wrap_config()
         if LCP_LOADED:
             self.sp = StorePrime(txtfn, pzfn)
         else:
             self.sp = StorePrime(txtfn, pfn)
-        self.sp.__enter__()
+        self.sp.get_ready()
         print(self.sp)
 
     def __exit__(self, exc_type, exc_value, traceback):
