@@ -12,6 +12,9 @@ from load_myutil import GetConfig
 
 MODNAME = 'nearby_primes.py'
 OK_TO_USE_LCP = False
+# small, big, large, h211...
+CONFIG_KEY = 'small'
+
 # pylint: disable=unused-import
 try:
     import compress_pickle
@@ -68,7 +71,7 @@ def test(argv, sp):
 def wrap_config():
     ''' wrap config and retrieve settings '''
     obj = GetConfig()
-    obj.set_configkey("big")    # change this to use larger table
+    obj.set_configkey(CONFIG_KEY)    # change this to use larger table
     txtfn = obj.get_full_path("txt")
     pfn = obj.get_full_path("pickle")
     cpfn = obj.get_full_path("compress_pickle")
