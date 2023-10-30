@@ -6,7 +6,48 @@
     "pickle_big": "big.p",
     "prime_small": "small.txt",
     "pickle_small": "small.p",
+
     "2t_txt": "2T_p1to6.txt",
     "2t_pickle": "2T.p",
-    "2t_compress_pickle": "2T.p.lzma"
+    "2t_compress_pickle": "2T.p.lzma",
+
+    "small": {
+        "txt": "small.txt",
+        "pickle": "small.p",
+        "compress_pickle": "small.p.lzma",
+        "max": 1299709,
+        "num": 100000
+    },
+
+    "big": {
+        "txt": "big.txt",
+        "pickle": "big.p",
+        "compress_pickle": "big.p.lzma",
+        "max": 15485863,
+        "num": 1000000
+    },
+
+    "large": {
+        "txt": "large.txt",
+        "pickle": "large.p",
+        "compress_pickle": "large.p.lzma",
+        "max": 49979687,
+        "num": 3000000
+    },
+
+    "h119": {
+        "txt": "h119.txt",
+        "pickle": "h119.p",
+        "compress_pickle": "h119.p.lzma",
+        "max": 1190494759,
+        "num": 60000000
+    },
+
+    "h422": {
+        "txt": "h422.txt",
+        "pickle": "h422.p",
+        "compress_pickle": "h422.p.lzma",
+        "max": 4222234741,
+        "num": 200000000
+    }
 }

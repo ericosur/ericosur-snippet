@@ -24,10 +24,63 @@ def show_duration(duration):
     print(f'{MODNAME}: duration: {duration:.3e} sec')
 
 
+def make_arrow(lower, v, upper):
+    '''
+    for example, this function returns ===#=== or --#----
+    example lines like the following lines
+
+    914863 is in the range of (914861 =#=== 914867)
+    831004 is in the range of (830989 ----#------ 831023)
+
+    equal sign means this is actual numbers between two primes
+    minus sign mean it is ratio between two primes
+    '''
+
+    # special case
+    if upper - lower == 2:
+        return "[#]  (between twin primes)"
+
+    s = ''
+    max_len = 15
+    step = '-'
+    d = abs(upper - lower)
+    if d < max_len:
+        s = '['
+        cnt = 1
+        for _ in range(abs(v-lower-1)):
+            if cnt == 4 or cnt == 9 or cnt == 14:
+                s += '_'
+            else:
+                s += step
+            cnt += 1
+
+        s += '#'
+        cnt += 1
+        for _ in range(abs(v-upper)-1):
+            if cnt == 4 or cnt == 9 or cnt == 14:
+                s += '_'
+            else:
+                s += step
+            cnt += 1
+
+        s += ']'
+        return s
+
+    r = int(abs(v-lower)/(upper-lower) * max_len)
+    for i in range(max_len):
+        if i == r:
+            s += "#"
+        else:
+            s += step
+    return s
+
 class Solution():
     ''' test date is a prime '''
     TMPFN = f'/tmp/{MODNAME}.txt'
     NUM = 3
+    DRY_RUN = False
+    # set a upper limit for this script, maybe primesieve could handle it
+    MYMAX = 9_999_999_999_999_999_999 # 19 digits or 1e18 - 1
 
     def __init__(self):
         self.p = []
@@ -38,8 +91,15 @@ class Solution():
 
     def set_target(self, val):
         ''' set target or use the default '''
-        if self.target < 2:
-            raise ValueError
+        if val < 2:
+            print(f'[FAIL] {val} is smaller than 2')
+            sys.exit(-1)
+        if val > self.MYMAX:
+            print(f'[FAIL] {val} is too large to handle')
+            sys.exit(-1)
+        _d = math.ceil(math.log10(val))
+        if _d > 6:
+            print(f'[INFO] digits of {val} is {_d}')
         self.target = val
         self.is_prime = False
         self.p.clear()
@@ -47,20 +107,15 @@ class Solution():
 
     def get_range(self):
         ''' determine the range for upper/lower bound '''
-        THOUSAND = 3
-        digits = int(math.log10(self.target)) + 1
-        tail = digits // THOUSAND
-        if tail < THOUSAND:
-            drange = 99
-        else:
-            drange = 10**tail - 1
+        if 1 < self.target < 10000:
+            self.n_start = 1
+            self.n_stop = 10000
+            return
 
-        #print(f'{tail=} {drange=}')
-        self.n_start = self.target - drange
-        self.n_start = max(self.n_start, 1)
-        self.n_stop = self.target + drange
-
-        #print(f'{self.n_start=}, {self.n_stop=}')
+        # for larger target
+        _range = 9999
+        self.n_start = max(self.target - _range, 1)
+        self.n_stop = self.target + _range
 
     def _index(self):
         'Locate the leftmost value exactly equal to x'
@@ -122,22 +177,26 @@ class Solution():
         ''' show results '''
         idx = self.p.index(self.target)
         lenp = len(self.p)
-        if idx - self.NUM >= 0:
-            _start = idx - self.NUM
-        else:
-            _start = 0
-        if idx + self.NUM < lenp:
-            _stop = idx + self.NUM
-        else:
-            _stop = lenp - 1
+        _start, _stop = 0, 0
+        try:
+            _start = max(0, idx - self.NUM)
+            _stop = min(idx + self.NUM, lenp - 1)
+            if idx-1 <= 0 or idx+1>=lenp:
+                arr = ''
+            else:
+                arr = make_arrow(self.p[max(idx-1,0)], self.target, self.p[min(idx+1,lenp-1)])
+        except IndexError:
+            print(f'[FAIL] IndexError {idx=}, {lenp=} {_start=} {_stop=}')
+            sys.exit(-1)
 
         s = slice(_start, _stop+1)
         for n in self.p[s]:
             if n == self.target:
+                print(self.target, arr, end='')
                 if self.is_prime:
-                    print("PRIME ===>", self.target)
+                    print(" <<< PRIME")
                 else:
-                    print("=========>", self.target)
+                    print()
             else:
                 print(n)
 
@@ -146,7 +205,10 @@ class Solution():
         ''' action '''
         start = time()
         cmd = f'primesieve {self.n_start} {self.n_stop} --print > {self.TMPFN}'
-        #print(f'{cmd=}')
+        if self.DRY_RUN:
+            print(f'{cmd=}')
+            return
+
         os.system(cmd)
         self.read_text_file(self.TMPFN)
         if len(self.p) == 0:
@@ -182,7 +244,8 @@ def main(argv):
             pass
     if len(inputs) == 0:
         for _ in range(3):
-            inputs.append(randint(10**12, 10**16))
+            rad = randint(5, 18)
+            inputs.append(randint(10**(rad-1), 10**rad))
     Solution.run(inputs)
 
 if __name__ == '__main__':
