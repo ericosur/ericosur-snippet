@@ -8,10 +8,12 @@ re-generate the list
 for some special case to use
 '''
 
+# pylint: disable=import-error
+# pylint: disable=wrong-import-position
+
 import bz2
 import base64
 from time import time
-import os
 from load_myutil import GetConfig
 
 CONFIG_KEY = "small"

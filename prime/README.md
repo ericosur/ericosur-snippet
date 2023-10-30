@@ -76,6 +76,45 @@ sed -n 100,120p large.txt
 * $2^3+3^2$ means $8+9$
 * $064810$ means $0 \cdot 8^2 \cdot 9^2 \cdot 0$
 
+also check here: https://t5k.org/curios/page.php/56.html
+
+## primesieve
+
+jeff:~/Downloads/primes_2t/tmp$ primesieve 2147483648000 --time
+Sieve size = 256 KiB
+Threads = 16
+100%
+Seconds: 62.109
+Primes: 78502287015
+
+kitty:~$ primesieve 2147483648000 --time
+Sieve size = 128 KiB
+Threads = 8
+100%
+Seconds: 164.921
+Primes: 78502287015
+
+pixel6a $ primesieve 2147483648000 --time
+Sieve size = 256 KiB
+Threads = 8
+100%
+Seconds: 214.921
+Primes: 78502287015
+
+rasmus@tuf:~$ primesieve 2147483648000 --time
+Sieve size = 256 kilobytes
+Threads = 12
+100%
+Primes: 78502287015
+Seconds: 221.339
+
+rasmus@zen33:~$ primesieve 2147483648000 --time
+Sieve size = 128 KiB
+Threads = 8
+100%
+Seconds: 203.400
+Primes: 78502287015
+
 ## references
 
 * http://prime-numbers.org/

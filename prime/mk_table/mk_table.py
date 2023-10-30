@@ -5,7 +5,6 @@
 load prime numbers from table and output to a xlsx file
 '''
 
-import os
 import sys
 import sympy
 
@@ -21,7 +20,7 @@ except ImportError:
     print('cannot import module xlsxwriter, WILL NOT output to xlsx file')
 
 sys.path.insert(0, '../')
-from load_myutil import read_setting, gethome, get_smalltxt_path
+from load_myutil import get_smalltxt_path
 
 # try to import StorePrime class
 try:

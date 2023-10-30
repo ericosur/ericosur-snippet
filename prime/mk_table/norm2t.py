@@ -88,16 +88,14 @@ class Solution():
         with open(otxtfn, "wt", encoding='UTF-8') as fout:
             for p in self.p:
                 print(p, file=fout)
-        print(f'output to {self.otxtfn}')
+        print(f'output to {otxtfn}')
 
     def load_pickle_file(self, pfn) -> bool:
         ''' load pickle implementation '''
         #print(f'{MODNAME}: load_pickle_impl()')
         start = time()
-        self._try_pickle_file()
         with open(pfn, "rb") as inf:
-            p = pickle.load(inf)
-
+            self.p = pickle.load(inf)
         duration = time() - start
         print(f'[INFO] {MODNAME}: load_pickle_impl() from {pfn}')
         Solution.show_duration(duration)

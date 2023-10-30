@@ -9,10 +9,14 @@ Read it and save as one prime number one line
 import os
 import sys
 import pickle
+import re
 from time import time
 
 MODNAME = "mktb.py"
 VERSION = "2023.10.24"
+
+# pylint: disable=import-error
+# pylint: disable=wrong-import-position
 
 try:
     import compress_pickle
@@ -79,9 +83,8 @@ class Solution():
         ''' load pickle implementation '''
         #print(f'{MODNAME}: load_pickle_impl()')
         start = time()
-        self._try_pickle_file()
         with open(pfn, "rb") as inf:
-            p = pickle.load(inf)
+            self.p = pickle.load(inf)
 
         duration = time() - start
         print(f'[INFO] {MODNAME}: load_pickle_impl() from {pfn}')
