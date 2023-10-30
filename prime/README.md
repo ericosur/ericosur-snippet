@@ -119,3 +119,4 @@ Primes: 78502287015
 
 * http://prime-numbers.org/
 * http://primes.utm.edu/lists/small/millions/
+* https://www.geeksforgeeks.org/special-prime-numbers/
