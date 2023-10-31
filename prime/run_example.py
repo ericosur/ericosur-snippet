@@ -9,6 +9,7 @@ import argparse
 import random
 from load_myutil import GetConfig
 from store_prime import StorePrime
+from make_arrow import make_arrow
 
 LCP_READY = False
 try:
@@ -41,32 +42,6 @@ def test(argv, sp):
         except ValueError:
             print(f'    {ss} is a ValueError')
             continue
-
-def make_arrow(lower, v, upper):
-    '''
-    for example, this function returns ===#=== or --#----
-    example lines like the following lines
-
-    914863 is in the range of (914861 =#=== 914867)
-    831004 is in the range of (830989 ----#------ 831023)
-
-    equal sign means this is actual numbers between two primes
-    minus sign mean it is ratio between two primes
-    '''
-    s = ''
-    max_len = 11
-    step = '-'
-    if upper - lower < max_len:
-        max_len = upper - lower - 1
-        step = '='
-
-    r = int(abs(v-lower)/(upper-lower) * max_len)
-    for i in range(max_len):
-        if i == r:
-            s += "#"
-        else:
-            s += step
-    return s
 
 def test_arrow():
     ''' test arrow '''
