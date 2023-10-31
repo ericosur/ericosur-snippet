@@ -16,6 +16,9 @@ import sys
 from time import time
 from random import randint
 
+sys.path.insert(0, '../')
+from make_arrow import make_arrow
+
 MODNAME = "use_primesieve"
 VERSION = "2023.10.30"
 
@@ -23,56 +26,6 @@ def show_duration(duration):
     ''' show duration '''
     print(f'{MODNAME}: duration: {duration:.3e} sec')
 
-
-def make_arrow(lower, v, upper):
-    '''
-    for example, this function returns ===#=== or --#----
-    example lines like the following lines
-
-    914863 is in the range of (914861 =#=== 914867)
-    831004 is in the range of (830989 ----#------ 831023)
-
-    equal sign means this is actual numbers between two primes
-    minus sign mean it is ratio between two primes
-    '''
-
-    # special case
-    if upper - lower == 2:
-        return "[#]  (between twin primes)"
-
-    s = ''
-    max_len = 15
-    step = '-'
-    d = abs(upper - lower)
-    if d < max_len:
-        s = '['
-        cnt = 1
-        for _ in range(abs(v-lower-1)):
-            if cnt == 4 or cnt == 9 or cnt == 14:
-                s += '_'
-            else:
-                s += step
-            cnt += 1
-
-        s += '#'
-        cnt += 1
-        for _ in range(abs(v-upper)-1):
-            if cnt == 4 or cnt == 9 or cnt == 14:
-                s += '_'
-            else:
-                s += step
-            cnt += 1
-
-        s += ']'
-        return s
-
-    r = int(abs(v-lower)/(upper-lower) * max_len)
-    for i in range(max_len):
-        if i == r:
-            s += "#"
-        else:
-            s += step
-    return s
 
 class Solution():
     ''' test date is a prime '''
@@ -107,13 +60,14 @@ class Solution():
 
     def get_range(self):
         ''' determine the range for upper/lower bound '''
-        if 1 < self.target < 10000:
+        LOW_LIMIT = 10000
+        if 1 < self.target < LOW_LIMIT:
             self.n_start = 1
-            self.n_stop = 10000
+            self.n_stop = LOW_LIMIT
             return
 
         # for larger target
-        _range = 9999
+        _range = LOW_LIMIT - 1
         self.n_start = max(self.target - _range, 1)
         self.n_stop = self.target + _range
 
@@ -242,8 +196,10 @@ def main(argv):
             inputs.append(n)
         except ValueError:
             pass
+    # demo mode
     if len(inputs) == 0:
         for _ in range(3):
+            # pick the radix of 10, MUST be < 19
             rad = randint(5, 18)
             inputs.append(randint(10**(rad-1), 10**rad))
     Solution.run(inputs)
