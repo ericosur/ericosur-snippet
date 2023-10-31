@@ -8,8 +8,7 @@ get the ratio as a reference for today usage
 
 '''
 
-import time
-from datetime import date, timedelta
+from datetime import date
 
 def test_dates():
     ''' test '''
@@ -119,7 +118,7 @@ class NextMonth():
     def action(self):
         ''' action '''
         print('action!')
-        td = date(2023, 10, 25)
+        td = self.today
         t15 = NextMonth.get_this15(td)
         n15 = NextMonth.get_nextmonth15(td)
         curr = self.getd(td, n15)
