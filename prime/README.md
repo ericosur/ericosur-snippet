@@ -115,6 +115,112 @@ Threads = 8
 Seconds: 203.400
 Primes: 78502287015
 
+## line_count
+
+- use big.txt
+- jeff.local, py3.8.10, --clear-cache
+```
+function      average, s  min, s  ratio
+wccount             0.03   0.029   1.00
+bufcount           0.037   0.037   1.28
+itercount          0.087   0.085   2.98
+kylecount           0.11     0.1   3.57
+opcount              0.1     0.1   3.60
+mapcount            0.11    0.11   3.71
+simplecount         0.11    0.11   3.82
+```
+- tuf.local, conda py3.10, --clear-cache
+```
+function      average, s  min, s  ratio
+wccount            0.044   0.034   1.00
+bufcount           0.048   0.042   1.24
+itercount           0.14    0.13   3.95
+mapcount            0.16    0.15   4.50
+kylecount           0.17    0.16   4.82
+simplecount         0.17    0.16   4.90
+opcount             0.19    0.18   5.42
+```
+- tuf.local, conda py3.9.17 --clear-cache
+```
+function      average, s  min, s  ratio
+wccount             0.03   0.028   1.00
+bufcount           0.043   0.037   1.32
+itercount           0.14    0.14   5.01
+opcount             0.16    0.15   5.55
+mapcount            0.18    0.16   5.62
+kylecount           0.17    0.16   5.67
+simplecount         0.18    0.17   6.02
+```
+- kitty.local, py3.10.12 --clear-cache
+```
+function      average, s  min, s  ratio
+itercount           0.33    0.28   1.00
+mapcount            0.43    0.28   1.00
+kylecount            0.4    0.29   1.03
+simplecount          0.4     0.3   1.09
+opcount             0.41     0.3   1.09
+bufcount            0.51    0.38   1.38
+wccount             0.76    0.41   1.48
+```
+
+### old
+
+```
+ function      average, s  min, s  ratio
+ wccount            0.005  0.0042   1.00
+ bufcount          0.0081  0.0081   1.91
+ fadvcount         0.0094  0.0091   2.13
+ opcount            0.018   0.015   3.42
+ simplecount        0.019   0.016   3.66
+ kylecount          0.019   0.017   4.03
+ mapcount           0.027   0.021   4.97
+ itercount          0.044   0.031   7.21
+-
+# python3.1 ginstrom.py
+ function      average, s  min, s  ratio
+ wccount           0.0049  0.0046   1.00
+ itercount          0.021    0.02   4.47
+ mapcount           0.023   0.023   5.09
+ bufcount           0.034   0.032   7.02
+ opcount            0.043   0.043   9.46
+ simplecount         0.05   0.046  10.20
+ kylecount           0.05    0.05  10.95
+-
+# python ginstrom.py /big/mkv/file
+ function      average, s  min, s  ratio
+ wccount             0.51    0.49   1.00
+ opcount              1.8     1.8   3.58
+ simplecount          1.8     1.8   3.66
+ kylecount            1.9     1.9   3.75
+ mapcount              19       2   4.01
+ fadvcount            2.3     2.2   4.52
+ bufcount             2.3     2.2   4.52
+# wc /big/mkv/file
+# 7137518   40523351 1836139137 /big/mkv/file
+-
+# with --clear-cache
+ function      average, s  min, s  ratio
+ simplecount         0.06   0.057   1.00
+ opcount            0.067   0.057   1.00
+ kylecount          0.057   0.057   1.00
+ itercount           0.06   0.058   1.02
+ mapcount           0.059   0.058   1.02
+ fadvcount          0.064   0.058   1.02
+ bufcount            0.07   0.062   1.09
+ wccount            0.072   0.065   1.15
+
+# python3.1 with --clear-cache
+ function      average, s  min, s  ratio
+ itercount          0.061   0.057   1.00
+ simplecount        0.069   0.061   1.06
+ mapcount           0.062   0.061   1.07
+ wccount            0.067   0.064   1.11
+ kylecount          0.067   0.065   1.12
+ opcount            0.072   0.067   1.17
+ bufcount           0.083   0.073   1.27
+
+```
+
 ## references
 
 * http://prime-numbers.org/
