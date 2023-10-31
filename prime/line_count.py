@@ -2,6 +2,11 @@
 # coding: utf-8
 
 '''
+A benchmark for various function to count lines in a text file. It is not
+always the same between different python version.
+
+line_count.py --clear-cache
+
 https://gist.github.com/zed/0ac760859e614cd03652
 https://stackoverflow.com/questions/845058/how-to-get-line-count-cheaply-in-python
 '''
@@ -143,56 +148,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-# function      average, s  min, s  ratio
-# wccount            0.005  0.0042   1.00
-# bufcount          0.0081  0.0081   1.91
-# fadvcount         0.0094  0.0091   2.13
-# opcount            0.018   0.015   3.42
-# simplecount        0.019   0.016   3.66
-# kylecount          0.019   0.017   4.03
-# mapcount           0.027   0.021   4.97
-# itercount          0.044   0.031   7.21
-
-## python3.1 ginstrom.py
-# function      average, s  min, s  ratio
-# wccount           0.0049  0.0046   1.00
-# itercount          0.021    0.02   4.47
-# mapcount           0.023   0.023   5.09
-# bufcount           0.034   0.032   7.02
-# opcount            0.043   0.043   9.46
-# simplecount         0.05   0.046  10.20
-# kylecount           0.05    0.05  10.95
-
-## python ginstrom.py /big/mkv/file
-# function      average, s  min, s  ratio
-# wccount             0.51    0.49   1.00
-# opcount              1.8     1.8   3.58
-# simplecount          1.8     1.8   3.66
-# kylecount            1.9     1.9   3.75
-# mapcount              19       2   4.01
-# fadvcount            2.3     2.2   4.52
-# bufcount             2.3     2.2   4.52
-## wc /big/mkv/file
-## 7137518   40523351 1836139137 /big/mkv/file
-
-## with --clear-cache
-# function      average, s  min, s  ratio
-# simplecount         0.06   0.057   1.00
-# opcount            0.067   0.057   1.00
-# kylecount          0.057   0.057   1.00
-# itercount           0.06   0.058   1.02
-# mapcount           0.059   0.058   1.02
-# fadvcount          0.064   0.058   1.02
-# bufcount            0.07   0.062   1.09
-# wccount            0.072   0.065   1.15
-
-## python3.1 with --clear-cache
-# function      average, s  min, s  ratio
-# itercount          0.061   0.057   1.00
-# simplecount        0.069   0.061   1.06
-# mapcount           0.062   0.061   1.07
-# wccount            0.067   0.064   1.11
-# kylecount          0.067   0.065   1.12
-# opcount            0.072   0.067   1.17
-# bufcount           0.083   0.073   1.27
