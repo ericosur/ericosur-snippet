@@ -141,9 +141,10 @@ def show_doom_number(year_list=None, full_list=False):
     # if year_list is empty, add default value
     if not year_list:
         if full_list:
-            year_list = make_year_list(0, 'c', 0)
+            year_range = 0
         else:
-            year_list = make_year_list(0, 'c', 2)
+            year_range = 3
+        year_list = make_year_list(0, 'c', year_range)
 
     print("{")
     print('  "doom_number": {')
