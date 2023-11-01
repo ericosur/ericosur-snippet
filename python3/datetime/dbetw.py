@@ -81,6 +81,8 @@ class Solution():
         print('Days from begin of this year to today...')
         cls.show_diff(cls.get_boy(), cls.get_today_str())
 
+        print('Days from someday to today...')
+        cls.show_diff(cls.get_today_str(), '2024-01-13')
 
 def main():
     ''' main '''

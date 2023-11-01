@@ -13,7 +13,7 @@ def main():
     start = datetime(1975, 6, 17, 12, 0, 0)
     print("start date:", start)
     today = datetime.today()
-    print('diff:', today - start)
+    print('diff since start:', today - start)
 
     deltas = {'10**9': timedelta(seconds=1e9),
               '2.0 * 10**9': timedelta(seconds=2e9),
