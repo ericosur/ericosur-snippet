@@ -80,7 +80,8 @@ also check here: https://t5k.org/curios/page.php/56.html
 
 ## primesieve
 
-jeff:~/Downloads/primes_2t/tmp$ primesieve 2147483648000 --time
+```
+jeff:~$ primesieve 2147483648000 --time
 Sieve size = 256 KiB
 Threads = 16
 100%
@@ -94,6 +95,13 @@ Threads = 8
 Seconds: 164.921
 Primes: 78502287015
 
+rasmus@zen33:~$ primesieve 2147483648000 --time
+Sieve size = 128 KiB
+Threads = 8
+100%
+Seconds: 203.400
+Primes: 78502287015
+
 pixel6a $ primesieve 2147483648000 --time
 Sieve size = 256 KiB
 Threads = 8
@@ -105,15 +113,16 @@ rasmus@tuf:~$ primesieve 2147483648000 --time
 Sieve size = 256 kilobytes
 Threads = 12
 100%
-Primes: 78502287015
 Seconds: 221.339
-
-rasmus@zen33:~$ primesieve 2147483648000 --time
-Sieve size = 128 KiB
-Threads = 8
-100%
-Seconds: 203.400
 Primes: 78502287015
+
+d:\Tool> primesieve 2147483648000 --time
+Sieve size = 128 KiB
+Threads = 4
+100%
+Seconds: 465.456
+Primes: 78502287015
+```
 
 ## line_count
 

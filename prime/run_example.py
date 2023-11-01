@@ -43,11 +43,6 @@ def test(argv, sp):
             print(f'    {ss} is a ValueError')
             continue
 
-def test_arrow():
-    ''' test arrow '''
-    print(make_arrow(12,13,14))
-    print(make_arrow(11,15,19))
-
 def show_result(sp, v, p, q):
     ''' show result, not using StorePrime.show() '''
     NAME = 'show_result'
@@ -57,10 +52,9 @@ def show_result(sp, v, p, q):
     if q is None:
         print(f'{v} is a {p+1}th prime')
         return
-    upper = sp.at(q)
-    lower = sp.at(p)
+    upper, lower = sp.at(q), sp.at(p)
     arrow = make_arrow(lower, v, upper)
-    print(f'{v} is in the range of ({lower} {arrow} {upper})')
+    print(f'{v}:({lower} {arrow} {upper})')
 
 def wrap_config(args):
     ''' wrap config and retrieve settings '''
