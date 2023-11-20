@@ -9,6 +9,12 @@ get the ratio as a reference for today usage
 '''
 
 from datetime import date
+HAS_CONSOLE_MODULE = False
+try:
+    import console
+    HAS_CONSOLE_MODULE = True
+except ImportError:
+    print('No console module of pythonista')
 
 def test_dates():
     ''' test '''
@@ -125,7 +131,10 @@ class NextMonth():
         full = self.getd(t15, n15)
         ratio = curr / full
         mass = 24 * ratio
-        print(f'at least > {ratio*100:.0f}%, least: {mass:.2f} GB')
+        msg = f'at least > {ratio*100:.0f}%,\nleast: {mass:.2f} GB'
+        print(msg)
+        if HAS_CONSOLE_MODULE:
+            console.alert(msg)
 
     @classmethod
     def run(cls):
