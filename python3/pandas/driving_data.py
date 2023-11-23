@@ -25,14 +25,19 @@ HOME = os.getenv('HOME')
 UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
 if os.path.exists(UTILPATH):
     sys.path.insert(0, UTILPATH)
+sys.path.insert(0, "..")
 
 from myutil import read_jsonfile, query_url_for_data
 from strutil import print_sep, str2sec, sec2mmss
 
 class DrivingData():
     ''' fetch driving data from gdrive or local csv '''
+    debug = False
+    simpleout = False
+    default_fn = 'driving_data.json'
+    tmp_csv = '/tmp/__driving_datasheet__.csv'
+
     def __init__(self):
-        self.debug = False
         self.jsonpath = ''
         self.jsondata = None
         self.csvfile = ''
@@ -42,29 +47,32 @@ class DrivingData():
 
     def set_csvfile(self, csvfile):
         ''' setter csvfile '''
-        if csvfile is None:
-            self.csvfile = '/tmp/__driving_datasheet__.csv'
-        else:
+        if csvfile:
             self.csvfile = csvfile
+        else:
+            self.csvfile = DrivingData.tmp_csv
+
+    def set_simpleout(self, simpleout):
+        ''' simple out '''
+        self.simpleout = simpleout
 
     def get_default_config(self):
         ''' search config file in default paths '''
         home = os.getenv('HOME')
-        default_fn = 'driving_data.json'
+        dfn = DrivingData.default_fn
         paths = []
         # 1. home/Private/
-        tmp = os.path.join(home, 'Private', default_fn)
+        tmp = os.path.join(home, 'Private', dfn)
         paths.append(tmp)
         # 2. home
-        tmp = os.path.join(home, default_fn)
+        tmp = os.path.join(home, dfn)
         paths.append(tmp)
         # 3. local
-        tmp = os.path.join('./', default_fn)
+        tmp = os.path.join('./', dfn)
         paths.append(tmp)
         for q in paths:
             if os.path.exists(q):
                 return q
-
         return None
 
     def read_setting(self, conf_file):
@@ -76,17 +84,17 @@ class DrivingData():
             self.jsonpath = conf_file
         else:
             self.jsonpath = self.get_default_config()
-
         if self.jsonpath is None or not os.path.exists(self.jsonpath):
             print('[ERROR] no config is specified, exit...')
             sys.exit(1)
         print(f'[INFO] using config: {self.jsonpath}')
 
-
         self.jsondata = read_jsonfile(self.jsonpath)
         self.docid = self.jsondata.get('docid', '')
         self.sheetid = self.jsondata.get('sheetid', '')
         self.compose_url()
+        if self.debug:
+            self.dump_setting()
 
     def compose_url(self):
         ''' compose url '''
@@ -133,24 +141,24 @@ class DrivingData():
         return date(vals[0], vals[1], vals[2])
 
     @staticmethod
-    def get_between_dates(start, end):
+    def get_between_dates(start, end) -> str:
         ''' get dates between
             [in] str start date 2020-01-01
             [out] str end date 2020-02-29
         '''
         start_date = DrivingData.str2date(start)
         end_date = DrivingData.str2date(end)
-        between = end_date - start_date
-        #print(type(between), repr(between))
-        return between
+        ddiff = end_date - start_date
+        return str(ddiff.days)
 
     def extra_data(self, d0, d1):
         ''' show extra data info '''
         print(f'[INFO]    first date: {d0}')
         print(f'[INFO]     last date: {d1}')
-        print(f'[INFO] dates between: {DrivingData.get_between_dates(d0, d1)}')
+        print(f'[INFO]   during days: {DrivingData.get_between_dates(d0, d1)}')
         print('[INFO] for 2021, total working days are 239')
         print('[INFO] for 2022, total working days are 242')
+        print('[INFO] for 2022, total working days are 241')
 
     def action(self):
         ''' main function '''
@@ -174,8 +182,8 @@ class DrivingData():
             except ValueError:
                 print(f'[ERROR] at {ii} on {ds}, invalid format: {duration[ii]}')
                 return
-
-        self.extra_data(dates[0], dates[-1])
+        if not self.simpleout:
+            self.extra_data(dates[0], dates[-1])
 
         if len(dates) != len(secs):
             print(f'[ERROR] not the same length {len(dates)} vs {len(secs)}')
@@ -188,23 +196,35 @@ class DrivingData():
         if self.debug:
             print_sep()
             print('item', des)
-        print_sep()
+
         self.show_details(des)
 
-    @staticmethod
-    def show_details(des):
+    def show_details(self, des):
         ''' show details of res² '''
         queries = ['count', 'max', '75%', 'mean', '50%', '25%', 'min', 'std']
+        print_sep()
+        if self.simpleout:
+            print(date.today())
         for qq in queries:
             ans = peek_target(des, qq)
             if qq == 'count':
                 result = str(int(floor(ans)))
-                j = result.rjust(10, ' ')
+                if self.simpleout:
+                    j = f'"{result}"'
+                else:
+                    j = result.rjust(10, ' ')
             else:
                 mmss = sec2mmss(ans)
-                result = f'{mmss}  ({ans:4d})'
-                j = result.rjust(20, ' ')
-            print(f'{qq:10s}: {j:20s}')
+                if self.simpleout:
+                    j = f'"{mmss}"'
+                else:
+                    result = f'{mmss}  ({ans:4d})'
+                    j = result.rjust(20, ' ')
+            if self.simpleout:
+                print(j)
+            else:
+                print(f'{qq:10s}: {j:20s}')
+        print_sep()
 
 # return type: numpy.float64
 def peek_target(desc_table, target):
@@ -222,24 +242,46 @@ def peek_target(desc_table, target):
         print(f'WARN: ValueError: {e.args}')
     return ''
 
-def process_remotefile(out_file=None, conf_file=None):
-    ''' request from google drive '''
-    dd = DrivingData()
-    print('[INFO] request data from google drive...')
-    dd.set_csvfile(out_file)
-    dd.read_setting(conf_file)
-    if dd.debug:
-        dd.dump_setting()
-    dd.request_data()
-    dd.action()
 
-def process_localfile(in_file):
-    ''' use local datasheet '''
-    print('input file from:', in_file)
-    print_sep()
-    dd = DrivingData()
-    dd.set_csvfile(in_file)
-    dd.action()
+def perform_show_driving_data(in_file=None, out_file=None, conf_file=None, simpleout=False):
+    ''' universal starter '''
+    obj = DrivingData()
+    obj.set_simpleout(simpleout)
+
+    # use local file (higher priority), no need out_file and conf_file
+    if in_file:
+        print('[INFO] input file from:', in_file)
+        obj.set_csvfile(in_file)
+    else:   # request remote file
+        print('[INFO] request data from google drive...')
+        obj.set_csvfile(out_file)
+        obj.read_setting(conf_file)
+        obj.request_data()
+
+    obj.action()
+
+def show_parameters(parser):
+    ''' show parameters content '''
+    print('[INFO] show parameters only, add **-r** to real run, dump...\n')
+    args = parser.parse_args()
+    has_parameter = False
+    if args.input:
+        print('input:', args.input)
+        has_parameter = True
+    if args.output:
+        print('output:', args.output)
+        has_parameter = True
+    if args.conf:
+        print('conf:', args.conf)
+        has_parameter = True
+    if args.excel:
+        print('excel:', args.excel)
+        has_parameter = True
+
+    # to show help message directly
+    if has_parameter is False:
+        parser.print_help()
+
 
 def main():
     ''' main '''
@@ -251,34 +293,22 @@ def main():
     parser.add_argument('-c', '--conf', help='Specify config for google drive (json format)')
     parser.add_argument("-r", "--run", action='store_true', default=False,
         help='Specify this parameter to run actually')
+    parser.add_argument("-x", "--excel", action='store_true', default=False,
+        help='just print data, easy to paste to spreadsheets')
     parser.add_argument("-v", "--verbose", action='store_true', default=False,
         help='verbose mode')
 
     #parser.parse_args(['-i input.csv -o out.csv'])
     args = parser.parse_args()
 
-    if args.run:
-        if args.input:
-            process_localfile(args.input)
-        else:
-            process_remotefile(out_file=args.output, conf_file=args.conf)
+    if not args.run:
+        show_parameters(parser)
         return
 
-    print('[INFO] show parameters only...')
-    has_parameter = False
-    if args.input:
-        print('input:', args.input)
-        has_parameter = True
-    if args.output:
-        print('output:', args.output)
-        has_parameter = True
-    if args.conf:
-        print('conf:', args.conf)
-        has_parameter = True
+    perform_show_driving_data(in_file=args.input, out_file=args.output,
+        conf_file=args.conf, simpleout=args.excel)
 
-    # to show help message directly
-    if has_parameter is False:
-        parser.print_help()
+
 
 if __name__ == '__main__':
     main()
