@@ -158,7 +158,7 @@ class DrivingData():
         print(f'[INFO]   during days: {DrivingData.get_between_dates(d0, d1)}')
         print('[INFO] for 2021, total working days are 239')
         print('[INFO] for 2022, total working days are 242')
-        print('[INFO] for 2022, total working days are 241')
+        print('[INFO] for 2023, total working days are 241')
 
     def action(self):
         ''' main function '''
