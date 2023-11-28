@@ -45,10 +45,12 @@ def send_notification(msg: str):
         -F "message={msg}"  \\
         https://api.pushover.net/1/messages.json
     '''
-    print(cmd)
+    if TEST:
+        print(cmd)
     r = os.system(cmd)
     if r != 0:
         print('[FAIL] exit status:', r)
+    print()
 
 class Solution():
     ''' solution '''
@@ -84,8 +86,14 @@ class Solution():
         msg = ''
         if not self.plugged and self.percentage < lower:
             msg = f'battery level {self.percentage} < {lower}, plz plug and charge...'
+            send_notification(msg)
+            return
         if self.plugged and self.percentage >= upper:
             msg = f'battery level = {self.percentage}, and almost charged, plz unplug...'
+            send_notification(msg)
+            return
+
+        msg = f"battery level = {self.percentage}"
         send_notification(msg)
 
     @classmethod
