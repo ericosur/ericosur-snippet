@@ -8,12 +8,11 @@ get battery level of device, issue notification if:
   - unplug and battery level <= 40
 '''
 
-TEST = False
-
 import os
 import sys
-import re
 import json
+
+TEST = False
 
 def read_jsonfile(fn:str):
     '''
@@ -59,7 +58,7 @@ class Solution():
 
     def __init__(self):
         self.percentage = None
-        self.pluged = None
+        self.plugged = None
 
     def get_battery_status(self):
         ''' get battery status '''
@@ -83,17 +82,14 @@ class Solution():
         lower = 50
         upper = 80
         self.get_battery_status()
-        msg = ''
-        if not self.plugged and self.percentage < lower:
-            msg = f'battery level {self.percentage} < {lower}, plz plug and charge...'
-            send_notification(msg)
-            return
-        if self.plugged and self.percentage >= upper:
-            msg = f'battery level = {self.percentage}, and almost charged, plz unplug...'
-            send_notification(msg)
-            return
-
-        msg = f"battery level = {self.percentage}"
+        msg = f"battery: {self.percentage}%, and "
+        if self.plugged:
+            msg += "charging.\n"
+            if self.percentage >= upper:
+                msg += f'>= {upper}%. MAY unplug...'
+        else:
+            if self.percentage < lower:
+                msg += f'< {lower}%, NEED plug and charge...'
         send_notification(msg)
 
     @classmethod
