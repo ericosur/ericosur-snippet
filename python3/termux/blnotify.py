@@ -73,7 +73,11 @@ class Solution():
             sys.exit(-1)
         d = read_jsonfile(Solution.bjson)
         self.percentage = int(d.get('percentage'))
-        self.plugged = d['plugged']
+        plug = d.get('plugged')
+        if plug == "UNPLUGGED":
+            self.plugged = False
+        elif plug == "PLUGGED":
+            self.plugged = True
         print(f'{self.percentage=}, {self.plugged=}')
 
     def action(self):
