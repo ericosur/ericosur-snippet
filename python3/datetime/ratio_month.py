@@ -3,7 +3,7 @@
 
 '''
 ratio between a month
-data plan count from 10/15 to 11/15 (mm/dd)
+data plan count from (mm/dd, including) prev month 16 to this month 15
 get the ratio as a reference for today usage
 
 '''
@@ -14,7 +14,7 @@ try:
     import console
     HAS_CONSOLE_MODULE = True
 except ImportError:
-    print('No console module of pythonista')
+    print('[INFO] No console module of pythonista')
 
 def test_dates():
     ''' test '''
@@ -48,15 +48,16 @@ def test_dates():
 
 class NextMonth():
     ''' class solution '''
-    def __init__(self):
-        self.today = date.today()
-        self.nextm = NextMonth.get_nextmonthdate(self.today)
-        self.next15 = NextMonth.get_next15(self.today)
-        self.this15 = NextMonth.get_this15(self.today)
+    def __init__(self, td=None):
+        if td:
+            self.today = td
+        else:
+            self.today = date.today()
+        td = self.today
 
     def __str__(self):
-        msg = f'today: {self.today}, next month: {self.nextm}'
-        msg += f', next 15: {self.next15}'
+        msg = f'today: {self.today}'
+        #msg += f'prev15: {self.prev15}, next15: {self.next15}'
         return msg
 
     @staticmethod
@@ -91,18 +92,40 @@ class NextMonth():
     @staticmethod
     def get_next15(d: date):
         ''' get next 15 '''
-        next15 = None
+        limit = 15
+        n = None
         try:
-            if d.day < 15:
-                next15 = d.replace(day=15)
+            if d.day > limit:
+                n = d.replace(month=d.month+1, day=15)
+            elif d.day == limit:
+                n = d
             else:
-                next15 = d.replace(month=d.month+1, day=15)
+                n = d.replace(day=15)
         except ValueError:
             if d.month == 12:
-                next15 = d.replace(year=d.year+1, month=1, day=15)
+                n = d.replace(year=d.year+1, month=1, day=15)
             else:
                 return None
-        return next15
+        return n
+
+    @staticmethod
+    def get_prev16(d: date):
+        ''' get prev 16 '''
+        limit = 16
+        p = None
+        try:
+            if d.day > limit:
+                p = d.replace(day=limit)
+            elif d.day == limit:
+                p = d
+            else:
+                p = d.replace(month=d.month-1, day=limit)
+        except ValueError:
+            if d.month == 1:
+                p = d.replace(year=d.year-1, month=12, day=limit)
+            else:
+                return None
+        return p
 
     @staticmethod
     def get_this15(d: date):
@@ -115,21 +138,23 @@ class NextMonth():
         return this15
 
     @staticmethod
-    def getd(start, end):
+    def get_ddiff(start, end):
         ''' get diff days '''
-        d = start - end
-        print(f'{start} - {end} = {d}')
+        d = end - start
+        #print(f'{end} - {start} = {d}')
         return d
 
     def action(self):
         ''' action '''
-        print('action!')
-        td = self.today
-        t15 = NextMonth.get_this15(td)
-        n15 = NextMonth.get_nextmonth15(td)
-        curr = self.getd(td, n15)
-        full = self.getd(t15, n15)
-        ratio = curr / full
+        # duration from prev/16 to this/15
+        p = NextMonth.get_prev16(self.today)
+        n = NextMonth.get_next15(self.today)
+        print(f"between: {p}, {n}")
+        assert n>p
+        nom = NextMonth.get_ddiff(self.today, n)
+        denom = NextMonth.get_ddiff(p, n)
+        #print(nom, denom)
+        ratio = nom / denom
         mass = 24 * ratio
         msg = f'at least > {ratio*100:.0f}%,\nleast: {mass:.2f} GB'
         print(msg)
@@ -141,7 +166,6 @@ class NextMonth():
         ''' run '''
         obj = cls()
         print(obj)
-        #test_dates()
         obj.action()
 
 def main():
