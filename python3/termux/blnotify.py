@@ -86,14 +86,14 @@ class Solution():
         lower = 50
         upper = 80
         self.get_battery_status()
-        msg = f"battery: {self.percentage}%, and "
+        msg = f"battery: {self.percentage}%"
         if self.plugged:
-            msg += "charging.\n"
+            msg += ", and charging.\n"
             if self.percentage >= upper:
                 msg += f'>= {upper}%. MAY unplug...'
         else:
             if self.percentage < lower:
-                msg += f'< {lower}%, NEED plug and charge...'
+                msg += f'< {lower}%\nNEED plug and charge...'
         send_notification(msg)
 
     @classmethod
