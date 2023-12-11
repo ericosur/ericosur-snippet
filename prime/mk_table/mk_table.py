@@ -6,6 +6,7 @@ load prime numbers from table and output to a xlsx file
 '''
 
 import sys
+
 import sympy
 
 # pylint: disable=import-error

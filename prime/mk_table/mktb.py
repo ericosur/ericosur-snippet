@@ -28,6 +28,7 @@ except ImportError as err:
 sys.path.insert(0, '../')
 from load_myutil import GetConfig
 
+
 class Solution():
     ''' test date is a prime '''
     def __init__(self):

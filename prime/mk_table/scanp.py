@@ -16,6 +16,7 @@ sys.path.insert(0, '../')
 from load_myutil import GetConfig
 from store_prime import StorePrime
 
+
 def wrap_config():
     ''' wrap config and retrieve settings '''
     obj = GetConfig()
