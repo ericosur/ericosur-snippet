@@ -12,12 +12,12 @@ If not, it store this table into redis, and then query.
 Need start the service of redis/rejson first.
 '''
 
-from typing import List
 import os
 import sys
+from typing import List
 
-from rejson import  Client, Path
 import redis
+from rejson import Client, Path
 
 HOME = os.getenv('HOME')
 UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
@@ -131,7 +131,7 @@ class StoreAndQuery():
                 print('KeyError: ', e)
 
     @classmethod
-    def action(cls) -> None:
+    def run(cls) -> None:
         ''' action '''
         obj = cls()
         obj.test_query()

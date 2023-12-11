@@ -4,11 +4,12 @@
 ''' show input character in which unicode block '''
 
 
-import re
-import random
-import pickle
 import os
+import pickle
+import random
+import re
 from typing import List
+
 
 class UnicodeBlock():
     ''' solution '''

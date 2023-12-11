@@ -5,10 +5,11 @@ try to find McNugget Number
 https://mathworld.wolfram.com/McNuggetNumber.html
 '''
 
+import bisect
 import itertools as it
 import operator
-import bisect
 from math import ceil
+
 
 def check_missing(res: list, maxnum: int) -> list:
     '''

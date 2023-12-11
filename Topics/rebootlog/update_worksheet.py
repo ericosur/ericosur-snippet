@@ -10,13 +10,15 @@ ip addr show eth0 |grep -w inet
 
 '''
 
+import getopt
 # update google spread sheet
 import os
-import sys
 import socket
+import sys
 import time
-import getopt
-from myiputil import get_iface_ip, get_ssid, get_extip
+
+from myiputil import get_extip, get_iface_ip, get_ssid
+
 try:
     import gspread
     from oauth2client.service_account import ServiceAccountCredentials

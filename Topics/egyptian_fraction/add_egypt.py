@@ -8,8 +8,10 @@ use sympy to calculate egygtian style of fraction
 import argparse
 import sys
 from typing import List
-from sympy import Rational
+
 from read_stdin import read_from_stdin
+from sympy import Rational
+
 
 def sum_fraction(values: List[int]):
     ''' sum of egytian fraction '''

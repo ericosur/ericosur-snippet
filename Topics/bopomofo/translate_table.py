@@ -8,9 +8,10 @@ read phone.txt, output two json file,
 '''
 
 import json
-import re
 import os
+import re
 import sys
+
 
 # pylint: disable=invalid-name
 class Solution():

@@ -5,10 +5,12 @@
 search radicals from Boshiamy.txt and show unicode code point
 '''
 
-import sys
 import re
+import sys
 from typing import List
+
 import unicode_blocks
+
 
 class Solution:
     ''' solution '''
