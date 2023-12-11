@@ -5,6 +5,7 @@
 
 import random
 
+
 def demo():
     '''demo function'''
     name_list = ['alice', 'bob', 'cathy', 'david', 'eric',

@@ -7,6 +7,7 @@ demo of module filetype
 
 import os
 import sys
+
 from myutil import read_from_stdin
 
 try:

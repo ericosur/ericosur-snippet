@@ -9,6 +9,7 @@ get the ratio as a reference for today usage
 '''
 
 from datetime import date
+
 HAS_CONSOLE_MODULE = False
 try:
     import console

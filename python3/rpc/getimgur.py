@@ -5,6 +5,7 @@
 
 import requests
 
+
 def show_results(r):
     ''' show data member of **response** '''
     print('r.url', r.url)

@@ -9,6 +9,7 @@ different numbers
 
 import itertools as it
 
+
 class Solution():
     ''' solution '''
     def __init__(self):

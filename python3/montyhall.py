@@ -33,6 +33,7 @@ C_4 = (1 - \frac{1}{4}) * \frac{1}{2} = \frac{3}{8}
 from random import randint
 from time import time
 
+
 class MontyHall():
     ''' solution for monty hall problem '''
     REPEAT = 5_000_000

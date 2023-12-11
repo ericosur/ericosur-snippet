@@ -27,6 +27,7 @@ if os.path.exists(UTILPATH):
 
 from myutil import read_jsonfile
 
+
 def get_host():
     ''' get host name '''
     r = platform.node()

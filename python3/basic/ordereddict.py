@@ -5,6 +5,7 @@
 
 from collections import OrderedDict
 
+
 def get_dict():
     ''' get_dict '''
 

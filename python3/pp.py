@@ -12,6 +12,7 @@ to see the difference
 '''
 
 from __future__ import print_function
+
 import sys
 
 # list each item of sys.path

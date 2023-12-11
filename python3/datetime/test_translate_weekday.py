@@ -5,6 +5,7 @@
 
 from new_date import translate_weekday
 
+
 def test_result(wd, expected):
     ''' test_result '''
     try:

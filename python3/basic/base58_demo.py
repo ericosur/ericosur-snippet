@@ -6,6 +6,7 @@ pip install base58
 '''
 
 import sys
+
 try:
     import base58
 except ImportError:

@@ -6,8 +6,10 @@ https://numpy.org/doc/stable/reference/generated/numpy.hanning.html
 '''
 
 import matplotlib.pyplot as plt
+
 import numpy as np
 from numpy.fft import fft, fftshift
+
 
 def main():
     ''' main '''

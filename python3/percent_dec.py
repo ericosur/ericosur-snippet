@@ -6,6 +6,7 @@ demo percentage decoding
 '''
 
 import argparse
+
 from myutil import read_from_stdin
 
 try:

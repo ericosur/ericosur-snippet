@@ -5,6 +5,7 @@
 
 import math
 
+
 class MyRect():
     ''' solution '''
     def __init__(self, w, h):

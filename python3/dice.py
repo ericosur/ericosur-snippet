@@ -11,8 +11,11 @@ plot the result
 
 import time
 from random import randint
+
 import matplotlib.pyplot as plt
+
 import numpy as np
+
 #import seaborn as sns
 
 

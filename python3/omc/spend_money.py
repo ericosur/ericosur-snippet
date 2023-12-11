@@ -20,6 +20,7 @@
 
 import itertools as it
 
+
 class SpendMoney():
     ''' try to find answer '''
     def __init__(self):

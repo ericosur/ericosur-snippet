@@ -11,6 +11,7 @@ https://docs.wand-py.org/en/0.6.12/guide/read.html#read-a-blob
 
 import os
 import sys
+
 from wand.image import Image as WandImage
 
 

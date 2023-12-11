@@ -10,6 +10,7 @@ http://www.oremus.org/liturgy/etc/ktf/app/easter.html
 
 import datetime
 
+
 def calculate_easter(year):
     ''' Calculate the date of Easter Sunday for the given year '''
     a = year % 19

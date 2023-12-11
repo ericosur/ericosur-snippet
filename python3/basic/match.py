@@ -18,6 +18,7 @@ if os.path.exists(UTILPATH):
 
 from myutil import require_python_version
 
+
 # pylint: disable=import-outside-toplevel
 def main():
     ''' main '''

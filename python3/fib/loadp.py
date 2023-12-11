@@ -8,6 +8,7 @@ use pickle to load
 import pickle
 from glob import glob
 
+
 def load_pickle(fn):
     ''' load pickle file '''
     mydata = {}

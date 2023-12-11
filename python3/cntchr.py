@@ -4,8 +4,10 @@
 ''' count char in a string '''
 
 from __future__ import print_function
+
 from itertools import groupby
 from random import randint
+
 
 def get_freq(s: str):
     ''' get frequency, got a dict with key and frequency '''

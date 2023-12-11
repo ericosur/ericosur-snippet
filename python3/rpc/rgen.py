@@ -10,7 +10,9 @@ https://www.python.org/dev/peps/pep-3107/
 import binascii as bi
 import hashlib
 import sys
+
 import numpy as np
+
 
 def get_random_bytes(size: int = 16) -> bytes:
     '''

@@ -6,7 +6,9 @@ keyring basic config ?
 '''
 
 from __future__ import print_function
+
 import sys
+
 import keyring.util.platform_
 
 sys.path.insert(0, '/usr/local/lib/python3.5/dist-packages')

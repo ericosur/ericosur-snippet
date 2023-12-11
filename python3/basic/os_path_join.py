@@ -10,6 +10,7 @@ It will take care the dir seperator from different OS.
 
 import os.path
 
+
 def main():
     ''' main '''
     print('demo os.path.join()')

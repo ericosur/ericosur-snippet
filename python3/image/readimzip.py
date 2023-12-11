@@ -8,7 +8,9 @@ read image from a zip file, and save to file
 
 import os
 from random import randint
+
 import imageio.v3 as iio
+
 
 class Solution():
     ''' class solution '''

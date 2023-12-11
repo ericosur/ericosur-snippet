@@ -7,6 +7,7 @@ practice
 
 import itertools as it
 import sys
+
 try:
     import xlsxwriter
 except ImportError:

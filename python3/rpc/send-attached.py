@@ -14,9 +14,11 @@ reference:
 # pylint: disable=unreachable
 
 from __future__ import print_function
+
 import os
 import sys
 import time
+
 try:
     import yagmail
     print('yagmail:', yagmail.__version__)

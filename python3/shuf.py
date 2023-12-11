@@ -8,6 +8,7 @@ a simple demo to ultilize function in the other script
 
 import random
 import timeit
+
 import numpy as np
 from fisher_yates_shuffle import shuffle_array
 

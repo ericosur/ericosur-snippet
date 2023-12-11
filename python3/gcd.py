@@ -6,6 +6,7 @@
 
 import sys
 from typing import List
+
 from myutil import read_from_stdin
 
 __version__ = '1.0.0'

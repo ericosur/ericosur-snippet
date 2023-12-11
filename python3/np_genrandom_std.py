@@ -9,6 +9,7 @@ rng, random, standard_normal, mean, median, std, amax, amin
 '''
 
 import time
+
 import numpy as np
 
 #pylint: disable=invalid-name

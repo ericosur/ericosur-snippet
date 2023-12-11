@@ -8,6 +8,7 @@ sum of a and b is 4m
 
 import itertools as it
 
+
 def get_productsum(a,b,c,d):
     ''' get ab + bc + db + ac '''
     return a*b + b*c + d*b + a*c

@@ -6,6 +6,7 @@ demo percentage encoding, could run both python2, python3
 '''
 
 import argparse
+
 from myutil import read_from_stdin
 
 try:

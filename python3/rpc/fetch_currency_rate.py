@@ -3,7 +3,9 @@
 ''' fetch capi.php '''
 
 import json
+
 import requests
+
 
 def grep_keyword(data, keyword):
     ''' grep_keyword '''

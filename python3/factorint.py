@@ -9,7 +9,9 @@ it takes a while to load sympy (it's huge!)
 
 import sys
 from random import randint
+
 from sympy import factorint
+
 
 def show(value):
     '''

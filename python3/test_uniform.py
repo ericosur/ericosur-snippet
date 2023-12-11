@@ -8,6 +8,7 @@ fill array with random.randint, test it if uniform distributed
 import random
 from statistics import stdev
 
+
 def test(n=100000):
     ''' test '''
     upp = 10

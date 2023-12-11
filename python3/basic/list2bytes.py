@@ -8,7 +8,9 @@ require hexdump and numpy
 '''
 
 from hexdump import hexdump
+
 import numpy as np
+
 
 def main():
     ''' main '''

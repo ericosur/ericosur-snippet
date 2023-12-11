@@ -7,7 +7,9 @@ string to bytes
 '''
 
 from __future__ import print_function
+
 import sys
+
 try:
     from hexdump import hexdump
 except ImportError:

@@ -14,6 +14,7 @@ import argparse
 import json
 import os
 import sys
+
 import requests
 
 HOME = os.getenv('HOME')

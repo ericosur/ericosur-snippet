@@ -26,6 +26,7 @@ def gen_script(dfn: str, ofn: str) -> None:
 
     b64str = base64.b64encode(compressed).decode('utf-8')
     duration = time() - start
+    print(f"[info] duration: {duration * 1000:.3f}")
 
     print(f'b64str len: {len(b64str)}')
     #print("b64str type:", type(b64str))

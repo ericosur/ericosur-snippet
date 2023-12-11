@@ -7,6 +7,7 @@ get some random 4 digit numbers
 
 import random
 
+
 def main():
     ''' main '''
     DIVISOR = 7

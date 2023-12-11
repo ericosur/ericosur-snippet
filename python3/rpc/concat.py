@@ -16,6 +16,7 @@ if os.path.exists(UTILPATH):
     sys.path.insert(0, UTILPATH)
 from myutil import read_jsonfile
 
+
 def test(fn):
     ''' test '''
     data = read_jsonfile(fn)

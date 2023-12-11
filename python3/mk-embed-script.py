@@ -9,6 +9,7 @@ import argparse
 import base64
 import time
 
+
 def gen_script(dfn: str, ofn: str) -> None:
     ''' main '''
     content = None

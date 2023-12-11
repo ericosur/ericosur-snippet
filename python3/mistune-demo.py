@@ -8,6 +8,7 @@ cannot upgrade to mistune 2.0.0 because of nbconvert or networkx?
 '''
 
 import sys
+
 try:
     import mistune
 except ImportError:

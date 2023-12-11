@@ -5,10 +5,13 @@
 reference: https://api.random.org/json-rpc/2/basic
 '''
 from __future__ import print_function
+
 import json
 import random
+
 import requests
 from getapikey import get_randomorg_apikey
+
 
 def main():
     ''' main '''

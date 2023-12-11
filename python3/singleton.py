@@ -7,6 +7,7 @@ how to use Python Singleton
 '''
 from __future__ import print_function
 
+
 class Singleton():
     ''' single class usage '''
     __single = None

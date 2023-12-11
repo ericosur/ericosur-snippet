@@ -8,7 +8,9 @@ if need to calculate massive large array, use numpy if possible
 '''
 
 from __future__ import print_function
+
 import timeit
+
 import numpy as np
 
 DEFAULT_SIZE = 10000

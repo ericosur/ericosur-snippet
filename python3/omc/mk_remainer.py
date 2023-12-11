@@ -10,6 +10,7 @@ make one number and make the rule
 
 import random
 
+
 class Solution():
     ''' class solution '''
     def __init__(self):

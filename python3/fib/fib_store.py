@@ -13,6 +13,7 @@ using pickle as cache
 import pickle
 import random
 
+
 class CalcFib():
     ''' class will help to handle read pickle file '''
     def __init__(self, fn='fib.p'):

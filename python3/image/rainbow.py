@@ -7,6 +7,7 @@ create a PNG image of rainbow gradient
 
 from PIL import Image
 
+
 def main():
     ''' main '''
     print('hello world')

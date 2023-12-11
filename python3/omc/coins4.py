@@ -7,7 +7,9 @@
 '''
 
 import itertools as it
+
 import numpy as np
+
 
 def main():
     ''' main '''

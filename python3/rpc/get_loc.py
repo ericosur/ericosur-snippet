@@ -7,6 +7,7 @@ https://github.com/ColdGrub1384/Pyto/issues/76
 
 import requests
 
+
 def display_ip():
     """  Function To Print GeoIP Latitude & Longitude """
     ip_request = requests.get('https://get.geojs.io/v1/ip.json', timeout=5.0)
