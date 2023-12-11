@@ -8,6 +8,7 @@ https://github.com/gto76/python-cheatsheet
 
 import operator
 
+
 # __pylint: disable=unused-variable
 # __pylint: disable=unnecessary-pass
 class Tip():

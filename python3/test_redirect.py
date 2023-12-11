@@ -13,7 +13,9 @@ python3 test_redirect.py 2>&1 | tee out.txt
 '''
 
 import sys
+
 from myutil import print_stderr
+
 
 def main():
     ''' main '''

@@ -8,6 +8,7 @@ https://docs.python.org/zh-tw/dev/library/tomllib.html
 
 from load_toml import LoadToml
 
+
 # pylint: disable=import-outside-toplevel
 def test_np():
     ''' numpy vs toml '''

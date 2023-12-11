@@ -6,6 +6,7 @@
 import calendar
 from datetime import date, timedelta
 
+
 def main():
     '''
     print calendar of 3 months including current month

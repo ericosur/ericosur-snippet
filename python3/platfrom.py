@@ -4,8 +4,11 @@
 ''' get name of platform '''
 
 from __future__ import print_function
+
 import sys
+
 from platformdirs import PlatformDirs
+
 
 def show_sysplatform():
     ''' show '''

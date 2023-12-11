@@ -5,6 +5,7 @@
 
 from datetime import date
 
+
 class Solution():
     ''' class to solve this problem '''
 

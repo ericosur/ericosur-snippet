@@ -5,7 +5,9 @@
 
 # pylint: disable=import-error
 from time import sleep
+
 from openpyxl import load_workbook
+
 
 class Solution():
     ''' solution to combine xlsx '''

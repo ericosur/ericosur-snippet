@@ -12,8 +12,11 @@ docker run -p 80:80 kennethreitz/httpbin
 
 
 from __future__ import print_function
+
 import time
+
 import requests
+
 
 def show_results(r):
     ''' show data member of **response** '''

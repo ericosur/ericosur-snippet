@@ -7,6 +7,7 @@ use pickle to load
 
 import pickle
 import sys
+
 try:
     from sympy import ntheory
 except ImportError as err:

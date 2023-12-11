@@ -11,6 +11,7 @@ pip install pycryptodome
 '''
 
 import sys
+
 try:
     from Crypto.Hash import SHA512
     from Crypto.Random import get_random_bytes

@@ -7,6 +7,7 @@ module binascii example
 
 import binascii
 
+
 def main():
     ''' main '''
     one = binascii.crc32(b"hello world")

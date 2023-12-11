@@ -5,6 +5,7 @@ from: https://xlsxwriter.readthedocs.io/chart.html
 '''
 
 import sys
+
 try:
     import xlsxwriter
 except ImportError:

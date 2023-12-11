@@ -7,6 +7,7 @@ refer to https://github.com/davidaurelio/hashids-python
 '''
 
 from random import randint
+
 try:
     from hashids import Hashids
 except ImportError:

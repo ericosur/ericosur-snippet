@@ -18,6 +18,7 @@ if os.path.exists(UTILPATH):
 
 from myutil import read_jsonfile
 
+
 def get_randomorg_apikey():
     ''' get apikey of random.org from json file '''
     home = os.environ.get('HOME')

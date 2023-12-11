@@ -15,6 +15,7 @@
 
 from load_toml import LoadToml
 
+
 def test0():
     ''' test0 '''
     # Load data from a TOML file

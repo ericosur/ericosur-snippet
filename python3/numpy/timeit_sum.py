@@ -6,8 +6,11 @@ timeit on sum/npsum
 '''
 
 from __future__ import print_function
+
 import timeit
+
 import numpy as np
+
 
 class TestSum():
     ''' class TestSum '''

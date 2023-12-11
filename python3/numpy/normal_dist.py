@@ -9,8 +9,11 @@ https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.normal.html#nu
 '''
 
 from __future__ import print_function
+
 import matplotlib.pyplot as plt
+
 import numpy as np
+
 
 # pylint: disable=unused-variable
 def main():

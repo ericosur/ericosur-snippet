@@ -9,7 +9,9 @@
 
 import sys
 from datetime import date
+
 from dooms_day import DoomsDay
+
 
 def check_and_call(dt):
     ''' input str list, and return dow '''

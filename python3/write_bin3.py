@@ -11,7 +11,9 @@ demo to write a binary file
 #hb = binascii.a2b_hex(hs)
 
 from __future__ import print_function
+
 from timeit import timeit
+
 import numpy as np
 
 '''

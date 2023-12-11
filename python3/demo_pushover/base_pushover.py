@@ -22,6 +22,7 @@ if os.path.exists(UTILPATH):
 
 from myutil import read_jsonfile
 
+
 class PushOverBase():
     ''' base class of pushover '''
     def __init__(self, msg):

@@ -7,6 +7,7 @@ use pollard rho brent method to factorize an integer
 
 import random
 
+
 def gcd(mm, nn):
     '''
     calculate gcd number by rescursive

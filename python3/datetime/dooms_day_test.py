@@ -14,7 +14,9 @@ http://people.se.cmich.edu/graha1sw/pub/doomsday/doomsday.html
 
 import calendar
 from datetime import date
+
 from dooms_day import DoomsDay
+
 
 class TestDoomsDay():
     ''' class to test DoomsDay '''

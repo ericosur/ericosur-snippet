@@ -11,6 +11,7 @@ code.activestate.com/recipes/65207-constants-in-python/?in=user-97991
 
 import sys
 
+
 # Put in const.py...:
 class _const():
     def __setattr__(self, name, value):
@@ -28,6 +29,7 @@ def main():
 
     # that's all -- now any client-code can
     import const
+
     # and bind an attribute ONCE:
     const.magic = 23
     # but NOT re-bind it:

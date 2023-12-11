@@ -14,7 +14,9 @@ python3 -m memory_profiler write_bin4.py
 
 import argparse
 import time
+
 import numpy as np
+
 
 class Solution():
     ''' class to write buffer with random bytes into a file '''

@@ -8,6 +8,7 @@ It is hard to build my own zxing jar library.
 '''
 
 import sys
+
 import common
 
 try:

@@ -6,7 +6,9 @@ simple gcd runner with argparse
 '''
 
 import argparse
+
 from gcd import gcd
+
 
 def main():
     ''' main '''

@@ -10,6 +10,7 @@ import sys
 
 from testqr import get_qrcode
 
+
 def main(argv):
     ''' main '''
 

@@ -9,6 +9,7 @@ import argparse
 import hashlib
 import random
 
+
 def hash_factory(fn, hash_func):
     ''' hash factory '''
     BUFSIZE = 65536

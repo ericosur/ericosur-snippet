@@ -8,6 +8,7 @@ how many way to take
 
 import itertools as it
 
+
 class Solution():
     ''' solution '''
     TOTAL = 106

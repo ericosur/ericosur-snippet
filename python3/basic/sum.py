@@ -9,7 +9,9 @@ np.arange and np.sum
 
 from time import perf_counter as pc
 from time import sleep
+
 import numpy as np
+
 
 class Solution():
     ''' basic flow '''

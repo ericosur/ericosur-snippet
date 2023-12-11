@@ -13,7 +13,9 @@ https://thispointer.com/python-check-if-all-values-are-same-in-a-numpy-array-bot
 '''
 
 import itertools as it
+
 import numpy as np
+
 
 class Solution():
     ''' class to solve the problem '''

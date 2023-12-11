@@ -7,6 +7,7 @@ A simple CSV practice by using python module csv
 import csv
 import random
 
+
 def get_ten_numbers():
     ''' get_ten_numbers '''
     TEN = 10

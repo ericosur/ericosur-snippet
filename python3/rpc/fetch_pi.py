@@ -22,7 +22,9 @@ Here are the last 97 digits of the result.
 '''
 
 import time
+
 import requests
+
 #from httpbin import show_results
 
 def do_request(the_max, request_len=10):

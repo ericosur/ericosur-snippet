@@ -7,6 +7,7 @@ to check if a date is palindrome
 
 from datetime import date, timedelta
 
+
 class TestDate():
     ''' test date is a prime '''
     def __init__(self):

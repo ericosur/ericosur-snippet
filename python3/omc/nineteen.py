@@ -8,6 +8,7 @@ what is a mod 99 ?
 
 import math
 
+
 def main():
     ''' main '''
     tok = '19'

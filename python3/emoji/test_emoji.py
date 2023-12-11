@@ -8,6 +8,7 @@ _emoji.py
 
 import argparse
 import re
+
 from _emoji import EMOJI
 
 

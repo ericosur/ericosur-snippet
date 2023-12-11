@@ -8,6 +8,7 @@ sum of a and b is 4m
 
 import itertools as it
 
+
 def get_one2n(n):
     ''' sum of 1 .. n '''
     t = (1+n)*n/2

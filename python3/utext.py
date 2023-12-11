@@ -6,7 +6,9 @@ simply to show how to import a module within another sub-directory
 '''
 
 import argparse
+
 import emoji.mytofrom
+
 
 def utf8_seq(cc: str):
     ''' utf8 sequence in hex format '''

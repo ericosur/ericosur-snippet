@@ -4,7 +4,9 @@
 ''' get new cost and avg '''
 
 import sys
+
 from myutil import require_python_version
+
 
 def main(argv: list) -> None:
     ''' main '''

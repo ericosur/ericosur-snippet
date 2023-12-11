@@ -10,6 +10,7 @@
 
 from itertools import permutations
 
+
 class Solution():
     ''' class solution '''
     def __init__(self):
