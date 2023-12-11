@@ -7,9 +7,9 @@ Read it and save as one prime number one line
 '''
 
 import os
-import sys
-import re
 import pickle
+import re
+import sys
 from time import time
 
 MODNAME = "norm2t.py"
@@ -27,7 +27,7 @@ except ImportError as err:
 # --pylint: disable=wrong-import-position
 
 sys.path.insert(0, '../')
-from load_myutil import read_setting, gethome, get_u1_path
+from load_myutil import get_u1_path, gethome, read_setting
 
 # try to import StorePrime class
 try:
