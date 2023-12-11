@@ -9,8 +9,9 @@ At [test_exist.py](../prime/test_exist.py), it demos how slow "item in a large l
 
 '''
 
-from bisect import bisect_left, bisect_right
 import random
+from bisect import bisect_left, bisect_right
+
 
 def index(a: list, x: int):
     ''' return index of the leftmost value exactly equal to x '''

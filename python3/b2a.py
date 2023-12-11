@@ -7,6 +7,7 @@ byte string into binary
 
 import re
 
+
 # byte_str [in]: 'e4b8ade69687'
 def hex_byte_string_to_codepoint(byte_str: str):
     ''' hex_byte_string_to_codepoint '''

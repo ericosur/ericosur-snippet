@@ -21,8 +21,10 @@ UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
 if os.path.exists(UTILPATH):
     sys.path.insert(0, UTILPATH)
 
-from myutil import read_jsonfile
 from base_pushover import PushOverBase
+
+from myutil import read_jsonfile
+
 
 class Solution(PushOverBase):
     ''' PushOverBase will load the apitoken, userkey '''

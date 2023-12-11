@@ -4,9 +4,10 @@
 datetime delta
 '''
 
-from datetime import timedelta, datetime
 import math
 import operator
+from datetime import datetime, timedelta
+
 
 def main():
     ''' main '''

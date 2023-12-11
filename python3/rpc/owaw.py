@@ -12,11 +12,14 @@ script to query openweather and accuweather
 # for running.
 #
 
-import os
 import json
+import os
 from datetime import datetime
+
 import requests
+
 from myutil import write_json
+
 
 def getapikey(keyname):
     ''' get api key '''

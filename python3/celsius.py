@@ -6,8 +6,9 @@
 '''
 
 from __future__ import print_function
-import sys
+
 import locale
+import sys
 
 
 def convert_temperature(argv):

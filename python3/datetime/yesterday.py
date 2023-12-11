@@ -7,8 +7,10 @@ yesterday = today - timedelta
 '''
 
 from __future__ import print_function
-from datetime import timedelta, datetime
+
 import time
+from datetime import datetime, timedelta
+
 
 def main():
     '''main function'''

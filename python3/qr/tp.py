@@ -10,9 +10,11 @@ online gernerator: https://the-burtons.xyz/barcode-generator/
 '''
 
 import argparse
-import treepoem
+
 #import numpy as np
 import cv2
+import treepoem
+
 
 class BarCodeTest():
     ''' class barcode test '''

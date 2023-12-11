@@ -10,8 +10,9 @@ imageio x opencv
 
 import os
 from pathlib import Path
-import imageio.v3 as iio
+
 import cv2
+import imageio.v3 as iio
 
 # do not complain no-member for opencv
 # pylint: disable=no-member

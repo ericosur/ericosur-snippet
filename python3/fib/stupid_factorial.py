@@ -3,8 +3,9 @@
 
 ''' stupid to calculate n! '''
 
-import sys
 import math
+import sys
+
 
 def stupid_factorial(m):
     '''

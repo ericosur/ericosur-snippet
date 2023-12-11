@@ -9,11 +9,14 @@
 '''
 
 import argparse
-import sys
 import json
 import os
+import sys
+
 import requests
+
 import myutil
+
 
 class MakeReurl():
     ''' call reurl to shorten url '''

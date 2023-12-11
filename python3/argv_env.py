@@ -13,9 +13,10 @@
     may input argument from CLI, or nothing to see demo
 '''
 
-import sys
 import os
+import sys
 from random import choice
+
 
 def main(argv):
     ''' main function '''

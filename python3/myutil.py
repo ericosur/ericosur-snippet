@@ -4,11 +4,12 @@
 ''' some useful tool functions '''
 
 from __future__ import print_function
-import os
-import sys
-import json
+
 import hashlib
+import json
+import os
 import platform
+import sys
 
 # pylint: disable=no-member
 # pylint: disable=import-outside-toplevel
@@ -235,8 +236,9 @@ def read_from_stdin(func):
 
 def get_random_str(lens=15):
     ''' get secret '''
-    import secrets
     import re
+    import secrets
+
     #r = secrets.token_hex(LENS)
     r = ''
     while len(r) < lens:

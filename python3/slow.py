@@ -5,10 +5,10 @@
 profiling a slow function
 '''
 
-from time import time
-from time import perf_counter as pc
-from time import sleep
 from random import randint
+from time import perf_counter as pc
+from time import sleep, time
+
 
 class JustData():
     ''' put const here '''

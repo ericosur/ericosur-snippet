@@ -12,9 +12,10 @@ It took 23.81 sec to calculate fib(40)
 
 '''
 
+import timeit
 from datetime import datetime
 from socket import gethostname
-import timeit
+
 
 def fib(n):
     ''' simple recursive version to get fib '''

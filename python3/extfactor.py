@@ -7,10 +7,12 @@
 '''
 
 import os
-from random import randint
 import re
 import sys
+from random import randint
+
 from myutil import read_from_stdin
+
 
 def call_factor(n: int):
     ''' call external factor '''

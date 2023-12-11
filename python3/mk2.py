@@ -6,10 +6,11 @@ This script will generate a script which write embedded data into file.
 '''
 
 import argparse
-import bz2
 import base64
-from time import time
+import bz2
 import os
+from time import time
+
 
 def gen_script(dfn: str, ofn: str) -> None:
     ''' main '''

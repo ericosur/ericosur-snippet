@@ -12,11 +12,12 @@ class PushOverRequests inherits from class PushOverBase for common functions
 use module ==requests==
 '''
 
-import os
 import json
+import os
 import sys
 from random import choice
 from time import time
+
 import requests
 
 HOME = os.getenv('HOME')
@@ -24,8 +25,10 @@ UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
 if os.path.exists(UTILPATH):
     sys.path.insert(0, UTILPATH)
 
-from myutil import read_jsonfile
 from base_pushover import PushOverBase
+
+from myutil import read_jsonfile
+
 
 class PushOverRequests(PushOverBase):
     ''' class to request pushover '''

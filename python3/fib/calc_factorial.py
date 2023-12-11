@@ -5,10 +5,10 @@
 to calculate factorial n!
 '''
 
-import sys
 import pickle
+import sys
 #import random
-from math import log10, ceil
+from math import ceil, log10
 
 
 class CalcFactorial():

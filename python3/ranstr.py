@@ -5,10 +5,11 @@
 two samples to generate random string
 '''
 
-import os
 import binascii
-import secrets
+import os
 import re
+import secrets
+
 
 def show(s):
     ''' show '''

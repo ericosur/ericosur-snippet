@@ -4,8 +4,10 @@
 ''' list perfect square number into csv '''
 
 from __future__ import print_function
-import os
+
 import csv
+import os
+
 
 def gen_csv(fn):
     ''' generate csv '''

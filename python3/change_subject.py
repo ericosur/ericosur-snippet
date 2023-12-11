@@ -18,8 +18,8 @@ if os.path.exists(p):
     sys.path.insert(0, p)
 
 try:
-    import random_string
     import myutil
+    import random_string
 except ImportError:
     print('[ERROR] cannot import necessary module')
     sys.exit(1)

@@ -5,6 +5,7 @@
 
 import numpy as np
 
+
 def main():
     ''' main '''
     m = np.array([3, 4])

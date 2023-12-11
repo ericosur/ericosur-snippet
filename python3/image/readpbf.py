@@ -12,12 +12,12 @@ it is a file encoding UTF16, format like ini
 <no>=<timestamp>*<bookmark name>*<hex string of thumbnail>
 '''
 
+import binascii
 import io
 import os
-import sys
-import re
-import binascii
 import platform
+import re
+import sys
 
 '''
 OSError: Unsupported BMP compression (4)

@@ -19,8 +19,9 @@ if os.path.exists(UTILPATH):
     sys.path.insert(0, UTILPATH)
 
 try:
-    import requests
     import getapikey
+    import requests
+
     from myutil import read_jsonfile
 except ImportError as err:
     print('ImportError:', err)

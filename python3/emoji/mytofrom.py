@@ -5,8 +5,8 @@
 unicode escape sequence to utf-8 and backward
 '''
 
-import json
 import binascii as bi
+import json
 
 __version__ = '0.1'
 

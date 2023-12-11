@@ -15,8 +15,9 @@ require redis server is running!
 '''
 
 import os
-from random import randint
 import sys
+from random import randint
+
 import redis
 
 HOME = os.getenv('HOME')
@@ -24,7 +25,8 @@ UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
 if os.path.exists(UTILPATH):
     sys.path.insert(0, UTILPATH)
 
-from myutil import read_jsonfile, get_home
+from myutil import get_home, read_jsonfile
+
 
 class FibRedis():
     ''' fib w/ redis '''

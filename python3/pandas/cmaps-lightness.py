@@ -8,14 +8,13 @@ https://matplotlib.org/stable/tutorials/colors/colormaps.html
 
 # pylint: disable=import-error
 
-import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-from matplotlib import cm
-from colorspacious import cspace_converter
-
 from cmaps_data import cmaps
+from colorspacious import cspace_converter
+from matplotlib import cm
 
+import numpy as np
 
 mpl.rcParams.update({'font.size': 12})
 

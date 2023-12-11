@@ -8,7 +8,9 @@ http://en.wikipedia.org/wiki/Vampire_number
 '''
 
 from __future__ import print_function
-from itertools import permutations#, combinations
+
+from itertools import permutations  # , combinations
+
 
 def find_vampire_in_4digit(num):
     '''give number check if a vampire number'''

@@ -6,8 +6,11 @@
 '''
 
 import os
-import pandas as pd
+
 from perfect_square import gen_csv
+
+import pandas as pd
+
 
 def main():
     ''' main '''

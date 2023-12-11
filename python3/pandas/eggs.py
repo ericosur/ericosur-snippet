@@ -4,8 +4,9 @@
 ''' simple csv sample '''
 
 from __future__ import print_function
-import os
+
 import csv
+import os
 import random
 
 COUNT = 10

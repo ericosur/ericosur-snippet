@@ -10,8 +10,8 @@ https://en.wikipedia.org/wiki/Diceware
 
 import os
 import re
-from random import randint
 import sys
+from random import randint
 
 # try to add my code snippet into python path
 HOME = os.getenv('HOME')

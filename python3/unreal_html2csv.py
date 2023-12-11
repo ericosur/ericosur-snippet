@@ -10,11 +10,11 @@
 '''
 
 import csv
-from datetime import date
-from decimal import Decimal
 import locale
 import os
 import sys
+from datetime import date
+from decimal import Decimal
 from typing import List
 
 try:

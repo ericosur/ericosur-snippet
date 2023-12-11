@@ -5,8 +5,9 @@
 brief description for this script
 '''
 
-import os
 import json
+import os
+
 
 def read_jsonfile(fn, debug=False):
     '''

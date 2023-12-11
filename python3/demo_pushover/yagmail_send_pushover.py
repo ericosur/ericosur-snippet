@@ -36,7 +36,8 @@ UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
 if os.path.exists(UTILPATH):
     sys.path.insert(0, UTILPATH)
 
-from myutil import read_jsonfile, isfile
+from myutil import isfile, read_jsonfile
+
 
 def main():
     ''' main '''

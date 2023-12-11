@@ -6,11 +6,13 @@
 '''
 
 from __future__ import print_function
-import sys
+
+import datetime
 import glob
 import os
+import sys
 import time
-import datetime
+
 
 # arg: 0 is list, 1 is detail
 def showlist(folders, arg=1):
