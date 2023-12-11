@@ -6,6 +6,7 @@
 from itertools import product
 from math import sqrt
 
+
 def list_to_integer(digits: tuple) -> int:
     ''' list to integer
         (1, 2, 3, 4) will be int(1234)

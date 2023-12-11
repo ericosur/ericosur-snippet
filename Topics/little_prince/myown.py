@@ -19,6 +19,7 @@ if os.path.exists(UTILPATH):
 
 from myutil import read_jsonfile
 
+
 class Bosha:
     ''' read liu.json and rad.txt output han characters '''
     DATA_JSON = 'liu.json'

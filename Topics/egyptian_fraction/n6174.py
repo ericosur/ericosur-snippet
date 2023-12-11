@@ -10,6 +10,7 @@ Kaprekar's constant
 
 import random
 
+
 class Solution():
     ''' solution to calculate Kaprekar's constant '''
     def __init__(self):

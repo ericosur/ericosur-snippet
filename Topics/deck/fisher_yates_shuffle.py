@@ -5,6 +5,7 @@
 
 import random
 
+
 def shuffle_array(arr):
     ''' shuffle array '''
     n = len(arr)

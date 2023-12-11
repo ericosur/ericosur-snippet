@@ -13,7 +13,9 @@ import itertools as it
 import operator
 import sys
 from typing import List
+
 import numpy as np
+
 
 class Solution():
     ''' solution for coin change problem '''

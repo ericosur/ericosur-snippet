@@ -7,6 +7,7 @@ split a file with many lines into several small ones
 
 import os
 
+
 def main():
     ''' main '''
     TOTAL_LINE = 113233     # wc -l total.txt

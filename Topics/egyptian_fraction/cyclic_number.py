@@ -21,7 +21,9 @@ https://xlinux.nist.gov/dads/HTML/shortestCommonSuperstring.html
 
 import argparse
 from typing import List
+
 from lcs import longestRepeatedSubstring
+
 
 class Cons:
     ''' use 2 to detect longest repeated substring '''

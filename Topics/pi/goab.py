@@ -11,6 +11,7 @@ to get position of matched string token
 
 import os
 
+
 def get_pipath():
     ''' return pi-billion.txt full path '''
     home = os.environ["HOME"]

@@ -7,6 +7,7 @@ __version__ = '1.0.0'
 
 from typing import List
 
+
 def gcd(m: int, n: int) -> int:
     '''
     calculate gcd number by rescursive

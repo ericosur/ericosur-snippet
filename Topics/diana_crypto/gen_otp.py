@@ -8,6 +8,7 @@ generate one-time pad in format of
 
 import random
 
+
 def gen_otp():
     ''' generate otp '''
     a2z = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"

@@ -26,6 +26,7 @@ if os.path.exists(UTILPATH):
 
 from myutil import read_jsonfile
 
+
 # pylint: disable=invalid-name
 class StoreAndQuery():
     ''' read a json and store it into redis and then query '''

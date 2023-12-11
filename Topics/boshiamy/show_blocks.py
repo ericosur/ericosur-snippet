@@ -12,6 +12,7 @@ eg:
 
 from unicode_blocks import UnicodeBlock
 
+
 def get_cjkblocks(n: str):
     ''' main '''
     s = 0

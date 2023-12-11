@@ -5,6 +5,7 @@
 
 from goab import get_pipath
 
+
 def get_pos(x):
     ''' because sequence start with "3." remove it '''
     start = 2
