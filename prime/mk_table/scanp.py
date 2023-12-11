@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
-import os
+'''
+test some values in config file
+'''
+
 import sys
-from time import time
 
 MODNAME = "scanp"
 VERSION = "2023.10.30"
@@ -27,10 +29,11 @@ def wrap_config():
     return txtfn, pfn
 
 def do_test():
+    ''' perform tests '''
     txtfn, pfn = wrap_config()
     sp = StorePrime(txtfn=txtfn, pfn=pfn)
     sp.get_ready()
-    ll = sp.at(0)
+    #ll = sp.at(0)
     uu = sp.get_maxprime()
     primes = sp.get_primes_less_than(uu)
     get_max_dist(primes)
