@@ -8,9 +8,9 @@ get battery level of device, issue notification if:
   - unplug and battery level <= 40
 '''
 
+import json
 import os
 import sys
-import json
 
 TEST = False
 

@@ -5,7 +5,8 @@
 pythonista script help to do m // n = q ... r
 '''
 
-from sta_prompt import prompt_input, prompt_alert, has_console
+from sta_prompt import has_console, prompt_alert, prompt_input
+
 
 def run_this():
     ''' run this '''

@@ -6,8 +6,9 @@ a list full of free API service
 https://github.com/public-apis/public-apis#animals
 '''
 
-import shutil
 import re
+import shutil
+
 import requests
 
 

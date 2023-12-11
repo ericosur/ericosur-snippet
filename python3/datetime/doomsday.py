@@ -7,9 +7,9 @@ This script uses class DoomsDay and TestDoomsDay, and provides CLI.
 
 import argparse
 import calendar
-from datetime import date
 import os
 import sys
+from datetime import date
 
 # try to add my code snippet into python path
 HOME = os.getenv('HOME')

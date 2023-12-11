@@ -5,7 +5,8 @@
 demo days delta
 '''
 
-from datetime import timedelta, datetime
+from datetime import datetime, timedelta
+
 
 def translate_weekday(w: int):
     '''

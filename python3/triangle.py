@@ -23,11 +23,12 @@ reference:
 
 '''
 
-import math
 import itertools as it
+import math
 import time
 
 import numpy as np
+
 
 class Pythag():
     ''' class to find pythagorean triples '''

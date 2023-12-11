@@ -6,8 +6,10 @@ kid RSA
 https://www.cs.uri.edu/cryptography/publickeykidkrypto.htm
 '''
 
+from sta_prompt import has_console, prompt_alert, prompt_input
+
 from kid_rsa import decrypt
-from sta_prompt import prompt_input, prompt_alert, has_console
+
 
 def run_this():
     ''' run this at pythonista '''

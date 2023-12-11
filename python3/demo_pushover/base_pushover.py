@@ -11,9 +11,9 @@ pushover base class
 
 import abc
 import os
+import sys
 from datetime import datetime
 from time import time
-import sys
 
 HOME = os.getenv('HOME')
 UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')

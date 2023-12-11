@@ -7,8 +7,9 @@ output 幹
 '''
 
 import argparse
-import re
 import os
+import re
+
 
 class Solution():
     ''' Solution for bmpf table lookup '''

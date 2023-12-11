@@ -7,10 +7,11 @@ reference:
 https://matplotlib.org/stable/tutorials/colors/colormaps.html
 '''
 
-import numpy as np
 import matplotlib.pyplot as plt
-
 from cmaps_data import cmaps
+
+import numpy as np
+
 
 def plot_color_gradients(cmap_category, cmap_list):
     ''' Create figure and adjust figure height to number of colormaps '''

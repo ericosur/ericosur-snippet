@@ -9,11 +9,11 @@ import argparse
 import os
 from collections import OrderedDict
 from urllib.parse import urlencode
-from PIL import Image
 
 import requests
 #import numpy as np
 from httpbin import show_results
+from PIL import Image
 
 # pylint: disable=no-member
 # pylint: disable=using-constant-test

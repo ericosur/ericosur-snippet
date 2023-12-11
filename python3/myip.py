@@ -6,9 +6,11 @@ use api.myip.com to get current public ip
 and use ip-api.com to get location of such ip
 '''
 
-import sys
 import json
+import sys
+
 import requests
+
 
 def get_current_ip():
     ''' use this to get myip '''

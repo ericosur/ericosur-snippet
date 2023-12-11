@@ -8,9 +8,10 @@ class PushOverRequests inherits from class PushOverBase for common functions
 use module ==urllib== and ==http.client==
 '''
 
-from datetime import datetime
 import http.client
 import urllib
+from datetime import datetime
+
 from base_pushover import PushOverBase
 
 

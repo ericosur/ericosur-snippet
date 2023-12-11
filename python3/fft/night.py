@@ -7,10 +7,13 @@
 
 import os
 import sys
-from scipy.io import wavfile
+
 import matplotlib.pyplot as plt
-import numpy as np
+from scipy.io import wavfile
 from skimage import util
+
+import numpy as np
+
 #from scipy import fftpack
 
 # pylint: disable=unused-variable

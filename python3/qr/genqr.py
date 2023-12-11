@@ -5,8 +5,8 @@
 input text from CLI and generate qrcode image
 '''
 
-import sys
 import random
+import sys
 
 '''
 Use Shift JIS COULD NOT avoid the zbralight decoding error.

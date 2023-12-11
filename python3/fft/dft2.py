@@ -2,11 +2,11 @@
     https://www.oreilly.com/library/view/elegant-scipy/9781491922927/ch04.html
 '''
 
-from scipy import fftpack
 #import matplotlib
 import matplotlib.pyplot as plt
-import numpy as np
+from scipy import fftpack
 
+import numpy as np
 
 # pylint: disable=unused-variable
 

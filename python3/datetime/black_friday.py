@@ -8,7 +8,8 @@ Not the "Black Friday" after the Thanksgiving
 '''
 
 from __future__ import print_function
-from datetime import datetime, date
+
+from datetime import date, datetime
 
 
 def get_blackfriday(from_year, to_year):

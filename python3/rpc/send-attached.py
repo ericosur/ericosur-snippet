@@ -30,7 +30,7 @@ UTILPATH = os.path.join(HOME, '/src/ericosur-snippet/python3')
 if os.path.exists(UTILPATH):
     sys.path.insert(0, UTILPATH)
 try:
-    from myutil import read_jsonfile, isfile
+    from myutil import isfile, read_jsonfile
 except ImportError:
     print(f'{__file__}: cannot import module: myutil')
     sys.exit(1)

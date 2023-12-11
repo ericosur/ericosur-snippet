@@ -6,8 +6,8 @@
 three-digit number is prime
 '''
 
-import sys
 import itertools as it
+import sys
 
 try:
     #from sympy import sympy.ntheory.primetest.isprime

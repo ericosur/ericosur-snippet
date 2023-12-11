@@ -9,8 +9,9 @@ https://zh.wikipedia.org/zh-tw/%E8%8B%8F%E5%B7%9E%E7%A0%81%E5%AD%90
 
 '''
 
-import sys
 import random
+import sys
+
 
 def rep_suzhou(s):
     ''' int num to string suzhou numerals '''

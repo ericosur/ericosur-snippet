@@ -6,8 +6,10 @@ demo yesterday
 '''
 
 from __future__ import print_function
-import datetime
+
 import calendar
+import datetime
+
 
 def add_months(sourcedate, months):
     '''

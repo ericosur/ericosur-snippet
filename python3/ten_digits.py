@@ -3,8 +3,9 @@
 
 ''' 10-digit number, find the max one '''
 
-import random
 import itertools as it
+import random
+
 
 class Solution():
     ''' solution '''

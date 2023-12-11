@@ -8,10 +8,10 @@
     to get how many reboot remaining to lock
 '''
 
-#import os
-import sys
 import re
 import subprocess
+#import os
+import sys
 
 # pylint: disable=consider-using-with
 

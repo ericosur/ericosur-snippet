@@ -9,9 +9,9 @@ read en.xml and output to csv
 '''
 
 import csv
-from datetime import date
 import os
 import sys
+from datetime import date
 
 try:
     from bs4 import BeautifulSoup

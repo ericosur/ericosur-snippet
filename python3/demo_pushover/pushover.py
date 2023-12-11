@@ -12,13 +12,13 @@ it is fully self-contained function sample
 '''
 
 import argparse
-from datetime import datetime
 import http.client
 import os
 import platform
 import sys
 import time
 import urllib
+from datetime import datetime
 
 HOME = os.getenv('HOME')
 UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')

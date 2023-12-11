@@ -7,7 +7,9 @@ calculate total working days
 
 import os
 import sys
-from myutil import read_jsonfile, get_home
+
+from myutil import get_home, read_jsonfile
+
 
 class CalcWork():
     ''' calc work class '''

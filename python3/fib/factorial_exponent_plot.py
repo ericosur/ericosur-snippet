@@ -12,9 +12,9 @@ X 軸是 n, Y 軸是取 ln() 的值
 '''
 
 from math import log
-from pylab import plot, show, gca
-from pylab import gcf
+
 from calc_factorial import CalcFactorial
+from pylab import gca, gcf, plot, show
 
 # if you want to save plot to image file, turn it True
 OPTION_SAVEIMAGE = False

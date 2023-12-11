@@ -12,9 +12,11 @@ read driving data table (at google drive) and calculate stastics
 import argparse
 import os
 import sys
-from math import floor
 from datetime import date
+from math import floor
+
 import numpy as np
+
 try:
     import pandas as pd
 except ImportError:
@@ -27,8 +29,10 @@ if os.path.exists(UTILPATH):
     sys.path.insert(0, UTILPATH)
 sys.path.insert(0, "..")
 
-from myutil import read_jsonfile, query_url_for_data
-from strutil import print_sep, str2sec, sec2mmss
+from strutil import print_sep, sec2mmss, str2sec
+
+from myutil import query_url_for_data, read_jsonfile
+
 
 class DrivingData():
     ''' fetch driving data from gdrive or local csv '''

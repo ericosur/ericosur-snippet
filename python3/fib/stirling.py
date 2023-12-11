@@ -12,9 +12,11 @@ https://zh.wikipedia.org/wiki/%E6%96%AF%E7%89%B9%E9%9D%88%E5%85%AC%E5%BC%8F
 
 '''
 
-from math import exp, sqrt, pi
+from math import exp, pi, sqrt
+
 #from math import log
 from calc_factorial import CalcFactorial
+
 
 def est_fib(m):
     ''' implementation '''

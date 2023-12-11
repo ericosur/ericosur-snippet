@@ -8,6 +8,7 @@ easy dump a specified file
 import argparse
 import os
 
+
 class MyConfig():
     ''' a class that stores a shared variable '''
     _v = False

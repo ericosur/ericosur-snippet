@@ -7,9 +7,10 @@ reference from http://snippets.dzone.com/posts/show/5433
 using Monte Carlo method to calculate Pi
 '''
 
-import time
-import random
 import math
+import random
+import time
+
 
 class CalcPi():
     ''' a class to calculate pi from random numbers '''

@@ -12,9 +12,10 @@ pip install LunarCalendar
 #import datetime
 import itertools as it
 import sys
+
 try:
+    from lunarcalendar import Converter, DateNotExist, Lunar, Solar
     from lunarcalendar.festival import festivals
-    from lunarcalendar import Converter, Solar, Lunar, DateNotExist
 except ImportError:
     print('import module lunarcalendar failed')
     sys.exit(1)

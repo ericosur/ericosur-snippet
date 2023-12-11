@@ -3,8 +3,8 @@
 
 ''' using opencv to decode qrcode '''
 
-import cv2
 import common
+import cv2
 
 
 def process(fn):

@@ -13,14 +13,18 @@ magick montage \
 For **wand**, you need to install ImageMagick runtime library into system as well
 libmagickwand
 
+reference: https://imagemagick.org/Usage/
+
 '''
 
 DEMO = False
 
 import os
 import sys
-from wand.image import Image
+
 from wand.display import display
+from wand.image import Image
+
 
 class Solution():
     ''' solution '''

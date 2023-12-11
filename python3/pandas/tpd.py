@@ -3,9 +3,13 @@
 ''' use dataframe of pandas to read csv file '''
 
 from __future__ import print_function
+
 import os
-import pandas as pd
+
 from perfect_square import gen_csv
+
+import pandas as pd
+
 
 def main():
     ''' main '''

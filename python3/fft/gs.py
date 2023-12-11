@@ -1,6 +1,7 @@
 ''' getting started '''
 
-from skimage import data, io, filters
+from skimage import data, filters, io
+
 
 def main():
     ''' main '''

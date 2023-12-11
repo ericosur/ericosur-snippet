@@ -7,7 +7,9 @@ demo of myutil.sha256sum(), myutil.md5sum()
 
 import argparse
 import os
-from myutil import sha256sum, md5sum, sha1sum
+
+from myutil import md5sum, sha1sum, sha256sum
+
 
 def test_factory(fn, hashfn, cmd):
     ''' test factory '''

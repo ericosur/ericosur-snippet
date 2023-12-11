@@ -5,8 +5,9 @@
 demo of module PyExifTool
 '''
 
-from glob import glob
 import os
+from glob import glob
+
 
 def main():
     ''' main '''

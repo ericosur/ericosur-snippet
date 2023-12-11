@@ -9,8 +9,10 @@ I do not recomment use this module to decode qrcode.
 '''
 
 import sys
-from PIL import Image
+
 import common
+from PIL import Image
+
 try:
     import zbarlight
 except ImportError:

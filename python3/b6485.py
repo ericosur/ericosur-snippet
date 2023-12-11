@@ -8,9 +8,10 @@ demo for the following base-N functions:
     base85
 '''
 
-import sys
 import base64
+import sys
 from random import randint
+
 import numpy as np
 
 try:

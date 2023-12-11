@@ -6,8 +6,9 @@ list all dir
 '''
 
 from glob import glob
-from os import listdir, system, chdir, getcwd
+from os import chdir, getcwd, listdir, system
 from os.path import isdir, join
+
 
 def check_dir(d):
     ''' check dir with pylint '''

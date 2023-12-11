@@ -8,9 +8,11 @@ https://en.wikipedia.org/wiki/NATO_phonetic_alphabet
 '''
 
 import argparse
-from random import sample
 import sys
+from random import sample
+
 from myutil import read_from_stdin
+
 
 class AlphaBravoCharlie():
     ''' NATO alpha bravo charlie '''

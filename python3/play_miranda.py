@@ -12,7 +12,8 @@ import sys
 import time
 from typing import List
 
-from myutil import read_jsonfile, get_home
+from myutil import get_home, read_jsonfile
+
 
 # pylint: disable=invalid-name
 class Miranda():
