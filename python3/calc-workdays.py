@@ -46,9 +46,8 @@ class CalcWork():
                 self.max_year = self.data['maxyear']
                 self.min_year = self.data['minyear']
                 return
-            else:
-                if self.DEBUG:
-                    print(f'not found at: {x}')
+            if self.DEBUG:
+                print(f'not found at: {x}')
 
         print('[ERROR] config file not found')
         sys.exit(1)
