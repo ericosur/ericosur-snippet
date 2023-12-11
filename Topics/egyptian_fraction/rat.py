@@ -11,6 +11,7 @@ need Rational of sympy
 
 import argparse
 import sys
+
 from sympy import Rational
 
 # Rational: p / q

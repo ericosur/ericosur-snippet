@@ -8,6 +8,7 @@ https://www.dropbox.com/s/91w40oxq9eftrn1/%E8%9E%A2%E5%B9%95%E6%88%AA%E5%9C%96%2
 
 import cgi
 
+
 def main():
     ''' main '''
     form = cgi.FieldStorage()

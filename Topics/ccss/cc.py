@@ -7,6 +7,7 @@ client
 
 import socket
 
+
 def main():
     ''' main '''
     HOST = '127.0.0.1'

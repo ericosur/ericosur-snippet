@@ -9,6 +9,7 @@ The format of liu.json is unicode codepoint number vs its boshiamy radical.
 
 import json
 
+
 class Solution:
     ''' solution '''
     def __init__(self):

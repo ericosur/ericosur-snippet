@@ -7,6 +7,7 @@ check Readme.md
 
 from itertools import combinations
 
+
 def output_list_to_file(output_file: str, cclist: combinations):
     ''' output list to file '''
     with  open(output_file, "wt", encoding='utf8') as text_file:

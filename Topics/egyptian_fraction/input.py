@@ -9,7 +9,9 @@ TODO: apply argparse
 
 import sys
 from typing import List
+
 from gcd_lcm import gcd_lcm
+
 
 def read_from_stdin():
     ''' read from stdin '''

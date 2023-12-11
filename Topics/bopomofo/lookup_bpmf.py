@@ -19,6 +19,7 @@ if os.path.exists(UTILPATH):
 
 from myutil import read_jsonfile
 
+
 class Solution():
     ''' solution '''
     def __init__(self):

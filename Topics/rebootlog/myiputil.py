@@ -4,7 +4,9 @@
 ''' file: myutil.py '''
 
 from __future__ import print_function
+
 import subprocess
+
 
 # use python to run:
 # ip addr show eth0 |grep -w inet

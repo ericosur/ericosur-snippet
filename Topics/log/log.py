@@ -5,6 +5,7 @@
 
 import math
 
+
 def demo_log():
     ''' demo '''
     vals = [1, 2.7182818284, 10, 100, 300]

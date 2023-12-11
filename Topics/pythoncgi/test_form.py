@@ -8,6 +8,7 @@ http://pointlessprogramming.wordpress.com/2011/02/13/python-cgi-tutorial-2/
 
 import cgi
 
+
 def main():
     ''' main '''
     form = cgi.FieldStorage()

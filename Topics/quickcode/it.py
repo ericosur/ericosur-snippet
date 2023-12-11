@@ -8,6 +8,7 @@ import re
 # https://stackoverflow.com/questions/17182656/how-do-i-iterate-through-the-alphabet
 from string import ascii_uppercase
 
+
 class Solution():
     ''' solution for checking missing combination '''
     def __init__(self):

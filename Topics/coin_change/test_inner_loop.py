@@ -6,6 +6,7 @@ brief description for this script
 '''
 
 from itertools import permutations
+
 from minus_square import get_inner_loop
 
 

@@ -9,6 +9,7 @@ reference: http://www.mste.uiuc.edu/reese/buffon/
 import math
 from random import random
 
+
 def throw_needle():
     ''' throw needle '''
     max_try = 99991

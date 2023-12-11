@@ -43,6 +43,7 @@ four corner
 from itertools import permutations
 from typing import List
 
+
 def get_dist(v: List) -> List:
     ''' v is a len=4 list '''
     #print(v)
