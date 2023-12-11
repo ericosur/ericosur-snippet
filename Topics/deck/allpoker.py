@@ -7,7 +7,8 @@ from fisher_yates_shuffle import shuffle_array
 '''
 
 import random
-from deckutil import print_sep, init_deck, show_deck
+
+from deckutil import init_deck, print_sep, show_deck
 
 '''
 Var 'card' stands for a card, which is a list contains

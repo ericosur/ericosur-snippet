@@ -7,10 +7,12 @@ http://pointlessprogramming.wordpress.com/2011/02/13/python-cgi-tutorial-1/
 '''
 
 import sys
+
 try:
+    import cgitb
+
     import BaseHTTPServer
     import CGIHTTPServer
-    import cgitb
     cgitb.enable()  ## This line enables CGI error reporting
 except ImportError:
     print('cannot import related modules...')

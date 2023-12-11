@@ -7,8 +7,9 @@ from comments of:
 http://programmingpraxis.com/2009/10/09/calculating-pi/2/
 '''
 
-from random import random
 import timeit
+from random import random
+
 
 def get_pi(n):
     ''' get approx pi, n is number of repeat '''

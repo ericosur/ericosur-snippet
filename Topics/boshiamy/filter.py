@@ -8,8 +8,10 @@ read liu.json
 '''
 
 import json
-from typing import List, Dict
+from typing import Dict, List
+
 from unicode_blocks import UnicodeBlock
+
 
 def check_cjk_b(items: list):
     ''' check '''

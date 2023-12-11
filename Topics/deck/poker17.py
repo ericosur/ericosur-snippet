@@ -9,8 +9,8 @@ Var 'card' stands for a card, which is a list contains
 Simply init a pile of cards by order and deal 5 cards to 4 players.
 '''
 
-from fisher_yates_shuffle import shuffle_array
 from deckutil import init_deck, show_deck
+from fisher_yates_shuffle import shuffle_array
 
 
 def main():

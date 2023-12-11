@@ -8,8 +8,9 @@ keys,character
 YV,土
 '''
 
-import re
 import glob
+import re
+
 
 def parse_file(fn):
     ''' parse_file '''
