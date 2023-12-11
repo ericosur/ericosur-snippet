@@ -24,7 +24,9 @@ There is a built-in function **pow** in python.
 '''
 
 import sys
+
 from powers_modulo import powmod
+
 
 def calc(base: int, radix: int):
     '''calc'''

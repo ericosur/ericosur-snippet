@@ -12,6 +12,7 @@ use modular_pow to get modulus only
 
 import sys
 
+
 def modular_pow(base, exp, mod):
     '''
     b, e, m are natural

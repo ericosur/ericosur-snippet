@@ -9,6 +9,7 @@ it is used by last_digit_power.py
 
 import random
 
+
 def _powmod(p, q, n):
     '''
         驗證答案是否正確
