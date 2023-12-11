@@ -7,9 +7,9 @@ Read it and save as one prime number one line
 '''
 
 import os
-import sys
 import pickle
 import re
+import sys
 from time import time
 
 MODNAME = "mktb.py"

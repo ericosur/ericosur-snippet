@@ -7,10 +7,11 @@ benchmark of powmod implementation
 
 #import os
 import sys
-from random import randint
 #from math import ceil
 import timeit
-from statistics import stdev, mean
+from random import randint
+from statistics import mean, stdev
+
 
 def powmod(b, e, m):
     ''' power modulus '''

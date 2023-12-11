@@ -24,8 +24,8 @@ SOFTWARE OR	THE	USE	OR OTHER DEALINGS IN THE SOFTWARE.
 Retrieved from:	http://en.literateprograms.org/Miller-Rabin_primality_test_(Java)?oldid=12469
 */
 
-import java.math.BigInteger;
-import java.util.Random;
+import java.math.BigInteger
+import java.util.Random
 
 public class MillerRabin
 {

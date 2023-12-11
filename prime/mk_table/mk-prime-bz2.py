@@ -11,9 +11,10 @@ for some special case to use
 # pylint: disable=import-error
 # pylint: disable=wrong-import-position
 
-import bz2
 import base64
+import bz2
 from time import time
+
 from load_myutil import GetConfig
 
 CONFIG_KEY = "small"

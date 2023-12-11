@@ -20,10 +20,10 @@ run_example.py is an upgraded version
 '''
 
 import os
-import sys
 import pickle
-import re
 import random
+import re
+import sys
 from time import time
 
 MODNAME = __file__

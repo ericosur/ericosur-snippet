@@ -13,8 +13,8 @@ import math
 import os
 import re
 import sys
-from time import time
 from random import randint
+from time import time
 
 sys.path.insert(0, '../')
 from make_arrow import make_arrow
