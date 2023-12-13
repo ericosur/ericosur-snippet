@@ -25,9 +25,9 @@ def is_perfect_square(tup, needPrintOut=False):
     ''' is_perfect_square '''
     val = list_to_integer(tup)
     m = int(sqrt(val))
-    result = (val - m * m == 0)
+    result = val - m * m == 0
     if result and needPrintOut:
-        print("| {0} | {1} |".format(val, m))
+        print(f"| {val} | {m} |")
     return result
 
 
@@ -49,8 +49,8 @@ def check_all_numbers():
         if is_perfect_square(cc, True):
             cnt = cnt + 1
             perfect_list.append(cc)
-    print("There are {0} perfect squares".format(cnt))
-    #print("size:{0}".format(len(perfect_list)))
+    print(f"There are {cnt} perfect squares")
+
 
 if __name__ == '__main__':
     check_all_numbers()

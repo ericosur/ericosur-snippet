@@ -23,8 +23,8 @@ def throw_needle():
 
     est_pi = float(max_try) / float(crossing)
     err = abs(est_pi - math.pi) / math.pi * 100
-    print('try {} and crossing {}, est pi = {:.6f}, err = {:.4f}'.format(
-        max_try, crossing, est_pi, err))
+    print(f'try {max_try} and crossing {crossing}, '
+        f'est pi = {est_pi:.6f}, err = {err:.4f}')
     return (err, est_pi)    # return a tuple for err and pi
 
 def main():
@@ -35,10 +35,10 @@ def main():
         t = throw_needle()
         result[t[0]] = t[1] # store returned tuple to dict
 
-    print("after {} repeat, the nearest pi = {:.6f}, err = {:.4f}%".format(
-        repeat, result[min(result)], min(result)))
-    print("after {} repeat, the farest pi = {:.6f}, err = {:.4f}%".format(
-        repeat, result[max(result)], max(result)))
+    print(f"after {repeat} repeats, the nearest pi = "
+        f"{result[min(result)]:.6f}, err = {min(result):.4f}%")
+    print(f"after {repeat} repeats, the nearest pi = "
+        f"{result[max(result)]:.6f}, err = {max(result):.4f}%")
 
 if __name__ == '__main__':
     main()

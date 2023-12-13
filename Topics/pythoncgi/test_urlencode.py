@@ -16,11 +16,11 @@ def main():
     val1 = form.getvalue('first')
     val2 = form.getvalue('last')
 
-    print("""Content-type: text/html
+    print(f"""Content-type: text/html
 
 <html><head><title>Test URL Encoding</title></head>
-<body>Hello my name is %s %s
-</body></html>""" % (val1, val2))
+<body>Hello my name is {val1} {val2}
+</body></html>""")
 
 if __name__ == '__main__':
     main()

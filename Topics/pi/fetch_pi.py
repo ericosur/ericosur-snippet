@@ -38,7 +38,7 @@ def do_request(the_max):
         'start': start,
         'numberOfDigits': request_len
     }
-    r = requests.get(url, payload)
+    r = requests.get(url, payload, timeout=5.0)
     return r.json()['content']
 
 def main():
@@ -47,7 +47,7 @@ def main():
     for n in req_list:
         r = int(n)
         ans = do_request(r)
-        print('pos {}: {}'.format(r, ans))
+        print(f'pos {r}: {ans}'.format(r, ans))
         # I do not know if such server would block massive continuous requests
         # so make a little sleep
         time.sleep(1.57)
