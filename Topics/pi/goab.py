@@ -28,11 +28,11 @@ def main():
         808353115, 836748874, 846783124, 921591435
     ]
     try:
-        with open(fn, 'rt') as pi:
+        with open(fn, 'rt', encoding='UTF-8') as pi:
             for pp in pos_list:
                 pi.seek(pp, 0)
                 buf = pi.read(len(target))
-                print('{} @{}'.format(buf, pp))
+                print(f'{buf} @{pp}')
                 if buf != target:
                     print('[ERROR] not matched!')
     except FileNotFoundError as e:

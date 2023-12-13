@@ -16,12 +16,12 @@ def get_pos(x):
 def test():
     ''' test '''
     try:
-        with open(get_pipath(), 'rt') as pi:
+        with open(get_pipath(), 'rt', encoding='UTF-8') as pi:
             for p in [10, 768, 1e6, 1e7, 1e8, 1e9]:
                 _p = int(p)
                 pi.seek(get_pos(_p), 0)
                 buf = pi.read(10)
-                print('{}: {}'.format(_p, buf))
+                print(f'{_p}: {buf}')
     except FileNotFoundError as e:
         print('except:', e)
 

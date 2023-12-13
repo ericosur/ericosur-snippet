@@ -39,6 +39,7 @@ def auth_gss_client(path, scopes):
         print("auth_gss_client: KeyError")
     except gspread.GSpreadException:
         print("gspread exception!")
+    return None
 
 
 def update_sheet(gss_client, key, **kwargs):
@@ -49,8 +50,8 @@ def update_sheet(gss_client, key, **kwargs):
         sheet = wks.sheet1
         sheet.insert_row([kwargs['date'], kwargs['host'], kwargs['eth0'],
                           kwargs['wlan0'], kwargs['ssid'], kwargs['extip']], 2)
-    except gspread.GSpreadException as e:
-        print("gspread exception!", e)
+    except gspread.GSpreadException as err:
+        print("gspread exception!", err)
 
 
 def usage():
@@ -88,7 +89,7 @@ def main():
     gss_scopes = ['https://spreadsheets.google.com/feeds']
     gss_client = auth_gss_client(auth_json_path, gss_scopes)
 
-    kwargs = dict()
+    kwargs = {}
     try:
         kwargs['host'] = socket.gethostname()
         kwargs['date'] = time.strftime("%c")
@@ -96,7 +97,7 @@ def main():
         kwargs['wlan0'] = get_iface_ip("wlan0")
         kwargs['ssid'] = get_ssid()
         kwargs['extip'] = get_extip()
-        with open(spreadsheet_key_path) as f:
+        with open(spreadsheet_key_path, encoding='UTF-8') as f:
             spreadsheet_key = f.read().strip()
             update_sheet(gss_client, spreadsheet_key, **kwargs)
     except IOError:

@@ -28,7 +28,7 @@ class Solution():
     def __init__(self):
         self._sp = StorePrime()
         self._sp.load_pickle()
-        self.answers = list()
+        self.answers = []
 
     @staticmethod
     def split_square(p):
@@ -54,7 +54,7 @@ class Solution():
         #print(answers)
         for v in self.answers[:len(self.answers)]:
             (p, i, r) = self.split_square(v)
-            print('{} = {}^2 + {}^2'.format(p, i, int(r)))
+            print(f'{p} = {i}^2 + {int(r)}^2')
 
 def main():
     ''' main '''
