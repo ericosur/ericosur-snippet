@@ -8,10 +8,14 @@
 import itertools as it
 
 
+# pylint: disable=too-many-instance-attributes
 class Solution():
     ''' find seats '''
     def __init__(self):
         self.seats = []
+        self.qi = self.zz = self.tnb = self.ti = self.aqp = -1
+        self.msg = ''
+        self.miss = self.got = 0
         self.clear()
 
     def clear(self):
@@ -106,10 +110,10 @@ class Solution():
         return r
 
     def action(self):
-        ''' main '''
+        ''' action '''
         symbols = [0, 1, 2, 3]
         cnt = 0
-        got_ans = False
+        #got_ans = False
         for n in it.permutations(symbols, 4):
             n = list(n)
             n.insert(2, 4)
@@ -126,7 +130,7 @@ class Solution():
                 match += 1
             if match == 3:
                 print("this one matched!")
-                got_ans = True
+                #got_ans = True
                 self.print_seat()
                 break
             cnt += 1
