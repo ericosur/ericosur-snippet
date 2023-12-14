@@ -8,10 +8,11 @@ ask about Bayesian Curve
 I update this script for newer version of pymc
 '''
 
-import matplotlib.pyplot as plt
-import pymc as pm
+# pylint: disable=import-error
 
+import matplotlib.pyplot as plt
 import numpy as np
+import pymc as pm
 
 # 生成一些虛構的數據
 np.random.seed(42)
