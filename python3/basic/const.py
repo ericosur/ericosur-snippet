@@ -12,6 +12,9 @@ code.activestate.com/recipes/65207-constants-in-python/?in=user-97991
 import sys
 
 
+# pylint: disable=import-outside-toplevel
+# pylint: disable=import-self
+
 # Put in const.py...:
 class _const():
     def __setattr__(self, name, value):
@@ -21,8 +24,6 @@ class _const():
 
 sys.modules[__name__]=_const()
 
-# pylint: disable=import-outside-toplevel
-# pylint: disable=import-self
 
 def main():
     ''' demo '''
