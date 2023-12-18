@@ -10,6 +10,17 @@ also using python's module to validate the results
 reference:
 http://people.se.cmich.edu/graha1sw/pub/doomsday/doomsday.html
 
+example
+    1) weekday of 2022/5/04
+        year 2022 doom number is 6
+        month 5 doom number is 9
+        so, 4 - 6 - 9 = -11, plus 7 plut 7 get 3 (Wed)
+
+    2) weekday of 2020/6/17
+        year 2020 doom number is 1
+        month 6 doom number is 6
+        so, 17 - 1 - 6 = 10, mod 7 got 3 (Wed)
+
 '''
 
 class DoomsDay():
@@ -77,19 +88,6 @@ class DoomsDay():
         #print(f"arr: {arr}")
         return arr
 
-    '''
-    example
-    1) weekday of 2022/5/04
-    year 2022 doom number is 6
-    month 5 doom number is 9
-    so, 4 - 6 - 9 = -11, plus 7 plut 7 get 3 (Wed)
-
-    2) weekday of 2020/6/17
-    year 2020 doom number is 1
-    month 6 doom number is 6
-    so, 17 - 1 - 6 = 10, mod 7 got 3 (Wed)
-
-    '''
     @staticmethod
     def get_tmm(year, month, day):
         ''' get weekday by using doomsday method '''
