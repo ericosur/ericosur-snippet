@@ -74,10 +74,10 @@ def test():
     obj = LoadToml.get_class('config.toml')
     obj.debug = True
     data = obj.get_data()
-    if obj.is_builtin:
-        print('[INFO] use builtin library')
-    else:
-        print('[INFO] use external library')
+    # if obj.is_builtin:
+    #     print('[INFO] use builtin library')
+    # else:
+    #     print('[INFO] use external library')
 
     if data is None:
         print('cannot load data')

@@ -10,6 +10,7 @@ https://docs.python.org/3.10/whatsnew/3.10.html#pep-634-structural-pattern-match
 You will get a SyntaxError if run this script directly with python < 3.10
 '''
 
+
 def buy(thing):
     ''' buy something '''
     match thing:
