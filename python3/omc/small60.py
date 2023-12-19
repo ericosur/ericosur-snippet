@@ -6,7 +6,6 @@
 how many way to take
 '''
 
-# pylint: disable=invalid-name
 class Solution():
     ''' try to find the solution '''
     def __init__(self):
@@ -30,12 +29,15 @@ class Solution():
                 delta = d
         print(x, y, cnt, d)
 
+    @classmethod
+    def run(cls):
+        ''' runme '''
+        obj = cls()
+        obj.find_answer()
 
 def main():
     ''' main '''
-    print('main')
-    sol = Solution()
-    sol.find_answer()
+    Solution.run()
 
 if __name__ == '__main__':
     main()

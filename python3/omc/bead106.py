@@ -35,12 +35,15 @@ class Solution():
                 cnt += 1
         print(cnt)
 
+    @classmethod
+    def run(cls):
+        ''' run this '''
+        obj = cls()
+        obj.find_answer()
 
 def main():
     ''' main '''
-    print('main')
-    sol = Solution()
-    sol.find_answer()
+    Solution.run()
 
 if __name__ == '__main__':
     main()
