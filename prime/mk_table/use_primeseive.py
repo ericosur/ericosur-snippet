@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # coding: utf-8
+# pylint: disable=wrong-import-position
 
 '''
 A package "primesieve" of ubuntu that could generate a list of primes

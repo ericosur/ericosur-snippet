@@ -25,10 +25,11 @@ def modular_pow(base, exp, mod):
 def powermod(b, e, m):
     ''' powermod '''
     r0 = modular_pow(b, e, m)
-    print('{} ^ {} mod {} = {}'.format(b, e, m, r0))
+    #print('{} ^ {} mod {} = {}'.format(b, e, m, r0))
+    print(f'{b} ^ {e} mod {m} = {r0}')
     # there is a built-in function
     r1 = pow(b, e, m)
-    #print('{} ^ {} mod {} = {}'.format(b, e, m, r1))
+    #print(f'{b} ^ {e} mod {m} = {r1}')
     assert r0 == r1
 
 
