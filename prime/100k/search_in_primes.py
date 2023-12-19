@@ -216,7 +216,7 @@ def main(argv):
 
         print(sp)
 
-        ''' inner function '''
+        # inner function
         def test(v):
             ''' test '''
             (p, q) = sp.search_between(v)
@@ -224,7 +224,7 @@ def main(argv):
                 print('\tno answer for this')
                 return
             show(v, sp.at(p), sp.at(q))
-        ''' inner function '''
+        # inner function
 
         #print(sp)
         #rint(sp.get_count())

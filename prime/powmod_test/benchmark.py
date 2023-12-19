@@ -27,7 +27,7 @@ def show_stat(arr: list, msg: str):
     ''' show stat '''
     s = stdev(arr)
     m = mean(arr)
-    print('{}: stdev:{:-12.0f}, mean:{:-12.0f}'.format(msg, milli(s), milli(m)))
+    print(f'{msg}: stdev:{milli(s):-12.0f}, mean:{milli(m):-12.0f}')
 
 def milli(n):
     ''' get milli '''
@@ -53,9 +53,9 @@ def main():
     #print('{:12s}{:12s}{:12s}'.format('   builtin', '   powmod', 'fast_exp'))
     #print('-' * 40)
 
-    builtin_time = list()
-    powmod_time = list()
-    fastexp_time = list()
+    builtin_time = []
+    powmod_time = []
+    fastexp_time = []
 
     for _ in range(100):
         b = randint(9999, 99999)

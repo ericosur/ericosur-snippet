@@ -58,8 +58,7 @@ def show(v, p, q):
 def main():
     ''' main function '''
     with StorePrime("small.txt", "small.p") as sp:
-
-        ''' inner function '''
+        # inner function
         def test(v):
             ''' test '''
             (p, q) = sp.search_between_idx(v)

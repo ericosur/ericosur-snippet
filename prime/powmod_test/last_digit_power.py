@@ -32,7 +32,8 @@ def calc(base: int, radix: int):
     '''calc'''
     n = 10000
     m = powmod(base, radix, n)
-    print("%d ** %d 的末四位數: %d" % (base, radix, m))
+    #print("%d ** %d 的末四位數: %d" % (base, radix, m))
+    print(f"{base} ** {radix} 的末四位數: {m}")
     assert m == pow(base, radix, n)
 
 def main(argv):
@@ -42,7 +43,7 @@ def main(argv):
         for i in argv:
             v.append(int(i))
     except ValueError:
-        print('value error at {}'.format(i))
+        print(f'value error at {i}')
 
     calc(v[0], v[1])
 
