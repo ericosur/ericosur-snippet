@@ -26,12 +26,10 @@ def test():
     print('M:', M)
     print('=' * 40)
 
-    '''
-    Note:   The plaint text has to be a number in the range of
-    0 to n-1. So for this system the plaintext or blocks of
-    plaintext hast to converted into numbers in the range of
-    0 to n-1.
-    '''
+    # Note:   The plaint text has to be a number in the range of
+    # 0 to n-1. So for this system the plaintext or blocks of
+    # plaintext hast to converted into numbers in the range of
+    # 0 to n-1.
 
     #P = randint(0, n - 1)
     P = 538

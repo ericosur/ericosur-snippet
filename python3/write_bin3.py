@@ -4,6 +4,9 @@
 
 '''
 demo to write a binary file
+
+maybe we can use:
+r = random.randint(0, 0xffffffff).to_bytes(4, byteorder='big', signed=False)
 '''
 
 #import binascii
@@ -16,9 +19,6 @@ from timeit import timeit
 
 import numpy as np
 
-'''
-r = random.randint(0, 0xffffffff).to_bytes(4, byteorder='big', signed=False)
-'''
 
 def test():
     ''' which method is quicker ? '''

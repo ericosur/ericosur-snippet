@@ -8,14 +8,16 @@ imageio x opencv
 3. pass image obj to opencv to write image file
 '''
 
+# do not complain no-member for opencv
+# pylint: disable=no-member
+# pylint: disable=import-error
+
 import os
 from pathlib import Path
 
 import cv2
 import imageio.v3 as iio
 
-# do not complain no-member for opencv
-# pylint: disable=no-member
 
 class Solution():
     ''' class solution '''

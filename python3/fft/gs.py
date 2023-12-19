@@ -1,5 +1,7 @@
 ''' getting started '''
 
+# pylint: disable=import-error
+
 from skimage import data, filters, io
 
 

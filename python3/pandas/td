@@ -1,0 +1,6 @@
+#!/bin/bash
+
+F=driving_datasheet_20231123.csv
+
+python driving_data.py -i $F -r $*
+

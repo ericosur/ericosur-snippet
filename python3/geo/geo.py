@@ -36,12 +36,10 @@ def read_secret():
         print(f"apikey:{key}\nemail:{email}")
     return (key, email)
 
-
-'''
-URL="https://plus.codes/api?address=${ADDR}&ekey=${KEY}&${EMAIL}"
-'''
 def query_geocoding(addr, key, email):
-    ''' compose api call and request '''
+    ''' compose api call and request
+    URL="https://plus.codes/api?address=${ADDR}&ekey=${KEY}&${EMAIL}"
+    '''
     payload = {'address': addr, 'ekey': key, 'email': email}
     url = "https://plus.codes/api"
 

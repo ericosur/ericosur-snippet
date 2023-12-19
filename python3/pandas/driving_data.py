@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # pylint: disable=import-error
+# pylint: disable=wrong-import-order
 # pylint: disable=wrong-import-position
 
 '''
@@ -23,15 +24,14 @@ except ImportError:
     print('[ERROR] cannot import module pandas...')
     sys.exit(1)
 
-HOME = os.getenv('HOME')
-UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
-if os.path.exists(UTILPATH):
-    sys.path.insert(0, UTILPATH)
+# HOME = os.getenv('HOME')
+# UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
+# if os.path.exists(UTILPATH):
+#     sys.path.insert(0, UTILPATH)
 sys.path.insert(0, "..")
 
-from strutil import print_sep, sec2mmss, str2sec
-
 from myutil import query_url_for_data, read_jsonfile
+from strutil import print_sep, sec2mmss, str2sec
 
 
 class DrivingData():

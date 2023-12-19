@@ -3,12 +3,7 @@
 
 '''
 input text from CLI and generate qrcode image
-'''
 
-import random
-import sys
-
-'''
 Use Shift JIS COULD NOT avoid the zbralight decoding error.
 There are many han characters that are common or litter difference between
 Chinese and Japanese. I think it could not be solved by encoding simply.
@@ -16,7 +11,13 @@ Chinese and Japanese. I think it could not be solved by encoding simply.
 Maybe I should use table to replace these character to another?
 
 It does not the fault within encoding side.
+
 '''
+
+import random
+import sys
+
+# SHIFT-JIS
 APPLY_EXTRA_ENCODING = True
 
 try:
