@@ -20,10 +20,16 @@ from datetime import date, timedelta
 class Solution():
     ''' class to parse and action '''
     TS = 'latest.txt'
-    MINDIFF = 4
+    MINDIFF = 5
+    months = ['Nul', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     patterns = [
+        # 西元2023年12月15日 (週五) 13時57分07秒 CST
         r'^西元(\d{4})年(\d+)月(\d+)日.*$',
-        r'^\w+, (\d+) (\w+) (\d+) \d+:\d+:\d+ \+\d+$'
+        # Tue, 12 Dec 2023 14:47:55 +0800
+        r'^\w+, (\d+) (\w+) (\d+) \d+:\d+:\d+ \+\d+$',
+        # Tue Dec 12 15:10:30 CST 2023
+        r'^\w+ (\w+) (\d+) \d+:\d+:\d+ \w+ (\d+)$',
     ]
 
     def __init__(self):
@@ -36,39 +42,54 @@ class Solution():
         self.inputfn = p
 
     def get_thelastine(self):
-        ''' get the last line of a file '''
+        ''' get the last line with content of a file '''
         print(self.inputfn)
-        ret = None
+        lastline = None
         with open(self.inputfn, 'rt', encoding='UTF-8') as fobj:
             for l in fobj.readlines():
-                ret = l.strip()
-        return ret
+                ln = l.strip()
+                if len(ln) > 0:
+                    lastline = ln
+        return lastline
 
     def parse_date_format1(self, ds):
         ''' parse date format: 西元2023年12月25日 '''
         m = re.match(Solution.patterns[0], ds)
         if m:
-            #print(m[1],m[2],m[3])
+            # m[1]: year, m[2]: month, m[3]: day
             self.lastdate = date(year=int(m[1]),month=int(m[2]),day=int(m[3]))
             print(self.lastdate)
             return self.lastdate
 
-        print('[warn] cannot parse with format1...')
+        #print('[warn] cannot parse with format1...')
         return None
+
+
+    def compose_date_obj(self, y: str, m: str, d: str):
+        ''' return a date obj '''
+        yyyy = int(y)
+        mm = Solution.months.index(m)
+        dd = int(d)
+        self.lastdate = date(year=yyyy,month=mm,day=dd)
 
     def parse_date_format2(self, ds):
         ''' parse date in format 2 '''
         #print('parse date in format 2...')
-        months = ['Nul', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         m = re.match(Solution.patterns[1], ds)
         if m:
-            idx = months.index(m[2])
-            print(f'{m[1]}  {m[2]}={idx}  {m[3]}')
-            self.lastdate = date(year=int(m[3]),month=idx,day=int(m[1]))
-            print(self.lastdate)
-            return self.lastdate
-        return None
+            # m[1]: dd, m[2]: month name, m[3]: yyyy
+            self.compose_date_obj(m[3], m[2], m[1])
+        else:
+            m = re.match(Solution.patterns[2], ds)
+            if m is None:
+                return None
+
+            # m[1]: month name, m[2]: dd, m[3]: yyyy
+            self.compose_date_obj(m[3], m[1], m[2])
+
+        print(self.lastdate)
+        return self.lastdate
+
 
     def parse_stampfile(self):
         ''' parse stamp file '''
@@ -94,10 +115,10 @@ class Solution():
         self.parse_stampfile()
         if self.lastdate:
             if self.lastdate >= date.today() - self.offset:
-                print('[INFO] later, no need to bother')
+                print('[INFO] rather new, no need to bother')
                 sys.exit(-2)
             else:
-                print('[INFO] earlier, suggest you refresh folder')
+                print('[INFO] old enough, suggest you refresh folder')
                 sys.exit(0)
         print('fail to compare')
         sys.exit(-1)
