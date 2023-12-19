@@ -2,7 +2,10 @@
 # coding: utf-8
 
 '''
-brief description for this script
+get the correct relative time from klog
+<6>[   21.610937] ddd: timestamp 1970-01-10 02:04:37.818
+
+such special kernel log is only for Z
 '''
 
 import argparse
@@ -13,6 +16,7 @@ import re
 from datetime import datetime, timedelta
 
 class Toolbox():
+    ''' toolbox to process log '''
 
     def __init__(self, files, number):
         self.files = files
@@ -27,7 +31,7 @@ class Toolbox():
         if line_num == 0:
             return None
         line = None
-        with open(fn, "rt") as f:
+        with open(fn, "rt", encoding='utf-8') as f:
             try:
                 line = next(islice(f, line_num - 1, line_num))
             except StopIteration as e:
@@ -50,7 +54,7 @@ class Toolbox():
             return None
         ret = ""
         line_stop = line_start + count - 1
-        with open(fn, "rt") as f:
+        with open(fn, "rt", encoding='utf-8') as f:
             try:
                 lines = islice(f, line_start - 1, line_stop)
                 #print(lines)
@@ -92,7 +96,7 @@ class Toolbox():
         return res
 
     def open_file(self, fn):
-        with open(fn, 'rt') as fin:
+        with open(fn, 'rt', encoding='utf-8') as fin:
             fileobj = fin.readlines()
             self.parse_log(fileobj)
 
@@ -145,10 +149,10 @@ class Toolbox():
             dt = datetime(yy, MM, dd, hh, mm, ss, microsecond=us)
             #print(uptis, uptus)
             #print(dt, delta)
-            print("[kdate] delta: {}".format(delta))
+            print(f"[kdate] delta: {delta}")
             return dt, delta
-        else:
-            return None
+
+        return None
 
 
     def action(self):
@@ -157,9 +161,8 @@ class Toolbox():
             if not os.path.exists(ff):
                 continue
 
-            print("[kdate] {}:".format(ff))
+            print(f"[kdate] {ff}:")
             self.open_file(ff)
-
 
 
 def main():
