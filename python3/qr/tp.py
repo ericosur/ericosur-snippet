@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # coding: utf-8
+# pylint: disable=import-error
 
 '''
 require module treepoem

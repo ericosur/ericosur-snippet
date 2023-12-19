@@ -1,6 +1,24 @@
-''' dft test '''
+# coding: utf-8
 
-#import matplotlib
+''' dft test
+
+qt.qpa.plugin: Could not load the Qt platform plugin "xcb" in "" even though
+it was found. This application failed to start because no Qt platform plugin
+could be initialized. Reinstalling the application may fix this problem.
+
+Available platform plugins are: eglfs, linuxfb, minimal, minimalegl, offscreen,
+vnc, wayland-egl, wayland, wayland-xcomposite-egl, wayland-xcomposite-glx,
+webgl, xcb.
+
+
+for matplotlib.use(), valid strings are ['pdf', 'GTK3Cairo', 'nbAgg',
+'WXCairo', 'Qt4Cairo', 'WX', 'pgf', 'WXAgg', 'GTK3Agg', 'cairo', 'template',
+'Qt5Cairo', 'WebAgg', 'agg', 'Qt5Agg', 'TkAgg', 'Qt4Agg', 'MacOSX', 'svg',
+'ps', 'TkCairo']
+
+'''
+
+
 import matplotlib.pyplot as plt
 
 import numpy as np
@@ -30,19 +48,3 @@ def main():
 if __name__ == '__main__':
     #print(plt.style.available)
     main()
-
-'''
-qt.qpa.plugin: Could not load the Qt platform plugin "xcb" in "" even though
-it was found. This application failed to start because no Qt platform plugin
-could be initialized. Reinstalling the application may fix this problem.
-
-Available platform plugins are: eglfs, linuxfb, minimal, minimalegl, offscreen,
-vnc, wayland-egl, wayland, wayland-xcomposite-egl, wayland-xcomposite-glx,
-webgl, xcb.
-
-
-for matplotlib.use(), valid strings are ['pdf', 'GTK3Cairo', 'nbAgg',
-'WXCairo', 'Qt4Cairo', 'WX', 'pgf', 'WXAgg', 'GTK3Agg', 'cairo', 'template',
-'Qt5Cairo', 'WebAgg', 'agg', 'Qt5Agg', 'TkAgg', 'Qt4Agg', 'MacOSX', 'svg',
-'ps', 'TkCairo']
-'''

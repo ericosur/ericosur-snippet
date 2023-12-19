@@ -5,6 +5,7 @@
 demo percentage encoding, could run both python2, python3
 '''
 
+
 import argparse
 
 from myutil import read_from_stdin
@@ -65,11 +66,12 @@ def argp():
         help='read from STDIN')
     parser.add_argument("arg", nargs='*', default=None)
     args = parser.parse_args()
-    #print(args)
+
     if args.readFromStdin:
         read_from_stdin(main)
-    else:
-        main(args.arg)
+        return
+
+    main(args.arg)
 
 if __name__ == '__main__':
     argp()

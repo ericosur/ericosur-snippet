@@ -5,6 +5,10 @@
     perform fft on wave, and draw spectrum
 '''
 
+# pylint: disable=import-error
+# pylint: disable=unused-variable
+
+
 import os
 import sys
 
@@ -16,7 +20,6 @@ import numpy as np
 
 #from scipy import fftpack
 
-# pylint: disable=unused-variable
 def main(fn):
     ''' main '''
     if not os.path.exists(fn):
@@ -30,10 +33,9 @@ def main(fn):
     N = audio.shape[0]
     L = N / rate
 
-    print('Audio length: {:.2f} seconds'.format(L))
+    print(f'Audio length: {L:.2f} seconds')
     # need python 3.6+ to use such format string
-    #print(f'Audio length: {L:.2f} seconds')
-    #print('np.max(audio): {}'.format(np.max(audio)))
+    #print(f'np.max(audio): {np.max(audio)}')
 
     f, ax = plt.subplots(figsize=(8, 4))
     ax.plot(np.arange(N) / rate, audio)
@@ -45,14 +47,14 @@ def main(fn):
     #print('audio shape:', audio.shape)
     M = 1024
     slices = util.view_as_windows(audio, window_shape=(M,), step=100)
-    print('Audio shape: {}, Sliced audio shape: {}'.format(audio.shape, slices.shape))
+    print(f'Audio shape: {audio.shape}, Sliced audio shape: {slices.shape}')
 
     win = np.hanning(M + 1)[:-1]
     #print('win:', win)
     slices = slices * win
     slices = slices.T
     print('Shape of `slices`', slices.shape)
-    #print('np.max(slices): {}'.format(np.max(slices)))
+    #print(f'np.max(slices): {np.max(slices}'))
 
 
     spectrum = np.fft.fft(slices, axis=0)[:M // 2 + 1:-1]
@@ -60,7 +62,7 @@ def main(fn):
 
     f, ax = plt.subplots(figsize=(8, 4))
     S = np.abs(spectrum)
-    print('np.max: {}'.format(np.max(S)))
+    print(f'np.max: {np.max(S)}')
     with np.errstate(divide='ignore', invalid='ignore'):
         S = 20 * np.log10(S / np.max(S))
     ax.imshow(S, origin='lower', cmap='viridis',

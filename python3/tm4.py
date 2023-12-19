@@ -94,7 +94,7 @@ class Solution():
             t = self.pick_value()
             repeat += 1
             if self.has_digit4(t):
-                ''' try again '''
+                # try again
                 if self.debug:
                     print(f'{t} is not good')
                 continue

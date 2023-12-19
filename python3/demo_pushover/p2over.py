@@ -82,12 +82,12 @@ class PushOverRequests(PushOverBase):
             "device": self.device,
             "sound": self.sound
         }
-        '''
-        img_fn = self.get_home() + '/Pictures/kabaa.jpg'
-        img = {
-            "attachment": ("image.jpg", open(img_fn, "rb"), "image/jpeg")
-        }
-        '''
+
+        # img_fn = self.get_home() + '/Pictures/kabaa.jpg'
+        # img = {
+        #     "attachment": ("image.jpg", open(img_fn, "rb"), "image/jpeg")
+        # }
+
         self.dump_payload(payload)
         r = requests.post(url, data=json.dumps(payload), headers=headers, timeout=5.0)
         print(r.status_code)

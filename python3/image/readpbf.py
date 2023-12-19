@@ -1,15 +1,28 @@
 #!/usr/bin/env python3
 #coding: utf-8
+# pylint: disable=import-error
+# pylint: disable=import-outside-toplevel
 
 '''
 pbf is bookmark file of Potplayer
 
 such thumbnail is not supported under ubuntu
 
-it is a file encoding UTF16, format like ini
-11=1302791*Book 3*2800000048000000480000000100200004000000810800000000000000000000000000000000000000000000FFD8FFE0
+It is a file encoding UTF16. One of these lines look like:
+note: too line in one line they are in one line, no CRLF
+
+```
+11=1302791*Book 3*28000000480000004800000001002000040000008108
+00000000000000000000000000000000000000000000FFD8FFE0
+```
 
 <no>=<timestamp>*<bookmark name>*<hex string of thumbnail>
+
+OSError: Unsupported BMP compression (4)
+
+The image is in the awkward Microsoft BMP V3 format with,
+I believe, RLE compression and I don't believe Pillow can handle that.
+
 '''
 
 import binascii
@@ -19,12 +32,6 @@ import platform
 import re
 import sys
 
-'''
-OSError: Unsupported BMP compression (4)
-
-The image is in the awkward Microsoft BMP V3 format with,
-I believe, RLE compression and I don't believe Pillow can handle that.
-'''
 
 def identify_blob(blob):
     ''' identify blob after construct a WandImage
@@ -65,6 +72,7 @@ def output_imageio(ofn, blob):
     frames = iio.imread(byte_stream, index=None)
     iio.imwrite(ofn, frames)
 
+# pylint: disable=not-callable
 def output_pillow(ofn, blob):
     ''' output with pillow '''
     from PIL import Image as PILImage
@@ -82,7 +90,7 @@ class Solution():
     def parse_line(self, ln):
         ''' parse one line '''
         m = re.match(r'^(\d+)=(\d+)\*([^\*]+)\*([0-9a-fA-F]+)$', ln)
-        item = {}
+        #item = {}
         if m:
             no, timestamp, bookmark, thumbnail = int(m[1]), int(m[2]), m[3], m[4]
             #print(f'[DEBUG] {no}={timestamp}*{bookmark}*{thumbnail[:16]}...')

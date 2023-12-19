@@ -158,7 +158,7 @@ class Pythag():
         ''' sort the list and output to file '''
         result_list = sorted(tripes, key=lambda x: (x[0], x[1], x[2]))
         print('length:', len(result_list))
-        ''' output results to specified file '''
+        # output results to file
         with open(fn, "wt", encoding='utf-8') as fobj:
             for t in result_list:
                 print(t, file=fobj)

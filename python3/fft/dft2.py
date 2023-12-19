@@ -8,8 +8,8 @@ from scipy import fftpack
 
 import numpy as np
 
-# pylint: disable=unused-variable
 
+# pylint: disable=unused-variable
 def main():
     ''' main '''
     plt.style.use('dark_background')

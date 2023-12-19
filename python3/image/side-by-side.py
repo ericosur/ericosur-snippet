@@ -17,17 +17,16 @@ reference: https://imagemagick.org/Usage/
 
 '''
 
-DEMO = False
 
 import os
 import sys
-
 from wand.display import display
 from wand.image import Image
 
 
 class Solution():
     ''' solution '''
+    DEMO = False
 
     def __init__(self):
         home = os.getenv("HOME")
@@ -76,7 +75,7 @@ class Solution():
     def run(cls):
         ''' run me '''
         obj = cls()
-        if DEMO:
+        if cls.DEMO:
             print('[INFO] press ESC or close the display window to next one')
             obj.rotate_and_show()
         else:

@@ -5,6 +5,7 @@
 test qrcode generator
 '''
 
+# pylint: disable=import-error
 import argparse
 import os
 from collections import OrderedDict
