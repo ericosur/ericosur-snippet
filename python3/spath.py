@@ -11,12 +11,12 @@ then list them
 
 import os
 
-USE_COLOR = False
+USE_ANSICOLOR = False
 try:
     from colorama import Fore, Style
-    USE_COLOR = True
+    USE_ANSICOLOR = True
 except ImportError:
-    pass
+    print('[info] suggest install colorama to enable ansi color')
 
 
 def main():
@@ -33,11 +33,11 @@ def main():
         else:
             if not i in warnlist:
                 warnlist.append(i)
-    if USE_COLOR:
+    if USE_ANSICOLOR:
         print(Fore.YELLOW)
     for w in warnlist:
         print('[WARN] path not exists:', w)
-    if USE_COLOR:
+    if USE_ANSICOLOR:
         print(Style.RESET_ALL, end='')
 
 if __name__ == '__main__':
