@@ -7,7 +7,6 @@ print some unicode char
 
 
 from __future__ import print_function
-import sys
 from showutf8 import show_utf8char
 from myutil import get_python_versions
 
@@ -16,9 +15,9 @@ def main():
     ''' print some unicode characters '''
 
     # U+F92F (CJK Compatibility Ideographs)
-    print('show U+F92F:', u'\uF92F')
+    print('show U+F92F:', '\uF92F')
     # U+52DE (CJK Unified Ideographs)
-    print('show U+52DE:', u'\u52DE')
+    print('show U+52DE:', '\u52DE')
 
     (m, _) = get_python_versions()
     if m >= 3:

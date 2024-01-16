@@ -9,7 +9,7 @@ from operator import itemgetter
 
 def readfile(f):
     ''' read file '''
-    with open(f, "r") as pFile:
+    with open(f, "rt", encoding='UTF-8') as pFile:
         return pFile.read()
 
 def divide(c, regex):

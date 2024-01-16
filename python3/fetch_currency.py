@@ -11,7 +11,7 @@ import requests
 
 def main():
     '''main functon'''
-    r = requests.get('https://tw.rter.info/capi.php')
+    r = requests.get('https://tw.rter.info/capi.php', timeout=5)
     currency = r.json()
     print(currency)
 
