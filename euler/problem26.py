@@ -52,33 +52,31 @@ def read_primes():
                 primes.append(int(m.group()))
     return primes
 
-'''
-def LongestCommonSubstring(S1, S2):
-    M = [[0]*(1+len(S2)) for i in xrange(1+len(S1))]
-    longest, x_longest = 0, 0
-    for x in xrange(1,1+len(S1)):
-        for y in xrange(1,1+len(S2)):
-            if S1[x-1] == S2[y-1]:
-                M[x][y] = M[x-1][y-1] + 1
-                if M[x][y]>longest:
-                    longest = M[x][y]
-                    x_longest  = x
-            else:
-                M[x][y] = 0
-    return S1[x_longest-longest: x_longest]
-'''
-'''
-def CheckRepeatString(s, n):
-    s = mydiv(n)
-    #print s, len(s)
-    #print "half: " + s[len(s)/2:]
-    lcs = LongestCommonSubstring(s, s[len(s)/2:])
-    #print 'lcs: ' + lcs
-    if lcs == s[len(s)/2:] and s.find(lcs) == 0:
-        print 'ok: len: ' + str(len(lcs))
-    else:
-        print 'shit'
-'''
+# def LongestCommonSubstring(S1, S2):
+#     M = [[0]*(1+len(S2)) for i in xrange(1+len(S1))]
+#     longest, x_longest = 0, 0
+#     for x in xrange(1,1+len(S1)):
+#         for y in xrange(1,1+len(S2)):
+#             if S1[x-1] == S2[y-1]:
+#                 M[x][y] = M[x-1][y-1] + 1
+#                 if M[x][y]>longest:
+#                     longest = M[x][y]
+#                     x_longest  = x
+#             else:
+#                 M[x][y] = 0
+#     return S1[x_longest-longest: x_longest]
+
+# def CheckRepeatString(s, n):
+#     s = mydiv(n)
+#     #print s, len(s)
+#     #print "half: " + s[len(s)/2:]
+#     lcs = LongestCommonSubstring(s, s[len(s)/2:])
+#     #print 'lcs: ' + lcs
+#     if lcs == s[len(s)/2:] and s.find(lcs) == 0:
+#         print 'ok: len: ' + str(len(lcs))
+#     else:
+#         print 'shit'
+
 
 def sum_string(s):
     ''' input s, sum up each digits '''

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 #-*- coding: utf-8 -*-
 
 '''
@@ -17,7 +17,7 @@ def get_python_version():
 def print_hex(in_string):
     ''' print string in hex '''
     for c in list(in_string):
-        print("{:x}".format(ord(c)), end=' ')
+        print(f"{ord(c):x}", end=' ')
     print()
 
 def hello_py2(msg):
@@ -34,7 +34,7 @@ def hello_py3(msg):
     big5 = msg.encode('big5')
     print('big5:', big5)  # type would be byte
     for c in big5:
-        print('{:x}'.format(c), end=' ')
+        print(f'{c:x}', end=' ')
     print()
 
 def main():
