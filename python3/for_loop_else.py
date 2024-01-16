@@ -11,6 +11,7 @@ from __future__ import print_function
 def test_for_loop(checkname):
     ''' lookup checkname from names '''
     found = False
+    postfix = "not found"
     names = ["john", "lisa", "raj", "jacob"]
     for nn in names:
         if nn == checkname:
@@ -21,18 +22,17 @@ def test_for_loop(checkname):
         print("==> all items processed at for-loop")
 
     if found:
-        print('__{}__ is found'.format(checkname))
-    else:
-        print('__{}__ is not found'.format(checkname))
+        postfix = 'found'
 
+    print(f'\t__{checkname}__ is {postfix}')
 
 
 def show_list_in_list():
     ''' print list in list '''
-    two_sets = [["moon", "monkey", "money"], ["pill", "police", "person"]]
+    two_sets = [["milk", "monkey", "moonshine"], ["pill", "police", "personality"]]
     for i, word_list in enumerate(two_sets):
         for j, word in enumerate(word_list):
-            print('{} {} {}'.format(i, j, word))
+            print(f'({i},{j}): {word}')
 
 
 if __name__ == "__main__":

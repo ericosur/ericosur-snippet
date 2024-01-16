@@ -23,27 +23,27 @@ def main():
     '''main function'''
     if len(sys.argv) > 1:
         fname = sys.argv[1]
-        print("process file %s" % fname)
+        print(f"process file {fname}")
     else:
         print("no file name is specified")
         sys.exit()
 
-    fp = open(fname, "rb")  # need open as binary mode
-    m = hashlib.md5()
-    m.update(fp.read())
-    print("md5: ", m.hexdigest())
+    # need open as binary mode
+    with open(fname, "rb") as fp:
+        m = hashlib.md5()
+        m.update(fp.read())
+        print("md5: ", m.hexdigest())
 
-    fp.seek(0, 0)
-    s1 = hashlib.sha1()
-    s1.update(fp.read())
-    print('sha1: ', s1.hexdigest())
+        fp.seek(0, 0)
+        s1 = hashlib.sha1()
+        s1.update(fp.read())
+        print('sha1: ', s1.hexdigest())
 
-    fp.seek(0, 0)
-    s2 = hashlib.sha256()
-    s2.update(fp.read())
-    print('sha256: ', s2.hexdigest())
+        fp.seek(0, 0)
+        s2 = hashlib.sha256()
+        s2.update(fp.read())
+        print('sha256: ', s2.hexdigest())
 
-    fp.close()
 
 if __name__ == '__main__':
     main()
