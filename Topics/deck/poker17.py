@@ -21,12 +21,12 @@ def main():
     show_deck(mycards)
 
     # show total cards
-    '''
-    print '-------------------'
-    #shuffle_array(mycards)
-    show_deck(mycards)
-    print '-------------------'
-    '''
+
+    # print '-------------------'
+    # #shuffle_array(mycards)
+    # show_deck(mycards)
+    # print '-------------------'
+
     if perform_shuffle:
         shuffle_array(mycards)
     else:

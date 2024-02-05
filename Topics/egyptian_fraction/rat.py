@@ -7,14 +7,15 @@ need Rational of sympy
 * using greedy algorithm to solve egyptian fraction,
   the answer is not always optimized
 
+* using sympy.Rational to do fraction calculation
+  Rational: p / q
+
 '''
 
 import argparse
 import sys
 
 from sympy import Rational
-
-# Rational: p / q
 
 
 def get_next(m: int, n: int) -> int:
@@ -28,7 +29,6 @@ def get_next(m: int, n: int) -> int:
         return 0
     return q + 1
 
-# pylint: disable=no-member
 def action(m, n):
     ''' action '''
     if m >= n:
