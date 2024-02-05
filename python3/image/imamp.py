@@ -8,8 +8,6 @@ imageio x opencv
 3. pass image obj to opencv to write image file
 '''
 
-# do not complain no-member for opencv
-# pylint: disable=no-member
 # pylint: disable=import-error
 
 import os

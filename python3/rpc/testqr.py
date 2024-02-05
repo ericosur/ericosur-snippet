@@ -16,7 +16,6 @@ import requests
 from httpbin import show_results
 from PIL import Image
 
-# pylint: disable=no-member
 # pylint: disable=using-constant-test
 
 def get_qrcode(text='The quick brown fox jumps over the lazy dog', showimage=True):

@@ -12,7 +12,7 @@ class Solution():
     ''' to solve '''
 
     def __init__(self):
-        self.vals = [x for x in range(19, 80)]
+        self.vals = list(range(19, 80))
 
     def action(self):
         ''' action '''
