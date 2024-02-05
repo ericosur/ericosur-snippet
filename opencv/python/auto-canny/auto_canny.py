@@ -1,13 +1,18 @@
-# USAGE
-# python auto_canny.py --images images
+#!/usr/bin/env python
+
+'''
+USAGE:
+python auto_canny.py --images images
+'''
 
 # import the necessary packages
-import numpy as np
 import argparse
 import glob
 import cv2
+import numpy as np
 
 def auto_canny(image, sigma=0.33):
+    ''' auto canny with default sigma '''
     # compute the median of the single channel pixel intensities
     v = np.median(image)
 
@@ -31,6 +36,7 @@ def downscale(img, scale):
     return resized
 
 def main():
+    ''' main '''
     # construct the argument parse and parse the arguments
     ap = argparse.ArgumentParser()
     ap.add_argument("-i", "--images", required=True,

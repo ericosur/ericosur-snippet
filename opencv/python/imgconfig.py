@@ -19,9 +19,10 @@ if os.path.exists(UTILPATH):
 
 from myutil import read_setting
 
+CONFIG = 'setting.json'
+
 def read_image_config():
     ''' read image common config '''
-    CONFIG = 'setting.json'
     if not os.path.exists(CONFIG):
         print('[ERROR] cannot load config:', CONFIG)
         sys.exit(1)

@@ -7,9 +7,9 @@ from __future__ import print_function
 import os
 import cv2
 import numpy as np
-from imgconfig import read_image_config
+from imgconfig import read_image_config, CONFIG
 
-# pylint: disable=no-member
+
 class OpencvSample():
     ''' run opencv sample '''
     WIN_NAME = 'foobar'
@@ -34,7 +34,7 @@ class OpencvSample():
             if os.path.exists(fn):
                 self.pics.append(fn)
         if len(self.pics) <= 0:
-            print('[INFO] pics list is empty, please check:', self.CONFIG_FILE)
+            print('[INFO] pics list is empty, please check:', CONFIG)
 
     def demo_drawline(self):
         '''cv drawline'''
