@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#
-# pylint: disable=no-member
+
 
 '''
 refer to: https://blog.csdn.net/dcrmg/article/details/79155233

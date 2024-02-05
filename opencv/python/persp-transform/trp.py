@@ -6,16 +6,22 @@ https://www.pyimagesearch.com/2014/08/25/4-point-opencv-getperspective-transform
 '''
 
 # import the necessary packages
-import numpy as np
 import argparse
 import cv2
+import numpy as np
 
+#
+# pylint: disable=too-many-locals
+# pylint: disable=eval-used
+#
 
 def order_points(pts):
-    # initialzie a list of coordinates that will be ordered
-    # such that the first entry in the list is the top-left,
-    # the second entry is the top-right, the third is the
-    # bottom-right, and the fourth is the bottom-left
+    '''
+    initialzie a list of coordinates that will be ordered
+    such that the first entry in the list is the top-left,
+    the second entry is the top-right, the third is the
+    bottom-right, and the fourth is the bottom-left
+    '''
     rect = np.zeros((4, 2), dtype = "float32")
     # the top-left point will have the smallest sum, whereas
     # the bottom-right point will have the largest sum
@@ -32,8 +38,10 @@ def order_points(pts):
     return rect
 
 def four_point_transform(image, pts):
-    # obtain a consistent order of the points and unpack them
-    # individually
+    '''
+    obtain a consistent order of the points and unpack them
+    individually
+    '''
     rect = order_points(pts)
     (tl, tr, br, bl) = rect
     # compute the width of the new image, which will be the

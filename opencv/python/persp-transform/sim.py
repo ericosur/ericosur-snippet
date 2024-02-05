@@ -6,14 +6,14 @@ cv2 imshow
 '''
 
 import sys
-import numpy as np
+#import numpy as np
 import cv2
 
 def show_img(fn):
     ''' show img '''
     img = cv2.imread(fn)
     cv2.imshow('img', img)
-    print('{}: {}x{}'.format(fn, img.shape[1], img.shape[0]))
+    print(f'{fn}: {img.shape[1]}x{img.shape[0]}')
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 

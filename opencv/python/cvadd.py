@@ -1,8 +1,5 @@
 #!/usr/bin/python
 # coding: utf-8
-#
-# pylint: disable=no-member
-# pylint: disable=wrong-import-position
 
 '''
 stack two different dimension images into one
@@ -13,6 +10,8 @@ veritical:
 horizontally:
     convert +append top.jpg bot.jpg hoz.jpg
 '''
+
+# pylint: disable=wrong-import-position
 
 import cv2
 import numpy as np

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 #
-# pylint: disable=no-member
 # pylint: disable=line-too-long
 #
 
@@ -122,16 +122,13 @@ class MyCap():
 
         cv2.imshow('skin', im2)
 
-        '''
-        # apply erosions and dilations to the mask
-        kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (11,11))
-        skinMask = cv2.erode(skinMask, kernel, iterations = 2)
-        skinMask = cv2.dilate(skinMask, kernel, iterations = 2)
-        skinMask = cv2.GaussianBlur(skinMask, (3,3), 0)
-        skin = cv2.bitwise_and(img, img, mask=skinMask)
-        #cv2.imshow('skin mask', np.hstack([img, skin]))
-        '''
-
+        # # apply erosions and dilations to the mask
+        # kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (11,11))
+        # skinMask = cv2.erode(skinMask, kernel, iterations = 2)
+        # skinMask = cv2.dilate(skinMask, kernel, iterations = 2)
+        # skinMask = cv2.GaussianBlur(skinMask, (3,3), 0)
+        # skin = cv2.bitwise_and(img, img, mask=skinMask)
+        # #cv2.imshow('skin mask', np.hstack([img, skin]))
 
 
     def action(self):

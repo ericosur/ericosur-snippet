@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # pylint: disable=line-too-long
-# pylint: disable=no-member
+# pylint: disable=too-many-locals
 
 '''
 from: https://docs.opencv.org/3.0-beta/doc/py_tutorials/py_gui/py_video_display/py_video_display.html
@@ -15,7 +15,6 @@ import os
 import sys
 import cv2
 
-# pylint: disable=too-many-locals
 
 OUTPUT_FN = 'capvid.avi'
 

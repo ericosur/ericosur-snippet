@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 #
-# pylint: disable=no-member
-# pylint: disable=import-error
 # pylint: disable=wrong-import-position
 
 '''

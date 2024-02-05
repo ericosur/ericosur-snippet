@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#
-# pylint: disable=no-member
 
-'''some cv util functions'''
-
+'''
+some cv util functions
+'''
 
 from __future__ import print_function
 import os
