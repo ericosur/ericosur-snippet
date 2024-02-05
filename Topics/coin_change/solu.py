@@ -88,12 +88,12 @@ class Solution():
 
 def main():
     ''' main '''
-    '''
-    original problem
-    coins = [411, 295, 161]
-    limits = [8, 11, 20]
-    target = 3200
-    '''
+
+    # # original problem
+    # coins = [411, 295, 161]
+    # limits = [8, 11, 20]
+    # target = 3200
+
     coins = [411, 295, 161]
     limits = [8, 11, 20]
     target = 3200

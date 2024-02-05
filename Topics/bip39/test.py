@@ -12,21 +12,21 @@ from mnemonic import Mnemonic
 
 def main():
     ''' main '''
-    '''
-    langs = [
-        "english",
-        "chinese_simplified",
-        "chinese_traditional",
-        "french",
-        "italian",
-        "japanese",
-        "korean",
-        "spanish",
-        "turkish",
-        "czech",
-        "portuguese"
-    ]
-    '''
+
+    # langs = [
+    #     "english",
+    #     "chinese_simplified",
+    #     "chinese_traditional",
+    #     "french",
+    #     "italian",
+    #     "japanese",
+    #     "korean",
+    #     "spanish",
+    #     "turkish",
+    #     "czech",
+    #     "portuguese"
+    # ]
+
     mnemo = Mnemonic("english")
     words = mnemo.generate(strength=256)
     seed = mnemo.to_seed(words, passphrase="")

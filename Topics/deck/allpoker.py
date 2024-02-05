@@ -2,6 +2,12 @@
 # -*- coding: utf-8 -*-
 
 '''
+Var 'card' stands for a card, which is a list contains
+[suit, point]. 'Suit' means 'heart', 'spade', 'club' and 'diamond'.
+'Point' is in the range of 1 to 13.
+
+Simply init a pile of cards by order and deal 5 cards to 4 players.
+
 use shuffle_array() in fisher_yates_shuffle.py
 from fisher_yates_shuffle import shuffle_array
 '''
@@ -9,14 +15,6 @@ from fisher_yates_shuffle import shuffle_array
 import random
 
 from deckutil import init_deck, print_sep, show_deck
-
-'''
-Var 'card' stands for a card, which is a list contains
-[suit, point]. 'Suit' means 'heart', 'spade', 'club' and 'diamond'.
-'Point' is in the range of 1 to 13.
-
-Simply init a pile of cards by order and deal 5 cards to 4 players.
-'''
 
 
 def faro_shuffle(cards):
