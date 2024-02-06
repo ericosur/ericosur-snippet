@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "it is old, DO NOT use me..."
+exit 1
+
 SCRIPT_DIR=$PWD
 VER=42
 LOCALPATH=/home/rasmus/Dropbox/unicode/cldr/${VER}

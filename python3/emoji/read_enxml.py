@@ -30,6 +30,10 @@ from myutil import read_textfile
 
 class Solution():
     ''' solution to read en.xml and output as csv-like data '''
+
+    FILES = ['en-basic.xml', 'en-derived.xml',
+            'zh-basic.xml', 'zh-derived.xml']
+
     def __init__(self):
         self.content = None
         self.emoji = {}
@@ -51,7 +55,7 @@ class Solution():
         for i in anns:
             key = i['cp']
             if key in self.emoji:
-                if len(i.text) < len(self.emoji[key][1]):
+                if "type" in i.attrs:
                     self.emoji[key].insert(1, i.text)
                 else:
                     self.emoji[key].append(i.text)
@@ -83,12 +87,12 @@ class Solution():
 
     def action(self) -> None:
         ''' action '''
-        for fn in ['en-basic.xml', 'en-derived.xml']:
+        for fn in Solution.FILES:
             print(f'fn: {fn}')
             self.content = read_textfile(fn)
             # parsing xml and store into list()
             self.make_soup()
-            self.output_data(f'{fn}.csv')
+        self.output_data(f'wtf.csv')
 
 
 def get_datetag() -> str:
