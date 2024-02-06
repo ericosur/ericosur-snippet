@@ -74,10 +74,9 @@ class Solution():
         return s[:-1]
 
 
-    def output_data(self, ofilename) -> None:
+    def output_data(self, outfn) -> None:
         ''' output data '''
-        print(f'len: {len(self.emoji)}')
-        outfn = ofilename
+        #print(f'len: {len(self.emoji)}')
         with open(outfn, 'wt', encoding='utf8') as f:
             for _, (k, v) in enumerate(self.emoji.items()):
                 vals = Solution.value_to_string(v)
@@ -88,11 +87,12 @@ class Solution():
     def action(self) -> None:
         ''' action '''
         for fn in Solution.FILES:
-            print(f'fn: {fn}')
+            print(f'read from: {fn}')
             self.content = read_textfile(fn)
             # parsing xml and store into list()
             self.make_soup()
-        self.output_data(f'wtf.csv')
+            #print(f'curr len: {len(self.emoji)}')
+        self.output_data('wtf.csv')
 
 
 def get_datetag() -> str:

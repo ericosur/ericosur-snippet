@@ -2,8 +2,8 @@
 # coding: utf-8
 
 '''
-try to search in EMOJI, need
-_emoji.py
+try to search in EMOJI, need _emoji.py
+also see ../unicdoe/show_emojis.py
 '''
 
 import argparse
