@@ -19,13 +19,14 @@ except ImportError:
 def show_unicodedata(u):
     ''' main '''
     for i, c in enumerate(u):
-        print(f'{i}: {c}  {ord(c):04x}  {unicodedata.category(c)}', end=" ")
-        print(unicodedata.name(c))
         try:
+            print(f'{i}: {c}  {ord(c):04x}  {unicodedata.category(c)}', end=" ")
+            print(unicodedata.name(c))
             # Get numeric value of second character
             print('Numeric character: ', unicodedata.numeric(c))
         except ValueError:
-            pass
+            print(f'error at {c}')
+
 def help_message():
     ''' help '''
     print("demo mode, use '-' to use stdin, or CLI parameters")
