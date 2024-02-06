@@ -1,8 +1,9 @@
-# readme
+# README
 
-[TOC]
+If you want to update emoji related data, just see section [2024-02-06]
 
-This readme describes how to translate emoji icons into unicode sequence for
+
+This README describes how to translate emoji icons into unicode sequence for
 maximum compatability without losing any code. Normally using utf-8 encoding
 could keep most of information and ok to exchange. But emoji are not always
 perfectly editable in the editor. Currently I suggest that use **unicode
@@ -86,6 +87,13 @@ void unicode_char()
     * specify release file to download (manually), look for file like: [CLDR common](http://unicode.org/Public/cldr/37/cldr-common-37.0.zip)
 
 * emoji data files
+
+    * 2023-08-30 [emoji 15.1](https://unicode.org/Public/emoji/15.1/)
+        - ReadMe.txt
+        - emoji-sequences.txt
+        - emoji-test.txt
+        - emoji-zwj-sequences.txt
+
     * [emoji 15.0](https://unicode.org/Public/emoji/15.0/)
         - ReadMe.txt
         - emoji-sequences.txt
@@ -104,12 +112,19 @@ void unicode_char()
 http://unicode.org/Public/cldr/40/
 
 
-### auto download and do the rest
+### 2024-02-06
 
-execute mkcldrtable.sh and do all the rest
+- May check the latest release tag from https://github.com/unicode-org/cldr.git
+
+- and then run this script
+
 ```
-$ ./mkcldrtable.sh
+$ ./runme.sh
 ```
 
-replace the __output.csv__ to __emoji.csv__
-
+script to generate data files:
+    - read_enxml.py
+        - wtf.csv
+    - parse_enxml.py
+        - \_emoji.py
+        - zh_emoji.py

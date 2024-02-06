@@ -3,8 +3,14 @@
 #
 
 '''
-show codepoint from text file __emojis.txt__
+show codepoint from text file (emojis.txt)
 '''
+
+import sys
+sys.path.insert(0, '../emoji/')
+
+from cp_emoji import EMOJI
+
 
 class Solution():
     ''' to solve '''
@@ -12,27 +18,43 @@ class Solution():
 
     def __init__(self):
         ''' init '''
-        self.chars = []
-        self._read_data()
+        self.emojis = EMOJI
 
-    def _read_data(self):
+    def read_data(self):
         ''' action '''
         print('action!')
         with open(Solution.FILE, "rt", encoding='UTF-8') as fobj:
             for ln in fobj.readlines():
-                #print(ln)
                 ln = ln.strip()
-                self.chars.append(ln)
+                self.show_ln(ln)
+                r = self.emojis.get(ln)
+
+    def show_ln(self, ln):
+        ''' show ln '''
+        r = self.emojis.get(ln)
+        if len(ln) == 1:
+            print(f'{ln}: {hex(ord(ln))}, {r}')
+        else:
+            msg = ''
+            for ch in list(ln):
+                msg = msg + f'/{hex(ord(ch))}/'
+            print(f'{ln}: {msg}  {r}')
+
 
     def action(self):
         ''' action '''
-        print(f'{len(self.chars)=}')
-        for c in self.chars:
-            try:
-                print(f'{c}    {hex(ord(c))}')
-            except TypeError:
-                print(f'error at {c}')
+        self.read_data()
 
+    def test(self):
+        ''' test '''
+        print('run test...')
+        cnt = 0
+        for k in self.emojis.keys():
+            v = self.emojis[k]
+            print(f'{k}: {v}')
+            cnt += 1
+            if cnt > 10:
+                break
 
     @classmethod
     def run(cls):
