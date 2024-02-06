@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 # coding: utf-8
 #
+# pylint: disable=wrong-import-position
 
 '''
 show codepoint from text file (emojis.txt)
+also see: ../emoji/test_emoji.py
 '''
 
 import sys
@@ -27,7 +29,6 @@ class Solution():
             for ln in fobj.readlines():
                 ln = ln.strip()
                 self.show_ln(ln)
-                r = self.emojis.get(ln)
 
     def show_ln(self, ln):
         ''' show ln '''
@@ -49,8 +50,7 @@ class Solution():
         ''' test '''
         print('run test...')
         cnt = 0
-        for k in self.emojis.keys():
-            v = self.emojis[k]
+        for k, v in self.emojis.items():
             print(f'{k}: {v}')
             cnt += 1
             if cnt > 10:
