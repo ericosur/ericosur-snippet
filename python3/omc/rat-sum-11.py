@@ -24,15 +24,12 @@ def test(vals):
     print(vals, s)
     if target - s == 0:
         print('ok')
-    else:
-        print('NG')
+        return True
+    return False
 
 
 def action():
     ''' action '''
-    test([2,3,5,7])
-    test([2,3,5,15])
-    test([2,5,9,10])
 
 
 
