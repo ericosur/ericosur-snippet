@@ -76,7 +76,9 @@ sed -n 100,120p large.txt
 * $2^3+3^2$ means $8+9$
 * $064810$ means $0 \cdot 8^2 \cdot 9^2 \cdot 0$
 
-also check here: https://t5k.org/curios/page.php/56.html
+### web sites
+  - https://t5k.org/curios/page.php/56.html
+  - OEIS On-Line Encyclopedia of Integer Sequences
 
 ## primesieve
 
