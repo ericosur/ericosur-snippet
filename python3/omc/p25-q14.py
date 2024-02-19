@@ -12,7 +12,7 @@ import sys
 class Solution():
     ''' try to find solution '''
 
-    primes = {11,
+    primes = {
             13, 17, 19, 23, 29,
             31, 37, 41, 43, 47,
             53, 59, 61, 67, 71,
@@ -25,7 +25,18 @@ class Solution():
     def validate(self, n):
         ''' validate '''
         self.digits = list(str(n))
+
+        # only the first digit could be even
+        ds = { int(x) for x in self.digits[1:] }
+        ev = {0,2,4,6,8}
+
+        if len(ds.intersection(ev)):
+            self.digits = []
+            self.n = 0
+            return False
+
         s = set(self.digits)
+        # four digits are different
         if len(s)==4:
             self.n = n
             return True
@@ -49,15 +60,27 @@ class Solution():
 
     def action(self):
         ''' action '''
-        cnt = 0
+        matched = 0
+        (lv0, lv1, lv2, lv3) = (0,0,0,0)
+        ans = {}
         for i in range(1000, 9999+1):
+            lv0 += 1
             if self.validate(i):
+                lv1 += 1
                 r = self.cut3()
                 if r is not None:
-                    cnt += 1
-                    print(f"{r=}")
-        print(f'{cnt=}')
-
+                    matched += 1
+                    k = r // 1000
+                    if k not in ans:
+                        ans[k] = []
+                    ans[k].append(r)
+                else:
+                    lv2 += 1
+            else:
+                lv3 += 1
+        print(f'{lv0=} {lv1=} {lv2=} {lv3=} {matched=}')
+        for k in ans.keys():
+            print(ans[k])
 
     @classmethod
     def run(cls):
