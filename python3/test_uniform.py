@@ -20,7 +20,7 @@ def test(n=100000):
     for _, x in enumerate(v):
         r = float(x) * 100.0 / float(n)
         arr.append(r)
-        #print("{}: {:>6.3f}".format(i, r))
+        #print(f"{i}: {r:>6.3f}")
     return arr
 
 

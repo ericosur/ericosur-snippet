@@ -48,8 +48,9 @@ def show(value):
             msg = msg + str(key)
             #print(key, end='')
         else:
-            #print("{}**{}".format(key, myd[key]), end='')
-            msg = msg + f"{key}**{myd[key]}"
+            _part = f"{key}**{myd[key]}"
+            #print(_part)
+            msg = msg + _part
     if HAS_CONSOLE_MODULE:
         console.alert(msg)
     else:

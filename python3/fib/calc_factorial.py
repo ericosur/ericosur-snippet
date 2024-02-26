@@ -67,7 +67,7 @@ class CalcFactorial():
 def calc(n):
     ''' main test function '''
     with CalcFactorial() as fact:
-        #print('before loop, has {} entries'.format(foo.get_pickle_len()))
+        #print(f'before loop, has {foo.get_pickle_len()} entries')
         ret = fact.factorial(n)
         print(f"{n}! = {ret}, log10()={ceil(log10(ret))}")
         #sret = str(ret)
