@@ -20,7 +20,6 @@ def main():
     rr = list(range(1,UPPER))
     ss = list(range(1,UPPER))
 
-    tries = []
     check_set = {17, 20, 24, 25, 28}
 
     for n in it.product(mm, pp, qq, rr, ss):

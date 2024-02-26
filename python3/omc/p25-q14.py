@@ -6,8 +6,6 @@ P25 Q14 有一些四位數ABCD，各位數上的數字互不相同，
 使得AB，BC，CD 都是質數，那麼所有這樣的四位數有多少個？
 '''
 
-import sys
-
 
 class Solution():
     ''' try to find solution '''
@@ -79,8 +77,8 @@ class Solution():
             else:
                 lv3 += 1
         print(f'{lv0=} {lv1=} {lv2=} {lv3=} {matched=}')
-        for k in ans.keys():
-            print(ans[k])
+        for _,v in ans.items():
+            print(v)
 
     @classmethod
     def run(cls):

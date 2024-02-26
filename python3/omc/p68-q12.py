@@ -30,7 +30,7 @@ def get_value(digits):
             val += int(d)
             val *= 10
         val += int(digits[-1])
-    except:
+    except ValueError:
         print("something wrong")
         return None
     return val

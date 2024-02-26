@@ -15,8 +15,8 @@ def gcd(m: int, n: int) -> int:
     return gcd(n, m % n)
 
 def lcm(m: int, n: int) -> int:
-	''' get lcm '''
-	return (m*n) // gcd(m, n)
+    ''' get lcm '''
+    return (m*n) // gcd(m, n)
 
 
 def main():

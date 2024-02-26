@@ -11,6 +11,9 @@ LCM(12,20,25)=
 '''
 
 def validate(a):
+    ''' validate the value '''
+    if a % 11 == 0:
+        return False
     return a%12==9 and a%20==9 and a%25==9
 
 def action():

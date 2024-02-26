@@ -6,8 +6,6 @@ P43 Q15 用160個花片排成空心正十邊形或排成空心正八邊形，
 兩種圖形的邊長花片數之和是多少個？
 '''
 
-import sys
-
 
 class Solution():
     ''' try to find solution '''
