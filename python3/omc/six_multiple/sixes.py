@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # coding: utf-8
 #
+# pylint: disable=too-many-instance-attributes
 
 '''
 from 19 to 99 take 2 different number, product is 6's multiple
@@ -12,7 +13,7 @@ class Solution():
     ''' to solve '''
 
     def __init__(self):
-        self.vals = [x for x in range(19, 100)]
+        self.vals = list(range(19, 100))
         self.cnt23 = 0
         self.cnt32 = 0
         self.cnt61 = 0
@@ -66,7 +67,7 @@ class Solution():
             elif self.is3(t[0]) and self.is2(t[1]):
                 self.cnt32 += 1
                 self.v32s.append(t)
-                if t[0] not in dd.keys():
+                if t[0] not in dd:
                     dd[t[0]] = []
                 dd[t[0]].append(t[1])
 
@@ -84,8 +85,7 @@ class Solution():
         self.output2file('cnt32.txt', self.v32s)
 
         print(f'{len(dd.keys())=}')
-        for k in dd.keys():
-            v = dd[k]
+        for k,v in dd.items():
             print(k,len(v), v)
 
 

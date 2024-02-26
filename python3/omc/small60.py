@@ -25,8 +25,7 @@ class Solution():
             d = y - x
             if d <= 0:
                 break
-            if d < delta:
-                delta = d
+            delta = min(delta, d)
         print(x, y, cnt, d)
 
     @classmethod

@@ -9,6 +9,7 @@ import itertools as it
 from sympy import Rational
 
 def checkVals(vals):
+    ''' check validity of values '''
     target = Rational(11,10)
     s = 0
     for v in vals:

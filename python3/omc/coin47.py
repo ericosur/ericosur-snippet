@@ -15,8 +15,7 @@ def no_change(t):
     while left > 0:
         if left % 4 == 0:
             q = int(left / 4)
-            if q < minq:
-                minq = q
+            minq = min(q, minq)
             print(f'{t:2d}: {cnt7} x 7 + {q:2d} x 4')
         left = left - diff
         cnt7 += 1

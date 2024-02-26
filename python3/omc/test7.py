@@ -1,6 +1,10 @@
 #!/bin/usr/env python3
 # coding:utf-8
 
+'''
+correct +1, wront -1, no answer 0
+A,B,C,D got 2 scores, E?
+'''
 
 A=[1,None,-1,1,-1,1,1]
 B=[1,-1,1,1,-1,-1,None]
