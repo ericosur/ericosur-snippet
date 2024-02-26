@@ -47,11 +47,8 @@ def main():
 
     # def myfmt(n: int) -> str:
     #     ''' my format '''
-    #     s = '{:-10.2f}'.format(n)
+    #     s = f'{n:-10.2f}'
     #     return s
-
-    #print('{:12s}{:12s}{:12s}'.format('   builtin', '   powmod', 'fast_exp'))
-    #print('-' * 40)
 
     builtin_time = []
     powmod_time = []

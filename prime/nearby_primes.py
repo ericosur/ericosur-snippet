@@ -35,7 +35,7 @@ def test(argv, sp):
     _max = sp.at(sp.get_count() - 1)
     _min = _max // 29
     if argv == []:
-        #print("max:{}, min:{}".format(_max, _min))
+        #print(f"max:{_max}, min:{_min}")
         REPEAT = 1
         for _ in range(REPEAT):
             r = random.randint(_min, _max)

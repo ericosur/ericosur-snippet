@@ -265,7 +265,7 @@ class StorePrime():
                 arrow = "<-----"
             else:
                 arrow = "----->"
-            print(f'{v} is in the range of ({p} {arrow} {q})'.format(v, p, arrow, q))
+            print(f'{v} is in the range of ({p} {arrow} {q})')
 
     def test(self, v: int):
         ''' test '''

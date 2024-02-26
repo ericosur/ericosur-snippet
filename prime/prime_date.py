@@ -61,11 +61,11 @@ class TestDate():
 
         for _ in range(len(v)):
             if self.sp.index(int(v)) == -1:
-                #print('{} not a prime'.format(v))
+                #print(f'{v} not a prime')
                 allprime = False
                 break
             # else:
-            #     print('{:>8s} is PRIME'.format(v))
+            #     print(f'{v:>8s} is PRIME')
             v = v[1:]
         if allprime:
             print(f'{argv} is a prime day!')

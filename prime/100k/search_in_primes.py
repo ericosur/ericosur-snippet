@@ -232,7 +232,7 @@ def main(argv):
         if argv == []:
             _max = sp.at(sp.get_count() - 1)
             _min = sp.at(0)
-            #print("max:{}, min:{}".format(_max, _min))
+            #print(f"max:{_max}, min:{_min}")
             REPEAT = 10
             for _ in range(REPEAT):
                 r = random.randint(_min, _max)

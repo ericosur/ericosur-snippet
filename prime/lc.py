@@ -78,7 +78,7 @@ def search_from_file(val, fn, total_lines=0):
         else:
             min_idx = mid_idx
         if min_idx > max_idx or min_idx == max_idx - 1:
-            #print('    {} <====> {}'.format(min_idx, max_idx))
+            #print(f'    {min_idx} <====> {max_idx}')
             break
         if _cnt > 20:
             print('[ERROR] exceed count:', _cnt)

@@ -38,7 +38,6 @@ def test(rep):
                      random.randint(1001, 3001))
         cc = _powmod(p, q, n)
         dd = powmod(p, q, n)
-        #print('{:6d} ** {:5d} % {:5d} = {}'.format(p, q, n, dd))
         print(f'{p:6d} ** {q:5d} % {n:5d} = {dd}')
 
         assert dd == pow(p, q, n)

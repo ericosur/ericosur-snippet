@@ -106,7 +106,7 @@ class SieveOfEratosthenes():
     def run_filter(self):
         ''' filter primes from target '''
         pp = self.prime
-        #print('=====> pp: {}'.format(pp))
+        #print(f'=====> pp: {pp}')
 
         if pp != self.last_prime:
             self.filter_prime(pp)
