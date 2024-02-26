@@ -89,8 +89,8 @@ class ValidateGuassian():
             ''' show '''
             print(f'{n:.3f} not in range ({low}, {high}) =====>')
 
-        #print('median: {:.3f}\n'.format(media))
-        #print('mean: {:.3f}\nstdev: {:.3f}\n'.format(mean, stdev))
+        #print(f'median: {media:.3f}\n')
+        #print(f'mean: {mean:.3f}\nstdev: {stdev:.3f}\n')
         self.result_mean = mean
         self.result_stdev = stdev
         self.result_mode = mode

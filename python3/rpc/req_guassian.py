@@ -50,7 +50,7 @@ class RequestGuassian():
         ''' dump varialbes '''
         print(f'data_file_name: {self.data_file_name}')
         print(f'resp_json: {self.resp_json}')
-        #print('apiKey: {}'.format(self.apiKey))
+        #print(f'apiKey: {self.apiKey}')
 
     @staticmethod
     def get_apikey():
