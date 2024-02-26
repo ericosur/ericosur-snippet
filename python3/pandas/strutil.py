@@ -20,7 +20,7 @@ def str2sec(timestr: str):
     if not isinstance(timestr, str):
         print('str2sec: not a string?', timestr)
         raise ValueError
-    m = re.match(r'\d\d:\d\d\.\d\d', timestr)
+    m = re.match(r'\d\d:\d\d(\.\d\d)?', timestr)
     if m is None:
         print('invalid format for', timestr)
         raise ValueError
