@@ -38,7 +38,7 @@ def conv_big5_to_utf8(fn: str) -> str:
         output content as str
     # iconv -f BIG-5 -t UTF-8 un0304.xls > u.html
     # or *_*uconv*_*
-    cmd = 'iconv -f BIG-5 -t UTF-8 {} > {}'.format(in_fn, out_fn)
+    cmd = f'iconv -f BIG-5 -t UTF-8 {in_fn} > {out_fn}'
     os.system(cmd)
     '''
     c = None
@@ -161,19 +161,19 @@ def output_xls(data: List) -> None:
 
     # insert formula into table, will update in Excel and google spreadsheet
     # will not re-calculate in libre-office
-    ws.write_formula(i, 2, "=SUM(C2:C{})".format(i), x.currency_format)
-    ws.write_formula(i, 3, "=E{0}/C{0}".format(i+1), x.decimal_format)
-    ws.write_formula(i, 4, "=SUM(E2:E{})".format(i), x.currency_format)
-    ws.write_formula(i, 5, "=SUM(F2:F{})".format(i), x.currency_format)
-    ws.write_formula(i, 6, "=F{0}-E{0}".format(i+1), x.currency_format)
-    ws.write_formula(i, 7, "=G{0}/E{0}".format(i+1), x.percent_format)
+    ws.write_formula(i, 2, f"=SUM(C2:C{i})", x.currency_format)
+    ws.write_formula(i, 3, f"=E{i+1}/C{i+1}", x.decimal_format)
+    ws.write_formula(i, 4, f"=SUM(E2:E{i})", x.currency_format)
+    ws.write_formula(i, 5, f"=SUM(F2:F{i})", x.currency_format)
+    ws.write_formula(i, 6, f"=F{i+1}-E{i+1}", x.currency_format)
+    ws.write_formula(i, 7, f"=G{i+1}/E{i+1}", x.percent_format)
 
     # it's ARRAYFORMULA in excel format
-    f = "{=SUM(ROUNDDOWN(C2:" + "C{}".format(i) + "/1000))}"
+    f = "{=SUM(ROUNDDOWN(C2:" + f"C{i}" + "/1000))}"
     ws.write_formula(i+1, 2, f, x.currency_format)
-    ws.write_formula(i+1, 4, "=E{0}/C{0}".format(i+1), x.decimal_format)
-    ws.write_formula(i+1, 5, "=F{0}/C{0}".format(i+1), x.decimal_format)
-    ws.write_formula(i+1, 6, "=G{0}/C{0}".format(i+1), x.decimal_format)
+    ws.write_formula(i+1, 4, f"=E{i+1}/C{i+1}", x.decimal_format)
+    ws.write_formula(i+1, 5, f"=F{i+1}/C{i+1}", x.decimal_format)
+    ws.write_formula(i+1, 6, f"=G{i+1}/C{i+1}", x.decimal_format)
 
     ws.set_column('B:B', 14) # width of column
     ws.set_column('E:G', 10) # width of column

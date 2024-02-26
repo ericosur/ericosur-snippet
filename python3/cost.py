@@ -31,7 +31,7 @@ def main(argv: list) -> None:
             print(f'total: {total:.2f}')
             print(f'nstock:{mm[1]:.0f} -> {nstock:.0f}, avg: {old_avg:.2f} -> {avg:.2f}')
         else:
-            print(f'total: {total:.2f}'.format(total))
+            print(f'total: {total:.2f}')
             print(f'nstock:{mm[1]:.0f} -> {nstock:.0f}, avg: {old_avg:.2f} -> {avg:.2f}')
 
     printOut()

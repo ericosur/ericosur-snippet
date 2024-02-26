@@ -36,12 +36,12 @@ class ValidateGuassian():
         if mean and stdev of *arr* is close to target_mean and target_stdev,
         return true
         '''
-        #print('there are {} elements'.format(len(arr)))
+        #print(f'there are {len(arr)} elements'))
         mean = np.mean(arr)
         #median = np.median(arr)
         stdev = np.std(arr)
-        #print('median: {:.3f}\n'.format(media))
-        #print('mean: {:.3f}\nstdev: {:.3f}\n'.format(mean, stdev))
+        #print(f'median: {media:.3f}\n')
+        #print(f'mean: {mean:.3f}\nstdev: {stdev:.3f}\n')
         if abs(self.target_mean[0] - mean) < self.target_mean[1] \
             and abs(self.target_stdev[0] - stdev) < self.target_stdev[1]:
             self.result_mean = mean
@@ -52,7 +52,7 @@ class ValidateGuassian():
 
     def printOut(self):
         ''' print out '''
-        print(f'size: {self.target_array_size:7d}'.format(), end=' ')
+        print(f'size: {self.target_array_size:7d}', end=' ')
         print(f'mean: {self.result_mean:8.3f}, stdev: {self.result_stdev:6.3f}', end=' ')
         print(f'({min(self.data_arr):.3f}, {max(self.data_arr):.3f})')
 

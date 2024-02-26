@@ -66,7 +66,7 @@ class Solution():
                 print("[ERROR] key not exist: ", kk)
             if vv[1] != src_vv[1]:
                 no_diff += 1
-                #print('___新____{}\n舊_{}__{}\n'.format(vv[1], src_vv[0], src_vv[1]))
+                #print('___新____{vv[1]}\n舊_{src_vv[0]}__{src_vv[1]}\n')
                 sh[src_vv[0]] = vv[1]
             else:
                 no_same += 1

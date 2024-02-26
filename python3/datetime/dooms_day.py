@@ -75,7 +75,7 @@ class DoomsDay():
             t1 = t0
         r = (t1 + offset) % 7
         s = r % 7
-        #print("y: {} doom:{}".format(year, s))
+        #print(f"y: {year} doom:{s}")
         return int(s)
 
     @staticmethod

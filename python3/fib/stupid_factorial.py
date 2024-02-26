@@ -44,7 +44,6 @@ if __name__ == '__main__':
         try:
             INTV = int(v)
             ans = stupid_factorial(INTV)
-            #print("{}! = {}\ndigit len: {}".format(INTV, ans, get_digit_len(ans)))
             print(f"{INTV}! = {ans}\ndigit len: {get_digit_len(ans)}")
             try3k(INTV)
         except ValueError as e:

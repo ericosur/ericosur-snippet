@@ -15,7 +15,7 @@ def test() -> None:
     for n in range(1, UPPER_LIMIT):
         cnt += 1
         r = pow(n, 2, 8)    # n ** 2 % 8
-        #print('{} ** 2 % 8 = {}'.format(n, r))
+        #print(f'{n} ** 2 % 8 = {r}')
         # add to set if remainder is 1
         if r == 1:
             set_picked.add(n)

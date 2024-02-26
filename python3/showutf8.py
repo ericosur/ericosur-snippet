@@ -11,7 +11,8 @@ from __future__ import print_function
 
 def show_utf8char(ch):
     '''show given utf8 char'''
-    uch = ch.decode('utf8')
+    bc = bytes(ch)
+    uch = bc.decode('utf8')
     print(uch)
     print('len: ', len(uch))
     # not work if codepoint > 0xffff
@@ -25,7 +26,7 @@ if __name__ == '__main__':
     print()
 
     S = u' '.join(u"\u037E").encode('utf-8').strip()
-    print("greek question mark: {}".format(S))
+    print(f"greek question mark: {S}")
     print()
-
-    print("char: {}\nhex: {}".format(';', hex(ord(';'))))
+    cc = ';'
+    print(f"char: {cc}\nhex: {ord(cc)}")
