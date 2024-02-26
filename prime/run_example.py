@@ -26,7 +26,7 @@ def test(argv, sp):
     _min = sp.at(0)
 
     if argv == []:
-        #print("max:{}, min:{}".format(_max, _min))
+        #print(f"max:{_max}, min:{_min}")
         for _ in range(REPEAT):
             r = random.randint(_min, _max)
             argv.append(r)

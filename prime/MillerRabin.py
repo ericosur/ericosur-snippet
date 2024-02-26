@@ -74,7 +74,7 @@ def test_and_print(values):
             r = "PRIME" if miller_rabin(n) else 'COMPOSITE'
             print(f'{n} is {r}')
         except ValueError:
-            print(f'{v} is not valid'.format(v))
+            print(f'{v} is not valid')
 
 
 if __name__ == "__main__":

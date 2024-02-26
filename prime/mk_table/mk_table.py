@@ -55,7 +55,7 @@ class Solution():
         self._check()
         #print('size of arr:', len(self.arr))
         # for ii in arr:
-        #     print('{:8d}'.format(ii), end='')
+        #     print(f'{ii:8d}', end='')
         # print()
 
     def output_xls(self):
@@ -93,7 +93,7 @@ class Solution():
             #print(self.arr)
             prime_n = sympy.ntheory.generate.primepi(n)
             #print(type(prime_n))
-            #print('arr:{:6d} vs sympy:{:6d}'.format(len(self.arr), int(prime_n)))
+            #print(f'arr:{len(self.arr):6d} vs sympy:{int(prime_n):6d}'))
             assert len(self.arr) == prime_n
 
 def main():
