@@ -7,7 +7,6 @@ read working days from json
 
 import json
 import os
-import sys
 
 __VERSION__ = '2024.02.26'
 
@@ -52,11 +51,12 @@ class LoadWorkingDays():
         except ValueError:
             print('ValueError')
 
-    def get_msg(self, yy):
+    def get_msg(self, yy, wd=None):
         ''' get format message from yy '''
         if yy not in self.works:
             raise IndexError
-        wd = self.works[yy]
+        if wd is None:
+            wd = self.works[yy]
         msg = f'[INFO] There are {wd} working days in {yy}'
         return msg
 
@@ -86,8 +86,8 @@ class LoadWorkingDays():
 
     def action(self):
         ''' action '''
-        for y in self.works.keys():
-            print(self.get_msg(y))
+        for k,v in self.works.items():
+            print(self.get_msg(k, wd=v))
 
     @classmethod
     def run(cls):
