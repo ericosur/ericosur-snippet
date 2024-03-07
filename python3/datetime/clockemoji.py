@@ -5,6 +5,7 @@
 show an emoji that matches the current time
 '''
 
+import argparse
 from datetime import datetime
 
 def clamp(value, minimum, maximum):
@@ -50,9 +51,11 @@ class ShowClock():
         "1230": "🕧",
     }
 
-    def __init__(self):
+    def __init__(self, verbose=False):
+        self.verbose = verbose
         self.hh = None
         self.mm = None
+        self.key = None
         self._whatnow()
 
     def setmm(self, m):
@@ -86,7 +89,6 @@ class ShowClock():
         assert 0 <= self.mm <= 59
         assert 1 <= self.hh <= 12
 
-
     def _step_hour(self):
         ''' 1 to 2, 2 to 3, 11 to 12, 12 to 1
             will not change the current time
@@ -115,12 +117,15 @@ class ShowClock():
 
     def get_icon(self):
         ''' return icon '''
-        return self.clocks.get(self.choose_icon())
+        self.key = self.choose_icon()
+        return self.clocks.get(self.key)
 
     def test(self, hh, mm):
         ''' test '''
         self.sethh(hh)
         self.setmm(mm)
+        # if you specify hh and mm, you need call
+        # choose_icon() and then get_icon()
         r = self.choose_icon()
         i = self.get_icon()
         print(f'{hh:02d}{mm:02d} ==> {r}\t{i}')
@@ -147,17 +152,32 @@ class ShowClock():
 
     def action(self):
         ''' action '''
-        print(self.get_icon())
+        #print(f'{self.verbose=}')
+        icon = self.get_icon()
+        if self.verbose:
+            print(self.key, end=' ')
+        print(icon)
 
     @classmethod
-    def run(cls):
+    def run(cls, show_more):
         ''' run me '''
-        obj = cls()
+        obj = cls(verbose=show_more)
         obj.action()
 
 def main():
     ''' main '''
-    ShowClock.run()
+    parser = argparse.ArgumentParser(description='accept an option to verbose')
+    parser.add_argument("-v", "--verbose", action='store_true', default=False,
+        help='verbose mode')
+    parser.add_argument("-t", "--test", action='store_true', default=False,
+        help='running tests')
+    args = parser.parse_args()
+
+    if args.test:
+        obj = ShowClock()
+        obj.do_tests()
+    else:
+        ShowClock.run(args.verbose)
 
 if __name__ == '__main__':
     main()
