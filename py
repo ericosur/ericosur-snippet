@@ -9,6 +9,9 @@ import argparse
 
 def main():
     ''' main '''
+    msg = 'hello world'
+    print(f'\{{msg}\}')
+
     parser = argparse.ArgumentParser(description='brief description for this script')
     # nargs like regexp, '*' means 0+, '+' means 1+
     parser.add_argument("strings", metavar='str', type=str, nargs='*',
