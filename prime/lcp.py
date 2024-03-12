@@ -25,47 +25,40 @@ from store_prime import StorePrime
 # pylint: disable=invalid-name
 
 MODNAME = "lcp.py"
+VERSION = "2024.03.12"
 
 class LoadCompressPrime(StorePrime):
     '''
     this class inherits from StorePrime and overrides load_pickle() and
     save_pickle(), which are using "compress_pickle" to load/save pickle data
     '''
-    def __init__(self, txtfn="small.txt", pfn="small.p.lzma"):
-        super().__init__(txtfn, pfn)
+    def __init__(self, txtfn="small.txt", pfn="small.p.lzma",
+                verbose=False, debug=False):
+        super().__init__(txtfn, pfn, verbose, debug)
         #print('__init__')
-
-    def __str__(self):
-        if self.pvalues is None:
-            self.init_size = 0
-        else:
-            self.init_size = len(self.pvalues)
-
-        msg = f'''
-{MODNAME}: min: {self.pvalues[0]} max: {self.pvalues[-1]:,} total primes: {self.init_size:,}
-'''
-        msg = msg.strip()
-        return msg
 
     def load_pickle_impl(self):
         ''' overrides StorePrime::load_pickle_impl() '''
         start = time()
-        super()._try_pickle_file()
-        self.pvalues = compress_pickle.load(self.pfn)
+        super().try_pickle_file()
+        self.primes = compress_pickle.load(self.config["pfn"])
         self.need_save = False
-        print(f'{MODNAME}: pvalues from:', self.pfn)
+        #print(f'deubg: lcp: verbose: {self.verbose}')
+        if self.verbose:
+            print(f'{MODNAME}: primes from:', self.config["pfn"])
         duration = time() - start
-        print(f'{MODNAME}: duration: {duration:.3f} sec')
+        if self.verbose:
+            print(f'{MODNAME}: duration: {duration:.3f} sec')
         return True
 
     def save_pickle_impl(self):
         '''
-        save pvalues into pickle file
+        save primes into pickle file
         overrides class StorePrime::save_pickle_impl()
         '''
-        #compress_pickle.dump(self.pvalues, self.pfile, compression="lzma")
-        compress_pickle.dump(self.pvalues, self.pfn)
-        print(f'[INFO] {MODNAME} save pickle as {self.pfn}')
+        #compress_pickle.dump(self.primes, self.pfile, compression="lzma")
+        compress_pickle.dump(self.primes, self.config["pfn"])
+        print(f'[INFO] {MODNAME} save pickle as {self.config["pfn"]}')
 
 if __name__ == '__main__':
     print('run **run_example.py --lcp** to see the demo of this implementation...')

@@ -10,59 +10,73 @@ import os
 import pickle
 import re
 from time import time
-from findlist_func import index, find_le, find_ge
+from query_prime import QueryPrime
+from debug_verbose import MyDebug, MyVerbose
+
 
 MODNAME = "StorePrime"
+VERSION = "2024.03.12"
 
-class StorePrime():
+def show(v, p, q):
+    ''' show '''
+    if p is None and q is None:
+        return
+    if q is None:
+        print(f'{v} is a prime {p}')
+    else:
+        lhs = abs(v - p)
+        rhs = abs(v - q)
+        if lhs <= rhs:
+            arrow = "<-----"
+        else:
+            arrow = "----->"
+        print(f'{v} is in the range of ({p} {arrow} {q})')
+
+class StorePrime(MyDebug, MyVerbose, QueryPrime):
     ''' class will help to handle read pickle file '''
 
-    def __init__(self, txtfn="small.txt", pfn="small.p"):
-        #print('__init__')
-        # init values
-        self.pvalues = None
-        self.cache_hit = 0
-        self.pfn = pfn
-        self.txtfn = txtfn
-        self.init_size = 0
+    def __init__(self, txtfn="small.txt", pfn="small.p",
+                verbose=False, debug=False):
+        # super init
+        MyDebug.__init__(self, debug)
+        MyVerbose.__init__(self, verbose)
+        QueryPrime.__init__(self)
+
         self.need_save = False
+        self.config = {'pfn': pfn, 'txtfn': txtfn}
+        self.debug = debug
+        self.verbose = verbose
 
     def __enter__(self):
         #print('__enter__')
-        self.load_pickle()
-        self.init_size = len(self.pvalues)
+        self.__load_pickle()
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
         #print('__exit__')
-        #print('len(self.pvalues)', len(self.pvalues))
-        #print('self.init_size', self.init_size)
-        if self.pvalues and not os.path.exists(self.pfn):
+        if self.primes and not os.path.exists(self.config.get('pfn')):
             self.save_pickle()
 
     def __str__(self):
-        if self.pvalues is None:
-            self.init_size = 0
-        else:
-            self.init_size = len(self.pvalues)
-        msg = f'min: {self.pvalues[0]:,}, max: {self.pvalues[-1]:,}, '
-        msg = msg + f'total primes: {self.init_size:,}'
+        if self.primes is None:
+            msg = "Prime numbers are not loaded"
+            return msg
+        psize = self.get_count()
+        pmax = self.get_maxprime()
+        msg = f'min: 2, max: {pmax:,}, total primes: {psize:,}'
         return msg
+
+    def info(self, msg):
+        ''' print info '''
+        if self.debug:
+            print(f'{MODNAME}: {msg} ...')
 
     def get_ready(self):
         ''' load prime data '''
-        if self.pvalues is None:
-            print(f'[INFO] {MODNAME} get ready...')
-            self.load_pickle()
-            self.init_size = len(self.pvalues)
-
-    def get_count(self):
-        ''' get length of pickle '''
-        return len(self.pvalues)
-
-    def get_maxprime(self):
-        ''' return the max prime in this object '''
-        return self.pvalues[-1]
+        self.info("get_ready")
+        if self.primes is None:
+            self.info("call self.__load_pickle")
+            self.__load_pickle()
 
     @staticmethod
     def get_local_data_path():
@@ -73,50 +87,54 @@ class StorePrime():
             return p
         return ''
 
-    def _try_pickle_file(self):
-        ''' _try_pickle_file '''
-        if not os.path.exists(self.pfn):
+    def try_pickle_file(self):
+        ''' try_pickle_file '''
+        if not os.path.exists(self.config['pfn']):
             p = self.get_local_data_path()
-            f = os.path.join(p, self.pfn)
+            f = os.path.join(p, self.config['pfn'])
             if os.path.exists(f):
-                self.pfn = f
-        if not os.path.exists(self.pfn):
-            raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), self.pfn)
+                self.config['pfn'] = f
+        if not os.path.exists(self.config['pfn']):
+            raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), self.config['pfn'])
 
-    def _try_text_file(self):
-        ''' _try_text_file '''
-        if not os.path.exists(self.txtfn):
+    def try_text_file(self):
+        ''' try_text_file '''
+        if not os.path.exists(self.config['txtfn']):
             p = self.get_local_data_path()
-            f = os.path.join(p, self.txtfn)
+            f = os.path.join(p, self.config['txtfn'])
             if os.path.exists(f):
-                self.txtfn = f
-        if not os.path.exists(self.txtfn):
-            raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), self.txtfn)
+                self.config['txtfn'] = f
+        if not os.path.exists(self.config['txtfn']):
+            raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), self.config['txtfn'])
 
     def load_pickle_impl(self) -> bool:
         ''' load pickle implementation '''
-        #print(f'{MODNAME}: load_pickle_impl()')
+        self.info("load_pickle_impl")
         start = time()
-        self._try_pickle_file()
-        with open(self.pfn, "rb") as inf:
-            self.pvalues = pickle.load(inf)
+        self.try_pickle_file()
+        with open(self.config['pfn'], "rb") as inf:
+            self.primes = pickle.load(inf)
             self.need_save = False
         duration = time() - start
-        print(f'[INFO] {MODNAME}: load_pickle_impl() from {self.pfn}')
-        print(f'[INFO] {MODNAME}: duration: {duration:.3f} sec')
+        if self.verbose:
+            print(f'[INFO] {MODNAME}: load_pickle_impl() from {self.config["pfn"]}')
+            print(f'[INFO] {MODNAME}: duration: {duration:.3f} sec')
         return True
 
-    def load_pickle(self):
+    def __load_pickle(self):
         ''' load pickle file, or from text '''
+        self.info("__load_pickle")
         try:
+            self.info("call self.load_pickle_impl()")
             return self.load_pickle_impl()
         except FileNotFoundError:
             print(f'[INFO] {MODNAME}: pickle not found, try to load text file')
-            self.pvalues = []
+            self.primes = []
 
-        self._try_text_file()
+        self.info("call self.try_text_file")
+        self.try_text_file()
         start = time()
-        with open(self.txtfn, "rt", encoding='utf8') as txtinf:
+        with open(self.config['txtfn'], "rt", encoding='utf8') as txtinf:
             self.need_save = True
             error_count = 0
             while True:
@@ -129,143 +147,32 @@ class StorePrime():
                 result = re.match(r'^(\d+)$', ln)
                 if result:
                     el = int(result.groups()[0])
-                    self.pvalues.append(el)
+                    self.primes.append(el)
                 else:
                     error_count += 1
         duration = time() - start
-        print(f'[INFO] {MODNAME}: load from text file {self.txtfn} duration: {duration:.3f} sec')
+        if self.verbose:
+            print(f'[INFO] {MODNAME}: load from text file {self.config["txtfn"]}', end=' ')
+            print(f'duration: {duration:.3f} sec')
         return True
 
     def save_pickle_impl(self):
         ''' implementation of save pickle '''
-        with open(self.pfn, 'wb') as outf:
-            pickle.dump(self.pvalues, outf)
-        print(f'[INFO] {MODNAME} save pickle as {self.pfn}')
+        self.info("__save_pickle_impl")
+        with open(self.config['pfn'], 'wb') as outf:
+            pickle.dump(self.primes, outf)
+        print(f'[INFO] {MODNAME} save pickle as {self.config["pfn"]}')
 
     def save_pickle(self):
-        ''' save pvalues into pickle file '''
-        #print(f'{MODNAME} save pickle')
-        if self.pvalues is None:
+        ''' save primess into pickle file '''
+        self.info("save_pickle")
+        if self.primes is None:
             return
         if self.need_save:
             self.save_pickle_impl()
         else:
             print(f'[INFO] {MODNAME} no need to save')
 
-    def find(self, val: int) -> int:
-        ''' find val in list of primes, return index
-            raise ValueError if not in the prime list
-        '''
-        if val > self.pvalues[-1]:
-            raise IndexError(f'{val} is larger than the most number' \
-                f'in prime table {self.pvalues[-1]}')
-        return self.pvalues.index(val)
-
-    def index(self, val: int) -> int:
-        ''' use external index() '''
-        if val > self.pvalues[-1]:
-            raise IndexError(f'{val} is larger than the most number' \
-                f'in prime table {self.pvalues[-1]}')
-        return index(self.pvalues, val)
-
-    def get_primes_less_than(self, val: int) -> list:
-        ''' get a list of primes less than given value '''
-        _max = self.pvalues[-1]
-        _min = self.pvalues[0]
-        if val > _max or val < _min:
-            print(f'[ERROR] out of bound: {_min=} {val=} {_max=}')
-            return None
-        if val == _min:
-            return [2]
-        (p, _) = self.search_between_idx(val)
-        if p is None:
-            print('[ERROR] cannot operate')
-            return None
-        # ????
-        plist = self.pvalues[:p+1]
-        return plist
-
-    def bisect_between_idx(self, val: int) -> tuple:
-        '''
-        use bisect to search value in list return index for lower, upper bound
-        '''
-        if self.pvalues is None:
-            print('[FAIL] predefined data not available')
-            return (None, None)
-        i = index(self.pvalues, val)
-        if i != -1:
-            return (i, None)
-        # not exactly prime, search lower, upper bound
-        a = self.pvalues
-        x = val
-        try:
-            _, p = find_le(a, x)
-            _, q = find_ge(a, x)
-            return (p, q)
-        except ValueError:
-            print(f'something wrong for {x}, OOB?')
-            return (None, None)
-
-
-    def search_between_idx(self, val):
-        '''
-        search value within primes, return index for lower, upper bound
-        '''
-        if self.pvalues is None or self.pvalues == []:
-            print('[FAIL] predefined data not available')
-            return (None, None)
-        if val in self.pvalues:
-            return (val, None)
-        if val < self.pvalues[0]:
-            print(f'{val} is smaller than lower bound')
-            return (None, None)
-        if val > self.pvalues[-1]:
-            print(f'{val} is larger than upper bound')
-            return (None, None)
-
-        # start to binary search
-        _max = len(self.pvalues) - 1
-        _max_repeat = _max / 4
-        _min = 0
-        _mid = 0
-        _cnt = 0
-        while True:
-            _cnt += 1
-            _mid = (_min + _max) // 2
-            if self.pvalues[_mid] > val:
-                _max = _mid
-            else:
-                _min = _mid
-            if _min > _max or _min == _max - 1:
-                break
-            if _cnt > _max_repeat:
-                print(f'{MODNAME}: exceed count')
-                break
-        return (_min, _max)
-
-
-    def at(self, idx):
-        ''' get value at index '''
-        try:
-            return self.pvalues[idx]
-        except (IndexError, TypeError):
-            return None
-
-    @staticmethod
-    def show(v, p, q):
-        ''' show '''
-        if p is None and q is None:
-            return
-        if q is None:
-            print(f'{v} is a prime {p}')
-        else:
-            lhs = abs(v - p)
-            rhs = abs(v - q)
-            if lhs <= rhs:
-                arrow = "<-----"
-            else:
-                arrow = "----->"
-            print(f'{v} is in the range of ({p} {arrow} {q})')
 
     def test(self, v: int):
         ''' test '''
@@ -273,37 +180,9 @@ class StorePrime():
         if p is None:
             print('\tno answer for this')
             return
-        StorePrime.show(v, self.at(p), self.at(q))
+        show(v, self.at(p), self.at(q))
 
-    def get_around(self, v: int) -> None:
-        ''' return (p, q) (index, not the value), if p and q is none, p is a prime
-            if both none, has no answer (maybe out-of-bound)
-        '''
-        self.get_ready()
 
-        (p, q) = self.bisect_between_idx(v)
-        if p is None:
-            print('\tno answer for this')
-            return (None, None)
-        return (p, q)
-
-    def list_nearby(self, v: int) -> list:
-        ''' print primes nearby v '''
-        (p, q) = self.bisect_between_idx(v)
-        #print('p, q:', p, q)
-        if p is None:
-            print('\tno answer for this')
-            return None
-        begin = 0
-        count = 4
-        if p > count:
-            begin = p - count
-        if q is None:   # pos p is a prime
-            end = p + count + 1
-        else:
-            end = p + count + 2
-        arr = self.pvalues[begin:end]
-        return arr
 
 if __name__ == '__main__':
     print('run **run_example.py** to see the demo...')
