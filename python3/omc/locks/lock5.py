@@ -7,8 +7,6 @@
 each guy takes 6 keys
 '''
 
-from itertools import combinations
-
 class Solution():
     ''' to solve '''
     def __init__(self):
