@@ -3,29 +3,36 @@
 #
 
 '''
-from 19 to 79 take 2 different number, sum is even
+P32 Q30. 從集合 {19,20,21,..., 97,98,99}
+選取兩個不同的數，使得它們的乘積能被6整除的選法有多少種？
 '''
 
 from itertools import combinations
+
+def swap(m, n):
+    ''' swap '''
+    return n, m
 
 class Solution():
     ''' to solve '''
 
     def __init__(self):
-        self.vals = list(range(19, 80))
+        self.vals = list(range(19, 100))
 
     def action(self):
         ''' action '''
         print('action!')
         cnt = 0
-        even_cnt = 0
+        match_cnt = 0
         for t in combinations(self.vals, 2):
-            #print(t)
             cnt += 1
-            assert t[0]!=t[1]
-            if (t[0]+t[1])%2 == 0:
-                even_cnt += 1
-        print(f'got {cnt} sets, {even_cnt=}')
+            (m, n) = t
+            if (m*n)%6 == 0:
+                match_cnt += 1
+                print(t)
+        print(f'checked {cnt} sets')
+        print(f'match {match_cnt} sets')
+
 
     @classmethod
     def run(cls):
