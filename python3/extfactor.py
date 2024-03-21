@@ -13,13 +13,19 @@ from random import randint
 
 from myutil import read_from_stdin
 
+the_cmd = '/usr/bin/factor'
+
+def check_execute(fn):
+    ''' return true if the fn exists '''
+    return os.path.exists(fn)
 
 def call_factor(n: int):
     ''' call external factor '''
     if n <= 0:
         print(f'{n} cannot be zero or negative')
         return
-    cmd = f'/usr/bin/factor {n}'
+
+    cmd = f'{the_cmd} {n}'
     a = os.popen(cmd).read()
     #print(res)
     b = re.sub(r'^(\d+: )(.+)$', '\\2', a.strip())
@@ -29,7 +35,6 @@ def call_factor(n: int):
         print('a prime number')
     else:
         print(vals)
-
 
 def main(argv):
     ''' main '''
@@ -43,6 +48,10 @@ def main(argv):
             print('not a value:', v)
 
 if __name__ == '__main__':
+    if not check_execute(the_cmd):
+        print(f'[fail] {the_cmd} is not found...')
+        sys.exit()
+
     if len(sys.argv) == 1:
         print(f'use "{sys.argv[0]} -" read input from STDIN')
         # demo mode
