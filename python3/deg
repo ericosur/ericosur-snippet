@@ -14,7 +14,13 @@ text = clipboard.paste()  # text will have the content of clipboard
 
 '''
 
-import clipboard
+CLIP_OK = False
+try:
+    import clipboard
+    CLIP_OK = True
+except ImportError as e:
+    print('ImportError:', e)
+
 
 def replace_token(s):
     ''' replace '''
@@ -25,19 +31,25 @@ def replace_token(s):
 def main():
     ''' main '''
     try:
-        text = clipboard.paste()
+        if CLIP_OK:
+            text = clipboard.paste()
+        else:
+            print('demo:')
+            text = "23 deg 23' 30.23\" N, 120 deg 27' 52.42\" E"
         print('text:', text)
         if 10 < len(text) < 128:
             ret = replace_token(text)
             print(ret)
-            clipboard.copy(ret)
-            print('put into clipboard...')
+            if CLIP_OK:
+                clipboard.copy(ret)
+                print('put into clipboard...')
 
-        print('Input GPS position, ctrl-C to exit...')
+        print('Input GPS position, Ctrl-C to exit...')
         text = input()
         ret = replace_token(text)
         print(ret)
-        clipboard.copy(ret)
+        if CLIP_OK:
+            clipboard.copy(ret)
     except KeyboardInterrupt:
         print('exit...')
 
