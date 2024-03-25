@@ -13,8 +13,9 @@ from myutil import read_from_stdin
 try:
     import filetype
 except ImportError as e:
-    print(e)
+    print('ImportError:', e)
     sys.exit(1)
+
 
 def call_guess(f: str):
     ''' call filetype.guess '''
