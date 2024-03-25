@@ -21,6 +21,10 @@ reference:
     * https://en.wikipedia.org/wiki/Special_right_triangle
     * https://en.wikipedia.org/wiki/Pythagorean_triple
 
+also keywords:
+海倫三角形
+畢氏三元數
+
 '''
 
 import itertools as it
