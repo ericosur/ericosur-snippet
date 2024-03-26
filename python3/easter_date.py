@@ -8,7 +8,8 @@ https://en.wikipedia.org/wiki/Date_of_Easter
 http://www.oremus.org/liturgy/etc/ktf/app/easter.html
 '''
 
-import datetime
+# datetime.datetime, datetime.date
+from datetime import date, datetime
 
 
 def calculate_easter(year):
@@ -29,14 +30,16 @@ def calculate_easter(year):
     day = ((h + l - 7 * m + 114) % 31) + 1
 
     # Return the date of Easter Sunday as a datetime object
-    return datetime.date(year, month, day)
+    return date(year, month, day)
 
 def main():
     ''' main '''
     def _show(y):
         print(calculate_easter(y))
 
-    for y in range(2020, 2029):
+    this_year = datetime.today().year
+    the_range = 3
+    for y in range(this_year-the_range, this_year+the_range+1):
         _show(y)
 
 if __name__ == '__main__':
