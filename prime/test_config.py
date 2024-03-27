@@ -5,11 +5,8 @@
 test load_myutil.py
 '''
 
-from store import GetConfig
+from store import GetConfig, sep
 
-def sep():
-    ''' print sep '''
-    print('------------------------------')
 
 def main():
     ''' main '''
