@@ -14,8 +14,7 @@ NOTE: also refer to sqare_root.py, which using miller robin method to test prime
 
 from math import sqrt
 import sys
-from load_myutil import GetConfig
-from store_prime import StorePrime
+from store import GetConfig, StorePrime
 
 try:
     from sympy import ntheory

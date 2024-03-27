@@ -8,15 +8,14 @@ test some values in config file
 import sys
 
 MODNAME = "scanp"
-VERSION = "2023.10.30"
+VERSION = "2024.03.27"
 CONFIG_KEY = "big"
 
 # pylint: disable=import-error
 # pylint: disable=wrong-import-position
 
 sys.path.insert(0, '../')
-from load_myutil import GetConfig
-from store_prime import StorePrime
+from store import GetConfig, StorePrime
 
 
 def wrap_config():

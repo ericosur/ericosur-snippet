@@ -5,7 +5,11 @@
 test load_myutil.py
 '''
 
-from load_myutil import GetConfig
+from store import GetConfig
+
+def sep():
+    ''' print sep '''
+    print('------------------------------')
 
 def main():
     ''' main '''
@@ -20,6 +24,7 @@ def main():
     ret = conf.get_h119_config()
     print(ret)
 
+    sep()
     conf.do_tests()
 
 if __name__ == '__main__':

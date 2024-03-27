@@ -13,11 +13,11 @@ import sys
 
 try:
     # larger and slower
-    from sip import LoadCompressPrime as StorePrime
+    from store import LoadCompressPrime as StorePrime
     print('use **LoadCompressPrime**')
 except ImportError:
     # smaller and quicker
-    from store_prime import StorePrime
+    from store import StorePrime
     print('use **store_prime**')
 
 # pylint: disable=invalid-name

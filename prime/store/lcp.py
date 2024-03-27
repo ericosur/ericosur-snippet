@@ -20,12 +20,12 @@ except ImportError as err:
     print(f'[FAIL] {__file__}: cannot load module **compress_pickle**')
     raise ImportError(f"[FAIL] {__file__} cannot load module") from err
 
-from store_prime import StorePrime
+from .store_prime import StorePrime
 
 # pylint: disable=invalid-name
 
 MODNAME = "lcp.py"
-VERSION = "2024.03.12"
+__VERSION__ = "2024.03.27"
 
 class LoadCompressPrime(StorePrime):
     '''

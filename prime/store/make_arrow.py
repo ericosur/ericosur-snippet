@@ -32,7 +32,7 @@ three numbers (esp lower and upper are primes)
 '''
 
 MODNAME = 'makearrow'
-VERSION = '2023-10-31'
+__VERSION__ = '2023.10.31'
 
 
 def _basic_check(lower, v, upper):

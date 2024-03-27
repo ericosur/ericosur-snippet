@@ -10,12 +10,12 @@ import os
 import pickle
 import re
 from time import time
-from query_prime import QueryPrime
-from debug_verbose import MyDebug, MyVerbose
+from .query_prime import QueryPrime
+from .debug_verbose import MyDebug, MyVerbose
 
 
 MODNAME = "StorePrime"
-VERSION = "2024.03.12"
+__VERSION__ = "2024.03.27"
 
 def show(v, p, q):
     ''' show '''

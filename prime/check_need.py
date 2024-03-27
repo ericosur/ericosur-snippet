@@ -8,12 +8,11 @@ load primes from StorePrime and double check by nthoery
 import sys
 from time import time
 from sympy import ntheory
-from load_myutil import GetConfig
 
 try:
-    from store_prime import StorePrime
-except ImportError:
-    print('[FAIL] to import module store_prime')
+    from store import GetConfig, StorePrime
+except ImportError as e:
+    print('[FAIL] import error: {e}')
     sys.exit(-1)
 
 MODNAME = "CheckPrimes"
