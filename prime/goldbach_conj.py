@@ -16,7 +16,7 @@ import bisect
 import sys
 from random import randint
 import time
-from load_myutil import GetConfig
+from store import GetConfig
 
 MODNAME = "goldbach"
 LCP_LOADED = False
@@ -25,12 +25,12 @@ CONFIG_KEY = 'small'
 
 try:
     # larger and slower
-    from lcp import LoadCompressPrime as StorePrime
+    from store import LoadCompressPrime as StorePrime
     print(f'[INFO] {MODNAME}: use **LoadCompressPrime**')
     LCP_LOADED = True
 except ImportError:
     # smaller and quicker
-    from store_prime import StorePrime
+    from store import StorePrime
     print(f'[INFO] {MODNAME}: use **store_prime**')
 
 # pylint: disable=invalid-name

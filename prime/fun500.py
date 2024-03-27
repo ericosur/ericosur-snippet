@@ -6,16 +6,16 @@ testing LoadCompressPrime/store_prime
 '''
 
 from random import randint
-from load_myutil import GetConfig
+from store import GetConfig
 
 CONFIG_KEY = 'small'
 
 USE_LCP_MODULE = None
 try:
-    from lcp import LoadCompressPrime as StorePrime
+    from store import LoadCompressPrime as StorePrime
     USE_LCP_MODULE = True
 except ImportError:
-    from store_prime import StorePrime
+    from store import StorePrime
     USE_LCP_MODULE = False
 
 def wrap_config():

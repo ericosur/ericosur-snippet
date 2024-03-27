@@ -6,7 +6,7 @@ provide an interface/class for debug/verbose
 '''
 
 MODNAME = "DEBUG_VERBOSE"
-VERSION = "2024.03.12"
+__VERSION__ = "2024.03.12"
 
 class MyDebug():
     ''' my debug '''

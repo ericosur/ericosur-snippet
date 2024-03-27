@@ -1,17 +1,15 @@
 #!/usr/bin/env python3
 # coding: utf-8
+# pylint: disable=invalid-name
+# pylint: disable=import-error
+# pylint: disable=wrong-import-position
 
 '''
 load prime numbers from table and output to a xlsx file
 '''
 
 import sys
-
 import sympy
-
-# pylint: disable=import-error
-# disable=unused-import
-# pylint: disable=wrong-import-position
 
 XLSWRITER_OK = False
 try:
@@ -21,28 +19,56 @@ except ImportError:
     print('cannot import module xlsxwriter, WILL NOT output to xlsx file')
 
 sys.path.insert(0, '../')
-from load_myutil import get_smalltxt_path
+from store import GetConfig
 
-# try to import StorePrime class
+USE_LCP = False
 try:
     # larger and slower for loading pickle
-    from sip import LoadCompressPrime as StorePrime
+    from store import LoadCompressPrime as StorePrime
+    USE_LCP = True
     print(f'[INFO] {__file__}: use **LoadCompressPrime**')
 except ImportError:
     # smaller and quicker for loading pickle
-    from store_prime import StorePrime
+    from store import StorePrime
     print(f'[INFO] {__file__}: use **store_prime**')
 
-# pylint: disable=invalid-name
+
+def get_smallconfig():
+    ''' return small txt path '''
+    obj = GetConfig()
+    obj.set_configkey("small")
+    txtfn = obj.get_full_path("txt")
+    if USE_LCP:
+        pfn = obj.get_full_path("compress_pickle")
+    else:
+        pfn = obj.get_full_path("pickle")
+    return txtfn, pfn
+
+
 class Solution():
     ''' test date is a prime '''
     def __init__(self, upper=1000):
-        self.sp = StorePrime(txtfn=get_smalltxt_path())
-        if not self.sp.load_pickle():
-            print(f'[FAIL] {__file__}: load_pickle() failed')
-            sys.exit(1)
-        self.arr = []
-        self.upper = upper
+        self.islcp = False
+        self.sp = None
+        self._getobj()
+        self.arr = None
+        self._upper = upper
+
+    def _getobj(self):
+        ''' get prime storage class '''
+        # try to import StorePrime class
+        txtfn, pfn = get_smallconfig()
+        self.sp = StorePrime(txtfn=txtfn, pfn=pfn)
+        self.sp.get_ready()
+
+    @property
+    def upper(self) -> int:
+        ''' getter '''
+        return self._upper
+    @upper.setter
+    def upper(self, val: int):
+        ''' setter'''
+        self._upper = val
 
     def _check(self):
         ''' check '''
@@ -73,9 +99,12 @@ class Solution():
         wb.close()
         print(f'[INFO] output to {fn}')
 
-    def run(self):
-        ''' run '''
+    def action(self):
+        ''' action '''
         self.arr = self.sp.get_primes_less_than(self.upper)
+        if not self.arr:
+            print('[WARN] no result...')
+            return
 
         # double confirm
         prime_n = sympy.ntheory.generate.primepi(self.upper)
@@ -96,11 +125,15 @@ class Solution():
             #print(f'arr:{len(self.arr):6d} vs sympy:{int(prime_n):6d}'))
             assert len(self.arr) == prime_n
 
+    @classmethod
+    def run(cls, upper):
+        ''' run me '''
+        obj = cls(upper)
+        obj.action()
+
 def main():
     ''' main '''
-    s = Solution(10000)
-    # s.test()
-    s.run()
+    Solution.run(10000)
 
 if __name__ == '__main__':
     main()

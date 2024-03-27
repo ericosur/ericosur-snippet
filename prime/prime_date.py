@@ -22,9 +22,9 @@ find any prime dates.
 from datetime import date, timedelta
 from time import time
 import sys
-from load_myutil import GetConfig
+from store import GetConfig
 try:
-    from lcp import LoadCompressPrime
+    from store import LoadCompressPrime
     print('[INFO] use **LoadCompressPrime**')
 except ImportError:
     print("[FAIL] cannot import LoadCompressPrime")

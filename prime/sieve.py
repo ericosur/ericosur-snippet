@@ -10,8 +10,8 @@ import bisect
 import math
 from time import time
 
-from load_myutil import GetConfig
-from store_prime import StorePrime as sp
+from store import GetConfig
+from store import StorePrime as sp
 
 MODNAME = "sieve.py"
 def show_duration(duration):

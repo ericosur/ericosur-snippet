@@ -19,7 +19,7 @@ import sys
 from collections import defaultdict
 from timeit import default_timer as timer
 
-from load_myutil import GetConfig
+from store import GetConfig
 
 def wrap_config():
     ''' wrap config and retrieve settings '''

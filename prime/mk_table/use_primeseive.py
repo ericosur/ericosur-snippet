@@ -18,10 +18,10 @@ from random import randint
 from time import time
 
 sys.path.insert(0, '../')
-from make_arrow import make_arrow
+from store import make_arrow
 
 MODNAME = "use_primesieve"
-VERSION = "2023.10.30"
+VERSION = "2024.03.27"
 
 def show_duration(duration):
     ''' show duration '''
@@ -30,6 +30,7 @@ def show_duration(duration):
 
 class Solution():
     ''' test date is a prime '''
+    BINARY = '/usr/bin/primesieve'
     TMPFN = f'/tmp/{MODNAME}.txt'
     NUM = 3
     DRY_RUN = False
@@ -42,6 +43,13 @@ class Solution():
         self.n_start = None
         self.n_stop = None
         self.is_prime = None
+        self._check()
+
+    def _check(self):
+        ''' check if binary is available '''
+        if not os.path.exists(self.BINARY):
+            print(f'[FAIL] not found: {self.BINARY}')
+            sys.exit(-1)
 
     def set_target(self, val):
         ''' set target or use the default '''
@@ -158,12 +166,13 @@ class Solution():
 
     def action(self):
         ''' action '''
-        start = time()
-        cmd = f'primesieve {self.n_start} {self.n_stop} --print > {self.TMPFN}'
+        cmd = self.BINARY
+        cmd += f' {self.n_start} {self.n_stop} --print > {self.TMPFN}'
         if self.DRY_RUN:
             print(f'{cmd=}')
             return
 
+        start = time()
         os.system(cmd)
         self.read_text_file(self.TMPFN)
         if len(self.p) == 0:

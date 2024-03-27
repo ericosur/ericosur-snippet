@@ -6,11 +6,11 @@ provide an interface/class for query primes
 '''
 
 #from debug_verbose import MyDebug
-from findlist_func import index, find_le, find_ge
+from .findlist_func import index, find_le, find_ge
 
 
 MODNAME = "QueryPrime"
-VERSION = "2024.03.12"
+__VERSION__ = "2024.03.27"
 
 #
 # initilize self.primes as None

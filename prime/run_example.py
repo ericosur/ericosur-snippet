@@ -7,13 +7,11 @@ test StorePrime
 
 import argparse
 import random
-from load_myutil import GetConfig
-from store_prime import StorePrime
-from make_arrow import make_arrow
+from store import GetConfig, make_arrow, StorePrime
 
 LCP_READY = False
 try:
-    from lcp import LoadCompressPrime
+    from store import LoadCompressPrime
     LCP_READY = True
 except ImportError:
     print('[WARN] no such module: LoadCompressPrime')
