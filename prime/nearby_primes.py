@@ -8,7 +8,7 @@ given cli argument to get lower/upper prime
 
 import argparse
 import random
-from store import GetConfig
+from store import GetConfig, sep
 
 MODNAME = 'nearby_primes.py'
 VERSION = '2024.03.11'
@@ -19,10 +19,6 @@ if USE_LCP:
     from store import LoadCompressPrime
 else:
     from store import StorePrime
-
-def sep():
-    ''' sep '''
-    print('--------------------------')
 
 
 class NearbyPrimes():
