@@ -11,19 +11,17 @@ get apikey for random.org
 import os
 import sys
 
-HOME = os.getenv('HOME')
-UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
-if os.path.exists(UTILPATH):
-    sys.path.insert(0, UTILPATH)
-
-from myutil import read_jsonfile
+#HOME = os.getenv('HOME')
+#UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
+sys.path.insert(0, "..")
+from myutil import read_jsonfile, get_home, isfile
 
 
 def get_randomorg_apikey():
     ''' get apikey of random.org from json file '''
-    home = os.environ.get('HOME')
+    home = get_home()
     keypath = os.path.join(home, 'Private', 'random-org.json')
-    if not os.path.exists(keypath):
+    if not isfile(keypath):
         print(f'[FAIL] config not exist: {keypath}')
         sys.exit(1)
     data = read_jsonfile(keypath)
