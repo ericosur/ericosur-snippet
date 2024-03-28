@@ -9,6 +9,12 @@ P25 Q3. 以下四個正整數中哪個是完全平方數？
 from math import sqrt
 from utils import digit_root, digit_sum
 
+def is_integer(val: float):
+    ''' check if an interger '''
+    the_int = int(val)
+    the_float = float(val)
+    return float(the_int) == float(the_float)
+
 def test(n):
     ''' test '''
     # if tail number is 1,4,5,6,9
@@ -29,7 +35,9 @@ def main():
     values = [921438, 2660161, 76186, 750235]
     for v in values:
         if test(v):
-            print(f'{v} is perfect square')
+            rr = sqrt(v)
+            if is_integer(rr):
+                print(f'{v} is perfect square')
 
 
 if __name__ == '__main__':

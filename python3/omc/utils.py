@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
+'''
+provides some common use functions
+'''
+
+from sympy import ntheory
+
 MODULES="utils"
 VERSION="2024.03.19"
 
-
-from sympy import ntheory
 
 def is_prime(n):
     ''' true if n is a prime number '''
@@ -42,7 +46,7 @@ def A002113_list(nMax):
         mstr=str(n)
         if mstr==mstr[::-1]:
             mlist.append(n)
-    return(mlist)
+    return mlist
 
 def to_ternary(n):
     """

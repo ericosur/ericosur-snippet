@@ -21,7 +21,7 @@ def main():
         ds = digit_sum(n)
         r = n - ds * 10
         if r == 3015:
-            print(n, ds)z
+            print(n, ds)
 
 if __name__ == '__main__':
     main()

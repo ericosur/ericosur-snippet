@@ -64,9 +64,9 @@ def main():
         if gcd(b.numerator, b.denominator)==1:
             bb = b.numerator + b.denominator
         #print(f'{p}, {a}:{aa}, {b}:{bb}')
-        if not aa in xy:
+        if aa not in xy:
             xy.append(aa)
-        if not bb in xy:
+        if bb not in xy:
             xy.append(bb)
     xy.sort()
     print(len(xy), xy)

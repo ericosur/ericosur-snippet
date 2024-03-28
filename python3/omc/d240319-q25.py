@@ -8,13 +8,8 @@ Q25. 一個正整數，如果從左往右和從右往左的數位排列順序一
 
 '''
 
-def A002113_list(nMax):
-    mlist=[]
-    for n in range(nMax+1):
-        mstr=str(n)
-        if mstr==mstr[::-1]:
-            mlist.append(n)
-    return(mlist)
+from utils import A002113_list
+
 
 def digit_sum(n):
     ''' given number n, return sum of digits
