@@ -5,10 +5,8 @@
 demo of module filetype
 '''
 
-import os
 import sys
-
-from myutil import read_from_stdin
+from myutil import read_from_stdin, isfile
 
 try:
     import filetype
@@ -19,7 +17,7 @@ except ImportError as e:
 
 def call_guess(f: str):
     ''' call filetype.guess '''
-    if not os.path.exists(f):
+    if not isfile(f):
         print('file not found:', f)
         return
 

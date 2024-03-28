@@ -12,7 +12,7 @@ import re
 import sys
 import time
 from random import randint
-from myutil import read_from_stdin
+from myutil import read_from_stdin, isfile
 
 def is_positive_integer(the_input):
     """ Checks if a number is a positive integer.
@@ -48,7 +48,7 @@ class Solution():
 
     def __check_execute(self):
         ''' return true if the fn exists '''
-        if not os.path.exists(Solution.THE_CMD):
+        if not isfile(Solution.THE_CMD):
             print(f'[fail] not found: {Solution.THE_CMD}')
             sys.exit()
 

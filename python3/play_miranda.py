@@ -12,7 +12,7 @@ import sys
 import time
 from typing import List
 
-from myutil import get_home, read_jsonfile
+from myutil import get_home, read_jsonfile, isfile
 
 
 # pylint: disable=invalid-name
@@ -20,6 +20,7 @@ class Miranda():
     ''' miranda tts '''
     DEBUG = False
     CONF = 'miranda.json'
+    cli = '/usr/bin/play'
 
     def __init__(self):
         self.fn = 'miranda1.bin'
@@ -32,10 +33,9 @@ class Miranda():
 
     def _load_config(self):
         ''' load miranda.json '''
-        h = get_home()
-        conf = os.path.join(h, 'Private', self.CONF)
+        conf = os.path.join(get_home(), 'Private', self.CONF)
         data = None
-        if os.path.exists(conf):
+        if isfile(conf):
             data = read_jsonfile(conf)
         else:
             print(f'[ERROR] cannot load config file: {conf}')
@@ -83,19 +83,27 @@ class Miranda():
             raise ValueError('does not collect any zh phrases...')
         self.en.sort()
 
+    def check_cli(self):
+        ''' check the cli is available '''
+        if isfile(self.cli):
+            return True
+        raise FileNotFoundError(f'not found: {self.cli}')
+
     def play_phrase(self, phrase: str) -> None:
         ''' specify phrase to play tts '''
         if not phrase in self.zh and not phrase in self.en:
             print(f'phrase [{phrase}] not found...')
             return
 
+        self.check_cli()
+
         tts_fn = self.get_fn(phrase)
-        if os.path.exists(tts_fn):
+        if isfile(tts_fn):
             # for oa18.local
-            # oa18_cmd = f'play -t raw -b 16 -r 48000 -e signed -c 1 {tts_fn}'
+            # oa18_cmd = f'{self.cli} -t raw -b 16 -r 48000 -e signed -c 1 {tts_fn}'
 
             # for kitty.local
-            cmd = f'play -t raw -b 16 -r 24000 -e signed -c 2 {tts_fn}'
+            cmd = f'{self.cli} -t raw -b 16 -r 24000 -e signed -c 2 {tts_fn}'
 
             os.system(cmd)
             time.sleep(.75)
