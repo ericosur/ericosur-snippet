@@ -10,19 +10,14 @@ reference: https://api.random.org/json-rpc/2/basic
 
 
 import json
-import os
 import sys
 
-HOME = os.getenv('HOME')
-UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
-if os.path.exists(UTILPATH):
-    sys.path.insert(0, UTILPATH)
+sys.path.insert(0, "..")
+from myutil import read_jsonfile, isfile
 
 try:
     import getapikey
     import requests
-
-    from myutil import read_jsonfile
 except ImportError as err:
     print('ImportError:', err)
     sys.exit(1)
@@ -40,7 +35,7 @@ class RequestGuassian():
 
     def load_setting(self):
         ''' load setting '''
-        if not os.path.exists(self.sett_json):
+        if not isfile(self.sett_json):
             print(f'[FAIL] setting file not found: {self.sett_json}')
         sett = read_jsonfile(self.sett_json)
         self.data_file_name = sett.get('data_file_name')
@@ -65,7 +60,7 @@ class RequestGuassian():
     def save_data(self, arr):
         ''' save array to data file '''
         mode = 'wt'
-        if os.path.exists(self.DATAFILE):
+        if isfile(self.DATAFILE):
             #print('file exists, use "at"')
             mode = 'at'
         with open(self.data_file_name, mode, encoding='utf8') as datafile:
@@ -102,7 +97,7 @@ class RequestGuassian():
         resp = requests.post(url, data=json.dumps(payload),
                                 headers=headers, timeout=5.0).json()
 
-        print('save resp into file: {self.resp_json}')
+        print(f'save resp into file: {self.resp_json}')
         self.save_resp(json.dumps(resp))
 
         # responded id should the same as request

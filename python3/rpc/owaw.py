@@ -14,24 +14,30 @@ script to query openweather and accuweather
 
 import json
 import os
+import sys
 from datetime import datetime
-
 import requests
 
-from myutil import write_json
+sys.path.insert(0, "..")
+from myutil import get_home, read_jsonfile, write_jsonfile
 
 
 def getapikey(keyname):
     ''' get api key '''
     debug = False
-    keyfn = os.environ["HOME"] + '/Private/' + 'owaw-keys.json'
-    with open(keyfn) as keyfile:
-        data = json.load(keyfile)
+    home = get_home()
+    keyfn = os.path.join(home, 'Private', 'owaw-keys.json')
+    try:
+        data = read_jsonfile(keyfn)
+    except FileNotFoundError as e:
+        print(f'[FAIL] config not found: {e}')
+        sys.exit(-1)
+
     if debug:
         print(json.dumps(data))
     return data["keys"][keyname]["key"]
 
-def my_write_json(filename, jsondata):
+def write_jsonfile(filename, jsondata):
     ''' output json data to file '''
     write_json(filename, jsondata)
     print('query_openweather: output to {0}'.format(filename))
