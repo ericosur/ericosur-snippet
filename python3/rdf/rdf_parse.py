@@ -12,8 +12,6 @@ similar to "sha256sum -c SHA256SUM"
 
 '''
 
-
-import os
 import sys
 
 try:
@@ -23,18 +21,15 @@ except ImportError:
     print('use pip install lxml')
     sys.exit(1)
 
-HOME = os.getenv('HOME')
-UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
-if os.path.exists(UTILPATH):
-    sys.path.insert(0, UTILPATH)
-
-from myutil import read_textfile, sha256sum
+sys.path.insert(0, "..")
+from myutil import isfile, read_textfile, sha256sum, MyDebug
 
 
-class Solution():
+class Solution(MyDebug):
     ''' solution to read en.xml and output as csv-like data '''
 
     def __init__(self):
+        super().__init__(False)
         self.fn = 'digest.rdf'
         self.content = None
         self.digests = []
@@ -46,11 +41,12 @@ class Solution():
         anns = t.find_all('digest:Content')
         for i in anns:
             pair = {}
-            fn = i.get('rdf:about')
-            pair["file"] = fn
+            pair["file"] = i.get('rdf:about')
             ds = i.find("digest:sha256")
             pair["hash"] = ds.getText()
             self.digests.append(pair)
+        if self.debug:
+            print("len:", len(self.digests))
 
     @staticmethod
     def _sha256sum(f, d):
@@ -61,20 +57,26 @@ class Solution():
     def dump(self):
         ''' dump self.digests '''
         for p in self.digests:
-            if os.path.exists(p["file"]):
-                ret = Solution._sha256sum(p["file"], p["hash"])
-                print(f'{p["file"]}\t{p["hash"]}', end='  ')
+            the_file = p['file']
+            if isfile(the_file):
+                ret = Solution._sha256sum(the_file, p["hash"])
+                print(f'{the_file}\t{p["hash"]}', end='  ')
                 if ret:
                     print("OK")
                 else:
                     print("NG")
+            else:
+                if self.debug:
+                    print(f'not found: {the_file}')
 
 
     def action(self) -> None:
         ''' action '''
-        fn = self.fn
-        print(f'parsing {fn}...')
-        self.content = read_textfile(fn)
+        self.debug = False
+        print(f'parsing {self.fn}...')
+        self.content = read_textfile(self.fn)
+        #print('[DEBUG]', self.content)
+
         # parsing xml and store into list()
         self.make_soup()
         if self.digests:
