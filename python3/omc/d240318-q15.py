@@ -4,11 +4,15 @@ Q15. 一個三位數，如果它的每一位數字都不小於另一個三位數
 '''
 
 def digitalize(val):
+    ''' give int(1234)
+    return [1,2,3,4]
+    '''
     t = list(str(val))
     the_ints = [int(x) for x in t]
     return the_ints
 
 def validate(p, q):
+    ''' meet the condition '''
     if p == q:
         return False
     pp = digitalize(p)

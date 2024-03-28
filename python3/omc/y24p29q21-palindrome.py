@@ -7,13 +7,8 @@ P29 Q21. 一個正整數，如果它的數位從左往右和從右往左看都�
 如果我們把全部的回文數從小到大排列，第400個回文數是多少？
 '''
 
-def A002113_list(nMax):
-    mlist=[]
-    for n in range(nMax+1):
-        mstr=str(n)
-        if mstr==mstr[::-1]:
-            mlist.append(n)
-    return(mlist)
+from utils import A002113_list
+
 
 def digit_sum(n):
     ''' given number n, return sum of digits

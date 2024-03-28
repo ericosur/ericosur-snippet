@@ -11,6 +11,7 @@ import sympy
 #sympy.ntheory.primetest.isprime
 
 def isprime(n):
+    ''' is a prime '''
     return sympy.ntheory.primetest.isprime(n)
 
 def main() -> None:

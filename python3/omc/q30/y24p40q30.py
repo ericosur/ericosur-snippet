@@ -52,8 +52,7 @@ class Solution():
             if ret:
                 print(f'for {n} has seven multiples, go next...')
                 continue
-            else:
-                print(f'for {n}, never seven multiples combinations...')
+            print(f'for {n}, never seven multiples combinations...')
 
 
     def save_q(self, n, q):

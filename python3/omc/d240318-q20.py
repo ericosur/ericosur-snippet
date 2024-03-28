@@ -6,8 +6,6 @@
 Q20. 已知n是最小的自然數使得7n剛好是一個2021位數，求n的個位數字
 '''
 
-import sympy
-
 
 def main() -> None:
     ''' main '''

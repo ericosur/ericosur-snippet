@@ -23,6 +23,7 @@ def main():
     p = mk_list(2, 100)
     print(p)
     q = mk_list(1, 99)
+    print(q)
 
 if __name__ == '__main__':
     main()
