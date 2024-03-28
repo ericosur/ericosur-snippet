@@ -24,13 +24,9 @@ except ImportError:
     print('[ERROR] cannot import module pandas...')
     sys.exit(1)
 
-# HOME = os.getenv('HOME')
-# UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
-# if os.path.exists(UTILPATH):
-#     sys.path.insert(0, UTILPATH)
 sys.path.insert(0, "..")
 
-from myutil import query_url_for_data, read_jsonfile
+from myutil import query_url_for_data, read_jsonfile, get_home, isfile
 from strutil import print_sep, sec2mmss, str2sec
 from working_days import LoadWorkingDays
 
@@ -50,7 +46,7 @@ class DriveConfig():
     @staticmethod
     def get_default_config():
         ''' search config file in default paths '''
-        home = os.getenv('HOME')
+        home = get_home()
         dfn = DriveConfig.DEFAULT_FN
         paths = []
         # 1. home/Private/
@@ -63,7 +59,7 @@ class DriveConfig():
         tmp = os.path.join('./', dfn)
         paths.append(tmp)
         for q in paths:
-            if os.path.exists(q):
+            if isfile(q):
                 return q
         return None
 
@@ -89,7 +85,7 @@ class DriveConfig():
             self.jsonpath = conf_file
         else:
             self.jsonpath = self.get_default_config()
-        if self.jsonpath is None or not os.path.exists(self.jsonpath):
+        if self.jsonpath is None or not isfile(self.jsonpath):
             print('[ERROR] no config is specified, exit...')
             sys.exit(1)
         print(f'[INFO] using config: {self.jsonpath}')
