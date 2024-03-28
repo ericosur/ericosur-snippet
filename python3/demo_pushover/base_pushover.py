@@ -15,25 +15,22 @@ import sys
 from datetime import datetime
 from time import time
 
-HOME = os.getenv('HOME')
-UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
-if os.path.exists(UTILPATH):
-    sys.path.insert(0, UTILPATH)
-
-from myutil import read_jsonfile
+sys.path.insert(0, "..")
+from myutil import read_jsonfile, get_home, isfile, MyDebug
 
 
-class PushOverBase():
+class PushOverBase(MyDebug):
     ''' base class of pushover '''
-    def __init__(self, msg):
+    def __init__(self, msg=""):
+        super().__init__(False)
         # load user, token
         self.userkey = None
         self.apitoken = None
         self._device = None
+
         # load settings of previous three variables
-        if not self.get_apikey():
-            print('[FAIL] failed to load config, exit...')
-            sys.exit(1)
+        self.get_apikey()
+
         # default data fields
         self._title = 'pushover.py'
         self._message = f'{msg} at {datetime.now()}'
@@ -44,9 +41,16 @@ class PushOverBase():
         s += f'title: {self.title}\nmessage: {self.message}\ndevice: {self.device}\n'
         return s
 
+    def is_keyready(self):
+        ''' userkey and apitoken is ready? '''
+        if self.debug:
+            print(f'{self.userkey=}')
+            print(f'{self.apitoken=}')
+        return self.userkey and self.apitoken
+
     @abc.abstractmethod
     def shoot(self):
-        ''' shoot '''
+        ''' shoot, the inherited class MUST implement this function '''
         return NotImplemented
 
     @property
@@ -86,22 +90,16 @@ class PushOverBase():
         if not self.resp_str is None:
             print(self.resp_str)
 
-    @staticmethod
-    def get_home():
-        ''' $HOME '''
-        home = os.environ.get('HOME')
-        return home
-
     def get_apikey(self):
         ''' get apikey '''
-        home = os.environ.get('HOME')
-        keypath = os.path.join(home, 'Private', 'pushover-net.json')
-        if not os.path.exists(keypath):
-            print(f'[FAIL] key file not exist: {keypath}')
-            return False
+        keypath = os.path.join(get_home(), 'Private', 'pushover-net.json')
+        if not isfile(keypath):
+            if self.debug:
+                print(f'[FAIL] key file not exist: {keypath}')
+            raise FileNotFoundError('keyfile not found')
         data = read_jsonfile(keypath)
         if data is None:
-            return False
+            raise ValueError("data is None")
 
         self.userkey = data.get('userkey')
         self.apitoken = data.get('apitoken')

@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 # coding: utf-8
+#
+# pylint: disable=import-error
+# pylint: disable=wrong-import-position
+#
 
 '''
 pushover.net is a web service to send notification to specified device
@@ -11,15 +15,17 @@ use module ==urllib== and ==http.client==
 import http.client
 import urllib
 from datetime import datetime
-
 from base_pushover import PushOverBase
 
 
+MODULE_NAME = "p3over.py"
+
 class PushOverUrllib(PushOverBase):
     ''' pushover via urllib '''
-    def __init__(self, msg=""):
+    def __init__(self, msg=MODULE_NAME, title=MODULE_NAME):
         super().__init__(msg)
         self._sound = "incoming"
+        self.title = title
 
     @property
     def sound(self) -> str:
@@ -35,8 +41,8 @@ class PushOverUrllib(PushOverBase):
         pushover.net messages api reference:
         https://pushover.net/api#messages
         '''
-        if self.userkey is None or self.apitoken is None:
-            print('[FAIL] key/apitoken not exists, abort...')
+        if not self.is_keyready():
+            print('[FAIL] key/apitoken not ready, abort...')
             return
 
         conn = http.client.HTTPSConnection("api.pushover.net:443")
@@ -55,13 +61,11 @@ class PushOverUrllib(PushOverBase):
     @classmethod
     def run(cls):
         ''' run '''
-        obj = PushOverUrllib()
         ts = datetime.today().strftime('%a %d %b %Y, %H:%M') # Wed 24 May 2023, 14:49
         # strftime('%Y-%m-%d %H:%M:%S')  '2023-05-24 14:50:25'
         msg = f'notification on {ts} via urllib'
 
-        obj.title = 'demo by p3over.py'
-        obj.message = msg
+        obj = cls(msg=msg, title='demo by p3over.py')
         obj.shoot()
 
 def main():
