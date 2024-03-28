@@ -1,9 +1,9 @@
 {
 	"_comment": "this json defines each field for pushover notification",
-	"title": "p2over notification",
+	"title": "p2over notification demo from config",
 	"device": "pixel6a",
 	"messages": [
-		"hellow worlds",
+		"hellow worlds from settings.json",
 		"emojis: \uD83D\uDE1C\uD83D\uDE17\uD83D\uDE0A\uD83D\uDE1C\uD83D\uDE1D\uD83D\uDE1D\uD83D\uDE09",
 		"visit https://pushover.net",
 		"learn http requests: https://reqbin.com/req/c-1n4ljxb9/curl-get-request-example"

@@ -13,22 +13,15 @@ use module ==requests==
 '''
 
 import json
-import os
 import sys
 from random import choice
 from time import time
-
 import requests
-
-HOME = os.getenv('HOME')
-UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
-if os.path.exists(UTILPATH):
-    sys.path.insert(0, UTILPATH)
-
 from base_pushover import PushOverBase
-
+sys.path.insert(0, "..")
 from myutil import read_jsonfile
 
+MODULE_NAME = 'p2over.py'
 
 class PushOverRequests(PushOverBase):
     ''' class to request pushover '''
@@ -36,7 +29,7 @@ class PushOverRequests(PushOverBase):
     # change the value of each field to send different notification
     EXTRA_CONFIG = 'settings-p2over.json'
 
-    def __init__(self, msg):
+    def __init__(self, msg=MODULE_NAME):
         super().__init__(msg)
         self.title = ''
         self.message = msg
@@ -51,7 +44,7 @@ class PushOverRequests(PushOverBase):
         if data is None:
             print('[INFO] no extra data:', self.EXTRA_CONFIG)
             self.config_ok = False
-            return
+            raise ValueError
         self.config_ok = True
         self.title = f"{data.get('title')} {int(time())}"
         self.device = data.get('device')
@@ -62,15 +55,11 @@ class PushOverRequests(PushOverBase):
         sounds = list(data.get('sounds').keys())
         self.sound = choice(sounds)
 
-    def is_keyready(self):
-        ''' is apikey and token is ready? '''
-        return self.userkey is None or self.apitoken is None
-
-    def shoot(self):
+    def shoot(self, DRY_RUN=False):
         ''' shoot notification '''
-        if not self.config_ok:
-            print('[WARN] need check config, exit...')
-            return
+        if not self.is_keyready():
+            print('[FAIL] key/apitoken not ready, exit...')
+            sys.exit(1)
 
         url = "https://api.pushover.net/1/messages.json"
         headers = {'content-type': 'application/json'}
@@ -88,12 +77,19 @@ class PushOverRequests(PushOverBase):
         #     "attachment": ("image.jpg", open(img_fn, "rb"), "image/jpeg")
         # }
 
-        self.dump_payload(payload)
+        if DRY_RUN:
+            print('[INFO] dry run only...')
+            self.dump_payload(payload)
+            return
+
         r = requests.post(url, data=json.dumps(payload), headers=headers, timeout=5.0)
-        print(r.status_code)
-        resp = r.json()
+        self.show_result(r)
+
+    def show_result(self, ret):
+        ''' show result '''
+        resp = ret.json()
         self.resp_str = json.dumps(resp)
-        self.show_resp()
+        print(f'status: {ret.status_code}, resp: {self.resp_str}')
 
     @staticmethod
     def dump_payload(p):
@@ -109,11 +105,9 @@ class PushOverRequests(PushOverBase):
         https://pushover.net/api#messages
         https://pushover.net/faq#library-python
         '''
-        obj = cls("")
-        if obj.is_keyready():
-            print('[FAIL] key/apitoken not ready, exit...')
-            sys.exit(1)
-        obj.shoot()
+        DRY_RUN = True
+        obj = cls()
+        obj.shoot(DRY_RUN)
 
 def main():
     ''' main '''

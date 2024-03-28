@@ -11,14 +11,9 @@ and multi line string
 need python 3.6+
 '''
 
-import os
 import sys
 
-HOME = os.getenv('HOME')
-UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
-if os.path.exists(UTILPATH):
-    sys.path.insert(0, UTILPATH)
-
+sys.path.insert(0, "..")
 from myutil import require_python_version
 
 
