@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# pylint: disable=import-error
-# pylint: disable=wrong-import-order
+# disable=import-error
+# disable=wrong-import-order
 # pylint: disable=wrong-import-position
 
 '''
@@ -11,11 +11,9 @@ read driving data table (at google drive) and calculate stastics
 '''
 
 import argparse
-import os
 import sys
 from datetime import date
 from math import floor
-
 import numpy as np
 
 try:
@@ -24,13 +22,28 @@ except ImportError:
     print('[ERROR] cannot import module pandas...')
     sys.exit(1)
 
-sys.path.insert(0, "..")
-
-from myutil import query_url_for_data, read_jsonfile, get_home, isfile
 from strutil import print_sep, sec2mmss, str2sec
 from working_days import LoadWorkingDays
 
+sys.path.insert(0, "..")
+from myutil import query_url_for_data, read_jsonfile, isfile
+from myutil import MyDebug, MyVerbose, DefaultConfig
+
 TMP_CSV = '/tmp/__driving_datasheet__.csv'
+
+class MySimpleout():
+    ''' my verbose '''
+    def __init__(self, simpleout):
+        self._simpleout = simpleout
+
+    @property
+    def simpleout(self) -> bool:
+        ''' simpleout of notification '''
+        return self._simpleout
+    @simpleout.setter
+    def simpleout(self, val: bool):
+        ''' setter of simpleout '''
+        self._simpleout = val
 
 class DriveConfig():
     ''' class helps to read config '''
@@ -42,26 +55,6 @@ class DriveConfig():
         self.jsonpath = None
         self.data = None
         self.url = None
-
-    @staticmethod
-    def get_default_config():
-        ''' search config file in default paths '''
-        home = get_home()
-        dfn = DriveConfig.DEFAULT_FN
-        paths = []
-        # 1. home/Private/
-        tmp = os.path.join(home, 'Private', dfn)
-        paths.append(tmp)
-        # 2. home
-        tmp = os.path.join(home, dfn)
-        paths.append(tmp)
-        # 3. local
-        tmp = os.path.join('./', dfn)
-        paths.append(tmp)
-        for q in paths:
-            if isfile(q):
-                return q
-        return None
 
     def compose_url(self):
         ''' compose url '''
@@ -84,10 +77,9 @@ class DriveConfig():
         if conf_file:
             self.jsonpath = conf_file
         else:
-            self.jsonpath = self.get_default_config()
+            self.jsonpath = DefaultConfig(self.DEFAULT_FN).get_default_config()
         if self.jsonpath is None or not isfile(self.jsonpath):
-            print('[ERROR] no config is specified, exit...')
-            sys.exit(1)
+            raise FileNotFoundError
         print(f'[INFO] using config: {self.jsonpath}')
 
         self.data = read_jsonfile(self.jsonpath)
@@ -113,17 +105,19 @@ class DriveConfig():
         print(f'{self.url=}')
 
 
-class DrivingData():
+class DrivingData(MyDebug, MyVerbose, MySimpleout):
     ''' fetch driving data from gdrive or local csv '''
-    debug = False
-    simpleout = False
-    verbose = False
 
     def __init__(self):
+        super().__init__(False)
+        MyVerbose.__init__(self, False)
+        MySimpleout.__init__(self, False)
+
         self.csvfile = ''
         self.url = ''
         self.outputs = {}
         (self.mu, self.sigma) = (0, 0)
+        self.verbose = False
 
     def set_csvfile(self, csvfile):
         ''' setter csvfile '''
@@ -131,14 +125,6 @@ class DrivingData():
             self.csvfile = csvfile
         else:
             self.csvfile = TMP_CSV
-
-    def set_simpleout(self, simpleout):
-        ''' simple out '''
-        self.simpleout = simpleout
-
-    def set_verbose(self, verbose):
-        ''' verbose or not '''
-        self.verbose = verbose
 
     def read_setting(self, conf_file):
         ''' read settings '''
@@ -319,8 +305,8 @@ def perform_show_driving_data(in_file=None, out_file=None, conf_file=None,
     simpleout=False, verbose=False):
     ''' universal starter '''
     obj = DrivingData()
-    obj.set_simpleout(simpleout)
-    obj.set_verbose(verbose)
+    obj.verbose = verbose
+    obj.simpleout = simpleout
 
     # use local file (higher priority), no need out_file and conf_file
     if in_file:

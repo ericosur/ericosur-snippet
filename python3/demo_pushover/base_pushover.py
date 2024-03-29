@@ -10,13 +10,12 @@ pushover base class
 '''
 
 import abc
-import os
 import sys
 from datetime import datetime
 from time import time
 
 sys.path.insert(0, "..")
-from myutil import read_jsonfile, get_home, isfile, MyDebug
+from myutil import read_jsonfile, MyDebug, DefaultConfig
 
 
 class PushOverBase(MyDebug):
@@ -92,12 +91,12 @@ class PushOverBase(MyDebug):
 
     def get_apikey(self):
         ''' get apikey '''
-        keypath = os.path.join(get_home(), 'Private', 'pushover-net.json')
-        if not isfile(keypath):
-            if self.debug:
-                print(f'[FAIL] key file not exist: {keypath}')
-            raise FileNotFoundError('keyfile not found')
-        data = read_jsonfile(keypath)
+        FN = 'pushover-net.json'
+        config = DefaultConfig(FN).get_default_config()
+        if not config:
+            raise FileNotFoundError
+
+        data = read_jsonfile(config)
         if data is None:
             raise ValueError("data is None")
 
