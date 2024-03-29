@@ -13,18 +13,26 @@ def get_home():
 
 def is_path_exist(p):
     ''' true if specified path exists '''
+    if not p:
+        raise ValueError("input is None")
     return os.path.exists(p)
 
 def isfile(url):
     '''test file exists'''
+    if not url:
+        raise ValueError("input is None")
     return os.path.isfile(url)
 
 def isdir(url):
     '''test dir exists'''
+    if not url:
+        raise ValueError("input is None")
     return os.path.isdir(url)
 
 def read_from_stdin(func):
     ''' read from stdin '''
+    if not func:
+        raise ValueError("input is None")
     args = []
     for line in sys.stdin:
         args.append(line.strip())
