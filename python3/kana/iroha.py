@@ -1,5 +1,6 @@
-'''
+# coding: utf-8
 
+'''
 伊呂波歌 / いろは唄
 
 いろはにほへと
@@ -37,21 +38,21 @@ The script prints the index numbers for reference.
 
 from ab import hira1d
 
-# いろは唄
-ilohani = '''
-いろはにほへと
-ちりぬるを
-わかよたれそ
-つねならむ
-うゐのおくやま
-けふこえて
-あさきゆめみし
-ゑひもせす
-'''
-
-
 def main():
     ''' main '''
+
+    # いろは唄
+    ilohani = '''
+    いろはにほへと
+    ちりぬるを
+    わかよたれそ
+    つねならむ
+    うゐのおくやま
+    けふこえて
+    あさきゆめみし
+    ゑひもせす
+    '''
+
     s = ilohani.strip()
     for i in s.splitlines():
         ln = list(i.strip())

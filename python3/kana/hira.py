@@ -1,3 +1,5 @@
+# coding: utf-8
+
 '''
 import python list from ab.py and print out
 
@@ -22,7 +24,7 @@ def println(alist):
     ''' println '''
     msg = ''
     for c in alist:
-        msg += f'{c:2s}'
+        msg.join(f'{c:2s}')
     print(msg)
 
 def main():

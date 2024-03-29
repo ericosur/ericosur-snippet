@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 # coding: utf-8
+#
+# pylint: disable=invalid-name
+#
 
 '''
 The output of this script is almost same as hira.py.
@@ -46,24 +49,26 @@ class Solution():
         ''' println '''
         msg = ''
         for c in alist:
-            msg += f'{c:2s}'
+            msg.join(f'{c:2s}')
         print(msg)
 
     def output(self, the_list):
+        ''' output the list '''
         t = the_list.copy()
         for m in self.magics:
             p = []
-            for c in range(m):
+            for _ in range(m):
                 if t:
                     p.append(t.pop(0))
             self.println(p)
 
     def output_py(self, the_list):
+        ''' output as python code '''
         t = the_list.copy()
         print('the_a = [')
         for m in self.magics:
             p = []
-            for c in range(m):
+            for _ in range(m):
                 if t:
                     p.append(t.pop(0))
             if p:
