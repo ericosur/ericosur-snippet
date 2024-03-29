@@ -2,8 +2,10 @@
 # coding: utf-8
 
 '''
-This scripts means to test pylint.
-DO NOT Fix warnings from pylint.
+WARNING: NOTICE THAT:
+
+This scripts means to trigger warnings of pylint.
+DO NOT FIX warnings from pylint.
 
 Possible warnings:
     - missing-function-docstring
