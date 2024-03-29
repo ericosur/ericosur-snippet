@@ -7,7 +7,7 @@
 __VERSION__ = "2024.03.28"
 
 import json
-
+from .commonutil import isfile
 
 def read_jsonfile(fn:str, debug=False):
     '''
@@ -16,6 +16,9 @@ def read_jsonfile(fn:str, debug=False):
     # read from json file
     if debug:
         print(f'[DEBUG] read json file from: {fn}')
+
+    if not isfile(fn):
+        raise FileNotFoundError
 
     # method #1
     with open(fn, 'r', encoding='utf8') as fstream:
@@ -29,6 +32,10 @@ def read_textfile(fn: str, debug=False) -> str:
     ''' read specified file and return file content '''
     if debug:
         print(f'[DEBUG] read text file content from: {fn}')
+
+    if not isfile(fn):
+        raise FileNotFoundError
+
     content = None
     with open(fn, 'rt', encoding='utf8') as fh:
         content = fh.read()
@@ -57,6 +64,9 @@ def request_value(data, key, default_value=None):
 
 def write_jsonfile(fn, data):
     ''' write json into specified file '''
+    if not isfile(fn):
+        raise FileNotFoundError
+
     with open(fn, 'w', encoding='utf8') as ofile:
         ofile.write(json.dumps(data))
         print(f'output json to {fn}')
