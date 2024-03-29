@@ -13,8 +13,12 @@ import random
 import sys
 
 
-def rep_suzhou(s):
+def rep_suzhou(the_input):
     ''' int num to string suzhou numerals '''
+
+    s = the_input
+    if not isinstance(the_input, str):
+        s = str(the_input)
 
     ten = '\u3038'
     twenty = '\u3039'
@@ -41,13 +45,21 @@ def rep_suzhou(s):
 
     return ans
 
+def prepare_args():
+    ''' prepare args '''
+    REPEAT = 5
+    rets = []
+    rets.append('1234567890')
+    for _ in range(REPEAT):
+        r = random.randint(100, 999999999)
+        rets.append(str(r))
+    return rets
+
 def main(args):
     ''' main '''
     if args == []:
         print('using default values...')
-        for _ in range(10):
-            r = random.randint(100, 999999999)
-            args.append(str(r))
+        args = prepare_args()
 
     for s in args:
         print(f'{s:>10s} => {rep_suzhou(s)}')

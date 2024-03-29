@@ -1,36 +1,24 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+#
+# pylint: disable=wrong-import-position
+#
 
 '''
 read working days from json
 '''
 
-import json
-import os
+import sys
+
+sys.path.insert(0, "..")
+from myutil import read_jsonfile, DefaultConfig
 
 __VERSION__ = '2024.02.26'
 
-FN = 'working-days.json'
-
-def read_jsonfile(fn:str, debug=False):
-    '''
-    specify json filename and return whole json object
-    '''
-    if debug:
-        print(f'load json from {fn}')
-    if not os.path.exists(fn):
-        if debug:
-            print(f'file not found: {fn}')
-        return None
-    # read from json file
-
-    # method #1
-    with open(fn, 'r', encoding='utf8') as fstream:
-        data = json.load(fstream)
-    return data
 
 class LoadWorkingDays():
     ''' load working days '''
+    FN = 'working-days.json'
 
     def __init__(self):
         self.works = {}
@@ -38,8 +26,9 @@ class LoadWorkingDays():
 
     def load_data(self):
         ''' load data '''
-        p = self.get_default_config()
+        p = DefaultConfig(self.FN).get_default_config()
         d = read_jsonfile(p)
+
         try:
             miny = int(d['minyear'])
             maxy = int(d['maxyear'])
@@ -63,25 +52,6 @@ class LoadWorkingDays():
     def dump(self):
         ''' dump '''
         print(self.works)
-
-    @staticmethod
-    def get_default_config():
-        ''' search config file in default paths '''
-        home = os.getenv('HOME')
-        paths = []
-        # 1. home/Private/
-        tmp = os.path.join(home, 'Private', FN)
-        paths.append(tmp)
-        # 2. home
-        tmp = os.path.join(home, FN)
-        paths.append(tmp)
-        # 3. local
-        tmp = os.path.join('./', FN)
-        paths.append(tmp)
-        for q in paths:
-            if os.path.exists(q):
-                return q
-        return None
 
 
     def action(self):

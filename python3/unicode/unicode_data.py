@@ -11,7 +11,7 @@ example from https://docs.python.org/3/howto/unicode.html
 import sys
 import unicodedata
 
-sys.path.insert(0, '../')
+sys.path.insert(0, '..')
 from myutil import read_from_stdin
 
 

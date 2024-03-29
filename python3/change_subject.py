@@ -2,7 +2,11 @@
 # coding: utf-8
 
 '''
-change the value of a json file which key field is "subject"
+Change the value of a specified key "subject" in a json file.
+The other keys/fields will not be changed.
+
+try this:
+    python3 change_subject.py 2>/dev/null && cat /tmp/__out__.json
 '''
 
 # pylint: disable=invalid-name
@@ -11,17 +15,12 @@ import json
 import os
 import sys
 
-# try to add my code snippet into python path
-HOME = os.getenv('HOME')
-p = os.path.join(HOME, '/src/ericosur-snippet/python3')
-if os.path.exists(p):
-    sys.path.insert(0, p)
+from myutil import read_jsonfile, DefaultConfig
 
 try:
-    import myutil
     import random_string
-except ImportError:
-    print('[ERROR] cannot import necessary module')
+except ImportError as e:
+    print('[ERROR] cannot import: {e}')
     sys.exit(1)
 
 class ChangeJson():
@@ -34,36 +33,24 @@ class ChangeJson():
         self.ofn = ChangeJson.TEMP_JSON
         self.data = None
         self.possible_inputs = []
-        self._prepare_possible_inputs()
-
-    def _prepare_possible_inputs(self):
-        ''' prepare possible inputs '''
-        _fn = ChangeJson.TEST_JSON
-        self.possible_inputs.append(_fn)
-        _fn = os.path.join(HOME, ChangeJson.TEST_JSON)
-        self.possible_inputs.append(_fn)
-        _fn = os.path.join(HOME, 'Private', ChangeJson.TEST_JSON)
-        self.possible_inputs.append(_fn)
-        _fn = ChangeJson.TEMP_JSON
-        self.possible_inputs.append(_fn)
 
     def load_data(self):
         ''' prepare '''
-        for fn in self.possible_inputs:
-            if os.path.exists(fn):
-                print('load from:', fn)
-                self.fn = fn
-                self.data = myutil.read_jsonfile(self.fn)
-                return
-        print('[ERROR] data file not found, exit...')
-        sys.exit(1)
+        self.fn = DefaultConfig(self.TEST_JSON).get_default_config()
+        if self.fn is None:
+            raise FileNotFoundError(self.TEST_JSON)
+
+        self.data = read_jsonfile(self.fn)
+        if self.data is None:
+            raise ValueError("data is None")
 
     def modify_and_save(self):
         ''' modify content and save to file '''
         self.data['subject'] = self.request_random_string()
         with open(self.ofn, 'wt', encoding='utf8') as f:
             f.write(json.dumps(self.data, indent=4, sort_keys=False))
-        print('[INFO] output to:', self.ofn)
+            print(file=f)
+        print(f'[INFO] output to: {self.ofn}', file=sys.stderr)
 
     @staticmethod
     def request_random_string():
