@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 # coding: utf-8
+#
+# pylint: disable=wrong-import-position
+#
 
 '''
 example from https://docs.python.org/3/howto/unicode.html
@@ -8,12 +11,8 @@ example from https://docs.python.org/3/howto/unicode.html
 import sys
 import unicodedata
 
-try:
-    sys.path.insert(0, '../')
-    from myutil import read_from_stdin
-except ImportError:
-    print('cannot import **myutil**')
-    sys.exit(1)
+sys.path.insert(0, '../')
+from myutil import read_from_stdin
 
 
 def show_unicodedata(u):
