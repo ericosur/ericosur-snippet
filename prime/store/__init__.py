@@ -13,6 +13,7 @@ from .load_myutil import get_home, GetConfig, read_setting, read_from_stdin
 from .store_prime import StorePrime
 from .lcp import LoadCompressPrime
 from .make_arrow import make_arrow
+from .debug_verbose import MyDebug, MyVerbose
 
 def sep():
     ''' sep '''
