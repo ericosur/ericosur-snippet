@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
 # coding: utf-8
+#
+# pylint: disable=wrong-import-position
+#
 
 '''
 calculate total working days
 '''
 
 import sys
+sys.path.insert(0, "..")
 from myutil import read_jsonfile, DefaultConfig, print_stderr
-
+from myutil import is_leapyear, clamp, WhatNow
 
 class CalcWork():
     ''' calc work class '''
@@ -29,11 +33,6 @@ class CalcWork():
         if self.DEBUG:
             print("[DEBUG] ", file=sys.stderr, end='')
             print(*args, file=sys.stderr, **kwargs)
-
-    @staticmethod
-    def is_leapyear(y):
-        ''' is **y** a leap year? '''
-        return (y % 4 == 0 and y % 100 != 0) or (y % 400 == 0)
 
     def _load_conf(self):
         ''' load conf '''
@@ -71,7 +70,7 @@ class CalcWork():
                     min_day = v
 
         y = self.data[key]["year"]
-        if self.is_leapyear(y):
+        if is_leapyear(y):
             r = cnt / 366 * 100
         else:
             r = cnt / 365 * 100
@@ -90,9 +89,12 @@ class CalcWork():
     @classmethod
     def run(cls):
         ''' run '''
+        this_year = WhatNow().year
         obj = cls()
-        print(f'{obj.min_year=}\t{obj.max_year=}')
-        for y in range(obj.min_year, obj.max_year+1):
+        from_year = clamp(this_year - 3, obj.min_year, obj.max_year)
+        to_year = clamp(this_year + 3, obj.min_year, obj.max_year)
+        print(f'from {from_year} to {to_year}')
+        for y in range(from_year, to_year+1):
             k = f'year{y}'
             obj.calc(k)
 
