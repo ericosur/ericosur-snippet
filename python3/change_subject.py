@@ -12,7 +12,6 @@ try this:
 # pylint: disable=invalid-name
 
 import json
-import os
 import sys
 
 from myutil import read_jsonfile, DefaultConfig

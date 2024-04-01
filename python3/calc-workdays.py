@@ -5,10 +5,8 @@
 calculate total working days
 '''
 
-import os
 import sys
-
-from myutil import get_home, read_jsonfile
+from myutil import read_jsonfile, DefaultConfig, print_stderr
 
 
 class CalcWork():
@@ -24,6 +22,14 @@ class CalcWork():
         self.all_days = []
         self._load_conf()
 
+    def logd(self, *args, **kwargs):
+        '''
+        from: https://stackoverflow.com/questions/5574702/how-to-print-to-stderr-in-python
+        '''
+        if self.DEBUG:
+            print("[DEBUG] ", file=sys.stderr, end='')
+            print(*args, file=sys.stderr, **kwargs)
+
     @staticmethod
     def is_leapyear(y):
         ''' is **y** a leap year? '''
@@ -31,26 +37,19 @@ class CalcWork():
 
     def _load_conf(self):
         ''' load conf '''
-        homedir = get_home()
-        try_paths = [self.DATA_FILE]
-        p = os.path.join(homedir, self.DATA_FILE)
-        try_paths.append(p)
-        p = os.path.join(homedir, 'Private', self.DATA_FILE)
-        try_paths.append(p)
+        datafile = DefaultConfig(self.DATA_FILE).get_default_config()
+        self.logd('read data from:', datafile)
+        if not datafile:
+            print_stderr('[FAIL] config file not found')
+            sys.exit(1)
 
-        for x in try_paths:
-            if os.path.exists(x):
-                if self.DEBUG:
-                    print('read data from:', x)
-                self.data = read_jsonfile(x)
-                self.max_year = self.data['maxyear']
-                self.min_year = self.data['minyear']
-                return
-            if self.DEBUG:
-                print(f'not found at: {x}')
+        self.data = read_jsonfile(datafile)
+        if not self.data:
+            print_stderr('[FAIL] cannot load data')
+            sys.exit(1)
+        self.max_year = self.data['maxyear']
+        self.min_year = self.data['minyear']
 
-        print('[ERROR] config file not found')
-        sys.exit(1)
 
     def calc(self, key):
         ''' calc '''
@@ -86,16 +85,16 @@ class CalcWork():
         sz = len(self.all_days)
         t = sum(self.all_days)
         avg = float(t) / float(sz)
-        print(f'{sz=}, {avg=}')
+        print(f'{sz=}, {avg=:.2f}')
 
     @classmethod
     def run(cls):
         ''' run '''
-        calc = cls()
-        print(f'{calc.min_year=}\t{calc.max_year=}')
-        for y in range(calc.min_year, calc.max_year+1):
+        obj = cls()
+        print(f'{obj.min_year=}\t{obj.max_year=}')
+        for y in range(obj.min_year, obj.max_year+1):
             k = f'year{y}'
-            calc.calc(k)
+            obj.calc(k)
 
 def main():
     ''' main '''
