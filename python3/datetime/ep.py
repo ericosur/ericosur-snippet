@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+#
+# pylint: disable=wrong-import-position
+#
 
 '''
 convert epoch value to date/time string

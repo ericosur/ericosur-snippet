@@ -1,19 +1,26 @@
 '''
 Module store provides useful utilities
+
+how to export functions
+1. import functions from xxxx_util
+2. add name of functions into the list: __all__
 '''
 
 
 # __init__.py
 
-__VERSION__ = '2024.03.28'
+__VERSION__ = '2024.04.01'
 
+from .commonutil import clamp
 from .commonutil import get_home, print_stderr, read_from_stdin
 from .commonutil import is_path_exist, isfile, isdir
 from .debug_verbose import MyDebug, MyVerbose
 from .hashutil import md5sum, sha1sum, sha256sum
 from .jsonutil import read_setting, read_textfile, read_jsonfile, write_jsonfile
+from .mydateutil import get_dow, is_leapyear, get_offset_from_year, get_doom_num
 from .pathutil import DefaultConfig
 from .queryutil import query_url_for_data, query_url_for_json
+from .thedatetime import get_epoch, WhatNow
 from .versionutil import get_python_version, get_python_versions, require_python_version
 
 def sep():
@@ -23,12 +30,18 @@ def sep():
 
 # sort by alphatic if possible
 __all__ = [
+    'clamp',
+    'get_dow',
+    'get_doom_num',
+    'get_epoch',
     'get_home',
+    'get_offset_from_year',
     'get_python_version',
     'get_python_versions',
+    'is_leapyear',
     'is_path_exist',
-    'isfile',
     'isdir',
+    'isfile',
     'md5sum',
     'print_stderr',
     'query_url_for_data',
@@ -44,4 +57,5 @@ __all__ = [
     'DefaultConfig',
     'MyDebug',
     'MyVerbose',
+    'WhatNow'
 ]

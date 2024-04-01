@@ -7,6 +7,19 @@ import os
 import sys
 
 
+def clamp(value, minimum, maximum):
+    """Clamps a value between a minimum and maximum value.
+
+    Args:
+      value: The value to be clamped.
+      minimum: The minimum allowed value.
+      maximum: The maximum allowed value.
+
+    Returns:
+      The clamped value, which is within the range [minimum, maximum].
+    """
+    return max(minimum, min(value, maximum))
+
 def get_home():
     ''' return $HOME '''
     return os.getenv('HOME')
