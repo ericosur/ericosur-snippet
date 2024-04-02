@@ -22,8 +22,14 @@ if os.path.exists(UTILPATH):
 import myutil
 
 
+die = myutil.die
 MyDebug = myutil.MyDebug
 MyVerbose = myutil.MyVerbose
+read_jsonfile = myutil.read_jsonfile
+read_setting = myutil.read_setting
+read_from_stdin = myutil.read_from_stdin
+is_file = myutil.is_file
+is_dir = myutil.is_dir
 
 def get_home():
     ''' get home dir '''
@@ -32,18 +38,6 @@ def get_home():
 def gethome():
     ''' get home dir '''
     return HOME
-
-def read_jsonfile(fn):
-    ''' read json file '''
-    return myutil.read_jsonfile(fn)
-
-def read_setting(fn):
-    ''' read settings '''
-    return myutil.read_setting(fn)
-
-def read_from_stdin(fn):
-    ''' read from stdin '''
-    return myutil.read_from_stdin(fn)
 
 class GetConfig():
     ''' a wrapper class to load config for primes '''

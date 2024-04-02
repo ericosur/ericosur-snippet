@@ -8,10 +8,10 @@ provide a basic interface/class for load/save/search primes
 import errno
 import os
 import pickle
-import re
 from time import time
 from .query_prime import QueryPrime
 from .load_myutil import MyDebug, MyVerbose
+from .textutil import read_textfile
 
 
 MODNAME = "StorePrime"
@@ -94,7 +94,7 @@ class StorePrime(MyDebug, MyVerbose, QueryPrime):
         return ''
 
     def try_pickle_file(self):
-        ''' try_pickle_file '''
+        ''' confirm pfn exists '''
         self._info('try_pickle_file()')
         if not os.path.exists(self.config['pfn']):
             p = self.get_local_data_path()
@@ -105,7 +105,7 @@ class StorePrime(MyDebug, MyVerbose, QueryPrime):
             raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), self.config['pfn'])
 
     def try_text_file(self):
-        ''' try_text_file '''
+        ''' confirm txtfn exists '''
         self._info('try_text_file()')
         if not os.path.exists(self.config['txtfn']):
             p = self.get_local_data_path()
@@ -142,23 +142,9 @@ class StorePrime(MyDebug, MyVerbose, QueryPrime):
 
         self._info("call self.try_text_file")
         self.try_text_file()
+        self.need_save = True
         start = time()
-        with open(self.config['txtfn'], "rt", encoding='utf8') as txtinf:
-            self.need_save = True
-            error_count = 0
-            while True:
-                ln = txtinf.readline().strip()
-                if ln == '':
-                    break
-                if error_count > 10:
-                    print('invalid format?')
-                    break
-                result = re.match(r'^(\d+)$', ln)
-                if result:
-                    el = int(result.groups()[0])
-                    self.primes.append(el)
-                else:
-                    error_count += 1
+        self.primes = read_textfile(self.config['txtfn'], debug=self.debug)
         duration = time() - start
         self.logv(f'[INFO][{MODNAME}]: load from text file {self.config["txtfn"]}', end=' ')
         self.logv(f'duration: {duration:.3f} sec')

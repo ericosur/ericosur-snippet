@@ -13,19 +13,25 @@ from .load_myutil import get_home, GetConfig, read_setting, read_from_stdin
 from .store_prime import StorePrime
 from .lcp import LoadCompressPrime
 from .make_arrow import make_arrow
-from .load_myutil import MyDebug, MyVerbose
+from .load_myutil import MyDebug, MyVerbose, die
+from .load_myutil import is_file, is_dir
+from .textutil import read_textfile
 
 def sep():
     ''' sep '''
     print('-------------------------')
 
 __all__ = [
+    'die',
     'get_home',
+    'is_file',
+    'is_dir',
     'GetConfig',
     'LoadCompressPrime',
     'make_arrow',
     'read_from_stdin',
     'read_setting',
+    'read_textfile',
     "sep",
     'StorePrime',
     'MyDebug',
