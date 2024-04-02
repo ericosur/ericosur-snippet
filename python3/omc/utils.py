@@ -15,6 +15,12 @@ def is_prime(n):
     ''' true if n is a prime number '''
     return ntheory.primetest.isprime(n)
 
+def is_palindrome(the_str: str):
+    ''' the shortest way to test if palindrome '''
+    if not isinstance(the_str, str):
+        raise ValueError
+    return the_str==the_str[::-1]
+
 def digit_sum(n):
     ''' given number n, return sum of digits
     n = 1234, return 10
