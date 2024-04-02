@@ -26,10 +26,11 @@ from strutil import print_sep, sec2mmss, str2sec
 from working_days import LoadWorkingDays
 
 sys.path.insert(0, "..")
-from myutil import query_url_for_data, read_jsonfile, isfile
+from myutil import query_url_for_data, read_jsonfile, isfile, die
 from myutil import MyDebug, MyVerbose, DefaultConfig
 
 TMP_CSV = '/tmp/__driving_datasheet__.csv'
+
 
 class MySimpleout():
     ''' my verbose '''
@@ -45,43 +46,54 @@ class MySimpleout():
         ''' setter of simpleout '''
         self._simpleout = val
 
-class DriveConfig():
+class DriveConfig(MyDebug):
     ''' class helps to read config '''
 
     DEFAULT_FN = 'driving_data.json'
-    debug = False
 
     def __init__(self):
+        super().__init__(False) # MyDebug
         self.jsonpath = None
         self.data = None
         self.url = None
+        self._tag = ''
+
+    def _log(self, *args, **wargs):
+        ''' my own log '''
+        wargs['tag'] = self._tag
+        self.logd(*args, **wargs)
 
     def compose_url(self):
         ''' compose url '''
         part1 = 'https://docs.google.com/spreadsheets/d/'
         part2 = '/gviz/tq?tqx=out:csv&sheet='
+        self._tag = 'compose_url'
+
         if self.data is None:
+            self._log('data is None')
             raise ValueError
+
         docid = self.data.get('docid', '')
         sheetid = self.data.get('sheetid', '')
         url = part1 + docid + part2 + sheetid
-        if self.debug:
-            print(f'url: {url}')
+        self._log(f'url: {url}')
         self.url = url
         return url
 
     def read_setting(self, conf_file):
         ''' read setting '''
-        if self.debug:
-            print('read_setting()')
+        self._tag = 'read_setting'
+        self._log('enter...')
+
         if conf_file:
             self.jsonpath = conf_file
         else:
             self.jsonpath = DefaultConfig(self.DEFAULT_FN).get_default_config()
         if self.jsonpath is None or not isfile(self.jsonpath):
+            die('FileNotFoundError')
             raise FileNotFoundError
-        print(f'[INFO] using config: {self.jsonpath}')
 
+        print(f'[INFO] using config: {self.jsonpath}')
         self.data = read_jsonfile(self.jsonpath)
         self.compose_url()
 
@@ -108,16 +120,20 @@ class DriveConfig():
 class DrivingData(MyDebug, MyVerbose, MySimpleout):
     ''' fetch driving data from gdrive or local csv '''
 
-    def __init__(self):
-        super().__init__(False)
-        MyVerbose.__init__(self, False)
-        MySimpleout.__init__(self, False)
+    def __init__(self,debug=False,verbose=False,simpleout=False):
+        super().__init__(debug) # mydebug
+        MyVerbose.__init__(self, verbose)
+        MySimpleout.__init__(self, simpleout)
 
         self.csvfile = ''
         self.url = ''
         self.outputs = {}
-        (self.mu, self.sigma) = (0, 0)
-        self.verbose = False
+        self._tag = 'DrivingData'
+
+    def _log(self, *args, **wargs):
+        ''' my own log '''
+        wargs['tag'] = self._tag
+        self.logd(*args, **wargs)
 
     def set_csvfile(self, csvfile):
         ''' setter csvfile '''
@@ -136,17 +152,17 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
 
     def request_data(self):
         ''' request data and output to a csv file'''
-        if self.debug:
-            print('request_data()')
+        self._tag = 'request_data'
+        self._log('enter...')
+
         csvdata = query_url_for_data(self.url)
-        #print('csvdata: ', csvdata)
         if not self.csvfile:
-            print('[ERROR] MUST specify csvfile path before calling request_data()')
+            die('[ERROR] MUST specify csvfile path before calling request_data()')
             sys.exit(1)
+
         with open(self.csvfile, 'wb') as ofile:
             ofile.write(csvdata)
-            if self.debug:
-                print(f'output csv to {self.csvfile}')
+            self._log(f'output csv to {self.csvfile}')
 
     @staticmethod
     def str2date(s):
@@ -157,7 +173,7 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
         try:
             vals = [int(x) for x in arr]
         except ValueError:
-            print('[ERROR] str2date: invalid string to integer')
+            print('[ERROR] str2date: invalid string to integer:', s)
             return None
         return date(vals[0], vals[1], vals[2])
 
@@ -175,7 +191,7 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
     def extra_header(self):
         ''' show extra header '''
         if self.verbose:
-            print(f"panda version: {pd.__version__}")
+            print(f"[INFO] panda version: {pd.__version__}")
         print(f'[INFO]    first date: {self.outputs["first"]}')
         print(f'[INFO]     last date: {self.outputs["last"]}')
         print(f'[INFO]   during days: {self.outputs["during"]}')
@@ -220,13 +236,8 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
         res = pd.DataFrame(ndict)
 
         des = res.describe()
-        self.mu = peek_target(des, "mean")
-        self.sigma = peek_target(des, "std")
 
-        if self.debug:
-            print_sep()
-            print('item', des)
-
+        self._log('item:', des)
         self.fill_outputs(des)
 
 
@@ -239,14 +250,19 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
 
     def fill_outputs(self, des):
         ''' fill results in outputs (dict) '''
+        self._tag = 'fill_outputs'
+        self._log('enters...')
         self.outputs['today'] = date.today()
         ans = peek_target(des, "count")
         count = str(int(floor(ans)))
         self.outputs['count'] = count
+        the_vars = {}
         for q in ['max', '75%', 'mean', '50%', '25%', 'min', 'std']:
             ans = peek_target(des, q)
+            the_vars[q] = ans
             mmss = sec2mmss(ans)
             self.outputs[q] = mmss
+        self.fill_pois(the_vars)
 
     def show_simplecsv(self):
         ''' csv output '''
@@ -271,18 +287,42 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
         print_sep()
         self.show_poi()
 
+    def fill_pois(self, the_vars):
+        ''' some interesting data '''
+        self._tag = 'fill_pois'
+        self._log('enter...')
+
+        m = the_vars['mean']
+        s = the_vars['std']
+
+        opts = []
+        t = f'mu = {m}, sigma = {s}'
+        opts.append(t)
+        mn = self.outputs['min']
+        mx = self.outputs['max']
+        mm = sec2mmss(m)
+        t = f'min({mn})---mean({mm})---max({mx})'
+        opts.append(t)
+        (L1, R1) = (sec2mmss(m-s), sec2mmss(m+s))
+        t = f'68.2%: {L1}--{mm}--{R1}'
+        opts.append(t)
+        (L2, R2) = (sec2mmss(m-2*s), sec2mmss(m+2*s))
+        t = f'95.4%: {L2}--{mm}--{R2}'
+        opts.append(t)
+        self._log('opts:', opts)
+        self.outputs['opts'] = opts
+
+
     def show_poi(self):
         ''' show some values (extra) '''
+        self._tag = 'show_poi'
+        self._log('verbose:', self.verbose)
+        self._log('outputs:', self.outputs)
         if not self.verbose:
             return
-        print(f'{self.mu=}, {self.sigma=}')
-        m = self.mu
-        s = self.sigma
-        mm = sec2mmss(m)
-        (r1, r2) = (sec2mmss(m-s), sec2mmss(m+s))
-        print(f'68.2%: {r1}--{mm}--{r2}')
-        (r1, r2) = (sec2mmss(m-2*s), sec2mmss(m+2*s))
-        print(f'95.4%: {r1}--{mm}--{r2}')
+        print('# more verbose....')
+        for t in self.outputs.get('opts'):
+            print(t)
 
 # return type: numpy.float64
 def peek_target(desc_table, target):
@@ -304,9 +344,7 @@ def peek_target(desc_table, target):
 def perform_show_driving_data(in_file=None, out_file=None, conf_file=None,
     simpleout=False, verbose=False):
     ''' universal starter '''
-    obj = DrivingData()
-    obj.verbose = verbose
-    obj.simpleout = simpleout
+    obj = DrivingData(verbose=verbose, simpleout=simpleout)
 
     # use local file (higher priority), no need out_file and conf_file
     if in_file:
