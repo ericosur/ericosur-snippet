@@ -66,11 +66,11 @@ class Solution():
         self.clear()
         self.basic_data()
         d = abs(self.zz - self.tnb)
-        self.msg += self.append_symbol(d == 3)
+        self.msg.join(self.append_symbol(d == 3))
         d = abs(self.qi - self.tnb)
-        self.msg += self.append_symbol(d == 4)
+        self.msg.join(self.append_symbol(d == 4))
         d = abs(self.zz - self.aqp)
-        self.msg += self.append_symbol(d == 1)
+        self.msg.join(self.append_symbol(d == 1))
 
         r = self.collect_ret(' check_zz')
         return r
@@ -83,11 +83,11 @@ class Solution():
         self.clear()
         self.basic_data()
         d = abs(self.tnb - self.aqp)
-        self.msg += self.append_symbol(d == 1)
+        self.msg.join(self.append_symbol(d == 1))
         d = abs(self.tnb - self.zz)
-        self.msg += self.append_symbol(d == 1)
+        self.msg.join(self.append_symbol(d == 1))
         d = abs(self.tnb - self.qi)
-        self.msg += self.append_symbol(d == 3)
+        self.msg.join(self.append_symbol(d == 3))
 
         r = self.collect_ret('check_tnb')
         return r
@@ -100,11 +100,11 @@ class Solution():
         self.clear()
         self.basic_data()
         d = abs(self.aqp - self.tnb)
-        self.msg += self.append_symbol(d == 4)
+        self.msg.join(self.append_symbol(d == 4))
         d = abs(self.aqp - self.zz)
-        self.msg += self.append_symbol(d == 1)
+        self.msg.join(self.append_symbol(d == 1))
         d = abs(self.aqp - self.ti)
-        self.msg += self.append_symbol(d == 2)
+        self.msg.join(self.append_symbol(d == 2))
 
         r = self.collect_ret('check_aqp')
         return r
