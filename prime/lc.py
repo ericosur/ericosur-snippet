@@ -96,7 +96,7 @@ def get_filesize(fn):
 def _try_fn(fn, paths):
     ''' try if file exists '''
     for p in paths:
-        ff = p + '/' + fn
+        ff = os.path.join(p, fn)
         if os.path.exists(ff):
             return ff
     raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), fn)
@@ -106,9 +106,9 @@ def main(argv):
     data = read_setting('setting.json')
     prime_big = data['prime_big']
     prime_path = data['prime_path']
-    paths = []
-    paths.append(get_home())
-    paths.append(get_home() + '/' + prime_path)
+    paths = [get_home()]
+    paths.append(os.path.join(get_home(), prime_path))
+
     fn = _try_fn(prime_big, paths)
     sz = get_filesize(fn)
     lnc = bufcount(fn)

@@ -1,5 +1,8 @@
 #!/usr/bin/python3
 # coding: utf-8
+#
+# pylint: disable=invalid-name
+#
 
 '''
 https://blog.oldj.net/2019/05/24/%E7%B4%A0%E6%95%B0%E6%97%A5/?fbclid=IwAR25olIU4Hg92N-BxVx12N5Id7JpJrHpQBgSis4BssIwwZF9LPFRZysoTVU
@@ -30,10 +33,9 @@ except ImportError:
     print("[FAIL] cannot import LoadCompressPrime")
     sys.exit(1)
 
-MODNAME = "prime_date.py"
+MODNAME = "PrimeDate"
 
-# pylint: disable=invalid-name
-# too-many-statements
+
 
 def show_duration(duration):
     ''' show duration '''
@@ -47,7 +49,7 @@ def wrap_config():
     cpfn = obj.get_full_path("compress_pickle")
     return txtfn, cpfn
 
-class TestDate():
+class PrimeDate():
     ''' test date is a prime '''
     def __init__(self):
         txtfn, cpfn = wrap_config()
@@ -71,8 +73,8 @@ class TestDate():
             print(f'{argv} is a prime day!')
         return allprime
 
-    def run(self):
-        ''' run '''
+    def action(self):
+        ''' action '''
         start_d = date(2000, 1, 1)
         end_d = date(2099, 12, 31)
         curr = start_d
@@ -90,11 +92,15 @@ class TestDate():
         print(f'from {start_d} to {end_d}, there are {cnt} prime days')
         show_duration(duration)
 
+    @classmethod
+    def run(cls):
+        ''' run me '''
+        obj = cls()
+        obj.action()
+
 def main():
     ''' main '''
-    td = TestDate()
-    #td.test('20190823')
-    td.run()
+    PrimeDate.run()
 
 if __name__ == '__main__':
     main()
