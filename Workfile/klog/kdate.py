@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 # coding: utf-8
+#
+# pylint: disable=consider-using-with
 
 '''
 get the correct relative time from klog
@@ -96,6 +98,7 @@ class Toolbox():
         return res
 
     def open_file(self, fn):
+        ''' open and read file '''
         with open(fn, 'rt', encoding='utf-8') as fin:
             fileobj = fin.readlines()
             self.parse_log(fileobj)
@@ -108,7 +111,7 @@ class Toolbox():
         '''
         cnt = 0
         oldupt = -1
-        ret_delta = None
+        #ret_delta = None
         for ln in fileobj:
             cnt += 1
             m = re.findall(r'^<\d+>\[\s*(\d+)\.(\d+)\] (.*)$', ln)
@@ -118,22 +121,22 @@ class Toolbox():
                 upt = float(m[0][0] + '.' + m[0][1])
 
                 if upt < oldupt:
-                    print("[WARN] uptime got smaller at {} line:\n{}".format(cnt, ln))
+                    print(f"[WARN] uptime got smaller at {cnt} line:\n{ln}")
                 oldupt = upt
 
                 msg = m[0][2]
                 if len(msg) == 0:
-                    print("<no msg?> [{}] {}".format(upt, msg))
+                    print(f"<no msg?> [{upt}] {msg}")
                 else:
-                    ret = self.parse_ddd(msg, uptis, uptus, cnt)
+                    ret = self.parse_ddd(msg, uptis, uptus)
                     if ret:
-                        print("{} [kdate]: {}".format(cnt, ln), end='')
-                        ret_delta = ret
+                        print(f"{cnt} [kdate]: {ln}", end='')
+                        #ret_delta = ret
 
             else:
-                print("{} [kdate]: {}".format(cnt, ln))
+                print("{cnt} [kdate]: {ln}")
 
-    def parse_ddd(self, msg, uptis, uptus, cnt):
+    def parse_ddd(self, msg, uptis, uptus):
         '''
         parse __ddd__ line ==>
         <6>[   21.610937] ddd: timestamp 1970-01-10 02:04:37.818
