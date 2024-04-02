@@ -21,6 +21,10 @@ if os.path.exists(UTILPATH):
 
 import myutil
 
+
+MyDebug = myutil.MyDebug
+MyVerbose = myutil.MyVerbose
+
 def get_home():
     ''' get home dir '''
     return HOME

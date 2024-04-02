@@ -7,9 +7,10 @@
 '''
 
 import os
+from .debug_verbose import MyDebug
 
 __MODULE__ = "DefaultConfig"
-__VERSION__ = "2024.03.29"
+__VERSION__ = "2024.04.02"
 
 
 def _isdir(d):
@@ -21,11 +22,11 @@ def _isfile(f):
     return os.path.isfile(f)
 
 
-class DefaultConfig():
+class DefaultConfig(MyDebug):
     ''' a class helps to look up in default order '''
 
     def __init__(self, filename, debug=False):
-        self.debug = debug
+        super().__init__(debug) # MyDebug
         self.fn = filename
         self.paths = []
         self.__prepare_paths()
@@ -35,7 +36,7 @@ class DefaultConfig():
         if _isfile(f):
             self.paths.append(f)
         else:
-            self.logd(f'[warn] not found: {f}')
+            self._log(f'[warn] not found: {f}')
 
     def __prepare_paths(self):
         ''' prepare paths '''
@@ -51,20 +52,21 @@ class DefaultConfig():
         tmp = os.path.join('./',  self.fn)
         self.__append_if_isfile(tmp)
 
-        msg = f'__prepare_paths: {self.paths}'
-        self.logd(msg)
+        # msg = f'__prepare_paths: {self.paths}'
+        # self._log(msg)
 
-    def logd(self, msg):
-        ''' print log '''
-        if self.debug:
-            print(f'{__MODULE__}: {msg}')
+    def _log(self, *args, **wargs):
+        ''' my own log '''
+        if 'tag' not in wargs:
+            wargs['tag'] = __MODULE__
+        self.logd(*args, **wargs)
 
     def get_default_config(self):
         ''' search config file in default paths '''
-        self.logd(self.paths)
+        self._log(f'get_default_config: paths: {self.paths}')
         for p in self.paths:
-            if os.path.exists(p):
-                self.logd(p)
+            if _isfile(p):
+                self._log('got:', p)
                 return p
         return None
 

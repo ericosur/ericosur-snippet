@@ -22,9 +22,12 @@ def read_jsonfile(fn:str, debug=False):
 
     # method #1
     with open(fn, 'r', encoding='utf8') as fstream:
-        data = json.load(fstream)
-    # kiss method #2
-    #data = json.load(open(fn))
+        try:
+            data = json.load(fstream)
+        except json.decoder.JSONDecodeError as e:
+            print('error while processing:', fn)
+            print('json.decoder.JSONDecodeError:', e)
+            return None
     return data
 
 
