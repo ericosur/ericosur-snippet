@@ -1,13 +1,17 @@
 # coding: utf-8
 
+'''
+data classes like C struct
+'''
+
 from dataclasses import dataclass
 
 @dataclass
 class UserData:
+    ''' data class '''
     name: str
     age: int
     city: str
-
 
 def main():
     ''' main '''
