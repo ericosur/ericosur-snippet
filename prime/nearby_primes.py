@@ -8,9 +8,9 @@ given cli argument to get lower/upper prime
 
 import argparse
 import random
-from store import GetConfig, sep
+from store import GetConfig, sep, MyDebug, MyVerbose
 
-MODNAME = 'nearby_primes.py'
+MODNAME = 'NearbyPrimes'
 VERSION = '2024.03.11'
 USE_LCP = False
 
@@ -21,29 +21,26 @@ else:
     from store import StorePrime
 
 
-class NearbyPrimes():
+class NearbyPrimes(MyDebug, MyVerbose):
     ''' list nearby primes '''
 
     # small, big, large, h211...
     CONFIG_KEY = 'big'
     _min = 101
 
-    def __init__(self):
+    def __init__(self, debug=False, verbose=False):
         ''' init '''
+        MyDebug.__init__(self, debug, tag=MODNAME)
+        MyVerbose.__init__(self, verbose, tag=MODNAME)
         self.values = []
-        self._verbose = False
-        self._debug = False
         self.prime = None
         self._max = -1
-
 
     def validate_values(self):
         ''' validate values '''
         self._max = self.prime.at(self.prime.get_count() - 1)
         if self.values == []:
-            if self.verbose:
-                print(f"Use random number between {self._min}, {self._max}")
-                sep()
+            self.logv(f"Use random number between {self._min}, {self._max}")
             REPEAT = 1
             for _ in range(REPEAT):
                 r = random.randint(self._min, self._max)
@@ -109,24 +106,23 @@ class NearbyPrimes():
 
     def show_prime_obj(self):
         ''' show prime obj '''
-        if self.verbose:
-            print(self.prime)
-            sep()
+        msg = str(self.prime)
+        self.logv('prime:', msg)
 
 
     def action(self):
         ''' main function '''
         txtfn, pfn, cpfn = NearbyPrimes.wrap_config()
 
-        if self.debug:
-            #print(f'{self.verbose=}')
-            print(f'{self.values=}')
-            print(f'{txtfn=}\n{pfn=}\n{cpfn=}')
+        self.logd(f'{self.values=}')
+        self.logd(f'{txtfn=}, {pfn=}, {cpfn=}')
 
         if USE_LCP:
+            self.logd('Use LoadCompressPrime...')
             self.prime = LoadCompressPrime(txtfn, cpfn,
                 verbose=self.verbose, debug=self.debug)
         else:
+            self.logd('Use StorePrime...')
             self.prime = StorePrime(txtfn, pfn,
                 verbose=self.verbose, debug=self.debug)
 

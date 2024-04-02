@@ -9,6 +9,7 @@ import argparse
 import random
 from store import GetConfig, make_arrow, StorePrime
 
+MODNAME = 'run_example'
 LCP_READY = False
 try:
     from store import LoadCompressPrime
@@ -75,6 +76,10 @@ def wrap_config(args):
     cpfn = obj.get_full_path("compress_pickle")
     return txtfn, pfn, cpfn
 
+def logd(*args, **wargs):
+    ''' local logd '''
+    print(f'{MODNAME}:', *args, **wargs)
+
 def main():
     ''' main function '''
     parser = argparse.ArgumentParser(description='''
@@ -92,17 +97,24 @@ def main():
     parser.add_argument("-3", "--large", action='store_true', help='use large config')
     parser.add_argument("-4", "--h119", action='store_true', help='use h119 config')
     parser.add_argument("-5", "--h422", action='store_true', help='use h119 config')
+    parser.add_argument("-v", "--verbose", action='store_true', default=False,
+        help='verbose mode')
+    parser.add_argument("-d", "--debug", action='store_true', default=False,
+        help='debug mode')
+
     args = parser.parse_args()
 
     txtfn, pfn, cpfn = wrap_config(args)
 
     if args.lcp and LCP_READY:
-        #print('args.lcp...')
-        with LoadCompressPrime(txtfn=txtfn, pfn=cpfn) as lcp:
+        logd('Using LoadCompressPrime...')
+        with LoadCompressPrime(txtfn=txtfn, pfn=cpfn, debug=args.debug,
+            verbose=args.verbose) as lcp:
             test(args.ints, lcp)
     else:
-        #print('args.sp...')
-        with StorePrime(txtfn=txtfn, pfn=pfn) as sp:
+        logd('Using StorePrime...')
+        with StorePrime(txtfn=txtfn, pfn=pfn, debug=args.debug,
+            verbose=args.verbose) as sp:
             test(args.ints, sp)
 
 if __name__ == '__main__':
