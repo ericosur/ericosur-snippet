@@ -27,6 +27,8 @@ def sep():
     ''' sep '''
     print('-------------------------')
 
+is_file = isfile
+is_dir = isdir
 
 # sort by alphatic if possible
 __all__ = [
@@ -39,6 +41,8 @@ __all__ = [
     'get_offset_from_year',
     'get_python_version',
     'get_python_versions',
+    'is_dir',
+    'is_file',
     'is_leapyear',
     'is_path_exist',
     'isdir',
