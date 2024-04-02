@@ -11,7 +11,7 @@ import pickle
 import re
 from time import time
 from .query_prime import QueryPrime
-from .debug_verbose import MyDebug, MyVerbose
+from .load_myutil import MyDebug, MyVerbose
 
 
 MODNAME = "StorePrime"
@@ -35,8 +35,10 @@ def show(v, p, q):
 class StorePrime(MyDebug, MyVerbose, QueryPrime):
     ''' class will help to handle read pickle file '''
 
+    tag = 'StorePrime'
+
     def __init__(self, txtfn="small.txt", pfn="small.p",
-                verbose=False, debug=False):
+                debug=False, verbose=False):
         # super init
         MyDebug.__init__(self, debug)
         MyVerbose.__init__(self, verbose)
@@ -44,16 +46,15 @@ class StorePrime(MyDebug, MyVerbose, QueryPrime):
 
         self.need_save = False
         self.config = {'pfn': pfn, 'txtfn': txtfn}
-        self.debug = debug
-        self.verbose = verbose
+        self._info(f'__init__(): debug:{self.debug}, verbose:{self.verbose}')
 
     def __enter__(self):
-        #print('__enter__')
+        self._info("__enter__")
         self.__load_pickle()
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
-        #print('__exit__')
+        self._info("__exit__")
         if self.primes and not os.path.exists(self.config.get('pfn')):
             self.save_pickle()
 
@@ -66,29 +67,35 @@ class StorePrime(MyDebug, MyVerbose, QueryPrime):
         msg = f'min: 2, max: {pmax:,}, total primes: {psize:,}'
         return msg
 
-    def info(self, msg):
+    def _info(self, *args, **wargs):
         ''' print info '''
-        if self.debug:
-            print(f'{MODNAME}: {msg} ...')
+        if 'tag' not in wargs:
+            wargs['tag'] = MODNAME
+        self.logd(*args, **wargs)
+
+    def logv(self, *args, **wargs):
+        ''' print verbose '''
+        if self.verbose:
+            print(*args, **wargs)
 
     def get_ready(self):
         ''' load prime data '''
-        self.info("get_ready")
+        self._info("get_ready")
         if self.primes is None:
-            self.info("call self.__load_pickle")
+            self._info("call self.__load_pickle")
             self.__load_pickle()
 
-    @staticmethod
-    def get_local_data_path():
+    def get_local_data_path(self):
         ''' get data file from local '''
-        print(f'[INFO] {MODNAME}: try local data dir...')
         p =  os.path.join(os.getenv('HOME'), '.prime')
         if os.path.exists(p):
+            self.logv(f'[INFO] {MODNAME}: get_local_data_path: {p}')
             return p
         return ''
 
     def try_pickle_file(self):
         ''' try_pickle_file '''
+        self._info('try_pickle_file()')
         if not os.path.exists(self.config['pfn']):
             p = self.get_local_data_path()
             f = os.path.join(p, self.config['pfn'])
@@ -99,6 +106,7 @@ class StorePrime(MyDebug, MyVerbose, QueryPrime):
 
     def try_text_file(self):
         ''' try_text_file '''
+        self._info('try_text_file()')
         if not os.path.exists(self.config['txtfn']):
             p = self.get_local_data_path()
             f = os.path.join(p, self.config['txtfn'])
@@ -109,29 +117,30 @@ class StorePrime(MyDebug, MyVerbose, QueryPrime):
 
     def load_pickle_impl(self) -> bool:
         ''' load pickle implementation '''
-        self.info("load_pickle_impl")
+        self._info("load_pickle_impl()")
         start = time()
+        #self._info('call try_pickle_file()...')
         self.try_pickle_file()
         with open(self.config['pfn'], "rb") as inf:
             self.primes = pickle.load(inf)
             self.need_save = False
         duration = time() - start
-        if self.verbose:
-            print(f'[INFO] {MODNAME}: load_pickle_impl() from {self.config["pfn"]}')
-            print(f'[INFO] {MODNAME}: duration: {duration:.3f} sec')
+
+        self.logv(f'[INFO][{MODNAME}]: load_pickle_impl() from {self.config["pfn"]}')
+        self.logv(f'[INFO][{MODNAME}]: duration: {duration:.3f} sec')
         return True
 
     def __load_pickle(self):
         ''' load pickle file, or from text '''
-        self.info("__load_pickle")
+        self._info("__load_pickle()")
         try:
-            self.info("call self.load_pickle_impl()")
+            self._info("call self.load_pickle_impl()")
             return self.load_pickle_impl()
         except FileNotFoundError:
             print(f'[INFO] {MODNAME}: pickle not found, try to load text file')
             self.primes = []
 
-        self.info("call self.try_text_file")
+        self._info("call self.try_text_file")
         self.try_text_file()
         start = time()
         with open(self.config['txtfn'], "rt", encoding='utf8') as txtinf:
@@ -151,27 +160,26 @@ class StorePrime(MyDebug, MyVerbose, QueryPrime):
                 else:
                     error_count += 1
         duration = time() - start
-        if self.verbose:
-            print(f'[INFO] {MODNAME}: load from text file {self.config["txtfn"]}', end=' ')
-            print(f'duration: {duration:.3f} sec')
+        self.logv(f'[INFO][{MODNAME}]: load from text file {self.config["txtfn"]}', end=' ')
+        self.logv(f'duration: {duration:.3f} sec')
         return True
 
     def save_pickle_impl(self):
         ''' implementation of save pickle '''
-        self.info("__save_pickle_impl")
+        self._info("save_pickle_impl()")
         with open(self.config['pfn'], 'wb') as outf:
             pickle.dump(self.primes, outf)
-        print(f'[INFO] {MODNAME} save pickle as {self.config["pfn"]}')
+        print(f'[INFO][{MODNAME}] save pickle as {self.config["pfn"]}')
 
     def save_pickle(self):
         ''' save primess into pickle file '''
-        self.info("save_pickle")
+        self._info("save_pickle()")
         if self.primes is None:
             return
         if self.need_save:
             self.save_pickle_impl()
         else:
-            print(f'[INFO] {MODNAME} no need to save')
+            print(f'[INFO][{MODNAME}] no need to save')
 
 
     def test(self, v: int):

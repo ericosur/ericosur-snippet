@@ -32,23 +32,25 @@ class LoadCompressPrime(StorePrime):
     this class inherits from StorePrime and overrides load_pickle() and
     save_pickle(), which are using "compress_pickle" to load/save pickle data
     '''
+
+    tag = 'LoadCompressPrime'
+
     def __init__(self, txtfn="small.txt", pfn="small.p.lzma",
-                verbose=False, debug=False):
-        super().__init__(txtfn, pfn, verbose, debug)
-        #print('__init__')
+                debug=False, verbose=False):
+        super().__init__(txtfn, pfn, debug, verbose)
+        self.logd('__init__()', tag=self.tag)
 
     def load_pickle_impl(self):
         ''' overrides StorePrime::load_pickle_impl() '''
+        self.logd('enter load_pickle_impl()...', tag=self.tag)
         start = time()
         super().try_pickle_file()
         self.primes = compress_pickle.load(self.config["pfn"])
         self.need_save = False
-        #print(f'deubg: lcp: verbose: {self.verbose}')
-        if self.verbose:
-            print(f'{MODNAME}: primes from:', self.config["pfn"])
+
+        self.logv(f'{self.tag}: primes from:', self.config["pfn"])
         duration = time() - start
-        if self.verbose:
-            print(f'{MODNAME}: duration: {duration:.3f} sec')
+        self.logv(f'{self.tag}: duration: {duration:.3f} sec')
         return True
 
     def save_pickle_impl(self):
@@ -56,9 +58,10 @@ class LoadCompressPrime(StorePrime):
         save primes into pickle file
         overrides class StorePrime::save_pickle_impl()
         '''
+        self.logd('enter save_pickle_impl()...', tag=self.tag)
         #compress_pickle.dump(self.primes, self.pfile, compression="lzma")
         compress_pickle.dump(self.primes, self.config["pfn"])
-        print(f'[INFO] {MODNAME} save pickle as {self.config["pfn"]}')
+        self.logv(f'{self.tag}: save pickle as {self.config["pfn"]}')
 
 if __name__ == '__main__':
     print('run **run_example.py --lcp** to see the demo of this implementation...')

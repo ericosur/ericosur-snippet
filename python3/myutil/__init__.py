@@ -14,7 +14,7 @@ __VERSION__ = '2024.04.01'
 from .commonutil import clamp
 from .commonutil import get_home, print_stderr, read_from_stdin
 from .commonutil import is_path_exist, isfile, isdir
-from .debug_verbose import MyDebug, MyVerbose
+from .debug_verbose import MyDebug, MyVerbose, die
 from .hashutil import md5sum, sha1sum, sha256sum
 from .jsonutil import read_setting, read_textfile, read_jsonfile, write_jsonfile
 from .mydateutil import get_dow, is_leapyear, get_offset_from_year, get_doom_num
@@ -31,6 +31,7 @@ def sep():
 # sort by alphatic if possible
 __all__ = [
     'clamp',
+    'die',
     'get_dow',
     'get_doom_num',
     'get_epoch',
