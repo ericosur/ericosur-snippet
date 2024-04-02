@@ -18,10 +18,12 @@ from random import randint
 from time import time
 
 sys.path.insert(0, '../')
-from store import make_arrow
+from store import make_arrow, die, is_file, read_textfile
 
 MODNAME = "use_primesieve"
-VERSION = "2024.03.27"
+VERSION = "2024.04.02"
+
+DEBUG = False
 
 def show_duration(duration):
     ''' show duration '''
@@ -47,9 +49,9 @@ class Solution():
 
     def _check(self):
         ''' check if binary is available '''
-        if not os.path.exists(self.BINARY):
-            print(f'[FAIL] not found: {self.BINARY}')
-            sys.exit(-1)
+        if not is_file(self.BINARY):
+            die(f'[FAIL] not found: {self.BINARY}')
+            return
 
     def set_target(self, val):
         ''' set target or use the default '''
@@ -89,27 +91,13 @@ class Solution():
             return i
         return -1
 
-    def read_text_file(self, itxtfn):
+    @staticmethod
+    def read_text_file(itxtfn):
         ''' process file '''
-        cnt = 0
-        #print(f'read from {itxtfn}...')
-        with open(itxtfn, "rt", encoding='UTF-8') as fin:
-            for ln in fin.readlines():
-                ln = ln.strip()
-                if len(ln) == 0:
-                    continue
-                if ln.find("#") >= 0:
-                    continue
-                cnt += 1
-                #print(f'{cnt},{ln}')
-                try:
-                    n = int(ln)
-                    self.p.append(n)
-                except ValueError:
-                    print(f'error at: {cnt}: {ln}')
-                    continue
+        ret = read_textfile(itxtfn, debug=DEBUG)
         # remove the temp file
         os.unlink(itxtfn)
+        return ret
 
     def input_txtfile_re(self, itxtfn):
         ''' process file '''
@@ -117,8 +105,7 @@ class Solution():
         r = re.compile(r'\b\d+\b')
         print(f'read from {itxtfn}...')
         with open(itxtfn, "rt", encoding='UTF-8') as fobj:
-            for ln in fobj.readlines():
-                ln.strip()
+            for ln in fobj.readlines().strip():
                 cnt += 1
                 m = r.findall(ln)
                 if m:
@@ -174,7 +161,7 @@ class Solution():
 
         start = time()
         os.system(cmd)
-        self.read_text_file(self.TMPFN)
+        self.p = self.read_text_file(self.TMPFN)
         if len(self.p) == 0:
             print(f'[WARN] picked range is too small to use for {self.target}')
 
@@ -208,7 +195,7 @@ def main(argv):
             pass
     # demo mode
     if len(inputs) == 0:
-        for _ in range(3):
+        for _ in range(1):
             # pick the radix of 10, MUST be < 19
             rad = randint(5, 18)
             inputs.append(randint(10**(rad-1), 10**rad))
