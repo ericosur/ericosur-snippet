@@ -1,33 +1,18 @@
 #!/usr/bin/python3
 # coding: utf-8
+#
+# pylint: disable=wrong-import-position
+#
 
 '''
-brief description for this script
+read json and list
 '''
 
-import json
-import os
 
+import sys
 
-def read_jsonfile(fn, debug=False):
-    '''
-    specify json filename and return whole json object
-    '''
-    if debug:
-        print(f'load json from {fn}')
-    if not os.path.exists(fn):
-        print('file not found')
-        return None
-    # read from json file
-
-    # method #1
-#    with open(filename) as sec_file:
-#        data = json.load(sec_file)
-
-    # kiss method #2
-    with open(fn, 'rt', encoding='utf8') as fobj:
-        data = json.load(fobj)
-    return data
+sys.path.insert(0, "..")
+from myutil import read_jsonfile
 
 
 def main():
