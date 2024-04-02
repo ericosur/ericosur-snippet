@@ -10,15 +10,17 @@ calculate total working days
 
 import sys
 sys.path.insert(0, "..")
-from myutil import read_jsonfile, DefaultConfig, print_stderr
-from myutil import is_leapyear, clamp, WhatNow
+from myutil import read_jsonfile, DefaultConfig
+from myutil import is_leapyear, clamp, WhatNow, MyDebug, die
 
-class CalcWork():
+TAG = "CalcWork"
+
+class CalcWork(MyDebug):
     ''' calc work class '''
     DATA_FILE = 'working-days.json'
-    DEBUG = False
 
     def __init__(self):
+        super().__init__(False)  # MyDebug
         self.conf = ""
         self.data = None
         self.max_year = None
@@ -26,26 +28,26 @@ class CalcWork():
         self.all_days = []
         self._load_conf()
 
-    def logd(self, *args, **kwargs):
-        '''
-        from: https://stackoverflow.com/questions/5574702/how-to-print-to-stderr-in-python
-        '''
-        if self.DEBUG:
-            print("[DEBUG] ", file=sys.stderr, end='')
-            print(*args, file=sys.stderr, **kwargs)
+    def _log(self, *args, **wargs):
+        ''' my own log '''
+        if 'tag' not in wargs:
+            wargs['tag'] = TAG
+        self.logd(*args, **wargs)
 
     def _load_conf(self):
         ''' load conf '''
-        datafile = DefaultConfig(self.DATA_FILE).get_default_config()
-        self.logd('read data from:', datafile)
+        self._log("_load_conf()...", tag=TAG)
+        datafile = DefaultConfig(self.DATA_FILE, debug=False).get_default_config()
+        self._log(f'read data from: {datafile}', tag=TAG)
         if not datafile:
-            print_stderr('[FAIL] config file not found')
-            sys.exit(1)
+            die('[FAIL] config file not found', self.DATA_FILE)
+            return
 
         self.data = read_jsonfile(datafile)
         if not self.data:
-            print_stderr('[FAIL] cannot load data')
-            sys.exit(1)
+            die('[FAIL] cannot load data')
+            return
+
         self.max_year = self.data['maxyear']
         self.min_year = self.data['minyear']
 
