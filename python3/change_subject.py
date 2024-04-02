@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 # coding: utf-8
+#
+# pylint: disable=invalid-name
+#
 
 '''
 Change the value of a specified key "subject" in a json file.
@@ -8,8 +11,6 @@ The other keys/fields will not be changed.
 try this:
     python3 change_subject.py 2>/dev/null && cat /tmp/__out__.json
 '''
-
-# pylint: disable=invalid-name
 
 import json
 import sys
