@@ -46,6 +46,7 @@ class MontyHall():
         ans = 1
         cnt_car = 0
         cnt_goat = 0
+        print(f'repeat={cls.REPEAT}, start...')
         start = time()
         for _ in range(cls.REPEAT):
             choose1 = randint(1, cls.DOORS)
@@ -61,7 +62,7 @@ class MontyHall():
         print(f'cnt_car:{cnt_car}, cnt_goat:{cnt_goat}')
         r = cnt_car / cls.REPEAT
         print(f'ratio: {r:.4f}, distance to expected: {abs(r-cls.EXPECTED):.4f}')
-        print(f'it takes {duration} sec')
+        print(f'it takes {duration:.3f} sec')
 
 def main():
     ''' main '''
