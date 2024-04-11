@@ -1,11 +1,18 @@
 #!/usr/bin/env python3
 # coding: utf-8
+#
+### py/lint: disable=wrong-import-position
+#
 
 '''
-brief description for this script
+A simple python template that ultilize argparse to take CLI arguments
 '''
 
 import argparse
+
+#import sys
+#sys.path.insert(0, "..")
+#from myutil import MyDebug
 
 def main():
     ''' main '''
