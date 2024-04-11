@@ -12,6 +12,7 @@ similar to "sha256sum -c SHA256SUM"
 
 '''
 
+import argparse
 import sys
 
 try:
@@ -22,17 +23,18 @@ except ImportError:
     sys.exit(1)
 
 sys.path.insert(0, "..")
-from myutil import isfile, read_textfile, sha256sum, MyDebug
+from myutil import isfile, read_textfile, sha256sum, MyDebug, MyVerbose
 
-
-class Solution(MyDebug):
+class Solution(MyDebug, MyVerbose):
     ''' solution to read en.xml and output as csv-like data '''
 
-    def __init__(self):
-        super().__init__(False)
-        self.fn = 'digest.rdf'
+    def __init__(self, debug=False, verbose=False):
+        super().__init__(debug)
+        MyVerbose.__init__(self, verbose)
+        self.rdfs = []
         self.content = None
         self.digests = []
+        self.check = False
 
     def make_soup(self) -> None:
         ''' parse xml from content, store into self.emoji '''
@@ -45,8 +47,15 @@ class Solution(MyDebug):
             ds = i.find("digest:sha256")
             pair["hash"] = ds.getText()
             self.digests.append(pair)
-        if self.debug:
-            print("len:", len(self.digests))
+        self.logd("len:", len(self.digests))
+
+    def set_rdf(self, rdf):
+        ''' set rdf '''
+        self.rdfs = rdf
+
+    def set_check(self, yesNo):
+        ''' check or not '''
+        self.check = yesNo
 
     @staticmethod
     def _sha256sum(f, d):
@@ -54,7 +63,14 @@ class Solution(MyDebug):
         s256 = sha256sum(f)
         return s256 == d
 
-    def dump(self):
+    def dump_digest(self):
+        ''' dump digests '''
+        for i in self.digests:
+            h = i.get('hash')
+            f = i.get('file')
+            print(f'{h}  {f}')
+
+    def check_digest(self):
         ''' dump self.digests '''
         for p in self.digests:
             the_file = p['file']
@@ -66,32 +82,45 @@ class Solution(MyDebug):
                 else:
                     print("NG")
             else:
-                if self.debug:
-                    print(f'not found: {the_file}')
-
+                self.logv(f'file not found: {the_file}')
 
     def action(self) -> None:
         ''' action '''
-        self.debug = False
-        print(f'parsing {self.fn}...')
-        self.content = read_textfile(self.fn)
-        #print('[DEBUG]', self.content)
+        for f in self.rdfs:
+            print(f'parsing {f}...', file=sys.stderr)
+            self.content = read_textfile(f)
+            self.logd('content: ', self.content)
 
-        # parsing xml and store into list()
-        self.make_soup()
-        if self.digests:
-            self.dump()
+            # parsing xml and store into list()
+            self.make_soup()
+            if self.check:
+                self.check_digest()
+            else:
+                self.dump_digest()
 
     @classmethod
-    def run(cls):
+    def run(cls, files, check, verbose):
         ''' run '''
-        obj = cls()
+        obj = cls(verbose=verbose)
+        obj.set_rdf(files)
+        obj.set_check(check)
         obj.action()
 
 
 def main():
     ''' main '''
-    Solution.run()
+    parser = argparse.ArgumentParser(description='parse rdf file and perform checksum',
+                    epilog='try ```rdf_parse.py digest.rdf -c```')
+    # nargs like regexp, '*' means 0+, '+' means 1+
+    parser.add_argument("files", metavar='file', type=str, nargs='+',
+        help="show these strings")
+    parser.add_argument("-c", "--check", action='store_true', default=False,
+        help='perform checksum check')
+    parser.add_argument("-v", "--verbose", action='store_true', default=False,
+        help='verbose mode')
+
+    args = parser.parse_args()
+    Solution.run(args.files, check=args.check, verbose=args.verbose)
 
 if __name__ == '__main__':
     main()
