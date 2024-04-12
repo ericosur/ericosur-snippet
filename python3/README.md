@@ -3,9 +3,11 @@ Readme
 
 ## myutil
 
-in order not to copy myutil.py everywhere
-default path $HOME/src/ericosur-snippet/python3
+The myutil now is a package of modules, not a single file.
+The default path $HOME/src/ericosur-snippet/python3
 
+python: use ```sys.path.insert()``` to add the default path.
+bash: append default path into **PYTHONPATH** environment variable
 
 ```python
 #
@@ -21,6 +23,15 @@ if os.path.exists(UTILPATH):
     sys.path.insert(0, UTILPATH)
 
 from myutil import require_python_version
+```
+
+If use a bootstrip script to launch the python script, add the following
+snippet before running the script.
+
+```bash
+base_d=src/ericosur-snippet/python3
+export PYTHONPATH=$PYTHONPATH:${HOME}/${base_d}
+python3 foobar.py
 ```
 
 ## config / data serialization
@@ -39,7 +50,9 @@ from myutil import require_python_version
 
 The minimum python version to support f-strings is python 3.6.
 
-### use conda
+### conda tips
+
+note: here I use 'goto.sh'
 
 ```
 source $(goto -x conda)/conda.sh
