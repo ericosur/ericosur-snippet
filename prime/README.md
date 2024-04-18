@@ -4,7 +4,7 @@
 
 [TOC]
 
-###### tags: ```python3``` ```script``` ```python``` ```prime``` ```shuf``` ```sed``` ```cut```
+tags: ```python3``` ```script``` ```python``` ```prime``` ```shuf``` ```sed``` ```cut```
 
 ## scripts
 
@@ -24,9 +24,9 @@
 
 ## prime number table
 
-* basic_prime.txt: prime numbers under 1,000 (first is 2, last is 991, with 168 prime numbers)
-* prime_100k.txt: 100,000 prime numbers (last is 1,299,709)
-* prime_1M.txt: one million prime numbers (last is 15,485,863)
+- basic_prime.txt: prime numbers under 1,000 (first is 2, last is 991, with 168 prime numbers)
+- prime_100k.txt: 100,000 prime numbers (last is 1,299,709)
+- prime_1M.txt: one million prime numbers (last is 15,485,863)
 
 > tables could be downloaded at
 [millions primes](http://primes.utm.edu/lists/small/millions/)
@@ -40,7 +40,7 @@ The format of prime_100k.txt is:
 id  prime
 \d+\s+\d+
 
-```
+```bash
 head -100 prime_100k.txt | cut -d ' ' -f 2
 ```
 
@@ -49,40 +49,40 @@ head -100 prime_100k.txt | cut -d ' ' -f 2
 big.txt and large.txt are rather large file, use **shuf** to pick random lines
 from such file
 
-```
-shuf -n 10 large.txt
-```
+``` shuf -n 10 large.txt ```
+
 and use **check_prime.py** to test
-```
-shuf -n 10 large.txt | python3 check_prime.py -
-```
+
+``` shuf -n 10 large.txt | python3 check_prime.py - ```
 
 ### pick specified line from file
 
 print line 23 from large.txt (show the 23rd prime)
 
-```
+```bash
 sed -n 23p large.txt
 ```
 
 print line 100 to 120
-```
+
+```bash
 sed -n 100,120p large.txt
 ```
 
 ## somehow curios
 
-* $2^2+3^2+4^2=29$
-* $2^3+3^2$ means $8+9$
-* $064810$ means $0 \cdot 8^2 \cdot 9^2 \cdot 0$
+- $2^2+3^2+4^2=29$
+- $2^3+3^2$ means $8+9$
+- $064810$ means $0 \cdot 8^2 \cdot 9^2 \cdot 0$
 
 ### web sites
-  - https://t5k.org/curios/page.php/56.html
-  - OEIS On-Line Encyclopedia of Integer Sequences
+
+- <https://t5k.org/curios/page.php/56.html>
+- OEIS On-Line Encyclopedia of Integer Sequences
 
 ## primesieve
 
-```
+```text
 jeff:~$ primesieve 2147483648000 --time
 Sieve size = 256 KiB
 Threads = 16
@@ -130,7 +130,8 @@ Primes: 78502287015
 
 - use big.txt
 - jeff.local, py3.8.10, --clear-cache
-```
+
+```text
 function      average, s  min, s  ratio
 wccount             0.03   0.029   1.00
 bufcount           0.037   0.037   1.28
@@ -140,8 +141,10 @@ opcount              0.1     0.1   3.60
 mapcount            0.11    0.11   3.71
 simplecount         0.11    0.11   3.82
 ```
+
 - tuf.local, conda py3.10, --clear-cache
-```
+
+```text
 function      average, s  min, s  ratio
 wccount            0.044   0.034   1.00
 bufcount           0.048   0.042   1.24
@@ -151,8 +154,10 @@ kylecount           0.17    0.16   4.82
 simplecount         0.17    0.16   4.90
 opcount             0.19    0.18   5.42
 ```
+
 - tuf.local, conda py3.9.17 --clear-cache
-```
+
+```text
 function      average, s  min, s  ratio
 wccount             0.03   0.028   1.00
 bufcount           0.043   0.037   1.32
@@ -162,8 +167,10 @@ mapcount            0.18    0.16   5.62
 kylecount           0.17    0.16   5.67
 simplecount         0.18    0.17   6.02
 ```
+
 - kitty.local, py3.10.12 --clear-cache
-```
+
+```text
 function      average, s  min, s  ratio
 itercount           0.33    0.28   1.00
 mapcount            0.43    0.28   1.00
@@ -176,7 +183,7 @@ wccount             0.76    0.41   1.48
 
 ### old
 
-```
+```text
  function      average, s  min, s  ratio
  wccount            0.005  0.0042   1.00
  bufcount          0.0081  0.0081   1.91
@@ -234,6 +241,6 @@ wccount             0.76    0.41   1.48
 
 ## references
 
-* http://prime-numbers.org/
-* http://primes.utm.edu/lists/small/millions/
-* https://www.geeksforgeeks.org/special-prime-numbers/
+- <http://prime-numbers.org/>
+- <http://primes.utm.edu/lists/small/millions/>
+- <https://www.geeksforgeeks.org/special-prime-numbers/>
