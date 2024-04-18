@@ -10,12 +10,25 @@ u8u16 tests, apply string directly from CLI or json file
 
 import json
 import sys
+from logd import logd
 from mytofrom import to_from_u8, to_from_u16, to_utf8
 
 sys.path.insert(0, "..")
-print(sys.path)
+#print(sys.path)
 from myutil import read_jsonfile
 
+
+def log(*args, **wargs):
+    ''' local log, turn of log() by chaning debug to False '''
+    logd(*args, **wargs, debug=True)
+
+def common_test(cc):
+    ''' common test '''
+    to_from_u8(cc)
+    to_from_u16(cc)
+    ret = to_utf8(cc)
+    t = 'to_utf8: '.rjust(16, ' ') + ret
+    print(t)
 
 def test0():
     '''
@@ -37,7 +50,7 @@ def test0():
 
 def test1():
     ''' test1 '''
-    print('test1...')
+    log('test1...')
     arr = [
         '\u2764\ufe0f',
         '\U0001f1e7\U0001f1f4',
@@ -52,10 +65,9 @@ def test1():
     #fn = 'out.json'
     #write_json(fn, payload)
 
-
 def test2():
     ''' test2 '''
-    print('test2...')
+    log('test2...')
     s = '漢  χαν  хан'
     #to_from_u8(s)
     to_from_u16(s)
@@ -65,17 +77,11 @@ def test2():
     s = '👨🏻‍🦰'
     to_from_u16(s)
 
-def common_test(cc):
-    ''' common test '''
-    to_from_u8(cc)
-    to_from_u16(cc)
-
-
 def test3():
     '''
     if I want to get utf-16-be encoding unicode escape, need json.dumps()
     '''
-    print('test3...')
+    log('test3...')
     cc = '\U0001f3c8'
     common_test(cc)
     cc = chr(0x0001f603)
@@ -83,7 +89,7 @@ def test3():
 
 def test4():
     ''' test4 '''
-    print('test4:')
+    log('test4:')
     cc = '\U0001faa2'
     common_test(cc)
 
@@ -95,11 +101,10 @@ def main(argv: list):
         #test2()
         #test3()
         test4()
-        sys.exit()
+        return
 
     for s in argv:
-        to_from_u16(s)
-        to_utf8(s)
+        common_test(s)
 
 if __name__ == '__main__':
     main(sys.argv[1:])

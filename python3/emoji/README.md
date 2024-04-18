@@ -1,48 +1,51 @@
 # README
 
-If you want to update emoji related data, just see section [2024-02-06]
+If you want to update emoji related data, just see section about **UPDATE**.
 
+This README describes how to translate emoji icons into unicode sequence for maximum compatability without losing any code. Normally using utf-8 encoding could keep most of information and ok to exchange. But emoji are not always perfectly editable in the editor. Currently I suggest that use **unicode escape sequence** to represent unicode characters.
 
-This README describes how to translate emoji icons into unicode sequence for
-maximum compatability without losing any code. Normally using utf-8 encoding
-could keep most of information and ok to exchange. But emoji are not always
-perfectly editable in the editor. Currently I suggest that use **unicode
-escape sequence** to represent unicode characters.
+## UPDATE
+
+- May check the latest release tag from <https://github.com/unicode-org/cldr.git>
+
+- and then run this script ```./runme.sh```
+
+### relation between scripts and data files
+
+- ```read_enxml.py``` vs ```wtf.csv```
+- ```parse_enxml.py``` vs
+  - en_emoji.py
+  - zh_emoji.py
 
 ## basics
 
-### flow
+For example the test string ```❤️🇧🇴🙋‍♀️🏈😃```
 
-for example I got a test string:
-```
-❤️🇧🇴🙋‍♀️🏈😃
-```
+For newer version of ubuntu and text editors. This string token could be displayed and edited correctly. You need up-to-date emoji font and text rendering system.
 
-Such string could be safely displayed and edited with **sublime text 3**
-in ubuntu 18.04. But it is not properly displayed nor edited at windows and
-ubuntu 16.04.
-UPDATE: with proper emoji fonts and later version of **sublime text 3**, these emoji characters should be colorful
+### scripts
 
-To avoid losing information, transfrom such string into unicode sequence could be a safe way to keep such string.
+Run ```u8u16.py ❤️```, you will get:
 
-```
-$ ./u8u16.py ❤️
-❤️
+```text
+         input: ❤️
 unicode-escape: \u2764\ufe0f
       utf16-be: \u2764\ufe0f
-utf-8: e29da4efb88f
-
-$ ./u8u16.py 😃
-😃
-unicode-escape: \U0001f603
-      utf16-be: \ud83d\ude03
-utf-8: f09f9883
+       to_utf8: e29da4efb88f
 ```
 
-### json or qml
+Run ```u8u16.py 😃```, will get:
 
-json and qml using javascript sytle string literals, so using utf16-be would be
-good.
+```text
+         input: 😃
+unicode-escape: \U0001f603
+      utf16-be: \ud83d\ude03
+       to_utf8: f09f9883
+```
+
+### json & qml
+
+json and qml using javascript sytle string literals, so using utf16-be would be good.
 
 ```json
 {
@@ -51,7 +54,7 @@ good.
 ```
 
 ```qml
-    readonly property string smile: "\ud83d\ude03"
+readonly property string smile: "\ud83d\ude03"
 ```
 
 ### c++11
@@ -80,51 +83,33 @@ void unicode_char()
 
 ## unicode definition data files
 
-* CLDR
+- CLDR
 
-    * table for all [CLDR Releases/Downloads](http://cldr.unicode.org/index/downloads)
+  - table for all [CLDR Releases/Downloads](http://cldr.unicode.org/index/downloads)
 
-    * specify release file to download (manually), look for file like: [CLDR common](http://unicode.org/Public/cldr/37/cldr-common-37.0.zip)
+  - specify release file to download (manually), look for file like: [CLDR common](http://unicode.org/Public/cldr/37/cldr-common-37.0.zip)
 
-* emoji data files
+- emoji data files
 
-    * 2023-08-30 [emoji 15.1](https://unicode.org/Public/emoji/15.1/)
-        - ReadMe.txt
-        - emoji-sequences.txt
-        - emoji-test.txt
-        - emoji-zwj-sequences.txt
+  - 2023-08-30 [emoji 15.1](https://unicode.org/Public/emoji/15.1/)
+    - ReadMe.txt
+    - emoji-sequences.txt
+    - emoji-test.txt
+    - emoji-zwj-sequences.txt
 
-    * [emoji 15.0](https://unicode.org/Public/emoji/15.0/)
-        - ReadMe.txt
-        - emoji-sequences.txt
-        - emoji-test.txt
-        - emoji-zwj-sequences.txt
+    - [emoji 15.0](https://unicode.org/Public/emoji/15.0/)
+      - ReadMe.txt
+      - emoji-sequences.txt
+      - emoji-test.txt
+      - emoji-zwj-sequences.txt
 
-    * [emoji 13.1](https://unicode.org/Public/emoji/13.1/)
-        - ReadMe.txt
-        - emoji-sequences.txt
-        - emoji-test.txt
-        - emoji-zwj-sequences.txt
+    - [emoji 13.1](https://unicode.org/Public/emoji/13.1/)
+      - ReadMe.txt
+      - emoji-sequences.txt
+      - emoji-test.txt
+      - emoji-zwj-sequences.txt
 
+## history
 
-### 2021-11-09
-
-http://unicode.org/Public/cldr/40/
-
-
-### 2024-02-06
-
-- May check the latest release tag from https://github.com/unicode-org/cldr.git
-
-- and then run this script
-
-```
-$ ./runme.sh
-```
-
-script to generate data files:
-    - read_enxml.py
-        - wtf.csv
-    - parse_enxml.py
-        - \_emoji.py
-        - zh_emoji.py
+- 2021-11-09
+  - [CLDR40](http://unicode.org/Public/cldr/40/)

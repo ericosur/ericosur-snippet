@@ -145,7 +145,7 @@ class Solution():
             # parsing xml and store into list()
             self.make_soup(ret_dict)
             # output the results into emoji table in python
-            self.output_data('_emoji.py', ret_dict)
+            self.output_data('en_emoji.py', ret_dict)
 
     def action(self) -> None:
         ''' action '''

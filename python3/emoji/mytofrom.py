@@ -7,6 +7,7 @@ unicode escape sequence to utf-8 and backward
 
 import binascii as bi
 import json
+from logd import logd
 
 __version__ = '0.1'
 
@@ -14,17 +15,19 @@ def to_from_u8(cc: str):
     '''
     get unicode seq from utf-8
     '''
+    logd("to_from_u8")
     ue = cc.encode('unicode-escape').decode('utf-8')
     #print('to_from_u8: ue: ' + ue)
     return ue
 
-def to_utf8(cc: str):
+def to_utf8(cc: str) -> str:
     '''
     get utf-8
     '''
+    logd("to_uf8")
     bb = cc.encode('utf-8')  # bytes
     ret = bi.b2a_hex(bb).decode()
-    #print('utf-8: ' + ret)
+    #logd(f'type(ret): {type(ret)}')
     return ret
 
 def to_from_u16(cc: str):

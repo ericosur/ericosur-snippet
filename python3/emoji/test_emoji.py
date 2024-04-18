@@ -9,7 +9,7 @@ also see ../unicdoe/show_emojis.py
 import argparse
 import re
 
-from _emoji import EMOJI
+from en_emoji import EMOJI
 
 
 class Solution():
