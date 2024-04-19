@@ -11,6 +11,7 @@ read driving data table (at google drive) and calculate stastics
 '''
 
 import argparse
+import os
 import sys
 from datetime import date
 from math import floor
@@ -109,6 +110,10 @@ class DriveConfig(MyDebug):
         ''' get url '''
         return self.url
 
+    def get_default_local(self):
+        ''' get default local csv file path '''
+        return self.data.get("default_localdata")
+
     def dump_setting(self):
         ''' dump settings '''
         print('dump class DriveConfig:')
@@ -127,6 +132,7 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
 
         self.csvfile = ''
         self.url = ''
+        self.default_local = ''
         self.outputs = {}
         self._tag = 'DrivingData'
 
@@ -147,8 +153,15 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
         dc = DriveConfig()
         dc.read_setting(conf_file)
         self.url = dc.get_url()
+        self.default_local = dc.get_default_local()
         if self.debug:
             dc.dump_setting()
+
+    def apply_local(self):
+        ''' key: default_localdata'''
+        self._tag = 'apply_local'
+        self._log(f'default_local: {self.default_local}')
+        self.set_csvfile(self.default_local)
 
     def request_data(self):
         ''' request data and output to a csv file'''
@@ -341,15 +354,32 @@ def peek_target(desc_table, target):
     return ''
 
 
-def perform_show_driving_data(in_file=None, out_file=None, conf_file=None,
-    simpleout=False, verbose=False):
+def perform_show_driving_data(args):
     ''' universal starter '''
-    obj = DrivingData(verbose=verbose, simpleout=simpleout)
+    in_file = args.input
+    out_file = args.output
+    conf_file = args.conf
+    simpleout = args.excel
+    verbose = args.verbose
 
+    # if no config specified in cli parameters
+    if not conf_file:
+        # try environment variable
+        r = os.getenv('DRIVING_CONFIG')
+        if r:
+            conf_file = r
+
+    obj = DrivingData(verbose=verbose, simpleout=simpleout)
     # use local file (higher priority), no need out_file and conf_file
     if in_file:
         print('[INFO] input file from:', in_file)
         obj.set_csvfile(in_file)
+    elif args.local:
+        if not conf_file:
+            print('[FAIL] specify local file, MUST specify config file')
+            sys.exit(1)
+        obj.read_setting(conf_file)
+        obj.apply_local()
     else:   # request remote file
         print('[INFO] request data from google drive...')
         obj.set_csvfile(out_file)
@@ -395,12 +425,17 @@ def show_parameters(parser):
 
 def main():
     ''' main '''
-    parser = argparse.ArgumentParser(description='parsing driving data at google drive')
+    parser = argparse.ArgumentParser(description='parsing driving data at google drive',
+                                     epilog='''
+set environment var DRIVING_CONFIG to specify config file, for example:
+export DRIVING_CONFIG=driving_data.json''')
     # nargs like regexp, '*' means 0+, '+' means 1+
     parser.add_argument('-i', '--input', help='Specify local datasheet, '
                         'will ignore output and config files')
     parser.add_argument('-o', '--output', help='Output file name')
     parser.add_argument('-c', '--conf', help='Specify config for google drive (json format)')
+    parser.add_argument("-l", "--local", action='store_true', default=False,
+        help='must use -c if apply -l, tell script use the default local data sheet')
     parser.add_argument("-r", "--run", action='store_true', default=False,
         help='Specify this parameter to run actually')
     parser.add_argument("-x", "--excel", action='store_true', default=False,
@@ -421,8 +456,7 @@ def main():
         show_parameters(parser)
         return
 
-    perform_show_driving_data(in_file=args.input, out_file=args.output,
-        conf_file=args.conf, simpleout=args.excel, verbose=args.verbose)
+    perform_show_driving_data(args)
 
 
 if __name__ == '__main__':
