@@ -5,9 +5,8 @@
 
 * run demo
 
-```
+```bash
 cat kannada.txt | python unicode_data.py -
 ```
 
 or just run ```rundemo.sh```
-

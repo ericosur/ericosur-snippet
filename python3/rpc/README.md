@@ -1,13 +1,11 @@
-# python json rpc
+# README
+
+## python json rpc
 
 * data generation:
-  Calling json-rpc API from https://random.org by module *requests*.
-
-* google sheet to draw chart
-  https://www.benlcollins.com/spreadsheets/histogram-in-google-sheets/
-
+  Calling json-rpc API from <https://random.org> by module *requests*.
+* [google sheet to draw chart](https://www.benlcollins.com/spreadsheets/histogram-in-google-sheets/)
 * [data sheet and chart](https://docs.google.com/spreadsheets/d/1yi2goF-OSH_rKFlH2_A7yfTvG3HU46xLPHsHz1wlOj4/edit#gid=1453399585)
-
 
 ## scripts and data files
 
@@ -20,14 +18,6 @@
 * [fetch_pi.py](./fetch_pi.py)
   fetch pi digits from [pi delivery](https://api.pi.delivery/v1/pi)
 
-* resp?.json (request and save) **NOT IN GIT**
-  previously fetched results from *[req_guassian.py](./req_guassian.py)*,
-  responsed json rpc result
-
-* data.txt (generated) **NOT IN GIT**
-  one number one line text format
-  use [req_guassian.py](./req_guassian.py) to generate it
-
 * [req_guassian.py](./req_guassian.py)
   call [random.org](https://www.random.org/) API *generateGaussians* with parameter
   mean = 100, stdev = 15, 1000 numbers
@@ -37,8 +27,7 @@
 
 * [validate_gaussian.py](./validate_gaussian.py)
   read *data.txt* and calculate mean, median, stdev
-  and try-and-error to test how many numbers to figure out it is
-  a normal distribution
+  and try-and-error to test how many numbers to figure out it is a normal distribution
 
 * [getapikey.py](./getapikey.py)
   common function to fetch API key of [random.org](https://www.random.org/)
@@ -46,9 +35,7 @@
 * [getimgur.py](./getimgur.py)
   download image from imgur
 
-
-
 ## web api
 
-https://aa.usno.navy.mil/data/docs/api.php#phase
-https://opendata.cwb.gov.tw/index
+* <https://aa.usno.navy.mil/data/docs/api.php#phase>
+* <https://opendata.cwb.gov.tw/index>
