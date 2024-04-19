@@ -1,4 +1,5 @@
-# readme
+# README
 
-輸入注音字碼
-輸出中文字
+- ```bp.py``` 輸入注音字碼
+  - ```bp.txt``` and ```bpmf.txt``` are the data table.
+- 輸出中文字

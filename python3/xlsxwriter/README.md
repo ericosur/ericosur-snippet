@@ -1,13 +1,7 @@
-README
-======
+# README
 
 examples for using xlsxwriter
 
+```bash
+pip install XlsxWriter
 ```
-$ pip install XlsxWriter
-```
-
-### note
-
-checked pass with python3 and pylint
-
