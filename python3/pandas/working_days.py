@@ -22,6 +22,7 @@ class LoadWorkingDays():
 
     def __init__(self):
         self.works = {}
+        self.wdays = []
         self.load_data()
 
     def load_data(self):
@@ -46,18 +47,32 @@ class LoadWorkingDays():
             raise IndexError
         if wd is None:
             wd = self.works[yy]
+        self.wdays.append(wd)
         msg = f'[INFO] There are {wd} working days in {yy}'
         return msg
+
+    def show_avg(self):
+        ''' show average and median of working days '''
+        avgd = sum(self.wdays) / len(self.wdays)
+        print(f'[INFO] avg: {avgd:.2f} days')
+        self.wdays.sort()
+        l = len(self.wdays)
+        if l % 2 == 0:
+            l = l // 2
+            m = (self.wdays[l] + self.wdays[l-1]) / 2
+        else:
+            m = self.wdays[int(l/2)]
+        print(f'[INFO] median: {m:.2f} days')
 
     def dump(self):
         ''' dump '''
         print(self.works)
 
-
     def action(self):
         ''' action '''
         for k,v in self.works.items():
             print(self.get_msg(k, wd=v))
+        self.show_avg()
 
     @classmethod
     def run(cls):
