@@ -13,7 +13,7 @@ __VERSION__ = '2024.04.01'
 
 from .commonutil import clamp
 from .commonutil import get_home, print_stderr, read_from_stdin
-from .commonutil import is_path_exist, isfile, isdir
+from .commonutil import is_path_exist, isfile, isdir, mkdir
 from .debug_verbose import MyDebug, MyVerbose, die
 from .hashutil import md5sum, sha1sum, sha256sum
 from .jsonutil import read_setting, read_textfile, read_jsonfile, write_jsonfile
@@ -48,6 +48,7 @@ __all__ = [
     'isdir',
     'isfile',
     'md5sum',
+    'mkdir',
     'print_stderr',
     'query_url_for_data',
     'query_url_for_json',
