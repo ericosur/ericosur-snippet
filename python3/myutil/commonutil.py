@@ -6,6 +6,12 @@
 import os
 import sys
 
+DEBUG=False
+
+def _log(*args, **wargs):
+    ''' log '''
+    if DEBUG:
+        print_stderr(*args, **wargs)
 
 def clamp(value, minimum, maximum):
     """Clamps a value between a minimum and maximum value.
@@ -56,3 +62,14 @@ def print_stderr(*args, **kwargs):
     from: https://stackoverflow.com/questions/5574702/how-to-print-to-stderr-in-python
     '''
     print(*args, file=sys.stderr, **kwargs)
+
+def mkdir(url) -> bool:
+    ''' simulate mkdir -p '''
+    try:
+        if not os.path.exists(url):
+            os.makedirs(url)
+            _log(f'mkdir: {url}')
+            return True
+    except FileExistsError as e:
+        _log(e)
+    return False
