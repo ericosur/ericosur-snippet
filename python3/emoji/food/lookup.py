@@ -29,22 +29,11 @@ class LookupEmoji():
     look up in en_emoji.py
     '''
     foods_file = "foods.txt"
+    files = ["foods.txt", "sorted.txt"]
 
     def __init__(self):
         self.text_emojis = []
         self.swapped_emojis = {}
-        self.__load_data()
-
-    def __load_data(self):
-        if not is_file(self.foods_file):
-            die(f"file not found: {self.foods_file}")
-            return
-
-        tmp = read_textfile(self.foods_file)
-        self.text_emojis = tmp.splitlines()
-        logd("len of self.text_emojis:", len(self.text_emojis))
-        self.swapped_emojis = {value: key for key, value in EMOJI.items()}
-        logd("len of self.swapped_emojis:", len(self.swapped_emojis))
 
     def test_shoot(self):
         ''' for loops '''
@@ -54,13 +43,65 @@ class LookupEmoji():
             ret = partial_match(self.emojikeys, k)
             self.results[k] = ret
 
+    def load_textfile(self, fn):
+        ''' load text file '''
+        logd(f'load_textfile: fn: {fn}')
+        if not is_file(fn):
+            die(f"file not found: {fn}")
+            return
+
+        tmp = read_textfile(fn)
+        self.text_emojis.extend(tmp.splitlines())
+        logd("len of self.text_emojis:", len(self.text_emojis))
+
+
+    def dump_list(self, limit=10):
+        ''' dump part '''
+        for i in range(limit):
+            print(f'{i}: {self.text_emojis[i]}')
+        for j in self.text_emojis:
+            if not j:
+                print(f'why? {j}')
+
+
+    def dump_dict(self, limit=10):
+        for k,v in self.swapped_emojis.items():
+            if k is None or v is None:
+                print('why? {k} and {v}')
+
+    def wtf(self, the_str):
+        ''' wtf '''
+        logd('input:', the_str)
+        for i in list(the_str):
+            h = hex(ord(i))
+            print(f'U+{h}', end=' ')
+        print()
+
     def action(self):
         ''' action '''
+        for f in self.files:
+            self.load_textfile(f)
+        the_set = set(self.text_emojis)
+        logd("len of the_set:", len(the_set))
+        self.text_emojis = list(the_set)
+        logd("len of self.text_emojis:", len(self.text_emojis))
+        self.dump_list()
+
+        self.swapped_emojis = {value: key for key, value in EMOJI.items()}
+        logd("len of self.swapped_emojis:", len(self.swapped_emojis))
+        self.dump_dict()
+
         # will output to file
         outfile = "ofile.py"
+        cnt = 0
         with open(outfile, "wt", encoding='UTF-8') as ofile:
             for k in self.text_emojis:
+                if k is None:
+                    logd(f'K is None')
                 r = self.swapped_emojis.get(k)
+                if r is None:
+                    self.wtf(k)
+
                 print(f'"{k}": "{r}",', file=ofile)
         print(f'output to {outfile}')
 
