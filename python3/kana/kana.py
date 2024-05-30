@@ -27,8 +27,8 @@ Input from text (one character each line).
 
 class Solution():
     ''' here I put three question mark in ya/wa line '''
-    afn = 'a.txt'
-    Afn = 'A.txt'
+    afn = 'Lowercase.txt'
+    Afn = 'Capital.txt'
     magics = [5,5,5,5,5,5,5,5,5,5,1,99]
 
     def __init__(self):
