@@ -291,7 +291,7 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
             v = self.outputs[k]
             if k == "count":
                 result = v
-                j = result.rjust(10, ' ')
+                j = result.rjust(9, ' ')
             else:
                 secs = str2sec(v)
                 result = f'{v}  ({secs:4.0f})'
@@ -402,7 +402,7 @@ def show_curios():
 
 def show_parameters(parser):
     ''' show parameters content '''
-    print('[INFO] show parameters only, add **-r** to real run, dump...\n')
+    print('[INFO] show parameters only, need `--run` to real work, dump...\n')
     args = parser.parse_args()
     has_parameter = False
     if args.input:
@@ -428,7 +428,7 @@ def main():
     parser = argparse.ArgumentParser(description='parsing driving data at google drive',
                                      epilog='''
 set environment var DRIVING_CONFIG to specify config file, for example:
-export DRIVING_CONFIG=driving_data.json''')
+export DRIVING_CONFIG=driving_data.json''', usage='driving_data.py --run')
     # nargs like regexp, '*' means 0+, '+' means 1+
     parser.add_argument('-i', '--input', help='Specify local datasheet, '
                         'will ignore output and config files')
@@ -436,7 +436,7 @@ export DRIVING_CONFIG=driving_data.json''')
     parser.add_argument('-c', '--conf', help='Specify config for google drive (json format)')
     parser.add_argument("-l", "--local", action='store_true', default=False,
         help='must use -c if apply -l, tell script use the default local data sheet')
-    parser.add_argument("-r", "--run", action='store_true', default=False,
+    parser.add_argument("--run", action='store_true', default=False,
         help='Specify this parameter to run actually')
     parser.add_argument("-x", "--excel", action='store_true', default=False,
         help='just print data, easy to paste to spreadsheets')
