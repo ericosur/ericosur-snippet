@@ -34,7 +34,7 @@ class NormalDistSeed():
     @mu.setter
     def mu(self, val):
         ''' setter '''
-        if self._mu != val:
+        if val and self._mu != val:
             self._mu = val
             self.__notify()
     @property
@@ -44,7 +44,7 @@ class NormalDistSeed():
     @sigma.setter
     def sigma(self, val):
         ''' setter '''
-        if self._sigma != val:
+        if val and self._sigma != val:
             self._sigma = val
             self.__notify()
     @property
@@ -54,7 +54,7 @@ class NormalDistSeed():
     @size.setter
     def size(self, val):
         ''' setter '''
-        if self._size != val:
+        if val and self._size != val:
             self._size = val
             self.__notify()
 
@@ -77,8 +77,13 @@ class DrawNormal(NormalDistSeed):
         super().__init__()
         self._drawplot = False
         self._dumpfile = False
+        self._verbose = False
         self.data = None
         self.fobj = None
+
+    def show_prop(self):
+        ''' str '''
+        self.logd(f"properties: {self.mu=}, {self.sigma=}, {self.size=}")
 
     def log2file(self, *arg, **wargs):
         ''' log 2 file '''
@@ -89,11 +94,15 @@ class DrawNormal(NormalDistSeed):
         ''' logd '''
         print(*arg, **wargs, file=sys.stderr)
 
-    def do_something(self):
-        ''' do something '''
-        self.logd("do_something: some value is changed...")
-        self.logd(f"{self.mu=}, {self.sigma=}, {self.size=}")
-
+    @property
+    def verbose(self):
+        ''' getter '''
+        return self._verbose
+    @verbose.setter
+    def verbose(self, val):
+        ''' setter '''
+        #self.logd('DrawNormal.verbose:', val)
+        self._verbose = val
     @property
     def drawplot(self):
         ''' getter '''
@@ -102,7 +111,6 @@ class DrawNormal(NormalDistSeed):
     def drawplot(self, val: bool):
         ''' setter '''
         self._drawplot = val
-
     @property
     def dumpfile(self):
         ''' getter '''
@@ -136,24 +144,36 @@ class DrawNormal(NormalDistSeed):
                  linewidth=2, color='r')
         plt.show()
 
+    def do_something(self):
+        ''' do something '''
+        if self.verbose:
+            self.show_prop()
+            #self.data = np.random.normal(self.mu, self.sigma, self.size)
+            #self.draw_plot()
+        #else:
+            #self.logd("DrawNormal.do_something: value changed...")
+
+
     def action(self):
         ''' action '''
         if self.dumpfile or self.drawplot:
             self.data = np.random.normal(self.mu, self.sigma, self.size)
         else:
             self.logd("DrawNormal: will not generate data...")
+            self.show_prop()
         self.dump_text()
         self.draw_plot()
 
     @classmethod
-    def run(cls, do_draw, num, do_dump):
+    def run(cls, args):
         ''' run me '''
         obj = cls()
-        obj.drawplot = do_draw
-        obj.dumpfile = do_dump
-        if num:
-            obj.size = num
-            obj.logd(f"{obj.size=}")
+        obj.verbose = args.verbose
+        obj.drawplot = args.draw
+        obj.dumpfile = args.dump
+        obj.mu = args.mu
+        obj.sigma = args.sigma
+        obj.size = args.size
         obj.action()
 
 
@@ -166,15 +186,19 @@ def main():
         help='draw this series of numbers')
     parser.add_argument("--dump", dest='dump', action='store_true', default=False,
         help='dump numbers into file')
-    parser.add_argument("-n", "--num", type=int,
+    parser.add_argument("--mu", type=int, dest='mu',
+        help='specify the mean value of normal distribution series')
+    parser.add_argument("--sigma", type=int, dest='sigma',
+        help='specify the sigma of normal distribution series')
+    parser.add_argument("--size", type=int, dest='size',
         help='specify the size of normal distribution series')
-    parser.add_argument("-v", "--verbose", action='store_true', default=False,
+    parser.add_argument("-v", "--verbose", dest='verbose', action='store_true', default=False,
         help='verbose mode')
     parser.add_argument("-d", "--debug", action='store_true', default=False,
         help='debug mode')
 
     args = parser.parse_args()
-    DrawNormal.run(args.draw, args.num, args.dump)
+    DrawNormal.run(args)
 
 
 if __name__ == '__main__':
