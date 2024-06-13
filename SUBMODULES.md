@@ -1,30 +1,37 @@
-submodules
-==========
+# submodules
 
-For first usage:
+- For first usage:
+
 ```
 git clone --recursive <repo url>
 ```
 
-For later usage:
+- For later usage:
+
 ```
 git submodule update --init
 ```
+
+- Fetch changes from submodule repositories:
+
+```
+git submodule update --recursive --remote
+```
+
+## note
 
 submodule path:
 
 - C/fmt (7.0.3-127-g6cccdc24)
 - prime/powmod_test/fast-modular-exponentiation
 
-```
-git submodule update --recursive --remote
-```
 
 ## howto
 
 * add submodule path
 ```
 git submodule add <repo url> <folder>
+git add ...
 git commit
 git push
 ```
