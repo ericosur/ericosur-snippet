@@ -51,7 +51,6 @@ class Solution():
         ''' check if binary is available '''
         if not is_file(self.BINARY):
             die(f'[FAIL] not found: {self.BINARY}')
-            return
 
     def set_target(self, val):
         ''' set target or use the default '''
