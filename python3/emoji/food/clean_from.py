@@ -13,7 +13,7 @@ class Cleanup():
     ofn = "cleaned.txt"
 
     def __init__(self):
-        chars = []
+        pass
 
     def action(self):
         ''' action '''

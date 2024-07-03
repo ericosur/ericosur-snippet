@@ -35,6 +35,7 @@ class BarCodeTest():
         img = cv2.imread(self.output)
         w, _ = img.shape[:2]
         #print(img.shape[:2])
+        res = None
         if w < self.desired_size:
             res = cv2.resize(img, (self.desired_size, self.desired_size), \
                 interpolation=cv2.INTER_CUBIC)
