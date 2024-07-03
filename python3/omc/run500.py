@@ -29,6 +29,7 @@ class Run500():
     def take_a_rest(self, player):
         ''' take a rest '''
         p = player
+        opp = None
         if self.verbose:
             if p['name'] == 'A':
                 opp = self.b

@@ -59,6 +59,7 @@ class Solution():
         sh = wb[self.sheet_name]
         no_same = 0
         no_diff = 0
+        src_vv = None
         for kk, vv in dict1.items():
             if kk in src_dict:
                 src_vv = src_dict[kk]

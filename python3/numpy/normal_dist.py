@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # coding: utf-8
 #
-# pylint: disable=unused-variable
-# pylint: disable=unnecessary-pass
+# py//lint: disable=unused-variable
+# py//lint: disable=unnecessary-pass
+# pylint: disable=too-many-instance-attributes
 #
 
 '''
@@ -58,51 +59,28 @@ class NormalDistSeed():
             self._size = val
             self.__notify()
 
+    def logd(self, *arg, **wargs):
+        ''' logd '''
+        print(*arg, **wargs, file=sys.stderr)
+
     def __notify(self):
         ''' something changed '''
         self.do_something()
 
     def do_something(self):
         ''' child class to override this function '''
-        pass
+        self.logd('do_something() is called')
 
-
-
-class DrawNormal(NormalDistSeed):
-    ''' draw normal distribution '''
+class DrawConfig():
+    ''' move some config here '''
 
     logfile = 'normal_dist.log'
 
     def __init__(self):
-        super().__init__()
         self._drawplot = False
         self._dumpfile = False
         self._verbose = False
-        self.data = None
-        self.fobj = None
 
-    def show_prop(self):
-        ''' str '''
-        self.logd(f"properties: {self.mu=}, {self.sigma=}, {self.size=}")
-
-    def log2file(self, *arg, **wargs):
-        ''' log 2 file '''
-        if self.fobj:
-            print(*arg, **wargs, file=self.fobj)
-
-    def logd(self, *arg, **wargs):
-        ''' logd '''
-        print(*arg, **wargs, file=sys.stderr)
-
-    @property
-    def verbose(self):
-        ''' getter '''
-        return self._verbose
-    @verbose.setter
-    def verbose(self, val):
-        ''' setter '''
-        #self.logd('DrawNormal.verbose:', val)
-        self._verbose = val
     @property
     def drawplot(self):
         ''' getter '''
@@ -119,6 +97,33 @@ class DrawNormal(NormalDistSeed):
     def dumpfile(self, val: bool):
         ''' dump setter '''
         self._dumpfile = val
+    @property
+    def verbose(self):
+        ''' getter '''
+        return self._verbose
+    @verbose.setter
+    def verbose(self, val):
+        ''' setter '''
+        #self.logd('DrawNormal.verbose:', val)
+        self._verbose = val
+
+
+class DrawNormal(NormalDistSeed, DrawConfig):
+    ''' draw normal distribution '''
+    def __init__(self):
+        super().__init__()
+        self.data = None
+        self.fobj = None
+
+    def show_prop(self):
+        ''' str '''
+        self.logd(f"properties: {self.mu=}, {self.sigma=}, {self.size=}")
+
+    def log2file(self, *arg, **wargs):
+        ''' log 2 file '''
+        if self.fobj:
+            print(*arg, **wargs, file=self.fobj)
+
 
     def dump_text(self):
         ''' dump data as text '''
@@ -138,7 +143,8 @@ class DrawNormal(NormalDistSeed):
         if not self.drawplot:
             return
         self.logd("DrawNormal.draw_plot()...")
-        count, bins, ignored = plt.hist(self.data, self.size, density=True)
+        # count, bins, ignored
+        _, bins, _ = plt.hist(self.data, self.size, density=True)
         plt.plot(bins, 1/(self.sigma * np.sqrt(2 * np.pi)) *
                  np.exp(-(bins - self.mu)**2 / (2 * self.sigma**2)),
                  linewidth=2, color='r')
@@ -160,6 +166,7 @@ class DrawNormal(NormalDistSeed):
             self.data = np.random.normal(self.mu, self.sigma, self.size)
         else:
             self.logd("DrawNormal: will not generate data...")
+            self.logd("Info: specify option dumpfile (--dump) or drawplot (--draw)")
             self.show_prop()
         self.dump_text()
         self.draw_plot()

@@ -35,7 +35,7 @@ def main(argv: List[str]) -> None:
         except:
             print("unexpected error:", sys.exc_info()[0])
             raise
-
+    [a, b] = [0, 0]
     if len(vals) == 2:
         # pylint: disable=unbalanced-tuple-unpacking
         [a, b] = vals

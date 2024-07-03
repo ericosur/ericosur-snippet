@@ -219,6 +219,7 @@ def main():
 
     if args.context or args.after or args.before:
         yy = -1
+        ret = None
         if args.years:
             yy = args.years[0] if args.years[0] else 0
         if args.context:
