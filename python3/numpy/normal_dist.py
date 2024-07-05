@@ -18,7 +18,7 @@ import argparse
 import sys
 import numpy as np
 
-CANNOT_DRAW = True
+CANNOT_DRAW = False
 try:
     import matplotlib.pyplot as plt
 except ImportError:
