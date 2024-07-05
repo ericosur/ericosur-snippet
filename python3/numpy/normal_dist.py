@@ -16,9 +16,13 @@ from __future__ import print_function
 
 import argparse
 import sys
-import matplotlib.pyplot as plt
 import numpy as np
 
+CANNOT_DRAW = True
+try:
+    import matplotlib.pyplot as plt
+except ImportError:
+    CANNOT_DRAW = True
 
 class NormalDistSeed():
     ''' to keep mu, sigma, and size '''
@@ -88,7 +92,11 @@ class DrawConfig():
     @drawplot.setter
     def drawplot(self, val: bool):
         ''' setter '''
-        self._drawplot = val
+        if CANNOT_DRAW and val:
+            print("WARN: lack of matplotlib, cannot draw...")
+            self._drawplot = False  # or drawplot will not init'ed
+        else:
+            self._drawplot = val
     @property
     def dumpfile(self):
         ''' getter '''
@@ -106,7 +114,6 @@ class DrawConfig():
         ''' setter '''
         #self.logd('DrawNormal.verbose:', val)
         self._verbose = val
-
 
 class DrawNormal(NormalDistSeed, DrawConfig):
     ''' draw normal distribution '''
@@ -166,7 +173,12 @@ class DrawNormal(NormalDistSeed, DrawConfig):
             self.data = np.random.normal(self.mu, self.sigma, self.size)
         else:
             self.logd("DrawNormal: will not generate data...")
-            self.logd("Info: specify option dumpfile (--dump) or drawplot (--draw)")
+            self.logd("Info: need specify option dumpfile (--dump)", end='')
+            if not CANNOT_DRAW:
+                self.logd(" or drawplot (--draw)")
+            else:
+                self.logd()
+
             self.show_prop()
         self.dump_text()
         self.draw_plot()
