@@ -19,6 +19,17 @@ except ImportError:
     print('[info] suggest install colorama to enable ansi color')
 
 
+def logd(self, *args, **wargs):
+    ''' logd, output to file if available, else to stdout '''
+    useColor = False
+    if 'useColor' in wargs:
+        useColor = wargs.pop('useColor')
+    if USE_ANSICOLOR and useColor:
+        print(Fore.YELLOW, end='')
+    print(*args, **wargs)
+    if USE_ANSICOLOR and useColor:
+        print(Style.RESET_ALL, end='')
+
 def main():
     ''' main '''
 
@@ -33,12 +44,8 @@ def main():
         else:
             if not i in warnlist:
                 warnlist.append(i)
-    if USE_ANSICOLOR:
-        print(Fore.YELLOW)
     for w in warnlist:
-        print('[WARN] path not exists:', w)
-    if USE_ANSICOLOR:
-        print(Style.RESET_ALL, end='')
+        logd('[WARN] path not exists:', w)
 
 if __name__ == '__main__':
     main()
