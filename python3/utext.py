@@ -6,8 +6,11 @@ simply to show how to import a module within another sub-directory
 '''
 
 import argparse
+import sys
 
-import emoji.mytofrom
+# in order to replace ''' import emoji.mytofrom '''
+sys.path.insert(0, "./emoji")
+import mytofrom
 
 
 def utf8_seq(cc: str):
@@ -26,9 +29,9 @@ def main():
     args = parser.parse_args()
 
     s = args.s1
-    emoji.mytofrom.to_from_u16(s)
-    emoji.mytofrom.to_from_u8(s)
-    emoji.mytofrom.to_utf8(s)
+    mytofrom.to_from_u16(s)
+    mytofrom.to_from_u8(s)
+    mytofrom.to_utf8(s)
 
     if args.chars:
         utf8_seq(s)
