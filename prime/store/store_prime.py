@@ -47,6 +47,7 @@ class StorePrime(MyDebug, MyVerbose, QueryPrime):
         self.need_save = False
         self.config = {'pfn': pfn, 'txtfn': txtfn}
         self._info(f'__init__(): debug:{self.debug}, verbose:{self.verbose}')
+        self._info(f'{self.config=}')
 
     def __enter__(self):
         self._info("__enter__")

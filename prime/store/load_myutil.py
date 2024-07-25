@@ -12,10 +12,15 @@ SETTING_FILE = "setting.json"
 # pylint: disable=wrong-import-position
 
 import os
+import platform
 import sys
 
 HOME = os.getenv('HOME')
-UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
+#print(f'{HOME=}')
+if platform.system() == "Windows":
+    UTILPATH = os.path.join(os.getcwd(), '../python3')
+else:
+    UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
 if os.path.exists(UTILPATH):
     sys.path.insert(0, UTILPATH)
 

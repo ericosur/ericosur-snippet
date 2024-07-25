@@ -105,6 +105,8 @@ def main():
     args = parser.parse_args()
 
     txtfn, pfn, cpfn = wrap_config(args)
+    if args.debug:
+        print(f'run_example: {txtfn=}, {pfn=}, {cpfn=}')
 
     if args.lcp and LCP_READY:
         logd('Using LoadCompressPrime...')
