@@ -54,7 +54,6 @@ class Solution():
         ''' han digits '''
         print('try han digits...')
         s = '○一二三四五六七八九十'
-        ret = 0
         pairs = []
         for f in self.files:
             ep = 0
