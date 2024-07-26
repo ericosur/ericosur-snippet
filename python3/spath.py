@@ -11,41 +11,42 @@ then list them
 
 import os
 
+
 USE_ANSICOLOR = False
 try:
-    from colorama import Fore, Style
+    from colorama import Fore, init
     USE_ANSICOLOR = True
 except ImportError:
     print('[info] suggest install colorama to enable ansi color')
 
 
-def logd(self, *args, **wargs):
-    ''' logd, output to file if available, else to stdout '''
-    useColor = False
-    if 'useColor' in wargs:
-        useColor = wargs.pop('useColor')
-    if USE_ANSICOLOR and useColor:
-        print(Fore.YELLOW, end='')
-    print(*args, **wargs)
-    if USE_ANSICOLOR and useColor:
-        print(Style.RESET_ALL, end='')
+def colorlog(color, msg):
+    ''' color log '''
+    if USE_ANSICOLOR:
+        print(color+msg)
+    else:
+        print(msg)
 
 def main():
     ''' main '''
 
     PATH = os.environ['PATH']
-    # or this way:
-    #    str = os.getenv('path')
+    dirs = []
 
-    warnlist = []
-    for i in PATH.split(os.pathsep):
-        if os.path.isdir(i):
-            print(i)
+    if USE_ANSICOLOR:
+        init(autoreset=True)
+
+    for d in PATH.split(os.pathsep):
+        if not os.path.isdir(d):
+            # warn: not found
+            colorlog(Fore.RED, f'[NOT FOUND] {d}')
         else:
-            if not i in warnlist:
-                warnlist.append(i)
-    for w in warnlist:
-        logd('[WARN] path not exists:', w)
+            if d in dirs:
+                # warn: duplicated
+                colorlog(Fore.YELLOW, f'[DUPLICATED] {d}')
+            else:
+                dirs.append(d)
+                print(d)
 
 if __name__ == '__main__':
     main()
