@@ -23,6 +23,8 @@ else:
     UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
 if os.path.exists(UTILPATH):
     sys.path.insert(0, UTILPATH)
+# also relative path
+sys.path.insert(0, "../python3")
 
 import myutil
 
