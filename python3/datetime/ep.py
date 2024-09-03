@@ -38,11 +38,12 @@ https://github.com/ericosur/ericosur-snippet/tree/master/root/epoch
 '''
 
 import argparse
+import sys
 import time
 from random import randint
 
+sys.path.insert(0, '../')
 from myutil import read_from_stdin
-
 
 def epoch2timestr(epoch: int):
     ''' Replace time.localtime with time.gmtime for GMT time '''
