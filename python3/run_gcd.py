@@ -3,12 +3,17 @@
 
 '''
 simple gcd runner with argparse
+
+NOTE: use math.gcd() or local gcd
 '''
 
 import argparse
 
-from gcd import gcd
-
+USE_LOCAL_GCD = False
+if USE_LOCAL_GCD:
+    from gcd import gcd
+else:
+    from math import gcd
 
 def main():
     ''' main '''
