@@ -27,13 +27,15 @@ def println(alist):
         msg.join(f'{c:2s}')
     print(msg)
 
+def show(the_list):
+    ''' show '''
+    for i in the_list:
+        print(i)
+
 def main():
     ''' main '''
-    for i in hiragana:
-        println(i)
-    for i in katakana:
-        println(i)
-    print()
+    show(hiragana)
+    show(katakana)
 
 
 if __name__ == '__main__':
