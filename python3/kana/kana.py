@@ -23,7 +23,9 @@ Input from text (one character each line).
 
 '''
 
-
+def logv(*args, **wargs):
+    ''' logv '''
+    print(*args, **wargs)
 
 class Solution():
     ''' here I put three question mark in ya/wa line '''
@@ -55,6 +57,8 @@ class Solution():
     def output(self, the_list):
         ''' output the list '''
         t = the_list.copy()
+        logv(f'{self.magics=}')
+        logv('-' * 40)
         for m in self.magics:
             p = []
             for _ in range(m):
