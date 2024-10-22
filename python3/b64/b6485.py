@@ -11,14 +11,14 @@ demo for the following base-N functions:
 import base64
 import sys
 from random import randint
-
 import numpy as np
 
+USE_B85 = False
 try:
     import base58
+    USE_B85 = True
 except ImportError:
-    print('cannot import module: base58')
-    sys.exit(1)
+    print('WARN: cannot import module: base58', file=sys.stderr)
 
 def int_to_bytes(x: int) -> bytes:
     ''' int to bytes '''
@@ -33,14 +33,24 @@ def fill_bytearray(size: int = 24) -> bytes:
     ''' fill byte array '''
     return np.random.bytes(size)
 
+def show(m, n):
+    ''' show '''
+    print(f'{m:<14s}: {n}')
+
+def testb85(v: bytes):
+    ''' test base85 '''
+    print('-' * 60)
+    r = base64.a85encode(v) # r is bytes
+    show('base85a', r)
+    r = base64.b85encode(v) # r is bytes
+    show('base85b', r)
+    if USE_B85:
+        print('-' * 60)
+        r = base58.b58encode(v)
+        show('base58', r)
 
 def test(v: bytes):
     ''' test '''
-
-    def show(m, n):
-        ''' show '''
-        print(f'{m:<14s}: {n}')
-
     #hx = binascii.hexlify(v)    # bytes: b'([0-9a-f][0-9a-f])+'
     #show('input', hx)
     hxx = v.hex()               # str: ([0-9a-f][0-9a-f])+
@@ -59,16 +69,8 @@ def test(v: bytes):
 
     if r1 != r2:
         show('urlsafe base64', r2)
-
-    print('-' * 60)
-    r = base64.a85encode(v)
-    show('base85a', r)
-    r = base64.b85encode(v)
-    show('base85b', r)
-
-    print('-' * 60)
-    r = base58.b58encode(v)
-    show('base58', r)
+    # base85
+    testb85(v)
 
 
 def main(argv):
