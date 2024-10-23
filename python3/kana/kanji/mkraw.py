@@ -46,26 +46,35 @@ class Solution():
                     continue
                 if len(ln) == 1:    # skip the line only one char (usu. kanata)
                     the_row = ln[0]
+                    #logd(f'{cnt_row}: {the_row}')
+                    self.a_dict[the_row] = []
                     cnt_row += 1
                     continue
                 ret = self.line2list(ln)
                 self.a_dict[the_row] = ret
                 self.a_list.extend(ret)
-        logd(f'{cnt_row=}')
 
     def report(self):
         ''' some reoprt about internal data structure '''
+        logd(f'the size of {len(self.a_list)=}')
         logd(f'the size of {len(self.a_dict)=}')
+        total_in_k = 0
         cnt = 0
         for k,v in self.a_dict.items():
+            #logd(f'{cnt}: {k}')
+            total_in_k += len(v)
             cnt += 1
-            logd(f'line {k}: len={len(v)}')
+        logd(f'the total chars:', total_in_k)
 
     def output_as_yaml(self):
         ''' yaml '''
         fn = "kanji.yaml"
         with open(fn, "wt", encoding="UTF-8") as the_file:
             for k,v in self.a_dict.items():
+                if len(v) < 1: # special case
+                    logd(f'has no data member: {k}')
+                    print(f'{k}: []', file=the_file)
+                    continue
                 print(f'{k}: |', file=the_file)
                 for i in v:
                     print(f"  {i}", file=the_file)
@@ -90,7 +99,7 @@ class Solution():
         ''' action '''
         logd("hello world")
         self.process_raw()
-        #self.report()
+        self.report()
         self.output_as_yaml()
         self.output_as_json()
         self.output_one_char_each_line()

@@ -1,7 +1,8 @@
 # kanji table
 
-# reference: [常用漢字の一覧](https://ja.wiktionary.org/wiki/%E4%BB%98%E9%8C%B2:%E5%B8%B8%E7%94%A8%E6%BC%A2%E5%AD%97%E3%81%AE%E4%B8%80%E8%A6%A7)
+- reference: [常用漢字の一覧](https://ja.wiktionary.org/wiki/%E4%BB%98%E9%8C%B2:%E5%B8%B8%E7%94%A8%E6%BC%A2%E5%AD%97%E3%81%AE%E4%B8%80%E8%A6%A7)
 
+```
 あいうえお
 かきくけこ
 さしすせそ
@@ -12,7 +13,11 @@
 やゆよ
 らりるれろ
 わ
+```
 
+- the raw data, note no kanji start with "ぬ"
+
+```text
 あ
 亜 哀 挨 愛 曖 悪 握 圧 扱 宛 嵐 安 案 暗
 
@@ -80,6 +85,7 @@
 二 尼 弐 匂 肉 虹 日 入 乳 尿 任 妊 忍 認
 
 ぬ
+
 ね
 寧 熱 年 念 捻 粘 燃
 
@@ -142,3 +148,4 @@
 
 わ
 和 話 賄 脇 惑 枠 湾 腕
+```
