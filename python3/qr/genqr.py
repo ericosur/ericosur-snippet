@@ -7,10 +7,11 @@ input text from CLI and generate qrcode image
 Use Shift JIS COULD NOT avoid the zbralight decoding error.
 There are many han characters that are common or litter difference between
 Chinese and Japanese. I think it could not be solved by encoding simply.
-
-Maybe I should use table to replace these character to another?
-
 It does not the fault within encoding side.
+
+- Maybe I should use table to replace these character to another?
+- Maybe I should use URL-safe way? For example:
+%E6%98%AF%E5%9C%A8%E5%93%88%E5%9B%89
 
 '''
 
