@@ -16,16 +16,30 @@ for ansi color (optional):
 import os
 import sys
 
+DEBUG = False
+USE_RICH = False
 USE_ANSICOLOR = False
-try:
-    from colorama import Fore, init
-    USE_ANSICOLOR = True
-except ImportError:
-    print('[info] suggest install colorama to enable ansi color')
 
 def logd(*args, **wargs):
     ''' logd '''
-    print(*args, **wargs, file=sys.stderr)
+    if DEBUG:
+        print(*args, **wargs, file=sys.stderr)
+
+try:
+    import rich
+    USE_RICH = True
+except ImportError:
+    logd("no rich, use __pip install rich__")
+
+if not USE_RICH:
+    try:
+        from colorama import Fore, init
+        USE_ANSICOLOR = True
+    except ImportError:
+        logd("no colorama, use __pip install colorama__")
+
+logd(f'{USE_RICH=}')
+logd(f'{USE_ANSICOLOR=}')
 
 def colorlog(color, msg):
     ''' color log '''
@@ -36,6 +50,8 @@ def colorlog(color, msg):
 
 class PathLister():
     ''' list path '''
+    STR_DUP = '-'*20 + ' duplicated ' + '-'*20
+    STR_NG = '-'*20 + ' not found ' + '-'*20
     def __init__(self):
         self.dirs = []
         self.ngs = []
@@ -50,10 +66,13 @@ class PathLister():
 
     def action(self):
         ''' acton '''
+        if USE_RICH:
+            self.report_in_rich()
+            return
         if USE_ANSICOLOR:
             self.report_in_colorama()
-        else:
-            self.report()
+            return
+        self.report()
 
     def __check_path__(self):
         ''' check paths '''
@@ -69,15 +88,14 @@ class PathLister():
 
     def report(self):
         ''' report '''
-        if self.dirs:
-            for d in self.dirs:
-                print(d)
+        for d in self.dirs:
+            print(d)
         if self.dups:
-            print('-'*20, "duplicated", '-'*20)
+            print(PathLister.STR_DUP)
             for d in self.dups:
                 print(d)
         if self.ngs:
-            print('-'*20, "not found", '-'*20)
+            print(PathLister.STR_NG)
             for d in self.ngs:
                 print(d)
 
@@ -93,6 +111,21 @@ class PathLister():
         # warn: duplicated
         for d in self.dups:
             colorlog(Fore.YELLOW, f'[DUPLICATED] {d}')
+
+    def report_in_rich(self):
+        ''' in rich '''
+        logd('will use rich')
+        rp = rich.print
+        for d in self.dirs:
+            rp(d)
+        if self.dups:
+            rp('[bold yellow]'+self.STR_DUP)
+            for d in self.dups:
+                rp(d)
+        if self.ngs:
+            rp('[bold red]'+self.STR_NG)
+            for d in self.ngs:
+                rp(d)
 
 def main():
     ''' main '''
