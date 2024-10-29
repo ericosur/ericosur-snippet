@@ -9,7 +9,6 @@ and use ip-api.com to get location of such ip
 import argparse
 import json
 import requests
-import sys
 
 DEBUG = True
 USE_RICH = False
