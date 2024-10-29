@@ -12,7 +12,6 @@ reference: https://docs.python.org/zh-tw/3/library/base64.html
 
 import base64
 import sys
-from random import randint
 import numpy as np
 
 USE_B85 = False
@@ -77,6 +76,7 @@ def demo64(v: bytes):
     if b1 != b2:
         show('urlsafe base64', b2)
 
+# pylint: disable=no-member
 def demo32(v: bytes):
     ''' demo base32 '''
     show("base32", base64.b32encode(v))
