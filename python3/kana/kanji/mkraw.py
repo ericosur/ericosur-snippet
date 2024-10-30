@@ -60,11 +60,11 @@ class Solution():
         logd(f'the size of {len(self.a_dict)=}')
         total_in_k = 0
         cnt = 0
-        for k,v in self.a_dict.items():
+        for _,v in self.a_dict.items():
             #logd(f'{cnt}: {k}')
             total_in_k += len(v)
             cnt += 1
-        logd(f'the total chars:', total_in_k)
+        logd(f'the total chars: {total_in_k}')
 
     def output_as_yaml(self):
         ''' yaml '''
