@@ -86,7 +86,7 @@ class MakeDirname():
         ''' run '''
         parser = argparse.ArgumentParser(description='mknn64')
         # nargs like regexp, '*' means 0+, '+' means 1+
-        parser.add_argument("strings", metavar='file', type=str, nargs='+',
+        parser.add_argument("strings", metavar='file', type=str, nargs='*',
             help="show these strings")
         parser.add_argument("-d", "--debug", action='store_true', default=False,
             help='make dir name')
@@ -97,6 +97,11 @@ class MakeDirname():
             MakeDirname.debug = args.debug
 
         obj = cls()
+        # if no file is specified
+        DEF_FN = 'a.txt'
+        if not args.strings:
+            if os.path.isfile(DEF_FN):
+                args.strings.append(DEF_FN)
         for f in args.strings:
             obj.process_file(f)
 
