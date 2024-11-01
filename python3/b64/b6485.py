@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# utf-8
+#codeing:utf-8
+# pylint: disable=invalid-name
 
 '''
 demo for the following base-N functions:
@@ -12,7 +13,6 @@ reference: https://docs.python.org/zh-tw/3/library/base64.html
 
 import base64
 import sys
-import numpy as np
 
 USE_B85 = False
 try:
@@ -21,24 +21,17 @@ try:
 except ImportError:
     print('WARN: cannot import module: base58', file=sys.stderr)
 
+try:
+    from rich.console import Console
+    console = Console()
+except ImportError:
+    print('INFO: no rich.console available')
+
+from butil import fill_bytearray, sep, int_to_bytes
 
 def is_py310plus() -> bool:
     ''' return python version in (major, minor) integers '''
     return sys.version_info[0]==3 and sys.version_info[1]>=10
-
-def int_to_bytes(x: int) -> bytes:
-    ''' int to bytes '''
-    return x.to_bytes((x.bit_length() + 7) // 8, 'big')
-
-def int_from_bytes(xbytes: bytes) -> int:
-    ''' int from bytes '''
-    r = int.from_bytes(xbytes, byteorder='big')
-    return r
-
-def fill_bytearray(size: int = 24) -> bytes:
-    ''' fill byte array '''
-    show("size", size)
-    return np.random.bytes(size)
 
 def show(m, n):
     ''' show '''
@@ -51,17 +44,21 @@ def show(m, n):
         s = str(n)
     print(f'{m:<16s}: {s}')
 
+def demo58(v: bytes):
+    ''' base 58 '''
+    if not USE_B85:
+        return
+    r = base58.b58encode(v)
+    show('base58', r)
+    sep()
+
 def demo85(v: bytes):
     ''' test base85 '''
-    print('-' * 60)
     r = base64.a85encode(v) # r is bytes
     show('base85a', r)
     r = base64.b85encode(v) # r is bytes
     show('base85b', r)
-    if USE_B85:
-        print('-' * 60)
-        r = base58.b58encode(v)
-        show('base58', r)
+    sep()
 
 def demo64(v: bytes):
     ''' demo base64 '''
@@ -72,9 +69,9 @@ def demo64(v: bytes):
     if b0 != b1:
         show('std base64', b0)
     show('base64', b1)
-
     if b1 != b2:
         show('urlsafe base64', b2)
+    sep()
 
 # pylint: disable=no-member
 def demo32(v: bytes):
@@ -82,6 +79,7 @@ def demo32(v: bytes):
     show("base32", base64.b32encode(v))
     if is_py310plus():
         show("base32hex", base64.b32hexencode(v))
+    sep()
 
 def test(v: bytes):
     ''' test '''
@@ -91,20 +89,23 @@ def test(v: bytes):
     show('input hex', hxx)
     #b16 = base64.b16encode(v)   # bytes: b'([0-9A-F][0-9A-F])+'
     #show('b16encode', b16)
-    print('-' * 60)
+    sep()
     # base32
     demo32(v)
+    # base58
+    demo58(v)
     # base64
     demo64(v)
     # base85
     demo85(v)
 
-
 def main(argv):
     ''' main '''
+    DEFAULT_SIZE = 19
     if argv == []:
         for _ in range(1):
-            x = fill_bytearray(19)
+            x = fill_bytearray(DEFAULT_SIZE)
+            show("size", DEFAULT_SIZE)
             argv.append(x)
 
     for e in argv:

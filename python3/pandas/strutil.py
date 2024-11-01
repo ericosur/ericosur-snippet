@@ -37,6 +37,8 @@ def str2sec(timestr: str):
             total = minutes + seconds
     except ValueError as e:
         print(f'ValueError with {timestr}: {e.args}')
+    # if total < 1000:
+    #     print(f'[warn] str2sec: {timestr=} {total=}')
     return total
 
 def sec2str(sec: str):

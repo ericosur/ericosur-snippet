@@ -25,6 +25,14 @@ TODO: how to use the csv exported from previously metioned URL?
 
 ### driving_data.py
 
+#### easy start
+
+- easiest way: run ```make```, it will download data from google drive and show details
+
+- run ```make check``` if anything wrong happens
+
+#### description
+
 config: ```$HOME/Private/driving_data.json```
 
 This script uses ```driving_data.csv``` which is located at google spreadsheet. The table will look like:
