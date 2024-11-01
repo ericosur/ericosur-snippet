@@ -11,7 +11,7 @@ target:
 
 test:
 	@echo "run passutil.py"
-	@${PY} passutil.py -d -o my.json ***REMOVED***
+	@${PY} passutil.py -d -o my.json A123456789
 
 clean:
 	rm -f encrypted.bin
