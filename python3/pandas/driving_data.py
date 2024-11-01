@@ -293,9 +293,13 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
                 result = v
                 j = result.rjust(9, ' ')
             else:
-                secs = str2sec(v)
-                result = f'{v}  ({secs:4.0f})'
-                j = result.rjust(20, ' ')
+                try:
+                    secs = str2sec(v)
+                    result = f'{v}  ({secs:4.0f})'
+                    j = result.rjust(20, ' ')
+                except ValueError:
+                    print(f'[FAIL] at {k=} {v=}')
+                    continue
             print(f'{k:10s}: {j:20s}')
         print_sep()
         self.show_poi()
