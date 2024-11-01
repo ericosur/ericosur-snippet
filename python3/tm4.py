@@ -11,24 +11,24 @@ import random
 
 class Solution():
     ''' try to find solution '''
-    def __init__(self, lower, upper, src=None, dst=None, rand=True, debug=False):
+    def __init__(self, lower, upper, rand=True, debug=False):
         self.debug = debug
         self.random = rand
-        if src:
-            self.fubon = src
-        else:
-            self.fubon = [18107, 50000]
-        if dst:
-            self.ctbc = dst
-        else:
-            self.ctbc = [20601, 5176, 50000]
-        self.check_accounts()
+        self.fubon = None
+        self.ctbc = None
         if upper <= lower:
             raise ValueError("upper must be larger than lower")
         self.upper = upper
         self.lower = lower
         self.last_try = -1
-        self.report_init()
+
+    def set_source(self, src):
+        ''' set source '''
+        self.fubon = src
+
+    def set_dest(self, dst):
+        ''' set dest '''
+        self.ctbc = dst
 
     def check_accounts(self):
         ''' check values in accounts is valid '''
@@ -65,7 +65,6 @@ class Solution():
         #print('USE increasing number method...')
         return self.pick_value_inc()
 
-
     def pick_value_random(self):
         ''' pick value from random '''
         t = random.randint(self.lower, self.upper)
@@ -85,11 +84,11 @@ class Solution():
             print(f'2nd: t is {t}')
         return t
 
-
     def run(self):
         ''' find a proper ammount to meet all criteria '''
         need_more_try = True
         repeat = 0
+        self.check_accounts()
         while need_more_try:
             t = self.pick_value()
             repeat += 1
@@ -174,10 +173,10 @@ def main():
     ''' main '''
     src = [15891, 17733, 39000]
     dst = [1693, 50000]
-    sol = Solution(200, 500, src=src, dst=dst, rand=False, debug=False)
+    sol = Solution(200, 500, rand=False, debug=False)
+    sol.set_source(src)
+    sol.set_dest(dst)
     sol.run()
 
 if __name__ == '__main__':
     main()
-
-# yuanta, 2876, -4068

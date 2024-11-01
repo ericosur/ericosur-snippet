@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
+# pylint: disable=invalid-name
 
 '''
 get current path setting and split it
@@ -33,10 +34,14 @@ except ImportError:
 
 if not USE_RICH:
     try:
-        from colorama import Fore, init
+        from colorama import Fore
+        from colorama import init as color_init
         USE_ANSICOLOR = True
     except ImportError:
         logd("no colorama, use __pip install colorama__")
+else:
+    Fore = None
+    color_init = None
 
 logd(f'{USE_RICH=}')
 logd(f'{USE_ANSICOLOR=}')
@@ -102,7 +107,7 @@ class PathLister():
     def report_in_colorama(self):
         ''' use colorama '''
         logd('report_in_colorama')
-        init(autoreset=True)
+        color_init(autoreset=True)
         for d in self.dirs:
             print(d)
         # not found
