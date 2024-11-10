@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # coding:utf-8
 
 '''
@@ -23,7 +23,7 @@ class Solution():
     ''' solution '''
     DO_RENAME = True
     TAG = "RETH"
-    Debug = False
+    Debug = True
 
     def __init__(self):
         self.files = glob('*.webm')
@@ -37,17 +37,27 @@ class Solution():
 
     def is_digits(self):
         ''' is digits '''
-        self.logd('try normal digit...')
+        self.logd('is_digits: try normal digit...')
         pairs = []
-        self.logd(f'there are {len(self.files)} files...')
+        self.logd(f'is_digits: {len(self.files)} files...')
+        pat1 = r'^(.+)第(\d)話(.+)$'
+        pat2 = r'^([^#]+) ?#(\d) (.+)$'
         for f in self.files:
-            m = re.match(r'^(.+)第(\d)話(.+)$', f)
+            m = re.match(pat1, f)
             if m:
+                self.logd("is_digits: pat1 matched...")
                 ep = int(m[2])
                 nf = m[1] + '第' + f'{ep:02d}' + '話' + m[3]
                 pairs.append((f, nf))
-            else:
-                self.logd(f'not match: {f}')
+                continue
+            m = re.match(pat2, f)
+            if m:
+                self.logd("is_digits: pat2 matched...")
+                ep = int(m[2])
+                nf = m[1] + '#' + f'{ep:02d}' + m[3]
+                pairs.append((f, nf))
+                continue
+            self.logd(f'no match: {f}')
         return pairs
 
     def is_han_digits(self):
