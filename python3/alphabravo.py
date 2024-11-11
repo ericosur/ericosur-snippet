@@ -10,9 +10,7 @@ https://en.wikipedia.org/wiki/NATO_phonetic_alphabet
 import argparse
 import sys
 from random import sample
-
 from myutil import read_from_stdin
-
 
 class AlphaBravoCharlie():
     ''' NATO alpha bravo charlie '''
@@ -65,7 +63,6 @@ class AlphaBravoCharlie():
         for c in arr:
             print(c)
 
-
 def process_args(args: list):
     ''' process_args '''
     abc = AlphaBravoCharlie()
@@ -81,7 +78,7 @@ def process_args(args: list):
         abc.translate(e)
 
 def main():
-    ''' main '''
+    ''' main use argparse to handle cli args '''
     parser = argparse.ArgumentParser(description='convert string into NATO call name',
         epilog="echo 'wtf' | PROG -s")
     parser.add_argument("-s", "--stdin", dest='readFromStdin', action='store_true',
