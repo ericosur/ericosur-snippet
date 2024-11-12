@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# pylint: disable=invalid-name
 
 '''
 天干地支
@@ -19,6 +20,13 @@ import sys
 
 from gngan_yaljux import do_ab, do_tests, do_values, do_verbose
 
+logd = print
+try:
+    from rich.console import Console
+    console = Console()
+    logd = console.log
+except ImportError:
+    pass
 
 def setup_arg_parser():
     ''' setup arg parser '''
@@ -43,12 +51,14 @@ def main():
     if args.list:
         if args.values:
             print('[WARN]: will not process specified values:', args.values)
+            return
         do_verbose()
         return
 
     if args.test:
         if args.values:
             print('[WARN]: will not process specified values:', args.values)
+            return
         do_tests()
         return
 
