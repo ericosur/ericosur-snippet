@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# pylint: disable=invalid-name
+# pylint: disable=unused-argument
 
 '''
 天干地支
@@ -12,9 +14,21 @@
 
 '''
 
+from typing import List, Tuple
 from datetime import datetime
+from typing_extensions import Annotated
+import typer
 
-#import time
+console = None
+try:
+    from rich.console import Console
+    console = Console()
+except ImportError:
+    print("[WARN] no rich.console to use")
+
+def do_nothing(*args, **wargs) -> None:
+    ''' do nothing '''
+    return None
 
 class GanChi():
     ''' 提供 天干地支紀年有關的功能 '''
@@ -26,7 +40,8 @@ class GanChi():
     PREDATA = ["甲乙丙丁戊己庚辛壬癸","子丑寅卯辰巳午未申酉戌亥",
         "鼠牛虎兔龍蛇馬羊猴雞狗豬"]
 
-    def __init__(self):
+    def __init__(self, log=do_nothing):
+        self.log = log
         self.gnn = list(self.PREDATA[0])
         self.yal = list(self.PREDATA[1])
         self.sesue = list(self.PREDATA[2])
@@ -47,12 +62,14 @@ class GanChi():
         return self.sesue
 
     @classmethod
-    def get_class(cls):
-        ''' get class '''
+    def run(cls, log):
+        ''' run test '''
         #print(cls.__name__)
-        return cls()
+        obj = cls(log)
+        obj.test0()
+        obj.test1()
 
-    def normalize_year(self, y):
+    def normalize_year(self, y: int) -> int:
         ''' y > -2997 and y != 0'''
         if y == 0:
             raise ValueError("ERROR: cannot assign 0 as year")
@@ -64,7 +81,7 @@ class GanChi():
             _y = y + self.MAGIC_START - 1
         return _y
 
-    def to_gc(self, y):
+    def to_gc(self, y: int) -> str:
         ''' to_gc '''
         _y = self.normalize_year(y)
         g = self.gnn[_y % self.NUM_GNN]
@@ -73,7 +90,7 @@ class GanChi():
         res = f'{g}{y}({s})'
         return res
 
-    def get_reminder(self, y):
+    def get_reminder(self, y: int) -> Tuple[int, int]:
         ''' reminder '''
         _y = self.normalize_year(y)
         _y = y + self.MAGIC_START - 1
@@ -82,12 +99,25 @@ class GanChi():
         return (g, y)
 
     @staticmethod
-    def check_ab(m=0, n=0):
+    def check_ab(m:int=0, n:int=0, log=do_nothing) -> bool:
         ''' check a and b '''
-        return (0 <= m < 10) and (0 <= n < 12) and ((m+n)%2==0)
+        logd = log
+        if m<0 or m>9:
+            logd(f'out of range: {m=}')
+            return False
+        if n<0 or n>11:
+            logd(f'out of range: {n=}')
+            return False
+        if (m+n)%2 != 0:
+            logd(f'not pass the rule {m}+{n} is even')
+            return False
+        #return (0 <= m < 10) and (0 <= n < 12) and ((m+n)%2==0)
+        return True
 
-    def brute_force_try(self, gnn, yal):
+    def brute_force_try(self, gnn: int, yal: int, log=do_nothing) -> List:
         ''' given 天干 (from 0) 地支 (from 0)  guess year '''
+        logd = log
+        logd(f"brute_force_try: {gnn=}, {yal=}")
         this_year = datetime.today().year
         test_year = 0
         found = False
@@ -97,7 +127,7 @@ class GanChi():
             test_year = this_year + i
             (_m, _n) = self.get_reminder(test_year)
             if _m == gnn and _n == yal:
-                print(test_year, self.to_gc(test_year))
+                #print(test_year, self.to_gc(test_year))
                 found = True
                 break
 
@@ -108,19 +138,23 @@ class GanChi():
         answers.append(test_year)
         for i in range(self.PREV_CYCLES):
             _y -= 60
-            print(_y)
+            logd(f"brute_force_try: found: {_y}")
             answers.append(_y)
-
+        answers.sort()
         return answers
 
-    def test0(self):
+    def test0(self) -> None:
         ''' test '''
+        logd = self.log
+        logd("test0...")
         for y in [-2997, -720, 1894, 1912, 1975, 1995, 2012, 2023]:
             res = self.to_gc(y)
             print(f'{y} is {res}')
 
-    def test1(self):
+    def test1(self) -> None:
         ''' test 1 '''
+        logd = self.log
+        logd("test1...")
         self.brute_force_try(-1, -1)
         self.brute_force_try(0, 0)
         self.brute_force_try(6, 0)
@@ -130,60 +164,81 @@ class GanChi():
         self.brute_force_try(11, 11)
         self.brute_force_try(9, 11)
 
-    def run(self):
-        ''' run test '''
-        self.test0()
-        self.test1()
-
-def do_values(values, radius=0):
+def do_values(values:List[int], this_year: int=0, radius: int=0, log=do_nothing) -> None:
     '''main function'''
-    gc = GanChi()
+    logd = log
+    gc = GanChi(logd)
     center = 0
     try:
         center = int(radius)
     except ValueError:
-        print('[WARN] center must be an integer:', radius)
+        logd('[WARN] center must be an integer:', radius)
         center = 0
+    logd(f'do_values: {values=}')
+    logd(f'{center=}')
     for y in values:
-        #print(f'y: {y}')
         for r in range(y-center, y+center+1):
-            #print(f'r: {r}')
             res = gc.to_gc(r)
-            print(f'{r} is {res}')
+            msg = f'{r} is {res}'
+            if console and r==this_year:
+                console.print(f'[yellow]{msg}')
+            else:
+                print(msg)
     del gc
 
-def do_tests():
-    ''' test '''
-    test = GanChi.get_class()
-    test.run()
-
-def do_verbose():
+def do_verbose(log=do_nothing):
     ''' verbose '''
+    log("do_verbose...")
     gc = GanChi()
     print(gc)
     del gc
 
-def do_ab(m, n):
-    ''' do ab '''
-    gc = GanChi.get_class()
+def do_ab(m: int, n: int, log=do_nothing) -> None:
+    ''' do ab, m is {0,9}, n is {0, 11}
+        and pass rule of check_ab()
+    '''
+    logd = log
+    gc = GanChi(logd)
     g = gc.get_gnn()
     y = gc.get_yal()
     ret = ""
-    if gc.check_ab(m, n):
-        ret = f'{g[m]} {y[n]}'
+    if gc.check_ab(m, n, logd):
+        ret = f'{g[m]}{y[n]}'
     else:
-        print(f'ERROR: invalid input: {m}, {n}')
+        logd(f'ERROR: invalid input: {m}, {n}')
         return
-
-    ans = gc.brute_force_try(m, n)
+    ans = gc.brute_force_try(m, n, log=log)
     if not ans:
-        print(f'ERROR: invalid year: {ret}')
+        logd(f'ERROR: no answer for {ret}')
+    logd(f'do_ab: {ans=}')
+    this_year = datetime.today().year
+    for i in ans:
+        msg = f"{i} {gc.to_gc(i)}"
+        if console and i==this_year:
+            console.print(f'[bold yellow]{msg}')
+        else:
+            print(msg)
 
+def do_tests(log=do_nothing) -> None:
+    ''' run the original tests'''
+    GanChi.run(log)
 
-def main():
-    ''' main '''
+def main(verbose: Annotated[bool, typer.Option("--verbose",
+                                               help="verbose info")] = False,
+         values: Annotated[bool, typer.Option("--value",
+                                               help="test some values")] = False
+        ) -> None:
+    '''
+    if no option is specified, run the default test
+    '''
     print("[INFO] please run ganzhi.py, will run tests here")
+    if verbose:
+        do_verbose()
+        return
+    if values:
+        do_values([2010,2019,2025])
+        return
     do_tests()
 
 if __name__ == '__main__':
-    main()
+    typer.run(main)
