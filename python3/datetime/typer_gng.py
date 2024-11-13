@@ -12,14 +12,13 @@ use typer to handle CLI
 '''
 
 from typing import List, Optional
-from datetime import datetime
 from typing_extensions import Annotated
 import typer
 
 from rich.console import Console
 console = Console()
 
-from gngan_yaljux import do_ab, do_tests, do_values, do_verbose
+from gngan_yaljux import do_ab, do_tests, do_values, do_verbose, get_thisyear
 
 class Main():
     ''' main '''
@@ -82,10 +81,8 @@ class Main():
             if len(values)==2:
                 do_ab(values[0], values[1], log=self.logd)
                 return
-            else:
-                print(f'[FAIL] must specify two arguments')
-                return
-
+            print('[FAIL] must specify two arguments')
+            return
         if test:
             do_tests()
             return
@@ -94,7 +91,7 @@ class Main():
             return
 
         # if no values, append this year
-        this_year = datetime.today().year
+        this_year = get_thisyear()
         if not values:
             values = [this_year]
         self.logd(f'{after=}')
@@ -102,9 +99,9 @@ class Main():
         for v in values:
             self.logd(f'{v=}')
             if v==this_year:
-                self.logd(f"the_center: {v}")
+                self.logd(f"this_year: {v}")
             the_vals = self.prepare_values(v, after=after, before=before, radius=context)
-            do_values(the_vals, this_year=this_year, log=self.logd)
+            do_values(the_vals, log=self.logd)
 
 if __name__ == '__main__':
     m = Main()

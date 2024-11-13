@@ -25,12 +25,12 @@ def add_months(sourcedate, months):
 def main():
     ''' main '''
     start = datetime.datetime(2020, 12, 21)
-    b = 31
-    while b <= 240:
-        print(f'{b}: {start}')
+    i = 31
+    upper = 4*12
+    while i <= upper:
+        print(f'{i}: {start}')
         start = add_months(start, 1)
-        b += 1
-
+        i += 1
 
 if __name__ == '__main__':
     main()
