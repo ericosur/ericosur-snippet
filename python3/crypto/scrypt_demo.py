@@ -13,7 +13,7 @@ import hashlib
 
 MODULE="scrypt_demo"
 
-def logd(*args, **wargs):
+def logd(*args, **wargs) -> None:
     ''' log debug '''
     print(MODULE, *args, **wargs, file=sys.stderr)
 
@@ -25,12 +25,12 @@ class ScryptDemo():
         self.a_dict = {}
 
     @classmethod
-    def run(cls):
+    def run(cls) -> None:
         ''' run '''
         obj = cls()
         obj.action()
 
-    def run_scrypt(self, pwd):
+    def run_scrypt(self, pwd: str) -> None:
         ''' call hashlib.scrypt '''
         salt = os.urandom(24) # 16 bytes == 128 bits
         dk = hashlib.scrypt(password=pwd.encode(), salt=salt,
@@ -41,15 +41,15 @@ class ScryptDemo():
         self.a_dict["salt"] = base64.b64encode(salt)
         self.a_dict["dk"] = base64.b64encode(dk)
 
-    def report(self):
+    def report(self) -> None:
         ''' report '''
         print(self.a_dict)
 
-    def action(self):
+    def action(self) -> None:
         ''' action '''
         self.run_scrypt(self.PASSWORD)
         self.report()
-        self.retrieve()
+        #self.retrieve()
 
 def main():
     ''' main '''

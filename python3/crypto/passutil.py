@@ -15,6 +15,7 @@ import base64
 import hashlib
 import sys
 import json
+from typing import Any, Dict, Tuple
 
 try:
     from Crypto.Cipher import AES
@@ -25,15 +26,15 @@ except ImportError:
 
 MODULE = "passutil"
 
-def logi(*args, **wargs):
+def logi(*args, **wargs) -> None:
     ''' logi '''
     print(f'{MODULE}:', *args, **wargs)
 
-def logd(*args, **wargs):
+def logd(*args, **wargs) -> None:
     ''' logd '''
     Main.logd(*args, **wargs)
 
-def logv(*args, **wargs):
+def logv(*args, **wargs) -> None:
     ''' logv '''
     Main.logv(*args, **wargs)
 
@@ -42,10 +43,10 @@ class PassUtil():
     def __init__(self, jsonfile="passutil.json"):
         self.a_dict = {}
         self.jsf = jsonfile
-        self.key = self.__get_derivedkey__()
+        self.key: bytes = self.__get_derivedkey__()
         self.a_dict['key'] = self.b64enc(self.key)
 
-    def __get_derivedkey__(self):
+    def __get_derivedkey__(self) -> bytes:
         ''' generate derived key '''
         d = get_random_bytes(128)
         s = get_random_bytes(32)
@@ -53,21 +54,21 @@ class PassUtil():
         return dk
 
     @staticmethod
-    def b64enc(the_bytes):
+    def b64enc(the_bytes: bytes) -> str:
         ''' base64.encode '''
         return base64.b64encode(the_bytes)
 
     @staticmethod
-    def b64dec(the_bytes):
+    def b64dec(the_bytes: bytes) -> str:
         ''' base64.decode '''
         return base64.b64decode(the_bytes)
 
-    def dump(self):
+    def dump(self) -> None:
         ''' dump '''
         logd('dump:', self.a_dict)
 
-    def save(self):
-        ''' save '''
+    def save(self)  -> None:
+        ''' save to json file '''
         fn = self.jsf
         logd(f'save to {fn}')
         # serialize to str
@@ -86,7 +87,7 @@ class PassUtil():
             with open(fn, "wt", encoding="UTF-8") as fobj:
                 print(json.dumps(d, indent=4), file=fobj)
 
-    def load(self):
+    def load(self) -> Dict:
         ''' load from json '''
         fn = self.jsf
         with open(fn, 'r', encoding='utf8') as fobj:
@@ -102,7 +103,7 @@ class PassUtil():
         self.dump()
         return data
 
-    def encrypt(self, data):
+    def encrypt(self, data: bytes) -> None:
         ''' aes encrypt '''
         if not isinstance(data, bytes):
             raise TypeError("type of data MUST be bytes")
@@ -116,7 +117,7 @@ class PassUtil():
         self.a_dict['ciphertext'] = self.b64enc(ciphertext)
         #logd('encrypt:', self.a_dict)
 
-    def __decodeb64__(self):
+    def __decodeb64__(self) -> Tuple[str, str, str, str]:
         ''' load data '''
         cn = self.b64dec(self.a_dict['cn'])
         tg = self.b64dec(self.a_dict['tg'])
@@ -124,7 +125,7 @@ class PassUtil():
         ct = self.b64dec(self.a_dict['ciphertext'])
         return cn, tg, ky, ct
 
-    def decrypt(self):
+    def decrypt(self) -> bytes:
         ''' aes decrypt '''
         nonce, tag, key, ciphertext = self.__decodeb64__()
         # let's assume that the key is somehow available again
@@ -132,8 +133,7 @@ class PassUtil():
         data = cipher.decrypt_and_verify(ciphertext, tag)
         return data
 
-
-def verify(in_fn):
+def verify(in_fn: str) -> None:
     ''' verify '''
     decpu = PassUtil(in_fn)
     decpu.load()
@@ -148,20 +148,20 @@ class Main():
         self.args = None
 
     @staticmethod
-    def logd(*args, **wargs):
+    def logd(*args, **wargs) -> None:
         ''' log debug '''
         #logi('Main.logd:', Main.debug)
         if Main.debug:
             print(f"{MODULE} D:", *args, **wargs, file=sys.stderr)
 
     @staticmethod
-    def logv(*args, **wargs):
+    def logv(*args, **wargs) -> None:
         ''' verbose '''
         #logi('Main.logv:', Main.verbose)
         if Main.verbose:
             print(f"{MODULE} V:", *args, **wargs, file=sys.stderr)
 
-    def do_parser(self):
+    def do_parser(self) -> Any:
         ''' make parser '''
         parser = argparse.ArgumentParser(description='passutil helps to store some text')
         # nargs like regexp, '*' means 0+, '+' means 1+
@@ -176,12 +176,12 @@ class Main():
         return parser
 
     @classmethod
-    def run(cls):
+    def run(cls) -> None:
         ''' run '''
         obj = cls()
         obj.action()
 
-    def generate(self, the_text, out_fn):
+    def generate(self, the_text: str, out_fn: str) -> None:
         ''' main '''
         logd(f"generate: {the_text}, {out_fn}")
         data = the_text.encode()    # to bytes
@@ -190,14 +190,14 @@ class Main():
         pu.save()
         del pu
 
-    def action(self):
+    def action(self) -> None:
         ''' action '''
         parser = self.do_parser()
         self.args = parser.parse_args()
         Main.debug = self.args.debug
         Main.verbose = self.args.verbose
 
-        logv("helo")
+        logv("hello")
         logd("strings:", self.args.strings)
         if self.args.out_fn:
             logd('output:', self.args.out_fn)
