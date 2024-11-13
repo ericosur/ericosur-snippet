@@ -7,7 +7,7 @@
 import json
 import urllib.request
 
-def query_url_for_data(url, debug=False):
+def query_url_for_data(url: str, debug: bool=False):
     ''' query url and return data
     refer to: https://stackoverflow.com/questions/2792650/import-error-no-module-name-urllib2
     '''
@@ -20,7 +20,7 @@ def query_url_for_data(url, debug=False):
     return result
 
 
-def query_url_for_json(url):
+def query_url_for_json(url: str):
     ''' query url and return json data
     refer to: https://stackoverflow.com/questions/2792650/import-error-no-module-name-urllib2
     '''

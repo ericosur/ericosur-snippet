@@ -7,29 +7,25 @@
 
 import time
 from datetime import datetime
+from typing import List
 
-__VERSION__ = "2024.04.01"
+__VERSION__ = "2024.11.11"
 
 
-def get_epoch():
+def get_epoch() -> int:
     ''' return int of current time epoch
         same as ```date +%s```
     '''
     return int(time.time())
 
 
-def epoch2timestr(epoch: int):
+def epoch2timestr(epoch: int) -> List:
     ''' Replace time.localtime with time.gmtime for GMT time '''
     if epoch == -1:
         epoch = int(time.time())
 
     msg = time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime(epoch))
     return [epoch, msg]
-
-def get_obj_today():
-    '''
-    datetime.today()
-    '''
 
 def __what_now():
     '''
