@@ -9,8 +9,9 @@ import argparse
 import os
 import sys
 import re
+from typing import List
 
-def logd(*args, **wargs):
+def logd(*args, **wargs) -> None:
     ''' logd '''
     if CheckCsv.debug:
         print(*args, **wargs)
@@ -24,7 +25,7 @@ class CheckCsv():
         self.tb = {}
 
     @classmethod
-    def run(cls):
+    def run(cls) -> None:
         ''' run '''
         parser = argparse.ArgumentParser(description='check csv and validate the format',
                                         epilog='give csv filename')
@@ -37,18 +38,21 @@ class CheckCsv():
         obj = cls()
         obj.action(args)
 
-    def action(self, args):
+    def action(self, args: List) -> None:
         ''' action '''
         CheckCsv.debug = args.debug
         logd('CheckCsv.action...')
         csvfn = "t.csv"
         if args.csvfn:
             csvfn = args.csvfn
+        if not os.path.isfile(csvfn):
+            print(f'[FAIL] file not found: {csvfn}')
+            sys.exit(1)
         self.read_file(csvfn)
         logd(f'size: {len(self.tb)}')
         self.check_table()
 
-    def read_file(self, fn):
+    def read_file(self, fn: str) -> None:
         ''' check csv '''
         logd(f'read_file: {fn}')
         with open(fn, "rt", encoding="UTF-8") as fobj:
@@ -65,7 +69,7 @@ class CheckCsv():
                 k,v = m[1], m[2]
                 self.tb[k] = v
 
-    def check_table(self):
+    def check_table(self) -> None:
         ''' check self.tb '''
         p = r'\d{2,}:\d{2}\.\d{2}'
         for k,v in self.tb.items():
