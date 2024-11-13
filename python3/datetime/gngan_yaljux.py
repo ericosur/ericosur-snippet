@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=invalid-name
 # pylint: disable=unused-argument
+# pylint: disable=too-many-arguments
+# pylint: disable=too-many-positional-arguments
 
 '''
 天干地支
@@ -16,6 +18,7 @@
 
 from typing import List, Tuple
 from datetime import datetime
+from random import randint
 from typing_extensions import Annotated
 import typer
 
@@ -29,6 +32,10 @@ except ImportError:
 def do_nothing(*args, **wargs) -> None:
     ''' do nothing '''
     return None
+
+def get_thisyear() -> int:
+    ''' get this year '''
+    return datetime.today().year
 
 class GanChi():
     ''' 提供 天干地支紀年有關的功能 '''
@@ -66,7 +73,7 @@ class GanChi():
         ''' run test '''
         #print(cls.__name__)
         obj = cls(log)
-        obj.test0()
+        #obj.test0()
         obj.test1()
 
     def normalize_year(self, y: int) -> int:
@@ -103,13 +110,13 @@ class GanChi():
         ''' check a and b '''
         logd = log
         if m<0 or m>9:
-            logd(f'out of range: {m=}')
+            logd(f'check_ab: out of range: {m=}')
             return False
         if n<0 or n>11:
-            logd(f'out of range: {n=}')
+            logd(f'check_ab: out of range: {n=}')
             return False
         if (m+n)%2 != 0:
-            logd(f'not pass the rule {m}+{n} is even')
+            logd(f'check_ab: not pass the rule {m}+{n} is even')
             return False
         #return (0 <= m < 10) and (0 <= n < 12) and ((m+n)%2==0)
         return True
@@ -117,8 +124,11 @@ class GanChi():
     def brute_force_try(self, gnn: int, yal: int, log=do_nothing) -> List:
         ''' given 天干 (from 0) 地支 (from 0)  guess year '''
         logd = log
-        logd(f"brute_force_try: {gnn=}, {yal=}")
-        this_year = datetime.today().year
+        #logd(f"brute_force_try: {gnn=}, {yal=}")
+        # check the parameters, will not proceed if invalid
+        if not self.check_ab(gnn, yal):
+            return []
+        this_year = get_thisyear()
         test_year = 0
         found = False
         # after this year
@@ -144,27 +154,46 @@ class GanChi():
         return answers
 
     def test0(self) -> None:
-        ''' test '''
+        ''' test #0 '''
         logd = self.log
         logd("test0...")
+        console.print('[INFO] I [red]DO NOT recommend[/red] year in negative value')
         for y in [-2997, -720, 1894, 1912, 1975, 1995, 2012, 2023]:
             res = self.to_gc(y)
             print(f'{y} is {res}')
 
     def test1(self) -> None:
-        ''' test 1 '''
+        ''' test #1 '''
         logd = self.log
-        logd("test1...")
-        self.brute_force_try(-1, -1)
-        self.brute_force_try(0, 0)
-        self.brute_force_try(6, 0)
-        self.brute_force_try(0, 6)
-        self.brute_force_try(9, 9)
-        self.brute_force_try(10, 10)
-        self.brute_force_try(11, 11)
-        self.brute_force_try(9, 11)
+        def run_test(m: int, n: int, expect: List) -> None:
+            ''' check the ans '''
+            logd(f'run_test: {m},{n}')
+            ans = self.brute_force_try(m, n, log=do_nothing)
+            if expect is None:
+                logd(f'ans: {ans}')
+                return
+            if expect == ans:
+                console.print('pass')
+            else:
+                console.print('FAIL')
 
-def do_values(values:List[int], this_year: int=0, radius: int=0, log=do_nothing) -> None:
+        logd("test1...")
+        run_test(-3, 0, [])
+        run_test(0, -3, [])
+        run_test(-1, -1, [])
+        run_test(-1, 0, [])
+        run_test(0, -1, [])
+        run_test(0, 0, [1864,1924,1984,2044])
+        run_test(1, 4, [])
+        run_test(1, 3, [1855,1915,1975,2035])
+        run_test(6, 0, [1900,1960,2020,2080])
+        run_test(7, 1, [1901,1961,2021,2081])
+        run_test(9, 0, [])
+        run_test(9, 1, [1853,1913,1973,2033])
+        run_test(10, 2, [])
+        run_test(2, 12, [])
+
+def do_values(values:List[int], radius: int=0, log=do_nothing) -> None:
     '''main function'''
     logd = log
     gc = GanChi(logd)
@@ -176,6 +205,7 @@ def do_values(values:List[int], this_year: int=0, radius: int=0, log=do_nothing)
         center = 0
     logd(f'do_values: {values=}')
     logd(f'{center=}')
+    this_year = get_thisyear()
     for y in values:
         for r in range(y-center, y+center+1):
             res = gc.to_gc(r)
@@ -188,7 +218,8 @@ def do_values(values:List[int], this_year: int=0, radius: int=0, log=do_nothing)
 
 def do_verbose(log=do_nothing):
     ''' verbose '''
-    log("do_verbose...")
+    logd = log
+    logd("do_verbose...")
     gc = GanChi()
     print(gc)
     del gc
@@ -211,7 +242,7 @@ def do_ab(m: int, n: int, log=do_nothing) -> None:
     if not ans:
         logd(f'ERROR: no answer for {ret}')
     logd(f'do_ab: {ans=}')
-    this_year = datetime.today().year
+    this_year = get_thisyear()
     for i in ans:
         msg = f"{i} {gc.to_gc(i)}"
         if console and i==this_year:
@@ -223,22 +254,46 @@ def do_tests(log=do_nothing) -> None:
     ''' run the original tests'''
     GanChi.run(log)
 
-def main(verbose: Annotated[bool, typer.Option("--verbose",
-                                               help="verbose info")] = False,
+def main(verbose: Annotated[bool, typer.Option("--list", "-l",
+                                               help="list all 天干/地支/生肖")] = False,
+         debug: Annotated[bool, typer.Option("--debug", "-d",
+                                               help="debug info")] = False,
          values: Annotated[bool, typer.Option("--value",
-                                               help="test some values")] = False
+                                               help="test some values")] = False,
+         alltests: Annotated[bool, typer.Option("--alltests","--all",
+                                               help="run all tests")] = False,
+         testbasic: Annotated[bool, typer.Option("--basictest","--basic",
+                                               help="run basic tests")] = False,
+         testab: Annotated[bool, typer.Option("--abtest","--ab",
+                                               help="run AB tests")] = False,
         ) -> None:
     '''
-    if no option is specified, run the default test
+    no required arguments, use options to toggle, only the first one will be taken
     '''
-    print("[INFO] please run ganzhi.py, will run tests here")
-    if verbose:
-        do_verbose()
+    log = do_nothing
+    if debug:
+        log = console.log
+    if verbose: # list all elements
+        do_verbose(log=log)
         return
-    if values:
-        do_values([2010,2019,2025])
+    if values:  # pick 3 values and show
+        x = [randint(1900,2050) for _ in range(3)]
+        x.sort()
+        do_values(x, log=log)
         return
-    do_tests()
+    if alltests:
+        do_tests(log=log)
+        return
+    if testbasic:
+        gc = GanChi(log)
+        gc.test0()
+        return
+    if testab:
+        gc = GanChi(log)
+        gc.test1()
+        return
+
+    console.print("[INFO] use [yellow]gngan_yaljux.py --help[/yellow] to see help messages")
 
 if __name__ == '__main__':
     typer.run(main)
