@@ -1,0 +1,4 @@
+typing_extensions
+typer
+rich
+
