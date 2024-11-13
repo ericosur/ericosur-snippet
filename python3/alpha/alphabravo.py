@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # coding: utf-8
+# pylint: disable=wrong-import-position
 
 '''
 alpha beta charlie
@@ -10,6 +11,9 @@ https://en.wikipedia.org/wiki/NATO_phonetic_alphabet
 import argparse
 import sys
 from random import sample
+
+sys.path.insert(0, "../")
+sys.path.insert(0, "../../")
 from myutil import read_from_stdin
 
 class AlphaBravoCharlie():
