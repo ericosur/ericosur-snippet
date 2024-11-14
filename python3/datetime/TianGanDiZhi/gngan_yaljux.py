@@ -17,10 +17,9 @@ This module provides utility functions and class GanChi
 
 '''
 
+import sys
 from typing import List, Tuple
 from datetime import datetime
-from random import randint
-from typing_extensions import Annotated
 
 console = None
 try:
@@ -256,4 +255,4 @@ def do_tests(log=do_nothing) -> None:
     GanChi.run(log)
 
 if __name__ == "__main__":
-    print('[INFO] utility module...')
+    print(f'[INFO] {sys.argv[0]} is a utility module, exit...')

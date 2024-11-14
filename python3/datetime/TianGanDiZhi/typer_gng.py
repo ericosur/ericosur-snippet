@@ -64,12 +64,12 @@ class Main():
                                         help="radius nn year, conflicts: after/before")] = 0,
             debug: Annotated[bool, typer.Option("--debug / --no-debug", "-d / -D",
                                         help="show dubug info")] = False,
-            show: Annotated[bool, typer.Option("--show", "-s",
+            show: Annotated[bool, typer.Option("--show", "--list", "-s",
                                         help="list GnnGj and YalJux")] = False,
             test: Annotated[bool, typer.Option("--test", "-t",
                                         help="run test on GnnGj and YalJux")] = False,
             gnn: Annotated[bool, typer.Option("--gnn",
-                                        help="do ab test")] = False,
+                                        help="apply two numbers for TianGan and DiZhi")] = False,
             ) -> None:
         '''
         if no option is specified, run the default test
