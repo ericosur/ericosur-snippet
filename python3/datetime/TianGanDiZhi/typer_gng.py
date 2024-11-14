@@ -11,9 +11,14 @@
 use typer to handle CLI
 '''
 
+import sys
 from typing import List, Optional
 from typing_extensions import Annotated
-import typer
+try:
+    import typer
+except ImportError:
+    print('[FAIL] you need module typer to run this')
+    sys.exit(1)
 
 from rich.console import Console
 console = Console()
