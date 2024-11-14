@@ -10,7 +10,7 @@ typer tests gngan_yaljux.py
 '''
 
 import sys
-from typing import List, Tuple
+from random import randint
 from typing_extensions import Annotated
 try:
     import typer
@@ -24,6 +24,8 @@ try:
     console = Console()
 except ImportError:
     print("[WARN] no rich.console to use")
+
+from gngan_yaljux import do_tests, do_values, do_verbose, GanChi
 
 def do_nothing(*args, **wargs) -> None:
     ''' do nothing '''
