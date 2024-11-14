@@ -11,10 +11,11 @@ demo for the following base-N functions:
 reference: https://docs.python.org/zh-tw/3/library/base64.html
 '''
 
+from typing import Any
 import base64
 import sys
 
-USE_B85 = False
+USE_B85: bool = False
 try:
     import base58
     USE_B85 = True
@@ -33,7 +34,7 @@ def is_py310plus() -> bool:
     ''' return python version in (major, minor) integers '''
     return sys.version_info[0]==3 and sys.version_info[1]>=10
 
-def show(m, n):
+def show(m: str, n: Any) -> None:
     ''' show '''
     s = None
     if isinstance(n, bytes):
@@ -44,7 +45,7 @@ def show(m, n):
         s = str(n)
     print(f'{m:<16s}: {s}')
 
-def demo58(v: bytes):
+def demo58(v: bytes) -> None:
     ''' base 58 '''
     if not USE_B85:
         return
@@ -52,7 +53,7 @@ def demo58(v: bytes):
     show('base58', r)
     sep()
 
-def demo85(v: bytes):
+def demo85(v: bytes) -> None:
     ''' test base85 '''
     r = base64.a85encode(v) # r is bytes
     show('base85a', r)
@@ -60,7 +61,7 @@ def demo85(v: bytes):
     show('base85b', r)
     sep()
 
-def demo64(v: bytes):
+def demo64(v: bytes) -> None:
     ''' demo base64 '''
     b0 = base64.standard_b64encode(v)
     b1 = base64.b64encode(v)
@@ -74,14 +75,14 @@ def demo64(v: bytes):
     sep()
 
 # pylint: disable=no-member
-def demo32(v: bytes):
+def demo32(v: bytes) -> None:
     ''' demo base32 '''
     show("base32", base64.b32encode(v))
     if is_py310plus():
         show("base32hex", base64.b32hexencode(v))
     sep()
 
-def test(v: bytes):
+def test(v: bytes) -> None:
     ''' test '''
     #hx = binascii.hexlify(v)    # bytes: b'([0-9a-f][0-9a-f])+'
     #show('input', hx)
