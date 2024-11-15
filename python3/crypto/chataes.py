@@ -25,7 +25,7 @@ def logd(*args, **wargs):
     ''' log debug '''
     print("chataes.py:", *args, **wargs, file=sys.stderr)
 
-def aes_encrypt(data, key):
+def aes_encrypt(data: bytes, key: bytes) -> bytes:
     ''' aes encrypt '''
     data = bytes(data)
     cipher = AES.new(key, AES.MODE_EAX)
@@ -36,8 +36,7 @@ def aes_encrypt(data, key):
     logd("output cipher to:", CIPHER_FILE)
     return ciphertext
 
-
-def aes_decrypt(key):
+def aes_decrypt(key: bytes) -> bytes:
     ''' aes decrypt '''
     with open(CIPHER_FILE, "rb") as file_in:
         nonce, tag, ciphertext = [ file_in.read(x) for x in (16, 16, -1) ]
