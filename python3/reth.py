@@ -13,29 +13,30 @@ import os
 import re
 import sys
 from glob import glob
+from typing import List
 
-def die(*args, **kwargs):
+def die(*args, **kwargs) -> None:
     ''' similar to die in perl '''
     print(*args, file=sys.stderr, **kwargs)
     sys.exit()
 
 class Solution():
     ''' solution '''
-    DO_RENAME = True
-    TAG = "RETH"
-    Debug = True
+    DO_RENAME: bool = True
+    TAG: str = "RETH"
+    Debug: bool = True
 
     def __init__(self):
         self.files = glob('*.webm')
         if len(self.files) == 0:
             die('[info] there is no webm files...')
 
-    def logd(self, *args, **wargs):
+    def logd(self, *args, **wargs) -> None:
         ''' log debug '''
         if self.Debug:
             print(*args, **wargs, file=sys.stderr)
 
-    def is_digits(self):
+    def is_digits(self) -> List:
         ''' is digits '''
         self.logd('is_digits: try normal digit...')
         pairs = []
@@ -60,7 +61,7 @@ class Solution():
             self.logd(f'no match: {f}')
         return pairs
 
-    def is_han_digits(self):
+    def is_han_digits(self) -> List:
         ''' han digits '''
         print('try han digits...')
         s = '○一二三四五六七八九十'
@@ -82,7 +83,7 @@ class Solution():
                 pairs.append((f, nf))
         return pairs
 
-    def try_rename(self, pairs):
+    def try_rename(self, pairs) -> None:
         ''' try rename '''
         for p in pairs:
             (f, nf) = p
@@ -90,7 +91,7 @@ class Solution():
                 os.rename(f, nf)
             print(f'mv {f} {nf}')
 
-    def action(self):
+    def action(self) -> None:
         ''' action '''
         pairs = self.is_digits()
         ret = len(pairs)
@@ -104,7 +105,7 @@ class Solution():
         self.try_rename(pairs)
 
     @classmethod
-    def run(cls):
+    def run(cls) -> None:
         ''' runme '''
         obj = cls()
         obj.action()

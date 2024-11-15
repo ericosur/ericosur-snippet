@@ -18,7 +18,7 @@ try:
 except ImportError:
     print('suggest: use __pip install rich__')
 
-def logd(*args, **wargs):
+def logd(*args, **wargs) -> None:
     ''' logd '''
     if DEBUG:
         print(*args, **wargs)
@@ -30,12 +30,12 @@ class Main():
         self.mk_parser()
 
     @classmethod
-    def run(cls):
+    def run(cls) -> None:
         ''' run '''
         obj = cls()
         obj.action()
 
-    def mk_parser(self):
+    def mk_parser(self) -> None:
         ''' make parser '''
         parser = argparse.ArgumentParser(description='use ip-api.com to query IP')
         parser.add_argument("ips", metavar='str', type=str, nargs='*',
@@ -44,7 +44,7 @@ class Main():
             help='view in rich text')
         self.args = parser.parse_args()
 
-    def print_data(self, data):
+    def print_data(self, data) -> None:
         ''' print json if rich is available '''
         d = json.dumps(data)
         if USE_RICH and self.args.rich:
@@ -52,7 +52,7 @@ class Main():
         else:
             print(d)
 
-    def get_current_ip(self):
+    def get_current_ip(self) -> str:
         ''' use this to get myip '''
         url = 'https://api.myip.com'
         r = requests.get(url, timeout=5.0)
@@ -63,7 +63,7 @@ class Main():
         ip = data['ip']
         return ip
 
-    def get_ip_info(self, ip):
+    def get_ip_info(self, ip:str) -> None:
         ''' use this to get IP location and related data '''
         iploc = f'http://ip-api.com/json/{ip}'
         r = requests.get(iploc, timeout=5.0)
@@ -71,7 +71,7 @@ class Main():
         print("returned:")
         self.print_data(r.json())
 
-    def action(self):
+    def action(self) -> None:
         ''' action '''
         if not self.args.ips:
             logd("will get current ip...")

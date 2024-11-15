@@ -82,7 +82,7 @@ class Solution():
         return res
 
     @classmethod
-    def run(cls):
+    def run(cls) -> None:
         ''' run demo '''
         obj = cls()
         for i in range(10):
