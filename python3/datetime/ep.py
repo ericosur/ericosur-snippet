@@ -38,20 +38,33 @@ https://github.com/ericosur/ericosur-snippet/tree/master/root/epoch
 '''
 
 import argparse
+import calendar
 import sys
 import time
 from random import randint
+from typing import Tuple
 
 sys.path.insert(0, '../')
 from myutil import read_from_stdin
 
-def epoch2timestr(epoch: int):
+def datetime2epoch(date_str: str) -> int:
+    ''' given datetime string (YYYY-MM-DD HH:MM:SS)
+        return epoch
+    '''
+    return calendar.timegm(time.strptime(date_str, '%Y-%m-%d %H:%M:%S'))
+
+def epoch2timestr(epoch: int, human: bool=False) -> Tuple:
     ''' Replace time.localtime with time.gmtime for GMT time '''
     if epoch == -1:
         epoch = int(time.time())
 
-    msg = time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime(epoch))
+    msg = ""
+    if human:
+        msg = time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime(epoch))
+    else:
+        msg = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(epoch))
     return [epoch, msg]
+
 
 def main(args: list):
     ''' main '''
