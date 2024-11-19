@@ -90,6 +90,7 @@ class Words():
         for c in list(w):
             ms.append(MORSES[c])
         msg = "/".join(ms)
+        # https://rich.readthedocs.io/en/stable/appendix/colors.html
         logd(f'{w:6s}: [chartreuse4]{msg}')
         return msg
 
