@@ -43,6 +43,9 @@ class BopoIndex():
     def ensure_len4(n: List) -> List:
         ''' if len(n) < 4, fill BP_DEFAULT till len==4 '''
         tmp = n.copy()
+        if len(tmp) == 0:
+            logd(f'wtf??? {n=} {tmp=}')
+            raise ValueError("wtf len of input is zero?")
         while len(tmp) < 4:
             try:
                 tail = tmp[-1]
@@ -63,12 +66,15 @@ class BopoIndex():
         total = []
         inner = []
         for c in list(w):
-            if c == ' ':
-                total.append(self.ensure_len4(inner))
-                inner = []
-                continue
-            r = self.lookup_list(c)
-            inner.append(r)
+            try:
+                if c == ' ':
+                    total.append(self.ensure_len4(inner))
+                    inner = []
+                    continue
+                r = self.lookup_list(c)
+                inner.append(r)
+            except ValueError as e:
+                logd(f'here {w=}, {e=}')
         if inner:
             r = self.ensure_len4(inner)
             total.append(r)
