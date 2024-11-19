@@ -44,12 +44,16 @@ class BopoIndex():
         ''' if len(n) < 4, fill BP_DEFAULT till len==4 '''
         tmp = n.copy()
         while len(tmp) < 4:
-            tail = tmp[-1]
-            #logd(f"{tail=}")
-            if 0<tail<10 or tail==BP_DEFAULT:
-                tmp.append(BP_DEFAULT)
-            else:
-                tmp.append(TONE_START)
+            try:
+                tail = tmp[-1]
+                #logd(f"{tail=}")
+                if 0<tail<10 or tail==BP_DEFAULT:
+                    tmp.append(BP_DEFAULT)
+                else:
+                    tmp.append(TONE_START)
+            except IndexError as e:
+                logd(f'ensure_len4: {n=} {tmp=}, {e}')
+                sys.exit(1)
         return tmp
 
     def get_value_of_word(self, w: str) -> List:
@@ -95,7 +99,7 @@ def cmp_idiom(x: List, y: List) -> int:
     m = cast_to_list(x[1]).copy()
     n = cast_to_list(y[1]).copy()
     if len(m) != len(n):
-        raise IndexError("length is different")
+        raise IndexError(f"length is different: {x} vs {y}")
     r = 0
     while len(m) > 0:
         r = cmp_gt(m.pop(0), n.pop(0))
@@ -104,12 +108,20 @@ def cmp_idiom(x: List, y: List) -> int:
     #logd(f"ret:{r}")
     return r
 
+def dump_ans(ans):
+    ''' dump ans '''
+    for i in ans:
+        logd(i[0])
+
 def test():
     ''' test '''
+    #gg = IDIOM_BOPOMOFO.copy()
+    # gg.append(IDIOM_BOPOMOFO[179])
+    # gg.append(IDIOM_BOPOMOFO[149])
     gg = []
-    # gg.append(IDIOM_BOPOMOFO[10])
-    # gg.append(IDIOM_BOPOMOFO[15])
-    # gg.append(IDIOM_BOPOMOFO[20])
+    for i in IDIOM_BOPOMOFO:
+        if len(i[0])==4:
+            gg.append(list(i))
 
     bo = BopoIndex()
     idioms = {}
@@ -120,7 +132,7 @@ def test():
     #logd(idioms)
     ans = sorted(idioms.items(), key=cmp_to_key(cmp_idiom))
 #    {k: v for k, v in sorted(x.items(), key=lambda item: item[1])}
-    logd(ans)
+    dump_ans(ans)
 
 def is_tone(v: int) -> bool:
     ''' is tone '''
@@ -146,13 +158,12 @@ def do_nothing(*args):
 
 def cmp_gt(mm: List, nn: List) -> int:
     '''
-    gt mean m goes before n
-    像是 cmp(a, b) 這樣的比較函式會回傳負數代表小於、0 代表輸入相同或正數代表大於。
+    Like cmp(a, b) x<y ret -1, x==y ret 0 , x>y ret 1
     '''
     m = mm.copy()
     n = nn.copy()
     logd = do_nothing
-    logd(f'cmp_gt: {m} vs {n}')
+    #logd(f'cmp_gt: {m} vs {n}')
     if len(m) != len(n):
         raise IndexError(f"length is different: {m} vs {n}")
     ret = False
@@ -182,13 +193,16 @@ def cmp_gt(mm: List, nn: List) -> int:
                 if is_tone(y):
                     logd("Ph vs T")
                     ret = 1
+                    break
                 elif is_phone(y):
                     ret = my_cmp(x,y)
                     logd(f"Ph vs Ph, ret={ret}")
+                    if ret != 0:
+                        break
                 elif y == BP_DEFAULT:
                     logd("Ph vs null")
                     ret = -1
-                break
+                    break
             elif x == BP_DEFAULT:
                 if is_tone(y) or is_phone(y):
                     logd("null vs T/P ")
@@ -202,7 +216,7 @@ def cmp_gt(mm: List, nn: List) -> int:
         else:
             raise ValueError("element should be int")
         # will continue if not true
-    logd(f'cmp_gt ret={ret}')
+    logd(f'cmp_gt {mm} vs {nn} ret={ret}')
     return ret
 
 def verify():
