@@ -17,3 +17,11 @@ def logd(*args, **wargs):
         d = wargs.pop("debug")
     if d:
         print(*args, **wargs, file=sys.stderr)
+
+from rich.console import Console
+error_console = Console(stderr=True, style="bold red")
+
+def loge(*args):
+    ''' loge
+    '''
+    error_console.log(*args)

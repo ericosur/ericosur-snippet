@@ -8,7 +8,22 @@ This README describes how to translate emoji icons into unicode sequence for max
 
 - May check the latest release tag from <https://github.com/unicode-org/cldr.git>
 
+- initial git repository
+```
+mkdir -p $HOME/src/github/
+cd $HOME/src/github/
+git clone https://github.com/unicode-org/cldr.git
+cd cldr
+git checkout -b r46 release-46
+```
+
 - and then run this script ```./runme.sh```
+  - output files:
+    - cp_emoji.py
+    - en_emoji.py
+  - intermediate files:
+    - en-basic.xml, en-basic.xml.csv
+    - en-derived.xml, en-derived.xml.csv
 
 ### relation between scripts and data files
 
@@ -90,6 +105,12 @@ void unicode_char()
   - specify release file to download (manually), look for file like: [CLDR common](http://unicode.org/Public/cldr/37/cldr-common-37.0.zip)
 
 - emoji data files
+
+  - 2024-11-20 [emoji 16.0](https://unicode.org/Public/emoji/16.0/) and [emoji in UCD](https://unicode.org/Public/16.0.0/ucd/emoji/)
+    - ReadMe.txt
+    - emoji-sequences.txt
+    - emoji-test.txt
+    - emoji-zwj-sequences.txt
 
   - 2023-08-30 [emoji 15.1](https://unicode.org/Public/emoji/15.1/)
     - ReadMe.txt
