@@ -2,7 +2,7 @@
 
 TOP=$PWD
 src_dir=$HOME/src/
-cldr_dir=$src_dir/cldr
+cldr_dir=$src_dir/github/cldr
 PY=python3
 
 function die() {
@@ -11,14 +11,12 @@ function die() {
   exit 1
 }
 
-# if [ -d $src_dir ] ; then
-# 	cd $src_dir
-# 	git clone https://github.com/unicode-org/cldr.git
-# 	git checkout -b r44-1 release-44-1
-# else
-# 	echo "$src_dir not exist, exit..."
-# 	exit 1
-# fi
+if [ -d $cldr_dir ] ; then
+  echo "ok got: $cldr_dir"
+else
+	echo "$cldr_dir not exist, exit..."
+	exit 1
+fi
 
 annot_dir=common/annotations
 cp $cldr_dir/$annot_dir/en.xml        $TOP/en-basic.xml || die "not ok"
