@@ -5,6 +5,7 @@ bopo list
 '''
 
 from functools import cmp_to_key
+import re
 import sys
 from random import randint
 from typing import List
@@ -42,6 +43,11 @@ class BopoIndex():
     @staticmethod
     def ensure_len4(n: List) -> List:
         ''' if len(n) < 4, fill BP_DEFAULT till len==4 '''
+        # check input first
+        if not isinstance(n, list):
+            raise TypeError("input of ensure_len4 is not a list")
+        if len(n) == 0:
+            raise ValueError("length of input list is 0, check the input")
         tmp = n.copy()
         if len(tmp) == 0:
             logd(f'wtf??? {n=} {tmp=}')
@@ -55,26 +61,25 @@ class BopoIndex():
                 else:
                     tmp.append(TONE_START)
             except IndexError as e:
-                logd(f'ensure_len4: {n=} {tmp=}, {e}')
+                logd(f'ensure_len4: {tmp=}, {e}')
                 sys.exit(1)
         return tmp
 
-    def get_value_of_word(self, w: str) -> List:
+    def get_value_of_word(self, w: str) -> List[List]:
         '''
         given bopomofo ㄅㄨˋ ㄒㄩㄝˊ ㄨ ㄕㄨˋ
         '''
         total = []
         inner = []
         for c in list(w):
-            try:
-                if c == ' ':
-                    total.append(self.ensure_len4(inner))
-                    inner = []
-                    continue
-                r = self.lookup_list(c)
-                inner.append(r)
-            except ValueError as e:
-                logd(f'here {w=}, {e=}')
+            if c == ' ':
+                if len(inner) == 0:
+                    logd(f'why? the len is zero: {w=}')
+                total.append(self.ensure_len4(inner))
+                inner = []
+                continue
+            r = self.lookup_list(c)
+            inner.append(r)
         if inner:
             r = self.ensure_len4(inner)
             total.append(r)
@@ -82,7 +87,7 @@ class BopoIndex():
         #logd(f'{total=}')
         return total
 
-    def get_bopo_narray_from_idiom(self, w: str) -> List:
+    def get_bopo_narray_from_idiom(self, w: str) -> List[List]:
         '''
         given ㄅㄨˋ ㄒㄩㄝˊ ㄨ ㄕㄨˋ
         get a list of list
@@ -92,7 +97,6 @@ class BopoIndex():
         t.extend(r)
         #logd(f'add_word: {t}')
         return t
-
 
 def cast_to_list(x) -> List:
     ''' cast to a list '''
@@ -114,10 +118,29 @@ def cmp_idiom(x: List, y: List) -> int:
     #logd(f"ret:{r}")
     return r
 
-def dump_ans(ans):
+def dump_to_file(ans, fn):
     ''' dump ans '''
-    for i in ans:
-        logd(i[0])
+    logd(f'output to {fn}')
+    with open(fn, "wt", encoding="utf-8") as fobj:
+        for i in ans:
+            print(f'"{i[0]}","{i[1]}"', file=fobj)
+
+def translate_sorted_to_dict(the_sorted):
+    ''' change the structure '''
+    d = []
+    for i in the_sorted:
+        l = []
+        m = re.match(r'([^,]+),([^\,]+)', i[0])
+        if m:
+            l.append(m[1])
+            l.append(m[2])
+        else:
+            logd(f'not matched: {i[0]}')
+        #l.append(i[1])
+        #logd(f'local: {l=}')
+        d.append(l)
+    logd(d)
+    return d
 
 def test():
     ''' test '''
@@ -126,19 +149,28 @@ def test():
     # gg.append(IDIOM_BOPOMOFO[149])
     gg = []
     for i in IDIOM_BOPOMOFO:
-        if len(i[0])==4:
+        if len(i[0])==4:  # only 4-word idioms
             gg.append(list(i))
+        if len(gg) > 2:
+            break
 
     bo = BopoIndex()
     idioms = {}
     for i in gg:
-        k = i[0]+' '+i[1]
+        k = i[0]+','+i[1]
+        # v is List of List
         v = bo.get_bopo_narray_from_idiom(i[1])
         idioms[k] = v
     #logd(idioms)
-    ans = sorted(idioms.items(), key=cmp_to_key(cmp_idiom))
-#    {k: v for k, v in sorted(x.items(), key=lambda item: item[1])}
-    dump_ans(ans)
+    # after this step, the structure of ans is:
+    # [(str,[elem of 4 lists]),(...)]
+    # ref: {k: v for k, v in sorted(x.items(), key=lambda item: item[1])}
+    the_sorted = sorted(idioms.items(), key=cmp_to_key(cmp_idiom))
+    ans = translate_sorted_to_dict(the_sorted)
+    # the content will be similar to "idiom_bopo2.csv",
+    # but sorted and grepped
+    dump_to_file(ans, "output.txt")
+    #logd('ans:', ans)
 
 def is_tone(v: int) -> bool:
     ''' is tone '''
