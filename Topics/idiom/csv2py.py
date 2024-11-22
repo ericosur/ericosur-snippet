@@ -5,12 +5,9 @@
 the script parse the csv file and output the python dict/list
 '''
 
-import sys
-import os
 import re
-from rich.console import Console
-console = Console()
-logd = console.log
+from loguru import logger
+logd = logger.debug
 
 class Csv2py():
     ''' csv to py '''
@@ -22,7 +19,7 @@ class Csv2py():
     def __readtxt(self):
         ''' read txt
         '''
-        logd("readtxt...")
+        logd(f"readtxt: {self.FN}")
         with open(self.FN, "rt", encoding='UTF-8') as fobj:
             cnt, cnt1, cnt2 = 0, 0, 0
             for ln in fobj.readlines():
@@ -42,12 +39,20 @@ class Csv2py():
                 logd(f'not match:{cnt} {ln}')
         logd(f'{cnt=}, {cnt1=}, {cnt2=}')
         assert cnt==cnt1+cnt2
-        logd(self.idioms)
+
+    def dump_py(self, fn: str) -> None:
+        ''' dump py '''
+        logd(f'dump to {fn}')
+        with open(fn, "wt", encoding="utf-8") as fobj:
+            for i in self.idioms:
+                print(i, file=fobj)
+
 
     @classmethod
     def run(cls):
         ''' run '''
         obj = cls()
+        obj.dump_py('t.py')
 
 
 def main():

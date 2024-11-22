@@ -10,9 +10,11 @@ import sys
 from random import randint
 from typing import List
 from idiom_list import BOPOMOFO_LIST, BOPOMOFO_TONE, IDIOM_BOPOMOFO
-from rich.console import Console
-console = Console()
-logd = console.log
+# from rich.console import Console
+# console = Console()
+# logd = console.log
+from loguru import logger
+logd = logger.debug
 
 LIST_START = 50
 TONE_START = 1
@@ -139,7 +141,6 @@ def translate_sorted_to_dict(the_sorted):
         #l.append(i[1])
         #logd(f'local: {l=}')
         d.append(l)
-    logd(d)
     return d
 
 def test():
@@ -151,8 +152,6 @@ def test():
     for i in IDIOM_BOPOMOFO:
         if len(i[0])==4:  # only 4-word idioms
             gg.append(list(i))
-        if len(gg) > 2:
-            break
 
     bo = BopoIndex()
     idioms = {}
@@ -169,7 +168,7 @@ def test():
     ans = translate_sorted_to_dict(the_sorted)
     # the content will be similar to "idiom_bopo2.csv",
     # but sorted and grepped
-    dump_to_file(ans, "output.txt")
+    dump_to_file(ans, "bopo-output.csv")
     #logd('ans:', ans)
 
 def is_tone(v: int) -> bool:
