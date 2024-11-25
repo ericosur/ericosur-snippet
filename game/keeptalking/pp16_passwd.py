@@ -1,3 +1,8 @@
+'''
+a list of 5-character passwords in the game:
+keep talking no one explodes
+'''
+
 passwords = [
     "about",
     "after",
