@@ -6,6 +6,7 @@ read values from save file of princess maker 2
 read tags from 'tags.txt'
 '''
 
+import os
 import sys
 import json
 
@@ -150,7 +151,6 @@ class ShowGnx():
 
 def main(fn):
     ''' main '''
-    import os
     if os.path.isfile(fn):
         showgnx = ShowGnx(fn)
         showgnx.do_action()

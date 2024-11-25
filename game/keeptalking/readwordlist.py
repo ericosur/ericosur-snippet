@@ -5,9 +5,6 @@
 read from wordlist.txt
 '''
 
-import os
-import re
-import sys
 from rich.console import Console
 from morses import MORSES
 
