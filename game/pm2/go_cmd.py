@@ -69,8 +69,8 @@ class CommandAction():
 
         saved_checksum = self._data['checksum']
         new_checksum = (saved_checksum + self.delta_checksum) % 2**32
-        print('at addr(0x{:x}), checksum from {} to {}'.format(
-            CommandAction.ADDR_CHECKSUM, saved_checksum, new_checksum))
+        print("at addr(0x{CommandAction.ADDR_CHECKSUM:x}), checksum "
+              "from {saved_checksum} to {new_checksum}")
         self.modify_addr_with_value(CommandAction.ADDR_CHECKSUM,
                                     saved_checksum, new_checksum, size=4)
 
@@ -81,8 +81,7 @@ class CommandAction():
             for item in self._data['values']:
                 if item['tag'] == tag:
                     new_val = item['value'] + delta
-                    print('at addr(0x{:x}), from {} to {}'.format(
-                        item['addr'], item['value'], new_val))
+                    print(f"at addr(0x{item['addr']:x}), from {item['value']} to {new_val}")
                     self.modify_addr_with_value(item['addr'], item['value'], new_val)
                     self.delta_checksum += delta
         except ValueError as e:
