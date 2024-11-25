@@ -28,6 +28,9 @@ class LoadWorkingDays():
     def load_data(self):
         ''' load data '''
         p = DefaultConfig(self.FN).get_default_config()
+        if p is None:
+            print(f'[FAIL] fail to {self.FN} in all default locations')
+            sys.exit(1)
         d = read_jsonfile(p)
 
         try:
@@ -37,7 +40,6 @@ class LoadWorkingDays():
             for y in range(miny, maxy+1):
                 wd = d[f'year{y}']['total']
                 self.works[y] = wd
-
         except ValueError:
             print('ValueError')
 
