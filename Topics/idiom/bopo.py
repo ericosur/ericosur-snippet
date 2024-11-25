@@ -35,11 +35,9 @@ class BopoIndex():
         ㄅ will start from 50 (LIST_START)
         '''
         if c in self.bopo:
-            i = self.bopo.index(c) + LIST_START
-            return i
+            return self.bopo.index(c) + LIST_START
         if c in self.tone:
-            i = (self.tone.index(c))
-            return i
+            return self.tone.index(c)
         return the_default
 
     @staticmethod
@@ -178,6 +176,7 @@ def is_phone(v: int) -> bool:
     ''' is phoetic '''
     return 50 <= v < 90
 def is_valid(v: int) -> bool:
+    ''' return true if v is valid '''
     if is_tone(v) or is_phone(v) or v==BP_DEFAULT:
         return True
     raise ValueError(f"value {v} is out of range: 0<v<9; 50<=v<90; v==999")
@@ -191,26 +190,23 @@ def my_cmp(x: int, y: int) -> int:
         return 1
 
 def do_nothing(*args):
-    pass
+    ''' do nothing '''
+    return
 
 def cmp_gt(mm: List, nn: List) -> int:
     '''
     Like cmp(a, b) x<y ret -1, x==y ret 0 , x>y ret 1
     '''
-    m = mm.copy()
-    n = nn.copy()
+    m, n = mm.copy(), nn.copy()
     logd = do_nothing
     #logd(f'cmp_gt: {m} vs {n}')
     if len(m) != len(n):
         raise IndexError(f"length is different: {m} vs {n}")
     ret = False
     while len(m) > 0:
-        x = m.pop(0)
-        y = n.pop(0)
+        x, y = m.pop(0), n.pop(0)
         #logd(f'{x=} vs {y=}')
-        if isinstance(x, int) and isinstance(y, int):
-            if is_valid(x) and is_valid(y):
-                pass
+        if isinstance(x, int) and isinstance(y, int) and is_valid(x) and is_valid(y):
             if is_tone(x):
                 if is_tone(y):
                     logd("tone vs tone")

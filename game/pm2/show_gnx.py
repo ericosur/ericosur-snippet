@@ -46,7 +46,8 @@ class ShowGnx():
     def show_value_list(vl):
         ''' show value from list '''
         for v in vl:
-            print('(0x{:x}){}: {:>8d}'.format(v['addr'], v['tag'], v['value']))
+            #print('(0x{:x}){}: {:>8d}'.format(v['addr'], v['tag'], v['value']))
+            print(f"(0x{v['addr']:x}){v['tag']}: {v['value']:>8d}")
 
     def read_tags(self):
         ''' read tags from file '''
@@ -140,7 +141,7 @@ class ShowGnx():
         except FileNotFoundError as e:
             print('ShowGnx.do_action:', e.args)
             return
-        print('read from {}, {} bytes'.format(self.gnxfile, len(bb)))
+        print(f'read from {self.gnxfile}, {len(bb)} bytes')
         j = self.read_values(bb)
 
         # out to a json file
