@@ -1,4 +1,6 @@
 # coding: utf-8
+# pylint: disable=too-many-lines
+#
 
 '''
 idioms in python list

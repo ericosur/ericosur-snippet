@@ -1,4 +1,8 @@
 #coding:utf-8
+#
+# pylint: disable=unused-argument
+# pylint: disable=too-many-branches
+#
 
 '''
 bopo list
@@ -7,14 +11,12 @@ bopo list
 from functools import cmp_to_key
 import re
 import sys
-from random import randint
 from typing import List
 from idiom_list import BOPOMOFO_LIST, BOPOMOFO_TONE, IDIOM_BOPOMOFO
 # from rich.console import Console
 # console = Console()
 # logd = console.log
 from loguru import logger
-logd = logger.debug
 
 LIST_START = 50
 TONE_START = 1
@@ -43,6 +45,7 @@ class BopoIndex():
     @staticmethod
     def ensure_len4(n: List) -> List:
         ''' if len(n) < 4, fill BP_DEFAULT till len==4 '''
+        logd = logger.debug
         # check input first
         if not isinstance(n, list):
             raise TypeError("input of ensure_len4 is not a list")
@@ -69,6 +72,7 @@ class BopoIndex():
         '''
         given bopomofo ㄅㄨˋ ㄒㄩㄝˊ ㄨ ㄕㄨˋ
         '''
+        logd  = logger.debug
         total = []
         inner = []
         for c in list(w):
@@ -120,6 +124,7 @@ def cmp_idiom(x: List, y: List) -> int:
 
 def dump_to_file(ans, fn):
     ''' dump ans '''
+    logd = logger.debug
     logd(f'output to {fn}')
     with open(fn, "wt", encoding="utf-8") as fobj:
         for i in ans:
@@ -127,6 +132,7 @@ def dump_to_file(ans, fn):
 
 def translate_sorted_to_dict(the_sorted):
     ''' change the structure '''
+    logd = logger.debug
     d = []
     for i in the_sorted:
         l = []
@@ -184,14 +190,31 @@ def my_cmp(x: int, y: int) -> int:
     ''' my own cmp '''
     if x < y:
         return -1
-    if x == y:
-        return 0
     if x > y:
         return 1
+    # x == y
+    return 0
 
 def do_nothing(*args):
     ''' do nothing '''
     return
+
+def _cmp_tone(x: int, y: int, logd=do_nothing) -> int:
+    ''' make cmp more clear, x is tone alredy '''
+    if is_tone(y):
+        logd("tone vs tone")
+        ret = my_cmp(x, y)
+    elif is_phone(y):
+        logd("T vs P")
+        ret = -1
+    elif y == BP_DEFAULT:
+        logd("T vs null")
+        ret = -1
+    else:
+        logd("fatal error")
+        ret = None
+        sys.exit(1)
+    return ret
 
 def cmp_gt(mm: List, nn: List) -> int:
     '''
@@ -208,31 +231,19 @@ def cmp_gt(mm: List, nn: List) -> int:
         #logd(f'{x=} vs {y=}')
         if isinstance(x, int) and isinstance(y, int) and is_valid(x) and is_valid(y):
             if is_tone(x):
-                if is_tone(y):
-                    logd("tone vs tone")
-                    ret = my_cmp(x, y)
-                elif is_phone(y):
-                    logd("T vs P")
-                    ret = -1
-                elif y == BP_DEFAULT:
-                    logd("T vs null")
-                    ret = -1
-                else:
-                    logd("fatal error")
-                    ret = None
-                    sys.exit(1)
+                ret = _cmp_tone(x, y)
                 break
-            elif is_phone(x):
+            if is_phone(x):
                 if is_tone(y):
                     logd("Ph vs T")
                     ret = 1
                     break
-                elif is_phone(y):
+                if is_phone(y):
                     ret = my_cmp(x,y)
                     logd(f"Ph vs Ph, ret={ret}")
                     if ret != 0:
                         break
-                elif y == BP_DEFAULT:
+                else:
                     logd("Ph vs null")
                     ret = -1
                     break
@@ -254,6 +265,7 @@ def cmp_gt(mm: List, nn: List) -> int:
 
 def verify():
     ''' verify '''
+    logd = logger.debug
     assert cmp_gt([1],[4])<0
     assert cmp_gt([2],[2])==0
     assert cmp_gt([3],[2])==0
@@ -270,16 +282,17 @@ def verify():
 
 def verify_except():
     ''' verify except '''
+    logd = logger.debug
     try:
-        assert cmp_gt([35], [4])==False
+        assert cmp_gt([35], [4]) is False
     except ValueError as e:
         logd("exception caught:", e)
     try:
-        assert cmp_gt([4], [10])==True
+        assert cmp_gt([4], [10]) is True
     except ValueError as e:
         logd("exception caught:", e)
     try:
-        assert cmp_gt([], [10])==True
+        assert cmp_gt([], [10]) is True
     except IndexError as e:
         logd("exception caught:", e)
     logd("[bright_red]verify pass")
