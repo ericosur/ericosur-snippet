@@ -23,15 +23,31 @@ except ImportError:
     print('[ERROR] cannot import module pandas...')
     sys.exit(1)
 
+try:
+    from loguru import logger
+    USE_LOGURU = True
+except ImportError:
+    USE_LOGURU = False
+
 from strutil import print_sep, sec2mmss, str2sec
 from working_days import LoadWorkingDays
 
 sys.path.insert(0, "..")
+sys.path.insert(0, "../../")
 from myutil import query_url_for_data, read_jsonfile, isfile, die
 from myutil import MyDebug, MyVerbose, DefaultConfig
 
 TMP_CSV = '/tmp/__driving_datasheet__.csv'
 
+def do_nothing(*args):
+    ''' do nothing '''
+    print(*args)
+
+logd = do_nothing
+logi = do_nothing
+if USE_LOGURU:
+    logd = logger.debug
+    logi = logger.info
 
 class MySimpleout():
     ''' my verbose '''
@@ -247,12 +263,9 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
 
         ndict = {"date": dates, "seconds": secs}
         res = pd.DataFrame(ndict)
-
         des = res.describe()
-
         self._log('item:', des)
         self.fill_outputs(des)
-
 
     def do_show(self):
         ''' do show '''
@@ -298,7 +311,9 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
                     result = f'{v}  ({secs:4.0f})'
                     j = result.rjust(20, ' ')
                 except ValueError:
-                    print(f'[FAIL] at {k=} {v=}')
+                    logd(f'[FAIL] at {k=} {v=}')
+                    logi('[INFO] some data line is incorrect,',
+                          'download the csv and run ```check_csv.py```')
                     continue
             print(f'{k:10s}: {j:20s}')
         print_sep()
