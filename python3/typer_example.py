@@ -55,7 +55,8 @@ class Main():
         for i in values:
             upper = i + after
             lower = i - before
-            ll = [x for x in range(lower, upper+1)]
+            #ll = [x for x in range(lower, upper+1)]
+            ll = list(range(lower, upper+1))
             self.show_list(ll, i)
 
     def show_list(self, the_list: List, v: int) -> None:

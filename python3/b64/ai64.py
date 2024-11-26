@@ -14,14 +14,23 @@ md5sum ?.txt
 import base64
 import os
 import stat
+import sys
+
+sys.path.insert(0, "../")
+sys.path.insert(0, "python3/")
+from myutil import is_linux
+
 from typing_extensions import Annotated
 import typer
-
 # if 57, one line 76 characters
 # use 3n to avoid padding issues (4 char from 3 bytes)
 CHUNK_SIZE = 57
-
-from loguru import logger
+USE_LOGGER = False
+try:
+    from loguru import logger
+    USE_LOGGER = True
+except ImportError:
+    print("cannot import module: loguru")
 
 def do_nothing(*args):
     ''' do nothing '''
@@ -87,14 +96,22 @@ def main(
 
     logd = do_nothing
     if debug:
-        logd = logger.debug
+        if USE_LOGGER:
+            logd = logger.debug
+        else:
+            logd = print
 
-    fn = "/dev/urandom"
-    #logd(f'{fn=}')
+    fn = None
+    if is_linux():
+        fn = "/dev/urandom"
+    logd(f'{fn=}')
+
     if input_fn and os.path.isfile(input_fn):
         fn = input_fn
         logd(fn)
-
+    if fn is None:
+        print('You MUST specify a file or file not found?')
+        sys.exit(1)
     for base64_chunk in encode_file_to_base64_chunked(fn, chunk_size=chunk, log=logd):
         print(base64_chunk)
 
