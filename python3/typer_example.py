@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # pylint: disable=invalid-name
-# pylint: disable=unused-argument
 # pylint: disable=too-many-arguments
 # pylint: disable=too-many-positional-arguments
 
@@ -14,16 +13,16 @@ from typing import List, Optional
 from typing_extensions import Annotated
 try:
     import typer
-except ImportError:
-    print('[FAIL] you need module typer to run this')
+    print("version of typer:", typer.__version__)
+    from rich import print as rprint
+    from loguru import logger
+except ImportError as e:
+    print('[FAIL] failed to load module:', e)
     sys.exit(1)
 
-from rich import print as rprint
-from loguru import logger
-
-def do_nothing(*args, **wargs) -> None:
+def do_nothing(*args, **wargs):
     ''' do nothing '''
-    return None
+    return args, wargs
 
 class Main():
     ''' main '''
@@ -71,6 +70,15 @@ class Main():
                 rprint(', ', end='')
         print(']')
 
+    #
+    # OLD typer, it will complain no such positional arg
+    # ```default```` for typer.Argument():
+    #
+    # typer.Argument(default=None)]
+    #
+    # NEWER typer, use this way to set the default:
+    # typer.Argument()] = None,
+    #
     def main(self, values: Annotated[Optional[List[int]],
                                      typer.Argument(help="specify values")] = None,
             after: Annotated[int,
