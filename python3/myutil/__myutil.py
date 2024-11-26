@@ -18,7 +18,7 @@ __version__ = '0.0.4'
 DEBUG = False
 
 
-
+# here we will meet egg-chicken issue
 def insert_syspath(p):
     ''' help to insert path into module search path '''
     if os.path.isdir(p):
