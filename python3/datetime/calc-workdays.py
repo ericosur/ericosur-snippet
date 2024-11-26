@@ -11,9 +11,12 @@ calculate total working days
 import sys
 sys.path.insert(0, "..")
 from myutil import read_jsonfile, DefaultConfig
-from myutil import is_leapyear, clamp, WhatNow, MyDebug, die
+from myutil import is_leapyear, WhatNow, MyDebug, die
+from loguru import logger
+from rich import print as rprint
 
 TAG = "CalcWork"
+logd = logger.debug
 
 class CalcWork(MyDebug):
     ''' calc work class '''
@@ -50,14 +53,13 @@ class CalcWork(MyDebug):
 
         self.max_year = self.data['maxyear']
         self.min_year = self.data['minyear']
-
+        logd(f'max_year: {self.max_year}')
+        logd(f'min_year: {self.min_year}')
 
     def calc(self, key):
         ''' calc '''
-        max_mon = ""
-        max_day = 0
-        min_mon = ""
-        min_day = 99
+        max_mon, min_mon = "", ""
+        max_day, min_day = 0, 99
         y_twenties = self.data[key]["month"]
         cnt = 0
         for p in y_twenties:
@@ -65,40 +67,41 @@ class CalcWork(MyDebug):
                 cnt += v
                 self.all_days.append(v)
                 if v > max_day:
-                    max_mon = k
-                    max_day = v
+                    max_mon, max_day = k, v
                 if v < min_day:
-                    min_mon = k
-                    min_day = v
+                    min_mon, min_day = k, v
 
         y = self.data[key]["year"]
         if is_leapyear(y):
             r = cnt / 366 * 100
         else:
             r = cnt / 365 * 100
-        print(f"year: {y}, count: {cnt}, ratio: {r:.2f}%")
-        print(f'max: {max_mon}, {max_day}')
-        print(f'min: {min_mon}, {min_day}')
-        self.calc_alldays()
+        if y == WhatNow().year:
+            rprint(f"[yellow]{y}[/], {cnt}, {r:.2f}%,", end='  ')
+        else:
+            print(f"{y}, {cnt}, {r:.2f}%,", end='  ')
+        print(f'{max_mon}, {max_day},', end='  ')
+        print(f'{min_mon}, {min_day}')
 
     def calc_alldays(self):
         ''' about all days '''
         sz = len(self.all_days)
         t = sum(self.all_days)
         avg = float(t) / float(sz)
-        print(f'{sz=}, {avg=:.2f}')
+        rprint(f'\nTotal working days: {sz}, avg {avg:.2f} per month')
 
     @classmethod
     def run(cls):
         ''' run '''
-        this_year = WhatNow().year
         obj = cls()
-        from_year = clamp(this_year - 3, obj.min_year, obj.max_year)
-        to_year = clamp(this_year + 3, obj.min_year, obj.max_year)
-        print(f'from {from_year} to {to_year}')
+        from_year = obj.min_year
+        to_year = obj.max_year
+        print(f'From {from_year} to {to_year}\n')
+        print("year  sum  ratio    max m/d   min m/d")
         for y in range(from_year, to_year+1):
             k = f'year{y}'
             obj.calc(k)
+        obj.calc_alldays()
 
 def main():
     ''' main '''
