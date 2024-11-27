@@ -9,7 +9,7 @@ how to export functions
 
 # __init__.py
 
-__VERSION__ = '2024.04.01'
+__VERSION__ = '2024.11.26'
 
 from .commonutil import clamp
 from .commonutil import get_home, print_stderr, read_from_stdin
