@@ -12,10 +12,20 @@ import sys
 from datetime import date
 
 # try to add my code snippet into python path
-HOME = os.getenv('HOME')
-UTILPATH = os.path.join(HOME, '/src/ericosur-snippet/python3/datetime')
-if os.path.exists(UTILPATH):
-    sys.path.insert(0, UTILPATH)
+# sys.path.insert(0, '../')
+# sys.path.insert(0, '../../')
+# sys.path.insert(0, 'python3/')
+
+console = None
+USE_RICH = False
+try:
+    from rich.console import Console
+    console = Console()
+    from rich import print as rprint
+    USE_RICH = True
+except ImportError:
+    #print("[WARN] no rich.console to use")
+    pass
 
 try:
     from dooms_day import DoomsDay
@@ -41,17 +51,17 @@ def show_month_magic_number(year=-1, show_header=True):
     #print('If leap year, Feb magic number will be 1')
     if show_header:
         print("{")
-    print('  "month_magic": {')
-    print(f'    "year": {tdyear},')
+#    print('    "month_magic": {')
+#    print(f'      "year": {tdyear},')
     print(f'    "month_magic": {ret},')
-    for i in range(11):
-        print(f'    "{calendar.month_name[i+1]}": {ret[i]},')
-    print(f'    "{calendar.month_name[12]}": {ret[11]}')
-    print("  }")
+    # for i in range(11):
+    #     print(f'      "{calendar.month_name[i+1]}": {ret[i]},')
+    # print(f'      "{calendar.month_name[12]}": {ret[11]}')
+    #print("    }")
     if show_header:
         print('}')
 
-def make_year_list(base_year=0, opt='c', year_range=5):
+def make_year_list(base_year:int=0, opt='c', year_range=5) -> list:
     ''' fill year list as required
     if base_year is 0, use this year
     opt will be
@@ -135,8 +145,18 @@ def test_year_list():
 
     print("test done...")
 
+def get_thisyear() -> int:
+    ''' get this year '''
+    return date.today().year
 
-def show_doom_number(year_list=None, full_list=False):
+def show(color: str, msg: str) -> None:
+    ''' show '''
+    if USE_RICH:
+        rprint(f'[{color}]{msg}')
+    else:
+        print(msg)
+
+def show_doom_number(year_list=None, target:int=-1, full_list=False):
     ''' print out doom offset number within range '''
     # if year_list is empty, add default value
     if not year_list:
@@ -147,29 +167,37 @@ def show_doom_number(year_list=None, full_list=False):
         year_list = make_year_list(0, 'c', year_range)
 
     print("{")
-    print('  "doom_number": {')
+    print('  "doom_number": [')
 
-    td = date.today()
-    list_size = len(year_list)
+    this_year = get_thisyear()
     for idx, yy in enumerate(year_list):
         doomv = DoomsDay.get_doom_num(yy)
-        if yy == td.year:
-            print('\x1b[33m', end='')
-        print(f'    "year_{yy}": {doomv}', end='')
-        if idx < list_size - 1:
-            print(',')
+        if full_list:
+            print('  {')
+        msg=f'    "year_{yy}": {doomv}'
+        if idx!=len(year_list)-1 or full_list:
+            msg += ','
+        if yy == this_year:
+            if yy==target:
+                show('red', msg)
+            else:
+                show('green', msg)
+        elif yy==target:
+            show('yellow', msg)
         else:
-            print()
-
-        if yy == td.year:
-            print('\x1b[00m', end='')
+            show('white', msg)
 
         if full_list:
-            print("  },")
             show_month_magic_number(yy, show_header=False)
+            msg = '  }'
+            if idx!=len(year_list)-1:
+                msg += ','
+            print(msg)
 
     if not full_list:
         print("  }")
+    else:
+        print("  ]")
     print("}")
 
 
@@ -188,9 +216,11 @@ def init_argparse():
         help='show magic number for each month')
     parser.add_argument("-f", "--full", action="store_true", default=False,
         help='show full variables')
-    parser.add_argument("-c", "--context", type=int, help="context years")
-    parser.add_argument("-a", "--after", type=int, help="after years")
-    parser.add_argument("-b", "--before", type=int, help="before years")
+    parser.add_argument("-C", "--context", type=int, help="context years")
+    parser.add_argument("-A", "--after", type=int, help="after years")
+    parser.add_argument("-B", "--before", type=int, help="before years")
+    parser.add_argument("-x", "--extra", action="store_true", default=False,
+        help='show extra info')
 
     args = parser.parse_args()
     return args
@@ -199,6 +229,15 @@ def main():
     ''' main '''
     args = init_argparse()
 
+    if args.extra:
+        print(f'''Extra info:
+  Actually only the first three magic numbers (Jan/Feb/Mar) are special.
+  The magic number for Mar is always 0. So:
+    - if a leap year like 2024, they are (4, 1, 0).
+      - use ```{sys.argv[0]} 2024 -m```
+    - if a normal year like 2025, they are (3, 0, 0).
+      - use ```{sys.argv[0]} 2025 -m```''')
+        return
     if args.test:
         print('perform self test...')
         TestDoomsDay.full_test()
@@ -229,7 +268,7 @@ def main():
         if args.before:
             ret = make_year_list(yy, "b", args.before)
 
-        show_doom_number(ret, args.full)
+        show_doom_number(ret, target=yy, full_list=args.full)
         return
 
     if args.years:
