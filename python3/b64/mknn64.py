@@ -17,28 +17,23 @@ try:
 except ImportError:
     print('cannot load module rich')
 
-def logd(*args):
-    ''' logd '''
-    if not MakeDirname.debug:
-        return
-
-    if console:
-        console.log(*args)
-    else:
-        print(*args)
+def do_nothing(*args, **wargs):
+    ''' do nothing '''
+    return args, wargs
 
 class MakeDirname():
     ''' make name of dir '''
-    debug = False
 
-    def __init__(self):
+    def __init__(self, log=do_nothing):
         ''' init '''
         self.fn = None
         self.comment = None
+        self.log = log
 
     def __hash_factory(self, fn, hash_func) -> bytes:
         ''' hash factory, return bytes '''
         BUFSIZE = 65536
+        logd = self.log
         dgst = hash_func()
         with open(fn, 'rb') as f:
             while True:
@@ -47,11 +42,12 @@ class MakeDirname():
                     break
                 dgst.update(data)
         d = dgst.digest()
-        logd(f'__hash_factory: {d}')
+        logd(f'__hash_factory: digest in bytes: {d}')
         return d
 
     def sha256sum_b64(self, fn) -> str:
         ''' sha256sum and return base64 string '''
+        logd = self.log
         dgst = self.__hash_factory(fn, hashlib.sha256)
         r = base64.urlsafe_b64encode(dgst).decode()
         letterized = re.sub(r'[-_=]', '', r)
@@ -60,21 +56,27 @@ class MakeDirname():
 
     def extract_line(self):
         ''' extract line '''
+        logd = self.log
         with open(self.fn, "rt", encoding="UTF-8") as fobj:
+            cnt = 0
             for ln in fobj.readlines():
                 ln = ln.strip()
-                m = re.match(r'^#\s+([^-_ :]+)$', ln)
+                cnt += 1
+                m = re.match(r'^#(.+)$', ln)
                 if m:
-                    self.comment = m[1]
+                    s = re.sub(r'[-_= ]', '', m[1])
+                    logd(f"extract_line: [yellow]{s}")
+                    self.comment = s
                     break
         return self.comment
 
     def process_file(self, fn):
         ''' action '''
+        logd = self.log
+        logd(f'process_file: fn: {fn}')
         if not os.path.isfile(fn):
             print('[FAIL] file not found:', fn, file=sys.stderr)
             sys.exit(1)
-        logd(f'fn: {fn}')
         self.fn = fn
         r = self.sha256sum_b64(fn)
         c = self.extract_line()
@@ -84,25 +86,35 @@ class MakeDirname():
     @classmethod
     def run(cls):
         ''' run '''
-        parser = argparse.ArgumentParser(description='mknn64')
+        parser = argparse.ArgumentParser(description='mknn64, small tool to generate non-sense filename')
         # nargs like regexp, '*' means 0+, '+' means 1+
-        parser.add_argument("strings", metavar='file', type=str, nargs='*',
+        parser.add_argument("files", type=str, nargs='*',
             help="show these strings")
         parser.add_argument("-d", "--debug", action='store_true', default=False,
             help='make dir name')
         args = parser.parse_args()
 
+        logd = do_nothing
         if args.debug:
-            print(f'{args.debug}')
-            MakeDirname.debug = args.debug
+            if console:
+                logd = console.log
+            else:
+                logd = print
+            logd(f'{args.debug=}')
 
-        obj = cls()
+        logd("run...")
+        obj = cls(logd)
         # if no file is specified
         DEF_FN = 'a.txt'
-        if not args.strings:
+        if args.files == []:
+            logd('args.files is empty')
             if os.path.isfile(DEF_FN):
-                args.strings.append(DEF_FN)
-        for f in args.strings:
+                args.files.append(DEF_FN)
+            else:
+                logd('no suitable files')
+                sys.exit(1)
+        #logd(args.strings)
+        for f in args.files:
             obj.process_file(f)
 
 def main():
