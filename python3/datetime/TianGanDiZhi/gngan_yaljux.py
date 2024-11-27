@@ -18,13 +18,16 @@ This module provides utility functions and class GanChi
 '''
 
 import sys
-from typing import List, Tuple
+from typing import Tuple, List
 from datetime import datetime
 
 console = None
+USE_RICH = False
 try:
     from rich.console import Console
     console = Console()
+    from rich import print as rprint
+    USE_RICH = True
 except ImportError:
     #print("[WARN] no rich.console to use")
     pass
@@ -121,7 +124,7 @@ class GanChi():
         #return (0 <= m < 10) and (0 <= n < 12) and ((m+n)%2==0)
         return True
 
-    def brute_force_try(self, gnn: int, yal: int, log=do_nothing) -> List:
+    def brute_force_try(self, gnn: int, yal: int, log=do_nothing) -> list:
         ''' given 天干 (from 0) 地支 (from 0)  guess year '''
         logd = log
         #logd(f"brute_force_try: {gnn=}, {yal=}")
@@ -165,7 +168,7 @@ class GanChi():
     def test1(self) -> None:
         ''' test #1 '''
         logd = self.log
-        def run_test(m: int, n: int, expect: List) -> None:
+        def run_test(m: int, n: int, expect: List[int]) -> None:
             ''' check the ans '''
             logd(f'run_test: {m},{n}')
             ans = self.brute_force_try(m, n, log=do_nothing)
@@ -193,7 +196,14 @@ class GanChi():
         run_test(10, 2, [])
         run_test(2, 12, [])
 
-def do_values(values:List[int], radius: int=0, log=do_nothing) -> None:
+def show(color: str, msg: str) -> None:
+    ''' show '''
+    if not USE_RICH:
+        print(msg)
+        return
+    rprint(f'[{color}]{msg}')
+
+def do_values(values: List[int], target=0, radius: int=0, log=do_nothing) -> None:
     '''main function'''
     logd = log
     gc = GanChi(logd)
@@ -210,13 +220,18 @@ def do_values(values:List[int], radius: int=0, log=do_nothing) -> None:
         for r in range(y-center, y+center+1):
             res = gc.to_gc(r)
             msg = f'{r} is {res}'
-            if console and r==this_year:
-                console.print(f'[yellow]{msg}')
+            if r==this_year:
+                if r==target:
+                    show('red', msg) # both
+                else:
+                    show('green', msg) # this year
+            elif r==target:
+                show('yellow', msg)  # target year
             else:
-                print(msg)
+                show('white', msg)  # normal
     del gc
 
-def do_verbose(log=do_nothing):
+def do_verbose(log=do_nothing) -> None:
     ''' verbose '''
     logd = log
     logd("do_verbose...")
@@ -245,10 +260,10 @@ def do_ab(m: int, n: int, log=do_nothing) -> None:
     this_year = get_thisyear()
     for i in ans:
         msg = f"{i} {gc.to_gc(i)}"
-        if console and i==this_year:
-            console.print(f'[bold yellow]{msg}')
+        if i==this_year:
+            show('yellow', msg)
         else:
-            print(msg)
+            show('white', msg)
 
 def do_tests(log=do_nothing) -> None:
     ''' run the original tests'''

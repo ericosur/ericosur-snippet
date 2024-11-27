@@ -30,7 +30,7 @@ class Main():
     def __init__(self):
         self.logd = console.log
 
-    def prepare_values(self, year: int, after: int=0, before: int=0, radius: int=0) -> List:
+    def prepare_values(self, year: int, after: int=0, before: int=0, radius: int=0) -> List[int]:
         ''' prepare values '''
         if after<0 or before<0 or radius<0:
             raise ValueError("value MUST be greater than 0")
@@ -54,7 +54,7 @@ class Main():
         logd(f'return: {vals}')
         return vals
 
-    def main(self, values: Annotated[Optional[List[int]],
+    def main(self, values: Annotated[Optional[list[int]],
                                      typer.Argument(help="specify year")] = None,
             after: Annotated[int,
                              typer.Option("--after", "-A", help="after nn year")] = 0,
@@ -72,7 +72,8 @@ class Main():
                                         help="apply two numbers for TianGan and DiZhi")] = False,
             ) -> None:
         '''
-        if no option is specified, run the default test
+        If no option is specified, run the default test. If available, color will
+        refelct: red for specified year, green is the current year, yellow is both
         '''
 
         def do_nothing(*args, **wargs) -> None:
@@ -86,7 +87,7 @@ class Main():
             if len(values)==2:
                 do_ab(values[0], values[1], log=self.logd)
                 return
-            print('[FAIL] must specify two arguments')
+            print('[FAIL] NEED exactly two arguments')
             return
         if test:
             do_tests()
@@ -103,10 +104,8 @@ class Main():
         self.logd(f'{before=}')
         for v in values:
             self.logd(f'{v=}')
-            if v==this_year:
-                self.logd(f"this_year: {v}")
             the_vals = self.prepare_values(v, after=after, before=before, radius=context)
-            do_values(the_vals, log=self.logd)
+            do_values(the_vals, target=v, log=self.logd)
 
 if __name__ == '__main__':
     m = Main()
