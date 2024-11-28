@@ -1,6 +1,6 @@
 .phony:	help
 
-PY := "/usr/bin/python"
+PY := "/usr/bin/env python3"
 
 help:
 	@echo "available targets: help, target, hello, json, clean"
