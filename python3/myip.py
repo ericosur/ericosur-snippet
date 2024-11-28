@@ -14,6 +14,8 @@ DEBUG = True
 USE_RICH = False
 try:
     from rich import print_json
+    from rich import print as rprint
+    from rich.console import Console
     USE_RICH = True
 except ImportError:
     print('suggest: use __pip install rich__')
@@ -21,7 +23,10 @@ except ImportError:
 def logd(*args, **wargs) -> None:
     ''' logd '''
     if DEBUG:
-        print(*args, **wargs)
+        if USE_RICH:
+            rprint(*args, **wargs)
+        else:
+            print(*args, **wargs)
 
 class Main():
     ''' main '''
@@ -55,21 +60,31 @@ class Main():
     def get_current_ip(self) -> str:
         ''' use this to get myip '''
         url = 'https://api.myip.com'
-        r = requests.get(url, timeout=5.0)
-        logd('get_current_ip: url:', r.url)
-        data = r.json()
-        print("returned:")
-        self.print_data(data)
-        ip = data['ip']
-        return ip
+        try:
+            r = requests.get(url, timeout=5.0)
+            logd('get_current_ip: url:', r.url)
+            data = r.json()
+            print("returned:")
+            self.print_data(data)
+            ip = data['ip']
+            return ip
+        except requests.exceptions.ConnectionError as e:
+            rprint("[red] failed to connect:", e)
+            return None
 
     def get_ip_info(self, ip:str) -> None:
         ''' use this to get IP location and related data '''
-        iploc = f'http://ip-api.com/json/{ip}'
-        r = requests.get(iploc, timeout=5.0)
-        print(f'get_ip_info: {r.url=}')
-        print("returned:")
-        self.print_data(r.json())
+        if ip is None:
+            rprint('[red]ip was not specified')
+            return
+        try:
+            iploc = f'http://ip-api.com/json/{ip}'
+            r = requests.get(iploc, timeout=5.0)
+            print(f'get_ip_info: {r.url=}')
+            print("returned:")
+            self.print_data(r.json())
+        except requests.exceptions.ConnectionError as e:
+            rprint("[red] failed to connect:", e)
 
     def action(self) -> None:
         ''' action '''
