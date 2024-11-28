@@ -51,7 +51,7 @@ class CollectWeekday():
             self.dump_results(fobj=fobj)
 
     def dump_results(self, fobj=sys.stdout):
-        ''' dump results '''
+        ''' dump results, one item per line'''
         for i in self.results:
             print(i, file=fobj)
 
