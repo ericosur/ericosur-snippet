@@ -86,7 +86,8 @@ class MakeDirname():
     @classmethod
     def run(cls):
         ''' run '''
-        parser = argparse.ArgumentParser(description='mknn64, small tool to generate non-sense filename')
+        parser = argparse.ArgumentParser(description='mknn64, small tool to generate '
+                                         'non-sense filename')
         # nargs like regexp, '*' means 0+, '+' means 1+
         parser.add_argument("files", type=str, nargs='*',
             help="show these strings")
