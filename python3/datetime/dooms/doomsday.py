@@ -6,21 +6,17 @@ This script uses class DoomsDay and TestDoomsDay, and provides CLI.
 '''
 
 import argparse
-import calendar
-import os
 import sys
 from datetime import date
+from typing import List
 
 # try to add my code snippet into python path
 # sys.path.insert(0, '../')
 # sys.path.insert(0, '../../')
 # sys.path.insert(0, 'python3/')
 
-console = None
 USE_RICH = False
 try:
-    from rich.console import Console
-    console = Console()
     from rich import print as rprint
     USE_RICH = True
 except ImportError:
@@ -156,6 +152,19 @@ def show(color: str, msg: str) -> None:
     else:
         print(msg)
 
+def get_year_color(yy: int, target_year: int) -> str:
+    ''' return the color from the input year '''
+    this_year = get_thisyear()
+    ret_color = "white"
+    if yy == this_year:
+        if yy == target_year:
+            ret_color = "red"
+        else:
+            ret_color = "green"
+    elif yy==target_year:
+        ret_color = "yellow"
+    return ret_color
+
 def show_doom_number(year_list=None, target:int=-1, full_list=False):
     ''' print out doom offset number within range '''
     # if year_list is empty, add default value
@@ -169,23 +178,16 @@ def show_doom_number(year_list=None, target:int=-1, full_list=False):
     print("{")
     print('  "doom_number": [')
 
-    this_year = get_thisyear()
     for idx, yy in enumerate(year_list):
         doomv = DoomsDay.get_doom_num(yy)
         if full_list:
             print('  {')
+
         msg=f'    "year_{yy}": {doomv}'
         if idx!=len(year_list)-1 or full_list:
             msg += ','
-        if yy == this_year:
-            if yy==target:
-                show('red', msg)
-            else:
-                show('green', msg)
-        elif yy==target:
-            show('yellow', msg)
-        else:
-            show('white', msg)
+        clr = get_year_color(yy, target)
+        show(clr, msg)
 
         if full_list:
             show_month_magic_number(yy, show_header=False)
@@ -200,6 +202,27 @@ def show_doom_number(year_list=None, target:int=-1, full_list=False):
         print("  ]")
     print("}")
 
+def prepare_values(year: int, after: int=0, before: int=0, radius: int=0) -> List[int]:
+    ''' prepare values '''
+    year = year if year is not None else get_thisyear()
+    after = after if after is not None else 0
+    before = before if before is not None else 0
+    radius = radius if radius is not None else 0
+    if after<0 or before<0 or radius<0:
+        raise ValueError("value MUST be greater than 0")
+    if radius!=0:
+        if after!=0 or before!=0:
+            print(f"CONFLICT: context({radius}) vs after({after})/before({before})")
+            print("The value of context will override after and/or before")
+        after, before = radius, radius
+    upper = year + after
+    lower = year - before
+    if lower>upper:
+        lower,upper = upper,lower
+    vals = []
+    for y in range(lower,upper+1):
+        vals.append(y)
+    return vals
 
 def init_argparse():
     ''' argparse '''
@@ -257,17 +280,10 @@ def main():
         return
 
     if args.context or args.after or args.before:
-        yy = -1
-        ret = None
+        yy = None
         if args.years:
             yy = args.years[0] if args.years[0] else 0
-        if args.context:
-            ret = make_year_list(yy, "c", args.context)
-        if args.after:
-            ret = make_year_list(yy, "a", args.after)
-        if args.before:
-            ret = make_year_list(yy, "b", args.before)
-
+        ret = prepare_values(yy, args.after, args.before, args.context)
         show_doom_number(ret, target=yy, full_list=args.full)
         return
 
