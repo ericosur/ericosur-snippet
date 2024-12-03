@@ -22,7 +22,7 @@ from .pathutil import DefaultConfig
 from .queryutil import query_url_for_data, query_url_for_json
 from .thedatetime import get_epoch, WhatNow
 from .versionutil import get_python_version, get_python_versions, require_python_version
-from .__myutil import is_linux, is_cygwin, is_windows
+from .__myutil import is_linux, is_cygwin, is_windows, get_platform
 
 def sep():
     ''' sep '''
@@ -40,6 +40,7 @@ __all__ = [
     'get_epoch',
     'get_home',
     'get_offset_from_year',
+    'get_platform',
     'get_python_version',
     'get_python_versions',
     'is_cygwin',
