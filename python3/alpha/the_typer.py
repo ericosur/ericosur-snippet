@@ -6,9 +6,14 @@ Use typer to call AlphaBravoCharlie translator
 It's much easier than argparse
 '''
 
+import sys
 #from typing import Optional
-from typing_extensions import Annotated
-import typer
+try:
+    from typing_extensions import Annotated
+    import typer
+except ImportError as e:
+    print('Failed to import:', e)
+    sys.exit(1)
 from alphabravo import AlphaBravoCharlie
 
 def main(name: Annotated[str,
