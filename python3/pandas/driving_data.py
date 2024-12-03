@@ -107,8 +107,8 @@ class DriveConfig(MyDebug):
         else:
             self.jsonpath = DefaultConfig(self.DEFAULT_FN).get_default_config()
         if self.jsonpath is None or not isfile(self.jsonpath):
-            die('FileNotFoundError')
-            raise FileNotFoundError
+            msg = f"need config file: {self.DEFAULT_FN}"
+            raise FileNotFoundError(msg)
 
         print(f'[INFO] using config: {self.jsonpath}')
         self.data = read_jsonfile(self.jsonpath)

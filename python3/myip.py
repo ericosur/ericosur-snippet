@@ -15,7 +15,7 @@ USE_RICH = False
 try:
     from rich import print_json
     from rich import print as rprint
-    from rich.console import Console
+    #from rich.console import Console
     USE_RICH = True
 except ImportError:
     print('suggest: use __pip install rich__')
