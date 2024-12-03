@@ -6,12 +6,16 @@ foobar
 '''
 
 import os
+import sys
+sys.path.insert(0, ".")
+sys.path.insert(0, "..")
+sys.path.insert(0, "myutil")
 from myutil import get_dow, get_doom_num, get_epoch, WhatNow
+from myutil import is_windows, is_cygwin, get_platform
 
 def show(msg):
     ''' show '''
     print(msg)
-
 
 def what_now():
     '''
@@ -39,6 +43,11 @@ def test0():
 
 def main():
     ''' main '''
+    print(f'platform: {get_platform()}')
+    if is_windows():
+        print('is windows')
+    if is_cygwin():
+        print('is cygwin')
     what_now()
 
 if __name__ == '__main__':

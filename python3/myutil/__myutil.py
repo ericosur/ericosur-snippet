@@ -9,6 +9,7 @@ from __future__ import print_function
 import os
 import platform
 import sys
+import sysconfig
 
 # pylint: disable=no-member
 # pylint: disable=import-outside-toplevel
@@ -39,22 +40,25 @@ def mkdir(url) -> bool:
             print(e)
     return False
 
+def get_platform() -> str:
+    ''' return sysconfig.platform '''
+    return sysconfig.get_platform()
 
-def get_hostname():
+def get_hostname() -> str:
     ''' get hostname '''
     return platform.node()
 
-def is_cygwin():
+def is_cygwin() -> bool:
     ''' check if cygwin '''
     system_name = platform.system().lower()
     return "cygwin" in system_name
 
-def is_linux():
+def is_linux() -> bool:
     ''' check if linux '''
     system_name = platform.system().lower()
     return "linux" in system_name
 
-def is_windows():
+def is_windows() -> bool:
     ''' check if windows '''
     system_name = platform.system().lower()
     return "windows" in system_name
