@@ -8,7 +8,12 @@ platform and its path
 import os
 import re
 from sysconfig import get_platform
-from rich import print as rprint
+try:
+    from rich import print as rprint
+    USE_RICH = True
+except ImportError:
+    USE_RICH = False
+    rprint = print
 
 PLAT = get_platform()
 
@@ -28,6 +33,18 @@ def is_linux() -> bool:
 
 def yes_no(is_yes: bool, prefix=None, postfix=''):
     ''' yea or no '''
+    if USE_RICH:
+        yes_no_color(is_yes, prefix=prefix, postfix=postfix)
+    msg = ''
+    if prefix:
+        msg = prefix
+    if is_yes:
+        print(f'{msg} YES {postfix}')
+    else:
+        print(f'{msg} NO {postfix}')
+
+def yes_no_color(is_yes: bool, prefix=None, postfix=''):
+    ''' color version '''
     msg = ''
     if prefix:
         msg = prefix
@@ -57,7 +74,11 @@ def main():
         '/data/data/com.termux/files/home/src/ericosur-snippet/python3/basic',
     ]
     for i,d in enumerate(srcs):
-        yes_no(check_src(d), prefix=f'test #{i} check_src: [yellow]{d}[/]')
+        if USE_RICH:
+            prefix=f'test #{i} check_src: [yellow]{d}[/]'
+        else:
+            prefix=f'test #{i} check_src: {d}'
+        yes_no(check_src(d), prefix=prefix)
 
 if __name__ == '__main__':
     main()
