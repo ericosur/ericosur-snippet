@@ -54,6 +54,7 @@ def main():
         'c:/Users/rasmus_lai/AppData/Local/Programs/Microsoft VS Code/',
         r'c:\\Users\\USER\AppData\\Local\\Programs\\Python\\Launcher',
         '/ssd/node-v22.11.0-linux-x64/lib/node_modules/corepack/dist/lib',
+        '/data/data/com.termux/files/home/src/ericosur-snippet/python3/basic',
     ]
     for i,d in enumerate(srcs):
         yes_no(check_src(d), prefix=f'test #{i} check_src: [yellow]{d}[/]')
