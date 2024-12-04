@@ -12,7 +12,7 @@ use typer to handle CLI
 '''
 
 import sys
-from typing import List, Optional
+from typing import Optional
 from typing_extensions import Annotated
 try:
     import typer
@@ -23,36 +23,14 @@ except ImportError:
 from rich.console import Console
 console = Console()
 
-from gngan_yaljux import do_ab, do_tests, do_values, do_verbose, get_thisyear
+from gngan_yaljux import do_ab, do_tests, do_values, do_verbose
+sys.path.insert(0, "..")
+from be_prepared import get_thisyear, prepare_values
 
 class Main():
     ''' main '''
     def __init__(self):
         self.logd = console.log
-
-    def prepare_values(self, year: int, after: int=0, before: int=0, radius: int=0) -> List[int]:
-        ''' prepare values '''
-        if after<0 or before<0 or radius<0:
-            raise ValueError("value MUST be greater than 0")
-        if radius!=0:
-            if after!=0 or before!=0:
-                self.logd(f"CONFLICT: context({radius}) vs after({after})/before({before})")
-                return [year]
-            after, before = radius, radius
-
-        logd = self.logd
-        logd(f"prepare_values... {after=}, {before=}")
-        upper = year + after
-        lower = year - before
-        if lower>upper:
-            lower,upper = upper,lower
-        logd(f"{upper=}")
-        logd(f"{lower=}")
-        vals = []
-        for y in range(lower,upper+1):
-            vals.append(y)
-        logd(f'return: {vals}')
-        return vals
 
     def main(self, values: Annotated[Optional[list[int]],
                                      typer.Argument(help="specify year")] = None,
@@ -104,7 +82,7 @@ class Main():
         self.logd(f'{before=}')
         for v in values:
             self.logd(f'{v=}')
-            the_vals = self.prepare_values(v, after=after, before=before, radius=context)
+            the_vals = prepare_values(v, after=after, before=before, radius=context)
             do_values(the_vals, target=v, log=self.logd)
 
 if __name__ == '__main__':

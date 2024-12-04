@@ -14,9 +14,14 @@ import struct
 import sys
 import time
 from datetime import datetime
+from sysconfig import get_platform
 
 VERBOSE = False
 ERROR = True
+
+def is_linux() -> bool:
+    ''' return true if linux '''
+    return "linux" in get_platform()
 
 def logv(*args, **wargs):
     ''' logv '''
@@ -110,8 +115,12 @@ def get_sick_from_ns(ns_val):
     #logv(f'   {sick=}')
     return sick
 
+# pylint: disable=no-member
 def sick_integer2(ns_val):
     ''' given time_ns '''
+    if not is_linux():
+        loge("sick_integer2: only for linux...")
+        return
     logv('----- sick_integer2 -----')
     # get the resolution of realtime clock
     resolution = time.clock_getres(time.CLOCK_REALTIME)
