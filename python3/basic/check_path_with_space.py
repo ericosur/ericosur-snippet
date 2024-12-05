@@ -36,7 +36,9 @@ def yes_no(is_yes: bool, prefix=None, postfix=''):
     if USE_RICH:
         yes_no_color(is_yes, prefix=prefix, postfix=postfix)
         return
-    msg = prefix if prefix is not None else ''
+    msg = ''
+    if prefix:
+        msg = prefix
     if is_yes:
         print(f'{msg} YES {postfix}')
     else:
