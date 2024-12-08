@@ -83,6 +83,8 @@ class PathLister():
         ''' check paths '''
         p = os.environ['PATH']
         for d in p.split(os.pathsep):
+            if d == '':
+                continue
             if os.path.isdir(d):
                 if d in self.dirs: # duplicates
                     self.dups.append(d)
@@ -127,7 +129,7 @@ class PathLister():
             rp('[bold yellow]'+self.STR_DUP)
             for d in self.dups:
                 rp(d)
-        if self.ngs:
+        if self.ngs and len(self.ngs)>0:
             rp('[bold red]'+self.STR_NG)
             for d in self.ngs:
                 rp(d)
