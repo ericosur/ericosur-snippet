@@ -6,7 +6,14 @@ demo days delta
 '''
 
 from datetime import datetime, timedelta
-
+import sys
+from typing_extensions import Annotated
+try:
+    import typer
+    USE_TYPER = True
+except ImportError:
+    print('warn: cannot imort typer, run demo only...')
+    USE_TYPER = False
 
 def translate_weekday(w: int):
     '''
@@ -19,28 +26,58 @@ def translate_weekday(w: int):
         return t
     raise ValueError("value out of range")
 
-def days_between(dt, offday):
-    ''' show days between '''
-
-    # set start_date as specified date
-    print(f"start_date: {dt}")
-
+def get_date_after_days(start_date: datetime, offset_days: int) -> datetime:
+    ''' given start date and offset days, return new datetime obj '''
     # define offset
-    offset = timedelta(days=offday)
-    print(f"timedelta: {offset}")
+    offset = timedelta(days=offset_days)
+    new_date = start_date + offset
+    return new_date
 
-    new_date = dt + offset
-    wd = translate_weekday(new_date.weekday())
-    print(f"new_date: {new_date}, weekday: {wd}")
+def demo_only():
+    '''demo function'''
+    print("demo...")
+    start = datetime.today()
+    delta = 60
+    get_result(start, delta)
 
+def get_result(start: datetime, delta: int) -> None:
+    ''' calculate date and show result '''
+    # for datetime
+    wd_name = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    # if translated
+    #tws = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+    nd = get_date_after_days(start, delta)
+    wd = wd_name[nd.weekday()]
+    print(f'since {start}, weekday is {wd_name[start.weekday()]}')
+    print(f'after {delta} days, it is {nd} and weekday is {wd}')
 
-def main():
-    '''main function'''
-    print('note: 0 is sunday, 1 is monday, and 6 is staturday')
-    days_between(datetime(2023,10,16,13,30), 60)
-    print()
-    days_between(datetime.today(), 60)
+if USE_TYPER:
+    def main(
+        dateval: Annotated[
+            datetime,
+            typer.Option("--datetime", "--date", "-D",
+                formats=["%Y-%m-%d", "%Y-%m-%dT%H:%M:%S"]),
+        ] = None, #"1970-01-01T00:00:00",
+        numval: Annotated[int, typer.Option("--delta", "--between", "--offset",
+            help="epoch value in number")] = 30, # 1234567890
+        demo: Annotated[bool, typer.Option("--demo", help="get some demo")] = False
+    ):
+        '''
+        datedelta demo, for example
 
+        new_date.py -D 1946-06-14T12:34:56 --offset 28490
+        '''
+        if demo:
+            demo_only()
+            return
+        if dateval is None:
+            print('error: MUST specify a date string')
+            print(f'get some help: --help')
+            return
+        get_result(dateval, numval)
 
 if __name__ == '__main__':
-    main()
+    if USE_TYPER:
+        typer.run(main)
+    else:
+        demo_only()
