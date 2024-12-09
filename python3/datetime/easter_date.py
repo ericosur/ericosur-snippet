@@ -15,7 +15,7 @@ from typing_extensions import Annotated
 try:
     import typer
     USE_TYPER = True
-except:
+except ImportError:
     USE_TYPER = False
     print('warn: failed to import typer, only demo, no CLI...')
 

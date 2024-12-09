@@ -6,7 +6,6 @@ demo days delta
 '''
 
 from datetime import datetime, timedelta
-import sys
 from typing_extensions import Annotated
 try:
     import typer
@@ -72,7 +71,7 @@ if USE_TYPER:
             return
         if dateval is None:
             print('error: MUST specify a date string')
-            print(f'get some help: --help')
+            print('get some help: --help')
             return
         get_result(dateval, numval)
 
