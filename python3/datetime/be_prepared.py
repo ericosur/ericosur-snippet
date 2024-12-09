@@ -2,6 +2,9 @@
 
 '''
 provide prepare_valus for years
+
+for exampe, given year=2024, radius(context)=2
+will retrun a list: [2022,2023,2024,2025,2026]
 '''
 
 from datetime import date
