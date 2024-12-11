@@ -19,11 +19,12 @@ import argparse
 import sys
 from random import randint
 from store import read_from_stdin
+from the_prt import prt
 try:
     #from sympy import sympy.ntheory.primetest.isprime
     from sympy import ntheory
 except ImportError as err:
-    print('Import Error while:', err)
+    prt('Import Error while:', err)
     sys.exit(1)
 
 def is_prime(n: int):
@@ -42,7 +43,7 @@ def gen_large_numbers(size):
 def main(argv: list):
     ''' main '''
     if argv == []:
-        print('>>>>> demo')
+        prt('>>>>> demo')
         argv.append(7427466391)
         argv.append(1190494759)
         argv.append(4222234741)
@@ -52,14 +53,13 @@ def main(argv: list):
         try:
             m = int(e)
             ret = is_prime(m)
-            print(f'{m} is ', end='')
+            prt(f'{m} is ', end='')
             if ret:
-                print('a PRIME')
+                prt('a PRIME')
             else:
-                print('NOT a prime')
-
+                prt('NOT a prime')
         except ValueError:
-            print('value error:', m)
+            prt('value error:', m)
 
 def argp():
     ''' prepare and parse CLI arguments '''
@@ -68,7 +68,7 @@ def argp():
         help='read from STDIN')
     parser.add_argument("arg", nargs='*', type=int, default=None)
     args = parser.parse_args()
-    #print(args)
+    #prt(args)
     if args.readFromStdin:
         read_from_stdin(main)
     else:

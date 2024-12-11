@@ -7,7 +7,13 @@ provide an interface/class for query primes
 
 #from debug_verbose import MyDebug
 from .findlist_func import index, find_le, find_ge
+try:
+    from rich import print as rprint
+    USE_RICH = True
+except ImportError:
+    USE_RICH = False
 
+prt = rprint if USE_RICH else print
 
 MODNAME = "QueryPrime"
 __VERSION__ = "2024.03.27"
@@ -55,13 +61,13 @@ class QueryPrime():
         _max = self.primes[-1]
         _min = self.primes[0]
         if val > _max or val < _min:
-            print(f'[ERROR] out of bound: {_min=} {val=} {_max=}')
+            prt(f'[ERROR] out of bound: {_min=} {val=} {_max=}')
             return None
         if val == _min:
             return [2]
         (p, _) = self.search_between_idx(val)
         if p is None:
-            print('[ERROR] cannot operate')
+            prt('[ERROR] cannot operate')
             return None
         # ????
         plist = self.primes[:p+1]
@@ -79,7 +85,7 @@ class QueryPrime():
         use bisect to search value in list return index for lower, upper bound
         '''
         if self.primes is None:
-            print('[FAIL] predefined data not available')
+            prt('[FAIL] predefined data not available')
             return (None, None)
         i = index(self.primes, val)
         if i != -1:
@@ -92,7 +98,7 @@ class QueryPrime():
             _, q = find_ge(a, x)
             return (p, q)
         except ValueError:
-            print(f'something wrong for {x}, OOB?')
+            prt(f'something wrong for {x}, OOB?')
             return (None, None)
 
     def search_between_idx(self, val):
@@ -100,15 +106,15 @@ class QueryPrime():
         search value within primes, return index for lower, upper bound
         '''
         if self.primes is None or not self.primes:
-            print('[FAIL] predefined data not available')
+            prt('[FAIL] predefined data not available')
             return (None, None)
         if val in self.primes:
             return (val, None)
         if val < self.primes[0]:
-            print(f'{val} is smaller than lower bound')
+            prt(f'{val} is smaller than lower bound')
             return (None, None)
         if val > self.primes[-1]:
-            print(f'{val} is larger than upper bound')
+            prt(f'{val} is larger than upper bound')
             return (None, None)
 
         # start to binary search
@@ -127,17 +133,17 @@ class QueryPrime():
             if _min > _max or _min == _max - 1:
                 break
             if _cnt > _max_repeat:
-                print(f'{MODNAME}: exceed count')
+                prt(f'{MODNAME}: exceed count')
                 break
         return (_min, _max)
 
 
     def list_nearby(self, v: int) -> list:
-        ''' print primes nearby v '''
+        ''' prt primes nearby v '''
         (p, q) = self.bisect_between_idx(v)
-        #print('p, q:', p, q)
+        #prt('p, q:', p, q)
         if p is None:
-            print('\tno answer for this')
+            prt('\tno answer for this')
             return None
         begin = 0
         count = 4
@@ -157,6 +163,6 @@ class QueryPrime():
         '''
         (p, q) = self.bisect_between_idx(v)
         if p is None:
-            print('\tno answer for this')
+            prt('\tno answer for this')
             return (None, None)
         return (p, q)

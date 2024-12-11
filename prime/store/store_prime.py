@@ -13,16 +13,23 @@ from .query_prime import QueryPrime
 from .load_myutil import MyDebug, MyVerbose
 from .textutil import read_textfile
 
+try:
+    from rich import print as rprint
+    USE_RICH = True
+except ImportError:
+    USE_RICH = False
 
 MODNAME = "StorePrime"
 __VERSION__ = "2024.03.27"
 
+prt = rprint if USE_RICH else print
+
 def show(v, p, q):
-    ''' show '''
+    ''' show the result related to primes '''
     if p is None and q is None:
         return
     if q is None:
-        print(f'{v} is a prime {p}')
+        prt(f'{v} is a prime {p}')
     else:
         lhs = abs(v - p)
         rhs = abs(v - q)
@@ -30,7 +37,7 @@ def show(v, p, q):
             arrow = "<-----"
         else:
             arrow = "----->"
-        print(f'{v} is in the range of ({p} {arrow} {q})')
+        prt(f'{v} is in the range of ({p} {arrow} {q})')
 
 class StorePrime(MyDebug, MyVerbose, QueryPrime):
     ''' class will help to handle read pickle file '''
@@ -76,8 +83,9 @@ class StorePrime(MyDebug, MyVerbose, QueryPrime):
 
     def logv(self, *args, **wargs):
         ''' print verbose '''
-        if self.verbose:
-            print(*args, **wargs)
+        if not self.verbose:
+            return
+        prt(*args, **wargs)
 
     def get_ready(self):
         ''' load prime data '''
@@ -156,7 +164,7 @@ class StorePrime(MyDebug, MyVerbose, QueryPrime):
         self._info("save_pickle_impl()")
         with open(self.config['pfn'], 'wb') as outf:
             pickle.dump(self.primes, outf)
-        print(f'[INFO][{MODNAME}] save pickle as {self.config["pfn"]}')
+        prt(f'[INFO][{MODNAME}] save pickle as {self.config["pfn"]}')
 
     def save_pickle(self):
         ''' save primess into pickle file '''
@@ -166,18 +174,15 @@ class StorePrime(MyDebug, MyVerbose, QueryPrime):
         if self.need_save:
             self.save_pickle_impl()
         else:
-            print(f'[INFO][{MODNAME}] no need to save')
-
+            prt(f'[INFO][{MODNAME}] no need to save')
 
     def test(self, v: int):
         ''' test '''
         (p, q) = self.bisect_between_idx(v)
         if p is None:
-            print('\tno answer for this')
+            prt('\tno answer for this')
             return
         show(v, self.at(p), self.at(q))
 
-
-
 if __name__ == '__main__':
-    print('run **run_example.py** to see the demo...')
+    prt('run **run_example.py** to see the demo...')
