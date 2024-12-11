@@ -7,25 +7,25 @@ test StorePrime
 
 import argparse
 import random
-from store import GetConfig, make_arrow, StorePrime
+from the_prt import prt
 
 MODNAME = 'run_example'
-LCP_READY = False
 try:
-    from store import LoadCompressPrime
+    from store import LoadCompressPrime, GetConfig, make_arrow, StorePrime
     LCP_READY = True
 except ImportError:
+    LCP_READY = False
     print('[WARN] no such module: LoadCompressPrime')
 
 def test(argv, sp):
     ''' test '''
     REPEAT = 10
-    print(sp)
+    prt(sp)
     _max = sp.at(sp.get_count() - 1)
     _min = sp.at(0)
 
     if argv == []:
-        #print(f"max:{_max}, min:{_min}")
+        #prt(f"max:{_max}, min:{_min}")
         for _ in range(REPEAT):
             r = random.randint(_min, _max)
             argv.append(r)
@@ -34,26 +34,26 @@ def test(argv, sp):
         try:
             val = int(ss)
             if val < _min or val > _max:
-                print(f'[ERROR] {val:,} is out of bound!')
+                prt(f'[ERROR] {val:,} is out of bound!')
                 continue
             (p, q) = sp.get_around(val)
             show_result(sp, val, p, q)
         except ValueError:
-            print(f'    {ss} is a ValueError')
+            prt(f'    {ss} is a ValueError')
             continue
 
 def show_result(sp, v, p, q):
     ''' show result, not using StorePrime.show() '''
     NAME = 'show_result'
     if p is None and q is None:
-        print(f'{NAME} no results')
+        prt(f'{NAME} no results')
         return
     if q is None:
-        print(f'{v} is a {p+1}th prime')
+        prt(f'{v} is a {p+1}th prime')
         return
     upper, lower = sp.at(q), sp.at(p)
     arrow = make_arrow(lower, v, upper)
-    print(f'{v}:({lower} {arrow} {upper})')
+    prt(f'{v}:({lower} {arrow} {upper})')
 
 def wrap_config(args):
     ''' wrap config and retrieve settings '''
@@ -78,7 +78,7 @@ def wrap_config(args):
 
 def logd(*args, **wargs):
     ''' local logd '''
-    print(f'{MODNAME}:', *args, **wargs)
+    prt(f'{MODNAME}:', *args, **wargs)
 
 def main():
     ''' main function '''
@@ -106,7 +106,7 @@ def main():
 
     txtfn, pfn, cpfn = wrap_config(args)
     if args.debug:
-        print(f'run_example: {txtfn=}, {pfn=}, {cpfn=}')
+        prt(f'run_example: {txtfn=}, {pfn=}, {cpfn=}')
 
     if args.lcp and LCP_READY:
         logd('Using LoadCompressPrime...')
