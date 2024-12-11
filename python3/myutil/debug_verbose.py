@@ -10,9 +10,17 @@ import sys
 MODNAME = "DEBUG_VERBOSE"
 __VERSION__ = "2024.03.12"
 
+try:
+    from rich import print as rprint
+    USE_RICH = True
+except ImportError:
+    USE_RICH = False
+
+prt = rprint if USE_RICH else print
+
 def die(*args, **kwargs):
     ''' similar to die in perl '''
-    print(*args, file=sys.stderr, **kwargs)
+    prt(*args, file=sys.stderr, **kwargs)
     sys.exit()
 
 class MyDebug():
@@ -47,10 +55,10 @@ class MyDebug():
         elif self._tag:
             v = self._tag
         if v:
-            print(f"[DEBUG][{v}]", end=' ')
+            prt(f"[DEBUG][{v}]", end=' ')
         else:
-            print("[DEBUG]", end=' ')
-        print(*args, **kwargs)
+            prt("[DEBUG]", end=' ')
+        prt(*args, **kwargs)
 
 
 class MyVerbose():
@@ -84,7 +92,7 @@ class MyVerbose():
         elif self._tag:
             v = self._tag
         if v:
-            print(f"[VERBOSE][{v}]", end=' ')
+            prt(f"[VERBOSE][{v}]", end=' ')
         else:
-            print("[VERBOSE]", end=' ')
-        print(*args, **kwargs)
+            prt("[VERBOSE]", end=' ')
+        prt(*args, **kwargs)
