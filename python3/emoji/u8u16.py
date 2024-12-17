@@ -14,6 +14,7 @@ from logd import logd
 from mytofrom import to_from_u8, to_from_u16, to_utf8
 
 sys.path.insert(0, "..")
+sys.path.insert(0, "python3")
 #print(sys.path)
 from myutil import read_jsonfile
 
