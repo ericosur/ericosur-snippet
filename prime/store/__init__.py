@@ -14,7 +14,7 @@ from .store_prime import StorePrime
 from .lcp import LoadCompressPrime
 from .make_arrow import make_arrow
 from .load_myutil import MyDebug, MyVerbose, die
-from .load_myutil import is_file, is_dir
+from .load_myutil import is_file, is_dir, prt
 from .textutil import read_textfile
 
 def sep():
@@ -29,6 +29,7 @@ __all__ = [
     'GetConfig',
     'LoadCompressPrime',
     'make_arrow',
+    'prt',
     'read_from_stdin',
     'read_setting',
     'read_textfile',

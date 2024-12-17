@@ -12,11 +12,12 @@ from time import time
 
 from store import GetConfig
 from store import StorePrime as sp
+from store import prt
 
 MODNAME = "sieve.py"
 def show_duration(duration):
     ''' show duration '''
-    print(f'{MODNAME}: duration: {duration:.3f} sec')
+    prt(f'{MODNAME}: duration: {duration:.3f} sec')
 
 def wrap_config():
     ''' wrap config and retrieve settings '''
@@ -29,6 +30,7 @@ def wrap_config():
 class SieveOfEratosthenes():
     ''' implement '''
     upper = 1_000_000
+    REPEAT = 20
 
     def __init__(self):
         self.prime = 3
@@ -42,7 +44,7 @@ class SieveOfEratosthenes():
         self.ok_to_verify = self._check()
 
     def __str__(self):
-        r = f'SieveOfEratosthenes: from 2 to {self.upper}'
+        r = f'SieveOfEratosthenes: from 2 to {self.upper:,}'
         return r
 
     def _check(self):
@@ -52,7 +54,7 @@ class SieveOfEratosthenes():
         self.sp.get_ready()
         _max = self.sp.at(self.sp.get_count() - 1)
         if self.upper > _max:
-            print("[WARN] stored primes are not large enough to validate the results")
+            prt("[WARN] stored primes are not large enough to validate the results")
             del self.sp
             self.sp = None
             return False
@@ -100,28 +102,28 @@ class SieveOfEratosthenes():
                     pass
         d = time() - start
         if d > 0.75:
-            print(f'>>>>>> start filter {p} len: {len(self.results)}')
-            print(f'<<<<<< took:{d:.3f} sec')
+            prt(f'>>>>>> start filter {p} len: {len(self.results):,}')
+            prt(f'<<<<<< took:{d:.3f} sec')
 
     def run_filter(self):
         ''' filter primes from target '''
         pp = self.prime
-        #print(f'=====> pp: {pp}')
+        #prt(f'=====> pp: {pp}')
 
         if pp != self.last_prime:
             self.filter_prime(pp)
             self.last_prime = pp
         else:
-            print('skip')
+            prt('skip')
             return
 
         if pp > self.inner_limit:
-            print('hit inner limit')
+            prt('hit inner limit')
             return
 
         ii = 0
         k = self.results[ii]
-        #print(self.target)
+        #prt(self.target)
         while k <= self.last_prime:
             ii += 1
             k = self.results[ii]
@@ -131,47 +133,54 @@ class SieveOfEratosthenes():
     def verify_result(self):
         ''' verify result '''
         if not self.ok_to_verify:
-            print("[FAIL] cannot use stored primes to validate")
+            prt("[FAIL] cannot use stored primes to validate")
             return
         l = len(self.results)
-        print('verify_result: len of results:', l)
+        prt(f'verify_result: len of results: {l:,}')
         stored_primes = self.sp.get_primes_less_than(self.results[-1]+1)
-        print('verify_result: fetched stored primes:', len(stored_primes))
+        prt(f'verify_result: fetched stored primes: {len(stored_primes):,}')
         if stored_primes == self.results:
-            print('verify_result: matched')
+            prt('verify_result: matched')
         else:
-            print('verify_result: not matched')
+            prt('verify_result: not matched')
 
     def output_to_file(self, fn):
         ''' output into text file '''
         with open(fn, "wt", encoding='utf8') as ofh:
             for p in self.results:
-                print(p, file=ofh)
-        print(f'[INFO] sieve.py: output to {fn}, count = {len(self.results)}')
+                prt(p, file=ofh)
+        prt(f'[INFO] sieve.py: output to {fn}, count = {len(self.results):,}')
 
     def action(self):
         ''' run '''
         self.run_filter()
 
-    @classmethod
-    def run(cls):
-        ''' run me '''
-        REPEAT = 99
-        obj = cls()
-        print(obj)
-        start = time()
-        obj.action()
-        duration = time() - start
-        r = obj.get_result()
-        print('len of results:', len(r))
-        if len(r) < REPEAT:
-            print('all result:', r)
+    def show_result(self):
+        ''' show '''
+        r = self.results
+        prt('len of results:', len(r))
+        if len(r) < self.REPEAT:
+            prt('all result:', r)
         else:
-            s = slice(0, REPEAT)
-            print(f"first {REPEAT} prime numbers:", r[s])
+            m = len(r) // 2
+            the_lower = m - self.REPEAT // 2
+            the_upper = m + self.REPEAT // 2
+            s = slice(the_lower, the_upper)
+            prt(f"some prime numbers from the result from {the_lower}..{the_upper}")
+            prt(r[s])
             # uncomment the following line if output to file
             # use 'check_need.py to check if every number is prime'
             #obj.output_to_file('sieve_primes.txt')
+
+    @classmethod
+    def run(cls):
+        ''' run me '''
+        obj = cls()
+        prt(obj)
+        start = time()
+        obj.action()
+        duration = time() - start
+        obj.show_result()
         obj.verify_result()
         show_duration(duration)
 

@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 # coding: utf-8
+#
+# pylint: disable=too-many-arguments
+# pylint: disable=too-many-positional-arguments
+#
 
 '''
 check if input number is prime or not
@@ -96,13 +100,13 @@ def main(
     '''
     if test:
         run_test()
-        exit(0)
+        sys.exit(0)
     if demo:
         run_demo()
-        exit(0)
+        sys.exit(0)
     if values is None:
         prt(f'use: {sys.argv[0]} --help')
-        exit(0)
+        sys.exit(0)
     if after or before or context:
         v = values[0]
         prt(f'info: only take the first one: {v}')
@@ -124,7 +128,7 @@ def main(
                 any_prime = True
         if not any_prime:
             rprint("no prime number at all")
-        exit(0)
+        sys.exit(0)
 
     vals = values
     check_values(vals)
