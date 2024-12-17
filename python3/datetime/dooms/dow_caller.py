@@ -15,6 +15,7 @@ sys.path.insert(0, 'python3')
 from myutil import prt
 
 WEEKDAY_NOTE = '0: Sun, 1: Mon, 2: Tue..., 6: Sat'
+TWS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
 def check_and_call(dt: list[str]) -> int:
     ''' input a list of string, and return dow
@@ -28,7 +29,7 @@ def run_demo():
     prt('demo: Use date.today().weekday()...')
     td = date.today()
     tdow = int(td.weekday() + 1) % 7  # calibrate to 0 is Sun, 6 is Sat
-    prt(f'today: {td}, dow: {tdow}')
+    prt(f'today: {td}, dow: {tdow} ({TWS[tdow]})')
     prt('# of week:', td.strftime("%V"))
 
 def main(dt: list[str]):
@@ -37,11 +38,12 @@ def main(dt: list[str]):
 
     if dt is None:
         run_demo()
-        exit(0)
+        sys.exit(0)
 
     try:
+
         ans = check_and_call(dt)
-        prt(f'{dt[0]}/{dt[1]}/{dt[2]}: {ans}')
+        prt(f'{dt[0]}/{dt[1]}/{dt[2]}: {ans}({TWS[ans]})')
     except ValueError as e:
         prt('ValueError:', e)
 

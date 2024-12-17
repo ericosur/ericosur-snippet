@@ -138,3 +138,7 @@ def datetime_to_sick(dt):
     # should be 19 digits
     assert lts == 19
     return ts
+
+if __name__ == "__main__":
+    print("provides functions only")
+    print("DO NOT run this script...")

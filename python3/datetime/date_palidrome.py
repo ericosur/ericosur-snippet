@@ -6,6 +6,10 @@ to check if a date is palindrome
 '''
 
 from datetime import date, timedelta
+import sys
+sys.path.insert(0, "..")
+sys.path.insert(0, "python3")
+from myutil import prt
 
 
 def is_palindrome(the_str: str):
@@ -26,10 +30,10 @@ def demo_palindrome():
         ds = curr.strftime('%Y%m%d')    # YYYYmmdd, ie: 20190823
         total += 1
         if is_palindrome(ds):
-            print(f'{ds} is palindrome number')
+            prt(f'{ds} is a palindrome number')
             cnt += 1
         curr += timedelta(days=1)
-    print(f'from {start_d} to {end_d}, there are {cnt}/{total} palindrome days')
+    prt(f'from {start_d} to {end_d}, there are {cnt}/{total} palindrome days')
 
 def main():
     ''' main '''
