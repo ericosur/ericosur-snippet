@@ -4,7 +4,10 @@
 ''' to calculate days between two dates '''
 
 from datetime import date
-
+import sys
+sys.path.insert(0, "../")
+sys.path.insert(0, "python3/")
+from myutil import prt
 
 class Solution():
     ''' class to solve this problem '''
@@ -23,7 +26,7 @@ class Solution():
         try:
             vals = [int(x) for x in arr]
         except ValueError:
-            print('[ERROR] str2date: invalid string to integer')
+            prt('[ERROR] str2date: invalid string to integer')
             return None
         return date(vals[0], vals[1], vals[2])
 
@@ -36,7 +39,7 @@ class Solution():
         start_date = Solution.str2date(start)
         end_date = Solution.str2date(end)
         between = end_date - start_date
-        #print(type(between), repr(between))
+        #prt(type(between), repr(between))
         return between
 
     @staticmethod
@@ -66,23 +69,23 @@ class Solution():
     def show_diff(m, n):
         ''' test '''
         r = Solution.get_between_dates(m, n)
-        print(f'Days between {m} to {n}: {r}')
+        prt(f'Days between {m} to {n}: {r}')
 
     @classmethod
     def run(cls):
         ''' run demo '''
         cls.show_diff('2020-01-01', '2020-01-02')
-        print('[NOTE] 2020 is leap year')
+        prt('[NOTE] 2020 is leap year')
         cls.show_diff('2020-01-01', '2020-12-31')
-        print('[NOTE] 2023 is not leap year')
+        prt('[NOTE] 2023 is not leap year')
         cls.show_diff('2023-01-01', '2023-12-31')
-        print()
-        print('Days from today to end of this year...')
+        prt()
+        prt('Days from today to end of this year...')
         cls.show_diff(cls.get_today_str(), cls.get_eoy())
-        print('Days from begin of this year to today...')
+        prt('Days from begin of this year to today...')
         cls.show_diff(cls.get_boy(), cls.get_today_str())
 
-        print('Days from someday to today...')
+        prt('Days from someday to today...')
         cls.show_diff(cls.get_today_str(), '2024-01-13')
 
 def main():

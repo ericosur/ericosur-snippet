@@ -17,7 +17,7 @@ try:
     from lunarcalendar import Converter, DateNotExist, Lunar, Solar
     from lunarcalendar.festival import festivals
 except ImportError:
-    print('import module lunarcalendar failed')
+    print('failed to import module lunarcalendar')
     sys.exit(1)
 
 class Solution:

@@ -270,4 +270,6 @@ def do_tests(log=do_nothing) -> None:
     GanChi.run(log)
 
 if __name__ == "__main__":
-    print(f'[INFO] {sys.argv[0]} is a utility module, exit...')
+    print(f'This script {sys.argv[0]} provides functions.')
+    print("DO NOT run this directly")
+    print("try: cli_tester.py, ganzhi.py, or typer_gng.py")

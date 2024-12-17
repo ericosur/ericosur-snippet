@@ -5,22 +5,12 @@
 show an emoji that matches the current time
 '''
 
+import sys
 import argparse
 from datetime import datetime
-
-def clamp(value, minimum, maximum):
-    """Clamps a value between a minimum and maximum value.
-
-    Args:
-      value: The value to be clamped.
-      minimum: The minimum allowed value.
-      maximum: The maximum allowed value.
-
-    Returns:
-      The clamped value, which is within the range [minimum, maximum].
-    """
-    return max(minimum, min(value, maximum))
-
+sys.path.insert(0, "..")
+sys.path.insert(0, "python3")
+from myutil import prt
 
 class ShowClock():
     ''' class to show clock '''
@@ -73,7 +63,7 @@ class ShowClock():
             h = h - 12
         if 1 <= h <= 12:
             self.hh = h
-            #print(f'sethh: {self.hh=}')
+            #prt(f'sethh: {self.hh=}')
         else:
             raise ValueError
 
@@ -128,12 +118,11 @@ class ShowClock():
         # choose_icon() and then get_icon()
         r = self.choose_icon()
         i = self.get_icon()
-        print(f'{hh:02d}{mm:02d} ==> {r}\t{i}')
-
+        prt(f'{hh:02d}{mm:02d} ==> {r}\t{i}')
 
     def do_tests(self):
         ''' run tests '''
-        #print(f"Current hour: {self.hh}, minute: {self.mm}")
+        #prt(f"Current hour: {self.hh}, minute: {self.mm}")
         #self.choose_icon()
         self.test(0, 0)
         self.test(0, 14)
@@ -152,11 +141,11 @@ class ShowClock():
 
     def action(self):
         ''' action '''
-        #print(f'{self.verbose=}')
+        #prt(f'{self.verbose=}')
         icon = self.get_icon()
         if self.verbose:
-            print(self.key, end=' ')
-        print(icon)
+            prt(self.key, end=' ')
+        prt(icon)
 
     @classmethod
     def run(cls, show_more):

@@ -48,3 +48,7 @@ def prepare_values(year: int, after: int=0, before: int=0, radius: int=0) -> Lis
     for y in range(lower,upper+1):
         vals.append(y)
     return vals
+
+if __name__ == "__main__":
+    print("provides functions only")
+    print("DO NOT run this script...")
