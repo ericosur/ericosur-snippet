@@ -4,8 +4,13 @@
 '''
 fastapi first try
 
+run locally:
 launch: fastapi dev api1st.py
-open link: http://localhost:8000/docs")
+and open link: http://localhost:8000/docs")
+
+run manually, it will listen the given IP and port
+$ uvicorn api1st:app --host 192.168.100.105 --port 5678
+
 '''
 
 import sys
