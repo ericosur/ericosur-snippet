@@ -19,7 +19,7 @@ chars = {
     "🍍": "pineapple,鳳梨",
     "🍎": "red_apple,紅蘋果",
     "🍏": "green_apple,青蘋果",
-    "🍐": "pear,梨子",    
+    "🍐": "pear,梨子",
     "🍒": "cherries,櫻桃",
     "🍓": "strawberry,草莓",
     "🍔": "hamburger,漢堡",
@@ -67,7 +67,7 @@ chars = {
     "🍾": "bottle_with_popping_cork,洋酒",
     "🍿": "popcorn,爆米花",
     "🎂": "birthday_cake,生日蛋糕",
-    "🎃": "jack-o-lantern,南瓜燈",   
+    "🎃": "jack-o-lantern,南瓜燈",
     "🥐": "croissant,可頌",
     "🥑": "avocado,酪梨",
     "🥒": "cucumber,小黃瓜",
@@ -113,3 +113,7 @@ chars = {
     "🫚": "ginger_root,薑",
     "🫛": "pea_pod,豌豆莢",
 }
+
+if __name__ == "__main__":
+    print("Only provides a dict: chars")
+    print("DO NOT run this script...")

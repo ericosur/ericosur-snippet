@@ -11,9 +11,9 @@ from logd import logd
 
 __version__ = '0.1'
 
-def to_from_u8(cc: str):
+def to_from_u8(cc: str) -> str:
     '''
-    get unicode seq from utf-8
+    get unicode seq from utf-8, return a str with codepoint
     '''
     logd("to_from_u8")
     ue = cc.encode('unicode-escape').decode('utf-8')
@@ -22,7 +22,7 @@ def to_from_u8(cc: str):
 
 def to_utf8(cc: str) -> str:
     '''
-    get utf-8
+    get utf-8, return str with hex values
     '''
     logd("to_uf8")
     bb = cc.encode('utf-8')  # bytes
@@ -30,7 +30,7 @@ def to_utf8(cc: str) -> str:
     #logd(f'type(ret): {type(ret)}')
     return ret
 
-def to_from_u16(cc: str):
+def to_from_u16(cc: str) -> None:
     '''
     cc [in] unicode char
     calling: to_from_u16(chr(0x0001f3c8))
@@ -41,7 +41,7 @@ def to_from_u16(cc: str):
     print('unicode-escape: ' + ue)
     print('      utf16-be: ' + u16s)
 
-def from_utf8char(cc):
+def from_utf8char(cc: bytes) -> str:
     ''' old show_utf8char for python 3 '''
     ret = None
     if isinstance(cc, bytes):
