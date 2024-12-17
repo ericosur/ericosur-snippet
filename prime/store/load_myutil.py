@@ -28,15 +28,15 @@ sys.path.insert(0, "../python3")
 
 import myutil
 
-
 die = myutil.die
-MyDebug = myutil.MyDebug
-MyVerbose = myutil.MyVerbose
+is_file = myutil.is_file
+is_dir = myutil.is_dir
+prt = myutil.prt
 read_jsonfile = myutil.read_jsonfile
 read_setting = myutil.read_setting
 read_from_stdin = myutil.read_from_stdin
-is_file = myutil.is_file
-is_dir = myutil.is_dir
+MyDebug = myutil.MyDebug
+MyVerbose = myutil.MyVerbose
 
 def get_home():
     ''' get home dir '''
@@ -69,7 +69,7 @@ class GetConfig():
         for k in self.sizes:
             cs = self.d[k]
             assert cs is not None
-            msg = f'numbers of primes: {cs.get("num")}, max prime is {cs.get("max")}'
+            msg = f'numbers of primes: {cs.get("num"):,}, max prime is {cs.get("max"):,}'
             print(msg)
             for i in ["txt", "pickle", "compress_pickle"]:
                 fn = os.path.join(self.get_full_ppath(), cs.get(i))
