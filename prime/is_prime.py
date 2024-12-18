@@ -79,17 +79,60 @@ def run_demo():
     vals = [7427466391, 27285757, 1190494759, 22216911, 4222234741]
     check_values(vals)
 
+def is_simple_composite(v: int) -> bool:
+    ''' if multiple of 2,3,5,7, return true '''
+    return v%2==0 or v%3==0 or v%5==0 or v%7==0
+
+def look_toward(v: int, around: int, is_increase: bool) -> List[int]:
+    ''' look toward, is_increate true/false '''
+    found = []
+    if v % 2 == 0: # even number
+        i = v - 1
+    else:
+        i = v
+    step = 2 if is_increase else -2
+    while len(found) < around:
+        if i < 1:
+            break
+        if is_prime(i):
+            found.append(i)
+        i += step  # will skip even numbers at the first
+    #prt(f'backward len: {len(backward)}, last i={i}')
+    #prt(backward)
+    return found
+
+def search_around_primes(v: int, around: int) -> None:
+    ''' search primes around, till the length is met
+        for example, given v=101 (prime), and around=5
+        will get 5 prime numbers less than 101 and
+        5 prime number geater then 101
+    '''
+    # look backward
+    ans = []
+    i, j = v, v
+    if is_prime(v):
+        ans.append(v)
+        i = v - 2
+        j = v + 2
+    backward = look_toward(i, around, is_increase=False)
+    ans.extend(backward)
+    forward = look_toward(j, around, is_increase=True)
+    ans.extend(forward)
+    ans.sort()
+    prt(ans)
+
 def main(
         values: Annotated[List[int], typer.Argument(help="given numbers")] = None,
         demo: Annotated[bool, typer.Option('--demo', '-D', help="give me a demo")] = False,
-        debug: Annotated[bool, typer.Option('--debug', help='toggle debug')] = False,
         test: Annotated[bool, typer.Option('--test', '-t', help="give me a test")] = False,
         after: Annotated[int,
-                            typer.Option("--after", "-A", help="after nn year")] = 0,
+                            typer.Option("--after", "-A", help="after nn")] = 0,
         before: Annotated[int,
-                            typer.Option("--before", "-B", help="before nn year")] = 0,
+                            typer.Option("--before", "-B", help="before nn")] = 0,
         context: Annotated[int, typer.Option("--context", "-C",
-                                    help="radius nn year, conflicts: after/before")] = 0,
+                                    help="radius nn, conflicts: after/before")] = 0,
+        around: Annotated[int, typer.Option("--around", "-R", help="find nn prime numbers "
+                                            "around given number, it overrides abc")] = 0,
     ):
     '''
     use -A, -B, -C to search a range of specified value, like
@@ -105,22 +148,20 @@ def main(
         run_demo()
         sys.exit(0)
     if values is None:
-        prt(f'use: {sys.argv[0]} --help')
+        prt(f'get some help: {sys.argv[0]} --help')
+        sys.exit(1)
+    if around:
+        if after or before or context:
+            prt('note: options abc will be ignored')
+        if len(values)>1:
+            prt("note: only the first value is used")
+        v = values[0]
+        search_around_primes(v, around)
         sys.exit(0)
     if after or before or context:
         v = values[0]
         prt(f'info: only take the first one: {v}')
-        if debug:
-            prt(f'debug: {v=}')
-            if after:
-                prt(f'{after=}')
-            if before:
-                prt(f'{before=}')
-            if context:
-                prt(f'{context=}')
         vals = prepare_values(v, after=after, before=before, radius=context)
-        if debug:
-            prt(f'check {vals[0]} to {vals[-1]}')
         any_prime = False
         for v in vals:
             if is_prime(v):
@@ -130,8 +171,7 @@ def main(
             rprint("no prime number at all")
         sys.exit(0)
 
-    vals = values
-    check_values(vals)
+    check_values(values)
 
 if __name__ == '__main__':
     typer.run(main)
