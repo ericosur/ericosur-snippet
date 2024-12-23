@@ -2,26 +2,25 @@
 # -*- coding: utf-8 -*-
 
 '''
-call ip addr and parse
+call __ip addr__ and parse
 '''
 
 import re
-import subprocess
+import sys
 from rich import print as rprint
 prt = rprint
+from run_cmd import run_command, is_linux
 
 def get_ipaddr() -> dict:
     ''' get ip addr'''
-    cmd = "ip addr"
-    with subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE) as p:
-        p.wait()
-        out = p.stdout.read().decode().split('\n')
+    cmd = "/usr/sbin/ip addr"
+    outs = run_command(cmd)
 
     q0 = r'^\d:\s(.+):'
     q1 = r'inet\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'
     interface, ip = "", ""
     ifaces = {}
-    for ln in out:
+    for ln in outs:
         ln = ln.strip()
         m0 = re.search(q0, ln)
         if m0:
@@ -36,6 +35,9 @@ def get_ipaddr() -> dict:
 
 def main():
     ''' main '''
+    if not is_linux():
+        prt('this script is for Linux only')
+        sys.exit(1)
     ifaces = get_ipaddr()
     prt(ifaces)
 
