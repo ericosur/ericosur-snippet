@@ -6,11 +6,18 @@
 #
 
 '''
-check if input number is prime or not
-may input numbers from CLI and stdin
-use 'sympy.ntheory.primetest.isprime()'
+check if input number is prime or not with external module
 
-use be_prepared and typer
+module dependency:
+- MUST
+    - type_extensions
+    - typer
+    - pydantic
+    - rich
+- OPTIONAL from one of the following:
+    - first: sympy.ntheory.primetest.isprime
+    - 2nd: gmpy2.is_prime
+    - if none, will report error and exit
 '''
 
 from random import randint
@@ -22,19 +29,43 @@ try:
     USE_RICH = True
 except ImportError:
     USE_RICH = False
-
 prt = rprint if USE_RICH else print
 
 try:
-    from sympy import ntheory
     import typer
-except ImportError as err:
-    prt('Import Error while:', err)
+except ImportError:
+    prt('typer is required...')
     sys.exit(1)
 
-def is_prime(n: int):
+# try first: sympy.ntheory.primetest.isprime
+try:
+    from sympy.ntheory.primetest import isprime as sympy_isprime
+    USE_SYMPY = True
+except ImportError as err:
+    prt('Import Error while:', err)
+    USE_SYMPY = False
+
+# try 2nd: gmpy2.is_prime
+try:
+    from gmpy2 import is_prime as gmpy2_isprime
+    USE_GMPY2 = True
+except ImportError as err:
+    prt('Import Error while:', err)
+    USE_GMPY2 = False
+
+def is_prime(n: int) -> bool:
     ''' check if a prime with sympy '''
-    return ntheory.primetest.isprime(n)
+    DEBUG = False
+    if USE_SYMPY:
+        if DEBUG:
+            prt('use sympy...')
+        return sympy_isprime(n)
+    if USE_GMPY2:
+        if DEBUG:
+            prt('use gmpy2...')
+        return gmpy2_isprime(n)
+    #prt(f"no module support for is_prime({n})")
+    return None
 
 def check_values(vals: list[int]) -> None:
     ''' check values '''
@@ -48,7 +79,6 @@ def check_values(vals: list[int]) -> None:
         else:
             yesno = " " if b else " not "
             print(f"{v} is{yesno}a PRIME")
-
 
 def run_demo():
     ''' demo '''
@@ -124,8 +154,18 @@ class GivenOptions(BaseModel):
 
 class Solution():
     ''' solution '''
+    SHOW_PING = False
     def __init__(self):
         self.opts = GivenOptions()
+        self._ping()
+
+    def _ping(self):
+        ''' ping '''
+        if Solution.SHOW_PING:
+            prt("ping!")
+        if is_prime(2) is None:
+            prt('no module support for checking primality')
+            sys.exit(2)
 
     def help_me_around(self) -> bool:
         ''' help me around '''
@@ -185,6 +225,18 @@ class Solution():
             vals.append(y)
         return vals
 
+    def help_tdr(self, test: bool, demo: bool, random: bool) -> None:
+        ''' handle test, demo, random'''
+        if test:
+            self.run_test()
+            sys.exit(0)
+        if demo:
+            run_demo()
+            sys.exit(0)
+        if random:
+            run_random(random)
+            sys.exit(0)
+
     def main(self,
             values: Annotated[List[int], typer.Argument(help="given numbers")] = None,
             demo: Annotated[bool, typer.Option('--demo', '-D', help="give me a demo")] = False,
@@ -206,16 +258,10 @@ class Solution():
 
         will check 47 48 49 50 51 52 53, and only show the prime
         '''
+        if test or demo or random:
+            self.help_tdr(test, demo, random)
+            sys.exit(0)
 
-        if test:
-            self.run_test()
-            sys.exit(0)
-        if demo:
-            run_demo()
-            sys.exit(0)
-        if random:
-            run_random(random)
-            sys.exit(0)
         if values is None:
             prt(f'get some help: {sys.argv[0]} --help')
             sys.exit(1)
