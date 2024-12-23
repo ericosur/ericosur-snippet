@@ -10,7 +10,23 @@ import re
 import sys
 from rich import print as rprint
 prt = rprint
-from run_cmd import run_command, is_linux
+from run_cmd import run_command, run_command2
+from run_cmd import is_linux, is_cygwin, show_platform
+
+def run_ipconfig():
+    ''' run ipconfig '''
+    outs = run_command2("ipconfig")
+    reg1 = r'^(\S+ .+):'
+    reg2 = r'\s+IPv4.+\s+:\s+(\S+)'
+    for ln in outs:
+        m1 = re.search(reg1, ln)
+        if m1:
+            ifn = m1.group(1)
+            continue
+        m2 = re.search(reg2, ln)
+        if m2:
+            ipaddr = m2.group(1)
+            prt(f'{ifn}: {ipaddr}')
 
 def get_ipaddr() -> dict:
     ''' get ip addr'''
@@ -41,11 +57,13 @@ def get_ipaddr() -> dict:
 
 def main():
     ''' main '''
-    if not is_linux():
+    if is_linux():
+        prt(get_ipaddr())
+    elif is_cygwin():
+        run_ipconfig()
+    else:
         prt('this script is for Linux only')
-        sys.exit(1)
-    ifaces = get_ipaddr()
-    prt(ifaces)
+        show_platform()
 
 if __name__ == "__main__":
     main()
