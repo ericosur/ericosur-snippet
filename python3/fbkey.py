@@ -13,8 +13,6 @@ import subprocess
 #import os
 import sys
 
-# pylint: disable=consider-using-with
-
 DEBUG = False
 CLIPBOARD_AVAILABLE = False
 try:
@@ -25,13 +23,11 @@ except ImportError:
     print('module clipboard not available...')
 
 def exec_and_extract_hex(cmd):
-    ''' test '''
-    proc = subprocess.Popen([cmd], stdout=subprocess.PIPE, shell=True)
-    pout = proc.communicate()
-    if not pout:
-        print('[ERROR] exec failed...')
-        sys.exit(1)
-    out = pout[0].decode("utf-8").strip()
+    ''' exec and extract hex '''
+    with subprocess.Popen([cmd], stdout=subprocess.PIPE, shell=True) as p:
+        p.wait()
+        out = p.stdout.read().decode().strip()
+
     if DEBUG:
         print("program output:", out)
     reg = re.compile(r'([0-9A-Fa-f]{5,})', flags=re.M)

@@ -21,6 +21,12 @@ def is_cygwin() -> bool:
     ''' check if cygwin '''
     return "cygwin" in get_platform()
 
+def is_windows() -> bool:
+    ''' has win in the platform string
+        will meet cygwin and win-amd64
+    '''
+    return "win" in get_platform()
+
 def show_platform() -> None:
     ''' show platform '''
     prt(f'platform: {get_platform()}')
@@ -52,9 +58,7 @@ def run_command2(cmd: str) -> Optional[List[str]]:
         decoding with cp950 (traditional chinese)
         note: will exit app if error occurs
     '''
-    debug = True
     outs = None
-    the_str = None
     with subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE,
                           stderr=subprocess.PIPE) as p:
         try:
