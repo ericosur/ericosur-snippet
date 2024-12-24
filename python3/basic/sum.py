@@ -69,10 +69,13 @@ class SumUp(Solution):
         arr = np.arange(1, self.max_num + 1)
         return np.sum(arr)
 
-    def sum4(self):
-        ''' using list comprehension '''
-        print("sum4: list comprehension")
-        return sum([i for i in range(self.max_num + 1)])
+    # pylint not recommend this method
+    # it suggests (consider-using-generator) --OR--
+    # Unnecessary use of a comprehension (unnecessary-comprehension)
+    # def sum4(self):
+    #     ''' using list comprehension '''
+    #     print("sum4: list comprehension")
+    #     return sum([i for i in range(self.max_num + 1)])
 
     def sum5(self):
         ''' using generator expression '''
@@ -90,7 +93,7 @@ class SumUp(Solution):
         self.do_something(self.sum1)
         self.do_something(self.sum2)
         self.do_something(self.sum3)
-        self.do_something(self.sum4)
+        #self.do_something(self.sum4)
         self.do_something(self.sum5)
         self.do_something(self.sum6)
 

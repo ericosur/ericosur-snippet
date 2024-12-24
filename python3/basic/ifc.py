@@ -11,7 +11,7 @@ import sys
 from rich import print as rprint
 prt = rprint
 from run_cmd import run_command, run_command2
-from run_cmd import is_linux, is_cygwin, show_platform
+from run_cmd import is_linux, is_windows, show_platform
 from read_os_release import is_ubuntu1804
 
 def run_ipconfig():
@@ -19,6 +19,7 @@ def run_ipconfig():
     outs = run_command2("ipconfig")
     reg1 = r'^(\S+ .+):'
     reg2 = r'\s+IPv4.+\s+:\s+(\S+)'
+    ifn, ipaddr = "", ""
     for ln in outs:
         m1 = re.search(reg1, ln)
         if m1:
@@ -61,7 +62,7 @@ def main():
     ''' main '''
     if is_linux():
         prt(get_ipaddr())
-    elif is_cygwin():
+    elif is_windows():
         run_ipconfig()
     else:
         prt('this script is for Linux only')

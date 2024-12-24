@@ -16,6 +16,11 @@ try:
 except ImportError as e:
     print("FAIL to import:", e)
     sys.exit(1)
+
+app = typer.Typer(context_settings={"help_option_names": ["-h", "--help"]},
+                  help="epoch / timestamp utility",
+                  no_args_is_help=True)
+
 sys.path.insert(0, "..")
 sys.path.insert(0, "datetime")
 sys.path.insert(0, "myutil")
@@ -49,6 +54,7 @@ python date_typer.py --epoch 1735101296
     ts = epoch2timestr(ep)
     print(ts[1])
 
+@app.command()
 def main(
     dateval: Annotated[
         datetime,
@@ -58,7 +64,7 @@ def main(
     numval: Annotated[int, typer.Option("--epoch", "--number", "-e", "-n",
         help="epoch value in number")] = None, # 1234567890
     debug: Annotated[bool, typer.Option("--debug", help="turn on debug")] = False,
-    human: Annotated[bool, typer.Option("--human", "-h", help="human read flag")] = False,
+    human: Annotated[bool, typer.Option("--human", "-H", help="human read flag")] = False,
     demo: Annotated[bool, typer.Option("--demo", help="get some demo")] = False
 ):
     '''
@@ -91,4 +97,5 @@ def main(
     print('get some help, use "--help"')
 
 if __name__ == "__main__":
-    typer.run(main)
+    #typer.run(main)
+    app()

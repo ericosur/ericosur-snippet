@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 '''
+from /etc/os-release to get OS info (usu. ubuntu)
 '''
 
 import os

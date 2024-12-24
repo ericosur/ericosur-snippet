@@ -270,6 +270,6 @@ def do_tests(log=do_nothing) -> None:
     GanChi.run(log)
 
 if __name__ == "__main__":
-    print(f'This script {sys.argv[0]} provides functions.')
-    print("DO NOT run this directly")
+    print(f'Script "{sys.argv[0]}" provides functions.'
+          ' It is not meant to be run directly.')
     print("try: cli_tester.py, ganzhi.py, or typer_gng.py")
