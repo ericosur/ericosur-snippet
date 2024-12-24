@@ -10,10 +10,11 @@ import sys
 from rich import print as rprint
 prt = rprint
 from run_cmd import run_command, is_linux
+from read_os_release import is_ubuntu1804
 
 def get_ipaddr() -> dict:
     ''' get ip addr'''
-    cmd = "/usr/sbin/ip addr"
+    cmd = "/sbin/ip addr" if is_ubuntu1804() else "/usr/sbin/ip addr"
     outs = run_command(cmd)
 
     q0 = r'^\d:\s(.+):'
