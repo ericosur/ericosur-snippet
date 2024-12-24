@@ -12,9 +12,10 @@ from rich import print as rprint
 prt = rprint
 from run_cmd import run_command, run_command2
 from run_cmd import is_linux, is_cygwin, show_platform
+from read_os_release import is_ubuntu1804
 
 def run_ipconfig():
-    ''' run ipconfig '''
+    ''' run ipconfig (in cygwin/windows) '''
     outs = run_command2("ipconfig")
     reg1 = r'^(\S+ .+):'
     reg2 = r'\s+IPv4.+\s+:\s+(\S+)'
@@ -29,8 +30,9 @@ def run_ipconfig():
             prt(f'{ifn}: {ipaddr}')
 
 def get_ipaddr() -> dict:
-    ''' get ip addr'''
-    cmd = "/usr/sbin/ifconfig"  # maybe not everyone has such permission
+    ''' get ip addr via ifconfig '''
+    # only change path of ifconfig for known ubuntu 18.04
+    cmd = "/sbin/ifconfig" if is_ubuntu1804() else "/usr/sbin/ifconfig"
     if not os.path.exists(cmd):
         prt(f"file not found: {cmd}")
         sys.exit(1)
