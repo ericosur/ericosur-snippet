@@ -12,6 +12,7 @@ from time import time
 from .query_prime import QueryPrime
 from .load_myutil import MyDebug, MyVerbose
 from .textutil import read_textfile
+from .load_myutil import dbg, do_nothing
 
 try:
     from rich import print as rprint
@@ -21,8 +22,10 @@ except ImportError:
 
 MODNAME = "StorePrime"
 __VERSION__ = "2024.03.27"
+LOCAL_DEBUG = False
 
 prt = rprint if USE_RICH else print
+dbg = dbg if LOCAL_DEBUG else do_nothing
 
 def show(v, p, q):
     ''' show the result related to primes '''
@@ -53,16 +56,16 @@ class StorePrime(MyDebug, MyVerbose, QueryPrime):
 
         self.need_save = False
         self.config = {'pfn': pfn, 'txtfn': txtfn}
-        self._info(f'__init__(): debug:{self.debug}, verbose:{self.verbose}')
-        self._info(f'{self.config=}')
+        dbg(f'__init__(): debug:{self.debug}, verbose:{self.verbose}')
+        dbg(f'{self.config=}')
 
     def __enter__(self):
-        self._info("__enter__")
+        dbg("__enter__")
         self.__load_pickle()
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
-        self._info("__exit__")
+        dbg("__exit__")
         if self.primes and not os.path.exists(self.config.get('pfn')):
             self.save_pickle()
 
@@ -75,12 +78,6 @@ class StorePrime(MyDebug, MyVerbose, QueryPrime):
         msg = f'min: 2, max: {pmax:,}, total primes: {psize:,}'
         return msg
 
-    def _info(self, *args, **wargs):
-        ''' print info '''
-        if 'tag' not in wargs:
-            wargs['tag'] = MODNAME
-        self.logd(*args, **wargs)
-
     def logv(self, *args, **wargs):
         ''' print verbose '''
         if not self.verbose:
@@ -89,9 +86,9 @@ class StorePrime(MyDebug, MyVerbose, QueryPrime):
 
     def get_ready(self):
         ''' load prime data '''
-        self._info("get_ready")
+        dbg("get_ready")
         if self.primes is None:
-            self._info("call self.__load_pickle")
+            dbg("call self.__load_pickle")
             self.__load_pickle()
 
     def get_local_data_path(self):
@@ -104,7 +101,7 @@ class StorePrime(MyDebug, MyVerbose, QueryPrime):
 
     def try_pickle_file(self):
         ''' confirm pfn exists '''
-        self._info('try_pickle_file()')
+        dbg('try_pickle_file()')
         if not os.path.exists(self.config['pfn']):
             p = self.get_local_data_path()
             f = os.path.join(p, self.config['pfn'])
@@ -115,7 +112,7 @@ class StorePrime(MyDebug, MyVerbose, QueryPrime):
 
     def try_text_file(self):
         ''' confirm txtfn exists '''
-        self._info('try_text_file()')
+        dbg('try_text_file()')
         if not os.path.exists(self.config['txtfn']):
             p = self.get_local_data_path()
             f = os.path.join(p, self.config['txtfn'])
@@ -126,9 +123,9 @@ class StorePrime(MyDebug, MyVerbose, QueryPrime):
 
     def load_pickle_impl(self) -> bool:
         ''' load pickle implementation '''
-        self._info("load_pickle_impl()")
+        dbg("load_pickle_impl()")
         start = time()
-        #self._info('call try_pickle_file()...')
+        #dbg('call try_pickle_file()...')
         self.try_pickle_file()
         with open(self.config['pfn'], "rb") as inf:
             self.primes = pickle.load(inf)
@@ -141,15 +138,15 @@ class StorePrime(MyDebug, MyVerbose, QueryPrime):
 
     def __load_pickle(self):
         ''' load pickle file, or from text '''
-        self._info("__load_pickle()")
+        dbg("__load_pickle()")
         try:
-            self._info("call self.load_pickle_impl()")
+            dbg("call self.load_pickle_impl()")
             return self.load_pickle_impl()
         except FileNotFoundError:
             print(f'[INFO] {MODNAME}: pickle not found, try to load text file')
             self.primes = []
 
-        self._info("call self.try_text_file")
+        dbg("call self.try_text_file")
         self.try_text_file()
         self.need_save = True
         start = time()
@@ -161,14 +158,14 @@ class StorePrime(MyDebug, MyVerbose, QueryPrime):
 
     def save_pickle_impl(self):
         ''' implementation of save pickle '''
-        self._info("save_pickle_impl()")
+        dbg("save_pickle_impl()")
         with open(self.config['pfn'], 'wb') as outf:
             pickle.dump(self.primes, outf)
         prt(f'[INFO][{MODNAME}] save pickle as {self.config["pfn"]}')
 
     def save_pickle(self):
         ''' save primess into pickle file '''
-        self._info("save_pickle()")
+        dbg("save_pickle()")
         if self.primes is None:
             return
         if self.need_save:

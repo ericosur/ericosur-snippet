@@ -7,15 +7,23 @@ test StorePrime
 
 import argparse
 import random
+import sys
 from the_prt import prt
 
 MODNAME = 'run_example'
+
 try:
-    from store import LoadCompressPrime, GetConfig, make_arrow, StorePrime
+    from store import StorePrime, GetConfig, make_arrow, dbg
+except ImportError as err:
+    prt('[FAIL] cannot load necessary module:', err)
+    sys.exit(1)
+
+try:
+    from store import LoadCompressPrime
     LCP_READY = True
 except ImportError:
     LCP_READY = False
-    print('[WARN] no such module: LoadCompressPrime')
+    dbg('[WARN] cannot load module: LoadCompressPrime')
 
 def test(argv, sp):
     ''' test '''
@@ -108,7 +116,10 @@ def main():
     if args.debug:
         prt(f'run_example: {txtfn=}, {pfn=}, {cpfn=}')
 
-    if args.lcp and LCP_READY:
+    if args.lcp:
+        if not LCP_READY:
+            prt('[ERROR] Cannot use _*_LoadCompressPrime_*_')
+            sys.exit(1)
         logd('Using LoadCompressPrime...')
         with LoadCompressPrime(txtfn=txtfn, pfn=cpfn, debug=args.debug,
             verbose=args.verbose) as lcp:
