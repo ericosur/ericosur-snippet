@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # coding: utf-8
+# pylint: disable=invalid-name
 
 '''
 table: small.txt / big.txt / large.txt
@@ -12,20 +13,29 @@ pip install compress_pickle
 
 '''
 
+MODNAME = "lcp.py"
+__VERSION__ = "2024.03.27"
+LOCAL_DEBUG = False
+
 from time import time
+from .load_myutil import dbg, do_nothing
+
+dbg = dbg if LOCAL_DEBUG else do_nothing
+prt = print
+try:
+    from rich import console
+    prt = console.Console().print
+except ImportError as err:
+    pass
 
 try:
     import compress_pickle
 except ImportError as err:
-    print(f'[FAIL] {__file__}: cannot load module **compress_pickle**')
-    raise ImportError(f"[FAIL] {__file__} cannot load module") from err
+    dbg(f'[FAIL] cannot load module **compress_pickle**')
+    raise ModuleNotFoundError(err)
 
 from .store_prime import StorePrime
 
-# pylint: disable=invalid-name
-
-MODNAME = "lcp.py"
-__VERSION__ = "2024.03.27"
 
 class LoadCompressPrime(StorePrime):
     '''
@@ -64,4 +74,4 @@ class LoadCompressPrime(StorePrime):
         self.logv(f'{self.tag}: save pickle as {self.config["pfn"]}')
 
 if __name__ == '__main__':
-    print('run **run_example.py --lcp** to see the demo of this implementation...')
+    prt('run **run_example.py --lcp** to see the demo of this implementation...')

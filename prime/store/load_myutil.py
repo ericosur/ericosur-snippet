@@ -15,6 +15,13 @@ import os
 import platform
 import sys
 
+dbg = print
+try:
+    from loguru import logger
+    dbg = logger.debug
+except ImportError:
+    pass
+
 HOME = os.getenv('HOME')
 #print(f'{HOME=}')
 if platform.system() == "Windows":
@@ -45,6 +52,10 @@ def get_home():
 def gethome():
     ''' get home dir '''
     return HOME
+
+def do_nothing(*args, **wargs):
+    ''' do nothing '''
+    return None
 
 class GetConfig():
     ''' a wrapper class to load config for primes '''

@@ -24,12 +24,18 @@ from random import randint
 import sys
 from typing_extensions import Annotated, List
 from pydantic import BaseModel
+
+LOCAL_DEBUG = False
+from store import dbg, do_nothing
+dbg = dbg if LOCAL_DEBUG else do_nothing
+
 try:
     from rich import print as rprint
     USE_RICH = True
 except ImportError:
     USE_RICH = False
 prt = rprint if USE_RICH else print
+dbg(f'{USE_RICH=}')
 
 try:
     import typer
@@ -44,14 +50,18 @@ try:
 except ImportError as err:
     prt('Import Error while:', err)
     USE_SYMPY = False
+dbg('f{USE_SYMPY=}')
 
 # try 2nd: gmpy2.is_prime
-try:
-    from gmpy2 import is_prime as gmpy2_isprime
-    USE_GMPY2 = True
-except ImportError as err:
-    prt('Import Error while:', err)
-    USE_GMPY2 = False
+USE_GMPY2 = False
+if not USE_SYMPY:
+    try:
+        from gmpy2 import is_prime as gmpy2_isprime
+        USE_GMPY2 = True
+    except ImportError as err:
+        if not USE_SYMPY:
+            prt('Import Error while:', err)
+dbg(f'{USE_GMPY2}')
 
 def is_prime(n: int) -> bool:
     ''' check if a prime with sympy '''
