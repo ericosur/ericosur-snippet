@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # coding: utf-8
 #
+# pylint: disable=invalid-name
 # pylint: disable=too-many-arguments
 # pylint: disable=too-many-positional-arguments
 #
@@ -54,6 +55,7 @@ dbg('f{USE_SYMPY=}')
 
 # try 2nd: gmpy2.is_prime
 USE_GMPY2 = False
+gmpy2_isprime = None
 if not USE_SYMPY:
     try:
         from gmpy2 import is_prime as gmpy2_isprime
