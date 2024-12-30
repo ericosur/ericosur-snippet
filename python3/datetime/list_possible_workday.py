@@ -17,11 +17,7 @@ from datetime import date, datetime, timedelta
 from typing_extensions import Annotated
 import typer
 from loguru import logger
-
-# pylint: disable=unused-argument
-def do_nothing(*args) -> None:
-    ''' do nothing '''
-    return
+from nothing import do_nothing
 
 class CollectWeekday():
     ''' collect workdays '''

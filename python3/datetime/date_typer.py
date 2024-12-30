@@ -26,11 +26,7 @@ sys.path.insert(0, "datetime")
 sys.path.insert(0, "myutil")
 sys.path.insert(0, "python3/datetime")
 from ep import epoch2timestr, datetime2epoch
-
-# pylint: disable=unused-argument
-def do_nothing(*args) -> None:
-    ''' do nothing '''
-    return
+from nothing import do_nothing
 
 def run_demo():
     ''' demo '''

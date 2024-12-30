@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # pylint: disable=invalid-name
-# pylint: disable=unused-argument
 # pylint: disable=too-many-arguments
 # pylint: disable=too-many-positional-arguments
 
@@ -25,6 +24,10 @@ console = Console()
 
 from gngan_yaljux import do_ab, do_tests, do_values, do_verbose
 sys.path.insert(0, "..")
+sys.path.insert(0, "TaiGanDiZhi/")
+sys.path.insert(0, "../datetime/")
+sys.path.insert(0, "../../python3/datetime/")
+from nothing import do_nothing
 from be_prepared import get_thisyear, prepare_values
 
 class Main():
@@ -53,10 +56,6 @@ class Main():
         If no option is specified, run the default test. If available, color will
         refelct: red for specified year, green is the current year, yellow is both
         '''
-
-        def do_nothing(*args, **wargs) -> None:
-            ''' do nothing '''
-            return None
 
         if not debug:
             self.logd = do_nothing

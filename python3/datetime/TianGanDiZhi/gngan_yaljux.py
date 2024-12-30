@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # pylint: disable=invalid-name
-# pylint: disable=unused-argument
 # pylint: disable=too-many-arguments
 # pylint: disable=too-many-positional-arguments
 
@@ -32,9 +31,10 @@ except ImportError:
     #print("[WARN] no rich.console to use")
     pass
 
-def do_nothing(*args, **wargs) -> None:
-    ''' do nothing '''
-    return None
+sys.path.insert(0, "..")
+sys.path.insert(0, "../datetime/")
+sys.path.insert(0, "../../python3/datetime/")
+from nothing import do_nothing
 
 def get_thisyear() -> int:
     ''' get this year '''
