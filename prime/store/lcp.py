@@ -31,8 +31,8 @@ except ImportError as err:
 try:
     import compress_pickle
 except ImportError as err:
-    dbg(f'[FAIL] cannot load module **compress_pickle**')
-    raise ModuleNotFoundError(err)
+    dbg('[FAIL] cannot load module **compress_pickle**')
+    raise ModuleNotFoundError(err) from err
 
 from .store_prime import StorePrime
 

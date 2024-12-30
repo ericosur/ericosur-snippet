@@ -53,7 +53,7 @@ def gethome():
     ''' get home dir '''
     return HOME
 
-def do_nothing(*args, **wargs):
+def do_nothing(*_args, **_wargs):
     ''' do nothing '''
     return None
 
