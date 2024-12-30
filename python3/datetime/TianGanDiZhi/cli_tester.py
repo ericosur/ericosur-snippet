@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # pylint: disable=invalid-name
-# pylint: disable=unused-argument
 # pylint: disable=too-many-arguments
 # pylint: disable=too-many-positional-arguments
 
@@ -25,11 +24,12 @@ try:
 except ImportError:
     print("[WARN] no rich.console to use")
 
+sys.path.insert(0, "..")
+sys.path.insert(0, "TaiGanDiZhi/")
+sys.path.insert(0, "../datetime/")
+sys.path.insert(0, "../../python3/datetime/")
+from nothing import do_nothing
 from gngan_yaljux import do_tests, do_values, do_verbose, GanChi
-
-def do_nothing(*args, **wargs) -> None:
-    ''' do nothing '''
-    return None
 
 def main(verbose: Annotated[bool, typer.Option("--list", "-l",
                                                help="list all 天干/地支/生肖")] = False,
