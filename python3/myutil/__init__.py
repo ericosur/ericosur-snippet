@@ -28,6 +28,10 @@ def sep():
     ''' sep '''
     print('-------------------------')
 
+def do_nothing(*_args, **_wargs) -> None:
+    ''' do nothing '''
+    return None
+
 is_file = isfile
 is_dir = isdir
 
@@ -35,6 +39,7 @@ is_dir = isdir
 __all__ = [
     'clamp',
     'die',
+    'do_nothing',
     'get_dow',
     'get_doom_num',
     'get_epoch',

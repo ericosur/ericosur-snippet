@@ -20,9 +20,9 @@ except ImportError as e:
     print('[FAIL] failed to load module:', e)
     sys.exit(1)
 
-def do_nothing(*args, **wargs):
+def do_nothing(*_args, **_wargs) -> None:
     ''' do nothing '''
-    return args, wargs
+    return None
 
 class Main():
     ''' main '''
