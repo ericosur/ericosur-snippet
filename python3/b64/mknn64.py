@@ -17,9 +17,9 @@ try:
 except ImportError:
     print('cannot load module rich')
 
-def do_nothing(*args, **wargs):
+def do_nothing(*_args, **_wargs) -> None:
     ''' do nothing '''
-    return args, wargs
+    return None
 
 class MakeDirname():
     ''' make name of dir '''

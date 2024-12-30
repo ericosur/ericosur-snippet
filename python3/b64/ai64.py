@@ -18,7 +18,7 @@ import sys
 
 sys.path.insert(0, "../")
 sys.path.insert(0, "python3/")
-from myutil import is_linux
+from myutil import is_linux, do_nothing
 
 from typing_extensions import Annotated
 import typer
@@ -31,10 +31,6 @@ try:
     USE_LOGGER = True
 except ImportError:
     print("cannot import module: loguru")
-
-def do_nothing(*args):
-    ''' do nothing '''
-    return args
 
 def is_chardev(filepath, log=do_nothing) -> bool:
     ''' return if a char dev '''

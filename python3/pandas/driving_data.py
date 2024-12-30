@@ -39,12 +39,8 @@ from myutil import MyDebug, MyVerbose, DefaultConfig
 
 TMP_CSV = '/tmp/__driving_datasheet__.csv'
 
-def do_nothing(*args):
-    ''' do nothing '''
-    print(*args)
-
-logd = do_nothing
-logi = do_nothing
+logd = print
+logi = print
 if USE_LOGURU:
     logd = logger.debug
     logi = logger.info
