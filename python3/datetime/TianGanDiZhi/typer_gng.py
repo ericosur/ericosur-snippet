@@ -11,7 +11,7 @@ use typer to handle CLI
 '''
 
 import sys
-from typing import Optional
+from typing import Union, List
 from typing_extensions import Annotated
 try:
     import typer
@@ -35,7 +35,7 @@ class Main():
     def __init__(self):
         self.logd = console.log
 
-    def main(self, values: Annotated[Optional[list[int]],
+    def main(self, values: Annotated[Union[List[int], None],
                                      typer.Argument(help="specify year")] = None,
             after: Annotated[int,
                              typer.Option("--after", "-A", help="after nn year")] = 0,
@@ -61,7 +61,7 @@ class Main():
             self.logd = do_nothing
 
         if gnn:
-            if len(values)==2:
+            if values is not None and len(values)==2:
                 do_ab(values[0], values[1], log=self.logd)
                 return
             print('[FAIL] NEED exactly two arguments')

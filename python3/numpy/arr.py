@@ -4,50 +4,51 @@
 ''' numpy array sample '''
 
 from __future__ import print_function
-
+import sys
 import timeit
-
 import numpy as np
+sys.path.insert(0, "..")
+sys.path.insert(0, "python3")
+from myutil import prt
 
+class Solution():
+    ''' solution '''
+    MAXCNT = 1_000_000
 
-MAXCNT = 75000
-L = np.random.random(MAXCNT)
+    def __init__(self):
+        self.vals = np.random.random(self.MAXCNT)
 
-def test1():
-    ''' test1 '''
-    sum(L)
-    #print('result:', S1)
+    def test1(self):
+        ''' test1 '''
+        sum(self.vals)
 
-def test2():
-    ''' test2 '''
-    np.sum(L)
-    #print('result:', S2)
+    def test2(self):
+        ''' test2 '''
+        np.sum(self.vals)
 
-def get_statistics(arr):
-    ''' get statistics '''
-    print(f'min: {np.min(arr)}, max: {np.max(arr)}')
-    print(f'std: {np.std(arr)}, mean: {np.mean(arr)} avg: {np.average(arr)}')
+    @staticmethod
+    def get_statistics(arr):
+        ''' get statistics '''
+        prt(f'min: {np.min(arr):.6f}, max: {np.max(arr):.6f}')
+        prt(f'std: {np.std(arr):.6f}, mean: {np.mean(arr):.6f} avg: {np.average(arr):.6f}')
 
-def test():
-    ''' test '''
-    arr = L
-    print('array filled with 0 to 1')
-    get_statistics(arr)
-    mu, sigma = 0.5, 0.25
-    print(f'array filled with normal distribution mu:{mu} sigma:{sigma}')
-    arr = np.random.normal(mu, sigma, MAXCNT)
-    get_statistics(arr)
+    @classmethod
+    def run(cls):
+        ''' run me '''
+        obj = cls()
+        prt(f'Note: an np.narray with size ({obj.MAXCNT}), and repeat sum up')
+        prt('normal python sum() will take lots of CPU time')
+        REPEAT = 100
+        #t =timeit.timeit("test1()", setup='from __main__ import test1', number=100)
+        t = timeit.timeit(lambda: obj.test1(), number=REPEAT)
+        prt(f'time taken with python sum(): {t:.6f}')
+        t = timeit.timeit(lambda: obj.test2(), number=REPEAT)
+        prt(f'time taken with numpy.sum():  {t:.6f}')
 
 def main():
     ''' main '''
-    test()
-
-    print('time taken with python sum():')
-    print(timeit.timeit("test1()", setup='from __main__ import test1', number=100))
-    print('time taken with numpy.sum()...')
-    print(timeit.timeit("test2()", setup='from __main__ import test2', number=100))
-
-
+    #test()
+    Solution.run()
 
 if __name__ == '__main__':
     main()
