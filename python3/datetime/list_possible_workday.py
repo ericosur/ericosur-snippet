@@ -14,6 +14,7 @@ output:
 
 import sys
 from datetime import date, datetime, timedelta
+from typing import Union
 from typing_extensions import Annotated
 import typer
 from loguru import logger
@@ -52,10 +53,10 @@ class CollectWeekday():
             print(i, file=fobj)
 
     def main(self,
-        yyyymm: Annotated[datetime, typer.Argument(help="specify a YYYY-mm date, "
+        yyyymm: Annotated[Union[datetime, None], typer.Argument(help="specify a YYYY-mm date, "
                                                    "the dd will be ignored",
                     formats=["%Y-%m", "%Y-%m-%d"]),] = None, #"1970-01",
-        outf: Annotated[str, typer.Option("--out", "-o", help="output file nanme")]
+        outf: Annotated[Union[str, None], typer.Option("--out", "-o", help="output file nanme")]
                     = None, # output file name
         debug: Annotated[bool, typer.Option("--debug", help="turn on debug")] = False,
     ):
@@ -69,9 +70,7 @@ class CollectWeekday():
 
         $ dateutils.dseq 2024-12-1 2024-12-31 --skip sat,sun
         '''
-        logd = do_nothing
-        if debug:
-            logd = logger.debug
+        logd = logger.debug if debug else do_nothing
         if yyyymm is None:
             print('[INFO] You need specify some date. Get some help, use "--help"')
             return

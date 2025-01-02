@@ -10,6 +10,7 @@ since it is called "[a-z]+_typer.py", the typer is required
 
 from datetime import datetime
 import sys
+from typing import Union
 from typing_extensions import Annotated
 try:
     import typer
@@ -53,11 +54,11 @@ python date_typer.py --epoch 1735101296
 @app.command()
 def main(
     dateval: Annotated[
-        datetime,
+        Union[datetime, None],
         typer.Option("--datetime", "--date", "-D",
             formats=["%Y-%m-%d", "%Y-%m-%dT%H:%M:%S"]),
     ] = None, #"1970-01-01T00:00:00",
-    numval: Annotated[int, typer.Option("--epoch", "--number", "-e", "-n",
+    numval: Annotated[Union[int, None], typer.Option("--epoch", "--number", "-e", "-n",
         help="epoch value in number")] = None, # 1234567890
     debug: Annotated[bool, typer.Option("--debug", help="turn on debug")] = False,
     human: Annotated[bool, typer.Option("--human", "-H", help="human read flag")] = False,

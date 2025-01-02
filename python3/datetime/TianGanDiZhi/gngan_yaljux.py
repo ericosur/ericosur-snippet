@@ -17,24 +17,25 @@ This module provides utility functions and class GanChi
 '''
 
 import sys
-from typing import Tuple, List
+from typing import Tuple, List, Union
 from datetime import datetime
-
-console = None
-USE_RICH = False
-try:
-    from rich.console import Console
-    console = Console()
-    from rich import print as rprint
-    USE_RICH = True
-except ImportError:
-    #print("[WARN] no rich.console to use")
-    pass
 
 sys.path.insert(0, "..")
 sys.path.insert(0, "../datetime/")
 sys.path.insert(0, "../../python3/datetime/")
 from nothing import do_nothing
+
+try:
+    from rich.console import Console
+    from rich import print as rprint
+    USE_RICH = True
+    console = Console()
+except ImportError:
+    #print("[WARN] no rich.console to use")
+    USE_RICH = False
+
+prt = rprint if USE_RICH else print
+clog = console.log if USE_RICH else print
 
 def get_thisyear() -> int:
     ''' get this year '''
@@ -59,15 +60,15 @@ class GanChi():
     def __str__(self):
         return '\n'.join(self.PREDATA)
 
-    def get_gnn(self):
+    def get_gnn(self) -> List[str]:
         ''' 傳回 天干 '''
         return self.gnn
 
-    def get_yal(self):
+    def get_yal(self) -> List[str]:
         ''' 傳回 地支 '''
         return self.yal
 
-    def get_ses(self):
+    def get_ses(self) -> List[str]:
         ''' 傳回 生肖 '''
         return self.sesue
 
@@ -270,6 +271,6 @@ def do_tests(log=do_nothing) -> None:
     GanChi.run(log)
 
 if __name__ == "__main__":
-    print(f'Script "{sys.argv[0]}" provides functions.'
+    prt(f'Script "{sys.argv[0]}" provides functions.'
           ' It is not meant to be run directly.')
-    print("try: cli_tester.py, ganzhi.py, or typer_gng.py")
+    prt("try: cli_tester.py, ganzhi.py, or typer_gng.py")

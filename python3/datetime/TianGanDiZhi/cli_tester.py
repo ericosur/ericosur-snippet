@@ -17,12 +17,15 @@ except ImportError:
     print('[FAIL] you need module typer to run this')
     sys.exit(1)
 
-console = None
 try:
     from rich.console import Console
     console = Console()
+    USE_CONSOLE = True
 except ImportError:
     print("[WARN] no rich.console to use")
+    USE_CONSOLE = False
+
+logd = console.log if USE_CONSOLE else print
 
 sys.path.insert(0, "..")
 sys.path.insert(0, "TaiGanDiZhi/")
@@ -47,9 +50,7 @@ def main(verbose: Annotated[bool, typer.Option("--list", "-l",
     '''
     no required arguments, use options to toggle, only the first one will be taken
     '''
-    log = do_nothing
-    if debug:
-        log = console.log
+    log = logd if debug else do_nothing
     if verbose: # list all elements
         do_verbose(log=log)
         return
