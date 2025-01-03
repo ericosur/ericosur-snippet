@@ -9,11 +9,10 @@ NOTE: use math.gcd() or local gcd
 
 import argparse
 
-USE_LOCAL_GCD = False
-if USE_LOCAL_GCD:
-    from gcd import gcd
-else:
-    from math import gcd
+# local implementation of gcd
+from the_gcd import gcd
+# official math.gcd
+#from math import gcd as math_gcd
 
 def main():
     ''' main '''
