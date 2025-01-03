@@ -8,7 +8,7 @@ compare to xxh32sum:
 xxh32sum <file>
 '''
 
-import xxhash
+import xxhash  # type: ignore
 
 
 def hash_factory(fn, hash_func):

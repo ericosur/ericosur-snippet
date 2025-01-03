@@ -8,7 +8,7 @@ pip install base58
 import sys
 
 try:
-    import base58
+    import base58  # type: ignore[import]
 except ImportError:
     print('need install module **base58**')
     sys.exit(1)

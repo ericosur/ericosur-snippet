@@ -7,7 +7,7 @@ demo: convert a list of integers into numpy array and make slice
 require hexdump and numpy
 '''
 
-from hexdump import hexdump
+from hexdump import hexdump # type: ignore[import]
 import numpy as np
 
 

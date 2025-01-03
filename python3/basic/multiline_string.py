@@ -14,7 +14,7 @@ need python 3.6+
 import sys
 
 sys.path.insert(0, "..")
-from myutil import require_python_version
+from myutil import require_python_version  # type: ignore[import]
 
 
 def main():

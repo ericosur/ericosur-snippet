@@ -3,9 +3,13 @@
 
 '''
 levenshtein distance
-
 '''
-import Levenshtein as lt
+import sys
+try:
+    import Levenshtein as lt  # type: ignore[import]
+except ImportError:
+    print('module Levenshtein is required...')
+    sys.exit(1)
 
 def main():
     '''main function'''
