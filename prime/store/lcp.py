@@ -21,15 +21,15 @@ from time import time
 from .load_myutil import dbg, do_nothing
 
 dbg = dbg if LOCAL_DEBUG else do_nothing
-prt = print
+
 try:
     from rich import console
     prt = console.Console().print
 except ImportError as err:
-    pass
+    prt = print # type: ignore
 
 try:
-    import compress_pickle
+    import compress_pickle # type: ignore
 except ImportError as err:
     dbg('[FAIL] cannot load module **compress_pickle**')
     raise ModuleNotFoundError(err) from err

@@ -8,6 +8,7 @@ and use ip-api.com to get location of such ip
 
 import argparse
 import json
+from typing import Union
 import requests
 
 DEBUG = True
@@ -20,13 +21,15 @@ try:
 except ImportError:
     print('suggest: use __pip install rich__')
 
-def logd(*args, **wargs) -> None:
-    ''' logd '''
-    if DEBUG:
-        if USE_RICH:
-            rprint(*args, **wargs)
-        else:
-            print(*args, **wargs)
+prt = rprint if USE_RICH else print
+logd = rprint if DEBUG else print
+
+def show_err(msg: str) -> None:
+    ''' show error message'''
+    if USE_RICH:
+        rprint(f'[red]{msg}[/]')
+    else:
+        print(msg)
 
 class Main():
     ''' main '''
@@ -52,39 +55,39 @@ class Main():
     def print_data(self, data) -> None:
         ''' print json if rich is available '''
         d = json.dumps(data)
-        if USE_RICH and self.args.rich:
+        if self.args.rich:
             print_json(d)
         else:
-            print(d)
+            prt(d)
 
-    def get_current_ip(self) -> str:
+    def get_current_ip(self) -> Union[str, None]:
         ''' use this to get myip '''
         url = 'https://api.myip.com'
         try:
             r = requests.get(url, timeout=5.0)
             logd('get_current_ip: url:', r.url)
             data = r.json()
-            print("returned:")
+            prt("returned:")
             self.print_data(data)
             ip = data['ip']
             return ip
         except requests.exceptions.ConnectionError as e:
-            rprint("[red] failed to connect:", e)
+            show_err(f"failed to connect: {e}")
             return None
 
-    def get_ip_info(self, ip:str) -> None:
+    def get_ip_info(self, ip:Union[str, None]) -> None:
         ''' use this to get IP location and related data '''
         if ip is None:
-            rprint('[red]ip was not specified')
+            show_err('IP was not specified')
             return
         try:
             iploc = f'http://ip-api.com/json/{ip}'
             r = requests.get(iploc, timeout=5.0)
-            print(f'get_ip_info: {r.url=}')
-            print("returned:")
+            prt(f'get_ip_info: {r.url=}')
+            prt("returned:")
             self.print_data(r.json())
         except requests.exceptions.ConnectionError as e:
-            rprint("[red] failed to connect:", e)
+            show_err(f"failed to connect: {e}")
 
     def action(self) -> None:
         ''' action '''

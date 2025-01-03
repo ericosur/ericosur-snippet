@@ -14,6 +14,7 @@ NOTE: also refer to sqare_root.py, which using miller robin method to test prime
 
 from math import sqrt
 import sys
+from typing import List
 from store import GetConfig, StorePrime
 
 try:
@@ -25,11 +26,11 @@ except ImportError as err:
 MODNAME = "RootSquares"
 RUN_TEST_ONLY = False
 
-def is_prime_nth(n: int):
+def is_prime_nth(n: int) -> bool:
     ''' check if a prime with sympy '''
     return ntheory.primetest.isprime(n)
 
-def show_duration(duration):
+def show_duration(duration: float) -> None:
     ''' show duration '''
     print(f'{MODNAME}: duration: {duration:.3f} sec')
 
@@ -48,7 +49,7 @@ class Solution():
         self.sp = StorePrime(txtfn=txtfn, pfn=pfn)
         self.sp.get_ready()
 
-    def get_results(self):
+    def get_results(self) -> List:
         ''' get resutls '''
         return self.results
 

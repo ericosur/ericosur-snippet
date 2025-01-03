@@ -23,7 +23,8 @@ module dependency:
 
 from random import randint
 import sys
-from typing_extensions import Annotated, List
+from typing import List, Union
+from typing_extensions import Annotated
 from pydantic import BaseModel
 
 LOCAL_DEBUG = False
@@ -46,7 +47,7 @@ except ImportError:
 
 # try first: sympy.ntheory.primetest.isprime
 try:
-    from sympy.ntheory.primetest import isprime as sympy_isprime
+    from sympy.ntheory.primetest import isprime as sympy_isprime # type: ignore
     USE_SYMPY = True
 except ImportError as err:
     prt('Import Error while:', err)
@@ -58,14 +59,14 @@ USE_GMPY2 = False
 gmpy2_isprime = None
 if not USE_SYMPY:
     try:
-        from gmpy2 import is_prime as gmpy2_isprime
+        from gmpy2 import is_prime as gmpy2_isprime # type: ignore
         USE_GMPY2 = True
     except ImportError as err:
         if not USE_SYMPY:
             prt('Import Error while:', err)
 dbg(f'{USE_GMPY2}')
 
-def is_prime(n: int) -> bool:
+def is_prime(n: int) -> Union[bool, None]:
     ''' check if a prime with sympy '''
     DEBUG = False
     if USE_SYMPY:
@@ -75,7 +76,7 @@ def is_prime(n: int) -> bool:
     if USE_GMPY2:
         if DEBUG:
             prt('use gmpy2...')
-        return gmpy2_isprime(n)
+        return gmpy2_isprime(n) # type: ignore
     #prt(f"no module support for is_prime({n})")
     return None
 
@@ -103,7 +104,7 @@ def is_simple_composite(v: int) -> bool:
 
 def look_toward(v: int, around: int, is_increase: bool) -> List[int]:
     ''' look toward, is_increate true/false '''
-    found = []
+    found : List[int] = []
     if v % 2 == 0: # even number
         i = v - 1
     else:
@@ -139,8 +140,11 @@ def search_around_primes(v: int, around: int) -> None:
     ans.sort()
     prt(ans)
 
-def prt_in_color(v: int, yes_no: bool) -> None:
+def prt_in_color(v: int, yes_no: Union[bool, None]) -> None:
     ''' print a number in color '''
+    if yes_no is None:
+        rprint(f'[red]{v}[/] unknown')
+        return
     if yes_no:
         rprint(f'[cyan]{v}[/] is a [green]PRIME[/]')
     else:
@@ -237,7 +241,7 @@ class Solution():
             vals.append(y)
         return vals
 
-    def help_tdr(self, test: bool, demo: bool, random: bool) -> None:
+    def help_tdr(self, test: bool, demo: bool, random: int) -> None:
         ''' handle test, demo, random'''
         if test:
             self.run_test()
@@ -250,7 +254,7 @@ class Solution():
             sys.exit(0)
 
     def main(self,
-            values: Annotated[List[int], typer.Argument(help="given numbers")] = None,
+            values: Annotated[Union[List[int], None], typer.Argument(help="given numbers")] = None,
             demo: Annotated[bool, typer.Option('--demo', '-D', help="give me a demo")] = False,
             test: Annotated[bool, typer.Option('--test', '-t', help="give me a test")] = False,
             after: Annotated[int,

@@ -5,6 +5,7 @@
 provide an interface/class for query primes
 '''
 
+from typing import Union, List
 #from debug_verbose import MyDebug
 from .findlist_func import index, find_le, find_ge
 try:
@@ -30,17 +31,17 @@ class QueryPrime():
     def __init__(self):
         self.primes = None  # a list of prime numbers
 
-    def get_count(self):
+    def get_count(self) -> int:
         ''' get length of pickle '''
         if self.primes is None:
             raise IndexError
         return len(self.primes)
 
-    def get_maxprime(self):
+    def get_maxprime(self) -> int:
         ''' return the max prime in this object '''
         return self.primes[-1]
 
-    def at(self, idx):
+    def at(self, idx: int) -> Union[int, None]:
         ''' get value at index '''
         try:
             return self.primes[idx]
@@ -56,7 +57,7 @@ class QueryPrime():
                 f'in prime table {self.primes[-1]}')
         return self.primes.index(val)
 
-    def get_primes_less_than(self, val: int) -> list:
+    def get_primes_less_than(self, val: int) -> Union[List[int], None]:
         ''' get a list of primes less than given value '''
         _max = self.primes[-1]
         _min = self.primes[0]
@@ -101,7 +102,7 @@ class QueryPrime():
             prt(f'something wrong for {x}, OOB?')
             return (None, None)
 
-    def search_between_idx(self, val):
+    def search_between_idx(self, val: int) -> tuple:
         '''
         search value within primes, return index for lower, upper bound
         '''
@@ -137,8 +138,7 @@ class QueryPrime():
                 break
         return (_min, _max)
 
-
-    def list_nearby(self, v: int) -> list:
+    def list_nearby(self, v: int) -> Union[List[int], None]:
         ''' prt primes nearby v '''
         (p, q) = self.bisect_between_idx(v)
         #prt('p, q:', p, q)
@@ -156,8 +156,7 @@ class QueryPrime():
         arr = self.primes[begin:end]
         return arr
 
-
-    def get_around(self, v: int) -> None:
+    def get_around(self, v: int) -> tuple:
         ''' return (p, q) (index, not the value), if p and q is none, p is a prime
             if both none, has no answer (maybe out-of-bound)
         '''

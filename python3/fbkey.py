@@ -10,13 +10,12 @@
 
 import re
 import subprocess
-#import os
 import sys
 
 DEBUG = False
 CLIPBOARD_AVAILABLE = False
 try:
-    import clipboard
+    import clipboard  # type: ignore[import]
     CLIPBOARD_AVAILABLE = True
 except ImportError:
     CLIPBOARD_AVAILABLE = False

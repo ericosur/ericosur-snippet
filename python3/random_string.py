@@ -14,7 +14,7 @@ import sys
 from random import randint
 
 # try to add my code snippet into python path
-HOME = os.getenv('HOME')
+HOME = os.getenv('HOME') or ''
 UTILPATH = os.path.join(HOME, '/src/ericosur-snippet/python3')
 if os.path.exists(UTILPATH):
     sys.path.insert(0, UTILPATH)

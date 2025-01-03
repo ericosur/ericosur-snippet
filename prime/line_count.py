@@ -92,7 +92,8 @@ def kylecount(fname):
     #return sum(1 for line in open(fname))
 
 try:
-    from fadvise import sequential, normal # http://chris-lamb.co.uk/projects/python-fadvise/
+    # http://chris-lamb.co.uk/projects/python-fadvise/
+    from fadvise import sequential, normal # type: ignore[import]
     def fadvcount(fname):
         ''' fadv count '''
         sequential(fname)
