@@ -10,7 +10,7 @@ import argparse
 from datetime import datetime
 sys.path.insert(0, "..")
 sys.path.insert(0, "python3")
-from myutil import prt
+from myutil import prt  # type: ignore[import]
 
 class ShowClock():
     ''' class to show clock '''

@@ -14,8 +14,8 @@ import itertools as it
 import sys
 
 try:
-    from lunarcalendar import Converter, DateNotExist, Lunar, Solar
-    from lunarcalendar.festival import festivals
+    from lunarcalendar import Converter, DateNotExist, Lunar, Solar  # type: ignore[import]
+    from lunarcalendar.festival import festivals  # type: ignore[import]
 except ImportError:
     print('failed to import module lunarcalendar')
     sys.exit(1)

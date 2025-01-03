@@ -9,7 +9,7 @@ from datetime import date, timedelta
 import sys
 sys.path.insert(0, "..")
 sys.path.insert(0, "python3")
-from myutil import prt
+from myutil import prt  # type: ignore[import]
 
 
 def is_palindrome(the_str: str):
