@@ -27,8 +27,8 @@ def main(argv: List[str]) -> None:
         vals = [1280, 1024]
     else:
         try:
-            for a in argv:
-                vals.append(int(a))
+            for i in argv:
+                vals.append(int(i))
         except ValueError:
             print("not a numeric value")
             sys.exit()

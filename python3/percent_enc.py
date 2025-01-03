@@ -2,31 +2,13 @@
 # -*- coding: utf-8 -*-
 
 '''
-demo percentage encoding, could run both python2, python3
+demo percentage encoding
 '''
 
-
 import argparse
-
 from myutil import read_from_stdin
+from percent_encdec import percent_enc, show_unicode_escape
 
-try:
-    from urllib.parse import quote
-    print('>>>>> using urllib.parse.quote')
-except ImportError:
-    from urllib import quote
-    print('>>>>> using urllib.quote')
-
-
-def percent_enc(tok):
-    ''' print percent encoded string '''
-    print(quote(tok.encode("utf-8")))
-
-
-def show_unicode_escape(cc: str):
-    ''' get unicode seq from utf-8 '''
-    ue = cc.encode('unicode-escape').decode('utf-8')
-    print('unicode-escape:', ue)
 
 #
 # The u prefix for strings is no longer necessary in Python >=3.0
@@ -56,7 +38,7 @@ def main(argv):
 
     for tok in argv:
         print(tok)
-        percent_enc(tok)
+        print(percent_enc(tok))
         show_unicode_escape(tok)
 
 def argp():

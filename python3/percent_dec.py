@@ -6,27 +6,8 @@ demo percentage decoding
 '''
 
 import argparse
-
 from myutil import read_from_stdin
-
-try:
-    from urllib.parse import unquote
-    print('>>>>> using urllib.parse.quote')
-except ImportError:
-    from urllib import unquote
-    print('>>>>> using urllib.quote')
-
-
-def percent_dec(tok: str) -> str:
-    ''' decode percent encoded string '''
-    return unquote(tok, encoding='utf-8')
-
-
-# def show_unicode_escape(cc: str):
-#     ''' get unicode seq from utf-8 '''
-#     ue = cc.encode('unicode-escape').decode('utf-8')
-#     print('unicode-escape:', ue)
-
+from percent_encdec import percent_dec
 
 
 # for unicdoe codepage 0000 to FFFF, use lower case \u, eg: u'\u1234'
