@@ -10,7 +10,9 @@ import sys
 
 # in order to replace ''' import emoji.mytofrom '''
 sys.path.insert(0, "./emoji")
-import mytofrom
+# pylint: disable=import-error
+# pylint: disable=wrong-import-position
+import mytofrom  # type: ignore[import]
 
 
 def utf8_seq(cc: str):

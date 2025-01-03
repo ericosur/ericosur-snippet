@@ -15,14 +15,15 @@ import os
 import platform
 import sys
 
-dbg = print
 try:
     from loguru import logger
     dbg = logger.debug
 except ImportError:
-    pass
+    dbg = print
 
 HOME = os.getenv('HOME')
+if HOME is None:
+    HOME = ''
 #print(f'{HOME=}')
 if platform.system() == "Windows":
     UTILPATH = os.path.join(os.getcwd(), '../python3')
@@ -33,7 +34,7 @@ if os.path.exists(UTILPATH):
 # also relative path
 sys.path.insert(0, "../python3")
 
-import myutil
+import myutil # type: ignore
 
 die = myutil.die
 is_file = myutil.is_file

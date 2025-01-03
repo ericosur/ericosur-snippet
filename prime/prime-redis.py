@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 # coding: utf-8
+#
+# for scripts using redis, skip mypy check
+# mypy: ignore-errors
+#
 
 '''
 provide a basic interface/class for load/save/search primes
