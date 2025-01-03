@@ -7,7 +7,7 @@ pymc tutorial
 
 # pylint: disable=import-error
 
-import arviz as az
+import arviz as az  # type: ignore[import]
 import matplotlib.pyplot as plt
 import numpy as np
 

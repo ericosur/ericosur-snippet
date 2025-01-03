@@ -18,11 +18,8 @@ import sys
 try:
     import tomllib
 except ModuleNotFoundError:
-    print('[INFO] no tomllib, try tomli')
-    try:
-        import tomli as tomllib
-    except ModuleNotFoundError:
-        print('[INFO] use: pip install tomli')
+    print('[INFO] no tomllib, exit...')
+    sys.exit(1)
 
 class Solution():
     ''' class solution '''

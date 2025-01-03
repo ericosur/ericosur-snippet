@@ -13,8 +13,8 @@ try:
     USE_RICH = True
 except ImportError:
     USE_RICH = False
-    rprint = print
 
+prt = rprint if USE_RICH else print
 PLAT = get_platform()
 
 def is_win() -> bool:

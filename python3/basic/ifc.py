@@ -8,15 +8,23 @@ call ifconfig and parse the output
 import os
 import re
 import sys
-from rich import print as rprint
-prt = rprint
+from typing import List, Dict, Union
+try:
+    from rich import print as rprint
+    USE_RICH = True
+except ImportError:
+    USE_RICH = False
 from run_cmd import run_command, run_command2
 from run_cmd import is_linux, is_windows, show_platform
 from read_os_release import is_ubuntu1804
 
-def run_ipconfig():
+prt = rprint if USE_RICH else print
+
+def run_ipconfig() -> None:
     ''' run ipconfig (in cygwin/windows) '''
     outs = run_command2("ipconfig")
+    if outs is None:
+        return
     reg1 = r'^(\S+ .+):'
     reg2 = r'\s+IPv4.+\s+:\s+(\S+)'
     ifn, ipaddr = "", ""
@@ -30,7 +38,7 @@ def run_ipconfig():
             ipaddr = m2.group(1)
             prt(f'{ifn}: {ipaddr}')
 
-def get_ipaddr() -> dict:
+def get_ipaddr() -> Union[List[Dict[str,str]], None]:
     ''' get ip addr via ifconfig '''
     # only change path of ifconfig for known ubuntu 18.04
     cmd = "/sbin/ifconfig" if is_ubuntu1804() else "/usr/sbin/ifconfig"
@@ -38,6 +46,8 @@ def get_ipaddr() -> dict:
         prt(f"file not found: {cmd}")
         sys.exit(1)
     outs = run_command(cmd)
+    if outs is None:
+        return None
     reg1 = r'^(\S+):'
     reg2 = r'inet\s+(\S+)\s+netmask\s+(\S+)'
     rets = []

@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # coding: utf-8
+# mypy: ignore-errors
+#
 
 '''
 demo of const variable in python
