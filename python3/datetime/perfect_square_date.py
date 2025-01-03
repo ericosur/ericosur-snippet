@@ -13,7 +13,7 @@ for example, 2015/3/9 will be 20150309
 from math import sqrt
 import sys
 sys.path.insert(0, "..")
-from myutil import is_leapyear
+from myutil import is_leapyear  # type: ignore[import]
 
 def logd(*args, **wargs):
     ''' logd '''

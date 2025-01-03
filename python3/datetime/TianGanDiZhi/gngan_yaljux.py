@@ -17,13 +17,13 @@ This module provides utility functions and class GanChi
 '''
 
 import sys
-from typing import Tuple, List, Union
+from typing import Tuple, List
 from datetime import datetime
 
 sys.path.insert(0, "..")
 sys.path.insert(0, "../datetime/")
 sys.path.insert(0, "../../python3/datetime/")
-from nothing import do_nothing
+from nothing import do_nothing # type: ignore[import]
 
 try:
     from rich.console import Console

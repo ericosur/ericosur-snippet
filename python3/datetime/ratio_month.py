@@ -10,11 +10,11 @@ get the ratio as a reference for today usage
 
 from datetime import date
 
-HAS_CONSOLE_MODULE = False
 try:
-    import console
+    import console  # type: ignore[import]
     HAS_CONSOLE_MODULE = True
 except ImportError:
+    HAS_CONSOLE_MODULE = False
     print('[INFO] No console module of pythonista')
 
 def test_dates():

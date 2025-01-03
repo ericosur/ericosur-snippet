@@ -10,8 +10,8 @@ calculate total working days
 
 import sys
 sys.path.insert(0, "..")
-from myutil import read_jsonfile, DefaultConfig
-from myutil import is_leapyear, WhatNow, MyDebug, die
+from myutil import read_jsonfile, DefaultConfig  # type: ignore[import]
+from myutil import is_leapyear, WhatNow, MyDebug, die  # type: ignore[import]
 from loguru import logger
 from rich import print as rprint
 

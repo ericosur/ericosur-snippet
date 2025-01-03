@@ -31,7 +31,7 @@ sys.path.insert(0, "..")
 sys.path.insert(0, "TaiGanDiZhi/")
 sys.path.insert(0, "../datetime/")
 sys.path.insert(0, "../../python3/datetime/")
-from nothing import do_nothing
+from nothing import do_nothing  # type: ignore[import]
 from gngan_yaljux import do_tests, do_values, do_verbose, GanChi
 
 def main(verbose: Annotated[bool, typer.Option("--list", "-l",
