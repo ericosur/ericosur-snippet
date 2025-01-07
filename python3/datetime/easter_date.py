@@ -10,8 +10,7 @@ http://www.oremus.org/liturgy/etc/ktf/app/easter.html
 
 # datetime.datetime, datetime.date
 from datetime import date
-from typing import List, Optional
-from typing_extensions import Annotated
+from typing import Optional, Annotated
 try:
     import typer
     USE_TYPER = True
@@ -47,7 +46,7 @@ def calculate_easter(year: int) -> date:
     return date(year, month, day)
 
 if USE_TYPER:
-    def main(values: Annotated[Optional[List[int]],
+    def main(values: Annotated[Optional[list[int]],
                                         typer.Argument(help="specify year")] = None,
             after: Annotated[int,
                                 typer.Option("--after", "-A", help="after nn year")] = 0,
@@ -74,7 +73,7 @@ if USE_TYPER:
             for y in years:
                 show_result(y, target=v)
 
-def show_result(y, target=get_thisyear()):
+def show_result(y, target=get_thisyear()) -> None:
     ''' _show '''
     res = calculate_easter(y)
     if USE_RICH:
@@ -83,7 +82,7 @@ def show_result(y, target=get_thisyear()):
     else:
         print(res)
 
-def run_default_demo():
+def run_default_demo() -> None:
     ''' default demo '''
     years = prepare_values(get_thisyear(), after=4)
     for y in years:

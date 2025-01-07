@@ -8,7 +8,6 @@ will retrun a list: [2022,2023,2024,2025,2026]
 '''
 
 from datetime import date
-from typing import List
 
 def get_thisyear() -> int:
     ''' get this year '''
@@ -27,7 +26,7 @@ def get_year_color(yy: int, target_year: int) -> str:
         ret_color = "yellow"
     return ret_color
 
-def prepare_values(year: int, after: int=0, before: int=0, radius: int=0) -> List[int]:
+def prepare_values(year: int, after: int=0, before: int=0, radius: int=0) -> list[int]:
     ''' prepare values '''
     year = year if year is not None else get_thisyear()
     after = after if after is not None else 0
