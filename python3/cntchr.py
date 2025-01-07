@@ -9,10 +9,10 @@ from itertools import groupby
 from random import randint
 
 
-def get_freq(s: str):
+def get_freq(s: str) -> None:
     ''' get frequency, got a dict with key and frequency '''
     cc = sorted(list(s))
-    d = {}
+    d : dict[str,int] = {}
     for c in cc:
         if c == ' ':    # skip space
             continue

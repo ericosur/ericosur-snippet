@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
+# mypy: ignore-errors
+
 '''
 凱基下載的未實現損益的 xls 其實是個不太完整的 html table,
 這個 script 會轉換 encoding (big5 to utf8), parse html, 輸出成
@@ -15,7 +17,6 @@ import os
 import sys
 from datetime import date
 from decimal import Decimal
-from typing import List
 
 try:
     from bs4 import BeautifulSoup
@@ -49,9 +50,9 @@ def conv_big5_to_utf8(fn: str) -> str:
     utf8 = d.decode('utf-8')    # str in utf-8 encoding
     return utf8
 
-def make_soup(content: str) -> List:
+def make_soup(content: str) -> list:
     ''' make soup from content '''
-    def remove_some_col(data: List) -> List:
+    def remove_some_col(data: list) -> list:
         ''' remove col#2, col#-1, col#-2 '''
         t = []
         t.extend(data[0:2])
@@ -83,7 +84,7 @@ def get_datetag() -> str:
     s = f'U{yy:02d}{today.month:02d}{today.day:02d}'
     return s
 
-def output_csv(data: List) -> None:
+def output_csv(data: list) -> None:
     ''' output data as csv format in UMMDD.csv '''
     fn = get_datetag() + '.csv'
     print('[INFO] output to:', fn)
@@ -136,7 +137,7 @@ def to_float(v: str) -> float:
     return r
 
 # pylint: disable=consider-using-f-string
-def output_xls(data: List) -> None:
+def output_xls(data: list) -> None:
     ''' using xlsxwriter to output '''
     fn = get_datetag() + '.xls'
     print('[INFO] output to:', fn)
@@ -181,7 +182,7 @@ def output_xls(data: List) -> None:
     wb.close()
 
 
-def main(argv: List) -> None:
+def main(argv: list) -> None:
     ''' main '''
     in_fn = None
     if argv == []:

@@ -7,9 +7,8 @@
 
 import time
 from datetime import datetime
-from typing import List
 
-__VERSION__ = "2024.11.11"
+__VERSION__ = "2025.01.07"
 
 
 def get_epoch() -> int:
@@ -19,15 +18,15 @@ def get_epoch() -> int:
     return int(time.time())
 
 
-def epoch2timestr(epoch: int) -> List:
+def epoch2timestr(epoch: int) -> tuple:
     ''' Replace time.localtime with time.gmtime for GMT time '''
     if epoch == -1:
         epoch = int(time.time())
 
     msg = time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime(epoch))
-    return [epoch, msg]
+    return (epoch, msg)
 
-def __what_now():
+def __what_now() -> None:
     '''
         what now
     '''

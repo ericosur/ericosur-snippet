@@ -9,7 +9,7 @@ import sys
 from myutil import read_from_stdin, isfile
 
 try:
-    import filetype
+    import filetype  # type: ignore[import]
 except ImportError as e:
     print('ImportError:', e)
     sys.exit(1)
