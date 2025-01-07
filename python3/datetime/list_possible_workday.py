@@ -14,8 +14,7 @@ output:
 
 import sys
 from datetime import date, datetime, timedelta
-from typing import Union
-from typing_extensions import Annotated
+from typing import Union, Annotated, Any, Callable
 import typer
 from loguru import logger
 from nothing import do_nothing
@@ -25,7 +24,7 @@ class CollectWeekday():
     def __init__(self):
         self.results = []
 
-    def collect_workday(self, the_d: datetime, log):
+    def collect_workday(self, the_d: datetime, log: Callable[[Any], None]):
         ''' list workdays '''
         def is_workday(d: date):
             w = d.isoweekday()

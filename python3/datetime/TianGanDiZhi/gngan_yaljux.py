@@ -17,7 +17,7 @@ This module provides utility functions and class GanChi
 '''
 
 import sys
-from typing import Tuple, List
+from typing import Callable, Any
 from datetime import datetime
 
 sys.path.insert(0, "..")
@@ -60,20 +60,20 @@ class GanChi():
     def __str__(self):
         return '\n'.join(self.PREDATA)
 
-    def get_gnn(self) -> List[str]:
+    def get_gnn(self) -> list[str]:
         ''' 傳回 天干 '''
         return self.gnn
 
-    def get_yal(self) -> List[str]:
+    def get_yal(self) -> list[str]:
         ''' 傳回 地支 '''
         return self.yal
 
-    def get_ses(self) -> List[str]:
+    def get_ses(self) -> list[str]:
         ''' 傳回 生肖 '''
         return self.sesue
 
     @classmethod
-    def run(cls, log):
+    def run(cls, log) -> None:
         ''' run test '''
         #print(cls.__name__)
         obj = cls(log)
@@ -101,7 +101,7 @@ class GanChi():
         res = f'{g}{y}({s})'
         return res
 
-    def get_reminder(self, y: int) -> Tuple[int, int]:
+    def get_reminder(self, y: int) -> tuple[int, int]:
         ''' reminder '''
         _y = self.normalize_year(y)
         _y = y + self.MAGIC_START - 1
@@ -110,7 +110,7 @@ class GanChi():
         return (g, y)
 
     @staticmethod
-    def check_ab(m:int=0, n:int=0, log=do_nothing) -> bool:
+    def check_ab(m:int=0, n:int=0, log: Callable[[Any], None]=do_nothing) -> bool:
         ''' check a and b '''
         logd = log
         if m<0 or m>9:
@@ -125,7 +125,7 @@ class GanChi():
         #return (0 <= m < 10) and (0 <= n < 12) and ((m+n)%2==0)
         return True
 
-    def brute_force_try(self, gnn: int, yal: int, log=do_nothing) -> list:
+    def brute_force_try(self, gnn: int, yal: int, log: Callable[[Any], None]=do_nothing) -> list:
         ''' given 天干 (from 0) 地支 (from 0)  guess year '''
         logd = log
         #logd(f"brute_force_try: {gnn=}, {yal=}")
@@ -169,7 +169,7 @@ class GanChi():
     def test1(self) -> None:
         ''' test #1 '''
         logd = self.log
-        def run_test(m: int, n: int, expect: List[int]) -> None:
+        def run_test(m: int, n: int, expect: list[int]) -> None:
             ''' check the ans '''
             logd(f'run_test: {m},{n}')
             ans = self.brute_force_try(m, n, log=do_nothing)
@@ -204,7 +204,8 @@ def show(color: str, msg: str) -> None:
         return
     rprint(f'[{color}]{msg}')
 
-def do_values(values: List[int], target=0, radius: int=0, log=do_nothing) -> None:
+def do_values(values: list[int], target=0, radius: int=0,
+              log: Callable[[Any], None]=do_nothing) -> None:
     '''main function'''
     logd = log
     gc = GanChi(logd)
@@ -212,7 +213,7 @@ def do_values(values: List[int], target=0, radius: int=0, log=do_nothing) -> Non
     try:
         center = int(radius)
     except ValueError:
-        logd('[WARN] center must be an integer:', radius)
+        logd(f'[WARN] center must be an integer: {radius}')
         center = 0
     logd(f'do_values: {values=}')
     logd(f'{center=}')
@@ -232,7 +233,7 @@ def do_values(values: List[int], target=0, radius: int=0, log=do_nothing) -> Non
                 show('white', msg)  # normal
     del gc
 
-def do_verbose(log=do_nothing) -> None:
+def do_verbose(log: Callable[[Any], None]=do_nothing) -> None:
     ''' verbose '''
     logd = log
     logd("do_verbose...")
@@ -240,7 +241,7 @@ def do_verbose(log=do_nothing) -> None:
     print(gc)
     del gc
 
-def do_ab(m: int, n: int, log=do_nothing) -> None:
+def do_ab(m: int, n: int, log: Callable[[Any], None]=do_nothing) -> None:
     ''' do ab, m is {0,9}, n is {0, 11}
         and pass rule of check_ab()
     '''
@@ -266,7 +267,7 @@ def do_ab(m: int, n: int, log=do_nothing) -> None:
         else:
             show('white', msg)
 
-def do_tests(log=do_nothing) -> None:
+def do_tests(log: Callable[[Any], None]=do_nothing) -> None:
     ''' run the original tests'''
     GanChi.run(log)
 

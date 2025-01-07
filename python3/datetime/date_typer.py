@@ -10,8 +10,7 @@ since it is called "[a-z]+_typer.py", the typer is required
 
 from datetime import datetime
 import sys
-from typing import Union
-from typing_extensions import Annotated
+from typing import Union, Annotated
 try:
     import typer
 except ImportError as e:
@@ -29,7 +28,7 @@ sys.path.insert(0, "python3/datetime")
 from ep import epoch2timestr, datetime2epoch
 from nothing import do_nothing
 
-def run_demo():
+def run_demo() -> None:
     ''' demo '''
     msg = '''===== timestamp / epoch demo =====\n
 # get currect timestamp:
@@ -63,7 +62,7 @@ def main(
     debug: Annotated[bool, typer.Option("--debug", help="turn on debug")] = False,
     human: Annotated[bool, typer.Option("--human", "-H", help="human read flag")] = False,
     demo: Annotated[bool, typer.Option("--demo", help="get some demo")] = False
-):
+) -> None:
     '''
     epoch / timestamp demo
     '''

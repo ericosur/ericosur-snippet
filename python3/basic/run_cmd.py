@@ -9,9 +9,13 @@ and return as a list of strings for further parsing
 import subprocess
 import sys
 from sysconfig import get_platform
-from typing import List, Union
-from rich import print as rprint
-prt = rprint
+from typing import Union
+try:
+    from rich import print as rprint
+    USE_RICH = True
+except ImportError:
+    USE_RICH = False
+prt = rprint if USE_RICH else print
 
 def is_linux() -> bool:
     ''' check if running on Linux '''
@@ -31,7 +35,7 @@ def show_platform() -> None:
     ''' show platform '''
     prt(f'platform: {get_platform()}')
 
-def run_command(cmd: str) -> Union[List[str], None]:
+def run_command(cmd: str) -> Union[list[str], None]:
     ''' run specified command and return the output
         note: will exit app if error occurs
     '''
@@ -51,7 +55,7 @@ def run_command(cmd: str) -> Union[List[str], None]:
     return outs
 
 
-def run_command2(cmd: str) -> Union[List[str], None]:
+def run_command2(cmd: str) -> Union[list[str], None]:
     ''' run specified command and return the output
         decoding with cp950 (traditional chinese)
         note: will exit app if error occurs

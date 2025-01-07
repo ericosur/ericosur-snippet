@@ -9,8 +9,7 @@ Not the "Black Friday" after the Thanksgiving
 
 from __future__ import print_function
 from datetime import date
-from typing import Optional
-from typing_extensions import Annotated
+from typing import Optional, Annotated
 try:
     import typer
     USE_TYPER = True
@@ -25,9 +24,9 @@ except ImportError as e:
     print('import error of module rich', e)
 from be_prepared import get_thisyear, prepare_values, get_year_color
 
-def get_blackfridays_from_this_year(the_year: int) -> list:
+def get_blackfridays_from_this_year(the_year: int) -> list[date]:
     '''
-    if specified year has black, return List[date], or []
+    if specified year has black, return list[date], or []
     '''
     MIN_MONTH = 1
     MAX_MONTH = 12
@@ -58,9 +57,10 @@ class Solution():
     def __init__(self):
         self.years = None
 
-    def prepare_list_and_run(self,year,after,before,context):
+    def prepare_list_and_run(self, year: int, after: int, before: int,
+                             context: int) -> None:
         ''' prepare the list '''
-        self.years = prepare_values(year,after=after,before=before,radius=context)
+        self.years = prepare_values(year, after=after, before=before, radius=context)
         self.iterate_years()
 
     def default_demo(self) -> None:

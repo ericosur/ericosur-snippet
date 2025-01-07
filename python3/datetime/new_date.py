@@ -6,8 +6,7 @@ demo days delta
 '''
 
 from datetime import datetime, timedelta
-from typing import Union
-from typing_extensions import Annotated
+from typing import Union, Annotated
 try:
     import typer
     USE_TYPER = True
@@ -15,7 +14,7 @@ except ImportError:
     print('warn: cannot imort typer, run demo only...')
     USE_TYPER = False
 
-def translate_weekday(w: int):
+def translate_weekday(w: int) -> int:
     '''
     in module datetime, return value of d.weekday() monday is 0, sunday is 6
     translate it to sunday = 0, monday = 1, ..., saturday = 6
@@ -33,7 +32,7 @@ def get_date_after_days(start_date: datetime, offset_days: int) -> datetime:
     new_date = start_date + offset
     return new_date
 
-def demo_only():
+def demo_only() -> None:
     '''demo function'''
     print("demo...")
     start = datetime.today()

@@ -10,7 +10,7 @@ typer tests gngan_yaljux.py
 
 import sys
 from random import randint
-from typing_extensions import Annotated
+from typing import Annotated
 try:
     import typer
 except ImportError:

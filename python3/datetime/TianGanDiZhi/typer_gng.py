@@ -11,7 +11,7 @@ use typer to handle CLI
 '''
 
 import sys
-from typing import Union, List
+from typing import Union
 from typing_extensions import Annotated
 try:
     import typer
@@ -27,15 +27,15 @@ sys.path.insert(0, "..")
 sys.path.insert(0, "TaiGanDiZhi/")
 sys.path.insert(0, "../datetime/")
 sys.path.insert(0, "../../python3/datetime/")
-from nothing import do_nothing
-from be_prepared import get_thisyear, prepare_values
+from nothing import do_nothing  # type: ignore[import]
+from be_prepared import get_thisyear, prepare_values  # type: ignore[import]
 
 class Main():
     ''' main '''
     def __init__(self):
         self.logd = console.log
 
-    def main(self, values: Annotated[Union[List[int], None],
+    def main(self, values: Annotated[Union[list[int], None],
                                      typer.Argument(help="specify year")] = None,
             after: Annotated[int,
                              typer.Option("--after", "-A", help="after nn year")] = 0,
