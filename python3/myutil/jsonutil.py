@@ -3,13 +3,14 @@
 
 ''' some useful functions for json '''
 
+from typing import Any
 
 __VERSION__ = "2024.03.28"
 
 import json
 from .commonutil import isfile
 
-def read_jsonfile(fn:str, debug=False):
+def read_jsonfile(fn:str, debug: bool=False) -> Any:
     '''
     specify json filename and return whole json object
     '''
@@ -31,7 +32,7 @@ def read_jsonfile(fn:str, debug=False):
     return data
 
 
-def read_textfile(fn: str, debug=False) -> str:
+def read_textfile(fn: str, debug=False) -> str | None:
     ''' read specified file and return file content '''
     if debug:
         print(f'[DEBUG] read text file content from: {fn}')
@@ -46,12 +47,12 @@ def read_textfile(fn: str, debug=False) -> str:
 
 
 # in order not to break client scripts
-def read_setting(fn):
+def read_setting(fn: str) -> Any:
     '''get json object from file'''
     return read_jsonfile(fn)
 
 
-def request_value(data, key, default_value=None):
+def request_value(data: dict[str, Any], key: str, default_value=None) -> Any:
     '''
     given json object and request key, if key does not exist, return None
     if default_value is specified, will return default value if value not
@@ -65,7 +66,7 @@ def request_value(data, key, default_value=None):
     return ret
 
 
-def write_jsonfile(fn, data):
+def write_jsonfile(fn: str, data: dict[str, Any]) -> None:
     ''' write json into specified file '''
     if not isfile(fn):
         raise FileNotFoundError

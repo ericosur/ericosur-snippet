@@ -23,10 +23,13 @@ The 2nd line count is the number of elements which in the (-3, 3) sigma.
 '''
 
 import time
+from typing import Any
 import numpy as np
 from loguru import logger
+from myutil import do_nothing
 
-logd = logger.debug
+DEBUG = False
+logd = logger.debug if DEBUG else do_nothing
 
 class GenerateStdNormal():
     ''' a class to generate normal distribution data '''
@@ -40,19 +43,19 @@ class GenerateStdNormal():
         self.rng = np.random.default_rng(int(time.time()))
         self.lhs, self.rhs = -1, -1
 
-    def fill_bytes(self):
+    def fill_bytes(self) -> np.ndarray[Any, Any]:
         ''' fill buffer '''
         arr = self.rng.integers(0, 256, self.default_size, dtype='uint8') # 0 .. 255
-        #logd(type(arr))
+        logd(type(arr))
         return arr
 
-    def fill_stdnorm(self):
+    def fill_stdnorm(self) -> np.ndarray[Any, Any]:
         ''' fill buffer '''
         arr = self.mu + self.sigma * self.rng.standard_normal(size=self.default_size)
         #logd(type(arr))
         return arr
 
-    def show(self, arr: list, extmsg: str=None):
+    def show(self, arr: np.ndarray[Any,Any]|list[Any], extmsg: str|None=None) -> None:
         ''' show '''
         print(f'{np.amax(arr):.2f}, {np.amin(arr):.2f}, ', end='')
         print(f'{np.mean(arr):.2f}, {np.median(arr):.2f}, ', end='')
@@ -63,9 +66,9 @@ class GenerateStdNormal():
         else:
             print()
 
-    def test2(self):
+    def test2(self) -> None:
         ''' add2() will add 4 into all elements '''
-        def add2(x):
+        def add2(x: np.ndarray) -> np.ndarray:
             ''' add 4 for each input '''
             return x + 4
 
@@ -73,19 +76,21 @@ class GenerateStdNormal():
             r = add2(self.fill_stdnorm())
             self.show(r)
 
-    def filter_arr(self, arr):
+    def filter_arr(self, arr) -> list[Any]:
         ''' filter out beyond -n * sigma to n * sigma '''
+        logd("filter_arr...")
         n = 3
         tmp = [ x for x in arr if x > self.mu - n*self.sigma ]
         r = [ x for x in tmp if x < self.mu + n*self.sigma ]
+        logd(type(r))
         return r
 
     @staticmethod
-    def header():
+    def header() -> None:
         ''' print header '''
         print('  max,   min,  mean, median, stddev,  count,  lhs,  rhs')
 
-    def get_limts(self, r):
+    def get_limts(self, r: np.ndarray) -> str:
         ''' show left--right limits
             r is numpy.ndarray
         '''
@@ -95,18 +100,18 @@ class GenerateStdNormal():
         msg = f"{self.lhs:.2f}, {self.rhs:.2f}"
         return msg
 
-    def count_in_scope(self, r) -> int:
+    def count_in_scope(self, r: np.ndarray[Any,Any]|list[Any]) -> int:
         ''' r is numpy.ndarray, return the number which value is in the range
         '''
         return len([x for x in r if self.lhs <= x <= self.rhs])
 
-    def count_range_filter(self, r) -> int:
+    def count_range_filter(self, r: np.ndarray) -> int:
         ''' r is numpy.ndarray, return the number which value is in the range
         '''
         return len(list(filter(lambda x: self.lhs <= x <= self.rhs, r)))
 
     @classmethod
-    def run(cls):
+    def run(cls) -> None:
         ''' run demo '''
         obj = cls()
         obj.header()

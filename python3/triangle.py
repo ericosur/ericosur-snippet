@@ -68,7 +68,7 @@ class Pythag():
         ''' use numpy to get distance '''
         m = np.array([a, b])
         d = np.linalg.norm(m)
-        return d
+        return float(d)
 
     @staticmethod
     def show_list(tripes: list) -> None:

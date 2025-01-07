@@ -29,7 +29,7 @@ class Collatz():
             n = n * 3 + 1
         return n
 
-    def recursive_collatz(self, n: int):
+    def recursive_collatz(self, n: int) -> None:
         ''' recursive version '''
         self.cnt += 1
         if n <= 1:
@@ -41,7 +41,7 @@ class Collatz():
         self.recursive_collatz(n)
         return
 
-    def loop_collatz(self, n: int) -> int:
+    def loop_collatz(self, n: int) -> None:
         ''' while loop version '''
         while n > 1:
             n = Collatz.do_rule(n)
