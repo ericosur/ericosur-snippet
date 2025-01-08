@@ -23,8 +23,7 @@ module dependency:
 
 from random import randint
 import sys
-from typing import List, Union
-from typing_extensions import Annotated
+from typing import List, Union, Annotated
 from pydantic import BaseModel
 
 LOCAL_DEBUG = False
@@ -106,7 +105,10 @@ def look_toward(v: int, around: int, is_increase: bool) -> List[int]:
     ''' look toward, is_increate true/false '''
     found : List[int] = []
     if v % 2 == 0: # even number
-        i = v - 1
+        if is_increase:
+            i = v + 1
+        else:
+            i = v - 1
     else:
         i = v
     step = 2 if is_increase else -2
@@ -119,6 +121,17 @@ def look_toward(v: int, around: int, is_increase: bool) -> List[int]:
     #prt(f'backward len: {len(backward)}, last i={i}')
     #prt(backward)
     return found
+
+def remove_duplicated(the_list: List[int]) -> List[int]:
+    ''' input a sorted list, remove duplicated integers'''
+    if len(the_list) < 2:
+        return the_list
+    new_list = [the_list[0]]
+    for i in range(1, len(the_list)):
+        if the_list[i] != the_list[i-1]:
+            new_list.append(the_list[i])
+    return new_list
+
 
 def search_around_primes(v: int, around: int) -> None:
     ''' search primes around, till the length is met
@@ -138,6 +151,7 @@ def search_around_primes(v: int, around: int) -> None:
     forward = look_toward(j, around, is_increase=True)
     ans.extend(forward)
     ans.sort()
+    #ret = remove_duplicated(ans)
     prt(ans)
 
 def prt_in_color(v: int, yes_no: Union[bool, None]) -> None:
