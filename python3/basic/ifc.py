@@ -50,6 +50,7 @@ def get_ipaddr() -> Union[list[dict[str,str]], None]:
         return None
     reg1 = r'^(\S+):'
     reg2 = r'inet\s+(\S+)\s+netmask\s+(\S+)'
+    reg3 = r'ether\s+(\S+)\s+'
     rets = []
     tmp = {}
     for ln in outs:
@@ -63,6 +64,10 @@ def get_ipaddr() -> Union[list[dict[str,str]], None]:
         if m2:
             tmp['inet'] = m2.group(1)
             #tmp['netmask'] = m2.group(2)
+            continue
+        m3 = re.search(reg3, ln)
+        if m3:
+            tmp['MAC'] = m3.group(1)
         if tmp:
             rets.append(tmp)
         tmp = {}
