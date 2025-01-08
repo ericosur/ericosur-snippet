@@ -12,8 +12,7 @@ year \\approx 72 / insterest
 
 for example, i = 5% one year iteration
 72/5 = 14.4
-about 14 year we could doulbe the base
-
+about 14 year we could double the base
 '''
 
 try:

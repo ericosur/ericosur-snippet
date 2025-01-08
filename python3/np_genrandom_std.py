@@ -25,11 +25,34 @@ The 2nd line count is the number of elements which in the (-3, 3) sigma.
 import time
 from typing import Any
 import numpy as np
-from loguru import logger
 from myutil import do_nothing
 
+try:
+    from rich import print as rprint
+    USE_RICH = True
+except ImportError:
+    USE_RICH = False
+prt = rprint if USE_RICH else print
+
+try:
+    from loguru import logger  # type: ignore[import]
+    USE_LOGURU = True
+except ImportError:
+    # import logging
+    # logging.basicConfig(level=logging.DEBUG)
+    USE_LOGURU = False
+
+SEP_REPEAT = 65
 DEBUG = False
-logd = logger.debug if DEBUG else do_nothing
+if DEBUG:
+    if USE_LOGURU:
+        logd = logger.debug
+    else:
+        import logging
+        logging.basicConfig(level=logging.DEBUG)
+        logd = logging.debug
+else:
+    logd = do_nothing
 
 class GenerateStdNormal():
     ''' a class to generate normal distribution data '''
@@ -57,14 +80,14 @@ class GenerateStdNormal():
 
     def show(self, arr: np.ndarray[Any,Any]|list[Any], extmsg: str|None=None) -> None:
         ''' show '''
-        print(f'{np.amax(arr):.2f}, {np.amin(arr):.2f}, ', end='')
-        print(f'{np.mean(arr):.2f}, {np.median(arr):.2f}, ', end='')
-        print(f'{np.std(arr):.2f}, {len(arr)}', end='')
+        prt(f'{np.amax(arr):.2f}, {np.amin(arr):.2f}, ', end='')
+        prt(f'{np.mean(arr):.2f}, {np.median(arr):.2f}, ', end='')
+        prt(f'{np.std(arr):.2f}, {len(arr)}', end='')
         if extmsg:
-            print(f', {extmsg}', end='')
-            print(f', {self.count_in_scope(arr)}')
+            prt(f', {extmsg}', end='')
+            prt(f', {self.count_in_scope(arr)}')
         else:
-            print()
+            prt()
 
     def test2(self) -> None:
         ''' add2() will add 4 into all elements '''
@@ -86,9 +109,13 @@ class GenerateStdNormal():
         return r
 
     @staticmethod
-    def header() -> None:
-        ''' print header '''
-        print('  max,   min,  mean, median, stddev,  count,  lhs,  rhs')
+    def header():
+        ''' prt header '''
+        prt('  max,   min,  mean, median, stddev,  count,  lhs,  rhs, no_in_scope')
+        if USE_RICH:
+            prt('[bold magenta]'+ '=' * SEP_REPEAT + '[/]')
+        else:
+            print('=' * SEP_REPEAT)
 
     def get_limts(self, r: np.ndarray) -> str:
         ''' show left--right limits
@@ -110,6 +137,14 @@ class GenerateStdNormal():
         '''
         return len(list(filter(lambda x: self.lhs <= x <= self.rhs, r)))
 
+    def sep(self):
+        ''' separator'''
+        #logd('sep...')
+        if USE_RICH:
+            prt('[bold blue]' + '-' * SEP_REPEAT + '[/]')
+        else:
+            print('-' * SEP_REPEAT)
+
     @classmethod
     def run(cls) -> None:
         ''' run demo '''
@@ -121,7 +156,7 @@ class GenerateStdNormal():
             msg = obj.get_limts(r)
             obj.show(r, extmsg=msg)
             obj.show(rb)
-            print('-' * 40)
+            obj.sep()
 
 def main():
     """ main function to do test """

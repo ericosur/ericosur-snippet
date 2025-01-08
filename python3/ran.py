@@ -4,7 +4,12 @@
 ''' just pick one name from name list randomly '''
 
 import random
-
+try:
+    from rich import print as rprint
+    USE_RICH = True
+except ImportError:
+    USE_RICH = False
+prt = rprint if USE_RICH else print
 
 def demo():
     '''demo function'''
@@ -14,15 +19,15 @@ def demo():
     size = len(name_list)
     REPEAT = 2
 
-    print('use random.randint as index:')
+    prt('use random.randint as index:')
     for _ in range(REPEAT):
         idx = random.randint(0, size - 1) # int(random.random() * size)
-        print(f"name picked: {name_list[idx]}")
+        prt(f"name picked: {name_list[idx]}")
 
     # another way
-    print('use random.choice:')
+    prt('use random.choice:')
     for _ in range(REPEAT):
-        print(f"name picked: {random.choice(name_list)}")
+        prt(f"name picked: {random.choice(name_list)}")
 
 if __name__ == '__main__':
     demo()
