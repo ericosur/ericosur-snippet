@@ -11,27 +11,21 @@ here sick means:
 
 import math
 import struct
-import sys
 import time
+import logging
 from datetime import datetime
 from sysconfig import get_platform
+#from nothing import do_nothing
 
-VERBOSE = False
-ERROR = True
+logi = logging.info
+logd = logging.debug
+loge = logging.error
 
 def is_linux() -> bool:
     ''' return true if linux '''
-    return "linux" in get_platform()
-
-def logv(*args, **wargs):
-    ''' logv '''
-    if VERBOSE:
-        print(*args, **wargs)
-
-def loge(*args, **wargs):
-    ''' loge '''
-    if ERROR:
-        print(*args, **wargs, file=sys.stderr)
+    p = get_platform()
+    logi(f'platform: {p}')
+    return "linux" in p
 
 def float_to_hex(f: float) -> str:
     """Converts a float value to a hexadecimal string.
@@ -50,18 +44,18 @@ def sick_to_ns(sick: int) -> int:
     ''' sick to datetime '''
     if not isinstance(sick, int):
         raise ValueError('sick should be an int')
-    logv(f'----- sick_to_ns({sick}) -----')
+    logd(f'----- sick_to_ns({sick}) -----')
     hex_string = normalize_hex_str(hex(sick))
-    logv(f'  {hex_string=}, {len(hex_string)=}')
+    logd(f'  {hex_string=}, {len(hex_string)=}')
     float_val = struct.unpack("d", bytes.fromhex(hex_string))[0]
-    logv(f'  {float_val=}')
+    logd(f'  {float_val=}')
     ns_val = int(float_val)
-    logv(f'  {ns_val=}')
+    logd(f'  {ns_val=}')
     return ns_val
 
 def normalize_hex_str(the_hexstr: str) -> str:
     ''' the hex str should be [0-9a-fA-F]{16}, without "0x" prefix '''
-    #logv(f'----- normalize_hex_str({the_hexstr} ({len(the_hexstr)})) -----')
+    #logd(f'----- normalize_hex_str({the_hexstr} ({len(the_hexstr)})) -----')
     tmp = ''
     if the_hexstr.index('0x') >= 0:
         tmp = the_hexstr[2:]
@@ -79,40 +73,40 @@ def sick_to_datetime(val: int) -> None | datetime:
     ''' sick to datetime '''
     if not isinstance(val, int):
         raise ValueError
-    logv(f'----- sick_to_datetime({val}) -----')
+    logd(f'----- sick_to_datetime({val}) -----')
     hex_string = normalize_hex_str(hex(val))
-    logv(f'  {hex_string=}, {len(hex_string)=}')
+    logd(f'  {hex_string=}, {len(hex_string)=}')
     float_val = struct.unpack("d", bytes.fromhex(hex_string))[0]
-    logv(f'  {float_val=}')
+    logd(f'  {float_val=}')
     if isinstance(float_val, float):
         if float_val < 0.0:
             loge('ERROR: smaller than zero')
             return None
         the_log10 = math.log10(float_val)
         if 18.0 <= the_log10 < 19.0:  # in the range
-            #logv('  log10:', math.log10(float_val))
+            #logd('  log10:', math.log10(float_val))
             pass
         else:
             loge('ERROR: out of range')
             return None
 
     int_val = int(float_val)
-    logv(f'  {int_val=}')
+    logd(f'  {int_val=}')
     str_val = str(int_val)
     # str_val represents in ns, will strip the last 9 digits
     keep_len = len(str_val) - 9
     str_val = str_val[:keep_len]
-    logv(f'  {str_val=}')
+    logd(f'  {str_val=}')
     dt = datetime.fromtimestamp(int(str_val))
     return dt
 
 def get_sick_from_ns(ns_val: int) -> int:
     ''' get_sick_from_ns '''
-    logv(f'----- get_sick_from_ns {ns_val=} -----')
+    logd(f'----- get_sick_from_ns {ns_val=} -----')
     ns_float_hex = float_to_hex(float(ns_val))
-    #logv(f'  {ns_float_hex=}')
+    #logd(f'  {ns_float_hex=}')
     sick = int(ns_float_hex, 16)
-    #logv(f'   {sick=}')
+    #logd(f'   {sick=}')
     return sick
 
 # pylint: disable=no-member
@@ -121,15 +115,15 @@ def sick_integer2(ns_val: int) -> None:
     if not is_linux():
         loge("sick_integer2: only for linux...")
         return
-    logv('----- sick_integer2 -----')
+    logd('----- sick_integer2 -----')
     # get the resolution of realtime clock
     resolution = time.clock_getres(time.CLOCK_REALTIME)
-    logv(f'clock {time.CLOCK_REALTIME=} resolution: {resolution}')
+    logd(f'clock {time.CLOCK_REALTIME=} resolution: {resolution}')
     si = float(ns_val * resolution)
     lsi = len(str(si))
-    logv(f'repeat NA, len={lsi:2d}, {si=}')
+    logd(f'repeat NA, len={lsi:2d}, {si=}')
     float_val = float_to_hex(si)
-    logv(f'{len(float_val)=}, {float_val=}')
+    logd(f'{len(float_val)=}, {float_val=}')
 
 def datetime_to_sick(dt: datetime) -> int:
     ''' given datetime to sick number '''

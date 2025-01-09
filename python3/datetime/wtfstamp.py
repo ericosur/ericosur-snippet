@@ -21,9 +21,18 @@ IEEE 754
 
 from datetime import datetime
 import time
-
-from sickutil import logv, loge, get_sick_from_ns
+import logging
+try:
+    from rich import print as rprint
+    USE_RICH = True
+except ImportError:
+    USE_RICH = False
+from sickutil import get_sick_from_ns
 from sickutil import sick_to_ns, sick_to_datetime, datetime_to_sick
+
+prt = rprint if USE_RICH else print
+loge = logging.error
+logd = logging.debug
 
 class Solution():
     ''' solution '''
@@ -57,7 +66,7 @@ class Solution():
             vals = [5020107264551401283, 5249845694418721250, 5250289887910686546]
             self.process_values(vals)
         except OverflowError as e:
-            logv(e)
+            loge(e)
 
     @classmethod
     def run(cls):
@@ -67,13 +76,13 @@ class Solution():
 
 def output_for_five_head(ns, sick, dt, cnt, ns_val):
     ''' output for five head '''
-    print()
-    print(f'  {sick=} ({len(str(sick))})')
-    print(f'    {ns=}')
-    print(f'    {dt=}')
-    print(f'{ns_val=}')
+    prt()
+    prt(f'  {sick=} ({len(str(sick))})')
+    prt(f'    {ns=}')
+    prt(f'    {dt=}')
+    prt(f'{ns_val=}')
     diff = abs(ns_val-ns)
-    print(f'  {diff=}, {cnt=}')
+    prt(f'  {diff=}, {cnt=}')
 
 def look_for_five_head() -> None:
     ''' look for five head from now
