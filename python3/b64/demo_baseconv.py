@@ -6,13 +6,22 @@ demo of xxx
 '''
 
 import base64
-from rich import print as rprint
+from typing import Any
+
+try:
+    from rich import print as rprint
+    USE_RICH = True
+except ImportError:
+    USE_RICH = False
+
 from butil import fill_bytearray, sep, int_from_bytes
+
+prt = rprint if USE_RICH else print
 
 # if size = 3k, you will not get padding (the equal sign) after base64
 DEFAULT_SIZE = 3*8
 
-def show(m, n):
+def show(m: str, n: Any) -> None:
     ''' show '''
     s = None
     if isinstance(n, bytes):
@@ -21,28 +30,28 @@ def show(m, n):
         s = n
     else:
         s = str(n)
-    print(f'{m:<16s}: {s}')
+    prt(f'{m:<16s}: {s}')
 
-def demo(x):
+def demo(x: Any) -> None:
     ''' demo '''
     msg = x
     if isinstance(x, bytes):
         msg = x.hex()
-    rprint('demo:', msg)
+    prt('demo:', msg)
 
-def bas64(x):
+def bas64(x: bytes) -> None:
     ''' bas64 '''
     e = base64.b64encode(x)
-    rprint(f'base64: {e}')
-    sep()
+    prt(f'base64: {e!r}')
 
 def main():
     ''' main '''
-    rprint(f'generate x in size: {DEFAULT_SIZE}')
+    prt(f'generate x in size: {DEFAULT_SIZE}')
     x = fill_bytearray(DEFAULT_SIZE)
-    rprint(f'{x=}')
+    prt(f'{x=}')
     bas64(x)
-    rprint('int_from_bytes:', int_from_bytes(x))
+    sep()
+    prt('int_from_bytes:', int_from_bytes(x))
 
 if __name__ == "__main__":
     main()

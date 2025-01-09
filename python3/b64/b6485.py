@@ -15,12 +15,12 @@ from typing import Any
 import base64
 import sys
 
-USE_B85: bool = False
 try:
-    import base58
+    import base58  # type: ignore[import]
     USE_B85 = True
 except ImportError:
     print('WARN: cannot import module: base58', file=sys.stderr)
+    USE_B85 = False
 
 try:
     from rich.console import Console

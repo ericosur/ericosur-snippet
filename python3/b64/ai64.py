@@ -15,12 +15,12 @@ import base64
 import os
 import stat
 import sys
+from typing import Annotated
 
 sys.path.insert(0, "../")
 sys.path.insert(0, "python3/")
-from myutil import is_linux, do_nothing
+from myutil import is_linux, do_nothing  # type: ignore[import]
 
-from typing_extensions import Annotated
 import typer
 # if 57, one line 76 characters
 # use 3n to avoid padding issues (4 char from 3 bytes)
@@ -74,7 +74,8 @@ def encode_file_to_base64_chunked(file_path, chunk_size=CHUNK_SIZE, log=do_nothi
             cnt += 1
 
 def main(
-        input_fn: Annotated[str, typer.Option("--input", "-i", help="specify input file")]=None,
+        input_fn: Annotated[str|None, typer.Option("--input", "-i",
+                                                   help="specify input file")]=None,
         debug: Annotated[bool, typer.Option("--debug", "-d", help="show debug info")]=False,
         chunk: Annotated[int, typer.Option("--chunk", "-c",
                                     help="specify the size of chunk")] = 57,
