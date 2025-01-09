@@ -7,9 +7,9 @@ otpauth://totp/GitHub:LarryLuTW?secret=X5CTBOMEYE3TXIIS
 
 import base64
 
-def main():
+def main() -> None:
     ''' main '''
-    a: str = 'X5CTBOMEYE3TXIIS'
+    a = 'X5CTBOMEYE3TXIIS'
     print(a)
     r = base64.b32decode(a)
     print(r.hex())
