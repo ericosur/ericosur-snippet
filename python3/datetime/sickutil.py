@@ -46,7 +46,7 @@ def float_to_hex(f: float) -> str:
     hex_string = binary_data.hex()
     return hex_string
 
-def sick_to_ns(sick):
+def sick_to_ns(sick: int) -> int:
     ''' sick to datetime '''
     if not isinstance(sick, int):
         raise ValueError('sick should be an int')
@@ -59,7 +59,7 @@ def sick_to_ns(sick):
     logv(f'  {ns_val=}')
     return ns_val
 
-def normalize_hex_str(the_hexstr):
+def normalize_hex_str(the_hexstr: str) -> str:
     ''' the hex str should be [0-9a-fA-F]{16}, without "0x" prefix '''
     #logv(f'----- normalize_hex_str({the_hexstr} ({len(the_hexstr)})) -----')
     tmp = ''
@@ -75,7 +75,7 @@ def normalize_hex_str(the_hexstr):
         tmp = pad + tmp
     return tmp
 
-def sick_to_datetime(val):
+def sick_to_datetime(val: int) -> None | datetime:
     ''' sick to datetime '''
     if not isinstance(val, int):
         raise ValueError
@@ -106,7 +106,7 @@ def sick_to_datetime(val):
     dt = datetime.fromtimestamp(int(str_val))
     return dt
 
-def get_sick_from_ns(ns_val):
+def get_sick_from_ns(ns_val: int) -> int:
     ''' get_sick_from_ns '''
     logv(f'----- get_sick_from_ns {ns_val=} -----')
     ns_float_hex = float_to_hex(float(ns_val))
@@ -116,7 +116,7 @@ def get_sick_from_ns(ns_val):
     return sick
 
 # pylint: disable=no-member
-def sick_integer2(ns_val):
+def sick_integer2(ns_val: int) -> None:
     ''' given time_ns '''
     if not is_linux():
         loge("sick_integer2: only for linux...")
@@ -131,7 +131,7 @@ def sick_integer2(ns_val):
     float_val = float_to_hex(si)
     logv(f'{len(float_val)=}, {float_val=}')
 
-def datetime_to_sick(dt):
+def datetime_to_sick(dt: datetime) -> int:
     ''' given datetime to sick number '''
     ts = int(dt.timestamp()*1e9)
     lts = len(str(ts))

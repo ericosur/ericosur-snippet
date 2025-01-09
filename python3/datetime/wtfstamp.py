@@ -38,7 +38,7 @@ class Solution():
         dt2 = datetime(2024,8,29,23,59,59)
         self.max_epoch = dt2.timestamp()
 
-    def process_values(self, vals):
+    def process_values(self, vals: list[int]):
         ''' process values '''
         for v in vals:
             if len(str(v)) != 19:
@@ -75,7 +75,7 @@ def output_for_five_head(ns, sick, dt, cnt, ns_val):
     diff = abs(ns_val-ns)
     print(f'  {diff=}, {cnt=}')
 
-def look_for_five_head():
+def look_for_five_head() -> None:
     ''' look for five head from now
         For time_ns(), it looks like a sequence number. It is possible that
         the first 5 digits are all the same within a day. The sick number
@@ -107,7 +107,7 @@ def look_for_five_head():
             break
         time.sleep(0.25)
 
-def look_for_1e9():
+def look_for_1e9() -> None:
     ''' 1e9 loop '''
     obj = Solution()
     d1 = datetime_to_sick(datetime(2024, 8, 21, 20, 36))
