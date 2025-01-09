@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # coding: utf-8
-# pylint: disable=wrong-import-position
 
 '''
 alpha beta charlie
@@ -14,7 +13,7 @@ from random import sample
 
 sys.path.insert(0, "../")
 sys.path.insert(0, "../../")
-from myutil import read_from_stdin
+from myutil import read_from_stdin  # type: ignore[import]
 
 class AlphaBravoCharlie():
     ''' NATO alpha bravo charlie '''
@@ -30,11 +29,11 @@ class AlphaBravoCharlie():
         # uppercase capital dict
         self.alpha_dict = self.__get_dict()
 
-    def get_arr(self):
+    def get_arr(self) -> list[str]:
         ''' return list of 'Alpha', 'Bravo', 'Charlie' '''
         return self.alpha_arr
 
-    def get_dict(self):
+    def get_dict(self) -> dict[str, str]:
         ''' return dict of {'A': 'Alpha', 'B': 'Bravo', ...} '''
         return self.alpha_dict
 
@@ -42,11 +41,11 @@ class AlphaBravoCharlie():
         ''' abc in capital words '''
         return self.nato_str
 
-    def __get_arr(self):
+    def __get_arr(self) -> list[str]:
         ''' get_arr '''
         return self.abc.split()
 
-    def __get_dict(self):
+    def __get_dict(self) -> dict[str,str]:
         ''' get dict '''
         d = {}
         for ww in self.alpha_arr:
@@ -54,20 +53,20 @@ class AlphaBravoCharlie():
             d[cap] = ww
         return d
 
-    def translate(self, s: str):
+    def translate(self, s: str) -> None:
         ''' translate '''
         for c in list(s.upper()):
             if c in self.alpha_dict:
                 print(self.alpha_dict[c], end=' ')
         print()
 
-    def random_pick(self, n: int = 3):
+    def random_pick(self, n: int = 3) -> None:
         ''' random_pick several items '''
         arr = sample(self.alpha_arr, n)
         for c in arr:
             print(c)
 
-def process_args(args: list):
+def process_args(args: list) -> None:
     ''' process_args '''
     abc = AlphaBravoCharlie()
     if args == []:

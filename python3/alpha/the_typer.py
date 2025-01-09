@@ -7,9 +7,8 @@ It's much easier than argparse
 '''
 
 import sys
-#from typing import Optional
+from typing import Annotated
 try:
-    from typing_extensions import Annotated
     import typer
 except ImportError as e:
     print('Failed to import:', e)
