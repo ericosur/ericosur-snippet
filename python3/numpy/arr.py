@@ -9,7 +9,7 @@ import timeit
 import numpy as np
 sys.path.insert(0, "..")
 sys.path.insert(0, "python3")
-from myutil import prt
+from myutil import prt  # type: ignore[import]
 
 class Solution():
     ''' solution '''
@@ -32,6 +32,7 @@ class Solution():
         prt(f'min: {np.min(arr):.6f}, max: {np.max(arr):.6f}')
         prt(f'std: {np.std(arr):.6f}, mean: {np.mean(arr):.6f} avg: {np.average(arr):.6f}')
 
+    # pylint: disable=unnecessary-lambda
     @classmethod
     def run(cls):
         ''' run me '''
