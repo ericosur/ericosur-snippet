@@ -10,7 +10,13 @@ some recommends tomlkit
 '''
 
 import sys
+try:
+    from rich import print as rprint
+    USE_RICH = True
+except ImportError:
+    USE_RICH = False
 
+prt = rprint if USE_RICH else print
 
 # pylint: disable=import-outside-toplevel
 class LoadToml():
@@ -29,7 +35,7 @@ class LoadToml():
         # load external toml first, then built-in tomllib
         try:
             # pip install toml
-            import toml
+            import toml  # type: ignore[import]
             LoadToml.is_builtin = False
             LoadToml.is_external = True
             LoadToml.toml_lib = toml
@@ -37,16 +43,16 @@ class LoadToml():
                 with open(self.tomlfn, 'rt', encoding='UTF-8') as f:
                     self.data = toml.load(f)
         except ModuleNotFoundError:
-            #print("cannot import tomllib...")
+            #prt("cannot import tomllib...")
             self._use_another_lib()
 
     def _use_another_lib(self):
         ''' load built-in library '''
         if self.debug:
-            print('use built-in library tomllib')
+            prt('use built-in library tomllib')
         try:
             # tomllib is standard library provided by python 3.11
-            import tomllib
+            import tomllib  # type: ignore[import]
             LoadToml.is_builtin = True
             LoadToml.is_external = False
             LoadToml.toml_lib = tomllib
@@ -54,36 +60,30 @@ class LoadToml():
                 with open(self.tomlfn, 'rb') as f:
                     self.data = tomllib.load(f)
         except ImportError:
-            print("cannot import toml nor tomllib, exit...")
+            prt("cannot import toml nor tomllib, exit...")
             sys.exit(1)
-
-    @classmethod
-    def get_class(cls, fn=None):
-        ''' get class '''
-        #print(cls.__name__)
-        return cls(fn)
 
     def get_data(self):
         ''' get data '''
         return self.data
 
 
-def test():
+def test() -> None:
     ''' test '''
-    print('test()')
-    obj = LoadToml.get_class('config.toml')
-    obj.debug = True
+    prt('test()')
+    obj = LoadToml('config.toml')
+    obj.debug = False
     data = obj.get_data()
     # if obj.is_builtin:
-    #     print('[INFO] use builtin library')
+    #     prt('[INFO] use builtin library')
     # else:
-    #     print('[INFO] use external library')
+    #     prt('[INFO] use external library')
 
     if data is None:
-        print('cannot load data')
+        prt('cannot load data')
     else:
-        print(data)
-        #print(f'owner: {data["owner"]}')
+        prt(data)
+        #prt(f'owner: {data["owner"]}')
 
 if __name__ == '__main__':
     test()

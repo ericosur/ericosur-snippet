@@ -16,7 +16,7 @@ import os
 import sys
 
 try:
-    import tomllib
+    import tomllib  # type: ignore[import]
 except ModuleNotFoundError:
     print('[INFO] no tomllib, exit...')
     sys.exit(1)
