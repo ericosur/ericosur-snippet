@@ -25,12 +25,12 @@ import typer
 # if 57, one line 76 characters
 # use 3n to avoid padding issues (4 char from 3 bytes)
 CHUNK_SIZE = 57
-USE_LOGGER = False
 try:
     from loguru import logger
     USE_LOGGER = True
 except ImportError:
     print("cannot import module: loguru")
+    USE_LOGGER = False
 
 def is_chardev(filepath, log=do_nothing) -> bool:
     ''' return if a char dev '''
