@@ -8,7 +8,6 @@ call ifconfig and parse the output
 import os
 import re
 import sys
-from typing import Union
 try:
     from rich import print as rprint
     USE_RICH = True
@@ -38,7 +37,7 @@ def run_ipconfig() -> None:
             ipaddr = m2.group(1)
             prt(f'{ifn}: {ipaddr}')
 
-def get_ipaddr() -> Union[list[dict[str,str]], None]:
+def get_ipaddr() -> list[dict[str,str]] | None:
     ''' get ip addr via ifconfig '''
     # only change path of ifconfig for known ubuntu 18.04
     cmd = "/sbin/ifconfig" if is_ubuntu1804() else "/usr/sbin/ifconfig"
