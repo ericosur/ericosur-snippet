@@ -21,35 +21,42 @@ except ModuleNotFoundError:
     print('[INFO] no tomllib, exit...')
     sys.exit(1)
 
+try:
+    from rich import print as rprint
+    USE_RICH = True
+except ImportError:
+    USE_RICH = False
+prt = rprint if USE_RICH else print
+
 class Solution():
     ''' class solution '''
 
     def __init__(self):
         self.value = 0
-        print(f'{sys.version_info=}')
+        prt(f'{sys.version_info=}')
 
     @staticmethod
     def test():
         ''' test '''
         # parse a long string
         s = tomllib.loads(__doc__)
-        print(s)
-        print()
+        prt(s)
+        prt()
         # parse a toml file
         fn = s["main"]["filename"]
         if not os.path.exists(fn):
-            print(f'[FAIL] not found: {fn}')
+            prt(f'[FAIL] not found: {fn}')
             sys.exit(1)
         with open(fn, "rb") as f:
             s = tomllib.load(f)
         key = 'database'
-        print(f'[INFO] query: {key}')
+        prt(f'[INFO] query: {key}')
         for k,v in s[key].items():
-            print(f'{k}: {v}')
+            prt(f'{k}: {v}')
 
     def action(self):
         ''' action '''
-        print('action!')
+        prt('action!')
         Solution.test()
 
     @classmethod
