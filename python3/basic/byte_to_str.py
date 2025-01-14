@@ -7,12 +7,17 @@ string to bytes
 '''
 
 try:
-    from rich import print as pprint
-    from loguru import logger
+    from rich import print as rprint
     USE_RICH = True
 except ImportError:
     USE_RICH = False
 prt = pprint if USE_RICH else print
+
+try:
+    from loguru import logger  # type: ignore[import]
+    USE_LOGG = True
+except ImportError:
+    USE_LOGG = False
 
 try:
     from hexdump import hexdump  # type: ignore[import  ]
@@ -26,7 +31,7 @@ def nothing(*_args, **_kwargs) -> None:
     ''' do donothing'''
     return None
 
-logd = logger.debug if USE_RICH else nothing
+logd = logger.debug if USE_LOGG else nothing
 dump = hexdump if USE_DUMP else nothing
 
 
