@@ -42,7 +42,7 @@ except ImportError:
     # logging.basicConfig(level=logging.DEBUG)
     USE_LOGURU = False
 
-SEP_REPEAT = 65
+SEP_REPEAT = 70
 DEBUG = False
 if DEBUG:
     if USE_LOGURU:
@@ -111,7 +111,7 @@ class GenerateStdNormal():
     @staticmethod
     def header():
         ''' prt header '''
-        prt('  max,   min,  mean, median, stddev,  count,  lhs,  rhs, no_in_scope')
+        prt('   max,   min,  mean, median, stddev,  count,  lhs,  rhs, no_in_scope')
         if USE_RICH:
             prt('[bold magenta]'+ '=' * SEP_REPEAT + '[/]')
         else:
