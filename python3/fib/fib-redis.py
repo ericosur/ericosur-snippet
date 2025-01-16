@@ -3,6 +3,8 @@
 #
 # pylint: disable=import-error
 # pylint: disable=wrong-import-position
+#
+# mypy: ignore-errors
 
 '''
 

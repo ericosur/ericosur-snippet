@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
+#
+# mypy: ignore-errors
 '''
 想知道階乘和次方增加速度
 例如 25 的 n 次方 vs n 的階乘
