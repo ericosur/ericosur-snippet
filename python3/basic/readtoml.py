@@ -6,65 +6,77 @@ example to read config.toml
 https://docs.python.org/zh-tw/dev/library/tomllib.html
 '''
 
+import numpy as np
 from load_toml import LoadToml
+try:
+    from rich import print as rprint
+    USE_RICH = True
+except ImportError:
+    USE_RICH = False
+prt = rprint if USE_RICH else print
+
+try:
+    from loguru import logger
+    USE_LOGURU = True
+except ImportError:
+    USE_LOGURU = False
+logd = logger.debug if USE_LOGURU else print
 
 
-# pylint: disable=import-outside-toplevel
 def test_np():
     ''' numpy vs toml '''
-    import numpy as np
-
-    print('test_np')
+    logd('test_np')
     n = np.arange(0, 10, dtype=np.double)
     output = {'n': n}
 
-    obj = LoadToml.get_class()
+    obj = LoadToml('config.toml')
     toml = obj.toml_lib
 
-    if LoadToml.is_builtin:
-        print('[INFO] tomllib does not support dumps()')
+    if obj.is_builtin:
+        prt('[INFO] tomllib does not support dumps(), exit...')
         return
 
-    print('toml.dump()...')
+    prt('toml.dumps(output) =====>')
     t = toml.dumps(output)
     #n = [ "0.0", "1.0", "2.0", "3.0", "4.0", "5.0", "6.0", "7.0", "8.0", "9.0",]\n
-    print(t)
+    prt(t)
 
+    prt("toml.dumps(... encoder...) =====>")
     t = toml.dumps(output, encoder=toml.TomlNumpyEncoder())
     #n = [ 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0,]\n
-    print(t)
+    prt(t)
 
 
 def test0():
     ''' test0 '''
-    print('test0')
+    logd('test0')
 
-    obj = LoadToml.get_class('config.toml')
+    obj = LoadToml('config.toml')
     data = obj.get_data()
 
-    # if obj.is_builtin:
-    #     print('[INFO] use builtin library')
-    # else:
-    #     print('[INFO] use external library')
+    the_type = "builtin" if obj.is_builtin else "external"
+    prt(f'obj uses {the_type} library')
 
     if data is None:
-        print('cannot load data')
+        logd('data is None')
         return
 
     # Access data from the loaded TOML file
-    print(data['title'])
+    prt(f"date['title']: {data['title']}")
 
     o = data['owner']
     dob = o['dob']
-    print(dob, type(dob))
+    prt('date in the owner section...')
+    prt(dob, type(dob))
 
     d = data['clients']['wtf']
-    print(f"{d['odd']=}")
-    print(f'{d["even"]=}')
+    prt(f"{d['odd']=}")
+    prt(f'{d["even"]=}')
 
 def main():
     ''' main '''
     test0()
+    prt('-' * 66)
     test_np()
 
 if __name__ == '__main__':
