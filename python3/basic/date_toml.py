@@ -19,7 +19,7 @@ from load_toml import LoadToml
 def test0():
     ''' test0 '''
     # Load data from a TOML file
-    obj = LoadToml.get_class('dates.toml')
+    obj = LoadToml('dates.toml')
     dates = obj.get_data()
 
     start = dates['start']

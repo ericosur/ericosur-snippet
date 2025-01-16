@@ -15,8 +15,14 @@ try:
     USE_RICH = True
 except ImportError:
     USE_RICH = False
-
 prt = rprint if USE_RICH else print
+
+try:
+    from loguru import logger
+    USE_LOGURU = True
+except ImportError:
+    USE_LOGURU = False
+logd = logger.debug if USE_LOGURU else print
 
 # pylint: disable=import-outside-toplevel
 class LoadToml():
@@ -49,7 +55,7 @@ class LoadToml():
     def _use_another_lib(self):
         ''' load built-in library '''
         if self.debug:
-            prt('use built-in library tomllib')
+            logd('use built-in library tomllib')
         try:
             # tomllib is standard library provided by python 3.11
             import tomllib  # type: ignore[import]
@@ -60,7 +66,7 @@ class LoadToml():
                 with open(self.tomlfn, 'rb') as f:
                     self.data = tomllib.load(f)
         except ImportError:
-            prt("cannot import toml nor tomllib, exit...")
+            logd("cannot import toml nor tomllib, exit...")
             sys.exit(1)
 
     def get_data(self):
@@ -74,13 +80,11 @@ def test() -> None:
     obj = LoadToml('config.toml')
     obj.debug = False
     data = obj.get_data()
-    # if obj.is_builtin:
-    #     prt('[INFO] use builtin library')
-    # else:
-    #     prt('[INFO] use external library')
+    msg = "builtin library" if obj.is_builtin else "use external library"
+    prt(msg)
 
     if data is None:
-        prt('cannot load data')
+        logd('data is None')
     else:
         prt(data)
         #prt(f'owner: {data["owner"]}')
