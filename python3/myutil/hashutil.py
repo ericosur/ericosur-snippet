@@ -8,6 +8,8 @@
     - sha256sum: ```openssl dgst -sha256 a.txt```
 
     - list all supported digests: ```openssl dgst -list```
+
+    if python 3.11+, use file_digest() and specify digest method
 '''
 
 __VERSION__ = '2024.03.28'
