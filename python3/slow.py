@@ -5,60 +5,71 @@
 profiling a slow function
 '''
 
-from random import randint
 from time import perf_counter as pc
 from time import sleep, time
+from timeit import default_timer
+
+try:
+    from rich import print as rprint
+    USE_RICH = True
+except ImportError:
+    USE_RICH = False
+try:
+    from loguru import logger
+    USE_LOGGER = True
+except ImportError:
+    USE_LOGGER = False
+from myutil import do_nothing
+
+prt = rprint if USE_RICH else print
+DEBUG = True
+if DEBUG:
+    logd = logger.debug if USE_LOGGER else print
+else:
+    logd = do_nothing
 
 
-class JustData():
-    ''' put const here '''
-    upper = 4286420
-    lower = 9997
-    arr_size = 100
-
-
-def slow():
-    ''' slow function '''
-    #a = [x for x in range(JustData.lower, JustData.upper +1)]
-    a = list(range(JustData.lower, JustData.upper +1))
-    for _ in range(JustData.arr_size):
-        v = randint(JustData.lower, JustData.upper)
-        if v in a:
-            return True
-    return False
-
-def mysleep():
+def mysleep() -> None:
     ''' sleep 500 ms '''
-    sleep(0.5)
-    return 0
+    SLEEP_TIME = 0.5
+    logd(f'mysleep: sleep: {SLEEP_TIME} sec')
+    sleep(SLEEP_TIME)
 
-def basic(func=slow):
+def use_timer(func) -> float:
+    ''' use default timer '''
+    start = default_timer()
+    func()
+    during = default_timer() - start
+    return during
+
+def use_time(func) -> float:
     ''' using time '''
     start_time = time()
     func()
     duration = time() - start_time
     return duration
 
-def high_performance(func=slow):
+def use_high_performance(func) -> float:
     ''' using perf_counter '''
     start_time = pc()
     func()
     duration = pc() - start_time
     return duration
 
+def sep(c: str) -> None:
+    ''' print sep '''
+    prt(c * 60)
+
 def main():
     ''' main '''
     def run(func, method):
         d = func(method)
-        print(f'duration of {func.__name__:20s}: {d*1000:.10f}')
+        prt(f'duration of {func.__name__:20s}: {d*1000:.10f}')
 
-    run(basic, slow)
-    print('-' * 50)
-    run(high_performance, slow)
-    print('=' * 50)
-    run(basic, mysleep)
-    print('-' * 50)
-    run(high_performance, mysleep)
+    for _ in range(4):
+        run(use_time, mysleep)
+        run(use_timer, mysleep)
+        run(use_high_performance, mysleep)
 
 if __name__ == '__main__':
     main()

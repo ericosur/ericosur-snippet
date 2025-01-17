@@ -19,7 +19,7 @@ except ImportError:
     print("need module sympy")
     sys.exit(1)
 
-def get_num_factors(value):
+def get_num_factors(value: int) -> int:
     '''
     use sympy.factorint() and display in formatted form
     '''
@@ -35,14 +35,14 @@ def get_num_factors(value):
         t *= (v + 1)
     return t
 
-def main():
+def main() -> None:
     '''main function'''
     lower = 4
-    upper = 100000
+    upper = 1_000
     max_k = 1
     max_v = 1
     for x in range(lower, upper):
-        ret = get_num_factors(x)
+        ret = get_num_factors(x)  # get the number of factors of x
         if ret > max_v:
             max_k = x
             max_v = ret

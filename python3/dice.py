@@ -11,17 +11,32 @@ plot the result
 
 import time
 from random import randint
-
 import matplotlib.pyplot as plt
-
 import numpy as np
-
 #import seaborn as sns
+try:
+    from rich import print as rprint
+    USE_RICH = True
+except ImportError:
+    USE_RICH = False
+try:
+    from loguru import logger
+    USE_LOGGER = True
+except ImportError:
+    USE_LOGGER = False
+from myutil import do_nothing
+
+prt = rprint if USE_RICH else print
+DEBUG = True
+if DEBUG:
+    logd = logger.debug if USE_LOGGER else print
+else:
+    logd = do_nothing
 
 
 class TestDice():
     ''' test sum of dices '''
-    num_dice = 3
+    num_dice = 6
     min_dice = 1
     max_dice = 6
     repeat = 50000
@@ -41,10 +56,12 @@ class TestDice():
 
     def print_header(self):
         ''' print header '''
-        print(f'from {self.min_sum} to {self.max_sum}')
+        prt(f'Use {self.num_dice} dices, total sum from {self.min_sum} to {self.max_sum}')
+        prt(f'no of repeat: {self.repeat:,}')
 
-    def plot_result(self):
+    def plot_result(self) -> None:
         ''' plot '''
+        logd('plot results')
         colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'purple']
         x = np.arange(self.min_sum, self.max_sum + 1)
         plt.title('title')
@@ -55,7 +72,7 @@ class TestDice():
             plt.plot(x, y, color=colors[i])
         plt.show()
 
-    def method1(self):
+    def method1(self) -> None:
         ''' method 1 '''
         self.reset_result()
         start = time.time()
@@ -71,7 +88,7 @@ class TestDice():
         assert np.sum(self.result) == self.repeat
         self.ydata.append(self.result[self.min_sum:])
 
-    def method2(self):
+    def method2(self) -> None:
         ''' method 2 '''
         self.reset_result()
         start = time.time()
@@ -87,20 +104,23 @@ class TestDice():
         assert np.sum(self.result) == self.repeat
         self.ydata.append(self.result[self.min_sum:])
 
-    def action(self):
+    def action(self) -> None:
         ''' action '''
         self.print_header()
         self.method1()
-        self.method2()
-        self.method2()
-        self.method2()
-        self.method2()
+        for _ in range(4):
+            self.method2()
         self.plot_result()
+
+    @classmethod
+    def run(cls):
+        ''' run '''
+        obj = cls()
+        obj.action()
 
 def main():
     ''' main '''
-    runTest = TestDice()
-    runTest.action()
+    TestDice.run()
 
 if __name__ == '__main__':
     main()
