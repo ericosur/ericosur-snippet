@@ -44,6 +44,7 @@ except ImportError:
 
 SEP_REPEAT = 70
 DEBUG = False
+logd :Any = None
 if DEBUG:
     if USE_LOGURU:
         logd = logger.debug
