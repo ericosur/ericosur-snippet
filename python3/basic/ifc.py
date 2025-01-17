@@ -13,11 +13,16 @@ try:
     USE_RICH = True
 except ImportError:
     USE_RICH = False
-from run_cmd import run_command, run_command2
-from run_cmd import is_linux, is_windows, show_platform
+prt = rprint if USE_RICH else print
+
 from read_os_release import is_ubuntu1804
 
-prt = rprint if USE_RICH else print
+sys.path.insert(0, './')
+sys.path.insert(0, '../')
+sys.path.insert(0, 'python3/')
+from myutil import is_linux, is_windows, show_platform  # type: ignore[import]
+from myutil import run_command, run_command2  # type: ignore[import]
+
 
 def run_ipconfig() -> None:
     ''' run ipconfig (in cygwin/windows) '''

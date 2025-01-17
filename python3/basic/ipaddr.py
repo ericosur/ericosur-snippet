@@ -7,18 +7,22 @@ call __ip addr__ and parse
 
 import re
 import sys
-from typing import Dict
+
 try:
     from rich import print as rprint
     USE_RICH = True
 except ImportError:
     USE_RICH = False
-from run_cmd import run_command, is_linux
+
 from read_os_release import is_ubuntu1804
+sys.path.insert(0, './')
+sys.path.insert(0, '../')
+sys.path.insert(0, 'python3/')
+from myutil import is_linux, run_command  # type: ignore[import]
 
 prt = rprint if USE_RICH else print
 
-def get_ipaddr() -> Dict[str, str]:
+def get_ipaddr() -> dict[str, str]:
     ''' get ip addr'''
     cmd = "/sbin/ip addr" if is_ubuntu1804() else "/usr/sbin/ip addr"
     outs = run_command(cmd)
