@@ -9,7 +9,8 @@ import re
 import sys
 
 try:
-    from rich import print as rprint
+    #from rich import print as pprint
+    from rich.pretty import pprint
     USE_RICH = True
 except ImportError:
     USE_RICH = False
@@ -20,7 +21,7 @@ sys.path.insert(0, '../')
 sys.path.insert(0, 'python3/')
 from myutil import is_linux, run_command  # type: ignore[import]
 
-prt = rprint if USE_RICH else print
+prt = pprint if USE_RICH else print
 
 def get_ipaddr() -> dict[str, str]:
     ''' get ip addr'''

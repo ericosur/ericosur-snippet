@@ -22,11 +22,11 @@ except ModuleNotFoundError:
     sys.exit(1)
 
 try:
-    from rich import print as rprint
+    from rich import print as pprint
     USE_RICH = True
 except ImportError:
     USE_RICH = False
-prt = rprint if USE_RICH else print
+prt = pprint if USE_RICH else print
 
 class Solution():
     ''' class solution '''

@@ -10,12 +10,11 @@ import re
 import sys
 from typing import Union, Dict
 try:
-    from rich import print as rprint
+    from rich import print as pprint
     USE_RICH = True
 except ImportError:
     USE_RICH = False
-
-prt = rprint if USE_RICH else print
+prt = pprint if USE_RICH else print
 
 class OSRelease():
     ''' info from /etc/os-release (ubuntu) '''

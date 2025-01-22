@@ -14,14 +14,15 @@ try:
 except ImportError as err:
     print('Import Error:', err)
 
-import os
-import re
+#import os
+#import re
 import sys
 try:
-    from rich import print as rprint
-    prt = rprint
+    from rich import print as pprint
+    USE_RICH = True
 except ImportError:
-    prt = print
+    USE_RICH = False
+prt = pprint if USE_RICH else print
 
 def test():
     ''' test '''

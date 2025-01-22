@@ -9,11 +9,11 @@ https://docs.python.org/zh-tw/dev/library/tomllib.html
 import numpy as np
 from load_toml import LoadToml
 try:
-    from rich import print as rprint
+    from rich import print as pprint
     USE_RICH = True
 except ImportError:
     USE_RICH = False
-prt = rprint if USE_RICH else print
+prt = pprint if USE_RICH else print
 
 try:
     from loguru import logger

@@ -16,11 +16,11 @@ about 14 year we could double the base
 '''
 
 try:
-    from rich import print as rprint
+    from rich import print as pprint
     USE_RICH = True
 except ImportError:
     USE_RICH = False
-prt = rprint if USE_RICH else print
+prt = pprint if USE_RICH else print
 
 def tryloop(r: float, _limit=2.0):
     ''' tryloop '''
