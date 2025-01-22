@@ -9,12 +9,13 @@ import os
 import re
 from sysconfig import get_platform
 try:
-    from rich import print as rprint
+    from rich import print as pprint
     USE_RICH = True
 except ImportError:
     USE_RICH = False
+prt = pprint if USE_RICH else print
 
-prt = rprint if USE_RICH else print
+
 PLAT = get_platform()
 
 def is_win() -> bool:
@@ -31,7 +32,7 @@ def is_linux() -> bool:
     ''' if "linux" appears in any position '''
     return 'linux' in PLAT
 
-def yes_no(is_yes: bool, prefix=None, postfix=''):
+def yes_no(is_yes: bool, prefix=None, postfix='') -> None:
     ''' yea or no '''
     if USE_RICH:
         yes_no_color(is_yes, prefix=prefix, postfix=postfix)
@@ -44,13 +45,16 @@ def yes_no(is_yes: bool, prefix=None, postfix=''):
     else:
         print(f'{msg} NO {postfix}')
 
-def yes_no_color(is_yes: bool, prefix=None, postfix=''):
+def yes_no_color(is_yes: bool, prefix=None, postfix='') -> None:
     ''' color version '''
+    if not USE_RICH:
+        return
+
     msg = prefix if prefix is not None else ''
     if is_yes:
-        rprint(f'{msg} [green]YES[/] {postfix}')
+        prt(f'{msg} [green]YES[/] {postfix}')
     else:
-        rprint(f'{msg} [red]NO[/] {postfix}')
+        prt(f'{msg} [red]NO[/] {postfix}')
 
 def check_src(src: str) -> bool:
     ''' check if the src is ok '''
@@ -59,7 +63,7 @@ def check_src(src: str) -> bool:
 
 def main():
     ''' main '''
-    rprint(f"platform: {PLAT}")
+    prt(f"platform: {PLAT}")
     yes_no(is_win(), prefix="is_win:")
     yes_no(is_cygwin(), prefix="is_cygwin:")
     yes_no(is_linux(), prefix="is_linux:")

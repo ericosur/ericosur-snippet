@@ -9,11 +9,12 @@ import os
 import re
 import sys
 try:
-    from rich import print as rprint
+    #from rich import print as pprint
+    from rich.pretty import pprint
     USE_RICH = True
 except ImportError:
     USE_RICH = False
-prt = rprint if USE_RICH else print
+prt = pprint if USE_RICH else print
 
 from read_os_release import is_ubuntu1804
 

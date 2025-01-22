@@ -7,12 +7,12 @@ string to bytes
 '''
 
 try:
-    from rich import print as rprint
+    from rich import print as pprint
     from loguru import logger
     USE_RICH = True
 except ImportError:
     USE_RICH = False
-prt = rprint if USE_RICH else print
+prt = pprint if USE_RICH else print
 
 try:
     from hexdump import hexdump  # type: ignore[import  ]

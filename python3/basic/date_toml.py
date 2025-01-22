@@ -12,6 +12,12 @@
 
 #import datetime
 #import sys
+try:
+    from rich.pretty import pprint
+    USE_RICH = True
+except ImportError:
+    USE_RICH = False
+prt = pprint if USE_RICH else print
 
 from load_toml import LoadToml
 
@@ -26,15 +32,15 @@ def test0():
     end = dates['end']
     for i in range(start, end+1):
         k = f'odt{i}'
-        print(f'{dates[k]}\n{dates[k]=}')
+        prt(f'{dates[k]}\n{dates[k]=}')
         dt = dates[k]
-        print(dt)
+        prt(dt)
 
     start = dates['from']
     end = dates['to']
     for i in range(start, end+1):
         k = f'ldt{i}'
-        print(f'{dates[k]=}')
+        prt(f'{dates[k]=}')
 
 def main():
     ''' main '''
