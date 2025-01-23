@@ -2,28 +2,37 @@
 # -*- coding: utf-8 -*-
 
 '''
-reference from http://snippets.dzone.com/posts/show/5433
+# Monte Carlo method
 
-using Monte Carlo method to calculate Pi
+Using Monte Carlo method to calculate Pi
+reference: http://snippets.dzone.com/posts/show/5433
+
 '''
 
 import math
 import random
 import time
 
+try:
+    from rich.console import Console
+    from rich.markdown import Markdown
+    USE_RICH = True
+except ImportError:
+    USE_RICH = False
 
 class CalcPi():
     ''' a class to calculate pi from random numbers '''
-    REPEAT_TIME = 10000000
+    REPEAT_TIME = 20_000_000
 
     def __init__(self):
         self.inside = 0
         self.outside = 0
         self.start = 0
         self.end = 0
+        self.console = Console() if USE_RICH else None
 
     @staticmethod
-    def is_on_circle(x, y):
+    def is_on_circle(x, y) -> bool:
         ''' is (x, y) in range of the unit circle '''
         return math.sqrt(x ** 2 + y ** 2) < 1
 
@@ -37,14 +46,18 @@ class CalcPi():
             else:
                 self.outside += 1
 
-    def get_results(self):
+    def get_results(self) -> tuple:
         ''' return results '''
-        return (float(self.inside), float(self.outside))
+        return float(self.inside), float(self.outside)
 
     def get_pi(self):
         ''' return guessed pi '''
         self.start = time.time()
-        self._run_repeat()
+        if self.console:
+            with self.console.status("[bold green]running...[/]", spinner="dots") as status:
+                self._run_repeat()
+        else:
+            self._run_repeat()
         r = self.get_results()
         pi = r[0] / (r[0] + r[1]) * 4
         self.end = time.time()
@@ -53,20 +66,27 @@ class CalcPi():
     def get_duration(self):
         ''' print duration '''
         d = abs(self.start - self.end)
-        print(f"duration: {d:.3f} seconds")
+        print(f"duration: {d:.4f} seconds")
 
     @classmethod
     def run(cls):
         ''' run '''
-        calcpi = cls()
-        got_pi = calcpi.get_pi()
+        obj = cls()
+        if USE_RICH:
+            md = Markdown(__doc__)
+            obj.console.print(md)
+        else:
+            print(__doc__)
+        print()
+
+        print(f"REPEAT_TIME: {CalcPi.REPEAT_TIME:,}")
+        got_pi = obj.get_pi()
         dist = abs(math.pi - got_pi)
-        print(f'got {got_pi} and distance: {dist:.6f}')
-        calcpi.get_duration()
+        print(f'Estimated pi is {got_pi:.8f} and distance: {dist:.8f}')
+        obj.get_duration()
 
 def main():
     '''main function'''
-    print(__doc__)
     CalcPi.run()
 
 if __name__ == '__main__':

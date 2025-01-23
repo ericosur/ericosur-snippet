@@ -35,9 +35,11 @@ from random import randint
 from time import time
 try:
     from rich import print as rprint
+    from rich.progress import Progress
     USE_RICH = True
 except ImportError:
     USE_RICH = False
+
 prt = rprint if USE_RICH else print
 if USE_RICH:
     from rich.console import Console
@@ -52,30 +54,71 @@ class MontyHall():
     REPEAT = 5_000_000
     DOORS = 4
     EXPECTED = float(3 / 8)
+    ANS = 1
+
+    def __init__(self):
+        self.cnt_car = 0
+        self.cnt_goat = 0
+
+    def show_result(self, duration: float) -> None:
+        ''' show result'''
+        prt(f'cnt_car:{self.cnt_car:,}, cnt_goat:{self.cnt_goat}')
+        r = self.cnt_car / self.REPEAT
+        prt(f'ratio: {r:.4f}, distance to expected: {abs(r-self.EXPECTED):.4f}')
+        prt(f'it takes {duration:.3f} sec')
+
+    def run_with_progress(self):
+        ''' progress bar, it is slower than without progress bar '''
+        self.cnt_car = 0
+        self.cnt_goat = 0
+        prt(f'repeat={self.REPEAT:,}; start...')
+        start = time()
+        progress_unit = 100  # do not update progress bar too frequently
+        with Progress(refresh_per_second=1) as progress:
+            task = progress.add_task('searching...', total=self.REPEAT)
+            for i in range(self.REPEAT):
+                if i % progress_unit == 0:
+                    progress.update(task, advance=progress_unit)
+                choose1 = randint(1, self.DOORS)
+                if choose1 == self.ANS:
+                    self.cnt_goat += 1
+                    continue
+                choose2 = randint(1, self.DOORS-2)
+                if choose2 == self.ANS:
+                    self.cnt_car += 1
+                else:
+                    self.cnt_goat += 1
+            progress.update(task, advance=self.REPEAT/progress_unit)
+        duration = time() - start
+        self.show_result(duration)
+
+    def run_without_progress(self):
+        ''' no progress bar'''
+        self.cnt_car = 0
+        self.cnt_goat = 0
+        prt(f'repeat={self.REPEAT:,}, start...')
+        start = time()
+        for _ in range(self.REPEAT):
+            choose1 = randint(1, self.DOORS)
+            if choose1 == self.ANS:
+                self.cnt_goat += 1
+                continue
+            choose2 = randint(1, self.DOORS-2)
+            if choose2 == self.ANS:
+                self.cnt_car += 1
+            else:
+                self.cnt_goat += 1
+        duration = time() - start
+        self.show_result(duration)
 
     @classmethod
     def run(cls):
         ''' run the simulation '''
-        ans = 1
-        cnt_car = 0
-        cnt_goat = 0
-        prt(f'repeat={cls.REPEAT:,}, start...')
-        start = time()
-        for _ in range(cls.REPEAT):
-            choose1 = randint(1, cls.DOORS)
-            if choose1 == ans:
-                cnt_goat += 1
-                continue
-            choose2 = randint(1, cls.DOORS-2)
-            if choose2 == ans:
-                cnt_car += 1
-            else:
-                cnt_goat += 1
-        duration = time() - start
-        prt(f'cnt_car:{cnt_car:,}, cnt_goat:{cnt_goat}')
-        r = cnt_car / cls.REPEAT
-        prt(f'ratio: {r:.4f}, distance to expected: {abs(r-cls.EXPECTED):.4f}')
-        prt(f'it takes {duration:.3f} sec')
+        obj = cls()
+        if USE_RICH:
+            obj.run_with_progress()
+        else:
+            obj.run_without_progress()
 
 def main():
     ''' main '''
