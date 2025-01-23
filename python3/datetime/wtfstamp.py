@@ -24,6 +24,7 @@ import time
 import logging
 try:
     from rich import print as rprint
+    from rich.console import Console
     USE_RICH = True
 except ImportError:
     USE_RICH = False
@@ -116,6 +117,26 @@ def look_for_five_head() -> None:
             break
         time.sleep(0.25)
 
+def look_for_head5() -> None:
+    ''' look for five head from now
+    '''
+    LOOK_FOR_FIVE_HEAD = True
+    cnt = 0
+    console = Console()
+    with console.status("[bold green]Searching...[/]", spinner="dots") as status:
+        while LOOK_FOR_FIVE_HEAD:
+            ns = time.time_ns()
+            #ns=1725351036589899672
+            #ns=1725350935165748837
+            sick = get_sick_from_ns(ns)
+            cnt += 1
+            if str(sick)[0] == '5':
+                dt = sick_to_datetime(sick)
+                ns_val = sick_to_ns(sick)
+                output_for_five_head(ns, sick, dt, cnt, ns_val)
+                break
+            time.sleep(0.25)
+
 def look_for_1e9() -> None:
     ''' 1e9 loop '''
     obj = Solution()
@@ -126,7 +147,10 @@ def look_for_1e9() -> None:
 
 def main():
     ''' main '''
-    look_for_five_head()
+    if USE_RICH:
+        look_for_head5()
+    else:
+        look_for_five_head()
 
 if __name__ == '__main__':
     main()

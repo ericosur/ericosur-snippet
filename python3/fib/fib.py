@@ -15,6 +15,12 @@ It took 23.81 sec to calculate fib(40)
 from timeit import default_timer
 from datetime import datetime
 from socket import gethostname
+try:
+    from rich.console import Console
+    #from rich.markdown import Markdown
+    USE_RICH = True
+except ImportError:
+    USE_RICH = False
 
 
 def fib(n: int) -> int:
@@ -33,19 +39,20 @@ def prepare_msg(duration: float, ulimit: int) -> None:
 def test() -> None:
     ''' test '''
     m = 40
-    print(f'calculate fib({m}) from scratch, for cached fib(), use')
+    print(f'Calculate fib({m}) from scratch, for cached fib(), use')
     print('fib_store.py')
 
     time_start = default_timer()
-    r = fib(m)
-    time_end = default_timer()
-    d = time_end - time_start
-    print(f'fib({m}) = {r}, during: {d:.3f}')
+    if USE_RICH:
+        console = Console()
+        with console.status("[bold green]running...[/]", spinner="dots") as status:
+            r = fib(m)
+    else:
+        r = fib(m)
+    d = default_timer() - time_start
+
+    print(f'fib({m}) = {r}')
     prepare_msg(d, m)
 
-def main():
-    ''' main '''
-    test()
-
 if __name__ == '__main__':
-    main()
+    test()
