@@ -11,8 +11,20 @@ import threading
 from timeit import default_timer
 from random import randint
 import numpy as np
-from loguru import logger
-logd = logger.debug
+
+try:
+    from rich import print as pprint
+    USE_RICH = True
+except ImportError:
+    USE_RICH = False
+prt = pprint if USE_RICH else print
+
+try:
+    from loguru import logger
+    USE_LOGURU = True
+except ImportError:
+    USE_LOGURU = False
+logd = logger.debug if USE_LOGURU else print
 
 ARR_SIZE = 100_000
 
@@ -20,22 +32,21 @@ def hard_work() -> str:
     ''' hard work '''
     tid = threading.current_thread().ident
     logd(f'hard_work: thread id: {tid}')
-    rep = randint(6, 12) * 100
-    arr = np.random.randint(255, size=ARR_SIZE)
+    rep = randint(1, 4) * 1000
+    arr = [randint(0, 255) for _ in range(ARR_SIZE)]
     total = 0
     start = default_timer()
     for _ in range(rep):
         total += sum(arr)
-    end = default_timer()
-    during = end - start
-    print_during(start, end, f'hard-{tid}')
-    msg = f'hard_work: {tid}: elem {rep*ARR_SIZE:,}, during {during}, total: {total}'
-    logd(msg)
+    during = default_timer() - start
+    print_during(during, f'hard-{tid}')
+    msg = f' hard_work: {tid}:\nelem {rep*ARR_SIZE:,}, during {during:.6f}, total: {total:,}'
+    #logd(msg)
     return msg
 
 def heavy_work() -> str:
     ''' heavy work '''
-    rep = 6_000
+    rep = 100_000
     tid = threading.current_thread().ident
     logd(f'heavy_work: thread id: {tid}')
     total = 0
@@ -43,11 +54,10 @@ def heavy_work() -> str:
     arr = np.random.randint(255, size=ARR_SIZE)
     for _ in range(rep):
         total += np.sum(arr)  # type: ignore[assignment]
-    end = default_timer()
-    during = end - start
-    print_during(start, end, f'heavy-{tid}')
-    msg = f'heavy_work: {tid}: elem {rep*ARR_SIZE:,}, during: {during}, total: {total}'
-    logd(msg)
+    during = default_timer() - start
+    print_during(during, f'heavy-{tid}')
+    msg = f'heavy_work: {tid}:\nelem {rep*ARR_SIZE:,}, during: {during:.6f}, total: {total:,}'
+    #logd(msg)
     return msg
 
 async def do_hard_job(loop, pool, idx: int) -> str:
@@ -72,14 +82,16 @@ async def do_easy_job(_loop, _pool, idx: int) -> None:
     '''
     easy job just sleep a moment
     '''
+    start = default_timer()
     await asyncio.sleep(1)
+    during = default_timer() - start
+    print_during(during, f'easy-{idx}')
     logd(f'task{idx}: do_easy_job done!')
     return None
 
-def print_during(start: float, end: float, msg: str|None) -> None:
+def print_during(during: float, msg: str|None) -> None:
     ''' during '''
-    during = end - start
-    print(f'{msg}: during: {during:.5f}')
+    prt(f'{msg}: during: {during:.5f}')
 
 async def main():
     '''
@@ -102,8 +114,8 @@ async def main():
     except TimeoutError:
         print("The long operation timed out, but we've handled it.")
 
-    end = default_timer()
-    print_during(start, end, "main")
+    during = default_timer() - start
+    print_during(during, "main")
     print('-' * 70)
     print('show gathered results:')
     for idx,r in enumerate(results):
