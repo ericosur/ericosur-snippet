@@ -54,7 +54,7 @@ class CalcPi():
         ''' return guessed pi '''
         self.start = time.time()
         if self.console:
-            with self.console.status("[bold green]running...[/]", spinner="dots") as status:
+            with self.console.status("[bold green]running...[/]", spinner="dots") as _status:
                 self._run_repeat()
         else:
             self._run_repeat()

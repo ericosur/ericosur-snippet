@@ -9,8 +9,8 @@ use typer to handle CLI
 '''
 
 import sys
-from typing import List, Optional
-from typing_extensions import Annotated
+from typing import List, Optional, Annotated
+
 try:
     import typer
     print("version of typer:", typer.__version__)
