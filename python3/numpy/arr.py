@@ -1,55 +1,87 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
-''' numpy array sample '''
+'''
+with asyncio to compare sum vs np.sum
+'''
 
-from __future__ import print_function
-import sys
-import timeit
+from timeit import default_timer
+import asyncio
+import concurrent
 import numpy as np
-sys.path.insert(0, "..")
-sys.path.insert(0, "python3")
-from myutil import prt  # type: ignore[import]
+from rich.console import Console
 
-class Solution():
-    ''' solution '''
-    MAXCNT = 1_000_000
+MAXCNT = 500_000_000
+MAX_TIMEOUT = 20  # seconds
 
-    def __init__(self):
-        self.vals = np.random.random(self.MAXCNT)
+console = Console()
+prt = console.print
 
-    def test1(self):
-        ''' test1 '''
-        sum(self.vals)
+def builtin_sum(arr) -> int:
+    ''' builtin sum '''
+    start = default_timer()
+    r = sum(arr)
+    during = default_timer() - start
+    print_during(during, "builtin_sum")
+    return r
 
-    def test2(self):
-        ''' test2 '''
-        np.sum(self.vals)
+def numpy_sum(arr) -> int:
+    ''' numpy sum'''
+    start = default_timer()
+    r = np.sum(arr)
+    during = default_timer() - start
+    print_during(during, "numpy_sum")
+    return r
 
-    @staticmethod
-    def get_statistics(arr):
-        ''' get statistics '''
-        prt(f'min: {np.min(arr):.6f}, max: {np.max(arr):.6f}')
-        prt(f'std: {np.std(arr):.6f}, mean: {np.mean(arr):.6f} avg: {np.average(arr):.6f}')
+async def do_builtin_job(loop, pool, arr) -> int:
+    '''
+    builtin sum
+    '''
+    return await loop.run_in_executor(pool, builtin_sum, arr)
 
-    # pylint: disable=unnecessary-lambda
-    @classmethod
-    def run(cls):
-        ''' run me '''
-        obj = cls()
-        prt(f'Note: an np.narray with size ({obj.MAXCNT}), and repeat sum up')
-        prt('normal python sum() will take lots of CPU time')
-        REPEAT = 100
-        #t =timeit.timeit("test1()", setup='from __main__ import test1', number=100)
-        t = timeit.timeit(lambda: obj.test1(), number=REPEAT)
-        prt(f'time taken with python sum(): {t:.6f}')
-        t = timeit.timeit(lambda: obj.test2(), number=REPEAT)
-        prt(f'time taken with numpy.sum():  {t:.6f}')
+async def do_numpy_job(loop, pool, arr) -> int:
+    '''
+    numpy sum
+    '''
+    return await loop.run_in_executor(pool, numpy_sum, arr)
 
-def main():
-    ''' main '''
-    #test()
-    Solution.run()
+def print_during(during: float, msg: str) -> None:
+    ''' print during '''
+    prt(f'{msg}: during: {during:.6f}')
 
-if __name__ == '__main__':
-    main()
+async def main():
+    '''
+    async main
+    '''
+    np_arr = None
+    int_arr = None
+    outer_start = default_timer()
+    with console.status("[bold green] running...", spinner="bouncingBar") as _status:
+        start = default_timer()
+        np_arr = np.random.randint(255, size=MAXCNT)
+        int_arr = np_arr.tolist()
+        during = default_timer() - start
+        print_during(during, "time taken for array generation")
+
+        loop = asyncio.get_event_loop()
+        start = default_timer()
+        try:
+            async with asyncio.timeout(MAX_TIMEOUT):
+                prt("start running tasks...")
+                with concurrent.futures.ThreadPoolExecutor() as pool:
+                    task1 = asyncio.create_task(do_builtin_job(loop, pool, int_arr))
+                    task2 = asyncio.create_task(do_numpy_job(loop, pool, np_arr))
+                    prt('before calling gather...')
+                    results = await asyncio.gather(task1, task2)
+        except TimeoutError:
+            prt("The long operation timed out, but we've handled it.")
+
+    out_during = default_timer() - outer_start
+    print_during(out_during, "main")
+    prt('-' * 70)
+    prt('gathered results:')
+    for idx,r in enumerate(results):
+        prt(f'{idx}: {r}')
+
+if __name__ == "__main__":
+    asyncio.run(main())
