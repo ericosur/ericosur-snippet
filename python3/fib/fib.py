@@ -45,7 +45,7 @@ def test() -> None:
     time_start = default_timer()
     if USE_RICH:
         console = Console()
-        with console.status("[bold green]running...[/]", spinner="dots") as status:
+        with console.status("[bold green]running...[/]", spinner="dots") as _status:
             r = fib(m)
     else:
         r = fib(m)

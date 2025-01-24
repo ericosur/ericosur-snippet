@@ -123,7 +123,7 @@ def look_for_head5() -> None:
     LOOK_FOR_FIVE_HEAD = True
     cnt = 0
     console = Console()
-    with console.status("[bold green]Searching...[/]", spinner="dots") as status:
+    with console.status("[bold green]Searching...[/]", spinner="dots") as _status:
         while LOOK_FOR_FIVE_HEAD:
             ns = time.time_ns()
             #ns=1725351036589899672
