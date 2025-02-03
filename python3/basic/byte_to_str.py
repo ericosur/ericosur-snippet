@@ -11,7 +11,7 @@ try:
     USE_RICH = True
 except ImportError:
     USE_RICH = False
-prt = pprint if USE_RICH else print
+prt = rprint if USE_RICH else print
 
 try:
     from loguru import logger  # type: ignore[import]
