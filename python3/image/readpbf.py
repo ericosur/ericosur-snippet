@@ -37,7 +37,7 @@ def identify_blob(blob):
     ''' identify blob after construct a WandImage
         the size of blob should be same as input file
     '''
-    from wand.image import Image as WandImage
+    from wand.image import Image as WandImage  # type: ignore[import]
     with WandImage(blob=blob) as img:
         print(f'S:{len(blob)}, (W:{img.width}, H:{img.height}) format: {img.format}')
 
@@ -67,7 +67,7 @@ def output_opencv(ifn, ofn):
 
 def output_imageio(ofn, blob):
     ''' from byte streams '''
-    import imageio.v3 as iio
+    import imageio.v3 as iio  # type: ignore[import]
     byte_stream = io.BytesIO(blob)
     frames = iio.imread(byte_stream, index=None)
     iio.imwrite(ofn, frames)

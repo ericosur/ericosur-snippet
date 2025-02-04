@@ -9,13 +9,14 @@ read image from a zip file, and save to file
 import os
 from random import randint
 
-import imageio.v3 as iio
+import imageio.v3 as iio  # type: ignore[import]
+from get_home import get_home
 
 
 class Solution():
     ''' class solution '''
     def __init__(self):
-        home = os.getenv('HOME')
+        home = get_home()
         self.zipf = os.path.join(home, 'Pictures/data/mononoke.zip')
 
     @staticmethod

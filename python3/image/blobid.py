@@ -12,7 +12,8 @@ https://docs.wand-py.org/en/0.6.12/guide/read.html#read-a-blob
 import os
 import sys
 
-from wand.image import Image as WandImage
+from wand.image import Image as WandImage  # type: ignore[import]
+from get_home import get_home
 
 
 def get_blob_from_file(fn):
@@ -36,7 +37,7 @@ class Solution():
     files = ['bmp3870.bmp', 'map3850.tif', 'shoelace-knot.png', 'img2668.jpg']
 
     def __init__(self):
-        home = os.getenv('HOME')
+        home = get_home()
         src_dir = os.path.join(home, 'Pictures/data')
         self.srcfiles = [ os.path.join(src_dir, f) for f in Solution.files ]
         self._check_images()
