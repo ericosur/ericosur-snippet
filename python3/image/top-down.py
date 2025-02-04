@@ -18,8 +18,9 @@ libmagickwand
 import os
 import sys
 
-from wand.display import display
-from wand.image import Image
+from wand.display import display  # type: ignore[import]
+from wand.image import Image  # type: ignore[import]
+from get_home import get_home
 
 
 class Solution():
@@ -28,7 +29,7 @@ class Solution():
     DEMO = False
 
     def __init__(self):
-        home = os.getenv("HOME")
+        home = get_home()
         self.images = ["padlock1.png", "padlock2.png"]
         self.src_dir = os.path.join(home, 'Pictures/data')
         self.ofn = "output.png"

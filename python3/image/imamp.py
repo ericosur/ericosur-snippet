@@ -14,13 +14,14 @@ import os
 from pathlib import Path
 
 import cv2
-import imageio.v3 as iio
+import imageio.v3 as iio  # type: ignore[import]
+from get_home import get_home
 
 
 class Solution():
     ''' class solution '''
     def __init__(self):
-        home = os.getenv('HOME')
+        home = get_home()
         self.src_dir = os.path.join(home, 'Pictures/data')
         self.cnt = 0
 
