@@ -4,10 +4,8 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-// Token: 0x020001BB RID: 443
 public class Crypt
 {
-	// Token: 0x06000950 RID: 2384 RVA: 0x00046720 File Offset: 0x00044B20
 	public static string Encrypt(string text)
 	{
 		ICryptoTransform cryptoTransform = new RijndaelManaged
@@ -16,8 +14,8 @@ public class Crypt
 			KeySize = 128,
 			Padding = PaddingMode.Zeros,
 			Mode = CipherMode.CBC,
-			Key = Encoding.UTF8.GetBytes("giVJrbHRlWBDIggF"),
-			IV = Encoding.UTF8.GetBytes("jCddaOybW3zEh0Kl")
+			Key = Encoding.UTF8.GetBytes(AesKey),
+			IV = Encoding.UTF8.GetBytes(AesIV)
 		}.CreateEncryptor();
 		MemoryStream memoryStream = new MemoryStream();
 		CryptoStream cryptoStream = new CryptoStream(memoryStream, cryptoTransform, CryptoStreamMode.Write);
@@ -28,7 +26,6 @@ public class Crypt
 		return Convert.ToBase64String(array);
 	}
 
-	// Token: 0x06000951 RID: 2385 RVA: 0x000467C8 File Offset: 0x00044BC8
 	public static string Decrypt(string cryptText)
 	{
 		ICryptoTransform cryptoTransform = new RijndaelManaged
@@ -37,8 +34,8 @@ public class Crypt
 			KeySize = 128,
 			Padding = PaddingMode.Zeros,
 			Mode = CipherMode.CBC,
-			Key = Encoding.UTF8.GetBytes("giVJrbHRlWBDIggF"),
-			IV = Encoding.UTF8.GetBytes("jCddaOybW3zEh0Kl")
+			Key = Encoding.UTF8.GetBytes(AesKey),
+			IV = Encoding.UTF8.GetBytes(AesIV)
 		}.CreateDecryptor();
 		string text;
 		try
@@ -57,9 +54,7 @@ public class Crypt
 		return text;
 	}
 
-	// Token: 0x0400095F RID: 2399
 	private const string AesIV = "jCddaOybW3zEh0Kl";
 
-	// Token: 0x04000960 RID: 2400
 	private const string AesKey = "giVJrbHRlWBDIggF";
 }
