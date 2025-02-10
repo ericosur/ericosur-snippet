@@ -1,0 +1,15 @@
+# Ignore build outputs
+bin/
+obj/
+*.csproj.user
+*.sln.user
+*.suo
+*.vssscc
+
+# Ignore temporary files
+*.tmp
+*.bak
+*.swp
+*.~*
+~$*
+
