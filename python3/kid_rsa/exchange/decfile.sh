@@ -59,9 +59,11 @@ function decrypt_file() {
     local OF=$2
     local B64=$3
 
-    echo -ne "===== decrypt_file =====\n$IF\t$OF\n"
+    echo -ne "===== decrypt_file =====\n$IF\t$OF\t"
     if [ "$B64" == "b64" ]; then
-        echo "** apply base64 **"
+        echo -ne "** apply base64 **\n"
+    else
+        echo -ne "\n"
     fi
 
     # check file exist
@@ -94,18 +96,16 @@ OF=a.zip.ssl.enc
 encrypt_file $IF $OF
 
 # decrypt
+OF=out.dec
+
 IF=a.zip.ssl.enc.b64
-OF=a.zip.ssl.dec
 decrypt_file $IF $OF "b64"
 
 IF=a.zip.ssl.enc
-OF=a.zip.ssl2.dec
 decrypt_file $IF $OF
 
 IF=a.zip.enc
-OF=a.zip.ssl.b2.dec
 decrypt_file $IF $OF
 
 IF=a.zip.enc.b64
-OF=a.zip.ssl.b2.dec
 decrypt_file $IF $OF "b64"
