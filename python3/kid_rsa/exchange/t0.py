@@ -8,7 +8,8 @@ test key and iv
 import os
 import re
 import sys
-from binascii import hexlify
+# use bytes.hex() instead of binascii.hexlify
+#from binascii import hexlify
 import base64
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
@@ -16,14 +17,15 @@ from loguru import logger
 from keyiv import from_file, from_env, save_bin
 
 sys.path.insert(0, '../../')
-from myutil import md5sum, prt
+from myutil import md5sum, prt  # type: ignore[import]
 
 logd = logger.debug
 
 def show_val(msg: str, val: bytes) -> None:
     ''' show bytes in hex string '''
-    show_val = hexlify(val).decode('utf-8')
-    logd(f'{msg}: {show_val}')
+    #hex_str = hexlify(val).decode('utf-8')
+    hex_str = val.hex()
+    logd(f'{msg}: {hex_str}')
 
 def get_keyiv_frombin() -> tuple:
     ''' get key and iv in bytes
@@ -75,7 +77,7 @@ def decrypt_file(in_file: str, key: bytes, iv: bytes) -> bytes:
     while True:
         if len(data) % 4 != 0:
             break
-
+        # check if it is base64 encoded
         pattern = re.compile(b'^[A-Za-z0-9+/]+={0,2}$')
         if pattern.match(data):
             data = base64.b64decode(data)
@@ -162,7 +164,7 @@ class Solution():
         '''
         data = b''
         prt(f'decrypt: {self.ENCB64_FILE}')
-        with open(self.ENCB64_FILE, "rt") as fobj:
+        with open(self.ENCB64_FILE, "rt", encoding="UTF-8") as fobj:
             for ln in fobj.readlines():
                 ln = ln.strip()
                 data += ln.encode('utf-8')
@@ -171,7 +173,10 @@ class Solution():
         save_bin(self.DECB64_FILE, dec)
 
     def decrypt_b64_file_singleline(self):
-        ''' decrypt base64 file with single line '''
+        ''' decrypt a base64 encoded file with single line,
+            and no newline char at the end
+            NOTE: openssl expects multiple lines of base64 encoded data
+        '''
         data = b''
         with open(self.ENCB641_FILE, "rb") as fobj:
             data = fobj.read()
@@ -201,12 +206,15 @@ class Solution():
         self.decrypt_file()
         md5 = md5sum(self.DEC_FILE)
         prt(f'{self.DEC_FILE}      dec: {md5}')
+        assert md5plain == md5
         self.decrypt_b64_file_multipleline()
         md5 = md5sum(self.DECB64_FILE)
         prt(f'{self.DECB64_FILE}  dec: {md5}')
+        assert md5plain == md5
         self.decrypt_b64_file_singleline()
         md5 = md5sum(self.DECB641_FILE)
         prt(f'{self.DECB641_FILE} dec: {md5}')
+        assert md5plain == md5
 
     @classmethod
     def run(cls):
