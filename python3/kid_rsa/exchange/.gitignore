@@ -2,3 +2,6 @@
 *.dec
 *.ssl*
 *.b64
+*.bin
+key_iv.txt
+a.zip*
