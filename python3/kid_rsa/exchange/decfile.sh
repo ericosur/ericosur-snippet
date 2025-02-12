@@ -1,5 +1,19 @@
 #!/bin/bash
 
+# Check if the script is being run with Python
+if [[ "$0" == *"python"* ]]; then
+    echo "Error: This script should be run with Bash, not Python."
+    exit 1
+fi
+
+# Check if the script is being run with Bash
+if [ -z "$BASH_VERSION" ]; then
+    echo "Error: This script should be run with Bash."
+    exit 1
+fi
+
+echo $0
+
 # need one argument for input file
 # SRC=$1
 # if [ -z "$SRC" ]; then
@@ -45,11 +59,9 @@ function encrypt_file() {
     fi
 
     if [ "$B64" == "b64" ]; then
-        openssl enc -aes-256-cbc -e -in $IF -out $OF \
-            -K $KEY -iv $IV -base64
+        openssl enc -aes-256-cbc -e -in $IF -out $OF -K $KEY -iv $IV -base64
     else
-        openssl enc -aes-256-cbc -e -in $IF -out $OF \
-            -K $KEY -iv $IV
+        openssl enc -aes-256-cbc -e -in $IF -out $OF -K $KEY -iv $IV
     fi
     md5sum $OF
 }
@@ -77,13 +89,10 @@ function decrypt_file() {
     fi
 
     if [ "$B64" == "b64" ]; then
-        openssl enc -aes-256-cbc -d -in $IF -out $OF \
-            -K $KEY -iv $IV -base64
+        openssl enc -aes-256-cbc -d -in $IF -out $OF -K $KEY -iv $IV -base64
     else
-        openssl enc -aes-256-cbc -d -in $IF -out $OF \
-            -K $KEY -iv $IV
+        openssl enc -aes-256-cbc -d -in $IF -out $OF -K $KEY -iv $IV
     fi
-
     md5sum $OF
 }
 

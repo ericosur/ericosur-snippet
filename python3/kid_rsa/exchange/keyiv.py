@@ -5,7 +5,9 @@
 handle key and iv
 '''
 
+import binascii
 import os
+import re
 from Crypto.Random import get_random_bytes
 from loguru import logger
 
@@ -26,14 +28,23 @@ def save_bin(fn: str, data: bytes) -> None:
 
 def from_env(name: str, size: int) -> bytes:
     ''' get value from environment'''
-    val = os.getenv(name)
-    if val:
-        #val = base64.b64decode(val)
-        val = binascii.unhexlify(val)
-        if len(val) != size:
-            logd(f"size mismatch, expect {size}, got {len(val)}")
-        else:
-            logd(f'get {name} from environment')
+    def do_generate(size: int) -> bytes:
+        logd(f'generate new value for {name}')
+        val = get_random_bytes(size)
         return val
-    val = get_random_bytes(size)
-    return val
+
+    the_env = os.getenv(name)
+    if the_env is None:
+        logd(f'env {name} is None')
+        return do_generate(size)
+
+    pattern = re.compile(r'^[A-Fa-f0-9]+$')
+    if pattern.match(the_env):
+        val = binascii.unhexlify(the_env)
+        if len(val) == size:
+            # ok
+            return val
+        # fall through
+        logd(f"size mismatch, expect {size}, got {len(val)}")
+
+    return do_generate(size)
