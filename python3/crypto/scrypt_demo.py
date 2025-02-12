@@ -8,19 +8,22 @@ hashlib.scrypt
 
 import base64
 import os
-import sys
 import hashlib
+try:
+    from loguru import logger
+    USE_LOGGER = True
+except ImportError:
+    USE_LOGGER = False
 
 MODULE="scrypt_demo"
 
-def logd(*args, **wargs) -> None:
-    ''' log debug '''
-    print(MODULE, *args, **wargs, file=sys.stderr)
+logd = logger.debug if USE_LOGGER else print
 
 class ScryptDemo():
     ''' demo scrypt '''
 
     PASSWORD = "A123456789"
+
     def __init__(self):
         self.a_dict = {}
 
@@ -32,7 +35,7 @@ class ScryptDemo():
 
     def run_scrypt(self, pwd: str) -> None:
         ''' call hashlib.scrypt '''
-        salt = os.urandom(24) # 16 bytes == 128 bits
+        salt = os.urandom(24)  # bytes
         dk = hashlib.scrypt(password=pwd.encode(), salt=salt,
                             n=16384, r=8, p=1, dklen=48)
         hx = dk.hex()
@@ -51,9 +54,5 @@ class ScryptDemo():
         self.report()
         #self.retrieve()
 
-def main():
-    ''' main '''
-    ScryptDemo.run()
-
 if __name__ == '__main__':
-    main()
+    ScryptDemo.run()

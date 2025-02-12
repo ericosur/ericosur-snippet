@@ -45,7 +45,7 @@ def aes_decrypt(key: bytes) -> bytes:
     # let's assume that the key is somehow available again
     cipher = AES.new(key, AES.MODE_EAX, nonce)
     data = cipher.decrypt_and_verify(ciphertext, tag)
-    logd(f'data: {data}')
+    logd(f'data: {data!r}')
     return data
 
 def main():
