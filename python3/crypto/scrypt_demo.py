@@ -2,57 +2,128 @@
 # coding: utf-8
 
 '''
-scrypt demo
-hashlib.scrypt
+hashlib.scrypt demo
+
+Scrypt is a strong, memory-hard key derivation function that improves
+security against brute-force attacks, particularly those using
+specialized hardware. It is especially useful in password hashing.
+
+It is not used for encryption or decryption.
+
 '''
 
 import base64
+import json
 import os
-import hashlib
+import sys
+try:
+    from rich import print as rprint
+    USE_RICH = True
+except ImportError:
+    USE_RICH = False
 try:
     from loguru import logger
     USE_LOGGER = True
 except ImportError:
     USE_LOGGER = False
 
-MODULE="scrypt_demo"
+MODULE = "scrypt_demo"
+DEBUG = False
+prt = rprint if USE_RICH else print
 
-logd = logger.debug if USE_LOGGER else print
+def do_nothing(*_args, **_wargs) -> None:
+    ''' do nothing '''
+    return None
+
+if DEBUG:
+    logd = logger.debug if USE_LOGGER else print
+else:
+    logd = do_nothing
+
+try:
+    from run_vector import do_scrypt, ScryptVector, run_test_vector
+except ImportError:
+    logger.error("The module 'run_vector' could not be found")
+    sys.exit(1)
 
 class ScryptDemo():
     ''' demo scrypt '''
-
-    PASSWORD = "A123456789"
+    # if you change the password, you need to
+    #   remove the json file
+    #   re-run the script
+    PASSWORD = "HereIsThePassword3"
 
     def __init__(self):
-        self.a_dict = {}
+        self.the_dict = {}
+        self.jsonfile = f'{MODULE}.json'
 
-    @classmethod
-    def run(cls) -> None:
-        ''' run '''
-        obj = cls()
-        obj.action()
+    def pure_test(self) -> None:
+        ''' pure test '''
+        w = ScryptVector(P="", S="", N=16, r=1, p=1, dklen=64)
+        run_test_vector(w)
+        w = ScryptVector(P="password", S="NaCl", N=1024, r=8, p=16, dklen=64)
+        run_test_vector(w)
+        w = ScryptVector(P="pleaseletmein", S="SodiumChloride", N=16384, r=8, p=1, dklen=64)
+        run_test_vector(w)
+        w = ScryptVector(P="pleaseletmein", S="SodiumChloride", N=1048576, r=8, p=1, dklen=64)
+        run_test_vector(w)
 
-    def run_scrypt(self, pwd: str) -> None:
-        ''' call hashlib.scrypt '''
+    def gen_and_store(self, pwd: str) -> None:
+        ''' call hashlib.scrypt, and store to json '''
         salt = os.urandom(24)  # bytes
-        dk = hashlib.scrypt(password=pwd.encode(), salt=salt,
-                            n=16384, r=8, p=1, dklen=48)
-        hx = dk.hex()
-        bs = bytes.fromhex(hx)
-        assert bs==dk
-        self.a_dict["salt"] = base64.b64encode(salt)
-        self.a_dict["dk"] = base64.b64encode(dk)
+        res = do_scrypt(pwd.encode(), salt)
+        fn = self.jsonfile
+        output_dict = {}
+        for k,v in res.items():
+            if isinstance(v, bytes):
+                output_dict[k] = base64.b64encode(v).decode()
+            else:
+                output_dict[k] = v
+        with open(fn, "wt", encoding="UTF-8") as fobj:
+            print(json.dumps(output_dict, indent=4), file=fobj)
+        prt(f'save to: {fn}')
 
-    def report(self) -> None:
-        ''' report '''
-        print(self.a_dict)
+    def read_and_verfify(self, pwd: str) -> bool:
+        ''' read json and verify the password'''
+        fn = self.jsonfile
+        salt = b''
+        check_dk = b''
+        input_dk = b''
+        with open(fn, "rt", encoding="UTF-8") as fobj:
+            d = json.load(fobj)
+            salt = base64.b64decode(d.get("salt"))
+            check_dk = base64.b64decode(d.get("dk"))  # raw bytes
+            logd(f'check_dk.hex(): {check_dk.hex()}')
+        to_verify = do_scrypt(pwd.encode(), salt)
+        input_dk = to_verify.get("dk", b'\xde\xad\xbe\xef')
+        logd(f'input_dk.hex(): {input_dk.hex()}')
+        return input_dk == check_dk
+
+    def get_str(self, prefix:str, idx: int) -> str:
+        ''' get string '''
+        return f'{prefix}{idx}'
 
     def action(self) -> None:
         ''' action '''
-        self.run_scrypt(self.PASSWORD)
-        self.report()
-        #self.retrieve()
+        fn = self.jsonfile
+        if not os.path.isfile(fn):
+            self.gen_and_store(self.PASSWORD)
+
+        for i in range(1,6):
+            p = self.get_str('HereIsThePassword', i)
+            r = self.read_and_verfify(p)
+            msg = "pass" if r else "fail"
+            prt(f'input: {p}: {msg}')
+
+    @classmethod
+    def run(cls, pure: bool) -> None:
+        ''' run '''
+        obj = cls()
+        if pure:
+            prt("running pure tests...")
+            obj.pure_test()
+        else:
+            obj.action()
 
 if __name__ == '__main__':
-    ScryptDemo.run()
+    ScryptDemo.run(pure=False)
