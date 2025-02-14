@@ -21,4 +21,4 @@ json:
 	@${PY} passutil.py -o my.json A123456789
 
 clean:
-	rm -f encrypted.bin *.json _b64.*
+	rm -f *.bin *.json _b64.*
