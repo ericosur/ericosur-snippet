@@ -9,7 +9,7 @@ prompt dialog of pythonista
 #import clipboard
 HAS_CONSOLE_MODULE = False
 try:
-    import console
+    import console  # type: ignore[import]
     HAS_CONSOLE_MODULE = True
 except ImportError:
     print('[WARN] No console module of pythonista, will run normal CLI')
