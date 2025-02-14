@@ -12,6 +12,8 @@ It is not used for encryption or decryption.
 
 '''
 
+import argparse
+from typing import Any
 import base64
 import json
 import os
@@ -28,17 +30,12 @@ except ImportError:
     USE_LOGGER = False
 
 MODULE = "scrypt_demo"
-DEBUG = False
 prt = rprint if USE_RICH else print
 
 def do_nothing(*_args, **_wargs) -> None:
     ''' do nothing '''
     return None
 
-if DEBUG:
-    logd = logger.debug if USE_LOGGER else print
-else:
-    logd = do_nothing
 
 try:
     from run_vector import do_scrypt, ScryptVector, run_test_vector
@@ -53,9 +50,14 @@ class ScryptDemo():
     #   re-run the script
     PASSWORD = "HereIsThePassword3"
 
-    def __init__(self):
+    def __init__(self, debug=False, pure=False):
         self.the_dict = {}
         self.jsonfile = f'{MODULE}.json'
+        self.logd = logger.debug if debug and USE_LOGGER else do_nothing
+        if pure:
+            self.pure_test()
+        else:
+            self.action()
 
     def pure_test(self) -> None:
         ''' pure test '''
@@ -86,6 +88,7 @@ class ScryptDemo():
     def read_and_verfify(self, pwd: str) -> bool:
         ''' read json and verify the password'''
         fn = self.jsonfile
+        logd = self.logd
         salt = b''
         check_dk = b''
         input_dk = b''
@@ -113,17 +116,23 @@ class ScryptDemo():
             p = self.get_str('HereIsThePassword', i)
             r = self.read_and_verfify(p)
             msg = "pass" if r else "fail"
-            prt(f'input: {p}: {msg}')
+            prt(f'input({i}): {p}: {msg}')
 
     @classmethod
-    def run(cls, pure: bool) -> None:
+    def run(cls) -> None:
         ''' run '''
-        obj = cls()
-        if pure:
-            prt("running pure tests...")
-            obj.pure_test()
-        else:
-            obj.action()
+        args = do_parser()
+        _ = cls(debug=args.debug, pure=args.pure)
+
+def do_parser() -> Any:
+    ''' make parser '''
+    parser = argparse.ArgumentParser(description='chataes demo encrypt/decrypt')
+    # nargs like regexp, '*' means 0+, '+' means 1+
+    parser.add_argument("-d", "--debug", dest='debug', action='store_true',
+        default=False, help='debug mode')
+    parser.add_argument("-p", "--pure", dest='pure', action='store_true', default=False)
+    args = parser.parse_args()
+    return args
 
 if __name__ == '__main__':
-    ScryptDemo.run(pure=False)
+    ScryptDemo.run()

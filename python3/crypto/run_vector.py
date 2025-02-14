@@ -60,14 +60,22 @@ def run_test_vector(arg: ScryptVector) -> None:
     '''
     run test vector
     '''
+    dk = genkey_vector(arg)
+    show_hex(dk)
+
+def genkey_vector(arg: ScryptVector) -> bytes:
+    '''
+    derive key from ScryptVector
+    '''
+    dk = b''
     try:
         p = arg.P.encode()
         s = arg.S.encode()
         dk = scrypt(password=p, salt=s,
                     n=arg.N, r=arg.r, p=arg.p, dklen=arg.dklen)
-        show_hex(dk)
     except ValueError as err:
         logger.error(f'error: {err}')
+    return dk
 
 if __name__ == "__main__":
     print("it provides functions for scrypt_demo.py")
