@@ -5,31 +5,67 @@
 read variables from save file (in plain text json format)
 '''
 
+import json
+import os
 import sys
-from loguru import logger
 from rich import print as rprint
+from pydantic import BaseModel
+try:
+    from loguru import logger
+    USE_LOGURU = True
+except ImportError:
+    USE_LOGURU = False
 
 sys.path.insert(0, ".")
 sys.path.insert(0, "..")
 sys.path.insert(0, "../../python3/")
 from myutil import read_jsonfile  # type: ignore[import]
 
-logd = logger.debug
+logd = logger.debug if USE_LOGURU else print
 prt = rprint
+
+class HackVector(BaseModel):
+    ''' vectors '''
+    file: str
+    gold: str
+    food: str
+    tool: str
 
 class HackSaveFile():
     ''' read section __varialbes__ from save file'''
-    FN = "save01.json"
+    CONF = "settings.json"
+
     def __init__(self):
-        self.data = read_jsonfile(HackSaveFile.FN)
+        self.hv = HackVector(file="", gold="", food="", tool="")
+        self.__init_vector()
+
+    def __init_vector(self):
+        conf = read_jsonfile(HackSaveFile.CONF)
+        self.hv.file = conf['file']
+        self.hv.gold = conf['gold']
+        self.hv.food = conf['food']
+        self.hv.tool = conf['tool']
+
+    def show_values(self):
+        ''' show the values I need '''
+        p = self.data["variables"]
+        p[self.hv.gold] += 5999
+        p[self.hv.food] += 3999
+        p[self.hv.tool] += 7999
+        # prt(f'gold: {gold}')
+        # prt(f'food: {food}')
+        # prt(f'tool: {tool}')
+        json.dumps(self.data, indent=2)
+        # save self.data into json file
+        with open("hacked.save", 'wt', encoding='utf-8') as f:
+            json.dump(self.data, f, indent=2, ensure_ascii=False)
 
     def action(self):
         ''' action '''
-        pivot = self.data["variables"]
-        for k,v in pivot.items():
-            if isinstance(v, int):
-                if 100 <= v <= 999:
-                    prt(f"{k}: {v}")
+        prt(self.hv.file)
+        if os.path.exists(self.hv.file):
+            self.data = read_jsonfile(self.hv.file)
+        self.show_values()
 
     @classmethod
     def run(cls):
