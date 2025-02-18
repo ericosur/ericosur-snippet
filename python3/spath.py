@@ -15,6 +15,7 @@ for ansi color (optional):
 # alias path='echo $PATH | sed "s/:/\n/g"'
 
 import argparse
+from dataclasses import dataclass
 import os
 from sysconfig import get_platform
 from typing import Any
@@ -45,6 +46,15 @@ try:
 except ImportError:
     HAS_LOGGER = False
 
+@dataclass
+class Options:
+    ''' options '''
+    debug: bool = False
+    use_rich: bool = False
+    use_ansi: bool = False
+    is_windows: bool = False
+    is_rdp: bool = False
+
 def colorlog(color, msg):
     ''' color log '''
     if HAS_ANSICOLOR:
@@ -64,37 +74,36 @@ class PathLister():
     def __init__(self, args: Any):
         self.args = args
         self.alldirs: dict[str, list[str]] = {'dirs': [], 'ngs': [], 'dups': []}
-        if args.debug:
+        # set logd
+        if self.args.debug:
             self.logd = logger.debug if HAS_LOGGER else print
         else:
             self.logd = do_nothing
+        # options
+        self.opts = Options(debug=args.debug, use_rich=args.rprint, use_ansi=args.ansi,
+                            is_windows=False, is_rdp=False)
         self.__check_path__()
         self.is_windows = None
         self.is_rdp = None
         self.__check_platform__()
-        self.use_rich = False
-        self.use_ansi = False
         self.__determine_color__()
-        if args.debug:
-            self.dump_vars()
+        self.dump_vars()
 
     def __determine_color__(self):
         ''' determine which color library to use
             use rich first, then colorama, then normal print
         '''
         logd = self.logd
-        use_rich = self.args.rprint
-        use_ansi = self.args.ansi
-        if use_rich:
+        if self.args.rprint:
             if HAS_RICH:
                 logd("has rich, and apply")
-                self.use_rich = True
+                self.opts.use_rich = True
             else:
                 logd("request rich, but no rich")
-        if use_ansi:
+        if self.args.ansi:
             if HAS_ANSICOLOR:
                 logd("has ansi, and apply")
-                self.use_ansi = True
+                self.opts.use_ansi = True
             else:
                 logd("request ansi, but no ansi to use")
 
@@ -103,18 +112,19 @@ class PathLister():
         logd = self.logd
         platform = get_platform()
         logd(f'platform: {platform}')
-        self.is_windows = "win" in platform
-        if self.is_windows:
+        self.opts.is_windows = "win" in platform
+        if self.opts.is_windows:
             _s = os.getenv("SESSIONNAME")
             if _s:
                 logd(f'session: {_s}')
-                self.is_rdp = "RDP" in _s
+                self.opts.is_rdp = "RDP" in _s
 
     def dump_vars(self):
         ''' dump vars '''
-        args = self.args
+        if not self.args.debug:
+            return
         logd = self.logd
-        logd(f'args: {args}')
+        logd(f'opts: {self.opts}')
 
     @classmethod
     def run(cls):
@@ -126,11 +136,11 @@ class PathLister():
     def action(self):
         ''' acton '''
         # use rich
-        if self.use_rich:
+        if self.opts.use_rich:
             self.report_in_rich()
             return
         # use colorama
-        if self.use_ansi:
+        if self.opts.use_ansi:
             self.report_in_colorama()
             return
         self.report()
