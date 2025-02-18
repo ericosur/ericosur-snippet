@@ -29,7 +29,6 @@ from: https://tools.ietf.org/html/rfc7914#section-12
 
 from hashlib import scrypt
 from pydantic import BaseModel
-from loguru import logger
 
 def show_hex(dk: bytes) -> None:
     ''' show hex in 16 bytes one line '''
@@ -74,8 +73,8 @@ def genkey_vector(arg: ScryptVector) -> bytes:
         dk = scrypt(password=p, salt=s,
                     n=arg.N, r=arg.r, p=arg.p, dklen=arg.dklen)
     except ValueError as err:
-        logger.error(f'error: {err}')
+        print(f'error: {err}')
     return dk
 
 if __name__ == "__main__":
-    print("it provides functions for scrypt_demo.py")
+    print("run_vectory.py provides functions for scrypt_demo.py")
