@@ -210,7 +210,7 @@ def do_parser() -> Any:
     parser.add_argument("-d", "--debug", dest='debug', action='store_true',
         default=False, help='debug mode')
     parser.add_argument("-r", "--rprint", dest='rprint', action='store_true',
-        default=False, help='requst rich')
+        default=False, help='request rich')
     parser.add_argument("-a", "--ansi", dest='ansi', action='store_true',
         default=False, help='request ansi')
     args = parser.parse_args()
