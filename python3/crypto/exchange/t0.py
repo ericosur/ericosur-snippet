@@ -11,15 +11,24 @@ import sys
 # use bytes.hex() instead of binascii.hexlify
 #from binascii import hexlify
 import base64
-from Crypto.Cipher import AES
-from Crypto.Util.Padding import pad, unpad
-from loguru import logger
+try:
+    from Crypto.Cipher import AES
+    from Crypto.Util.Padding import pad, unpad
+except ImportError:
+    print('need install pycryptodome')
+    sys.exit()
+try:
+    from loguru import logger
+    USE_LOGGER = True
+except ImportError:
+    USE_LOGGER = False
+
 from keyiv import from_file, from_env, save_bin
 
 sys.path.insert(0, '../../')
 from myutil import md5sum, prt  # type: ignore[import]
 
-logd = logger.debug
+logd = logger.debug if USE_LOGGER else print
 
 def show_val(msg: str, val: bytes) -> None:
     ''' show bytes in hex string '''
