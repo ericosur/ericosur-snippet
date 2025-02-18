@@ -104,7 +104,7 @@ def main():
     ''' main '''
     parser = argparse.ArgumentParser(description='brief description for this script')
     parser.add_argument("strings", metavar='str', type=str, nargs='*',
-        help="show these strings")
+        help="give bpmf code, like e04a8")
     parser.add_argument("-d", "--demo", help="demo", action='store_true')
 
     #parser.parse_args(['-i input.txt -o out.txt str1 str2'])
