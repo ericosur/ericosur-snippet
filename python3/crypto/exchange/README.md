@@ -3,6 +3,7 @@
 ## openssl
 
 - enc aes-256-cbc salt
+- the key/iv will be changed/overwritten anytime without warning
 
 ```bash
 export KEY=bbc9d7a1e5ddb0f4d62b700c501375517edbc69f674aedd99a64120b240685ce
