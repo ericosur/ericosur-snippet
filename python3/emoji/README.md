@@ -8,13 +8,13 @@ This README describes how to translate emoji icons into unicode sequence for max
 
 - May check the latest release tag from <https://github.com/unicode-org/cldr.git>
 
-- initial git repository
+- initial git repository (2025/2/19)
 ```
 mkdir -p $HOME/src/github/
 cd $HOME/src/github/
 git clone https://github.com/unicode-org/cldr.git
 cd cldr
-git checkout -b r46 release-46
+git checkout -b r46-1 release-46-1
 ```
 
 - and then run this script ```./runme.sh```
