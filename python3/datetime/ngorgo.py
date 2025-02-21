@@ -61,8 +61,8 @@ class Solution():
             print(f'parsing: {self.inputfn}')
         lastline = None
         with open(self.inputfn, 'rt', encoding='UTF-8') as fobj:
-            for l in fobj.readlines():
-                ln = l.strip()
+            for ln in fobj.readlines():
+                ln = ln.strip()
                 if len(ln) > 0:
                     lastline = ln
         return lastline

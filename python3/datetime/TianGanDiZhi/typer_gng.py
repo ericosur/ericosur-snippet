@@ -23,6 +23,7 @@ from rich.console import Console
 console = Console()
 
 from gngan_yaljux import do_ab, do_tests, do_values, do_verbose
+# ruff: noqa: E402
 sys.path.insert(0, "..")
 sys.path.insert(0, "TaiGanDiZhi/")
 sys.path.insert(0, "../datetime/")

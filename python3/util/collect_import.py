@@ -8,6 +8,12 @@ import re
 import sys
 from loguru import logger
 
+# ruff: noqa: E402
+sys.path.insert(0, "./")
+sys.path.insert(0, "../")
+sys.path.insert(0, "util/")
+from the_config import official
+
 #log_level = "DEBUG"
 #log_format = "<green>{time:YYYY-MM-DD HH:mm:ss.SSS zz}</green> | "
 # "<level>{level: <8}</level> | <yellow>Line {line: >4} ({file}):</yellow> "
@@ -22,11 +28,6 @@ from loguru import logger
 # "diagnose=True)
 logger.add("debug.log", rotation="10MB", retention="7 days", level="DEBUG")
 logd = logger.debug
-
-sys.path.insert(0, "./")
-sys.path.insert(0, "../")
-sys.path.insert(0, "util/")
-from the_config import official
 
 class Solution():
     ''' class to grep the import '''
@@ -63,7 +64,7 @@ class Solution():
                         if v in official:
                             #logd(f"skip value: {v}")
                             continue
-                        if not v in self.imports:
+                        if v not in self.imports:
                             logd(f"{py_file}: {v}")
                             self.imports.add(v)
                         continue
@@ -73,7 +74,7 @@ class Solution():
                         if v in official:
                             #logd(f"skip value: {v}")
                             continue
-                        if not v in self.imports:
+                        if v not in self.imports:
                             logd(f"{py_file}: {v}")
                             self.imports.add(v)
         except UnicodeDecodeError:

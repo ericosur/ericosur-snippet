@@ -21,11 +21,11 @@ class Solution():
     def get_start(self):
         ''' get start '''
         s = '9876543210'
-        l = list(s)
+        L = list(s)
         while True:
             a = []
             for _ in range(10):
-                a.append(l[random.randint(0, 9)])
+                a.append(L[random.randint(0, 9)])
                 #a.append(random.choice(s))
             #print('picked:', a)
             try:
@@ -40,9 +40,9 @@ class Solution():
 
     def test000(self):
         ''' start '''
-        l = list(str(self.start))
-        m = sorted(l, reverse=True)
-        print('l:', l)
+        L = list(str(self.start))
+        m = sorted(L, reverse=True)
+        print('L:', L)
         print('m:', m)
 
     def test_01(self):
