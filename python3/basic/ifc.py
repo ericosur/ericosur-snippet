@@ -18,6 +18,7 @@ prt = pprint if USE_RICH else print
 
 from read_os_release import is_ubuntu1804
 
+# ruff: noqa: E402
 sys.path.insert(0, './')
 sys.path.insert(0, '../')
 sys.path.insert(0, 'python3/')

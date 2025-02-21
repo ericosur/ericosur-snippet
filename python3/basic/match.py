@@ -6,7 +6,6 @@
 wrapper to check if python >= 3.10
 '''
 
-import os
 import sys
 
 sys.path.insert(0, "../")

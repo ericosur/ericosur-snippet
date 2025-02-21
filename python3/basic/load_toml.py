@@ -45,7 +45,7 @@ class LoadToml():
             LoadToml.is_builtin = False
             LoadToml.is_external = True
             LoadToml.toml_lib = toml
-            if not self.tomlfn is None:
+            if self.tomlfn is not None:
                 with open(self.tomlfn, 'rt', encoding='UTF-8') as f:
                     self.data = toml.load(f)
         except ModuleNotFoundError:
@@ -62,7 +62,7 @@ class LoadToml():
             LoadToml.is_builtin = True
             LoadToml.is_external = False
             LoadToml.toml_lib = tomllib
-            if not self.tomlfn is None:
+            if self.tomlfn is not None:
                 with open(self.tomlfn, 'rb') as f:
                     self.data = tomllib.load(f)
         except ImportError:

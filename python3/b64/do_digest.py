@@ -16,24 +16,26 @@ try:
     USE_RICH = True
 except ImportError:
     USE_RICH = False
-prt = rprint if USE_RICH else print
 
 try:
     from loguru import logger
     USE_LOGGER = True
 except ImportError:
     USE_LOGGER = False
-logd = logger.debug if USE_LOGGER else print
 
+# ruff: noqa: E402
 sys.path.insert(0, "./")
 sys.path.insert(0, "../")
 sys.path.insert(0, "python3/")
 sys.path.insert(0, "python3/b64")
 # if python 3.11+, we may use file_digest, instaed sha512sum() ...
-from myutil import md5sum, sha512sum, sha3_256sum, sha3_512sum  # type: ignore[import]
+#from myutil import md5sum, sha512sum, sha3_256sum, sha3_512sum  # type: ignore[import]
 from myutil import get_python_versions, run_command  # type: ignore[import]
 # setup CLI cmd and function name in the dgst.py
 from dgst import digests  # type: ignore[import]
+
+prt = rprint if USE_RICH else print
+logd = logger.debug if USE_LOGGER else print
 
 FN = 'a.txt'
 
