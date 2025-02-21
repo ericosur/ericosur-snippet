@@ -12,13 +12,13 @@ import sys
 from rich import print as rprint
 from loguru import logger
 
-DEBUG = True
-
+# ruff: noqa: E402
 sys.path.insert(0, "./")
 sys.path.insert(0, "../")
 sys.path.insert(0, "python3/")
 from myutil import do_nothing  # type: ignore[import]
 
+DEBUG = True
 prt = rprint
 logd = logger.debug if DEBUG else do_nothing
 

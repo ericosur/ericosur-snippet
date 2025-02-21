@@ -43,9 +43,9 @@ class Solution():
     def has_digit4(val):
         ''' check if has digit 4 '''
         s = str(val)
-        l = list(s)
+        L = list(s)
         #print(s)
-        for c in l:
+        for c in L:
             if c == '4':
                 return True
         return False

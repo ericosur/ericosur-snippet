@@ -20,7 +20,7 @@ except ImportError as e:
 app = typer.Typer(context_settings={"help_option_names": ["-h", "--help"]},
                   help="epoch / timestamp utility",
                   no_args_is_help=True)
-
+# ruff: noqa: E402
 sys.path.insert(0, "..")
 sys.path.insert(0, "datetime")
 sys.path.insert(0, "myutil")

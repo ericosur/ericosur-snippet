@@ -106,7 +106,7 @@ class RequestGuassian():
 
         # fetch a field not existed
         ret_data = resp.get('abc')
-        if not ret_data is None:
+        if ret_data is not None:
             print(f'ret_data: {ret_data}')
 
         ret_data = []

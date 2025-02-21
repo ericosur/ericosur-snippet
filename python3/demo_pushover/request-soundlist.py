@@ -14,16 +14,13 @@ import argparse
 import json
 import os
 import sys
-
 import requests
 
-HOME = os.getenv('HOME')
-UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
-if os.path.exists(UTILPATH):
-    sys.path.insert(0, UTILPATH)
-
+# ruff: noqa: E402
+sys.path.insert(0, "./")
+sys.path.insert(0, "../")
+sys.path.insert(0, "python3/")
 from base_pushover import PushOverBase
-
 from myutil import read_jsonfile
 
 

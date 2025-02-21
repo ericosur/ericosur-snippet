@@ -8,10 +8,13 @@ from: https://docs.python.org/2/library/uuid.html
 
 import uuid
 
+def sep() -> None:
+    ''' separator'''
+    print('-' * 45)
 
 def main():
     ''' main test function '''
-    print('-' * 40)
+    sep()
     for _ in range(2):
         # uuid1: host id and current time
         print(f"uuid1: {uuid.uuid1()}")
@@ -23,8 +26,7 @@ def main():
         # uuid5: sha1 hash namespace and a name
         uid5 = uuid.uuid5(uuid.NAMESPACE_DNS, 'python.org')
         print(f"uuid5: {uid5}")
-
-        print('-' * 40)
+        sep()
 
 if __name__ == "__main__":
     main()

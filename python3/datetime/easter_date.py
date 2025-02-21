@@ -25,6 +25,7 @@ except ImportError:
     USE_RICH = False
 from be_prepared import get_thisyear, prepare_values, get_year_color
 
+# ruff: noqa: E741
 def calculate_easter(year: int) -> date:
     ''' Calculate the date of Easter Sunday for the given year '''
     a = year % 19

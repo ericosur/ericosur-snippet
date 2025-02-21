@@ -33,7 +33,7 @@ class Solution():
                 if m:
                     if self.debug:
                         print(f'{m[1]} <=> {m[2]}')
-                    if not m[1] in self.mydict:
+                    if m[1] not in self.mydict:
                         self.mydict[m[1]] = m[2]
         if self.debug:
             print('cnt:', cnt)
@@ -74,7 +74,7 @@ class Solution():
         s = ''
         ll = []
         for cc in list(inp):
-            if not cc in self.ime:
+            if cc not in self.ime:
                 ll.append(s)
                 s = ''
                 continue

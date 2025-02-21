@@ -16,7 +16,7 @@ import hashlib
 import sys
 import json
 from typing import Any, Dict, Tuple
-
+from loguru import logger
 try:
     from Crypto.Cipher import AES
     from Crypto.Random import get_random_bytes
@@ -25,8 +25,6 @@ except ImportError:
     sys.exit(1)
 
 MODULE = "passutil"
-
-from loguru import logger
 
 def do_nothing(*_args, **_wargs) -> None:
     ''' do nothing'''

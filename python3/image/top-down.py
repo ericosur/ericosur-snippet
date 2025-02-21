@@ -10,8 +10,11 @@ magick montage \
     -mode Concatenate -tile x1 \
     output.png
 
-For **wand**, you need to install ImageMagick runtime library into system as well
-libmagickwand
+For **wand**, you need to install ImageMagick runtime library into
+system as well libmagickwand
+
+or:
+pip install Wand
 
 '''
 

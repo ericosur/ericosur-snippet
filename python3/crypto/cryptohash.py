@@ -32,10 +32,5 @@ def test():
     print('digest_size (bytes):', hash_object.digest_size)
     print('hash:', hash_object.hexdigest())
 
-
-def main():
-    ''' main '''
-    test()
-
 if __name__ == '__main__':
-    main()
+    test()

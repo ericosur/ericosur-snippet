@@ -86,7 +86,7 @@ class PushOverBase(MyDebug):
 
     def show_resp(self):
         ''' print resp '''
-        if not self.resp_str is None:
+        if self.resp_str is not None:
             print(self.resp_str)
 
     def get_apikey(self):

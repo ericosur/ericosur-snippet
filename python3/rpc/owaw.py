@@ -6,6 +6,7 @@ script to query openweather and accuweather
 '''
 
 # pylint: skip-file
+# ruff: noqa
 #
 # API request to openweather or accuweather need to be re-written or
 # re-apply the key service. So this script is suitable to read, not

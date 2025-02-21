@@ -32,13 +32,11 @@ def append_path(fn):
         return None
     return path
 
-HOME = os.getenv('HOME')
-UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
-if os.path.exists(UTILPATH):
-    sys.path.insert(0, UTILPATH)
-
+# ruff: noqa: E402
+sys.path.insert(0, "./")
+sys.path.insert(0, "../")
+sys.path.insert(0, "python3/")
 from myutil import isfile, read_jsonfile
-
 
 def main():
     ''' main '''
