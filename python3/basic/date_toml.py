@@ -17,10 +17,9 @@ try:
     USE_RICH = True
 except ImportError:
     USE_RICH = False
-prt = pprint if USE_RICH else print
-
 from load_toml import LoadToml
 
+prt = pprint if USE_RICH else print
 
 def test0():
     ''' test0 '''
