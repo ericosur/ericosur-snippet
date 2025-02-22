@@ -57,7 +57,7 @@ class HackSaveFile():
         # prt(f'tool: {tool}')
         json.dumps(self.data, indent=2)
         # save self.data into json file
-        with open("hacked.save", 'wt', encoding='utf-8') as f:
+        with open("save03.save", 'wt', encoding='utf-8') as f:
             json.dump(self.data, f, indent=2, ensure_ascii=False)
 
     def action(self):
