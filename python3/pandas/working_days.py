@@ -58,12 +58,12 @@ class LoadWorkingDays():
         avgd = sum(self.wdays) / len(self.wdays)
         print(f'[INFO] avg: {avgd:.2f} days')
         self.wdays.sort()
-        l = len(self.wdays)
-        if l % 2 == 0:
-            l = l // 2
-            m = (self.wdays[l] + self.wdays[l-1]) / 2
+        L = len(self.wdays)
+        if L % 2 == 0:
+            L = L // 2
+            m = (self.wdays[L] + self.wdays[L-1]) / 2
         else:
-            m = self.wdays[int(l/2)]
+            m = self.wdays[int(L/2)]
         print(f'[INFO] median: {m:.2f} days')
 
     def dump(self):
