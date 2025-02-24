@@ -20,7 +20,7 @@ def test(n):
     # if tail number is 1,4,5,6,9
     ps_tails = {1,4,5,6,9}
     remain = n % 10
-    if not remain in ps_tails:
+    if remain not in ps_tails:
         print(f'the last digit of {n} does not in the {ps_tails}')
         return False
 

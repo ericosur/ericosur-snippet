@@ -14,7 +14,7 @@ from pydantic import BaseModel
 try:
     import typer
     USE_TYPER = True
-except ImportError as e:
+except ImportError:
     USE_TYPER = False
     print('[INFO] failed to load module **typer**, only run the demo')
 

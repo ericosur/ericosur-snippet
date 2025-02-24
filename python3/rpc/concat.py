@@ -10,12 +10,11 @@ import glob
 import os
 import sys
 
-HOME = os.getenv('HOME')
-UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
-if os.path.exists(UTILPATH):
-    sys.path.insert(0, UTILPATH)
+# ruff: noqa: E402
+sys.path.insert(0, '../')
+sys.path.insert(0, '../../')
+sys.path.insert(0, 'python3/')
 from myutil import read_jsonfile
-
 
 def test(fn):
     ''' test '''
@@ -39,6 +38,9 @@ def test(fn):
 def main():
     ''' main '''
     file_arr = glob.glob('resp?.json')
+    if file_arr is None or len(file_arr) < 1:
+        print('fail: no file found')
+        sys.exit(1)
     for ff in file_arr:
         test(ff)
 

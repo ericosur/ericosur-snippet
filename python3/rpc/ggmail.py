@@ -20,13 +20,13 @@ import os
 import sys
 import time
 
-HOME = os.getenv('HOME')
-UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
-if os.path.exists(UTILPATH):
-    sys.path.insert(0, UTILPATH)
+# ruff: noqa
+sys.path.insert(0, '../')
+sys.path.insert(0, '../../')
+sys.path.insert(0, 'python3/')
 from myutil import read_jsonfile
 
-print('Just for reference, exit...')
+print('Just for reference, DO NOT run this script...')
 sys.exit(1)
 
 try:

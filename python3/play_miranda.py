@@ -91,7 +91,7 @@ class Miranda():
 
     def play_phrase(self, phrase: str) -> None:
         ''' specify phrase to play tts '''
-        if not phrase in self.zh and not phrase in self.en:
+        if phrase not in self.zh and phrase not in self.en:
             print(f'phrase [{phrase}] not found...')
             return
 
