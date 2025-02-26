@@ -135,16 +135,16 @@ def translate_sorted_to_dict(the_sorted):
     logd = logger.debug
     d = []
     for i in the_sorted:
-        l = []
+        L = []
         m = re.match(r'([^,]+),([^\,]+)', i[0])
         if m:
-            l.append(m[1])
-            l.append(m[2])
+            L.append(m[1])
+            L.append(m[2])
         else:
             logd(f'not matched: {i[0]}')
-        #l.append(i[1])
-        #logd(f'local: {l=}')
-        d.append(l)
+        #L.append(i[1])
+        #logd(f'local: {L=}')
+        d.append(L)
     return d
 
 def test():
