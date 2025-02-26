@@ -1,8 +1,22 @@
 # README
 
-- download from: https://language.moe.gov.tw/001/Upload/Files/site_content/M0001/respub/dict_idiomsdict_download.html
+> [!NOTE]
+> What kinds of words qualify as idioms is a subject of debate. Here, we're simply using an idiom table from the Ministry of Education.
+> 什麼樣的詞才能當作成語有爭議，這裡只是使用一個來自教育部的成語表格來使用
+
+- table from: https://language.moe.gov.tw/001/Upload/Files/site_content/M0001/respub/dict_idiomsdict_download.html
 
 After cleanup, the result table is ```idiom_list.py```. Refer to ```pickme.py``` for usage.
+
+
+## files
+
+- idiom_list.py
+	- a python syntax dict for all idioms
+- numer4_idioms.py
+	- idioms that has
+		- only 4 han characters
+		- with numbers or quantity characters
 
 ## sort
 
