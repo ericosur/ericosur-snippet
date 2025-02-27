@@ -1,5 +1,7 @@
 {
-	"file": "e:/SteamLibrary/steamapps/common/border pioneer/Save/save03.save",
+	"savedir": "e:/SteamLibrary/steamapps/common/border pioneer/Save",
+	"file": "save03.save",
+	"backup": "save03.save.bak",
 	"gold": "45047f339e564c85",
 	"food": "c474fe3ee3978573",
 	"tool": "cb1983d94a00e4c5"
