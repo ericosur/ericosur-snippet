@@ -23,8 +23,8 @@ def lcm(m: int, n: int) -> int:
 def gcd_lcm(m: int, n: int) -> int:
     ''' return both gcd and lcm '''
     g = gcd(m, n)
-    l = m // g * n
-    return (g, l)
+    L = m // g * n
+    return (g, L)
 
 def gcd_list(values: List[int]):
     ''' input list of values and calculate gcd of them '''
@@ -48,8 +48,8 @@ def test():
     ''' test '''
     m = 1280
     n = 1024
-    (g, l) = gcd_lcm(m, n)
-    print(f'{m} {n}: {g}, {l}')
+    (g, L) = gcd_lcm(m, n)
+    print(f'{m} {n}: {g}, {L}')
 
 def test2():
     ''' test2 '''

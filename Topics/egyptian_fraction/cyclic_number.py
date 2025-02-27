@@ -20,7 +20,6 @@ https://xlinux.nist.gov/dads/HTML/shortestCommonSuperstring.html
 '''
 
 import argparse
-from typing import List
 
 from lcs import longestRepeatedSubstring
 
@@ -29,7 +28,7 @@ class Cons:
     ''' use 2 to detect longest repeated substring '''
     multiple = 2
 
-def stupid_div(p: int) -> List[int]:
+def stupid_div(p: int) -> list[int]:
     ''' stupid divide '''
     if p < 3:
         print('[ERROR] need p >= 3')
@@ -54,14 +53,14 @@ def stupid_div(p: int) -> List[int]:
     # eg: "[1,4,2,8,5,7]"
     return decs
 
-def l2s(l: List[int]) -> str:
+def l2s(L: list[int]) -> str:
     ''' l2s, join a integer list into a string '''
-    a = [ str(x) for x in l ]
+    a = [ str(x) for x in L ]
     s = ''.join(a)
     return s
 
 
-def show(r: List):
+def show(r: list):
     ''' show '''
     if not isinstance(r, list):
         print('[ERROR] should be a list')
@@ -124,7 +123,7 @@ def perform_test():
     test(2*37)
     test(7*31)
 
-def proc(argv: List[int]):
+def proc(argv: list[int]):
     ''' proc '''
     for a in argv:
         test(a)
