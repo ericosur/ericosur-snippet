@@ -203,7 +203,7 @@ def main():
         #   break
         inner = get_inner_loop(v)
 
-        if not inner in stat:
+        if inner not in stat:
             stat[inner] = []
         stat[inner].append(v)
 
