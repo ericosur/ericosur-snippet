@@ -16,9 +16,9 @@ from gcd_lcm import gcd_lcm
 def read_from_stdin():
     ''' read from stdin '''
     args = []
-    for line in sys.stdin:
-        l = line.strip()
-        vs = l.split(' ')
+    for ln in sys.stdin:
+        ln = ln.strip()
+        vs = ln.split(' ')
         args.extend(vs)
         #args.append(line.strip())
     main(args)
@@ -46,10 +46,10 @@ def main(argv: List):
         print("cannot be zero")
         sys.exit(-1)
 
-    (g, l) = gcd_lcm(a, b)
+    (g, L) = gcd_lcm(a, b)
     print(f"gcd({a}, {b}) = {g}")
     print(f"({a} : {b}) = ({a/g} : {b/g})")
-    print(f"lcm({a}, {b}) = {l}")
+    print(f"lcm({a}, {b}) = {L}")
 
 
 if __name__ == '__main__':

@@ -14,10 +14,10 @@ def read_from_stdin(func):
     ''' read from stdin and call process with List[int]'''
     args = []
     try:
-        for line in sys.stdin:
-            l = line.strip()
-            if len(l):
-                vs = l.split(' ')
+        for ln in sys.stdin:
+            ln = ln.strip()
+            if len(ln):
+                vs = ln.split(' ')
             else:   # skip if blank/empty
                 continue
             if len(vs): # type cast to List[int]
