@@ -18,7 +18,12 @@ from random import choice, randint
 from typing import Callable
 
 try:
-    from rich.console import Console
+    from loguru import logger
+    USE_LOGGER = True
+except ImportError:
+    USE_LOGGER = False
+
+try:
     from rich import print as rprint
     USE_RICH = True
 except ImportError:
@@ -38,13 +43,13 @@ def do_nothing(*_args, **_wargs) -> None:
 DEBUG = True
 if DEBUG:
     logd: Callable
-    if USE_RICH:
-        console = Console()
-        logd = console.log
+    if USE_LOGGER:
+        logd = logger.debug
     else:
         logd = print
 else:
     logd = do_nothing
+
 prt = rprint if USE_RICH else print
 
 class Idiom():
@@ -53,24 +58,31 @@ class Idiom():
     def __init__(self):
         self.local_idioms = all_idioms
         self.used = set()
-        self.bads = self.__load_bads()
+        self.bads = set()
+        self.__load_bads()
         self.loaded_len_bads = len(self.bads)
         logd(f'{len(the_head_dict)=}')
         self.play()
 
     def __load_bads(self):
-        ''' load_bads '''
+        ''' load too_bad '''
+        fn = "too_bad.txt"
+        self.bads.update(self.load_from_textfile(fn))
         fn = "_bads.txt"
-        bads = set()
+        self.bads.update(self.load_from_textfile(fn))
+
+    def load_from_textfile(self, fn: str) -> set:
+        ''' load from text file '''
+        the_set = set()
         if not os.path.exists(fn):
-            return bads
+            return the_set
         with open(fn, "rt", encoding="UTF-8") as fobj:
             for line in fobj:
                 line = line.strip()
                 if line:
-                    bads.add(line)
-        logd(f'load bads: {len(bads)}')
-        return bads
+                    the_set.add(line)
+        logd(f'load from {fn}: {len(the_set)}')
+        return the_set
 
     def play(self):
         ''' do_list '''
@@ -96,11 +108,16 @@ class Idiom():
         #prt(f'The first key: {k}')
         cnt = 1
         rep = 0
+        retry_for_first = False
         while True:
             #logd(f'{k=}: ')
             #logd({the_dict[k]})
             #logd(f'{k=}: {the_dict[k]}')
-
+            if retry_for_first:
+                k = choice(list(keys))
+                retry_for_first = False
+                prt('[yellow]retry for the first one[/]')
+                continue
             idxs = the_dict[k]
             if len(idxs) == 0:
                 prt('no more idioms to pick, exit...')
@@ -112,7 +129,8 @@ class Idiom():
             p = idxs.pop(randint(0, len(idxs)-1))
             s = self.local_idioms[p]
             if cnt == 1 and s in self.bads:
-                prt(f'[red]SHOULD NOT pick {s} for the frist one[/], try again')
+                prt(f'first try: [red]SHOULD NOT pick {s}[/]')
+                retry_for_first = True
                 rep += 1
                 continue
             if s in self.used:
