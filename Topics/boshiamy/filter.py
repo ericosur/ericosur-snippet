@@ -52,7 +52,7 @@ def main():
             cp = int(k)
             cnt += 1
             for start, end, name in cjk_blocks:
-                if not name in subset:
+                if name not in subset:
                     subset[name] = []
                 if start <= cp <= end:
                     subset[name].append(k)

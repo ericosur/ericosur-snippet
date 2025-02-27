@@ -36,8 +36,8 @@ def get_cjkblocks(n: str):
     with open(fn, 'wt', encoding='utf8') as f:
         for i in range(s, e + 1):
             cnt += 1
-            l = f'{i:5x} {chr(i)}\n'
-            f.write(l)
+            ln = f'{i:5x} {chr(i)}\n'
+            f.write(ln)
     print('cnt:', cnt)
 
 def main():
