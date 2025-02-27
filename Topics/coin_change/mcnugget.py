@@ -17,7 +17,7 @@ def check_missing(res: list, maxnum: int) -> list:
     '''
     missing = []
     for ii in range(1, maxnum+1):
-        if not ii in res:
+        if ii not in res:
             missing.append(ii)
     return missing
 
@@ -49,7 +49,7 @@ def main():
             continue
 
         # ans > 0 and ans is not duplicated
-        if ans and not ans in res:
+        if ans and ans not in res:
             bisect.insort(res, ans)
             #print('n: {} ans: {}'.format(n, ans))
 
