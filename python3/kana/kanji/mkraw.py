@@ -8,11 +8,11 @@ read raw.txt and output format:
     - one char one line
 '''
 
-FN = "raw.txt"
-
 import re
 import json
-from wtf import logd
+from kjutil import logd
+
+FN = "raw.txt"
 
 class Solution():
     ''' handle raw.txt '''
@@ -42,7 +42,8 @@ class Solution():
             cnt_row = 0
             for ln in fobj.readlines():
                 ln = ln.strip()
-                if ln == "":    # skip empty line
+                # skip if empty or comment
+                if ln == "" or ln[0] == "#":
                     continue
                 if len(ln) == 1:    # skip the line only one char (usu. kanata)
                     the_row = ln[0]
@@ -56,8 +57,8 @@ class Solution():
 
     def report(self):
         ''' some reoprt about internal data structure '''
-        logd(f'the size of {len(self.a_list)=}')
-        logd(f'the size of {len(self.a_dict)=}')
+        logd(f'{len(self.a_list)=}')
+        logd(f'{len(self.a_dict)=}')
         total_in_k = 0
         cnt = 0
         for _,v in self.a_dict.items():
