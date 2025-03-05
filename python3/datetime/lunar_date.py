@@ -6,12 +6,25 @@
 try to use lunarcalendar
 
 pip install LunarCalendar
+
+use __lunar-find all 2025__ to find all festivals in 2025
+use __lunar-find solarterm 2025__ to get all solar terms in 2025
 '''
 
 
 #import datetime
 import itertools as it
 import sys
+try:
+    from rich import print as rprint
+    USE_RICH = True
+except ImportError:
+    USE_RICH = False
+try:
+    from loguru import logger
+    USE_LOGGER = True
+except ImportError:
+    USE_LOGGER = False
 
 try:
     from lunarcalendar import Converter, DateNotExist, Lunar, Solar  # type: ignore[import]
@@ -19,6 +32,11 @@ try:
 except ImportError:
     print('failed to import module lunarcalendar')
     sys.exit(1)
+
+from be_prepared import get_thisyear  # type: ignore[import]
+
+logd = logger.debug if USE_LOGGER else print
+prt = rprint if USE_RICH else print
 
 class Solution:
     ''' solution '''
@@ -62,8 +80,7 @@ class Solution:
                 lunar = Lunar(y, m, 1, isleap=True)
                 print(f'{lunar} => {lunar.to_date()}')
             except DateNotExist:
-                #print(e)
-                pass
+                logd(f'DateNotExist: {y} {m} is not a leap month')
 
     @staticmethod
     def show_someday():
@@ -75,16 +92,13 @@ class Solution:
             print(f'{ss.to_date()} => {ll}')
 
         s2l(2012)
-        for yy in range(2019, 2028):
+        prt('-' * 65)
+        this_year = get_thisyear()
+        for yy in range(this_year, this_year+10):
             s2l(yy)
 
 def main():
     ''' main '''
-    #show_lunar_leap_date()
-    #wtf = Solution(2020)
-    #wtf.action()
-
-    #Solution.show_lunar_leap_date()
     Solution.show_someday()
 
 if __name__ == '__main__':
