@@ -10,9 +10,19 @@ from decimal import Decimal
 from random import randint
 import locale
 
-def logd(*args, **wargs):
-    ''' logd '''
-    print(*args, **wargs)
+try:
+    from loguru import logger
+    USE_LOGGER = True
+except ImportError:
+    USE_LOGGER = False
+
+def do_nothing(*_args, **_wargs) -> None:
+    ''' do nothing '''
+    return None
+
+REAL_COMPAIN = False
+logd = logger.debug if USE_LOGGER else print
+complain = logger.exception if REAL_COMPAIN else do_nothing
 
 def get_datetag() -> str:
     ''' string in UYYMMDD '''
@@ -26,20 +36,18 @@ def to_currency(v: str) -> Decimal:
         eg: "1,234,567.89" to 1234567.89
     '''
     locale.setlocale(locale.LC_ALL, 'en_US.UTF8')
-    r = ""
+    r = Decimal()
     try:
         r = Decimal(locale.atof(v))
     except ValueError:
-        #print('Value Error on:', v)
-        pass
+        complain(f'Value Error on: {v}')
     return r
 
 def to_float(v: str) -> float:
     ''' convert str to float, return "" if empty '''
-    r = ""
+    r = 0.0
     try:
         r = float(v)
     except ValueError:
-        #print('Value Error on:', v)
-        pass
+        complain(f'Value Error on: {v}')
     return r

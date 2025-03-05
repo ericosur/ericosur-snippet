@@ -1,3 +1,10 @@
+#
+# data from: joyokanjihyo_20101130.pdf
+# https://ja.wiktionary.org/wiki/%E4%BB%98%E9%8C%B2:%E5%B8%B8%E7%94%A8%E6%BC%A2%E5%AD%97%E3%81%AE%E4%B8%80%E8%A6%A7
+#
+# translated pdf to text and manually edited
+#
+
 あ
 亜 哀 挨 愛 曖 悪 握 圧 扱 宛 嵐 安 案 暗
 

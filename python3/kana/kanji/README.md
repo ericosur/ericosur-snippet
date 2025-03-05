@@ -9,6 +9,10 @@ Currently the script ```mkraw.py``` generates:
 - kanji.json
 - kanji_one_char_one_line.txt
 
+## raw.txt
+
+It is manual copy from ```joyokanjihyo_20101130.pdf``` and paste to ```raw.txt```.
+
 ## reference
 
 - 常用漢字 of Japanese data from: https://ja.wiktionary.org/wiki/%E4%BB%98%E9%8C%B2:%E5%B8%B8%E7%94%A8%E6%BC%A2%E5%AD%97%E3%81%AE%E4%B8%80%E8%A6%A7
