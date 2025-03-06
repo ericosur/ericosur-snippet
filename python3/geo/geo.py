@@ -4,7 +4,10 @@
 '''
 use google geocoding API to query location, address, and etc.
 refer to:
-https://github.com/google/open-location-code/wiki/Plus-codes-API
+https://developers.google.com/maps/documentation/geocoding/overview
+
+https://github.com/google/open-location-code/blob/main/Documentation/Specification/specification.md
+
 '''
 
 import json
