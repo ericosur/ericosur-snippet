@@ -2,7 +2,9 @@
 
 ## api key
 
-to request [API key](https://github.com/google/open-location-code/wiki/Plus-codes-API#api-keys)
+To request [API key](https://github.com/google/open-location-code/blob/main/Documentation/Reference/plus.codes_Website_API.md)
+
+> updated on Mar 6 2025
 
 ## geo.py
 
@@ -30,7 +32,7 @@ returns
 ```json
 {
   "encryption_message": "Provide the key in the key= parameter in your requests",
-  "key": "8Kr54rKYBj8l8DcTxRj7NkvG%2Fe%2FlwvEU%2F4M41bPX3Zmm%2FZX7XoZlsg%3D%3D",
+  "key": "8Kr54rKYBj8l8DcTxRj7NkvGUF4M41bPX3ZmmFZX7XoZlsg",
   "status": "OK"
 }
 ```
