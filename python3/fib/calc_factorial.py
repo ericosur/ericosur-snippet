@@ -83,5 +83,6 @@ if __name__ == '__main__':
                 calc(int(v))
         else:
             calc(170)
-    except ValueError as e:
-        print('shit happens at {v}, exception: {e}')
+    except ValueError as err:
+        print('shit happens at {v}')
+        print(err)

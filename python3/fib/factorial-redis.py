@@ -16,17 +16,14 @@ It will save calculated n! into redis.
 require redis server is running!
 '''
 
-import os
 import sys
 from random import randint
 
 import redis
 
-HOME = os.getenv('HOME')
-UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
-if os.path.exists(UTILPATH):
-    sys.path.insert(0, UTILPATH)
-
+# ruff: noqa: E402
+sys.path.insert(0, '.')
+sys.path.insert(0, '..')
 from myutil import get_home, read_jsonfile
 
 
