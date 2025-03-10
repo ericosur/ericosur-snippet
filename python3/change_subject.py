@@ -19,8 +19,8 @@ from myutil import read_jsonfile, DefaultConfig
 
 try:
     import random_string
-except ImportError as e:
-    print('[ERROR] cannot import: {e}')
+except ImportError:
+    print('[ERROR] cannot import random_string', file=sys.stderr)
     sys.exit(1)
 
 class ChangeJson():

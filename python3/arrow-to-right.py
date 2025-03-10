@@ -8,9 +8,9 @@ just try to know if a is a multi-char string
 def main():
     ''' main '''
     a='→'
-    l = list(a)
-    for c in l:
+    for c in list(a):
         print(c)
+        print('codepoint:',ord(c))
 
 if __name__ == '__main__':
     main()
