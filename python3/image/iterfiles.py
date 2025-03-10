@@ -9,10 +9,13 @@ check if any spaces in the pathname
 import os
 import sys
 from pathlib import Path
-from loguru import logger  # type: ignore[import]
+try:
+    from loguru import logger  # type: ignore[import]
+    logd = logger.debug
+except ImportError:
+    logd = print
 
-logd = logger.debug
-
+# ruff: noqa: E402
 sys.path.insert(0, '.')
 sys.path.insert(0, '..')
 sys.path.insert(0, 'python3/')

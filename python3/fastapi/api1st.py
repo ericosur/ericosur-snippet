@@ -22,8 +22,7 @@ from pydantic import BaseModel
 import numpy as np
 import numpy_financial as npf
 
-app = FastAPI()
-
+# ruff: noqa: E402
 sys.path.insert(0, "../")
 sys.path.insert(0, "python3/")
 from myutil import prt
@@ -35,6 +34,7 @@ sys.path.insert(0, "python3/datetime/dooms/")
 from dooms_day import DoomsDay
 from be_prepared import prepare_values
 
+app = FastAPI()
 @app.get("/")
 def read_root():
     ''' just say hello '''

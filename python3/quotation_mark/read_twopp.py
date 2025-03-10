@@ -6,8 +6,8 @@
 def main():
     ''' main '''
     with open("twopp.txt", "rt", encoding='utf8') as f:
-        for l in f.readlines():
-            c = l.strip()
+        for ln in f.readlines():
+            c = ln.strip()
             print(f'[{c}]: U+{ord(c):04X}')
 
 if __name__ == '__main__':
