@@ -222,7 +222,7 @@ idiom_dict = {'''
         #logd(f'idioms: {len(self.idioms)}')
         self.do_check()
         self.check_tail_in_heads()
-        #self.dump_dict(self.head_dict, '_heads.py')
+        self.dump_dict(self.head_dict, '_heads.py')
 
 if __name__ == "__main__":
     logd(sys.argv[0])
