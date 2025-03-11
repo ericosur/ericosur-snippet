@@ -11,17 +11,24 @@ bopo list
 from functools import cmp_to_key
 import re
 import sys
-from typing import List
+#from typing import List
 from idiom_list import BOPOMOFO_LIST, BOPOMOFO_TONE, IDIOM_BOPOMOFO
 # from rich.console import Console
 # console = Console()
 # logd = console.log
 from loguru import logger
 
+# IDIOM_LIST = [ str ]
+# IDIOM_TONE = [ str ]
+# IDIOM_BOPOMOFO [ (str, str), ... ]
+
 LIST_START = 50
 TONE_START = 1
 BP_DEFAULT = 999
 
+def do_nothing(*_args, **_wargs) -> None:
+    ''' do nothing '''
+    return None
 
 class BopoIndex():
     ''' bopo index '''
@@ -43,7 +50,7 @@ class BopoIndex():
         return the_default
 
     @staticmethod
-    def ensure_len4(n: List) -> List:
+    def ensure_len4(n: list[int]) -> list[int]:
         ''' if len(n) < 4, fill BP_DEFAULT till len==4 '''
         logd = logger.debug
         # check input first
@@ -68,13 +75,13 @@ class BopoIndex():
                 sys.exit(1)
         return tmp
 
-    def get_value_of_word(self, w: str) -> List[List]:
+    def get_value_of_word(self, w: str) -> list[list]:
         '''
         given bopomofo ㄅㄨˋ ㄒㄩㄝˊ ㄨ ㄕㄨˋ
         '''
         logd  = logger.debug
         total = []
-        inner = []
+        inner: list[int] = []
         for c in list(w):
             if c == ' ':
                 if len(inner) == 0:
@@ -82,33 +89,35 @@ class BopoIndex():
                 total.append(self.ensure_len4(inner))
                 inner = []
                 continue
-            r = self.lookup_list(c)
-            inner.append(r)
+            p = self.lookup_list(c)
+            inner.append(p)
         if inner:
-            r = self.ensure_len4(inner)
-            total.append(r)
+            q = self.ensure_len4(inner)
+            total.append(q)
 
         #logd(f'{total=}')
         return total
 
-    def get_bopo_narray_from_idiom(self, w: str) -> List[List]:
+    def get_bopo_narray_from_idiom(self, w: str) -> list[list]:
         '''
         given ㄅㄨˋ ㄒㄩㄝˊ ㄨ ㄕㄨˋ
         get a list of list
         '''
+        #logd = logger.debug
         t = []
         r = self.get_value_of_word(w)
         t.extend(r)
         #logd(f'add_word: {t}')
         return t
 
-def cast_to_list(x) -> List:
+def cast_to_list(x) -> list:
     ''' cast to a list '''
     t = list(x)
     return t
 
-def cmp_idiom(x: List, y: List) -> int:
+def cmp_idiom(x: list, y: list) -> int:
     ''' cmp for list of list '''
+    logd = logger.debug
     #logd(f'cmp_idiom: {x=}\n{y=}')
     m = cast_to_list(x[1]).copy()
     n = cast_to_list(y[1]).copy()
@@ -149,13 +158,18 @@ def translate_sorted_to_dict(the_sorted):
 
 def test():
     ''' test '''
-    #gg = IDIOM_BOPOMOFO.copy()
-    # gg.append(IDIOM_BOPOMOFO[179])
-    # gg.append(IDIOM_BOPOMOFO[149])
+    DO_TEST = False
+    logd = logger.debug
     gg = []
-    for i in IDIOM_BOPOMOFO:
-        if len(i[0])==4:  # only 4-word idioms
-            gg.append(list(i))
+    if DO_TEST:
+        #gg: list[list[str]] = []
+        gg.append(IDIOM_BOPOMOFO[179])
+        gg.append(IDIOM_BOPOMOFO[149])
+        logd(f'{gg=}')
+    else:
+        for i in IDIOM_BOPOMOFO:
+            if len(i[0])==4:  # only 4-word idioms
+                gg.append(list(i))
 
     bo = BopoIndex()
     idioms = {}
@@ -195,12 +209,10 @@ def my_cmp(x: int, y: int) -> int:
     # x == y
     return 0
 
-def do_nothing(*args):
-    ''' do nothing '''
-    return
 
 def _cmp_tone(x: int, y: int, logd=do_nothing) -> int:
     ''' make cmp more clear, x is tone alredy '''
+    ret: int = 0
     if is_tone(y):
         logd("tone vs tone")
         ret = my_cmp(x, y)
@@ -212,11 +224,10 @@ def _cmp_tone(x: int, y: int, logd=do_nothing) -> int:
         ret = -1
     else:
         logd("fatal error")
-        ret = None
         sys.exit(1)
     return ret
 
-def cmp_gt(mm: List, nn: List) -> int:
+def cmp_gt(mm: list[int], nn: list[int]) -> int:
     '''
     Like cmp(a, b) x<y ret -1, x==y ret 0 , x>y ret 1
     '''
@@ -225,7 +236,7 @@ def cmp_gt(mm: List, nn: List) -> int:
     #logd(f'cmp_gt: {m} vs {n}')
     if len(m) != len(n):
         raise IndexError(f"length is different: {m} vs {n}")
-    ret = False
+    ret = 0
     while len(m) > 0:
         x, y = m.pop(0), n.pop(0)
         #logd(f'{x=} vs {y=}')
