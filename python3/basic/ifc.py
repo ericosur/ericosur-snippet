@@ -11,10 +11,13 @@ import sys
 try:
     #from rich import print as pprint
     from rich.pretty import pprint
-    USE_RICH = True
+    from rich.console import Console
+    prt = pprint
+    console = Console()
+    logd = console.log
 except ImportError:
-    USE_RICH = False
-prt = pprint if USE_RICH else print
+    prt = print
+    logd = print
 
 from read_os_release import is_ubuntu1804
 
@@ -25,6 +28,10 @@ sys.path.insert(0, 'python3/')
 from myutil import is_linux, is_windows, show_platform  # type: ignore[import]
 from myutil import run_command, run_command2  # type: ignore[import]
 
+def run_in_termux() -> bool:
+    ''' get prefix '''
+    p = os.environ['PREFIX']
+    return "com.termux" in p
 
 def run_ipconfig() -> None:
     ''' run ipconfig (in cygwin/windows) '''
@@ -49,8 +56,8 @@ def get_ipaddr() -> list[dict[str,str]] | None:
     # only change path of ifconfig for known ubuntu 18.04
     cmd = "/sbin/ifconfig" if is_ubuntu1804() else "/usr/sbin/ifconfig"
     if not os.path.exists(cmd):
-        prt(f"file not found: {cmd}")
-        sys.exit(1)
+        logd(f"file not found: {cmd}")
+        cmd = 'ifconfig'
     outs = run_command(cmd)
     if outs is None:
         return None

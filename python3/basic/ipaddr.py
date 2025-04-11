@@ -5,15 +5,16 @@
 call __ip addr__ and parse
 '''
 
+import os
 import re
 import sys
 
 try:
     #from rich import print as pprint
     from rich.pretty import pprint
-    USE_RICH = True
+    prt = pprint
 except ImportError:
-    USE_RICH = False
+    prt = print
 
 from read_os_release import is_ubuntu1804
 sys.path.insert(0, './')
@@ -21,7 +22,10 @@ sys.path.insert(0, '../')
 sys.path.insert(0, 'python3/')
 from myutil import is_linux, run_command  # type: ignore[import]
 
-prt = pprint if USE_RICH else print
+def run_in_termux() -> bool:
+    ''' get prefix '''
+    p = os.environ['PREFIX']
+    return "com.termux" in p
 
 def get_ipaddr() -> dict[str, str]:
     ''' get ip addr'''
@@ -50,6 +54,9 @@ def main():
     ''' main '''
     if not is_linux():
         prt('this script is for Linux only')
+        sys.exit(1)
+    if run_in_termux():
+        prt('no permission to call ip in termux')
         sys.exit(1)
     ifaces = get_ipaddr()
     prt(ifaces)
