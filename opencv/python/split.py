@@ -67,7 +67,7 @@ def main():
     app_name = 'split.py'
     data = read_image_config()
 
-    home = os.environ["HOME"]
+    home = os.environ.get("HOME")
     image = os.path.join(home, data[app_name]['image_file'])
 
     if not os.path.exists(image):
