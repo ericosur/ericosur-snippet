@@ -11,6 +11,7 @@ starting conemu64.exe like:
 note:
 - prefix with raw because the backslash in this string
 - 2025/4/09 modified for OA/windows
+- it has a duplicated version in another repository
 '''
 
 import datetime
@@ -74,7 +75,10 @@ def run_command2(cmd: str):
 
 def run_in_termux() -> bool:
     ''' get prefix '''
-    p = os.environ['PREFIX']
+    p = os.environ.get('PREFIX')
+    if p is None:
+        return False
+    p = p.decode('utf-8')
     return "com.termux" in p
 
 def get_tail_digits(s: str):
