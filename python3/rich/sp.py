@@ -12,8 +12,9 @@ from rich.spinner import SPINNERS
 #from rich.text import Text
 
 console = Console()
-tasks = [f"task {n}" for n in range(6)]
+tasks = [f"task {n}" for n in range(5)]
 prt = console.print
+logd = console.log
 
 def get_dot() -> str:
     ''' return dots([2-12])?'''
@@ -26,6 +27,7 @@ def do_tasks():
     ''' do tasks '''
     #picked = choice(sorted(SPINNERS))
     sp_name = get_dot()
+    logd(f"picked: {sp_name}")
     with console.status("[bold green]Working on tasks...",
                         spinner=sp_name,
                         refresh_per_second=12.5) as _status:
