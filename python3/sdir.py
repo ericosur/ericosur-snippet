@@ -16,8 +16,10 @@ def main(args: list):
         print(f'demo: use "{d}"')
         args.append(d)
 
-    res = os.environ['PATH']
-
+    res = os.environ.get('PATH')
+    if res is None:
+        print('FAIL: PATH not found')
+        return
     for a in args:
         found = False
         for p in res.split(os.pathsep):
@@ -27,7 +29,6 @@ def main(args: list):
                 found = True
         if not found:
             print(f'not found: {a}')
-
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:

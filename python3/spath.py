@@ -147,7 +147,10 @@ class PathLister():
 
     def __check_path__(self):
         ''' check paths '''
-        p = os.environ['PATH']
+        p = os.environ.get('PATH')
+        if p is None:
+            self.logd('no such variable: PATH')
+            raise ValueError('no such variable: PATH')
         for d in p.split(os.pathsep):
             if d == '':
                 continue
