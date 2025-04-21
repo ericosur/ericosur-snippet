@@ -21,7 +21,7 @@ def auth_gss_client(path, scopes):
 
 def main():
     ''' main '''
-    home = os.environ['HOME']
+    home = os.environ.get('HOME')
     auth_json_path = home + '/Private/auth.json'
     gss_scopes = ['https://spreadsheets.google.com/feeds']
     gss_client = auth_gss_client(auth_json_path, gss_scopes)

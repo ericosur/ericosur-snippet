@@ -14,13 +14,24 @@ import os
 
 def get_pipath():
     ''' return pi-billion.txt full path '''
-    home = os.environ["HOME"]
-    fn = home + '/Dropbox/src/pi_digits/pi-billion.txt'
+    home = os.environ.get("HOME")
+    if home is None:
+        raise ValueError('HOME not found')
+    # dropbox or Dropbox
+    dirs = ['Dropbox', 'dropbox']
+    top = None
+    for d in dirs:
+        t = os.path.join(home, d)
+        if os.path.exists(t):
+            top = t
+            break
+    fn = os.path.join(top, 'src', 'pi_digits', 'pi-billion.txt')
+    if not os.path.exists(fn):
+        raise FileNotFoundError(f'pi-billion.txt not found: {fn}')
     return fn
 
 def main():
     ''' main '''
-    fn = get_pipath()
     target = '19890604'
     # use ```grep -ob 19890604 pi-billion``` will get these numbers
     pos_list = [
@@ -28,6 +39,7 @@ def main():
         808353115, 836748874, 846783124, 921591435
     ]
     try:
+        fn = get_pipath()
         with open(fn, 'rt', encoding='UTF-8') as pi:
             for pp in pos_list:
                 pi.seek(pp, 0)
@@ -35,6 +47,8 @@ def main():
                 print(f'{buf} @{pp}')
                 if buf != target:
                     print('[ERROR] not matched!')
+    except ValueError as e:
+        print('except:', e)
     except FileNotFoundError as e:
         print('except:', e)
 
