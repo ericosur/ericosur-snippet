@@ -117,7 +117,7 @@ def cast_to_list(x) -> list:
 
 def cmp_idiom(x: list, y: list) -> int:
     ''' cmp for list of list '''
-    logd = logger.debug
+    #logd = logger.debug
     #logd(f'cmp_idiom: {x=}\n{y=}')
     m = cast_to_list(x[1]).copy()
     n = cast_to_list(y[1]).copy()
