@@ -24,7 +24,10 @@ from myutil import is_linux, run_command  # type: ignore[import]
 
 def run_in_termux() -> bool:
     ''' get prefix '''
-    p = os.environ['PREFIX']
+    p = os.environ.get('PREFIX')
+    if p is None:
+        return False
+    p = p.decode('utf-8')
     return "com.termux" in p
 
 def get_ipaddr() -> dict[str, str]:
