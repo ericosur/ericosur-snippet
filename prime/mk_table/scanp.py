@@ -7,15 +7,15 @@ test some values in config file
 
 import sys
 
+# pylint: disable=import-error
+# pylint: disable=wrong-import-position
+# ruff: noqa: E402
+sys.path.insert(0, '../')
+from store import GetConfig, StorePrime
+
 MODNAME = "scanp"
 VERSION = "2024.03.27"
 CONFIG_KEY = "big"
-
-# pylint: disable=import-error
-# pylint: disable=wrong-import-position
-
-sys.path.insert(0, '../')
-from store import GetConfig, StorePrime
 
 
 def wrap_config():
@@ -37,23 +37,28 @@ def do_test():
     primes = sp.get_primes_less_than(uu)
     get_max_dist(primes)
 
-def get_max_dist(primes):
+def get_max_dist(primes) -> None:
     ''' max dist '''
+    if not primes or len(primes) < 2:
+        print("The primes list must contain at least two elements to calculate distances.")
+        return
+
     ll = primes[0]
     uu = primes[-1]
-    mm = -1
-    total, cnt = 0, 0
-    pair = ()
+    mm = 0
+    pair = (0, 0)
+    total = 0
+    cnt = 0
     for i in range(1, len(primes)):
-        l = primes[i-1]
-        u = primes[i]
-        d = abs(u-l)
+        lower_prime = primes[i-1]
+        upper_prime = primes[i]
+        d = abs(upper_prime - lower_prime)
         total += d
         cnt += 1
         if d > mm:
             mm = d
-            pair = (l, u)
-        #print(f'{l}--{d}--{u}')
+            pair = (lower_prime, upper_prime)
+        # print(f'{lower_prime}--{d}--{upper_prime}')
     print(f'max dist between primes {ll} to {uu} = {mm} while {pair}')
     print(f'avg dist = {total/cnt:.3f}')
 

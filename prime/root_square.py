@@ -19,8 +19,8 @@ from store import GetConfig, StorePrime
 
 try:
     from sympy import ntheory
-except ImportError as err:
-    print('[FAIL] cannot import sympy')
+except ImportError:
+    print('FAIL: cannot import sympy')
     sys.exit(-1)
 
 MODNAME = "RootSquares"

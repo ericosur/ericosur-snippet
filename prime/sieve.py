@@ -135,8 +135,8 @@ class SieveOfEratosthenes():
         if not self.ok_to_verify:
             prt("[FAIL] cannot use stored primes to validate")
             return
-        l = len(self.results)
-        prt(f'verify_result: len of results: {l:,}')
+
+        prt(f'verify_result: len of results: {len(self.results):,}')
         stored_primes = self.sp.get_primes_less_than(self.results[-1]+1)
         prt(f'verify_result: fetched stored primes: {len(stored_primes):,}')
         if stored_primes == self.results:

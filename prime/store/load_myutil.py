@@ -12,7 +12,6 @@ SETTING_FILE = "setting.json"
 # pylint: disable=wrong-import-position
 
 import os
-import platform
 import sys
 
 try:
@@ -21,20 +20,11 @@ try:
 except ImportError:
     dbg = print
 
-HOME = os.getenv('HOME')
-if HOME is None:
-    HOME = ''
-#print(f'{HOME=}')
-if platform.system() == "Windows":
-    UTILPATH = os.path.join(os.getcwd(), '../python3')
-else:
-    UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
-if os.path.exists(UTILPATH):
-    sys.path.insert(0, UTILPATH)
-# also relative path
+# use relative path
+# ruff: noqa: E402
+sys.path.insert(0, "../../python3")
 sys.path.insert(0, "../python3")
-
-import myutil # type: ignore
+import myutil # type: ignore[import]
 
 die = myutil.die
 is_file = myutil.is_file
@@ -45,6 +35,8 @@ read_setting = myutil.read_setting
 read_from_stdin = myutil.read_from_stdin
 MyDebug = myutil.MyDebug
 MyVerbose = myutil.MyVerbose
+
+HOME = os.environ.get("HOME")
 
 def get_home():
     ''' get home dir '''
@@ -159,3 +151,6 @@ class GetConfig():
         pfn = os.path.join(gethome(), self.ppath, self.d['pickle_big'])
         pzfn = os.path.join(gethome(), self.ppath, self.d['pickle_big_compress'])
         return txtfn, pfn, pzfn
+
+if __name__ == "__main__":
+    print(f'{__file__}\nversion: {__VERSION__} is a module only')
