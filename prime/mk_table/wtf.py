@@ -15,7 +15,7 @@ Possible warnings:
     - unused-import
 '''
 
-import numpy
+#import numpy
 import argparse
 
 def wtf():

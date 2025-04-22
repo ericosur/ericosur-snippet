@@ -11,17 +11,27 @@ load prime numbers from table and output to a xlsx file
 import sys
 import sympy
 
-XLSWRITER_OK = False
 try:
     import xlsxwriter
     XLSWRITER_OK = True
 except ImportError:
     print('cannot import module xlsxwriter, WILL NOT output to xlsx file')
+    XLSWRITER_OK = False
 
+# ruff: noqa: E402
 sys.path.insert(0, '../')
 from store import GetConfig
 
-USE_LCP = False
+# print the version of sympy
+vers = sympy.__version__.split('.')
+print(f'[INFO] sympy version: {sympy.__version__}')
+# https://docs.sympy.org/latest/explanation/active-deprecations.html#deprecated-ntheory-symbolic-functions
+if len(vers) >= 2 and vers[1] >= '13':
+    FUNC_PRIMEPI = True
+    print('[INFO] sympy version >= 1.13, the usage of primepi() is changed')
+else:
+    FUNC_PRIMEPI = False
+
 try:
     # larger and slower for loading pickle
     from store import LoadCompressPrime as StorePrime
@@ -30,8 +40,8 @@ try:
 except ImportError:
     # smaller and quicker for loading pickle
     from store import StorePrime
+    USE_LCP = False
     print(f'[INFO] {__file__}: use **store_prime**')
-
 
 def get_smallconfig():
     ''' return small txt path '''
@@ -107,7 +117,11 @@ class Solution():
             return
 
         # double confirm
-        prime_n = sympy.ntheory.generate.primepi(self.upper)
+        if FUNC_PRIMEPI:
+            # sympy version >= 1.13
+            prime_n = sympy.functions.combinatorial.numbers.primepi(self.upper)
+        else:
+            prime_n = sympy.ntheory.generate.primepi(self.upper)
         assert prime_n == len(self.arr)
 
         print(f'[INFO] There are {prime_n} primes under {self.upper}')

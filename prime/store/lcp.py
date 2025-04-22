@@ -13,19 +13,14 @@ pip install compress_pickle
 
 '''
 
-MODNAME = "lcp.py"
-__VERSION__ = "2024.03.27"
-LOCAL_DEBUG = False
-
 from time import time
 from .load_myutil import dbg, do_nothing
-
-dbg = dbg if LOCAL_DEBUG else do_nothing
+from .store_prime import StorePrime
 
 try:
     from rich import console
     prt = console.Console().print
-except ImportError as err:
+except ImportError:
     prt = print # type: ignore
 
 try:
@@ -34,7 +29,11 @@ except ImportError as err:
     dbg('[FAIL] cannot load module **compress_pickle**')
     raise ModuleNotFoundError(err) from err
 
-from .store_prime import StorePrime
+MODNAME = "lcp.py"
+__VERSION__ = "2024.03.27"
+LOCAL_DEBUG = False
+
+dbg = dbg if LOCAL_DEBUG else do_nothing
 
 
 class LoadCompressPrime(StorePrime):
