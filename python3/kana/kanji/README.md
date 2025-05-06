@@ -9,23 +9,33 @@ Currently the script ```mkraw.py``` generates:
 - kanji.json
 - kanji_one_char_one_line.txt
 
-## raw.txt
+- raw.txt
+  It is manual copy from ```joyokanjihyo_20101130.pdf``` and paste to ```raw.txt```.
 
-It is manual copy from ```joyokanjihyo_20101130.pdf``` and paste to ```raw.txt```.
+### joyokanji
+
+- 常用漢字(joyo kanji) of Japanese data from: https://ja.wiktionary.org/wiki/%E4%BB%98%E9%8C%B2:%E5%B8%B8%E7%94%A8%E6%BC%A2%E5%AD%97%E3%81%AE%E4%B8%80%E8%A6%A7
+
+- joyo kanji of japanese, total 2136 characters (since 2010)
+
+- If consider Kyūjitai ("旧字体", old-form kanji) vs Shinjitai ("新字体", new-form of kanji). There are 5314 old-kanji characters.
+
+github resource:
+- https://github.com/mimneko/kanji-data
+- https://github.com/himeyama/joyo-kanji
+- https://gist.github.com/KEINOS/fb660943484008b7f5297bb627e0e1b1
+
+
+other references:
+- [新字體](https://zh.wikipedia.org/zh-tw/%E6%96%B0%E5%AD%97%E4%BD%93)
+- [日本漢字](https://zh.wikipedia.org/zh-tw/%E6%97%A5%E6%9C%AC%E6%B1%89%E5%AD%97)
 
 ## reference
-
-- 常用漢字 of Japanese data from: https://ja.wiktionary.org/wiki/%E4%BB%98%E9%8C%B2:%E5%B8%B8%E7%94%A8%E6%BC%A2%E5%AD%97%E3%81%AE%E4%B8%80%E8%A6%A7
-
-- joyo kanji of japanese, total 2136 characters
 
 - GB/T 2312標準共收錄6763個漢字，其中一級漢字3755個，二級漢字3008個；同時收錄了包括拉丁字母、希臘字母、日文平假名及片假名字母、注音符號、俄語西里爾字母在內的682個字符。(https://zh.wikipedia.org/wiki/GB_2312)
 
 - For big5 table, there are about 13063 han characters in it.
 
-- [新字體](https://zh.wikipedia.org/zh-tw/%E6%96%B0%E5%AD%97%E4%BD%93)
-
-- from [日本漢字](https://zh.wikipedia.org/zh-tw/%E6%97%A5%E6%9C%AC%E6%B1%89%E5%AD%97)
 
 - 《大漢和辭典》是最大的日本漢字字典，共記載接近四萬五千個漢字，不過現代日文的常用漢字僅約兩千餘字。
 
@@ -43,3 +53,7 @@ It is manual copy from ```joyokanjihyo_20101130.pdf``` and paste to ```raw.txt``
   - I use a de facto (rather old) han character standard to guess how many han characters for zh_CN (6763), zh_TW (13063), ja (2136). The de facto does not cover all han character in everyday life, but it could handle at least 90% to 95% daily use.
 
 - Great we have unicode. Even unicode collects tons of han characters that seems no body uses, the number is still growing.
+
+- [基於花園明朝字體的開放原始碼中文字型](https://github.com/max32002/max-hana)
+
+- [漢文教育用基礎漢字](https://zh.wikipedia.org/zh-tw/%E6%BC%A2%E6%96%87%E6%95%99%E8%82%B2%E7%94%A8%E5%9F%BA%E7%A4%8E%E6%BC%A2%E5%AD%97) about 1,800 characters
