@@ -43,14 +43,20 @@ These characters are marked as part of kAccountingNumeric.
 
 ##### NTD
 
-中文數字大寫 is used.
+Capital (中文數字大寫) is used.
 
- - coin: 壹圓 / 伍圓 / 拾圓 (1, 5, 10 TWD)
- - coin: no 中文數字大寫 五十 (50 TWD), no han char 20 TWD (hardly see)
- - bill: 壹佰圓 / 貳佰圓 / 伍佰圓 (100, 200, 500 TWD) (200 is hardly to see)
- - bill: 壹仟圓 / 貳仟圓 (1000, 2000 TWD) (2000 is hardly to see)
+- coin: 壹圓 / 伍圓 / 拾圓 (1, 5, 10 TWD)
+- coin: no 中文數字大寫 五十 (50 TWD), no han char 20 TWD (hardly see)
+- bill: 壹佰圓 / 貳佰圓 / 伍佰圓 (100, 200, 500 TWD) (200 is hardly to see)
+- bill: 壹仟圓 / 貳仟圓 (1000, 2000 TWD) (2000 is hardly to see)
 
 ##### HKD
+
+Capital (中文數字大寫) is used.
+
+- coin: 壹毫 / 貳毫 / 伍毫
+- coin: 壹圓 / 伍圓 / 拾圓
+- bill: 貳拾圓 / 伍拾圓 / 壹佰圓 / 伍佰圓 / 壹仟圓
 
 ##### JPY
 
