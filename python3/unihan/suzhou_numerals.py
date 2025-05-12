@@ -57,7 +57,7 @@ def lookup_suzhou_cp_from_str(the_strs: str) -> str:
         ret.append(suzhou_numerals.get(s))
     return ret
 
-def rep_suzhou(the_str: str):
+def rep_suzhou(the_str: str) -> str:
     ''' int num to string suzhou numerals '''
     if the_str in {'10', '20', '30'}:
         return lookup_suzhou_char_from_str(the_str)
@@ -67,7 +67,7 @@ def rep_suzhou(the_str: str):
         ans.append(r)
     return ''.join(ans)
 
-def show_cp_only(rets):
+def show_cp_only(rets: list):
     ''' show codepoint only '''
     logd('show codepoint only =====>')
     for s in rets:
@@ -77,9 +77,8 @@ def show_cp_only(rets):
         except ValueError as e:
             print(f'{s:>10s} => {e}')
             continue
-    return
 
-def prepare_args():
+def prepare_args() -> list:
     ''' prepare args '''
     REPEAT = 3
     rets = ['10', '20', '30', '1234567890']
