@@ -12,7 +12,7 @@ from sympy import ntheory
 try:
     from store import GetConfig, StorePrime
 except ImportError as e:
-    print('[FAIL] import error: {e}')
+    print(f'[FAIL] import error: {e}')
     sys.exit(-1)
 
 MODNAME = "CheckPrimes"

@@ -23,7 +23,7 @@ from store_prime import StorePrime
 PYTHONISTA=False
 if PYTHONISTA:
     # pythonista
-    import clipboard
+    import clipboard  # noqa
     import console
 
 # pylint: disable=invalid-name
