@@ -26,8 +26,8 @@ import sys
 from typing import List, Union, Annotated
 from pydantic import BaseModel
 
-LOCAL_DEBUG = False
 from store import dbg, do_nothing
+LOCAL_DEBUG = False
 dbg = dbg if LOCAL_DEBUG else do_nothing
 
 try:
