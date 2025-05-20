@@ -12,12 +12,15 @@ try:
     #from rich import print as pprint
     from rich.pretty import pprint
     from rich.console import Console
+    from rich.table import Table
+    RICH_ENABLED = True
     prt = pprint
     console = Console()
     logd = console.log
 except ImportError:
     prt = print
     logd = print
+    RICH_ENABLED = False
 
 from read_os_release import is_ubuntu1804
 
@@ -87,12 +90,32 @@ def get_ipaddr() -> list[dict[str,str]] | None:
         if tmp:
             rets.append(tmp)
         tmp = {}
+    # go throught rets, remove the dict that has no inet
+    rets = [d for d in rets if 'inet' in d]
     return rets
+
+def show_as_table(ret: list[dict[str,str]]) -> None:
+    ''' show as table '''
+    table = Table(title="IP Address")
+    table.add_column("interface", justify="left", style="cyan")
+    table.add_column("inet", justify="left", style="magenta")
+    table.add_column("MAC", justify="left", style="green")
+    for d in ret:
+        ifn = d.get('interface', '')
+        inet = d.get('inet', '')
+        mac = d.get('MAC', '')
+        table.add_row(ifn, inet, mac)
+    console.print(table)
 
 def main():
     ''' main '''
     if is_linux():
-        prt(get_ipaddr())
+        # note: if returns has no inet, it will be removed
+        ret = get_ipaddr()
+        if RICH_ENABLED:
+            show_as_table(ret)
+        else:
+            prt(ret)
     elif is_windows():
         run_ipconfig()
     else:
