@@ -9,7 +9,6 @@ import argparse
 import os
 import sys
 import re
-from typing import List
 
 def logd(*args, **wargs) -> None:
     ''' logd '''
@@ -38,7 +37,7 @@ class CheckCsv():
         obj = cls()
         obj.action(args)
 
-    def action(self, args: List) -> None:
+    def action(self, args: argparse.Namespace) -> None:
         ''' action '''
         CheckCsv.debug = args.debug
         logd('CheckCsv.action...')
@@ -63,11 +62,13 @@ class CheckCsv():
                     continue
                 pattern = r'\"(\d{4}-\d{2}-\d{2})\",\"([^\"]*)\",\"[^\"]*\",\"[^\"]*\"'
                 m = re.match(pattern, ln)
-                if not m:
+                if m:
+                    # m[1]: date, m[2]: time string
+                    k, v = m[1], m[2]
+                    self.tb[k] = v
+                else:
                     print(ln)
-                # m[1]: date, m[2]: time string
-                k,v = m[1], m[2]
-                self.tb[k] = v
+
 
     def check_table(self) -> None:
         ''' check self.tb '''
