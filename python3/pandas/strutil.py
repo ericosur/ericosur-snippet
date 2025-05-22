@@ -3,19 +3,16 @@
 
 ''' some useful string snippets '''
 
+from datetime import date
 import re
 
-
-def print_sep():
-    ''' print seperator '''
-    print('-' * 50)
 
 def strify(nn):
     ''' strify '''
     return f'{nn:02}'
 
 # return: float64
-def str2sec(timestr: str):
+def str2sec(timestr: str) -> float:
     ''' translate mm:ss.nn into float64 numeric '''
     if not isinstance(timestr, str):
         print('str2sec: not a string?', timestr)
@@ -77,3 +74,25 @@ def sec2mmss(sec: str):
     ss.reverse()
     res = ':'.join(ss)
     return res
+
+def str2date(s: str) -> date:
+    ''' date string to date object
+        [in] 2020-01-01
+    '''
+    arr = s.split('-')
+    try:
+        vals = [int(x) for x in arr]
+    except ValueError:
+        print('[ERROR] str2date: invalid string to integer:', s)
+        return None
+    return date(vals[0], vals[1], vals[2])
+
+def get_between_dates(start: str, end: str) -> str:
+    ''' get dates between
+        [in] str start date 2020-01-01
+        [out] str end date 2020-02-29
+    '''
+    start_date = str2date(start)
+    end_date = str2date(end)
+    ddiff = end_date - start_date
+    return str(ddiff.days)
