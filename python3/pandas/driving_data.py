@@ -25,25 +25,27 @@ except ImportError:
 
 try:
     from loguru import logger
-    USE_LOGURU = True
+    logd = logger.debug
+    logi = logger.info
 except ImportError:
-    USE_LOGURU = False
+    logd = print
+    logi = print
 
-from strutil import print_sep, sec2mmss, str2sec
-from working_days import LoadWorkingDays
+from strutil import sec2mmss, str2sec, get_between_dates
+from showutil import show_curios, show_extra_header, show_workingdays
+from showutil import show_simplecsv, show_outputs
 
-sys.path.insert(0, "..")
-sys.path.insert(0, "../../")
-from myutil import query_url_for_data, read_jsonfile, isfile, die
-from myutil import MyDebug, MyVerbose, DefaultConfig
+try:
+    sys.path.insert(0, "..")
+    sys.path.insert(0, "../../")
+    from myutil import query_url_for_data, read_jsonfile, isfile, die
+    from myutil import MyDebug, MyVerbose, DefaultConfig
+except ImportError:
+    print('[ERROR] cannot import myutil...')
+    sys.exit(1)
 
 TMP_CSV = '/tmp/__driving_datasheet__.csv'
 
-logd = print
-logi = print
-if USE_LOGURU:
-    logd = logger.debug
-    logi = logger.info
 
 class MySimpleout():
     ''' my verbose '''
@@ -133,7 +135,6 @@ class DriveConfig(MyDebug):
         print(f'{self.data=}')
         print(f'{self.url=}')
 
-
 class DrivingData(MyDebug, MyVerbose, MySimpleout):
     ''' fetch driving data from gdrive or local csv '''
 
@@ -189,47 +190,10 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
             ofile.write(csvdata)
             self._log(f'output csv to {self.csvfile}')
 
-    @staticmethod
-    def str2date(s):
-        ''' date string to date object
-            [in] 2020-01-01
-        '''
-        arr = s.split('-')
-        try:
-            vals = [int(x) for x in arr]
-        except ValueError:
-            print('[ERROR] str2date: invalid string to integer:', s)
-            return None
-        return date(vals[0], vals[1], vals[2])
-
-    @staticmethod
-    def get_between_dates(start, end) -> str:
-        ''' get dates between
-            [in] str start date 2020-01-01
-            [out] str end date 2020-02-29
-        '''
-        start_date = DrivingData.str2date(start)
-        end_date = DrivingData.str2date(end)
-        ddiff = end_date - start_date
-        return str(ddiff.days)
-
-    def extra_header(self):
-        ''' show extra header '''
-        if self.verbose:
-            print(f"[INFO] panda version: {pd.__version__}")
-        print(f'[INFO]    first date: {self.outputs["first"]}')
-        print(f'[INFO]     last date: {self.outputs["last"]}')
-        print(f'[INFO]   during days: {self.outputs["during"]}')
-
-    def show_workingdays(self):
-        ''' show working days '''
-        if self.verbose:
-            wd = LoadWorkingDays()
-            for y in range(2021,2024+1):
-                print(wd.get_msg(y))
-
     def action(self):
-        ''' main function '''
+        ''' main function, read data and calculate statistics
+            call do_show() to show results
+        '''
         # read csv file as dataframe
         data = pd.read_csv(self.csvfile)
         duration = data['duration']
@@ -251,7 +215,7 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
 
         self.outputs['first'] = dates[0]
         self.outputs['last'] = dates[-1]
-        self.outputs['during'] = DrivingData.get_between_dates(dates[0], dates[-1])
+        self.outputs['during'] = get_between_dates(dates[0], dates[-1])
 
         if len(dates) != len(secs):
             print(f'[ERROR] not the same length {len(dates)} vs {len(secs)}')
@@ -264,11 +228,12 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
         self.fill_outputs(des)
 
     def do_show(self):
-        ''' do show '''
+        ''' show self.outputs in desired way '''
         if self.simpleout:
-            self.show_simplecsv()
-        else:
-            self.show_details()
+            show_simplecsv(self.outputs)
+            return
+
+        self.show_details()
 
     def fill_outputs(self, des):
         ''' fill results in outputs (dict) '''
@@ -286,33 +251,14 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
             self.outputs[q] = mmss
         self.fill_pois(the_vars)
 
-    def show_simplecsv(self):
-        ''' csv output '''
-        for k,v in self.outputs.items():
-            print(f'"{k}", "{v}"')
-
     def show_details(self):
         ''' show details of res² '''
-        self.extra_header()
-        self.show_workingdays()
-        print_sep()
-        for k in ['count', 'max', '75%', 'mean', '50%', '25%', 'min', 'std']:
-            v = self.outputs[k]
-            if k == "count":
-                result = v
-                j = result.rjust(9, ' ')
-            else:
-                try:
-                    secs = str2sec(v)
-                    result = f'{v}  ({secs:4.0f})'
-                    j = result.rjust(20, ' ')
-                except ValueError:
-                    logd(f'[FAIL] at {k=} {v=}')
-                    logi('[INFO] some data line is incorrect,',
-                          'download the csv and run ```check_csv.py```')
-                    continue
-            print(f'{k:10s}: {j:20s}')
-        print_sep()
+        if self.verbose:
+            print(f"[INFO] panda version: {pd.__version__}")
+
+        show_extra_header(self.outputs)
+        show_workingdays(self.verbose)
+        show_outputs(self.outputs, logd, logi)
         self.show_poi()
 
     def fill_pois(self, the_vars):
@@ -340,7 +286,6 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
         self._log('opts:', opts)
         self.outputs['opts'] = opts
 
-
     def show_poi(self):
         ''' show some values (extra) '''
         self._tag = 'show_poi'
@@ -367,7 +312,6 @@ def peek_target(desc_table, target):
     except ValueError as e:
         print(f'WARN: ValueError: {e.args}')
     return ''
-
 
 def perform_show_driving_data(args):
     ''' universal starter '''
@@ -404,17 +348,6 @@ def perform_show_driving_data(args):
     obj.action()
     obj.do_show()
 
-def show_curios():
-    ''' show some readme '''
-    msg = '''
-# some curios for normal distribution (only right side of μ)
-0~1σ = 34.1%
-1σ~2σ = 13.6% (acc: 47.7%, ±2σ: 95.4%)
-2σ~3σ = 2.1%  (acc: 49.8%, ±4σ: 99.6%)
-3σ~   = 0.1%  (acc: 49.9%)
-'''
-    print(msg)
-
 def show_parameters(parser):
     ''' show parameters content '''
     print('[INFO] show parameters only, need `--run` to real work, dump...\n')
@@ -436,7 +369,6 @@ def show_parameters(parser):
     # to show help message directly
     if has_parameter is False:
         parser.print_help()
-
 
 def main():
     ''' main '''
