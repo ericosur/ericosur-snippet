@@ -38,8 +38,8 @@ from showutil import show_simplecsv, show_outputs
 try:
     sys.path.insert(0, "..")
     sys.path.insert(0, "../../")
-    from myutil import query_url_for_data, read_jsonfile, isfile, die
-    from myutil import MyDebug, MyVerbose, DefaultConfig
+    from myutil import query_url_for_data, read_jsonfile, isfile, die # type: ignore[import]
+    from myutil import MyDebug, MyVerbose, DefaultConfig # type: ignore[import]
 except ImportError:
     print('[ERROR] cannot import myutil...')
     sys.exit(1)

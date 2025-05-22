@@ -84,7 +84,7 @@ def str2date(s: str) -> date:
         vals = [int(x) for x in arr]
     except ValueError:
         print('[ERROR] str2date: invalid string to integer:', s)
-        return None
+        raise ValueError
     return date(vals[0], vals[1], vals[2])
 
 def get_between_dates(start: str, end: str) -> str:

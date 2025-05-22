@@ -11,7 +11,7 @@ read working days from json
 import sys
 
 sys.path.insert(0, "..")
-from myutil import read_jsonfile, DefaultConfig
+from myutil import read_jsonfile, DefaultConfig # type: ignore[import]
 
 __VERSION__ = '2024.02.26'
 
