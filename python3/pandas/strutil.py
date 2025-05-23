@@ -7,7 +7,7 @@ from datetime import date
 import re
 
 
-def strify(nn):
+def strify(nn) -> str:
     ''' strify '''
     return f'{nn:02}'
 
@@ -38,7 +38,7 @@ def str2sec(timestr: str) -> float:
     #     print(f'[warn] str2sec: {timestr=} {total=}')
     return total
 
-def sec2str(sec: str):
+def sec2str(sec: str) -> str:
     ''' seconds to string '''
     ss = []
     try:
@@ -56,7 +56,7 @@ def sec2str(sec: str):
     res = ':'.join(ss)
     return res
 
-def sec2mmss(sec: str):
+def sec2mmss(sec: str) -> str:
     ''' seconds to mm:ss string '''
     ss = []
     try:
