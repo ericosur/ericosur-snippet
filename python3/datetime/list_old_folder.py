@@ -14,7 +14,7 @@ import sys
 import time
 sys.path.insert(0, '.')
 sys.path.insert(0, '..')
-from myutil import prt
+from myutil import prt  # type: ignore[import]
 
 class ShowDirList():
     ''' show the folder list by epoch '''
@@ -51,7 +51,7 @@ class ShowDirList():
         return ShowDirList.get_current_epoch() + days * 24 * 3600
 
     @staticmethod
-    def get_date_str_from_epoch(epoch: int) -> str:
+    def get_date_str_from_epoch(epoch: float) -> str:
         ''' get date string from epoch '''
         return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(epoch))
 
