@@ -7,10 +7,12 @@ wrapper to check if python >= 3.10
 '''
 
 import sys
-
-sys.path.insert(0, "../")
-from myutil import require_python_version  # type: ignore[import]
-
+try:
+    sys.path.insert(0, "../")
+    from myutil import require_python_version  # type: ignore[import]
+except ImportError:
+    print('Cannot import myutil, please check the module path.')
+    sys.exit(1)
 
 def main():
     ''' main '''
