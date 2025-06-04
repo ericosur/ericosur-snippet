@@ -3,15 +3,7 @@ Q11. 觀察以下的數列：請問，其中有多少個最簡分數？
 ⅛, 2/9, 3/10, 4/11, 5/12, … 2021/2028
 '''
 
-
-
-def gcd(m: int, n: int) -> int:
-    '''
-    calculate gcd number by rescursive
-    '''
-    if n == 0:
-        return m
-    return gcd(n, m % n)
+from math import gcd
 
 
 def main():
@@ -24,6 +16,6 @@ def main():
             cnt += 1
     print(cnt)
 
-
 if __name__ == '__main__':
     main()
+
