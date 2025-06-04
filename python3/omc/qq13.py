@@ -6,17 +6,7 @@ define an operation that A # B = lcm(A,B) - gcd(A,B)
 find the max 24 # X, X is between 1, 100
 '''
 
-def gcd(m: int, n: int) -> int:
-    '''
-    calculate gcd number by rescursive
-    '''
-    if n == 0:
-        return m
-    return gcd(n, m % n)
-
-def lcm(m: int, n: int) -> int:
-    ''' get lcm '''
-    return (m*n) // gcd(m, n)
+from math import gcd
 
 
 def main():

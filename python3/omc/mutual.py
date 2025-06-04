@@ -5,13 +5,7 @@
 from 1 to 48, gcd == 1
 '''
 
-def gcd(m: int, n: int) -> int:
-    '''
-    calculate gcd number by rescursive
-    '''
-    if n == 0:
-        return m
-    return gcd(n, m % n)
+from math import gcd
 
 def main():
     ''' main '''
