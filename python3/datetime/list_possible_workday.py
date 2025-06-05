@@ -32,8 +32,18 @@ import os
 import sys
 from datetime import date, datetime, timedelta
 from typing import Union, Annotated, Any, Callable
-import typer
-from loguru import logger
+try:
+    import typer
+    USE_TYPER = True
+except ImportError:
+    print('[WARN] typer not found, please install it with "pip install typer"')
+    print('[WARN] no CLI options available')
+    USE_TYPER = False
+try:
+    from loguru import logger
+    logd = logger.debug
+except ImportError:
+    logd = print
 from nothing import do_nothing
 
 def get_thisyear() -> int:
@@ -54,21 +64,21 @@ class CollectWeekday():
     def __set_datafile(self) -> str:
         ''' set data file '''
         # default value
-        logd = self.logd
+        __logd = self.logd
         ret = self.HOLIDAYS_JSON
         home = os.environ.get('HOME')
         private_path = os.path.join(home, 'Private', self.HOLIDAYS_JSON)
         if os.path.isfile(private_path):
             ret = private_path
-            logd(f'[INFO] using private data file: {ret}')
+            __logd(f'[INFO] using private data file: {ret}')
         return ret
 
     def load_holidays(self, jsonfile: str = HOLIDAYS_JSON) -> None:
         ''' load holidays from json file '''
-        logd = self.logd
+        __logd = self.logd
         # load holidays from json file
         try:
-            logd(f'[INFO] load holidays from: {jsonfile}')
+            __logd(f'[INFO] load holidays from: {jsonfile}')
             with open(jsonfile, 'rt', encoding='UTF-8') as fobj:
                 self.holidays = json.load(fobj)
         except FileNotFoundError:
@@ -76,8 +86,8 @@ class CollectWeekday():
             print(f'[ERROR] holidays file not found: {jsonfile}')
 
         self.excluded_days = self.collect_holidays(get_thisyear())
-        logd(f'size of excluded_days: {len(self.excluded_days)}')
-        logd(self.excluded_days)
+        __logd(f'size of excluded_days: {len(self.excluded_days)}')
+        __logd(self.excluded_days)
 
     def collect_holidays(self, year: int) -> list:
         ''' collect holidays for a specific year '''
@@ -147,41 +157,52 @@ class CollectWeekday():
         for i in self.results:
             print(i, file=fobj)
 
-    def main(self,
-        yyyymm: Annotated[Union[datetime, None], typer.Argument(help="specify a YYYY-mm date, "
-                                                   "the dd will be ignored",
-                    formats=["%Y-%m", "%Y-%m-%d"]),] = None, #"1970-01",
-        outf: Annotated[Union[str, None], typer.Option("--out", "-o", help="output file nanme")]
-                    = None, # output file name
-        vacation: Annotated[bool, typer.Option("--vacation", "-v", help="show holidays")] = False,
-        debug: Annotated[bool, typer.Option("--debug", "-d", help="turn on debug")] = False,
-    ) -> None:
-        '''
-        List the dates of which weekday are between Monday to Friday.
-        For example, ```python this_script.py 2024-12```
+    def run_default(self) -> None:
+        ''' run default, without CLI options '''
+        td = date.today()
+        default_yymm = td.strftime("%Y-%m")
+        print(f'[INFO] use default value: {default_yymm}')
+        self.collect_workday(td)
+        self.dump_results()
 
-        same as the following:
+    if USE_TYPER:
+        def main(self,
+            yyyymm: Annotated[Union[datetime, None], typer.Argument(help="specify a YYYY-mm date, "
+                                                    "the dd will be ignored",
+                        formats=["%Y-%m", "%Y-%m-%d"]),] = None, #"1970-01",
+            outf: Annotated[Union[str, None], typer.Option("--out", "-o", help="output file nanme")]
+                        = None, # output file name
+            vacation: Annotated[bool, typer.Option("--vacation", "-v", help="show holidays")] = False,
+            debug: Annotated[bool, typer.Option("--debug", "-d", help="turn on debug")] = False,
+        ) -> None:
+            '''
+            List the dates of which weekday are between Monday to Friday.
+            For example, ```python this_script.py 2024-12```
 
-        $ apt-get install dateutils
+            same as the following:
 
-        $ dateutils.dseq 2024-12-1 2024-12-31 --skip sat,sun
-        '''
-        logd = logger.debug if debug else do_nothing
-        self.set_logd(logd)
-        if vacation:  # show vacation days and exit
-            logd('[INFO] show vacation')
-            self.show_holidays()
-            return
-        if yyyymm is None:
-            print('[INFO] You need specify some date (yyyy-mm)\n  Get some help, use "--help"')
-            return
-        self.collect_workday(yyyymm)
-        if outf:
-            self.output_to_file(outf)
-        else:
-            self.dump_results()
+            $ apt-get install dateutils
+
+            $ dateutils.dseq 2024-12-1 2024-12-31 --skip sat,sun
+            '''
+            logd = logger.debug if debug else do_nothing
+            self.set_logd(logd)
+            if vacation:  # show vacation days and exit
+                logd('[INFO] show vacation')
+                self.show_holidays()
+                return
+            if yyyymm is None:
+                print('[INFO] You need specify some date (yyyy-mm)\n  Get some help, use "--help"')
+                return
+            self.collect_workday(yyyymm)
+            if outf:
+                self.output_to_file(outf)
+            else:
+                self.dump_results()
 
 if __name__ == "__main__":
     obj = CollectWeekday()
-    typer.run(obj.main)
-
+    if USE_TYPER:
+        typer.run(obj.main)
+    else:
+        obj.run_default()
