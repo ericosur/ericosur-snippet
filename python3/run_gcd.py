@@ -13,8 +13,6 @@ here benchmark:
 
 import argparse
 
-# local implementation of gcd
-from the_gcd import gcd as local_gcd
 # official math.gcd
 from math import gcd as math_gcd
 from random import randint
@@ -25,9 +23,10 @@ try:
 except ImportError:
     USE_NUMPY = False
     numpy_gcd = None
+# local implementation of gcd
+from the_gcd import gcd as local_gcd
 
 DEFAULT_NUMBER = 1_000_000
-ans = set()
 
 def dont_duplicate(m):
     ''' get a random number different from m '''
@@ -40,15 +39,13 @@ def test1():
     ''' test1 w/ local gcd '''
     m = randint(101, 999_999)
     n = dont_duplicate(m)
-    r = local_gcd(m, n)
-    ans.add(r)
+    local_gcd(m, n)
 
 def test2():
     ''' test2 w/ math.gcd '''
     m = randint(101, 999_999)
     n = dont_duplicate(m)
-    r = math_gcd(m, n)
-    ans.add(r)
+    math_gcd(m, n)
 
 def test3() -> set:
     ''' test3 w/ numpy.gcd
@@ -60,8 +57,9 @@ def test3() -> set:
     '''
     if not USE_NUMPY:
         print('numpy not available')
-        return
+        return set()
 
+    ans = set()
     m_list = []
     n_list = []
     for _ in range(DEFAULT_NUMBER):
@@ -78,13 +76,13 @@ def run_demo():
     print('DEMO mode: run gcd(1024, 768)')
 
     r1 = timeit("test1()", setup='from __main__ import test1', number=DEFAULT_NUMBER)
-    print(f'len: {len(ans)}')
+    #print(f'len: {len(ans)}')
     print(f'local_gcd: {r1}')
     r2 = timeit("test2()", setup='from __main__ import test2', number=DEFAULT_NUMBER)
-    print(f'len: {len(ans)}')
+    #print(f'len: {len(ans)}')
     print(f'math_gcd: {r2}')
     r3 = timeit("test3()", setup='from __main__ import test3', number=1)
-    print(f'len: {len(ans)}')
+    #print(f'len: {len(ans)}')
     print(f'num_gcd: {r3}')
 
 def main():
