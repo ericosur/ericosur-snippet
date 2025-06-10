@@ -42,20 +42,25 @@ extension-pkg-whitelist=
 fail-on=
 
 # Specify a score threshold under which the program will exit with error.
-fail-under=10.0
+fail-under=10
 
 # Interpret the stdin as a python script, whose filename needs to be passed as
 # the module_or_package argument.
 #from-stdin=
 
 # Files or directories to be skipped. They should be base names, not paths.
-ignore=CVS,cython,match_case.py,match.py,encoding.py,showutf8.py,rawinput.py,line_wrap.py,cmma.py
+ignore=CVS,
+    cython,
+    encoding.py,
+    match.py,
+    showutf8.py
 
 # Add files or directories matching the regular expressions patterns to the
 # ignore-list. The regex matches against paths and can be in Posix or Windows
 # format. Because '\\' represents the directory delimiter on Windows systems,
 # it can't be used as an escape character.
-ignore-paths=Topics/pythoncgi/,Topics/rebootlog/
+ignore-paths=Topics/pythoncgi/,
+    Topics/rebootlog/
 
 # Files or directories matching the regular expression patterns are skipped.
 # The regex matches against base names, not paths. The default value ignores
@@ -76,7 +81,7 @@ ignored-modules=
 # Use multiple processes to speed up Pylint. Specifying 0 will auto-detect the
 # number of processors available to use, and will cap the count on Windows to
 # avoid hangs.
-jobs=2
+jobs=0
 
 # Control the amount of potential inferred values when inferring a single
 # object. This can help the performance when dealing with large functions or
@@ -96,10 +101,10 @@ prefer-stubs=no
 
 # Minimum Python version to use for version dependent checks. Will default to
 # the version used to run pylint.
-py-version=3.10
+py-version=3.12
 
 # Discover python modules and packages in the file system subtree.
-recursive=yes
+recursive=no
 
 # Add paths to the list of the source roots. Supports globbing patterns. The
 # source root is an absolute path or a path relative to the current working
@@ -113,7 +118,7 @@ suggestion-mode=yes
 
 # Allow loading of arbitrary C extensions. Extensions are imported into the
 # active Python interpreter and may run arbitrary code.
-unsafe-load-any-extension=yes
+unsafe-load-any-extension=no
 
 # In verbose mode, extra non-checker-related info will be displayed.
 #verbose=
@@ -440,12 +445,13 @@ disable=raw-checker-failed,
         suppressed-message,
         useless-suppression,
         deprecated-pragma,
-        use-symbolic-message-instead,
         use-implicit-booleaness-not-comparison-to-string,
         use-implicit-booleaness-not-comparison-to-zero,
-        duplicate-code,
+        use-symbolic-message-instead,
+	duplicate-code,
         import-error,
-        wrong-import-position
+        wrong-import-position,
+	trailing-newlines
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
@@ -502,10 +508,10 @@ evaluation=max(0, 0 if fatal else 10.0 - ((float(5 * error + warning + refactor 
 # used to format the message information. See doc for all details.
 msg-template=
 
-# Set the output format. Available formats are: text, parseable, colorized,
-# json2 (improved json format), json (old json format) and msvs (visual
-# studio). You can also give a reporter class, e.g.
-# mypackage.mymodule.MyReporterClass.
+# Set the output format. Available formats are: 'text', 'parseable',
+# 'colorized', 'json2' (improved json format), 'json' (old json format), msvs
+# (visual studio) and 'github' (GitHub actions). You can also give a reporter
+# class, e.g. mypackage.mymodule.MyReporterClass.
 #output-format=
 
 # Tells whether to display a full report or only the messages.
@@ -607,7 +613,7 @@ ignored-classes=optparse.Values,thread._local,_thread._local,argparse.Namespace
 # of finding the hint is based on edit distance.
 missing-member-hint=yes
 
-# The minimum edit distance a name should have in order to be considered a
+# The maximum edit distance a name should have in order to be considered a
 # similar match for a missing member name.
 missing-member-hint-distance=1
 
