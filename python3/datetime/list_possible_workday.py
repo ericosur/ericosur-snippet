@@ -41,9 +41,9 @@ except ImportError:
     USE_TYPER = False
 try:
     from loguru import logger
-    logd = logger.debug
+    _logd = logger.debug
 except ImportError:
-    logd = print
+    _logd = print
 from nothing import do_nothing
 
 def get_thisyear() -> int:
@@ -64,21 +64,21 @@ class CollectWeekday():
     def __set_datafile(self) -> str:
         ''' set data file '''
         # default value
-        __logd = self.logd
+        logd = self.logd
         ret = self.HOLIDAYS_JSON
         home = os.environ.get('HOME')
         private_path = os.path.join(home, 'Private', self.HOLIDAYS_JSON)
         if os.path.isfile(private_path):
             ret = private_path
-            __logd(f'[INFO] using private data file: {ret}')
+            logd(f'[INFO] using private data file: {ret}')
         return ret
 
     def load_holidays(self, jsonfile: str = HOLIDAYS_JSON) -> None:
         ''' load holidays from json file '''
-        __logd = self.logd
+        logd = self.logd
         # load holidays from json file
         try:
-            __logd(f'[INFO] load holidays from: {jsonfile}')
+            logd(f'[INFO] load holidays from: {jsonfile}')
             with open(jsonfile, 'rt', encoding='UTF-8') as fobj:
                 self.holidays = json.load(fobj)
         except FileNotFoundError:
@@ -86,8 +86,8 @@ class CollectWeekday():
             print(f'[ERROR] holidays file not found: {jsonfile}')
 
         self.excluded_days = self.collect_holidays(get_thisyear())
-        __logd(f'size of excluded_days: {len(self.excluded_days)}')
-        __logd(self.excluded_days)
+        logd(f'size of excluded_days: {len(self.excluded_days)}')
+        logd(self.excluded_days)
 
     def collect_holidays(self, year: int) -> list:
         ''' collect holidays for a specific year '''
@@ -167,13 +167,17 @@ class CollectWeekday():
 
     if USE_TYPER:
         def main(self,
-            yyyymm: Annotated[Union[datetime, None], typer.Argument(help="specify a YYYY-mm date, "
-                                                    "the dd will be ignored",
-                        formats=["%Y-%m", "%Y-%m-%d"]),] = None, #"1970-01",
-            outf: Annotated[Union[str, None], typer.Option("--out", "-o", help="output file nanme")]
-                        = None, # output file name
-            vacation: Annotated[bool, typer.Option("--vacation", "-v", help="show holidays")] = False,
-            debug: Annotated[bool, typer.Option("--debug", "-d", help="turn on debug")] = False,
+            # input like: "1970-01"
+            yyyymm: Annotated[Union[datetime, None],
+                typer.Argument(help="specify a YYYY-mm date, the dd will be ignored",
+                        formats=["%Y-%m", "%Y-%m-%d"]),] = None,
+            # output file name
+            outf: Annotated[Union[str, None],
+                typer.Option("--out", "-o", help="output file nanme")] = None,
+            vacation: Annotated[bool,
+                typer.Option("--vacation", "-v", help="show holidays")] = False,
+            debug: Annotated[bool,
+                typer.Option("--debug", "-d", help="turn on debug")] = False,
         ) -> None:
             '''
             List the dates of which weekday are between Monday to Friday.

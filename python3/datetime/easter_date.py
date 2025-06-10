@@ -122,14 +122,15 @@ class Solution():
 
 if USE_TYPER:
     def main(values: Annotated[Optional[list[int]],
-                                        typer.Argument(help="specify year")] = None,
+                typer.Argument(help="specify year")] = None,
             after: Annotated[int,
-                                typer.Option("--after", "-A", help="after nn year")] = 0,
+                typer.Option("--after", "-A", help="after nn year")] = 0,
             before: Annotated[int,
-                                typer.Option("--before", "-B", help="before nn year")] = 0,
+                typer.Option("--before", "-B", help="before nn year")] = 0,
             context: Annotated[int, typer.Option("--context", "-C",
-                                        help="radius nn year, conflicts: after/before")] = 0,
-            table: Annotated[bool, typer.Option("--table", "-t", help="show results as table")] = False,
+                help="radius nn year, conflicts: after/before")] = 0,
+            table: Annotated[bool,
+                typer.Option("--table", "-t", help="show results as table")] = False,
             ) -> None:
         '''
         If no option is specified, it will run demo. If available, color will
