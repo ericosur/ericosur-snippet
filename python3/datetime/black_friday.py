@@ -150,14 +150,24 @@ class Solution():
         obj.default_demo()
 
 if USE_TYPER:
+    # pylint: disable=too-many-arguments
+    # pylint: disable=too-many-positional-arguments
     def main(
-        values: Annotated[Optional[list[int]], typer.Argument(help="specify year")] = None,
-        after: Annotated[int, typer.Option("--after", "-A", help="after nn year")] = 0,
-        before: Annotated[int, typer.Option("--before", "-B", help="before nn year")] = 0,
-        context: Annotated[int, typer.Option("--context", "-C", help="radius nn year, conflicts: after/before")] = 0,
-        verbose: Annotated[bool, typer.Option("--verbose", "-v", help="enable verbose mode")] = False,
-        table: Annotated[bool, typer.Option("--table", "-t", help="show results as table")] = False,
-        demo: Annotated[bool, typer.Option("--demo", "-D", help="run the demo")] = False,
+        values: Annotated[Optional[list[int]],
+            typer.Argument(help="specify year")] = None,
+        after: Annotated[int,
+            typer.Option("--after", "-A", help="after nn year")] = 0,
+        before: Annotated[int,
+            typer.Option("--before", "-B", help="before nn year")] = 0,
+        context: Annotated[int,
+            typer.Option("--context", "-C", help="radius nn year, conflicts: after/before")
+        ] = 0,
+        verbose: Annotated[bool,
+            typer.Option("--verbose", "-v", help="enable verbose mode")] = False,
+        table: Annotated[bool,
+            typer.Option("--table", "-t", help="show results as table")] = False,
+        demo: Annotated[bool,
+            typer.Option("--demo", "-D", help="run the demo")] = False,
     ) -> None:
         '''
         If no option is specified, run the default test. If available, color will
