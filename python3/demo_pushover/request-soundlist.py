@@ -35,6 +35,7 @@ class Solution(PushOverBase):
         self.data = None
         self.debug = False
         self.use_local = True
+        self.resp_str = ''
 
     def show_keys(self, jresp):
         ''' run '''

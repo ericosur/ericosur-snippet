@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
 # coding: utf-8
-#
-# pylint: disable=import-error
-# pylint: disable=wrong-import-position
-#
 
 '''
 pushover.net is a web service to send notification to specified device
@@ -37,6 +33,7 @@ class PushOverRequests(PushOverBase):
         self.device = ''
         self.config_ok = None
         self.load_config(self.EXTRA_CONFIG)
+        self.resp_str = ''
 
     def load_config(self, fn):
         ''' load config '''
