@@ -6,3 +6,12 @@
 - ```combine-pictures.sh``` is a basic ```magick motage``` example
 - ```get-zh-fonts.py``` lists fonts support zh-lang (only ubuntu)
 -
+
+## reference
+
+- [Examples of ImageMagick Usage](https://usage.imagemagick.org/)
+  - [Annotating Images](https://usage.imagemagick.org/annotating/)
+- [options for annotate](https://imagemagick.org/script/command-line-options.php?#annotate)
+
+
+
