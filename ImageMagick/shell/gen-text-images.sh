@@ -27,12 +27,18 @@ function generate() {
                 -fill "${TEXT_COLOR}" \
                 -font "${font}" \
                 -pointsize "${FONT_SIZE}" \
-                -annotate 0x0 "${text}" \
+                -annotate -45x-45 "${text}" \
                 "${output_file}"
 
         echo "Generated: '${output_file}'"
 }
 
-
-generate "Noto-Sans-CJK-TC" "萬事具備" "sans.png"
-generate "Noto-Serif-CJK-TC" "只欠東風" "serif.png"
+# Noto-Serif-CJK-TC-Bold
+# Noto-Sans-CJK-TC
+# AR-PL-UKai-TW, AR-PL-UKai-TW-MBE
+# AR-PL-UMing-TW
+generate "Noto-Serif-CJK-TC-Bold" "豆腐TC襯線\n相煎太急" "notoserif.png"
+generate "AR-PL-UKai-TW" "AR楷書\n舉一反三" "arkai.png"
+generate "AR-PL-UMing-TW" "AR明體\n學富五車" "arming.png"
+# Noto-Color-Emoji / Noto-Emoji (you cannot use color emoji in this way)
+generate "Noto-Emoji" "🧃🧊🧇🧄🧅🧉🧆🧈\n🦮🐕‍🦺🦧🦦🦥🦩🦨🦪" "emoji.png"
