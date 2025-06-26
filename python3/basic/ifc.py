@@ -18,18 +18,22 @@ try:
     console = Console()
     logd = console.log
 except ImportError:
+    RICH_ENABLED = False
     prt = print
     logd = print
-    RICH_ENABLED = False
 
-from read_os_release import is_ubuntu1804
-
-# ruff: noqa: E402
-sys.path.insert(0, './')
-sys.path.insert(0, '../')
-sys.path.insert(0, 'python3/')
-from myutil import is_linux, is_windows, show_platform  # type: ignore[import]
-from myutil import run_command, run_command2  # type: ignore[import]
+try:
+    from read_os_release import is_ubuntu1804
+    sys.path.insert(0, './')
+    sys.path.insert(0, '../')
+    sys.path.insert(0, 'python3/')
+    home = os.environ.get('HOME')
+    abs_path = os.path.join(home, 'src/ericosur-snippet/python3')
+    sys.path.insert(0, abs_path)
+    from myutil import is_linux, is_windows, show_platform  # type: ignore[import]
+    from myutil import run_command, run_command2  # type: ignore[import]
+except ImportError:
+    print("cannot import local modules")
 
 def run_in_termux() -> bool:
     ''' get prefix '''
