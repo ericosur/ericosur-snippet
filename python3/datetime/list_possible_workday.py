@@ -50,6 +50,10 @@ def get_thisyear() -> int:
     ''' return current year '''
     return datetime.now().year
 
+def print_stderr(*_args: Any, **_kwargs: Any) -> None:
+    ''' print to stderr '''
+    print(*_args, file=sys.stderr, **_kwargs)
+
 class CollectWeekday():
     ''' collect workdays '''
     HOLIDAYS_JSON = 'holidays.json'
@@ -154,6 +158,7 @@ class CollectWeekday():
 
     def dump_results(self, fobj=sys.stdout) -> None:
         ''' dump results, one item per line'''
+        print_stderr(f'# no of items: {len(self.results)}')
         for i in self.results:
             print(i, file=fobj)
 
