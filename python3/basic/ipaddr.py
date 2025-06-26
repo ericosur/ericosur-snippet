@@ -7,6 +7,7 @@ call __ip addr__ and parse
 
 import os
 import re
+import os
 import sys
 
 try:
@@ -27,8 +28,9 @@ def run_in_termux() -> bool:
     p = os.environ.get('PREFIX')
     if p is None:
         return False
-    p = p.decode('utf-8')
-    return "com.termux" in p
+    if isinstance(p, str):
+        return "com.termux" in p
+    return False
 
 def get_ipaddr() -> dict[str, str]:
     ''' get ip addr'''
