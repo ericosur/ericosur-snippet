@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 # coding: utf-8
-#
-# pylint: disable=wrong-import-position
-#
 
 '''
 read json and list
@@ -88,7 +85,7 @@ class ShowElement():
         except ValueError:
             return False
 
-    def test(self, a_list: list) -> None:
+    def query_list(self, a_list: list) -> None:
         ''' test '''
         # 16/92/53/34/53
         # 99/25/92/19/53
@@ -111,13 +108,7 @@ class ShowElement():
         val_str = ' '.join(vals)
         print(f"{key_str}, {val_str}")
 
-    @classmethod
-    def run(cls) -> None:
-        ''' run '''
-        obj = cls()
-        obj.test([16, 92, 53, 34, 53])
-        obj.test([9, 92, 5, 92, 19, 53])
-        obj.test(['I', 'Am', 'not', 'a', 'number'])
 
 if __name__ == '__main__':
-    ShowElement.run()
+    print(f'Do not run {sys.argv[0]} directly, use query-element.py')
+    sys.exit(1)
