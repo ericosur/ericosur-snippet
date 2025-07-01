@@ -7,21 +7,22 @@ call __ip addr__ and parse
 
 import os
 import re
-import os
 import sys
-
 try:
     #from rich import print as pprint
     from rich.pretty import pprint
     prt = pprint
 except ImportError:
     prt = print
-
-from read_os_release import is_ubuntu1804
-sys.path.insert(0, './')
-sys.path.insert(0, '../')
-sys.path.insert(0, 'python3/')
-from myutil import is_linux, run_command  # type: ignore[import]
+try:
+    from read_os_release import is_ubuntu1804
+    sys.path.insert(0, './')
+    sys.path.insert(0, '../')
+    sys.path.insert(0, 'python3/')
+    from myutil import is_linux, run_command  # type: ignore[import]
+except ImportError:
+    prt("Error: myutil module not found")
+    sys.exit(1)
 
 def run_in_termux() -> bool:
     ''' get prefix '''
