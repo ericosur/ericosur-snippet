@@ -7,11 +7,15 @@ foobar
 
 import os
 import sys
-sys.path.insert(0, ".")
-sys.path.insert(0, "..")
-sys.path.insert(0, "myutil")
-from myutil import get_dow, get_doom_num, get_epoch, WhatNow
-from myutil import is_windows, is_cygwin, get_platform
+try:
+    sys.path.insert(0, ".")
+    sys.path.insert(0, "..")
+    sys.path.insert(0, "myutil")
+    from myutil import get_dow, get_doom_num, get_epoch, WhatNow
+    from myutil import is_windows, is_cygwin, get_platform
+except ImportError as e:
+    print(f'ImportError: {e}')
+    sys.exit(1)
 
 def show(msg):
     ''' show '''
@@ -23,11 +27,11 @@ def what_now():
     '''
     now = WhatNow()
     # Extract hour and minute
-    print(f'{now.year=}')   # date +%Y
-    print(f'{now.month=}')  # date +%m
-    print(f'{now.day=}')    # date +%d
-    print(f'{now.hour=}')   # date +%H
-    print(f'{now.minute=}') # date +%M
+    print(f'{now.year:>4=}')   # date +%Y
+    print(f'{now.month:>2=}')  # date +%m
+    print(f'{now.day:>2=}')    # date +%d
+    print(f'{now.hour:>2=}')   # date +%H
+    print(f'{now.minute:>2=}') # date +%M
 
 def test0():
     ''' test 0 '''
