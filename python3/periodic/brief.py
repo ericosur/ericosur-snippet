@@ -56,9 +56,9 @@ class ShowElement():
             if isinstance(num, int):
                 num = str(num)
             sym = t['symbol']
-            if not num in the_dict:
+            if num not in the_dict:
                 the_dict[num] = sym
-            if not sym in the_dict:
+            if sym not in the_dict:
                 the_dict[sym] = num
         # save to zsymbol.json
         self.__save_zsymbol(the_dict)
