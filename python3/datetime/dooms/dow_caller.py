@@ -9,10 +9,14 @@
 
 import sys
 from datetime import date
-from dooms_day import DoomsDay
-sys.path.insert(0, '../../')
-sys.path.insert(0, 'python3')
-from myutil import prt
+try:
+    from dooms_day import DoomsDay
+    sys.path.insert(0, '../../')
+    sys.path.insert(0, 'python3')
+    from myutil import prt
+except ImportError:
+    prt('cannot import dooms_day, exit')
+    sys.exit(1)
 
 WEEKDAY_NOTE = '0: Sun, 1: Mon, 2: Tue..., 6: Sat'
 TWS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
@@ -41,7 +45,6 @@ def main(dt: list[str]):
         sys.exit(0)
 
     try:
-
         ans = check_and_call(dt)
         prt(f'{dt[0]}/{dt[1]}/{dt[2]}: {ans}({TWS[ans]})')
     except ValueError as e:

@@ -8,20 +8,21 @@ This script uses class DoomsDay and TestDoomsDay, and provides CLI.
 import argparse
 import sys
 from datetime import date
+try:
+    # try to add my code snippet into python path
+    sys.path.insert(0, '../')
+    # sys.path.insert(0, '../../')
+    # sys.path.insert(0, 'python3/')
+    from be_prepared import prepare_values, get_year_color
+except ImportError:
+    print('cannot import be_prepared, exit')
+    sys.exit(1)
 
-# try to add my code snippet into python path
-sys.path.insert(0, '../')
-# sys.path.insert(0, '../../')
-# sys.path.insert(0, 'python3/')
-from be_prepared import prepare_values, get_year_color
-
-USE_RICH = False
 try:
     from rich import print as rprint
     USE_RICH = True
 except ImportError:
-    #print("[WARN] no rich.console to use")
-    pass
+    USE_RICH = False
 
 try:
     from dooms_day import DoomsDay
@@ -83,7 +84,6 @@ def make_year_list(base_year:int=0, opt='c', year_range=5) -> list:
         answer = list(range(start_year-count, start_year+1))
     else:
         raise ValueError("option not supported")
-
     return answer
 
 def test_year_list():
