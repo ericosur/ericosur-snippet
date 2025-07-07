@@ -2,8 +2,43 @@
 # coding: utf-8
 
 '''
-use doomsday algorithm to calculate weekday from range of year
-https://en.wikipedia.org/wiki/Doomsday_rule
+provides magic numbers for doomsday algorithm
+
+## original flow
+The normal flow to calculate weekday from doom number is:
+1. get the doom number for this year, for example, 2025 is 2
+2. get the month modifiers for all months in 2025,
+   the modifiers are: (if leap year, Februrary is 1, common year is 0,
+   all other months are the same no matter which year)
+    [3, 0, 0, 4, 9, 6,
+    11, 8, 5, 10, 7, 12]
+3. examples:
+  1. 2025/7/4, july = 11, year 2025 modifier = 2, so
+   4 - 2 - 11 = -9, which is smaller than 0, so we add 7 repeatedly
+   until it is >= 0, so it is 5 which is Friday (0 is Sunday,
+   and 1 to 6 are Monday to Saturday)
+
+  2. 2025/12/25, December = 12, year 2025 modifier = 2, so
+   25 - 2 - 12 = 11, the 11 mod 7 = 4, which is Thursday
+
+  3. 2025/10/5, October = 10, year 2025 modifier = 2, so
+   5 - 2 - 10 = -7, which is smaller than 0, so we add 7 repeatedly
+   until it is >= 0, so it is 0 which is Sunday
+
+## simplified flow
+This script provides simplied magic numbers for each month in a given year,
+and it is much easier to use and avoid negative numbers. **Use addition instead.**
+
+1. For 2025, all magic numbers are:
+    2, 5, 5, 1, 3, 6
+    1, 4, 0, 2, 5, 0
+2. exmaples:
+  1. 2025/7/4 (july magic number = 1), can be calculated as:
+    (4 + 1) mod 7 = 5, which is Friday.
+  2. 2025/12/25 (december magic number = 0), can be calculated as:
+    (25 + 0) mod 7 = 4, which is Thursday.
+  3. Ex3: 2025/10/5 (october magic number = 2), can be calculated as:
+    (5 + 2) mod 7 = 0, which is Sunday.
 '''
 
 import sys
