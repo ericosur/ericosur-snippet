@@ -1,0 +1,102 @@
+#!/bin/bash
+
+show_help() {
+	cat <<EOL
+append md5 checksum to filename
+
+Usage:
+	ren_md5.sh -h
+	ren_md5.sh -c <filename> [filename1 ...]
+	ren_md5.sh -r <filename> [filename1 ...]
+	ren_md5.sh <filename> [filename1 ... wildcard]
+
+Options:
+	-h      this help message
+	-c      perform md5 check with the digest value from file name
+	-r      remove the checksum from file name
+	wildcards    *.jpg *.txt IMG_????.jpg
+EOL
+}
+
+calc_md5() {
+	md5sum "$1" | awk '{print $1}'
+}
+
+append_md5() {
+	for file in "$@"; do
+		[ -f "$file" ] || { echo "no such file: $file"; continue; }
+		base="${file%.*}"
+		ext="${file##*.}"
+		sum=$(calc_md5 "$file")
+		newf="${base}_${sum}.${ext}"
+		if [ ! -f "$newf" ]; then
+			mv "$file" "$newf"
+			echo "$file -> $newf"
+		else
+			echo "file already exists: $newf"
+		fi
+	done
+}
+
+check_md5() {
+	for file in "$@"; do
+		[ -f "$file" ] || { echo "file <$file> not found"; continue; }
+		if [[ "$file" =~ ^(.*)_([0-9a-fA-F]{32})\.(.*)$ ]]; then
+			recorded_sum="${BASH_REMATCH[2]}"
+			calc_sum=$(calc_md5 "$file")
+			if [ "$recorded_sum" = "$calc_sum" ]; then
+				echo "$file: checksum ok"
+			else
+				echo "$file: checksum not matched"
+			fi
+		else
+			echo "$file: cannot find checksum in filename"
+		fi
+	done
+}
+
+remove_md5() {
+	for file in "$@"; do
+		[ -f "$file" ] || { echo "<$file> not found"; continue; }
+		if [[ "$file" =~ ^(.*)_([0-9a-fA-F]{32})\.(.*)$ ]]; then
+			newf="${BASH_REMATCH[1]}.${BASH_REMATCH[3]}"
+			if [ ! -f "$newf" ]; then
+				mv "$file" "$newf"
+				echo "$file -> $newf"
+			else
+				echo "file already exists: $newf"
+			fi
+		else
+			echo "$file: file pattern not matched"
+		fi
+	done
+}
+
+# Main
+if [ $# -eq 0 ]; then
+	show_help
+	exit 1
+fi
+
+while getopts ":hcr" opt; do
+	case $opt in
+		h) show_help; exit 0 ;;
+		c) mode="check" ;;
+		r) mode="remove" ;;
+		\?) echo "Invalid option: -$OPTARG" >&2; show_help; exit 1 ;;
+	esac
+done
+shift $((OPTIND -1))
+
+if [ "$mode" = "check" ] && [ "$mode" = "remove" ]; then
+	echo "cannot use -c and -r at the same time"
+	exit 1
+fi
+
+if [ "$mode" = "check" ]; then
+	check_md5 "$@"
+elif [ "$mode" = "remove" ]; then
+	remove_md5 "$@"
+else
+	append_md5 "$@"
+fi
