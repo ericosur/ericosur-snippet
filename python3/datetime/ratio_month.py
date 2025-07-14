@@ -155,9 +155,10 @@ class NextMonth():
         nom = NextMonth.get_ddiff(self.today, n)
         denom = NextMonth.get_ddiff(p, n)
         #print(nom, denom)
+        TOTAL_GB = 29  # 29GB
         ratio = nom / denom
-        mass = 24 * ratio
-        msg = f'at least > {ratio*100:.0f}%,\nleast: {mass:.2f} GB'
+        mass = TOTAL_GB * ratio
+        msg = f'at least > {ratio*100:.0f}%,\nleast: {mass:.2f} GB / {TOTAL_GB} GB'
         print(msg)
         if HAS_CONSOLE_MODULE:
             console.alert(msg)
