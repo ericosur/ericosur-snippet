@@ -1,5 +1,11 @@
 #!/bin/bash
 
+function die() {
+  local message="$1"
+  echo "ERROR: $message" >&2
+  exit 1
+}
+
 function is_ssh() {
     # provide a function to tell if this script is running in ssh connection
     # not local machine
@@ -38,11 +44,11 @@ function is_docker() {
 }
 
 # exmaple to use these functions
-if is_ssh ; then
-    echo "This script is running remotely via SSH."
-    # You can also extract details:
-    echo "SSH Client: $SSH_CLIENT"
-    echo "SSH Connection: $SSH_CONNECTION"
-else
-    echo "This script is running on the local machine."
-fi
+# if is_ssh ; then
+#     echo "This script is running remotely via SSH."
+#     # You can also extract details:
+#     echo "SSH Client: $SSH_CLIENT"
+#     echo "SSH Connection: $SSH_CONNECTION"
+# else
+#     echo "This script is running on the local machine."
+# fi
