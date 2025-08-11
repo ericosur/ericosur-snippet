@@ -12,38 +12,50 @@ import os
 import re
 import sys
 from random import randint
+try:
+    from rich.console import Console
+    console = Console()
+    logd = console.log
+except ImportError:
+    logd = print
+try:
+    sys.path.insert(0, "..")
+    from myutil import do_nothing, isfile
+except ImportError:
+    print('cannot import: myutil.do_nothing')
+    sys.exit(1)
 
-# try to add my code snippet into python path
-HOME = os.getenv('HOME') or ''
-UTILPATH = os.path.join(HOME, '/src/ericosur-snippet/python3')
-if os.path.exists(UTILPATH):
-    sys.path.insert(0, UTILPATH)
+DEBUG = True
+if not DEBUG:
+    logd = do_nothing
 
 class Solution():
     ''' solution '''
     WORDLIST = 'eff_large_wordlist.txt'
 
     def __init__(self):
-        self.wordfile = None
         self.words = {}
-        self.prepare_possible_inputs()
-        self.read_data()
+        try:
+            self.wordfile = self.__lookfor_wordlist()
+            self.read_data()
+        except FileNotFoundError as err:
+            print(err)
+            sys.exit(1)
 
-    def prepare_possible_inputs(self):
-        ''' prepare possible inputs '''
-        candicates = []
-        _fn = Solution.WORDLIST
-        candicates.append(_fn)
-        _fn = os.path.join(HOME, Solution.WORDLIST)
-        candicates.append(_fn)
-        _fn = os.path.join(HOME, 'Downloads', Solution.WORDLIST)
-        candicates.append(_fn)
-        _fn = os.path.join(HOME, UTILPATH, Solution.WORDLIST)
-        candicates.append(_fn)
-        for f in candicates:
-            if os.path.exists(f):
-                self.wordfile = f
-                return
+    def __lookfor_wordlist(self) -> str:
+        ''' look for possible location of word list '''
+        home = os.getenv('HOME')
+        private = os.path.join(home, "Private")
+        downloads = os.path.join(home, 'Downloads')
+        utilpath = os.path.join('..', 'myutil')
+        possible_paths = ['../data', utilpath, '..', private, downloads, '.']
+
+        for p in possible_paths:
+            lookpath = os.path.join(p, Solution.WORDLIST)
+            if isfile(lookpath):
+                logd(f'path for word list: {lookpath}')
+                return lookpath
+
         print('[ERROR] cannot load WORDLIST')
         raise FileNotFoundError
 
@@ -86,13 +98,8 @@ class Solution():
         ''' run demo '''
         obj = cls()
         for i in range(10):
-            r = obj.request_words(randint(3,7))
+            r = obj.request_words(randint(2,5))
             print(f'{i}: {r}')
 
-def main():
-    ''' main '''
-    print('random_string: demo')
-    Solution.run()
-
 if __name__ == '__main__':
-    main()
+    Solution.run()
