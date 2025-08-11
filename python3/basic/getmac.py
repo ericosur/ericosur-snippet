@@ -12,7 +12,6 @@ try:
     #from rich import print as pprint
     from rich.pretty import pprint
     from rich.console import Console
-    from rich.table import Table
     RICH_ENABLED = True
     prt = pprint
     console = Console()
@@ -23,15 +22,14 @@ except ImportError:
     logd = print
 
 try:
-    from read_os_release import is_ubuntu1804
     sys.path.insert(0, './')
     sys.path.insert(0, '../')
     sys.path.insert(0, 'python3/')
     home = os.environ.get('HOME')
     abs_path = os.path.join(home, 'src/ericosur-snippet/python3')
     sys.path.insert(0, abs_path)
-    from myutil import is_linux, is_windows, show_platform  # type: ignore[import]
-    from myutil import run_command, run_command2  # type: ignore[import]
+    from myutil import is_linux, show_platform  # type: ignore[import]
+    from myutil import run_command  # type: ignore[import]
 except ImportError:
     print("cannot import local modules")
 
