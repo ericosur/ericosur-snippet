@@ -24,16 +24,17 @@ except ImportError:
     sys.exit(1)
 
 try:
-    from loguru import logger
-    logd = logger.debug
-    logi = logger.info
+    from rich.console import Console
+    console = Console()
+    logd = console.log
+    logi = console.log
 except ImportError:
     logd = print
     logi = print
 
 from strutil import sec2mmss, str2sec, get_between_dates
 from showutil import show_curios, show_extra_header, show_workingdays
-from showutil import show_simplecsv, show_outputs
+from showutil import show_simplecsv, show_outputs, EXT_KEYS
 
 try:
     sys.path.insert(0, "..")
@@ -190,28 +191,36 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
             ofile.write(csvdata)
             self._log(f'output csv to {self.csvfile}')
 
-    def action(self):
+    def __wash_data(self, the_data):
+        ''' wash data '''
+        table_duration = the_data['duration']
+        table_dates = the_data['date']
+        washed_dates = []
+        washed_secs = []
+        for ii, ds in enumerate(table_dates):
+            try:
+                v = table_duration[ii]
+                if isinstance(v, float):
+                    # data exists at col "date", but empty at col "duration"
+                    #print('float?')
+                    break
+                washed_dates.append(ds)
+                washed_secs.append(str2sec(v))
+            except ValueError:
+                print(f'[ERROR] at {ii} on {ds}, invalid format: {table_duration[ii]}')
+                return None
+        return (washed_dates, washed_secs)
+
+    def action(self, args=None):
         ''' main function, read data and calculate statistics
             call do_show() to show results
         '''
         # read csv file as dataframe
         data = pd.read_csv(self.csvfile)
-        duration = data['duration']
 
-        dates = []
-        secs = []
-        for ii, ds in enumerate(data['date']):
-            try:
-                v = duration[ii]
-                if isinstance(v, float):
-                    # data exists at col "date", but empty at col "duration"
-                    #print('float?')
-                    break
-                dates.append(ds)
-                secs.append(str2sec(v))
-            except ValueError:
-                print(f'[ERROR] at {ii} on {ds}, invalid format: {duration[ii]}')
-                return
+        # wash data, remove the invalid format of duration
+        # eg: 34:56.23 (mm:ss.xx) is recorded as 23:56:23
+        (dates, secs) = self.__wash_data(data)
 
         self.outputs['first'] = dates[0]
         self.outputs['last'] = dates[-1]
@@ -222,18 +231,39 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
             return
 
         ndict = {"date": dates, "seconds": secs}
-        res = pd.DataFrame(ndict)
-        des = res.describe()
-        self._log('item:', des)
-        self.fill_outputs(des)
+        the_df = pd.DataFrame(ndict)
+        # the size of dataframe
+        self._log('dataframe size:', the_df.shape)
+        self.__show_default_description(the_df)
+        self.do_show(extra_header=True, use_extended=args.extended)
 
-    def do_show(self):
+        if not args.grep:
+            return
+        # try to remove outliers by IQR method
+        logd('try to remove outliers by IQR method...')
+        in_bound, too_large, too_small, _ = self.split_by_iqr(the_df)
+        if len(in_bound) < len(the_df):
+            print(f'[INFO] removed {len(the_df)-len(in_bound)} outliers by IQR method')
+            print(f'[INFO] too large: {len(too_large)}, too small: {len(too_small)}')
+            self._log('in_bound:', in_bound)
+            self.__show_default_description(in_bound)
+            self.do_show(extra_header=False, use_extended=args.extended)
+        else:
+            print('[INFO] no outlier found by IQR method')
+
+    def __show_default_description(self, the_df) -> None:
+        ''' show default description '''
+        percents = [.25, .5, .75, .9, .95, .99]
+        default_des = the_df.describe(percents)
+        self._log('item:', default_des)
+        self.fill_outputs(default_des)
+
+    def do_show(self, extra_header=False, use_extended=False):
         ''' show self.outputs in desired way '''
         if self.simpleout:
             show_simplecsv(self.outputs)
             return
-
-        self.show_details()
+        self.show_details(extra_header=extra_header, use_extended=use_extended)
 
     def fill_outputs(self, des):
         ''' fill results in outputs (dict) '''
@@ -242,23 +272,26 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
         self.outputs['today'] = date.today()
         ans = peek_target(des, "count")
         count = str(int(floor(ans)))
+        logd(f'count: {count}')
         self.outputs['count'] = count
         the_vars = {}
-        for q in ['max', '75%', 'mean', '50%', '25%', 'min', 'std']:
+        for q in EXT_KEYS:
             ans = peek_target(des, q)
             the_vars[q] = ans
             mmss = sec2mmss(ans)
             self.outputs[q] = mmss
+        self._log(f'the_vars: {the_vars}')
         self.fill_pois(the_vars)
 
-    def show_details(self):
-        ''' show details of res² '''
+    def show_details(self, extra_header=False, use_extended=False):
+        ''' show details of results '''
         if self.verbose:
             print(f"[INFO] panda version: {pd.__version__}")
 
-        show_extra_header(self.outputs)
-        show_workingdays(self.verbose)
-        show_outputs(self.outputs, logd, logi)
+        if extra_header:
+            show_extra_header(self.outputs)
+            show_workingdays(self.verbose)
+        show_outputs(self.outputs, logd, logi, use_extended=use_extended)
         self.show_poi()
 
     def fill_pois(self, the_vars):
@@ -297,6 +330,32 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
         for t in self.outputs.get('opts'):
             print(t)
 
+    @staticmethod
+    def split_by_iqr(the_df):
+        """
+        Splits the DataFrame into in-bound, too-large, too-small,
+        and deleted (outliers) tables
+        based on the IQR method on the 'seconds' column.
+
+        Returns:
+            in_bound: DataFrame within IQR bounds
+            too_large: DataFrame above upper bound
+            too_small: DataFrame below lower bound
+            deleted: DataFrame of all outliers (too_large + too_small)
+        """
+        Q1 = the_df["seconds"].quantile(0.25)
+        Q3 = the_df["seconds"].quantile(0.75)
+        IQR = Q3 - Q1
+        lower_bound = Q1 - 1.5 * IQR
+        upper_bound = Q3 + 1.5 * IQR
+
+        in_bound = the_df[(the_df["seconds"] >= lower_bound) & (the_df["seconds"] <= upper_bound)]
+        too_large = the_df[the_df["seconds"] > upper_bound]
+        too_small = the_df[the_df["seconds"] < lower_bound]
+        deleted = pd.concat([too_large, too_small])
+
+        return in_bound, too_large, too_small, deleted
+
 # return type: numpy.float64
 def peek_target(desc_table, target):
     ''' peek target '''
@@ -318,8 +377,6 @@ def perform_show_driving_data(args):
     in_file = args.input
     out_file = args.output
     conf_file = args.conf
-    simpleout = args.excel
-    verbose = args.verbose
 
     # if no config specified in cli parameters
     if not conf_file:
@@ -328,7 +385,7 @@ def perform_show_driving_data(args):
         if r:
             conf_file = r
 
-    obj = DrivingData(verbose=verbose, simpleout=simpleout)
+    obj = DrivingData(verbose=args.verbose, simpleout=args.excel)
     # use local file (higher priority), no need out_file and conf_file
     if in_file:
         print('[INFO] input file from:', in_file)
@@ -344,9 +401,8 @@ def perform_show_driving_data(args):
         obj.set_csvfile(out_file)
         obj.read_setting(conf_file)
         obj.request_data()
-
-    obj.action()
-    obj.do_show()
+    # do the main action
+    obj.action(args)
 
 def show_parameters(parser):
     ''' show parameters content '''
@@ -385,6 +441,10 @@ export DRIVING_CONFIG=driving_data.json''', usage='driving_data.py --run')
         help='must use -c if apply -l, tell script use the default local data sheet')
     parser.add_argument("--run", action='store_true', default=False,
         help='Specify this parameter to run actually')
+    parser.add_argument("--grep", action='store_true', default=False,
+        help='apply IQR method to remove outliers')
+    parser.add_argument("-e", "--extended", action='store_true', default=False,
+        help='show additional descriptions')
     parser.add_argument("-x", "--excel", action='store_true', default=False,
         help='just print data, easy to paste to spreadsheets')
     parser.add_argument("-s", "--sigma", action='store_true', default=False,

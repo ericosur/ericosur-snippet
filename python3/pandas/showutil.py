@@ -14,6 +14,9 @@ except ImportError:
 from working_days import LoadWorkingDays
 from strutil import str2sec
 
+BASIC_KEYS = ['max', '75%', 'mean', '50%', '25%', 'min', 'std']
+EXT_KEYS = ['max', '99%', '95%', '90%', '75%', 'mean', '50%', '25%', 'min', 'std']
+
 def print_sep():
     ''' print seperator '''
     print('-' * 50)
@@ -50,7 +53,7 @@ def show_simplecsv(outputs):
     for k,v in outputs.items():
         print(f'"{k}", "{v}"')
 
-def show_outputs(outputs, logd, logi):
+def show_outputs(outputs, logd, logi, use_extended=False):
     ''' show the ouput
         if module rich is installed, will use rich.table,
         else use simple text
@@ -61,14 +64,18 @@ def show_outputs(outputs, logd, logi):
     OVERRIDE_FLAG = False
     print_sep()
     if USE_TABLE and not OVERRIDE_FLAG:
-        __show_outputs_table(outputs, logd, logi)
+        __show_outputs_table(outputs, logd, logi, use_extended=use_extended)
     else:
-        __show_outputs_text(outputs, logd, logi)
+        __show_outputs_text(outputs, logd, logi, use_extended=use_extended)
         print_sep()
 
-def __show_outputs_text(outputs, logd, logi):
+def __show_outputs_text(outputs, logd, logi, use_extended=False):
     ''' show outputs '''
-    for k in ['count', 'max', '75%', 'mean', '50%', '25%', 'min', 'std']:
+    if use_extended:
+        text_keys = ['count', *EXT_KEYS]
+    else:
+        text_keys = ['count', *BASIC_KEYS]
+    for k in text_keys:
         v = outputs[k]
         if k == "count":
             result = v
@@ -85,7 +92,7 @@ def __show_outputs_text(outputs, logd, logi):
                 continue
         print(f'{k:10s}: {j:20s}')
 
-def __show_outputs_table(outputs, logd, logi):
+def __show_outputs_table(outputs, logd, logi, use_extended=False):
     ''' show outputs with rich.table '''
     console = Console()
     table = Table(title="Statistics")
@@ -97,7 +104,8 @@ def __show_outputs_table(outputs, logd, logi):
     value = outputs.get(item)
     table.add_row(item, value, '')
     # 2nd rows and later
-    for k in ['max', '75%', 'mean', '50%', '25%', 'min', 'std']:
+    the_keys = EXT_KEYS if use_extended else BASIC_KEYS
+    for k in the_keys:
         item = k
         value = outputs.get(k)
         try:
