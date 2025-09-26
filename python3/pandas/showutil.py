@@ -48,12 +48,12 @@ def show_workingdays(verbose: bool) -> None:
     for y in range(lower, upper+1):
         print(wd.get_msg(y))
 
-def show_simplecsv(outputs):
+def show_simplecsv(outputs: dict) -> None:
     ''' csv output '''
     for k,v in outputs.items():
         print(f'"{k}", "{v}"')
 
-def show_outputs(outputs, logd, logi, use_extended=False):
+def show_outputs(outputs: dict, logd, logi, use_extended=False) -> None:
     ''' show the ouput
         if module rich is installed, will use rich.table,
         else use simple text
@@ -118,3 +118,44 @@ def __show_outputs_table(outputs, logd, logi, use_extended=False):
                     'download the csv and run ```check_csv.py```')
             continue
     console.print(table)
+
+def output_csv_by_year(years, dfs, csvfn) -> None:
+    ''' output to csv '''
+    with open(csvfn, 'wt', encoding='utf-8') as f:
+        f.write('year,seconds\n')
+        for y in years:
+            output_as_csv(y, dfs[y]['seconds'].tolist(), f)
+    print(f'[INFO] saved to {csvfn}')
+
+def output2csv(the_df, csvfn) -> None:
+    ''' output to csv '''
+    with open(csvfn, 'wt', encoding='utf-8') as f:
+        f.write('date,seconds\n')
+        for idx, row in the_df.iterrows():
+            f.write(f'{row["date"]},{row["seconds"]}\n')
+    print(f'[INFO] saved to {csvfn}')
+
+def output_as_csv(year, the_list, f) -> None:
+    ''' output as csv '''
+    for i in the_list:
+        f.write(f'{year},{i}\n')
+
+# return type: numpy.float64
+def peek_target(desc_table, target):
+    ''' peek target '''
+    #print('desc_table:', desc_table)
+    desc_list = desc_table.index.tolist()
+    try:
+        midx = desc_list.index(target)
+        mean_value = desc_table.iloc[midx, 0]
+        #result = sec2str(mean_value)
+        result = np.int64(mean_value)
+        #print(f'{result=}, {type(result)=}')
+        return result
+    except ValueError as e:
+        print(f'WARN: ValueError: {e.args}')
+    return ''
+
+if __name__ == '__main__':
+    print('[INFO] this is a module, not a main program')
+    print('[INFO] try to run driving_data.py instead')
