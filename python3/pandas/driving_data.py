@@ -35,6 +35,7 @@ except ImportError:
 from strutil import sec2mmss, str2sec, get_between_dates
 from showutil import show_curios, show_extra_header, show_workingdays
 from showutil import show_simplecsv, show_outputs, EXT_KEYS
+from showutil import peek_target, output2csv
 
 try:
     sys.path.insert(0, "..")
@@ -47,6 +48,7 @@ except ImportError:
 
 TMP_CSV = '/tmp/__driving_datasheet__.csv'
 
+ext_percents = [.25, .5, .75, .9, .95, .99]
 
 class MySimpleout():
     ''' my verbose '''
@@ -138,6 +140,7 @@ class DriveConfig(MyDebug):
 
 class DrivingData(MyDebug, MyVerbose, MySimpleout):
     ''' fetch driving data from gdrive or local csv '''
+    YEAR_CSV = 'by_years.csv'
 
     def __init__(self,debug=False,verbose=False,simpleout=False):
         super().__init__(debug) # mydebug
@@ -230,8 +233,17 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
             print(f'[ERROR] not the same length {len(dates)} vs {len(secs)}')
             return
 
+        # format for date is yyyy-mm-dd
         ndict = {"date": dates, "seconds": secs}
         the_df = pd.DataFrame(ndict)
+
+        if args.years:
+            # split data by year
+            logd('split data by year...')
+            self.test(the_df)
+            logd('done.')
+            return
+
         # the size of dataframe
         self._log('dataframe size:', the_df.shape)
         self.__show_default_description(the_df)
@@ -251,10 +263,30 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
         else:
             print('[INFO] no outlier found by IQR method')
 
+    def test(self, the_df):
+        ''' some tests '''
+        logd('new test for years report')
+
+        # output to csv in format date,seconds
+        output2csv(the_df, 'by_dates.csv')
+        # split data by year
+        # years, dfs = self.__split_data_by_year(the_df)
+        # output_csv_by_year(years, dfs, self.YEAR_CSV)
+
+    def __split_data_by_year(self, the_df):
+        ''' split data by year '''
+        the_df['year'] = pd.DatetimeIndex(the_df['date']).year
+        years = the_df['year'].unique()
+        logd('years:', years)
+        dfs = {}
+        for y in years:
+            dfs[y] = the_df[the_df['year'] == y]
+            #logd(f'year {y}:', dfs[y])
+        return years, dfs
+
     def __show_default_description(self, the_df) -> None:
         ''' show default description '''
-        percents = [.25, .5, .75, .9, .95, .99]
-        default_des = the_df.describe(percents)
+        default_des = the_df.describe(ext_percents)
         self._log('item:', default_des)
         self.fill_outputs(default_des)
 
@@ -356,21 +388,6 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
 
         return in_bound, too_large, too_small, deleted
 
-# return type: numpy.float64
-def peek_target(desc_table, target):
-    ''' peek target '''
-    #print('desc_table:', desc_table)
-    desc_list = desc_table.index.tolist()
-    try:
-        midx = desc_list.index(target)
-        mean_value = desc_table.iloc[midx, 0]
-        #result = sec2str(mean_value)
-        result = np.int64(mean_value)
-        #print(f'{result=}, {type(result)=}')
-        return result
-    except ValueError as e:
-        print(f'WARN: ValueError: {e.args}')
-    return ''
 
 def perform_show_driving_data(args):
     ''' universal starter '''
@@ -443,6 +460,8 @@ export DRIVING_CONFIG=driving_data.json''', usage='driving_data.py --run')
         help='Specify this parameter to run actually')
     parser.add_argument("--grep", action='store_true', default=False,
         help='apply IQR method to remove outliers')
+    parser.add_argument("--years", action='store_true', default=False,
+        help='split data by years')
     parser.add_argument("-e", "--extended", action='store_true', default=False,
         help='show additional descriptions')
     parser.add_argument("-x", "--excel", action='store_true', default=False,
