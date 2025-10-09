@@ -9,11 +9,21 @@ read working days from json
 '''
 
 import sys
+try:
+    from rich.console import Console
+    console = Console()
+    logd = console.log
+except ImportError:
+    logd = print
 
-sys.path.insert(0, "..")
-from myutil import read_jsonfile, DefaultConfig # type: ignore[import]
+try:
+    sys.path.insert(0, "..")
+    from myutil import read_jsonfile, DefaultConfig # type: ignore[import]
+except ImportError:
+    logd('failed to import myutil')
+    sys.exit(1)
 
-__VERSION__ = '2024.02.26'
+__VERSION__ = '2025.10.09'
 
 
 class LoadWorkingDays():
@@ -27,6 +37,7 @@ class LoadWorkingDays():
 
     def load_data(self):
         ''' load data '''
+        logd('[INFO] load working days from: ' + self.FN)
         p = DefaultConfig(self.FN).get_default_config()
         if p is None:
             print(f'[FAIL] fail to {self.FN} in all default locations')
@@ -41,7 +52,7 @@ class LoadWorkingDays():
                 wd = d[f'year{y}']['total']
                 self.works[y] = wd
         except ValueError:
-            print('ValueError')
+            logd('ValueError')
 
     def get_msg(self, yy, wd=None):
         ''' get format message from yy '''
@@ -86,7 +97,6 @@ class LoadWorkingDays():
 def main():
     ''' main '''
     LoadWorkingDays.run()
-
 
 if __name__ == '__main__':
     main()

@@ -10,3 +10,11 @@ gdrive:
 
 check:
 	@python check_csv.py -i /tmp/__driving_datasheet__.csv
+
+plot:
+	@python driving_data.py -i /tmp/__driving_datasheet__.csv --years --run
+	@python commune_all.py
+
+# use boxplot_by_years.py to plot boxplot by year
+boxplot:
+	@python boxplot_by_years.py

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
+import os
 import sys
 import numpy as np
 import pandas as pd
@@ -31,9 +32,17 @@ class Solution():
 
     def __readdata__(self):
         ''' read data '''
+        if not os.path.isfile(Solution.alldata_csv):
+            logd(f'[FAIL] need data file: {Solution.alldata_csv}')
+            logd('[info] use driving_data.py --years --run to generate it')
+            sys.exit(1)
         # 假設原始資料有兩欄：date, seconds
-        logd(f'load data from {self.alldata_csv}')
+        logd(f'[INFO] load data from {self.alldata_csv}')
         self.df = pd.read_csv(Solution.alldata_csv, parse_dates=["date"])
+        # I want to print the first row and the last row
+        logd(f'[INFO] data loaded, total rows: {len(self.df)}')
+        logd(f'[INFO] first row: {self.df.iloc[0].to_dict()}')
+        logd(f'[INFO] last row: {self.df.iloc[-1].to_dict()}')
         # 拆分年與月
         self.df["year"] = self.df["date"].dt.year
         self.df["month"] = self.df["date"].dt.month
@@ -49,7 +58,8 @@ class Solution():
         self.deviation_heatmap()
 
     def plot_box(self):
-        ''' 箱型圖 (年 × 月) '''
+        ''' boxplot (year x month) '''
+        # using raw data to plot boxplot
         plt.figure(figsize=(14,8))
         sns.boxplot(x="month", y="seconds", hue="year", data=self.df)
         plt.title("Commute Time by Year and Month")
@@ -98,9 +108,12 @@ class Solution():
         # 6) Plot heatmap (matplotlib only)
         fig, ax = plt.subplots(figsize=(12,6))
         im = ax.imshow(pivot.values, aspect="auto", cmap=Solution.cmap2, vmin=np.nanmin(pivot.values), vmax=np.nanmax(pivot.values))
-        ax.set_xticks(range(len(months))); ax.set_xticklabels(months)
-        ax.set_yticks(range(len(years)));  ax.set_yticklabels(years)
-        ax.set_xlabel("Month"); ax.set_ylabel("Year")
+        ax.set_xticks(range(len(months)))
+        ax.set_xticklabels(months)
+        ax.set_yticks(range(len(years)))
+        ax.set_yticklabels(years)
+        ax.set_xlabel("Month")
+        ax.set_ylabel("Year")
         ax.set_title("Monthly Median Commute Time: Deviation from Long-term Monthly Average (%)")
 
         # cell annotations
@@ -123,4 +136,3 @@ class Solution():
 if __name__ == "__main__":
     sol = Solution()
     sol.action()
-

@@ -15,7 +15,6 @@ import os
 import sys
 from datetime import date
 from math import floor
-import numpy as np
 
 try:
     import pandas as pd
@@ -140,7 +139,6 @@ class DriveConfig(MyDebug):
 
 class DrivingData(MyDebug, MyVerbose, MySimpleout):
     ''' fetch driving data from gdrive or local csv '''
-    YEAR_CSV = 'by_years.csv'
 
     def __init__(self,debug=False,verbose=False,simpleout=False):
         super().__init__(debug) # mydebug
@@ -263,7 +261,7 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
         else:
             print('[INFO] no outlier found by IQR method')
 
-    def test(self, the_df):
+    def test(self, the_df) -> None:
         ''' some tests '''
         logd('new test for years report')
 
@@ -273,7 +271,7 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
         # years, dfs = self.__split_data_by_year(the_df)
         # output_csv_by_year(years, dfs, self.YEAR_CSV)
 
-    def __split_data_by_year(self, the_df):
+    def __split_data_by_year(self, the_df) -> tuple:
         ''' split data by year '''
         the_df['year'] = pd.DatetimeIndex(the_df['date']).year
         years = the_df['year'].unique()
