@@ -10,7 +10,7 @@ try:
 except ImportError:
     print('[FAIL] rich module not found, install with pip3 install rich')
     USE_TABLE = False
-
+import numpy as np
 from working_days import LoadWorkingDays
 from strutil import str2sec
 
@@ -157,5 +157,5 @@ def peek_target(desc_table, target):
     return ''
 
 if __name__ == '__main__':
-    print('[INFO] this is a module, not a main program')
+    print('[INFO] this is a module, do not run it directly')
     print('[INFO] try to run driving_data.py instead')

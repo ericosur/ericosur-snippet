@@ -96,3 +96,6 @@ def get_between_dates(start: str, end: str) -> str:
     end_date = str2date(end)
     ddiff = end_date - start_date
     return str(ddiff.days)
+
+if __name__ == '__main__':
+    print('[INFO] this is a module, do not run it directly')
