@@ -31,7 +31,7 @@ import json
 import os
 import sys
 from datetime import date, datetime, timedelta
-from typing import Union, Annotated, Any, Callable
+from typing import Union, Annotated, Any, Callable, Optional
 try:
     import typer
     USE_TYPER = True
@@ -39,12 +39,25 @@ except ImportError:
     print('[WARN] typer not found, please install it with "pip install typer"')
     print('[WARN] no CLI options available')
     USE_TYPER = False
+
+# try:
+#     from loguru import logger
+#     _logd = logger.debug
+# except ImportError:
+#     _logd = print
+
 try:
-    from loguru import logger
-    _logd = logger.debug
+    from rich.console import Console
+    console = Console()
+    _logd = console.log
 except ImportError:
     _logd = print
-from nothing import do_nothing
+
+try:
+    from nothing import do_nothing
+except ImportError:
+    print('[WARN] no module nothing, please check the module')
+    sys.exit(1)
 
 def get_thisyear() -> int:
     ''' return current year '''
@@ -77,24 +90,27 @@ class CollectWeekday():
             logd(f'[INFO] using private data file: {ret}')
         return ret
 
-    def load_holidays(self, jsonfile: str = HOLIDAYS_JSON) -> None:
-        ''' load holidays from json file '''
+    def load_holidays(self, the_year: int, jsonfile: str = HOLIDAYS_JSON) -> None:
+        ''' load holidays from json file with specified year '''
         logd = self.logd
         # load holidays from json file
         try:
             logd(f'[INFO] load holidays from: {jsonfile}')
+            logd(f'[INFO] load_holidays for year: {the_year}')
             with open(jsonfile, 'rt', encoding='UTF-8') as fobj:
                 self.holidays = json.load(fobj)
         except FileNotFoundError:
             # no holidays data file, will not terminate
             print(f'[ERROR] holidays file not found: {jsonfile}')
 
-        self.excluded_days = self.collect_holidays(get_thisyear())
+        self.excluded_days = self.collect_holidays(the_year)
         logd(f'size of excluded_days: {len(self.excluded_days)}')
         logd(self.excluded_days)
 
     def collect_holidays(self, year: int) -> list:
         ''' collect holidays for a specific year '''
+        logd = self.logd
+        logd(f'[INFO] collect_holidays, year={year}')
         Y = f'holidays_{year}'
         res = []
         if Y not in self.holidays:
@@ -109,19 +125,25 @@ class CollectWeekday():
                 res.append(d)
         return res
 
-    def show_holidays(self) -> None:
+    def show_holidays(self, this_year: int = 0) -> None:
         ''' show holidays '''
-        self.load_holidays(self.datafile)
+        if this_year <= 0:
+            this_year = get_thisyear()
+        logd = self.logd
+        logd(f'[INFO] show_holidays for year={this_year}')
+        self.load_holidays(this_year, self.datafile)
         if not self.holidays:
             print('[ERROR] no holidays found')
             return
-        Y = f'holidays_{get_thisyear()}'
-        print(f'{Y}:')
-        if Y in self.holidays:
-            for d in self.holidays[Y]:
-                print(d)
-        else:
-            print(f'[ERROR] no holidays found for year {Y}')
+        Y = f'holidays_{this_year}'
+        logd(f'{Y}:')
+        if Y not in self.holidays:
+            print(f'[ERROR] no holidays found for year {this_year}')
+            return
+
+        the_holidays = self.holidays[Y]
+        for d in the_holidays:
+            print(f'  {d["date"]}: {d["name"]}')
 
     def set_logd(self, log: Callable[[Any], None]) -> None:
         ''' set log function '''
@@ -136,7 +158,7 @@ class CollectWeekday():
         logd = self.logd
         logd(f'{the_d=}')
         offset = timedelta(days=1)
-        self.load_holidays(self.datafile)
+        self.load_holidays(the_d.year, self.datafile)
         # recompose a date object, due to class date has strftime()
         # but datetime has no such function
         d = date(the_d.year, the_d.month, the_d.day)
@@ -149,7 +171,7 @@ class CollectWeekday():
                     self.results.append(d.strftime("%Y-%m-%d"))
             # go to next day
             d += offset
-        logd(f'[DEBUG] collected {len(self.results)} workdays in {the_d.month} month')
+        logd(f'[DEBUG] got {len(self.results)} workdays for {the_d.year}/{the_d.month}')
 
     def output_to_file(self, outf: str) -> None:
         ''' output to file '''
@@ -170,6 +192,9 @@ class CollectWeekday():
         self.collect_workday(td)
         self.dump_results()
 
+# pylint: disable=line-too-long
+# pylint: disable=too-many-arguments
+# pylint: disable=too-many-positional-arguments
     if USE_TYPER:
         def main(self,
             # input like: "1970-01"
@@ -178,11 +203,13 @@ class CollectWeekday():
                         formats=["%Y-%m", "%Y-%m-%d"]),] = None,
             # output file name
             outf: Annotated[Union[str, None],
-                typer.Option("--out", "-o", help="output file nanme")] = None,
-            vacation: Annotated[bool,
-                typer.Option("--vacation", "-v", help="show holidays")] = False,
+                typer.Option("--out", "-o", help="output file name")] = None,
+            # show holidays for a specific year, default current year
+            vacation: Annotated[bool, typer.Option("-v", "--vacation", help="Show vacation info, default is current year")] = False,
+            vacation_year: Annotated[Optional[int], typer.Option("--vacation-year", help="Must specify the year")] = None,
+            # debug mode
             debug: Annotated[bool,
-                typer.Option("--debug", "-d", help="turn on debug")] = False,
+                typer.Option("--debug", "-d", help="turn on debug", is_flag=True)] = False,
         ) -> None:
             '''
             List the dates of which weekday are between Monday to Friday.
@@ -194,12 +221,20 @@ class CollectWeekday():
 
             $ dateutils.dseq 2024-12-1 2024-12-31 --skip sat,sun
             '''
-            logd = logger.debug if debug else do_nothing
+            logd = _logd if debug else do_nothing
             self.set_logd(logd)
-            if vacation:  # show vacation days and exit
-                logd('[INFO] show vacation')
-                self.show_holidays()
+            # show vacation days and exit
+            if vacation:
+                this_year = get_thisyear()
+                logd(f'[INFO] will show holidays this year: {this_year}')
+                self.show_holidays(this_year)
                 return
+            if vacation_year:
+                yy = vacation_year
+                logd(f'[INFO] will show holidays in year: {yy}')
+                self.show_holidays(yy)
+                return
+
             if yyyymm is None:
                 print('[INFO] You need specify some date (yyyy-mm)\n  Get some help, use "--help"')
                 return

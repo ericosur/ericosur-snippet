@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 '''
-demo yesterday
+count month one-by-one
 '''
 
 from __future__ import print_function
