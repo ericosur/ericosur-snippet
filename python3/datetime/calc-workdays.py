@@ -9,14 +9,25 @@ calculate total working days
 '''
 
 import sys
-sys.path.insert(0, "..")
-from myutil import read_jsonfile, DefaultConfig  # type: ignore[import]
-from myutil import is_leapyear, WhatNow, MyDebug, die  # type: ignore[import]
-from loguru import logger
-from rich import print as rprint
+
+try:
+    from rich import print as rprint
+    from rich.console import Console
+    console = Console()
+    logd = console.log
+except ImportError:
+    print('import error of module rich')
+    logd = print
+
+try:
+    sys.path.insert(0, "..")
+    from myutil import read_jsonfile, DefaultConfig  # type: ignore[import]
+    from myutil import is_leapyear, WhatNow, MyDebug, die  # type: ignore[import]
+except ImportError:
+    print("[FAIL] need myutil module from myutil package")
+    sys.exit(1)
 
 TAG = "CalcWork"
-logd = logger.debug
 
 class CalcWork(MyDebug):
     ''' calc work class '''
@@ -30,12 +41,14 @@ class CalcWork(MyDebug):
         self.min_year = None
         self.all_days = []
         self._load_conf()
+        self.from_year = self.min_year if self.min_year else 2019
+        self.to_year = self.max_year if self.max_year else WhatNow().year
 
-    def _log(self, *args, **wargs):
+    def _log(self, *_args, **_wargs):
         ''' my own log '''
-        if 'tag' not in wargs:
-            wargs['tag'] = TAG
-        self.logd(*args, **wargs)
+        if 'tag' not in _wargs:
+            _wargs['tag'] = TAG
+        self.logd(*_args, **_wargs)
 
     def _load_conf(self):
         ''' load conf '''
@@ -88,20 +101,27 @@ class CalcWork(MyDebug):
         sz = len(self.all_days)
         t = sum(self.all_days)
         avg = float(t) / float(sz)
-        rprint(f'\nTotal working days: {sz}, avg {avg:.2f} per month')
+        rprint(f'\nTotal months: {sz}, avg {avg:.2f} per month')
+
+    def print_header(self):
+        ''' print header '''
+        print(f'From {self.from_year} to {self.to_year}\n')
+        print("year  sum  ratio    max m/d   min m/d")
+        print("----  ---  -----    -------   -------")
+
+    def print_years(self):
+        ''' print years '''
+        for y in range(self.from_year, self.to_year+1):
+            k = f'year{y}'
+            self.calc(k)
+        self.calc_alldays()
 
     @classmethod
     def run(cls):
         ''' run '''
         obj = cls()
-        from_year = obj.min_year
-        to_year = obj.max_year
-        print(f'From {from_year} to {to_year}\n')
-        print("year  sum  ratio    max m/d   min m/d")
-        for y in range(from_year, to_year+1):
-            k = f'year{y}'
-            obj.calc(k)
-        obj.calc_alldays()
+        obj.print_header()
+        obj.print_years()
 
 def main():
     ''' main '''
