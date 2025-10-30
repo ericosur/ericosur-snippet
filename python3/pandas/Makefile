@@ -18,3 +18,8 @@ plot:
 # use boxplot_by_years.py to plot boxplot by year
 boxplot:
 	@python boxplot_by_years.py
+
+help:
+	@echo you may use: the_date, gdrive, check, plot, boxplot
+	@echo default is gdrive
+
