@@ -10,3 +10,8 @@ Make it a little random.
 
 - Need to do some cleanup for this list: https://patternbasedwriting.com/elementary_writing_success/giant-verb-list-3250-verbs/
 
+
+## five_char_verbs.py
+
+- data file from: https://github.com/l5/english-irregular-verbs
+- list 5-character verb from data list
