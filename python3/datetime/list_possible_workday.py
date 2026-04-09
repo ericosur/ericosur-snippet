@@ -149,13 +149,21 @@ class CollectWeekday():
         ''' set log function '''
         self.logd = log
 
+    def warn_if_olddate(self, the_d: datetime) -> None:
+        ''' warn if the input datetime is more than 3 months ago '''
+        logd = self.logd
+        now = datetime.now()
+        three_months_ago = now - timedelta(days=90)
+        if the_d.date() < three_months_ago.date():
+            print(f'[WARN] input date {the_d} is more than 3 months ago')
+
     def collect_workday(self, the_d: datetime) -> None:
         ''' list workdays '''
         def is_workday(d: date) -> bool:
             w = d.isoweekday()
             return 1 <= w <= 5  # Mon to Fri
-
         logd = self.logd
+        self.warn_if_olddate(the_d)
         logd(f'{the_d=}')
         offset = timedelta(days=1)
         self.load_holidays(the_d.year, self.datafile)
@@ -234,7 +242,6 @@ class CollectWeekday():
                 logd(f'[INFO] will show holidays in year: {yy}')
                 self.show_holidays(yy)
                 return
-
             if yyyymm is None:
                 print('[INFO] You need specify some date (yyyy-mm)\n  Get some help, use "--help"')
                 return
