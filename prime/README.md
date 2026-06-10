@@ -1,246 +1,166 @@
-# Readme
+# Prime Scripts
 
-> New record prime (GIMPS): $2^{82,589,933}-1$ with 24,862,048 digits by P. Laroche, G. Woltman, A. Blosser, et al. (7 Dec 2018).
+Small command-line experiments and utilities for prime numbers: primality
+testing, nearby-prime lookup, Goldbach pairs, sieve generation, prime-date
+searches, and prime-table storage.
 
-[TOC]
+Most scripts are Python 3. Several use the local `store` package to load prime
+tables from text, pickle, or compressed pickle files.
 
-tags: ```python3``` ```script``` ```python``` ```prime``` ```shuf``` ```sed``` ```cut```
+## Requirements
 
-## scripts
+Common dependencies:
 
-- ```factor.pl``` takes **basic_prime.txt** as prime number table
-- ```fac_by_table.pl``` takes **prime_100k.txt** or **prime_1M.txt** as table
-- ```fprm.py``` use small primes to filter out non-primes
+- Python 3
+- `sympy` for `check_prime.py`, `is_prime.py`, `check_need.py`, and
+  `root_square.py`
+- `rich`, `typer`, and `pydantic` for `is_prime.py`
+- `compress_pickle` for compressed prime tables via `LoadCompressPrime`
+- `redis` plus a running Redis server for `prime-redis.py`
+- `matplotlib` for `test_exist.py`
 
-- ```search_in_primes.py```
-  needs text data file ```prime_100k.txt```, will save it as ```primes.p``` for futher use. It answers lower/upper primes near the given number. For example, given 24, will get ```(23 <<<<< 29)```. It means between ```(23, 29)``` and closer to ```23```.
+The scripts look for prime table files either in this folder or under
+`$HOME/.prime`. Table names and limits are configured in `setting.json`.
 
-- ```nearby_primes.py``` could list nearby primes from specified number
-- ```miller_rabin.py``` to test if a prime number
+## Prime Tables
 
-- ```goldbach_conj.py``` implements [goldbach's conjecture](https://en.wikipedia.org/wiki/Goldbach%27s_conjecture) that any even number ($< 10^{14}$ ) could be sum of two primes
+The active table configuration is:
 
-> python scripts with ```_sta``` means it runs under iOS [pythonista](http://omz-software.com/pythonista/)
+| key | text file | pickle | compressed pickle | max prime | count |
+| --- | --- | --- | --- | ---: | ---: |
+| `small` | `small.txt` | `small.p` | `small.p.lzma` | 1,299,709 | 100,000 |
+| `big` | `big.txt` | `big.p` | `big.p.lzma` | 15,485,863 | 1,000,000 |
+| `large` | `large.txt` | `large.p` | `large.p.lzma` | 49,979,687 | 3,000,000 |
+| `h119` | `h119.txt` | `h119.p` | `h119.p.lzma` | 1,190,494,759 | 60,000,000 |
+| `h422` | `h422.txt` | `h422.p` | `h422.p.lzma` | 4,222,234,741 | 200,000,000 |
 
-## prime number table
+Prime tables can be downloaded from:
 
-- basic_prime.txt: prime numbers under 1,000 (first is 2, last is 991, with 168 prime numbers)
-- prime_100k.txt: 100,000 prime numbers (last is 1,299,709)
-- prime_1M.txt: one million prime numbers (last is 15,485,863)
+- <https://primes.utm.edu/lists/small/millions/>
 
-> tables could be downloaded at
-[millions primes](http://primes.utm.edu/lists/small/millions/)
+The checked-in `data/prime_100k.txt` contains the first 100,000 primes.
 
-## tips
+## Main Scripts
 
-### how to cut the prime colume from head 100 lines
+| script | purpose |
+| --- | --- |
+| `is_prime.py` | Typer-based CLI for primality checks using `sympy`, falling back to `gmpy2` if available. It can also search before/after/context ranges, find primes around a value, run demos, and test random odd numbers. |
+| `check_prime.py` | Simpler primality checker using `sympy.ntheory.primetest.isprime`; accepts command-line values or stdin with `-s`. |
+| `MillerRabin.py` | Miller-Rabin implementation from LiteratePrograms; can test values or generate a random 32-bit probable prime. |
+| `miller_rabin.py` | Alternative Miller-Rabin implementation with a modular exponentiation test mode. |
+| `nearby_primes.py` | Uses `StorePrime` to list primes near one or more input values. Defaults to the `big` table. |
+| `run_example.py` | Demo and smoke-test runner for `StorePrime` and `LoadCompressPrime`; reports whether inputs are prime or between adjacent primes. |
+| `goldbach_conj.py` | Finds Goldbach prime pairs for given even numbers using the configured prime table. |
+| `goldbach_sta.py` | Pythonista-oriented Goldbach implementation. |
+| `fun500.py` | Small Goldbach-style demo that samples prime partners for the value `500`. |
+| `sieve.py` | Sieve of Eratosthenes implementation that generates primes up to `1_000_000` and verifies against stored prime tables when possible. |
+| `fprm.py` | Older filtering experiment that removes multiples of small primes from numbers below `100000`; `sieve.py` is the faster version. |
+| `check_need.py` | Loads primes through `StorePrime` and double-checks every stored value with `sympy`. |
+| `prime_date.py` | Searches dates from 2000-01-01 to 2099-12-31 where every left-truncated `YYYYMMDD` value is prime. |
+| `root_square.py` | Searches primes of the form `P = m^2 + 2^2`, with `m` also prime, using `StorePrime` and `sympy`. |
+| `sqare_root.py` | Older version of `root_square.py` using `MillerRabin.py`. The filename is intentionally left as-is. |
+| `fer_sum_two_sq.py` | Unfinished Fermat two-squares experiment. It currently exits immediately. |
+| `lc.py` | Binary-searches a sorted prime text file by reading specific line numbers instead of loading the whole file. |
+| `line_count.py` | Benchmarks several ways to count lines in a large text file. |
+| `prime-redis.py` | Loads prime tables into Redis and compares Redis/list lookup behavior. |
+| `test_config.py` | Prints and tests the configured prime table paths. |
+| `test_exist.py` | Benchmarks `in`, `set`, and `bisect` membership checks and plots timing results. |
+| `the_prt.py` | Tiny helper that exposes `rich.print` when available, otherwise built-in `print`. |
 
-The format of prime_100k.txt is:
+Scripts with `_sta` in the name are intended for iOS
+[Pythonista](http://omz-software.com/pythonista/).
 
+## Package And Subfolders
+
+| path | contents |
+| --- | --- |
+| `store/` | Local support package for loading prime tables, querying nearby primes, reading config, creating arrows, and optional compressed-pickle support. |
+| `100k/` | Utilities focused on `prime_100k.txt` lookup. |
+| `mk_table/` | Scripts for building or transforming prime tables, including CSV conversion and `primesieve` helpers. |
+| `powmod_test/` | Python and Perl experiments for modular exponentiation and last-digit power behavior. |
+| `find_in_constant/` | Perl helper for finding prime-looking sequences inside constants. |
+| `hards/` | Perl scripts and data for four-digit or "hard" prime experiments. |
+| `mr/` | Java Miller-Rabin implementations. |
+| `data/` | Checked-in sample prime table data. |
+
+## Examples
+
+Check numbers directly:
+
+```bash
+python is_prime.py 97 100 7427466391
+python check_prime.py 97 100
+```
+
+Read values from stdin:
+
+```bash
+shuf -n 10 prime.txt | python check_prime.py -s
+shuf -i 1001-9999 -n 10 | python check_prime.py -s
+```
+
+Search around a number:
+
+```bash
+python is_prime.py 1000000 --around 5
+python nearby_primes.py 1000000
+```
+
+Find Goldbach pairs:
+
+```bash
+python goldbach_conj.py 500 1000
+```
+
+Exercise the `StorePrime` loader:
+
+```bash
+python run_example.py
+python run_example.py --lcp --large 15485863
+```
+
+Run the sieve:
+
+```bash
+python sieve.py
+```
+
+## Useful Shell Snippets
+
+The downloaded prime tables usually have two columns:
+
+```text
 id  prime
-\d+\s+\d+
+\d+ \d+
+```
+
+Cut the prime column from the first 100 lines:
 
 ```bash
 head -100 prime_100k.txt | cut -d ' ' -f 2
 ```
 
-### pick several lines from a large file randomly
+Pick random lines from a large file and check them:
 
-big.txt and large.txt are rather large file, use **shuf** to pick random lines
-from such file
+```bash
+shuf -n 10 large.txt | python check_prime.py -s
+```
 
-``` shuf -n 10 large.txt ```
-
-and use **check_prime.py** to test
-
-``` shuf -n 10 large.txt | python3 check_prime.py - ```
-
-### pick specified line from file
-
-print line 23 from large.txt (show the 23rd prime)
+Print specific lines from a table:
 
 ```bash
 sed -n 23p large.txt
-```
-
-print line 100 to 120
-
-```bash
 sed -n 100,120p large.txt
 ```
 
-## somehow curios
+## Notes
 
-- $2^2+3^2+4^2=29$
-- $2^3+3^2$ means $8+9$
-- $064810$ means $0 \cdot 8^2 \cdot 9^2 \cdot 0$
+The README previously recorded local `primesieve` and line-count benchmark
+results. Those measurements are environment-specific, so keep new benchmark
+results close to the scripts or in a dated note when comparing machines.
 
-### web sites
+Related references:
 
-- <https://t5k.org/curios/page.php/56.html>
-- OEIS On-Line Encyclopedia of Integer Sequences
-
-## primesieve
-
-```text
-jeff:~$ primesieve 2147483648000 --time
-Sieve size = 256 KiB
-Threads = 16
-100%
-Seconds: 62.109
-Primes: 78502287015
-
-kitty:~$ primesieve 2147483648000 --time
-Sieve size = 128 KiB
-Threads = 8
-100%
-Seconds: 164.921
-Primes: 78502287015
-
-rasmus@zen33:~$ primesieve 2147483648000 --time
-Sieve size = 128 KiB
-Threads = 8
-100%
-Seconds: 203.400
-Primes: 78502287015
-
-pixel6a $ primesieve 2147483648000 --time
-Sieve size = 256 KiB
-Threads = 8
-100%
-Seconds: 214.921
-Primes: 78502287015
-
-rasmus@tuf:~$ primesieve 2147483648000 --time
-Sieve size = 256 kilobytes
-Threads = 12
-100%
-Seconds: 221.339
-Primes: 78502287015
-
-d:\Tool> primesieve 2147483648000 --time
-Sieve size = 128 KiB
-Threads = 4
-100%
-Seconds: 465.456
-Primes: 78502287015
-```
-
-## line_count
-
-- use big.txt
-- jeff.local, py3.8.10, --clear-cache
-
-```text
-function      average, s  min, s  ratio
-wccount             0.03   0.029   1.00
-bufcount           0.037   0.037   1.28
-itercount          0.087   0.085   2.98
-kylecount           0.11     0.1   3.57
-opcount              0.1     0.1   3.60
-mapcount            0.11    0.11   3.71
-simplecount         0.11    0.11   3.82
-```
-
-- tuf.local, conda py3.10, --clear-cache
-
-```text
-function      average, s  min, s  ratio
-wccount            0.044   0.034   1.00
-bufcount           0.048   0.042   1.24
-itercount           0.14    0.13   3.95
-mapcount            0.16    0.15   4.50
-kylecount           0.17    0.16   4.82
-simplecount         0.17    0.16   4.90
-opcount             0.19    0.18   5.42
-```
-
-- tuf.local, conda py3.9.17 --clear-cache
-
-```text
-function      average, s  min, s  ratio
-wccount             0.03   0.028   1.00
-bufcount           0.043   0.037   1.32
-itercount           0.14    0.14   5.01
-opcount             0.16    0.15   5.55
-mapcount            0.18    0.16   5.62
-kylecount           0.17    0.16   5.67
-simplecount         0.18    0.17   6.02
-```
-
-- kitty.local, py3.10.12 --clear-cache
-
-```text
-function      average, s  min, s  ratio
-itercount           0.33    0.28   1.00
-mapcount            0.43    0.28   1.00
-kylecount            0.4    0.29   1.03
-simplecount          0.4     0.3   1.09
-opcount             0.41     0.3   1.09
-bufcount            0.51    0.38   1.38
-wccount             0.76    0.41   1.48
-```
-
-### old
-
-```text
- function      average, s  min, s  ratio
- wccount            0.005  0.0042   1.00
- bufcount          0.0081  0.0081   1.91
- fadvcount         0.0094  0.0091   2.13
- opcount            0.018   0.015   3.42
- simplecount        0.019   0.016   3.66
- kylecount          0.019   0.017   4.03
- mapcount           0.027   0.021   4.97
- itercount          0.044   0.031   7.21
--
-# python3.1 ginstrom.py
- function      average, s  min, s  ratio
- wccount           0.0049  0.0046   1.00
- itercount          0.021    0.02   4.47
- mapcount           0.023   0.023   5.09
- bufcount           0.034   0.032   7.02
- opcount            0.043   0.043   9.46
- simplecount         0.05   0.046  10.20
- kylecount           0.05    0.05  10.95
--
-# python ginstrom.py /big/mkv/file
- function      average, s  min, s  ratio
- wccount             0.51    0.49   1.00
- opcount              1.8     1.8   3.58
- simplecount          1.8     1.8   3.66
- kylecount            1.9     1.9   3.75
- mapcount              19       2   4.01
- fadvcount            2.3     2.2   4.52
- bufcount             2.3     2.2   4.52
-# wc /big/mkv/file
-# 7137518   40523351 1836139137 /big/mkv/file
--
-# with --clear-cache
- function      average, s  min, s  ratio
- simplecount         0.06   0.057   1.00
- opcount            0.067   0.057   1.00
- kylecount          0.057   0.057   1.00
- itercount           0.06   0.058   1.02
- mapcount           0.059   0.058   1.02
- fadvcount          0.064   0.058   1.02
- bufcount            0.07   0.062   1.09
- wccount            0.072   0.065   1.15
-
-# python3.1 with --clear-cache
- function      average, s  min, s  ratio
- itercount          0.061   0.057   1.00
- simplecount        0.069   0.061   1.06
- mapcount           0.062   0.061   1.07
- wccount            0.067   0.064   1.11
- kylecount          0.067   0.065   1.12
- opcount            0.072   0.067   1.17
- bufcount           0.083   0.073   1.27
-
-```
-
-## references
-
-- <http://prime-numbers.org/>
-- <http://primes.utm.edu/lists/small/millions/>
+- <https://t5k.org/curios/>
+- <https://oeis.org/>
 - <https://www.geeksforgeeks.org/special-prime-numbers/>
