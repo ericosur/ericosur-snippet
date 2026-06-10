@@ -1,12 +1,55 @@
-# Readme
+# README
 
-## myutil
+This directory is a collection of Python 3 scripts, small experiments, and reusable helpers.
+Most files are standalone and can be run directly. Some areas are grouped by topic and have
+their own local `README.md` or `Makefile`.
 
-The myutil now is a package of modules, not a single file.
-The default path $HOME/src/ericosur-snippet/python3
+## Layout
 
-python: use ```sys.path.insert()``` to add the default path.
-bash: append default path into **PYTHONPATH** environment variable
+Common areas in this folder:
+
+| Path | Purpose |
+| --- | --- |
+| `basic/` | Small Python language demos and utility snippets |
+| `datetime/` | Date, calendar, and workday-related scripts |
+| `random/` | Random strings, names, and word generators |
+| `myutil/` | Reusable helper package for local imports |
+| `numpy/`, `pandas/` | Numeric and data-processing experiments |
+| `crypto/`, `qr/`, `rpc/` | Topic-specific utilities and demos |
+| `kana/`, `unicode/`, `unihan/`, `emoji/` | Text, Unicode, and language-related scripts |
+| `omc/` | Math and puzzle scripts |
+| `data/` | Local data files used by some scripts |
+
+There are also many one-file scripts at the top level for quick tests or small tasks.
+
+## Running scripts
+
+From this directory:
+
+```bash
+python3 hello_world.py
+python3 basic/count-by-letter.py
+python3 datetime/list_possible_workday.py
+```
+
+In most case you should run
+
+Some subdirectories include a `Makefile` to run a default action.
+
+## Local package: `myutil`
+
+`myutil` is a package of reusable modules, not a single file.
+
+Default local path:
+
+```text
+$HOME/src/ericosur-snippet/python3
+```
+
+If you want another script outside this tree to import `myutil`, add this directory to
+`sys.path` or `PYTHONPATH`.
+
+Example with `sys.path.insert()`:
 
 ```python
 #
@@ -16,62 +59,56 @@ bash: append default path into **PYTHONPATH** environment variable
 import os
 import sys
 
-HOME = os.getenv('HOME')
-UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
+HOME = os.getenv("HOME")
+UTILPATH = os.path.join(HOME, "src/ericosur-snippet/python3")
 if os.path.exists(UTILPATH):
     sys.path.insert(0, UTILPATH)
 
 from myutil import require_python_version
 ```
 
-If use a bootstrip script to launch the python script, add the following
-snippet before running the script.
+Example with `PYTHONPATH`:
 
 ```bash
 base_d=src/ericosur-snippet/python3
-export PYTHONPATH=$PYTHONPATH:${HOME}/${base_d}
+export PYTHONPATH="${PYTHONPATH}:${HOME}/${base_d}"
 python3 foobar.py
 ```
 
-## config / data serialization
+## Data and serialization notes
 
-* python, refer to ```emoji/_emoji.py``` and ```emoji/test_emoji.py```
-  * use ```import _emoji``` to use all python built-in data structures
-* json, ```import json```
-  * cannot put comment in the json
-* toml, ```import toml``` or ```import tomllib```
-  * standard library supported from python 3.11+ (need use 3rd module for older version of python)
-* pickle, ```import pickle```
-* txt, use **re** to parse
+- `json`: use `import json`
+  - JSON does not support comments
+- `toml`: use `import tomllib` on Python 3.11+, or `import toml` for older environments
+- `pickle`: use `import pickle`
+- plain text: parse with `re` or custom logic as needed
 
-## f-string
+Examples in this repo are spread across topic folders rather than one dedicated serialization area.
 
-The minimum python version to support f-strings is python 3.6.
+## Python version notes
 
-### conda tips
+- f-strings require Python 3.6+
+- `tomllib` is available in the standard library from Python 3.11+
 
-note: here I use 'goto.sh'
+## Tooling
 
-```bash
-source $(goto -x conda)/conda.sh
-conda create --name mypy python=3.10
-conda activate # use base conda
-conda activate mypy # created by prior command
-conda deactivate
-```
+- `pyproject.toml` currently contains local `ruff` settings
+- some folders have their own `requirements.txt`
+- notebooks exist in a few areas such as `numpy/`
 
-## Useful python cheat sheet
+This repo does not appear to be managed as one installable Python package. It is primarily a
+working collection of scripts.
 
-<https://github.com/gto76/python-cheatsheet>
+## Selected examples
 
-## featured
+- [basic/count-by-letter.py](./basic/count-by-letter.py): count labels from `A` upward
+- [datetime/list_possible_workday.py](./datetime/list_possible_workday.py): list candidate workdays
+- [random/five_char_verbs.py](./random/five_char_verbs.py): generate or inspect five-character verbs
+- [fisher_yates_shuffle.py](./fisher_yates_shuffle.py) and [shuf.py](./shuf.py): shuffle examples
+- [periodic/brief.py](./periodic/brief.py): periodic table lookup helper
 
-* [fisher_yates_shuffle.py](./fisher_yates_shuffle.py) and [shuf.py](./shuf.py)
-  * [Yates shuffle at wikimedia](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle)
+## Reference
 
-* [mcnugget.py](./mcnugget.py)
-  * [McNuggetNumber](http://mathworld.wolfram.com/McNuggetNumber.html)
-  * to find the largest mcnugget number
-  * a good example to use [itertools](https://docs.python.org/3.5/library/itertools.html)
+- Python cheat sheet: <https://github.com/gto76/python-cheatsheet>
 
-tags: ```python3``` ```pylint``` ```script``` ```python```
+Tags: `python3` `scripts` `utilities`

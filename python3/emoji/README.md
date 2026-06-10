@@ -1,55 +1,47 @@
 # README
 
-If you want to update emoji related data, just see section about **UPDATE**.
+This folder contains emoji-related scripts and generated data tables.
+The main focus is:
 
-This README describes how to translate emoji icons into unicode sequence for maximum compatability without losing any code. Normally using utf-8 encoding could keep most of information and ok to exchange. But emoji are not always perfectly editable in the editor. Currently I suggest that use **unicode escape sequence** to represent unicode characters.
+- converting emoji characters to escaped Unicode forms
+- generating lookup tables from CLDR annotation XML
+- searching or picking emoji by keyword
 
-## UPDATE
+## Main files
 
-- May check the latest release tag from <https://github.com/unicode-org/cldr.git>
+Generated data:
 
-- initial git repository (2025/2/19)
-```
-mkdir -p $HOME/src/github/
-cd $HOME/src/github/
-git clone https://github.com/unicode-org/cldr.git
-cd cldr
-git checkout -b r46-1 release-46-1
-```
+- `en_emoji.py`: English emoji keyword table, generated from CLDR XML
+- `cp_emoji.py`: reverse-style table keyed by emoji codepoint string
+- `wtf.csv`: CSV-like dump produced from the XML inputs
 
-- and then run this script ```./runme.sh```
-  - output files:
-    - cp_emoji.py
-    - en_emoji.py
-  - intermediate files:
-    - en-basic.xml, en-basic.xml.csv
-    - en-derived.xml, en-derived.xml.csv
+Source XML copied from CLDR:
 
-### relation between scripts and data files
+- `en-basic.xml`
+- `en-derived.xml`
+- `zh-basic.xml`
+- `zh-derived.xml`
 
-- ```read_enxml.py``` vs ```wtf.csv```
-- ```parse_enxml.py``` vs
-  - en_emoji.py
-  - zh_emoji.py
+Utility and demo scripts:
 
-## basics
+- `u8u16.py`: show Unicode escape, UTF-16 escape, and UTF-8 bytes for an emoji
+- `mytofrom.py`: conversion helpers used by `u8u16.py`
+- `surgg.py`: surrogate-pair related demo
+- `pickup.py`: search emoji from keywords listed in `keys.txt`
+- `test_emoji.py`: query `en_emoji.py` with a keyword
+- `read_enxml.py`: parse CLDR XML and dump CSV-style output
+- `parse_enxml.py`: parse CLDR XML and generate Python lookup tables
 
-For example the test string ```❤️🇧🇴🙋‍♀️🏈😃```
+## Typical usage
 
-For newer version of ubuntu and text editors. This string token could be displayed and edited correctly. You need up-to-date emoji font and text rendering system.
+### Convert an emoji to escaped forms
 
-### scripts
-
-Run ```u8u16.py ❤️```, you will get:
-
-```text
-         input: ❤️
-unicode-escape: \u2764\ufe0f
-      utf16-be: \u2764\ufe0f
-       to_utf8: e29da4efb88f
+```bash
+python3 u8u16.py ❤️
+python3 u8u16.py 😃
 ```
 
-Run ```u8u16.py 😃```, will get:
+Example output shape:
 
 ```text
          input: 😃
@@ -58,79 +50,95 @@ unicode-escape: \U0001f603
        to_utf8: f09f9883
 ```
 
-### json & qml
+This is useful when an editor or downstream format does not handle literal emoji well.
 
-json and qml using javascript sytle string literals, so using utf16-be would be good.
+### Search emoji by keyword
+
+```bash
+python3 test_emoji.py smile
+python3 pickup.py
+```
+
+`pickup.py` reads search terms from `keys.txt` and looks them up in `en_emoji.py`.
+
+## Update workflow
+
+If you want to refresh the generated emoji tables, update the CLDR XML inputs first and then
+re-run the local generators.
+
+### 1. Prepare a CLDR checkout
+
+Example:
+
+```bash
+mkdir -p "$HOME/src/github"
+cd "$HOME/src/github"
+git clone https://github.com/unicode-org/cldr.git
+cd cldr
+git checkout release-46-1
+```
+
+`runme.sh` expects the CLDR checkout at:
+
+```text
+$HOME/src/github/cldr
+```
+
+### 2. Regenerate local data
+
+From this `emoji/` directory:
+
+```bash
+./runme.sh
+```
+
+This script:
+
+1. copies XML files from the CLDR checkout
+2. runs `read_enxml.py`
+3. runs `parse_enxml.py`
+
+Generated outputs:
+
+- `wtf.csv`
+- `en_emoji.py`
+- `cp_emoji.py`
+
+## Data format notes
+
+For example, the string `❤️🇧🇴🙋‍♀️🏈😃` may render correctly on a current system, but some tools are
+still easier to work with when the emoji is stored as escape sequences.
+
+### JSON / JavaScript / QML
+
+UTF-16 escape sequences are often convenient in JSON-like string literal formats:
 
 ```json
 {
-    "smile": "\ud83d\ude03"
+  "smile": "\ud83d\ude03"
 }
 ```
 
-```qml
-readonly property string smile: "\ud83d\ude03"
-```
+### Python / C++
 
-### c++11
+Unicode escape sequences such as `\u2764\ufe0f` or `\U0001f603` are often easier to diff, copy,
+and keep stable in source files.
 
-for c++11, using unicode escape sequence by ```\u``` and ```\U``` like python3
+## Dependencies
 
-```c++
-void unicode_char()
-{
-    using namespace std;
-    string str =
-        "\u2764\ufe0f"
-        "\U0001f1e7\U0001f1f4"
-        "\U0001f64b\u200d\u2640\ufe0f"
-        "\U0001f3c8\U0001f603";
-    cout << str << endl;
-}
-```
+Standard library is enough for some scripts, but XML parsing uses third-party packages:
 
-### howto
+- `beautifulsoup4`
+- `lxml`
 
-> utf-16 surrogate characters ranges from U+D800 to U+DFFF
+Optional console output dependency:
 
-- script **surgg.py** demos how to translate utf-16 characters to a string
-- may put it into a json file, and use **jq** to view
+- `rich`
 
-## unicode definition data files
+`read_enxml.py` and `parse_enxml.py` will exit with an install hint if `bs4` is missing.
 
-- CLDR
+## Related files
 
-  - table for all [CLDR Releases/Downloads](http://cldr.unicode.org/index/downloads)
-
-  - specify release file to download (manually), look for file like: [CLDR common](http://unicode.org/Public/cldr/37/cldr-common-37.0.zip)
-
-- emoji data files
-
-  - 2024-11-20 [emoji 16.0](https://unicode.org/Public/emoji/16.0/) and [emoji in UCD](https://unicode.org/Public/16.0.0/ucd/emoji/)
-    - ReadMe.txt
-    - emoji-sequences.txt
-    - emoji-test.txt
-    - emoji-zwj-sequences.txt
-
-  - 2023-08-30 [emoji 15.1](https://unicode.org/Public/emoji/15.1/)
-    - ReadMe.txt
-    - emoji-sequences.txt
-    - emoji-test.txt
-    - emoji-zwj-sequences.txt
-
-    - [emoji 15.0](https://unicode.org/Public/emoji/15.0/)
-      - ReadMe.txt
-      - emoji-sequences.txt
-      - emoji-test.txt
-      - emoji-zwj-sequences.txt
-
-    - [emoji 13.1](https://unicode.org/Public/emoji/13.1/)
-      - ReadMe.txt
-      - emoji-sequences.txt
-      - emoji-test.txt
-      - emoji-zwj-sequences.txt
-
-## history
-
-- 2021-11-09
-  - [CLDR40](http://unicode.org/Public/cldr/40/)
+- [food/README.md](./food/README.md): notes for the curated food emoji subset
+- `sample.json`, `emj.json`: sample input data for conversion tests
+- `keys.txt`, `targets.txt`: keyword input lists for lookup scripts
