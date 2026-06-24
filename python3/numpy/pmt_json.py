@@ -8,6 +8,7 @@ https://numpy.org/numpy-financial/latest/index.html#functions
 '''
 
 import sys
+from decimal import Decimal, ROUND_HALF_UP
 from typing import Annotated
 import numpy_financial as npf  # type: ignore[import]
 from pydantic import BaseModel
@@ -31,15 +32,16 @@ class Loan(BaseModel):
 
 def calc_and_show(val: Loan) -> None:
     ''' calc pmt '''
-    prt(f'rate: {val.rate*100:.4f}%')
-    prt(f'nper: {val.nper}')
-    prt(f'  PV: {val.pv:,.2f}')
-    # Calculate the monthly payment
-    payment = npf.pmt(val.rate/12, val.nper, val.pv)
-    prt(f'monthly payment: {payment:,.2f}')
+    prt(f'{"rate":<28}: {val.rate*100:.4f}%')
+    prt(f'{"nper":<28}: {val.nper}')
+    prt(f'{"PV":<28}: {val.pv:,.2f}')
+    # numpy_financial.pmt returns negative cash outflow for repayment.
+    payment = abs(npf.pmt(val.rate/12, val.nper, val.pv))
+    payment_rounded = int(Decimal(str(payment)).quantize(Decimal('1'), rounding=ROUND_HALF_UP))
+    prt(f'{"monthly payment (rounded)":<28}: {payment_rounded:,d}')
 
 def main(
-        conf: Annotated[str, typer.Argument(help="json file with loan data")] = 'pmt.json'
+        conf: Annotated[str, typer.Option(help="json file with loan data")] = 'pmt.json'
 ):
     ''' use numpy_financial.pmt to calculate the monthly payment '''
     prt('[blue]if no arugment is given, the default values will be used[/]')
