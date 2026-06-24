@@ -151,7 +151,6 @@ class CollectWeekday():
 
     def warn_if_olddate(self, the_d: datetime) -> None:
         ''' warn if the input datetime is more than 3 months ago '''
-        logd = self.logd
         now = datetime.now()
         three_months_ago = now - timedelta(days=90)
         if the_d.date() < three_months_ago.date():
@@ -206,9 +205,13 @@ class CollectWeekday():
     if USE_TYPER:
         def main(self,
             # input like: "1970-01"
-            yyyymm: Annotated[Union[datetime, None],
+            yyyymm: Annotated[Optional[datetime],
                 typer.Argument(help="specify a YYYY-mm date, the dd will be ignored",
                         formats=["%Y-%m", "%Y-%m-%d"]),] = None,
+            current_month: Annotated[bool,
+                typer.Option("--current", "-c", help="Use current month", is_flag=True)] = False,
+            next_month: Annotated[bool,
+                typer.Option("--next", "-n", help="Use next month", is_flag=True)] = False,
             # output file name
             outf: Annotated[Union[str, None],
                 typer.Option("--out", "-o", help="output file name")] = None,
@@ -242,10 +245,30 @@ class CollectWeekday():
                 logd(f'[INFO] will show holidays in year: {yy}')
                 self.show_holidays(yy)
                 return
-            if yyyymm is None:
-                print('[INFO] You need specify some date (yyyy-mm)\n  Get some help, use "--help"')
+            if current_month and next_month:
+                print('[ERROR] --current and --next cannot be used together', file=sys.stderr)
                 return
-            self.collect_workday(yyyymm)
+
+            target_date = yyyymm
+            if target_date is None:
+                today = date.today()
+                if current_month:
+                    target_date = datetime(today.year, today.month, 1)
+                elif next_month:
+                    year = today.year + (1 if today.month == 12 else 0)
+                    month = 1 if today.month == 12 else today.month + 1
+                    target_date = datetime(year, month, 1)
+
+            if target_date is None:
+                print("""[INFO] You need specify some date (yyyy-mm)
+    Get some help, use "--help"
+    Or you can use:
+        "--current" or "-c" to specify the current month,
+        "--next" or "-n" to specify the next month
+    Also, use ```list_possible_workday.py | xsel -b``` to copy the output to clipboard
+    """, file=sys.stderr)
+                return
+            self.collect_workday(target_date)
             if outf:
                 self.output_to_file(outf)
             else:
