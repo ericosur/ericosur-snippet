@@ -32,7 +32,7 @@ except ImportError:
 
 def do_nothing(*_args, **_wargs) -> None:
     ''' do nothing '''
-    return None
+    return
 
 prt = rprint if USE_RICH else print
 

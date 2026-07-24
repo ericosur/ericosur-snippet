@@ -63,7 +63,7 @@ def colorlog(color, msg):
 
 def do_nothing(*_args, **_wargs) -> None:
     ''' do nothing '''
-    return None
+    return
 
 class PathLister:
     ''' list path '''

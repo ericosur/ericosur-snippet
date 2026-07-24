@@ -15,7 +15,7 @@ except ImportError:
 # if module hexdump is not installed, the dump_nothing is used
 def dump_nothing(_buffer) -> None:
     ''' dump nothing '''
-    return None
+    return
 
 class Solution:
     ''' sqlite and query '''

@@ -15,7 +15,7 @@ except ImportError:
 
 def do_nothing(*_args, **_wargs) -> None:
     ''' do nothing'''
-    return None
+    return
 
 logd = do_nothing
 

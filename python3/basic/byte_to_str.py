@@ -28,7 +28,7 @@ except ImportError:
 
 def nothing(*_args, **_kwargs) -> None:
     ''' do donothing'''
-    return None
+    return
 
 logd = logger.debug if USE_LOGG else nothing
 dump = hexdump if USE_DUMP else nothing

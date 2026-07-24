@@ -23,7 +23,7 @@ logd = logger.debug if USE_LOGGER else print
 
 def _do_nothing(*_args, **_wargs) -> None:
     ''' do nothing '''
-    return None
+    return
 
 def from_file(fn: str) -> bytes:
     ''' load key from binary file '''

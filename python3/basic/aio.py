@@ -86,7 +86,7 @@ async def do_easy_job(_loop, _pool, idx: int) -> None:
     during = default_timer() - start
     print_during(during, f'easy-{idx}')
     logd(f'task{idx}: do_easy_job done!')
-    return None
+    return
 
 def print_during(during: float, msg: str|None) -> None:
     ''' during '''

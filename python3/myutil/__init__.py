@@ -31,7 +31,7 @@ def sep():
 
 def do_nothing(*_args, **_wargs) -> None:
     ''' do nothing '''
-    return None
+    return
 
 is_file = isfile
 is_dir = isdir
