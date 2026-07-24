@@ -74,10 +74,9 @@ class FoolMail:
 
     def _check(self):
         ''' check '''
-        if self.bodyfile:
-            if not isfile(self.bodyfile):
-                print('[ERROR] bodyfile not found:', self.bodyfile)
-                sys.exit(1)
+        if self.bodyfile and not isfile(self.bodyfile):
+            print('[ERROR] bodyfile not found:', self.bodyfile)
+            sys.exit(1)
 
     def dump(self):
         ''' dump variables '''

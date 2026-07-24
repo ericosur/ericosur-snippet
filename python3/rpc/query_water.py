@@ -12,6 +12,7 @@ data only.
 import requests
 from bs4 import BeautifulSoup
 
+
 def save2file(the_str, ofn):
     ''' save to file '''
     with open(ofn, 'wt', encoding='UTF-8') as fobj:

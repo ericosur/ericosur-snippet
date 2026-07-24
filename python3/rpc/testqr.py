@@ -11,6 +11,7 @@ from collections import OrderedDict
 from urllib.parse import urlencode
 
 import requests
+
 #import numpy as np
 from httpbin import show_results
 from PIL import Image

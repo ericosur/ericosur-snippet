@@ -9,7 +9,7 @@ get apikey for random.org
 import sys
 
 sys.path.insert(0, "..")
-from myutil import read_jsonfile, DefaultConfig
+from myutil import DefaultConfig, read_jsonfile
 
 
 def get_randomorg_apikey():
