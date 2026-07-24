@@ -11,19 +11,35 @@ how to export functions
 
 __VERSION__ = '2024.11.26'
 
-from .commonutil import clamp
-from .commonutil import get_home, print_stderr, read_from_stdin
-from .commonutil import is_path_exist, isfile, isdir, mkdir
+from .__myutil import get_platform, is_cygwin, is_linux, is_windows
+from .commonutil import (
+    clamp,
+    get_home,
+    is_path_exist,
+    isdir,
+    isfile,
+    mkdir,
+    print_stderr,
+    read_from_stdin,
+)
 from .debug_verbose import MyDebug, MyVerbose, die, prt
-from .hashutil import md5sum, sha1sum, sha256sum, sha384sum, sha512sum, sha3_256sum, sha3_512sum
-from .jsonutil import read_setting, read_textfile, read_jsonfile, write_jsonfile
-from .mydateutil import get_dow, is_leapyear, get_offset_from_year, get_doom_num
+from .hashutil import (
+    md5sum,
+    sha1sum,
+    sha3_256sum,
+    sha3_512sum,
+    sha256sum,
+    sha384sum,
+    sha512sum,
+)
+from .jsonutil import read_jsonfile, read_setting, read_textfile, write_jsonfile
+from .mydateutil import get_doom_num, get_dow, get_offset_from_year, is_leapyear
 from .pathutil import DefaultConfig
 from .queryutil import query_url_for_data, query_url_for_json
 from .run_cmd import run_command, run_command2, show_platform
-from .thedatetime import get_epoch, WhatNow
+from .thedatetime import WhatNow, get_epoch
 from .versionutil import get_python_version, get_python_versions, require_python_version
-from .__myutil import is_linux, is_cygwin, is_windows, get_platform
+
 
 def sep():
     ''' sep '''
@@ -38,11 +54,15 @@ is_dir = isdir
 
 # sort by alphatic if possible
 __all__ = [
+    'DefaultConfig',
+    'MyDebug',
+    'MyVerbose',
+    'WhatNow',
     'clamp',
     'die',
     'do_nothing',
-    'get_dow',
     'get_doom_num',
+    'get_dow',
     'get_epoch',
     'get_home',
     'get_offset_from_year',
@@ -66,21 +86,17 @@ __all__ = [
     'query_url_for_json',
     'read_from_stdin',
     'read_jsonfile',
-    'read_textfile',
     'read_setting',
+    'read_textfile',
     'require_python_version',
     'run_command',
     'run_command2',
     'sha1sum',
+    'sha3_256sum',
+    'sha3_512sum',
     'sha256sum',
     'sha384sum',
     'sha512sum',
-    'sha3_256sum',
-    'sha3_512sum',
     'show_platform',
-    'write_jsonfile',
-    'DefaultConfig',
-    'MyDebug',
-    'MyVerbose',
-    'WhatNow'
+    'write_jsonfile'
 ]

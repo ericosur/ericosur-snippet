@@ -32,10 +32,3 @@ def require_python_version(major, minor, debug=False) -> bool:
         if int(sys.version_info.minor) >= int(minor):
             return True
     return False
-
-def need_python36() -> None:
-    ''' if not python version >= 3.6, raise exception '''
-    if sys.version_info.major == 3 and sys.version_info.minor >= 6:
-        pass
-    else:
-        raise RuntimeError

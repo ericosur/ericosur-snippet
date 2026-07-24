@@ -6,8 +6,10 @@
 
 import time
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
-__VERSION__ = "2025.01.07"
+__VERSION__ = "2026.07.24"
+TAIPEI_TZ = ZoneInfo("Asia/Taipei")
 
 
 def get_epoch() -> int:
@@ -29,7 +31,7 @@ def __what_now() -> None:
     '''
         what now
     '''
-    now = datetime.now()
+    now = datetime.now(tz=TAIPEI_TZ)
     # Extract hour and minute
     print(f'{now.year=}')   # date +%Y
     print(f'{now.month=}')  # date +%m
@@ -49,7 +51,7 @@ class WhatNow:
 
     def _setup(self):
         ''' fill up the data members '''
-        t = datetime.now()
+        t = datetime.now(tz=TAIPEI_TZ)
         self.year = t.year
         self.month = t.month
         self.day = t.day
