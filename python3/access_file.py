@@ -19,7 +19,7 @@ def test_file(fn: str) -> bool:
     '''
     try:
         fp = open(fn, encoding='utf8')
-    except IOError as e:
+    except OSError as e:
         if e.errno == errno.EACCES:
             print('errno: EACCES')
             return False

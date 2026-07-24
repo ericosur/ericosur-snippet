@@ -33,7 +33,7 @@ class ValidateGuassian:
                 for ln in ifile:
                     val = float(ln.strip())
                     arr.append(val)
-        except IOError:
+        except OSError:
             print(f'[ERROR] IOError while open: {fn}')
             print('[INFO] may execute **req_guassian.py** to generate data.txt')
             sys.exit(1)
@@ -46,7 +46,7 @@ class ValidateGuassian:
             with open(fn, 'wt', encoding='utf8') as ofile:
                 for val in arr:
                     print(f'{val}', file=ofile)
-        except IOError as e:
+        except OSError as e:
             print(f'Except happens: {e}')
 
     @staticmethod

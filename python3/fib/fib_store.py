@@ -86,7 +86,7 @@ class CalcFib:
         try:
             with open(self.pfile, "rb") as inf:
                 self.fibvalues = pickle.load(inf)
-        except IOError:
+        except OSError:
             # not a fatal exception
             print(f'warn: IOError while opening {self.pfile}')
 
