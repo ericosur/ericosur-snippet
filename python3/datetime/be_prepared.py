@@ -6,12 +6,41 @@ for exampe, given year=2024, radius(context)=2
 will retrun a list: [2022,2023,2024,2025,2026]
 '''
 
-from datetime import date
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 
+TAIPEI_TZ = ZoneInfo("Asia/Taipei")
+
+def get_utc_thisyear() -> int:
+    ''' get this year UTC '''
+    return datetime.now(tz=timezone.utc).year
 
 def get_thisyear() -> int:
-    ''' get this year '''
-    return date.today().year
+    ''' get this year in local timezone '''
+    return datetime.now(tz=TAIPEI_TZ).year
+
+def get_current_utc_datetime() -> datetime:
+    ''' get this year UTC as datetime '''
+    return datetime.now(tz=timezone.utc)
+
+def get_current_local_datetime() -> datetime:
+    return get_current_taipei_datetime()
+
+def get_current_taipei_datetime() -> datetime:
+    ''' get current datetime in Taipei timezone '''
+    return datetime.now(tz=TAIPEI_TZ)
+
+def get_today() -> datetime.date:
+    ''' get today date in Taipei timezone '''
+    return get_current_taipei_datetime().date()
+
+def get_local_today() -> datetime.date:
+    ''' get today date in Taipei timezone '''
+    return get_current_taipei_datetime().date()
+
+def get_utc_today() -> datetime.date:
+    ''' get today date in UTC timezone '''
+    return get_current_utc_datetime().date()
 
 def get_year_color(yy: int, target_year: int) -> str:
     ''' return the color from the input year '''
@@ -43,9 +72,7 @@ def prepare_values(year: int, after: int=0, before: int=0, radius: int=0) -> lis
     lower = year - before
     if lower>upper:
         lower,upper = upper,lower
-    vals = []
-    for y in range(lower,upper+1):
-        vals.append(y)
+    vals = list(range(lower, upper + 1))
     return vals
 
 if __name__ == "__main__":

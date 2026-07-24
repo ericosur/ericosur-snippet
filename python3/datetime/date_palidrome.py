@@ -12,10 +12,10 @@ sys.path.insert(0, "python3")
 from myutil import prt  # type: ignore[import]
 
 
-def is_palindrome(the_str: str):
+def is_palindrome(the_str: str) -> bool:
     ''' the shortest way to test if palindrome '''
     if not isinstance(the_str, str):
-        raise ValueError
+        raise TypeError("Input must be a string")
     return the_str==the_str[::-1]
 
 

@@ -42,6 +42,8 @@ except ImportError:
     print('[WARN] no CLI options available')
     USE_TYPER = False
 
+from be_prepared import TAIPEI_TZ, get_thisyear, get_today
+
 # try:
 #     from loguru import logger
 #     _logd = logger.debug
@@ -60,10 +62,6 @@ try:
 except ImportError:
     print('[WARN] no module nothing, please check the module')
     sys.exit(1)
-
-def get_thisyear() -> int:
-    ''' return current year '''
-    return datetime.now().year
 
 def print_stderr(*_args: Any, **_kwargs: Any) -> None:
     ''' print to stderr '''
@@ -123,7 +121,7 @@ class CollectWeekday:
                 d = y.get('date')
                 # transaform string to date object
                 if d:
-                    d = datetime.strptime(d, "%Y-%m-%d").date()
+                    d = date.fromisoformat(d)
                 res.append(d)
         return res
 
@@ -153,7 +151,7 @@ class CollectWeekday:
 
     def warn_if_olddate(self, the_d: datetime) -> None:
         ''' warn if the input datetime is more than 3 months ago '''
-        now = datetime.now()
+        now = datetime.now(tz=TAIPEI_TZ)
         three_months_ago = now - timedelta(days=90)
         if the_d.date() < three_months_ago.date():
             print(f'[WARN] input date {the_d} is more than 3 months ago')
@@ -195,7 +193,7 @@ class CollectWeekday:
 
     def run_default(self) -> None:
         ''' run default, without CLI options '''
-        td = datetime.today()
+        td = get_today()
         default_yymm = td.strftime("%Y-%m")
         print(f'[INFO] use default value: {default_yymm}')
         self.collect_workday(td)
@@ -253,13 +251,13 @@ class CollectWeekday:
 
             target_date = yyyymm
             if target_date is None:
-                today = date.today()
+                today = get_today()
                 if current_month:
-                    target_date = datetime(today.year, today.month, 1)
+                    target_date = datetime(today.year, today.month, 1, tzinfo=TAIPEI_TZ)
                 elif next_month:
                     year = today.year + (1 if today.month == 12 else 0)
                     month = 1 if today.month == 12 else today.month + 1
-                    target_date = datetime(year, month, 1)
+                    target_date = datetime(year, month, 1, tzinfo=TAIPEI_TZ)
 
             if target_date is None:
                 print("""[INFO] You need specify some date (yyyy-mm)

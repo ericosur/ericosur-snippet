@@ -8,12 +8,14 @@ import math
 import operator
 from datetime import datetime, timedelta
 
+from be_prepared import TAIPEI_TZ
+
 
 def main():
     ''' main '''
-    start = datetime(1975, 6, 17, 12, 0, 0)
+    start = datetime(1975, 6, 17, 12, 0, 0, tzinfo=TAIPEI_TZ)
     print("start date:", start)
-    today = datetime.today()
+    today = datetime.now(tz=TAIPEI_TZ)
     print('diff since start:', today - start)
 
     deltas = {'10**9': timedelta(seconds=1e9),

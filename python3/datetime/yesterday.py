@@ -11,16 +11,19 @@ demo datetime, and timedelta to get yesterday's date
 import time
 from datetime import datetime, timedelta
 
+from be_prepared import TAIPEI_TZ
+
 try:
     from rich import print as pprint
+    prt = pprint
 except ImportError:
-    pprint = print
-prt = pprint
+    prt = print
+
 
 def main():
     '''main function'''
     # get current time
-    today = datetime.fromtimestamp(time.time())
+    today = datetime.fromtimestamp(time.time(), tz=TAIPEI_TZ)
     today = today.replace(microsecond=0)  # remove microsecond part
     prt(f"current time from time stamp: {today}")
 
