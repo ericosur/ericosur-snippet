@@ -7,8 +7,8 @@
 import argparse
 import base64
 import hashlib
-import re
 import os
+import re
 import sys
 
 try:
@@ -16,11 +16,12 @@ try:
     USE_LOGGER = True
 except ImportError:
     print('cannot load module rich')
+    logger = None
     USE_LOGGER = False
 
 def do_nothing(*_args, **_wargs) -> None:
     ''' do nothing '''
-    return None
+    return
 
 DEF_FN = 'a.txt'
 
@@ -68,6 +69,8 @@ class MakeDirname:
     def extract_line(self) -> str | None:
         ''' extract line '''
         logd = self.log
+        if self.fn is None:
+            return None
         with open(self.fn, "rt", encoding="UTF-8") as fobj:
             cnt = 0
             for ln in fobj:
@@ -109,7 +112,7 @@ class MakeDirname:
         args = parser.parse_args()
 
         if args.debug:
-            if USE_LOGGER:
+            if USE_LOGGER and logger:
                 logd = logger.debug
             else:
                 logd = print

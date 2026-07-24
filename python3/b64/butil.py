@@ -7,6 +7,7 @@ some common functions for int/bytes conversion
 
 import numpy as np
 
+
 def fill_bytearray(size: int = 24) -> bytes:
     ''' fill byte array '''
     return np.random.bytes(size)

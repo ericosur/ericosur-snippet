@@ -54,9 +54,23 @@ def build_report() -> str:
 
 
 def main() -> None:
+    # Process CLI options for auto-fixes
+    if "--unsafe-fixes" in sys.argv:
+        print("Applying safe and unsafe auto-fixes...")
+        fix_output = run_ruff("--fix", "--unsafe-fixes")
+        if fix_output:
+            print(fix_output)
+    elif "--fix" in sys.argv:
+        print("Applying safe auto-fixes...")
+        fix_output = run_ruff("--fix")
+        if fix_output:
+            print(fix_output)
+
+    # Regenerate the report
     REPORT_PATH.write_text(build_report(), encoding="utf-8")
     print(f"Updated {REPORT_PATH}")
 
 
 if __name__ == "__main__":
     main()
+

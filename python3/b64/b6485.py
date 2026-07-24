@@ -11,9 +11,9 @@ demo for the following base-N functions:
 reference: https://docs.python.org/zh-tw/3/library/base64.html
 '''
 
-from typing import Any
 import base64
 import sys
+from typing import Any
 
 try:
     import base58  # type: ignore[import]
@@ -28,7 +28,8 @@ try:
 except ImportError:
     print('INFO: no rich.console available')
 
-from butil import fill_bytearray, sep, int_to_bytes
+from butil import fill_bytearray, int_to_bytes, sep
+
 
 def is_py310plus() -> bool:
     ''' return python version in (major, minor) integers '''
