@@ -7,6 +7,8 @@ from datetime import date
 
 sys.path.insert(0, "../")
 sys.path.insert(0, "python3/")
+from be_prepared import get_local_today
+
 from myutil import prt  # type: ignore[import]
 
 
@@ -19,7 +21,7 @@ class Solution:
         return str(d)
 
     @staticmethod
-    def str2date(s):
+    def str2date(s) -> date:
         ''' date string to date object
             [in] 2020-01-01
         '''
@@ -27,9 +29,14 @@ class Solution:
         try:
             vals = [int(x) for x in arr]
         except ValueError:
-            prt('[ERROR] str2date: invalid string to integer')
-            return None
+            raise ValueError('[ERROR] str2date: invalid string to integer')
+
         return date(vals[0], vals[1], vals[2])
+
+    @staticmethod
+    def get_today() -> date:
+        ''' get today date '''
+        return get_local_today()
 
     @staticmethod
     def get_between_dates(start, end):
@@ -46,14 +53,14 @@ class Solution:
     @staticmethod
     def get_today_str():
         ''' get string of today '''
-        return Solution.date2str(date.today())
+        return Solution.date2str(Solution.get_today())
 
     @staticmethod
     def get_eoy():
         ''' return the string of the date at the end of this year
             eg: 2021-12-31
         '''
-        t = date.today()
+        t = Solution.get_today()
         nd = date(t.year, 12, 31)
         return str(nd)
 
@@ -62,7 +69,7 @@ class Solution:
         ''' return the string of the date at the begin of this year
             eg: 2021-01-01
         '''
-        t = date.today()
+        t = Solution.get_today()
         nd = date(t.year, 1, 1)
         return str(nd)
 

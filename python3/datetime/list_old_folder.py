@@ -13,6 +13,8 @@ from glob import glob
 
 sys.path.insert(0, '.')
 sys.path.insert(0, '..')
+from be_prepared import TAIPEI_TZ
+
 from myutil import prt  # type: ignore[import]
 
 
@@ -60,10 +62,15 @@ class ShowDirList:
         ''' print a separator '''
         prt('-' * ShowDirList.SEP_LEN)
 
+    @staticmethod
+    def get_datetime_from_epoch(epoch: float) -> datetime:
+        ''' get datetime from epoch '''
+        return datetime.fromtimestamp(epoch, tz=TAIPEI_TZ)
+
     def show_older_dirs(self, days: int=DEFAULT_DAYS) -> None:
         ''' show the older folders '''
         ago = ShowDirList.get_older_epoch(days)
-        prt(f'> The folders are older than {days} days ago: {datetime.fromtimestamp(ago)}')
+        prt(f'> The folders are older than {days} days ago: {ShowDirList.get_datetime_from_epoch(ago)}')
         ShowDirList.sep()
         for d in self.dirs:
             ctime = os.path.getctime(d)
@@ -74,7 +81,7 @@ class ShowDirList:
     def show_newer_dirs(self, days: int=DEFAULT_DAYS) -> None:
         ''' show the newer folders '''
         ago = ShowDirList.get_older_epoch(days)
-        prt(f'> The folders are newer, within {days} days: {datetime.fromtimestamp(ago)}')
+        prt(f'> The folders are newer, within {days} days: {ShowDirList.get_datetime_from_epoch(ago)}')
         ShowDirList.sep()
         for d in self.dirs:
             ctime = os.path.getctime(d)

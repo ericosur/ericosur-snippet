@@ -18,6 +18,8 @@ import sys
 from datetime import date, timedelta
 from typing import ClassVar
 
+from be_prepared import get_today
+
 SUCCESS = 0
 FILENOTFOUND = 1
 NOTOLDENOUGH = 2
@@ -136,7 +138,7 @@ class Solution:
         #self.show_msg('action')
         self.parse_stampfile()
         if self.lastdate:
-            if self.lastdate >= date.today() - self.offset:
+            if self.lastdate >= get_today() - self.offset:
                 self.show_msg(f'[INFO] {self.lastdate} rather new, no need to bother')
                 sys.exit(NOTOLDENOUGH)
             else:

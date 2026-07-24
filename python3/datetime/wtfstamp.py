@@ -20,18 +20,21 @@ IEEE 754
 
 import logging
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 
 try:
     from rich.console import Console
 
     from rich import print as rprint
     USE_RICH = True
+    prt = rprint
+    console = Console()
 except ImportError:
     USE_RICH = False
+    prt = print
+    console = None
 from sickutil import datetime_to_sick, get_sick_from_ns, sick_to_datetime, sick_to_ns
 
-prt = rprint if USE_RICH else print
 loge = logging.error
 logd = logging.debug
 
@@ -43,9 +46,9 @@ class Solution:
 
     def get_range(self):
         ''' get range '''
-        dt1 = datetime(2024,8,21,0,0,0)
+        dt1 = datetime(2024, 8, 21, 0, 0, 0, tzinfo=timezone.utc)
         self.min_epoch = dt1.timestamp()
-        dt2 = datetime(2024,8,29,23,59,59)
+        dt2 = datetime(2024, 8, 29, 23, 59, 59, tzinfo=timezone.utc)
         self.max_epoch = dt2.timestamp()
 
     def process_values(self, vals: list[int]):
@@ -122,7 +125,9 @@ def look_for_head5() -> None:
     '''
     LOOK_FOR_FIVE_HEAD = True
     cnt = 0
-    console = Console()
+    if not console:
+        return
+
     with console.status("[bold green]Searching...[/]", spinner="dots") as _status:
         while LOOK_FOR_FIVE_HEAD:
             ns = time.time_ns()
@@ -140,7 +145,7 @@ def look_for_head5() -> None:
 def look_for_1e9() -> None:
     ''' 1e9 loop '''
     obj = Solution()
-    d1 = datetime_to_sick(datetime(2024, 8, 21, 20, 36))
+    d1 = datetime_to_sick(datetime(2024, 8, 21, 20, 36, tzinfo=timezone.utc))
     #d2 = datetime_to_sick(datetime(2024, 8, 27, 13, 22))
     for i in range(1, 1_000_000_000):
         obj.check(d1+i)

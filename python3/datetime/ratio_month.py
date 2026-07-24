@@ -9,6 +9,8 @@ get the ratio as a reference for today usage
 
 from datetime import date
 
+from be_prepared import get_today
+
 try:
     import console  # type: ignore[import]
     HAS_CONSOLE_MODULE = True
@@ -52,7 +54,7 @@ class NextMonth:
         if td:
             self.today = td
         else:
-            self.today = date.today()
+            self.today = get_today()
         td = self.today
 
     def __str__(self):

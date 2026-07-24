@@ -12,10 +12,8 @@ import logging
 import math
 import struct
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 from sysconfig import get_platform
-
-#from nothing import do_nothing
 
 logi = logging.info
 logd = logging.debug
@@ -43,7 +41,7 @@ def float_to_hex(f: float) -> str:
 def sick_to_ns(sick: int) -> int:
     ''' sick to datetime '''
     if not isinstance(sick, int):
-        raise ValueError('sick should be an int')
+        raise TypeError('sick should be an int')
     logd(f'----- sick_to_ns({sick}) -----')
     hex_string = normalize_hex_str(hex(sick))
     logd(f'  {hex_string=}, {len(hex_string)=}')
@@ -72,7 +70,7 @@ def normalize_hex_str(the_hexstr: str) -> str:
 def sick_to_datetime(val: int) -> None | datetime:
     ''' sick to datetime '''
     if not isinstance(val, int):
-        raise ValueError
+        raise TypeError
     logd(f'----- sick_to_datetime({val}) -----')
     hex_string = normalize_hex_str(hex(val))
     logd(f'  {hex_string=}, {len(hex_string)=}')
@@ -97,7 +95,7 @@ def sick_to_datetime(val: int) -> None | datetime:
     keep_len = len(str_val) - 9
     str_val = str_val[:keep_len]
     logd(f'  {str_val=}')
-    dt = datetime.fromtimestamp(int(str_val))
+    dt = datetime.fromtimestamp(int(str_val), tz=timezone.utc)
     return dt
 
 def get_sick_from_ns(ns_val: int) -> int:

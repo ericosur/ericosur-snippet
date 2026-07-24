@@ -6,7 +6,7 @@ show an emoji that matches the current time
 
 import argparse
 import sys
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import ClassVar
 
 sys.path.insert(0, "..")
@@ -74,7 +74,7 @@ class ShowClock:
             hh (0 to 23)
             mm (0 to 59)
         '''
-        now = datetime.now()
+        now = datetime.now(tz=timezone.utc)
         # Extract hour and minute
         self.sethh(now.hour)
         self.setmm(now.minute)

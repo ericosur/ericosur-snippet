@@ -7,20 +7,26 @@ datetime sample
 
 from datetime import datetime, timedelta
 
+from be_prepared import get_current_taipei_datetime
+
+
+def get_current_datetime() -> datetime:
+    ''' get current datetime '''
+    return get_current_taipei_datetime()
 
 def main():
     ''' main function '''
-    #ww = [8, 30]
-    ww = [9, 21]
+    ww = [8, 30]
+    #ww = [9, 21]
     # here is time I enter workspace
-    from_time = datetime.now().replace(hour=ww[0], minute=ww[1], second=0, microsecond=0)
+    from_time = get_current_datetime().replace(hour=ww[0], minute=ww[1], second=0, microsecond=0)
     print('from_time:', from_time)
 
     # current time
-    now_time = datetime.now().replace(microsecond=0)
+    now_time = get_current_datetime().replace(microsecond=0)
     print('now_time: ', now_time)
 
-    most_early_time = datetime.now().replace(hour=17, minute=30, second=0, microsecond=0)
+    most_early_time = get_current_datetime().replace(hour=17, minute=30, second=0, microsecond=0)
     #print most_early_time
 
     # need more than work_hour
