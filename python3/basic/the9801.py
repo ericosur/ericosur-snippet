@@ -44,7 +44,7 @@ class Solution:
         return None
 
     @staticmethod
-    def use_decimal(n: int, cylen: int) -> None:
+    def use_decimal(n: int, cylen: int) -> str | None:
         ''' use decimal to get longer precision '''
         getcontext().prec = cylen * 3
         result = Decimal(1) / Decimal(n)
@@ -67,7 +67,7 @@ class Solution:
         thed = factorint(n)
         print(f"{n} 的質因數分解: {thed}")
         nums = []
-        for key in thed.keys():
+        for key in thed:
             #print(key, thed[key])
             nums.append(pow(key, thed[key]))
         logd(f"{nums=}")  # [81, 121]
