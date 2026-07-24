@@ -23,7 +23,7 @@ if __name__ == '__main__':
     show_utf8char(bs)
     print()
 
-    S = u' '.join(u"\u037E").encode('utf-8').strip()
+    S = ' '.join("\u037E").encode('utf-8').strip()
     print(type(S))
     print(f"greek question mark: {S!r}")
     print()

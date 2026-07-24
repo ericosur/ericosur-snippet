@@ -6,6 +6,7 @@ print some unicode char
 
 
 from showutf8 import show_utf8char
+
 from myutil import get_python_versions
 
 

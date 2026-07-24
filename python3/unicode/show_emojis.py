@@ -8,9 +8,13 @@ also see: ../emoji/test_emoji.py
 '''
 
 import sys
-sys.path.insert(0, '../emoji/')
 
-from cp_emoji import EMOJI
+sys.path.insert(0, '../emoji/')
+try:
+    from cp_emoji import EMOJI
+except ImportError:
+    print("cannot import cp_emoji")
+    sys.exit()
 
 
 class Solution:
@@ -40,7 +44,6 @@ class Solution:
                 msg = msg + f'/{hex(ord(ch))}/'
             print(f'{ln}: {msg}  {r}')
 
-
     def action(self):
         ''' action '''
         self.read_data()
@@ -48,11 +51,9 @@ class Solution:
     def test(self):
         ''' test '''
         print('run test...')
-        cnt = 0
-        for k, v in self.emojis.items():
+        for cnt, (k, v) in enumerate(self.emojis.items()):
             print(f'{k}: {v}')
-            cnt += 1
-            if cnt > 10:
+            if cnt >= 10:
                 break
 
     @classmethod
