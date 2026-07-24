@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 Q27. Rani wrote down the numbers from 1 to 100 on a piece of paper

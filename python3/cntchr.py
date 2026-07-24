@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 ''' count char in a string '''
 

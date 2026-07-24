@@ -1,5 +1,4 @@
 #!python
-# -*- coding: utf-8 -*-
 
 r'''
 call wmic and parse the output

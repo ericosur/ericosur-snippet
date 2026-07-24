@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 Q27. 小明用六個自然數1，2，3，4，5，6 組成三個分數，

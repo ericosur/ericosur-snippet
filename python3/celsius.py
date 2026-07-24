@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 ''' convert temperature from CLI
     degree symbol is U+00B0

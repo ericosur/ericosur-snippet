@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 ref: https://zh.wikipedia.org/wiki/%E5%8B%BE%E8%82%A1%E6%95%B0

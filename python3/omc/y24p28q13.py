@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 求滿足下列條件的最小正整數N，N既可以表示為9個連續正整數的和，

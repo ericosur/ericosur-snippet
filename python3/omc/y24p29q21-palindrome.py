@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 P29 Q21. 一個正整數，如果它的數位從左往右和從右往左看都是一樣的，

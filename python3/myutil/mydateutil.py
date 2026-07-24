@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 ''' some useful utility functions without datetime
     for calculating some date time

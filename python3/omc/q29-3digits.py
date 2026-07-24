@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 Q29: Find the largest 3-digit number, with no two digits

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-#coding: utf-8
 
 '''
 https://zh.wikipedia.org/zh-tw/%E4%B8%AD%E5%9B%BD%E5%89%A9%E4%BD%99%E5%AE%9A%E7%90%86

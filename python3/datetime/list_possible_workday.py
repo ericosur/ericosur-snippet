@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-#coding: utf-8
 
 '''
 given yyyy-mm, and output the workdays of this month
@@ -32,6 +31,8 @@ import os
 import sys
 from datetime import date, datetime, timedelta
 from typing import Union, Annotated, Any, Callable, Optional
+
+typer: Any = None
 try:
     import typer
     USE_TYPER = True
@@ -83,7 +84,7 @@ class CollectWeekday():
         # default value
         logd = self.logd
         ret = self.HOLIDAYS_JSON
-        home = os.environ.get('HOME')
+        home = os.path.expanduser('~')
         private_path = os.path.join(home, 'Private', self.HOLIDAYS_JSON)
         if os.path.isfile(private_path):
             ret = private_path
@@ -193,7 +194,7 @@ class CollectWeekday():
 
     def run_default(self) -> None:
         ''' run default, without CLI options '''
-        td = date.today()
+        td = datetime.today()
         default_yymm = td.strftime("%Y-%m")
         print(f'[INFO] use default value: {default_yymm}')
         self.collect_workday(td)
@@ -202,7 +203,7 @@ class CollectWeekday():
 # pylint: disable=line-too-long
 # pylint: disable=too-many-arguments
 # pylint: disable=too-many-positional-arguments
-    if USE_TYPER:
+    if USE_TYPER and typer is not None:
         def main(self,
             # input like: "1970-01"
             yyyymm: Annotated[Optional[datetime],
@@ -276,7 +277,7 @@ class CollectWeekday():
 
 if __name__ == "__main__":
     obj = CollectWeekday()
-    if USE_TYPER:
+    if USE_TYPER and typer is not None:
         typer.run(obj.main)
     else:
         obj.run_default()

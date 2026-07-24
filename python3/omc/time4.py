@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 from (1,40) pick a,b (a<b and a!=b)

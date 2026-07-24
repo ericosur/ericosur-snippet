@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 # pylint: disable=import-error
 
 ''' using opencv to decode qrcode '''

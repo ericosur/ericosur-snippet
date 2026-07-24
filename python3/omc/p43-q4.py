@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 #
 # pylint: disable=too-many-instance-attributes
 # pylint: disable=invalid-name

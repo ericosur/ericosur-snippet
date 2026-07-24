@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
     curl -X POST https://api.reurl.cc/shorten \

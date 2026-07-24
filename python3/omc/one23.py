@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 the tail of multipler of 13? 17? 19? is 123

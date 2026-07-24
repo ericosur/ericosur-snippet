@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# coding: utf-8
 
 '''
 locate latest and recommend to refresh dl or not

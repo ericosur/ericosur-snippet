@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 P52 QAI-6 有一個三位數，各位上數字和為21，

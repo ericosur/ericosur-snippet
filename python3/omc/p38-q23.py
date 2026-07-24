@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 P38 Q23. 一個三位數能被它的各位數字之和整除，得到的商是 q。試求 q 的最小值

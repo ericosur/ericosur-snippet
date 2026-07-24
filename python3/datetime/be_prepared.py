@@ -1,4 +1,3 @@
-#coding: utf-8
 
 '''
 provide prepare_valus for years

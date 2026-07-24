@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 #
 '''
 demo of cryptography.fernet to encrypt/decrypt a text

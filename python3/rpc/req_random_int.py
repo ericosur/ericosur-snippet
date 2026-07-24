@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 reference: https://api.random.org/json-rpc/2/basic

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 This scripts tries to sort a list of 3-element tuples.
