@@ -15,7 +15,6 @@ import os
 import sys
 import requests
 
-# ruff: noqa: E402
 sys.path.insert(0, "./")
 sys.path.insert(0, "../")
 sys.path.insert(0, "python3/")

@@ -11,7 +11,6 @@ import sys
 from rich import print as rprint
 from loguru import logger
 
-# ruff: noqa: E402
 sys.path.insert(0, "./")
 sys.path.insert(0, "../")
 sys.path.insert(0, "python3/")

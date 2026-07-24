@@ -22,7 +22,6 @@ try:
 except ImportError:
     USE_LOGGER = False
 
-# ruff: noqa: E402
 sys.path.insert(0, "./")
 sys.path.insert(0, "../")
 sys.path.insert(0, "python3/")

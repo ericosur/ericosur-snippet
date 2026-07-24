@@ -22,7 +22,6 @@ from pydantic import BaseModel
 import numpy as np
 import numpy_financial as npf
 
-# ruff: noqa: E402
 sys.path.insert(0, "../")
 sys.path.insert(0, "python3/")
 from myutil import prt

@@ -24,7 +24,6 @@ except ImportError:
     print("[WARN] no rich.console to use")
     USE_CONSOLE = False
 
-# ruff: noqa: E402
 sys.path.insert(0, "..")
 sys.path.insert(0, "TaiGanDiZhi/")
 sys.path.insert(0, "../datetime/")

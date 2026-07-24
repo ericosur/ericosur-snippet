@@ -19,7 +19,6 @@ import time
 import urllib
 from datetime import datetime
 
-# ruff: noqa: E402
 sys.path.insert(0, "./")
 sys.path.insert(0, "../")
 sys.path.insert(0, "python3/")

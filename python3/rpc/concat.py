@@ -9,7 +9,6 @@ import glob
 import os
 import sys
 
-# ruff: noqa: E402
 sys.path.insert(0, '../')
 sys.path.insert(0, '../../')
 sys.path.insert(0, 'python3/')

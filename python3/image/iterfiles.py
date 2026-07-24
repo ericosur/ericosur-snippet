@@ -14,7 +14,6 @@ try:
 except ImportError:
     logd = print
 
-# ruff: noqa: E402
 sys.path.insert(0, '.')
 sys.path.insert(0, '..')
 sys.path.insert(0, 'python3/')

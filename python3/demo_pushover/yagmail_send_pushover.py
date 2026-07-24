@@ -30,7 +30,6 @@ def append_path(fn):
         return None
     return path
 
-# ruff: noqa: E402
 sys.path.insert(0, "./")
 sys.path.insert(0, "../")
 sys.path.insert(0, "python3/")
