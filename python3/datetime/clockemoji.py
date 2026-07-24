@@ -4,13 +4,15 @@
 show an emoji that matches the current time
 '''
 
-import sys
 import argparse
-from typing import ClassVar
+import sys
 from datetime import datetime
+from typing import ClassVar
+
 sys.path.insert(0, "..")
 sys.path.insert(0, "python3")
 from myutil import prt  # type: ignore[import]
+
 
 class ShowClock:
     ''' class to show clock '''

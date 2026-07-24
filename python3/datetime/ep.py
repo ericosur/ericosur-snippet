@@ -41,11 +41,11 @@ import calendar
 import sys
 import time
 from random import randint
-from typing import Tuple
 
 sys.path.insert(0, '..')
 sys.path.insert(0, 'python3')
 from myutil import read_from_stdin  # type: ignore[import]
+
 
 def datetime2epoch(date_str: str) -> int:
     ''' given datetime string (YYYY-MM-DD HH:MM:SS)

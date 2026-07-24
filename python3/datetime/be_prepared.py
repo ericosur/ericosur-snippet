@@ -8,6 +8,7 @@ will retrun a list: [2022,2023,2024,2025,2026]
 
 from datetime import date
 
+
 def get_thisyear() -> int:
     ''' get this year '''
     return date.today().year

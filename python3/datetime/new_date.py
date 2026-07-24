@@ -5,7 +5,8 @@ demo days delta
 '''
 
 from datetime import datetime, timedelta
-from typing import Union, Annotated
+from typing import Annotated
+
 try:
     import typer
     USE_TYPER = True

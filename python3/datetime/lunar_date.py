@@ -14,6 +14,7 @@ use __lunar-find solarterm 2025__ to get all solar terms in 2025
 #import datetime
 import itertools as it
 import sys
+
 try:
     from rich import print as rprint
     USE_RICH = True
@@ -26,7 +27,12 @@ except ImportError:
     USE_LOGGER = False
 
 try:
-    from lunarcalendar import Converter, DateNotExist, Lunar, Solar  # type: ignore[import]
+    from lunarcalendar import (  # type: ignore[import]
+        Converter,
+        DateNotExist,
+        Lunar,
+        Solar,
+    )
     from lunarcalendar.festival import festivals  # type: ignore[import]
 except ImportError:
     print('failed to import module lunarcalendar')

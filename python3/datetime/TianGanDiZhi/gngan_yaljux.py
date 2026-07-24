@@ -16,16 +16,18 @@ This module provides utility functions and class GanChi
 '''
 
 import sys
+from collections.abc import Callable
 from datetime import datetime
-from typing import Callable, Any
+from typing import Any
 
 sys.path.insert(0, "..")
 sys.path.insert(0, "../datetime/")
 sys.path.insert(0, "../../python3/datetime/")
-from nothing import do_nothing # type: ignore[import]
+from nothing import do_nothing  # type: ignore[import]
 
 try:
     from rich.console import Console
+
     from rich import print as rprint
     USE_RICH = True
     prt = rprint

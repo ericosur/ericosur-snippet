@@ -7,12 +7,13 @@ This script uses class DoomsDay and TestDoomsDay, and provides CLI.
 import argparse
 import sys
 from datetime import date
+
 try:
     # try to add my code snippet into python path
     sys.path.insert(0, '../')
     # sys.path.insert(0, '../../')
     # sys.path.insert(0, 'python3/')
-    from be_prepared import prepare_values, get_year_color
+    from be_prepared import get_year_color, prepare_values
 except ImportError:
     print('cannot import be_prepared, exit')
     sys.exit(1)

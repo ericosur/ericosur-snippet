@@ -6,9 +6,11 @@ Here "black Friday" means date 13 for each month and it's Friday.
 Not the "Black Friday" after the Thanksgiving
 '''
 
-from datetime import date
 import sys
-from typing import Optional, Annotated, Callable, Any
+from collections.abc import Callable
+from datetime import date
+from typing import Annotated, Any
+
 try:
     import typer
     USE_TYPER = True
@@ -16,9 +18,10 @@ except ImportError:
     print('[WARN] no module typer, not support CLI options')
     USE_TYPER = False
 try:
-    from rich import print as rprint
     from rich.console import Console
     from rich.table import Table
+
+    from rich import print as rprint
     USE_RICH = True
     console = Console()
     consolelog = console.log
@@ -26,7 +29,7 @@ except ImportError as e:
     USE_RICH = False
     print('import error of module rich', e)
 try:
-    from be_prepared import get_thisyear, prepare_values, get_year_color
+    from be_prepared import get_thisyear, get_year_color, prepare_values
     from nothing import do_nothing
 except ImportError:
     print('import error of be_prepared, please check the module')
@@ -151,7 +154,7 @@ if USE_TYPER:
     # pylint: disable=too-many-arguments
     # pylint: disable=too-many-positional-arguments
     def main(
-        values: Annotated[Optional[list[int]],
+        values: Annotated[list[int] | None,
             typer.Argument(help="specify year")] = None,
         after: Annotated[int,
             typer.Option("--after", "-A", help="after nn year")] = 0,

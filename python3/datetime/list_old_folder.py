@@ -5,14 +5,16 @@
 '''
 
 
-from datetime import datetime
-from glob import glob
 import os
 import sys
 import time
+from datetime import datetime
+from glob import glob
+
 sys.path.insert(0, '.')
 sys.path.insert(0, '..')
 from myutil import prt  # type: ignore[import]
+
 
 class ShowDirList:
     ''' show the folder list by epoch '''

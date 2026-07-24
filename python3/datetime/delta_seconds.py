@@ -6,6 +6,7 @@ get delta seconds from specified time point
 
 import argparse
 import datetime
+
 try:
     from rich.console import Console
     from rich.table import Table
