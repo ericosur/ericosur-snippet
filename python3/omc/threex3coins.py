@@ -8,12 +8,13 @@
 
 import itertools as it
 import operator
+from typing import ClassVar
 
 
 class Solution:
     ''' solution '''
-    coins = [3, 3, 3]
-    values = [50, 10, 5]
+    coins: ClassVar[list[int]] = [3, 3, 3]
+    values: ClassVar[list[int]] = [50, 10, 5]
     TOTAL = 100
 
     def __init__(self):

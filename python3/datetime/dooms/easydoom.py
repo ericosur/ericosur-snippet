@@ -42,6 +42,7 @@ and it is much easier to use and avoid negative numbers. **Use addition instead.
 
 import sys
 from datetime import date
+from typing import ClassVar
 try:
     from rich import print as pprint
     from rich.console import Console
@@ -61,8 +62,8 @@ except ImportError:
 
 class EasyDoomsDay:
     ''' utility functions to provide doomsday number '''
-    months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-              'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    months: ClassVar[list[str]] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                                   'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
     def __init__(self):
         ''' init '''

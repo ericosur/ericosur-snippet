@@ -5,11 +5,13 @@ P25 Q14 有一些四位數ABCD，各位數上的數字互不相同，
 使得AB，BC，CD 都是質數，那麼所有這樣的四位數有多少個？
 '''
 
+from typing import ClassVar
+
 
 class Solution:
     ''' try to find solution '''
 
-    primes = {
+    primes: ClassVar[set[int]] = {
             13, 17, 19, 23, 29,
             31, 37, 41, 43, 47,
             53, 59, 61, 67, 71,

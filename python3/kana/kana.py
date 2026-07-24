@@ -22,6 +22,8 @@ Input from text (one character each line).
 
 '''
 
+from typing import ClassVar
+
 def logv(*args, **wargs):
     ''' logv '''
     print(*args, **wargs)
@@ -30,7 +32,7 @@ class Solution:
     ''' here I put three question mark in ya/wa line '''
     afn = 'Lowercase.txt'
     Afn = 'Capital.txt'
-    magics = [5,5,5,5,5,5,5,5,5,5,1,99]
+    magics: ClassVar[list[int]] = [5,5,5,5,5,5,5,5,5,5,1,99]
 
     def __init__(self):
         self.a = self.__load(Solution.afn)

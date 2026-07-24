@@ -6,9 +6,11 @@ part of 37k
 part of 71k
 '''
 
+from typing import ClassVar
+
 class Solution:
     ''' to solve '''
-    PART = [(0,1,2), (0,1,3), (0,1,4), (1,2,3), (1,2,4), (2,3,4)]
+    PART: ClassVar[list[tuple[int, int, int]]] = [(0,1,2), (0,1,3), (0,1,4), (1,2,3), (1,2,4), (2,3,4)]
 
 
     @staticmethod

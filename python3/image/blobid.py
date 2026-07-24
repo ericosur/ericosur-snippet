@@ -10,6 +10,7 @@ https://docs.wand-py.org/en/0.6.12/guide/read.html#read-a-blob
 
 import os
 import sys
+from typing import ClassVar
 
 from wand.image import Image as WandImage  # type: ignore[import]
 from get_home import get_home
@@ -33,7 +34,7 @@ def identify_blob(blob):
 
 class Solution:
     ''' class solution '''
-    files = ['bmp3870.bmp', 'map3850.tif', 'shoelace-knot.png', 'img2668.jpg']
+    files: ClassVar[list[str]] = ['bmp3870.bmp', 'map3850.tif', 'shoelace-knot.png', 'img2668.jpg']
 
     def __init__(self):
         home = get_home()

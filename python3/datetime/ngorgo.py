@@ -16,6 +16,7 @@ import re
 import os
 import sys
 from datetime import date, timedelta
+from typing import ClassVar
 
 SUCCESS = 0
 FILENOTFOUND = 1
@@ -26,9 +27,9 @@ class Solution:
     ''' class to parse and action '''
     TS = 'latest.txt'
     MINDIFF = 5
-    months = ['Nul', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    patterns = [
+    months: ClassVar[list[str]] = ['Nul', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                                   'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    patterns: ClassVar[list[str]] = [
         # 西元2023年12月15日 (週五) 13時57分07秒 CST
         r'^西元(\d{4})年(\d+)月(\d+)日.*$',
         # Tue, 12 Dec 2023 14:47:55 +0800

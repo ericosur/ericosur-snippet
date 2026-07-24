@@ -7,6 +7,7 @@ demo of module PyExifTool
 import os
 import sys
 from glob import glob
+from typing import ClassVar
 
 USE_TOML = False
 try:
@@ -23,8 +24,8 @@ except ImportError:
 
 class Solution:
     ''' solution for extract GPS '''
-    queries = ["EXIF:GPSLatitude", "EXIF:GPSLatitudeRef",
-               "EXIF:GPSLongitude", "EXIF:GPSLongitudeRef"]
+    queries: ClassVar[list[str]] = ["EXIF:GPSLatitude", "EXIF:GPSLatitudeRef",
+                                    "EXIF:GPSLongitude", "EXIF:GPSLongitudeRef"]
 
     def __init__(self, conf):
         self.picdirs = []
