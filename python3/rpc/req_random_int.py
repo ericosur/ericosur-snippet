@@ -3,7 +3,6 @@
 '''
 reference: https://api.random.org/json-rpc/2/basic
 '''
-from __future__ import print_function
 
 import json
 import random

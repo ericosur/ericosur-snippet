@@ -6,7 +6,6 @@
 keyring basic config ?
 '''
 
-from __future__ import print_function
 
 import sys
 

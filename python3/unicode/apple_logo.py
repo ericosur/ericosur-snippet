@@ -5,7 +5,6 @@ print some unicode char
 '''
 
 
-from __future__ import print_function
 from showutf8 import show_utf8char
 from myutil import get_python_versions
 

@@ -10,7 +10,6 @@ use yagmail to send mail via gmail
 DO NOT USE THIS SCRIPT
 '''
 
-from __future__ import print_function
 
 import os
 import sys

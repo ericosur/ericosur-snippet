@@ -4,7 +4,6 @@
     try to list the folder while is one month ago
 '''
 
-from __future__ import print_function
 
 from datetime import datetime
 from glob import glob

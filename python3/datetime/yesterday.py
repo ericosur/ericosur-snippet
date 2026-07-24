@@ -7,7 +7,6 @@ demo datetime, and timedelta to get yesterday's date
   * compute yesterday = today - timedelta
 '''
 
-from __future__ import print_function
 
 import time
 from datetime import datetime, timedelta

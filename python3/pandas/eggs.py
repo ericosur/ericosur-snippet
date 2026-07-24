@@ -4,7 +4,6 @@
     output 10 random numbers to eggs.csv with csv module
 '''
 
-from __future__ import print_function
 
 import csv
 import os

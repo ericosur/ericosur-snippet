@@ -4,7 +4,6 @@
 timeit on sum/npsum
 '''
 
-from __future__ import print_function
 
 import timeit
 

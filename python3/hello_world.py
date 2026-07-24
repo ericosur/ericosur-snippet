@@ -4,7 +4,6 @@
     this file needs to be stored as UTF-8 text file
 '''
 
-from __future__ import print_function
 import sys
 
 def get_python_version():

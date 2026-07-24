@@ -4,7 +4,6 @@
 stupid test from code point to char, to utf-8
 '''
 
-from __future__ import print_function
 
 
 def test0(ch):

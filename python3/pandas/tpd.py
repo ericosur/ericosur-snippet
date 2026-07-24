@@ -2,7 +2,6 @@
 
 ''' use dataframe of pandas to read csv file '''
 
-from __future__ import print_function
 
 import os
 

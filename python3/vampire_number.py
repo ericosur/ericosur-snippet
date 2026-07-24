@@ -6,7 +6,6 @@ to find four-digit vampire numbers
 http://en.wikipedia.org/wiki/Vampire_number
 '''
 
-from __future__ import print_function
 
 from itertools import permutations  # , combinations
 

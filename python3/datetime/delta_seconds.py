@@ -4,7 +4,6 @@
 get delta seconds from specified time point
 '''
 
-from __future__ import print_function
 import argparse
 import datetime
 try:

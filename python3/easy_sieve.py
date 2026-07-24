@@ -11,7 +11,6 @@ http://www.algorithmist.com/index.php/Prime_Sieve_of_Eratosthenes
 tag: prime number
 '''
 
-from __future__ import print_function
 
 import math
 

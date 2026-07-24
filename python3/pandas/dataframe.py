@@ -5,7 +5,6 @@
     example from: http://bit.ly/2oKsLDB
 '''
 
-from __future__ import print_function
 
 import pandas as pd
 
