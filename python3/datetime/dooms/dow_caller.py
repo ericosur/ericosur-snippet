@@ -7,7 +7,8 @@
 '''
 
 import sys
-from datetime import date
+
+from doom_today import get_today
 
 try:
     from dooms_day import DoomsDay
@@ -24,14 +25,14 @@ TWS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 def check_and_call(dt: list[str]) -> int:
     ''' input a list of string, and return dow
     '''
-    dt = list(map(int, dt))
+    dt = list(map(int, dt))  # type: ignore
     #prt(dt)
     return DoomsDay.dow(dt[0], dt[1], dt[2])
 
 def run_demo():
     ''' demo '''
     prt('demo: Use date.today().weekday()...')
-    td = date.today()
+    td = get_today()
     tdow = int(td.weekday() + 1) % 7  # calibrate to 0 is Sun, 6 is Sat
     prt(f'today: {td}, dow: {tdow} ({TWS[tdow]})')
     prt('# of week:', td.strftime("%V"))

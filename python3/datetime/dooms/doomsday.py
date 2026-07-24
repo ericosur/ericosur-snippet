@@ -6,7 +6,6 @@ This script uses class DoomsDay and TestDoomsDay, and provides CLI.
 
 import argparse
 import sys
-from datetime import date
 
 try:
     # try to add my code snippet into python path
@@ -25,6 +24,7 @@ except ImportError:
     USE_RICH = False
 
 try:
+    from doom_today import get_today
     from dooms_day import DoomsDay
     from dooms_day_test import TestDoomsDay
 except ImportError:
@@ -41,7 +41,7 @@ def show_month_magic_number(year=-1, show_header=True):
     #     tdyear = date.today().year
     # else:
     #     tdyear = year
-    tdyear = date.today().year if year <=0 else year
+    tdyear = get_today().year if year <=0 else year
     ret = DoomsDay.get_month_modifier(tdyear)
 
     # output as json
@@ -70,7 +70,7 @@ def make_year_list(base_year:int=0, opt='c', year_range=5) -> list:
     if year_range < 0:
         raise ValueError("year_range MUST NOT smaller than 0")
 
-    start_year = date.today().year if base_year <= 0 else base_year
+    start_year = get_today().year if base_year <= 0 else base_year
 
     answer = []
     if opt == 'c':
