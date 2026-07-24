@@ -32,7 +32,7 @@ from butil import fill_bytearray, sep, int_to_bytes
 
 def is_py310plus() -> bool:
     ''' return python version in (major, minor) integers '''
-    return sys.version_info[0]==3 and sys.version_info[1]>=10
+    return sys.version_info >= (3, 10)
 
 def show(m: str, n: Any) -> None:
     ''' show '''
