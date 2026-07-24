@@ -7,7 +7,9 @@ from typing import Any
 __VERSION__ = "2024.03.28"
 
 import json
+
 from .commonutil import isfile
+
 
 def read_jsonfile(fn:str, debug: bool=False) -> Any:
     '''

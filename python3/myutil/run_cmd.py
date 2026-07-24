@@ -8,6 +8,7 @@ and return as a list of strings for further parsing
 import subprocess
 import sys
 from sysconfig import get_platform
+
 try:
     from rich import print as rprint
     USE_RICH = True

@@ -6,6 +6,7 @@
 '''
 
 import os
+
 from .debug_verbose import MyDebug
 
 __MODULE__ = "DefaultConfig"

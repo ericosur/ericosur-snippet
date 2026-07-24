@@ -13,8 +13,9 @@
 
 __VERSION__ = '2024.03.28'
 
-import os
 import hashlib
+import os
+
 
 def hash_factory(fn: str, hash_func) -> str:
     ''' hash factory '''
