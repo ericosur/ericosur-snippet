@@ -27,7 +27,7 @@ MODULE = "passutil"
 
 def do_nothing(*_args, **_wargs) -> None:
     ''' do nothing'''
-    return None
+    return
 
 class PassUtil:
     ''' password utility '''

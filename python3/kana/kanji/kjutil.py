@@ -17,7 +17,7 @@ except ImportError:
 
 def do_nothing(*_args, **_wargs) -> None:
     ''' do nothing '''
-    return None
+    return
 
 REAL_COMPAIN = False
 logd = logger.debug if USE_LOGGER else print

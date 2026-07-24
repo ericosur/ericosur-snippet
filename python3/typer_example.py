@@ -21,7 +21,7 @@ except ImportError as e:
 
 def do_nothing(*_args, **_wargs) -> None:
     ''' do nothing '''
-    return None
+    return
 
 class Main:
     ''' main '''

@@ -33,7 +33,7 @@ prt = rprint if USE_RICH else print
 
 def do_nothing(*_args, **_wargs) -> None:
     ''' do nothing '''
-    return None
+    return
 
 
 try:
