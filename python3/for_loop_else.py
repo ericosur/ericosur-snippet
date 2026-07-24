@@ -4,7 +4,6 @@
 reference from: http://www.thegeekstuff.com/2017/07/python-for-loop-examples/
 '''
 
-from __future__ import print_function
 
 
 def test_for_loop(checkname):

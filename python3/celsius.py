@@ -4,7 +4,6 @@
     degree symbol is U+00B0
 '''
 
-from __future__ import print_function
 
 import locale
 import sys

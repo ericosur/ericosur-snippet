@@ -12,7 +12,6 @@ r = random.randint(0, 0xffffffff).to_bytes(4, byteorder='big', signed=False)
 #hs = '5b7f887469feda'
 #hb = binascii.a2b_hex(hs)
 
-from __future__ import print_function
 
 from timeit import timeit
 

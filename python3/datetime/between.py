@@ -4,7 +4,6 @@
 datetime sample
 '''
 
-from __future__ import print_function
 
 from datetime import datetime, timedelta
 

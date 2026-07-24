@@ -2,7 +2,6 @@
 
 ''' count char in a string '''
 
-from __future__ import print_function
 
 from itertools import groupby
 from random import randint

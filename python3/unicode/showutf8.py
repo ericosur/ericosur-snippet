@@ -6,7 +6,6 @@ provide funtion show_utf8char()
 use this script under python2 only
 '''
 
-from __future__ import print_function
 
 def show_utf8char(ch: bytes):
     '''show given utf8 char'''

@@ -6,7 +6,6 @@ Here "black Friday" means date 13 for each month and it's Friday.
 Not the "Black Friday" after the Thanksgiving
 '''
 
-from __future__ import print_function
 from datetime import date
 import sys
 from typing import Optional, Annotated, Callable, Any

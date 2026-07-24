@@ -6,7 +6,6 @@ compare traditional way vs numpy methods
 if need to calculate massive large array, use numpy if possible
 '''
 
-from __future__ import print_function
 
 import timeit
 

@@ -10,7 +10,6 @@ docker run -p 80:80 kennethreitz/httpbin
 '''
 
 
-from __future__ import print_function
 
 import time
 

@@ -11,7 +11,6 @@ sample from
 https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.normal.html#numpy.random.normal
 '''
 
-from __future__ import print_function
 
 import argparse
 import sys

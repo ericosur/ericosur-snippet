@@ -7,7 +7,6 @@ how many data will match the range of mu and sigma
 '''
 
 
-from __future__ import print_function
 
 import random
 import statistics

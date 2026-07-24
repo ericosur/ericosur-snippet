@@ -4,7 +4,6 @@
 use module request to fetch specified web page
 '''
 
-from __future__ import print_function
 # pip install requests
 import requests
 

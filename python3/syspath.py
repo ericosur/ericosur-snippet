@@ -11,7 +11,6 @@ you may run it via python2 or python3 (or anaconda python)
 to see the difference
 '''
 
-from __future__ import print_function
 
 import sys
 
