@@ -39,7 +39,7 @@ class Solution:
         with open(FN, "rt", encoding="UTF-8") as fobj:
             the_row = "null"
             cnt_row = 0
-            for ln in fobj.readlines():
+            for ln in fobj:
                 ln = ln.strip()
                 # skip if empty or comment
                 if ln == "" or ln[0] == "#":

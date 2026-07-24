@@ -26,7 +26,7 @@ class Solution:
         if os.path.exists(self.binf):
             self.data = self.binf
         with open(self.data, "rt", encoding='utf8') as f:
-            for ln in f.readlines():
+            for ln in f:
                 cnt += 1
                 m = re.search(r'^(\S+) (\S+)$', ln)
                 if m:

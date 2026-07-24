@@ -60,7 +60,7 @@ class Solution:
             print(f'parsing: {self.inputfn}')
         lastline = None
         with open(self.inputfn, 'rt', encoding='UTF-8') as fobj:
-            for ln in fobj.readlines():
+            for ln in fobj:
                 ln = ln.strip()
                 if len(ln) > 0:
                     lastline = ln

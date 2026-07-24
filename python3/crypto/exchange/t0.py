@@ -173,7 +173,7 @@ class Solution:
         data = b''
         prt(f'decrypt: {self.ENCB64_FILE}')
         with open(self.ENCB64_FILE, "rt", encoding="UTF-8") as fobj:
-            for ln in fobj.readlines():
+            for ln in fobj:
                 ln = ln.strip()
                 data += ln.encode('utf-8')
         the_bytes = base64.b64decode(data)

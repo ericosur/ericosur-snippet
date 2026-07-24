@@ -16,8 +16,8 @@ This module provides utility functions and class GanChi
 '''
 
 import sys
-from typing import Callable, Any
 from datetime import datetime
+from typing import Callable, Any
 
 sys.path.insert(0, "..")
 sys.path.insert(0, "../datetime/")
@@ -28,13 +28,15 @@ try:
     from rich.console import Console
     from rich import print as rprint
     USE_RICH = True
+    prt = rprint
     console = Console()
+    clog = console.log
 except ImportError:
     #print("[WARN] no rich.console to use")
     USE_RICH = False
+    prt = print
+    clog = print
 
-prt = rprint if USE_RICH else print
-clog = console.log if USE_RICH else print
 
 def get_thisyear() -> int:
     ''' get this year '''
@@ -47,8 +49,11 @@ class GanChi:
     YEAR_PER_CYCLE = 60
     NUM_GNN = 10
     NUM_YAL = 12
-    PREDATA = ["甲乙丙丁戊己庚辛壬癸","子丑寅卯辰巳午未申酉戌亥",
-        "鼠牛虎兔龍蛇馬羊猴雞狗豬"]
+    PREDATA = (
+        "甲乙丙丁戊己庚辛壬癸",
+        "子丑寅卯辰巳午未申酉戌亥",
+        "鼠牛虎兔龍蛇馬羊猴雞狗豬",
+    )
 
     def __init__(self, log=do_nothing):
         self.log = log
@@ -201,7 +206,7 @@ def show(color: str, msg: str) -> None:
     if not USE_RICH:
         print(msg)
         return
-    rprint(f'[{color}]{msg}')
+    prt(f'[{color}]{msg}')
 
 def do_values(values: list[int], target=0, radius: int=0,
               log: Callable[[Any], None]=do_nothing) -> None:

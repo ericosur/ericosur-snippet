@@ -62,7 +62,7 @@ class Solution:
         ''' read data '''
         with open(self.wordfile, 'rt', encoding='utf8') as f:
             cnt = 0
-            for ln in f.readlines():
+            for ln in f:
                 cnt += 1
                 m = re.match(r'^(\d+)\s+([a-z-_]+)$', ln)
                 if m:

@@ -54,7 +54,7 @@ class CheckCsv:
         ''' check csv '''
         logd(f'read_file: {fn}')
         with open(fn, "rt", encoding="UTF-8") as fobj:
-            for ln in fobj.readlines():
+            for ln in fobj:
                 ln = ln.strip()
                 if "date" in ln and "duration" in ln:
                     # pass this line

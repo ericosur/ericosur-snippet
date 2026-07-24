@@ -12,7 +12,7 @@ def main():
     fn = 'prime.txt'
     with open(fn, 'rt', encoding='utf-8') as fin:
         cnt = 0
-        for ln in fin.readlines():
+        for ln in fin:
             cnt += 1
             if cnt > 10:
                 break

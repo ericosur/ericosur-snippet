@@ -25,7 +25,7 @@ class Solution:
         ''' action '''
         print('action!')
         with open(Solution.FILE, "rt", encoding='UTF-8') as fobj:
-            for ln in fobj.readlines():
+            for ln in fobj:
                 ln = ln.strip()
                 self.show_ln(ln)
 

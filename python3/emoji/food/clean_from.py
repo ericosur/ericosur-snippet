@@ -18,7 +18,7 @@ class Cleanup:
         ''' action '''
         with open(self.fn, 'rt', encoding='UTF-8') as fobj:
             with open(self.ofn, 'wt', encoding='UTF-8') as fout:
-                for ln in fobj.readlines():
+                for ln in fobj:
                     ln = ln.strip()
                     m = re.match('^[A-Za-z ]+$', ln)
                     if not m:

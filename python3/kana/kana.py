@@ -40,7 +40,7 @@ class Solution:
         ''' load txt '''
         the_list = []
         with open(fn, 'rt', encoding='UTF-8') as fobj:
-            for ln in fobj.readlines():
+            for ln in fobj:
                 t = ln.strip()
                 the_list.append(t)
         return the_list
