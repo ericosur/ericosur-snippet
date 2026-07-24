@@ -7,7 +7,7 @@ from /etc/os-release to get OS info (usu. ubuntu)
 import os
 import re
 import sys
-from typing import Union, Dict
+
 try:
     from rich import print as pprint
     USE_RICH = True

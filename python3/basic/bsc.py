@@ -12,6 +12,7 @@ I update this script for newer version of pymc
 
 import matplotlib.pyplot as plt
 import pymc as pm  # type: ignore[import]
+
 import numpy as np
 
 # 生成一些虛構的數據

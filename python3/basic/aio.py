@@ -7,8 +7,9 @@ a demo of asyncio, threading id,
 import asyncio
 import concurrent
 import threading
-from timeit import default_timer
 from random import randint
+from timeit import default_timer
+
 import numpy as np
 
 try:
@@ -86,7 +87,6 @@ async def do_easy_job(_loop, _pool, idx: int) -> None:
     during = default_timer() - start
     print_during(during, f'easy-{idx}')
     logd(f'task{idx}: do_easy_job done!')
-    return
 
 def print_during(during: float, msg: str|None) -> None:
     ''' during '''

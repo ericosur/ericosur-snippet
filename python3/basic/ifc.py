@@ -7,10 +7,11 @@ call ifconfig and parse the output
 import os
 import re
 import sys
+
 try:
     #from rich import print as pprint
-    from rich.pretty import pprint
     from rich.console import Console
+    from rich.pretty import pprint
     from rich.table import Table
     RICH_ENABLED = True
     prt = pprint
@@ -29,8 +30,13 @@ try:
     home = os.environ.get('HOME')
     abs_path = os.path.join(home, 'src/ericosur-snippet/python3')
     sys.path.insert(0, abs_path)
-    from myutil import is_linux, is_windows, show_platform  # type: ignore[import]
-    from myutil import run_command, run_command2  # type: ignore[import]
+    from myutil import (  # type: ignore[import]  # type: ignore[import]
+        is_linux,
+        is_windows,
+        run_command,
+        run_command2,
+        show_platform,
+    )
 except ImportError:
     print("cannot import local modules")
 

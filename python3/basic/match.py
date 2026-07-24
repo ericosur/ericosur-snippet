@@ -6,6 +6,7 @@ wrapper to check if python >= 3.10
 '''
 
 import sys
+
 try:
     sys.path.insert(0, "../")
     from myutil import require_python_version  # type: ignore[import]

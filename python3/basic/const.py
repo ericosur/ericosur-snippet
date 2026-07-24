@@ -12,7 +12,6 @@ code.activestate.com/recipes/65207-constants-in-python/?in=user-97991
 
 import sys
 
-
 # pylint: disable=import-outside-toplevel
 # pylint: disable=import-self
 

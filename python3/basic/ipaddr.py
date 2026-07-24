@@ -7,6 +7,7 @@ call __ip addr__ and parse
 import os
 import re
 import sys
+
 try:
     #from rich import print as pprint
     from rich.pretty import pprint

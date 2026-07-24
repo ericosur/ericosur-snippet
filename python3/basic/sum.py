@@ -6,11 +6,13 @@ if numpy is available, it could be more efficient by using:
 np.arange and np.sum
 '''
 
+from functools import reduce
 from time import perf_counter as pc
 from time import sleep
-from functools import reduce
-from typing import Any,Union
+from typing import Any
+
 import numpy as np
+
 
 class Solution:
     ''' basic flow '''

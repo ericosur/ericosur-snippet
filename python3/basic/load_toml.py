@@ -9,6 +9,7 @@ some recommends tomlkit
 '''
 
 import sys
+
 try:
     from rich import print as pprint
     USE_RICH = True

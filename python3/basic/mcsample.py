@@ -8,6 +8,7 @@ pymc tutorial
 
 import arviz as az  # type: ignore[import]
 import matplotlib.pyplot as plt
+
 import numpy as np
 
 
