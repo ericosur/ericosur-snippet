@@ -76,7 +76,7 @@ class PassUtil:
             with open(fn, "wt", encoding="UTF-8") as fobj:
                 print(json.dumps(d, indent=4), file=fobj)
 
-    def load(self) -> Dict | None:
+    def load(self) -> dict | None:
         ''' load from json '''
         fn = self.jsf
         logd = self.logd
@@ -106,7 +106,7 @@ class PassUtil:
         self.a_dict['tg'] = self.b64enc(tag)
         self.a_dict['ciphertext'] = self.b64enc(ciphertext)
 
-    def __decodeb64__(self) -> Tuple[bytes, bytes, bytes, bytes]:
+    def __decodeb64__(self) -> tuple[bytes, bytes, bytes, bytes]:
         ''' load data '''
         cn = self.b64dec(self.a_dict['cn'])
         tg = self.b64dec(self.a_dict['tg'])

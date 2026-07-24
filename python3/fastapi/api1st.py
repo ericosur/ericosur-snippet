@@ -142,7 +142,7 @@ def get_no_of_primes_around(item_id: int, given: GivenValueAbc):
 
 class GivenNumbers(BaseModel):
     ''' data class '''
-    numbers: List[int]
+    numbers: list[int]
 
 @app.put("/checkprime/{item_id}")
 def check_prime(item_id: int, given: GivenNumbers):
@@ -169,7 +169,7 @@ def gen_normdist(item_id: int, given: NormDist):
     ret["output"] = arr.tolist()
     return ret
 
-def prepare_ints(v: int, after: int=None, before: int=None, radius: int=None) -> List[int]:
+def prepare_ints(v: int, after: int=None, before: int=None, radius: int=None) -> list[int]:
     ''' prepare ints '''
     after = 0 if after is None else after
     before = 0 if before is None else before

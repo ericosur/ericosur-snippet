@@ -21,7 +21,7 @@ class OSRelease:
     def __init__(self):
         self.info = self.read_os_release()
 
-    def read_os_release(self) -> Dict[str, str] | None:
+    def read_os_release(self) -> dict[str, str] | None:
         ''' read /etc/os-release '''
         fn = self.FN
         if not os.path.exists(fn):

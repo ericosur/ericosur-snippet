@@ -18,7 +18,7 @@ def gcd(m: int, n: int) -> int:
         return m
     return gcd(n, m % n)
 
-def main(argv: List[str]) -> None:
+def main(argv: list[str]) -> None:
     ''' main function '''
     vals = []
     if argv == []:  # no arguments
