@@ -59,7 +59,7 @@ class Main:
         else:
             prt(d)
 
-    def get_current_ip(self) -> Union[str, None]:
+    def get_current_ip(self) -> str | None:
         ''' use this to get myip '''
         url = 'https://api.myip.com'
         try:
@@ -74,7 +74,7 @@ class Main:
             show_err(f"failed to connect: {e}")
             return None
 
-    def get_ip_info(self, ip:Union[str, None]) -> None:
+    def get_ip_info(self, ip:str | None) -> None:
         ''' use this to get IP location and related data '''
         if ip is None:
             show_err('IP was not specified')

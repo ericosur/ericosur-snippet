@@ -201,7 +201,7 @@ def pmt(item_id: int, the_pmt: PmtItem):
     return rets
 
 @app.get("/isprime/{item_id}")
-def the_isprime(item_id: int, q: Union[str, None] = None):
+def the_isprime(item_id: int, q: str | None = None):
     '''
     if item_id is 33865, check the prime number from parameter
     '''

@@ -17,7 +17,7 @@ except ImportError as e:
     prt('pip install PyYAML')
     sys.exit(1)
 
-def try_location(fn: str) -> Union[str, None]:
+def try_location(fn: str) -> str | None:
     ''' try to find file from current location and then
         same location of current script
 
