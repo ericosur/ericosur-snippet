@@ -16,9 +16,7 @@ def checkVals(vals):
         t = Rational(1, v)
         s += t
     #print(vals, s)
-    if target - s == 0:
-        return True
-    return False
+    return target - s == 0
 
 
 def main():

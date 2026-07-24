@@ -34,9 +34,7 @@ class Solution:
 
         self.digits = list(str(n))
         ds = [int(x) for x in self.digits]
-        if sum(ds) == 21 and ds[1]-ds[2]==1:
-            return True
-        return False
+        return bool(sum(ds) == 21 and ds[1] - ds[2] == 1)
 
 
     def action(self):

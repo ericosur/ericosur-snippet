@@ -19,23 +19,17 @@ class Solution:
     @staticmethod
     def is_different(a, b, c):
         ''' is different '''
-        if a == b or b == c or c == a:
-            return False
-        return True
+        return not (a == b or b == c or c == a)
 
     @staticmethod
     def is_small2big(a, b, c):
         ''' a, b, c small to big '''
-        if c > b > a:   # c > b and b > a
-            return True
-        return False
+        return c > b > a  # c > b and b > a
 
     def is_sum_match(self, a, b, c):
         ''' is sum(a,b,c) == target '''
         total = a + b + c
-        if total == self.target:
-            return True
-        return False
+        return total == self.target
 
     def test(self):
         ''' test '''

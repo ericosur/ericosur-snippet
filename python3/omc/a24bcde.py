@@ -38,9 +38,7 @@ class Solution:
             return False
         if n%10==0:
             return False
-        if n%24==0:
-            return True
-        return False
+        return n % 24 == 0
 
     def action(self):
         ''' action '''

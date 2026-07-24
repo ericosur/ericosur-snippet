@@ -31,9 +31,7 @@ class Solution:
             return False
         p = 100*D+10*E+F
         q = 10000*A+1000*B+100*C+10*D+A
-        if p*p == q:
-            return True
-        return False
+        return p * p == q
 
     def action(self):
         ''' action '''

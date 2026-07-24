@@ -62,9 +62,7 @@ class Solution:
         black_set = {"backslash", "反斜線", "\\"}
         if k in black_set:
             return True
-        if "skin_tone" in k:
-            return True
-        return False
+        return "skin_tone" in k
 
     def make_soup(self, the_dict: dict) -> None:
         ''' parse xml from content, store into a dict '''

@@ -7,9 +7,7 @@ find the smallest one
 
 def test_n(n: int, t: int) -> bool:
     ''' test n '''
-    if n % 1000 == t:
-        return True
-    return False
+    return n % 1000 == t
 
 def main():
     ''' main '''

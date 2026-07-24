@@ -37,8 +37,6 @@ def is_chardev(filepath, log=do_nothing) -> bool:
     logd = log
     mode = os.stat(filepath).st_mode  # Get the file's mode
     logd(f'{mode=}')
-    if stat.S_ISCHR(mode):
-        return True
     # if stat.S_ISREG(mode): return "Regular file"
     # elif stat.S_ISDIR(mode): return "Directory"
     # elif stat.S_ISBLK(mode): return "Block device"
@@ -48,7 +46,7 @@ def is_chardev(filepath, log=do_nothing) -> bool:
     # else: return "Unknown type"
     # except FileNotFoundError: return "File not found"
     # except PermissionError: return "Permission denied"
-    return False
+    return stat.S_ISCHR(mode)
 
 def encode_file_to_base64_chunked(file_path, chunk_size=CHUNK_SIZE, log=do_nothing):
     ''' read file into chunks, and base64 encoding chunk by chunk
