@@ -21,7 +21,7 @@ class OSRelease:
     def __init__(self):
         self.info = self.read_os_release()
 
-    def read_os_release(self) -> Union[Dict[str, str], None]:
+    def read_os_release(self) -> Dict[str, str] | None:
         ''' read /etc/os-release '''
         fn = self.FN
         if not os.path.exists(fn):
@@ -39,23 +39,23 @@ class OSRelease:
                     prt(f'OSRelease: no match: {ln}')
         return ret
 
-    def is_ubutnu(self) -> Union[bool, None]:
+    def is_ubutnu(self) -> bool | None:
         ''' true if ubuntu '''
         return None if self.info is None else self.info.get('ID') == 'ubuntu'
 
-    def match_ubuntu_version(self, ver: str) -> Union[bool, None]:
+    def match_ubuntu_version(self, ver: str) -> bool | None:
         ''' true if ubuntu version matches '''
         return None if self.info is None else self.info.get("VERSION_ID") == ver
 
-    def is_ubuntu_1804(self) -> Union[bool, None]:
+    def is_ubuntu_1804(self) -> bool | None:
         ''' true if ubuntu 18.04, none if no info retrieved '''
         return None if self.info is None else self.info.get('VERSION_ID') == "18.04"
 
-    def is_ubuntu_2204(self) -> Union[bool, None]:
+    def is_ubuntu_2204(self) -> bool | None:
         ''' true if ubuntu 18.04, none if no info retrieved '''
         return None if self.info is None else self.info.get('VERSION_ID') == "18.04"
 
-    def is_ge_ubuntu(self, ver: float) -> Union[bool, None]:
+    def is_ge_ubuntu(self, ver: float) -> bool | None:
         ''' true if number >= ver (version taken as float) '''
         if self.info is None:
             return None
@@ -66,7 +66,7 @@ class OSRelease:
             prt(f'Invalid version format: {self.info.get("VERSION_ID")}')
             return None
 
-    def get_version_float(self) -> Union[float, None]:
+    def get_version_float(self) -> float | None:
         ''' return version as float '''
         if self.info is None:
             return None
@@ -76,7 +76,7 @@ class OSRelease:
             prt(f'Invalid version format: {self.info.get("VERSION_ID")}')
             return None
 
-def is_ubuntu1804() -> Union[bool, None]:
+def is_ubuntu1804() -> bool | None:
     ''' true if ubuntu 18.04'''
     obj = OSRelease()
     return obj.is_ubuntu_1804()

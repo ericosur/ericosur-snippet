@@ -31,7 +31,7 @@ class Solution:
         sleep(0.5)
         return 0
 
-    def do_something(self, func:Union[Any,None]) -> None:
+    def do_something(self, func:Any | None) -> None:
         ''' do '''
         start = pc()
 

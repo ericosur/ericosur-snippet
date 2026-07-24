@@ -214,7 +214,7 @@ class CollectWeekday:
             next_month: Annotated[bool,
                 typer.Option("--next", "-n", help="Use next month", is_flag=True)] = False,
             # output file name
-            outf: Annotated[Union[str, None],
+            outf: Annotated[str | None,
                 typer.Option("--out", "-o", help="output file name")] = None,
             # show holidays for a specific year, default current year
             vacation: Annotated[bool, typer.Option("-v", "--vacation", help="Show vacation info, default is current year")] = False,

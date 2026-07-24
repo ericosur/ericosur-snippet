@@ -35,7 +35,7 @@ class Main:
     def __init__(self):
         self.logd = console.log
 
-    def main(self, values: Annotated[Union[list[int], None],
+    def main(self, values: Annotated[list[int] | None,
                                      typer.Argument(help="specify year")] = None,
             after: Annotated[int,
                              typer.Option("--after", "-A", help="after nn year")] = 0,

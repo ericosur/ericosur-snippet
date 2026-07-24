@@ -52,7 +52,7 @@ def get_result(start: datetime, delta: int) -> None:
 if USE_TYPER:
     def main(
         dateval: Annotated[
-            Union[datetime, None],
+            datetime | None,
             typer.Option("--datetime", "--date", "-D",
                 formats=["%Y-%m-%d", "%Y-%m-%dT%H:%M:%S"]),
         ] = None, #"1970-01-01T00:00:00",
