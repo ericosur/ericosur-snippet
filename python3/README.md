@@ -34,6 +34,74 @@ python3 datetime/list_possible_workday.py
 
 In most case you should run
 
+## Ruff: check one file
+
+To lint only your currently edited script, pass the file path to `ruff check`.
+
+From this directory:
+
+```bash
+/home/user/venv/py314/bin/python -m ruff check datetime/TianGanDiZhi/gngan_yaljux.py
+```
+
+From anywhere (absolute path):
+
+```bash
+/home/user/venv/py314/bin/python -m ruff check /home/user/src/ericosur-snippet/python3/datetime/TianGanDiZhi/gngan_yaljux.py
+```
+
+Useful variants:
+
+```bash
+# auto-fix this file only
+/home/user/venv/py314/bin/python -m ruff check datetime/TianGanDiZhi/gngan_yaljux.py --fix
+
+# check specific rules only
+/home/user/venv/py314/bin/python -m ruff check datetime/TianGanDiZhi/gngan_yaljux.py --select I001,UP039
+
+# show summary statistics for this file
+/home/user/venv/py314/bin/python -m ruff check datetime/TianGanDiZhi/gngan_yaljux.py --statistics
+```
+
+### VS Code shortcut: run Ruff on active file
+
+You can add a workspace task that always uses the currently opened file.
+
+1. Create `.vscode/tasks.json` in this workspace with:
+
+```json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Ruff: check active file",
+      "type": "shell",
+      "command": "/home/user/venv/py314/bin/python",
+      "args": [
+        "-m",
+        "ruff",
+        "check",
+        "${file}"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}
+```
+
+2. Run it from Command Palette:
+   - `Tasks: Run Task` -> `Ruff: check active file`
+
+3. Optional keybinding (User keybindings JSON):
+
+```json
+{
+  "key": "ctrl+alt+r",
+  "command": "workbench.action.tasks.runTask",
+  "args": "Ruff: check active file"
+}
+```
+
 Some subdirectories include a `Makefile` to run a default action.
 
 ## Local package: `myutil`
