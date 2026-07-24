@@ -14,6 +14,7 @@ sys.path.insert(0, '../../')
 sys.path.insert(0, 'python3/')
 from myutil import read_jsonfile
 
+
 def test(fn):
     ''' test '''
     data = read_jsonfile(fn)

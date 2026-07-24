@@ -12,7 +12,7 @@ import json
 import sys
 
 sys.path.insert(0, "..")
-from myutil import read_jsonfile, isfile
+from myutil import isfile, read_jsonfile
 
 try:
     import getapikey

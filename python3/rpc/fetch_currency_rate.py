@@ -9,7 +9,7 @@ import requests
 
 def grep_keyword(data, keyword):
     ''' grep_keyword '''
-    for kk in data.keys():
+    for kk in data:
         try:
             kk.index(keyword)
             print(f'{kk}: {data[kk]}')
