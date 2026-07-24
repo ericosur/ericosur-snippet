@@ -45,7 +45,7 @@ class ParseVariant:
         )
 
         with open(self.NUM_VAR_FILE, 'rt', encoding='utf-8') as f:
-            for line in f.readlines():
+            for line in f:
                 if line.startswith('#'):
                     continue
                 line = line.strip()

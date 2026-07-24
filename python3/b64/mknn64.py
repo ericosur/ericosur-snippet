@@ -70,7 +70,7 @@ class MakeDirname:
         logd = self.log
         with open(self.fn, "rt", encoding="UTF-8") as fobj:
             cnt = 0
-            for ln in fobj.readlines():
+            for ln in fobj:
                 ln = ln.strip()
                 cnt += 1
                 m = re.match(r'^#(.+)$', ln)

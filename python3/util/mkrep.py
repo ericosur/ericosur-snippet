@@ -37,7 +37,7 @@ class Solution:
         ''' process '''
         ret = {}
         with open(self.fn, "rt", encoding='utf-8') as fobj:
-            for ln in fobj.readlines():
+            for ln in fobj:
                 ln = ln.strip()
                 exp_re = r'(pycache|\.vscode|\.mypy_cache)'
                 exp_m = re.search(exp_re, ln)

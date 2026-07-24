@@ -100,7 +100,7 @@ class Solution:
         ''' read_pbf '''
         print('parse_pbf:', fn)
         with open(fn, 'rt', encoding='UTF-16') as fobj:
-            for ln in fobj.readlines():
+            for ln in fobj:
                 ln = ln.strip()
                 self.parse_line(ln)
 

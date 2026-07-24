@@ -5,7 +5,7 @@
 def main():
     ''' main '''
     with open("twopp.txt", "rt", encoding='utf8') as f:
-        for ln in f.readlines():
+        for ln in f:
             c = ln.strip()
             print(f'[{c}]: U+{ord(c):04X}')
 

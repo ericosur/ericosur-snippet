@@ -29,7 +29,7 @@ class OSRelease:
             return None
         ret = {}
         with open(fn, 'rt', encoding='utf-8') as f:
-            for ln in f.readlines():
+            for ln in f:
                 ln = ln.strip()
                 m = re.search(r'^(\w+)="?([^"]+)"?$', ln)
                 if m:

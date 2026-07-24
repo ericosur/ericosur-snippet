@@ -40,7 +40,7 @@ class Solution:
         logd(f"load list from: {self.listfile}...")
         with open(self.listfile, "rt", encoding="UTF-8") as fin:
             cnt = 0
-            for ln in fin.readlines():
+            for ln in fin:
                 ln = ln.strip()
                 if not os.path.isfile(ln):
                     print(f'file not found: {ln}')
@@ -55,7 +55,7 @@ class Solution:
         ''' process py file '''
         try:
             with open(py_file, "rt", encoding='UTF-8') as fobj:
-                for pyln in fobj.readlines():
+                for pyln in fobj:
                     pyln = pyln.strip()
                     m1 = re.match(r"^\s*import (\S+)", pyln)
                     if m1:
