@@ -13,7 +13,7 @@ try:
 except ImportError:
     USE_RICH = False
 
-from butil import fill_bytearray, sep, int_from_bytes
+from butil import fill_bytearray, int_from_bytes, sep
 
 prt = rprint if USE_RICH else print
 

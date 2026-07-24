@@ -6,6 +6,7 @@ otpauth://totp/GitHub:LarryLuTW?secret=X5CTBOMEYE3TXIIS
 
 import base64
 
+
 def main() -> None:
     ''' main '''
     a = 'X5CTBOMEYE3TXIIS'

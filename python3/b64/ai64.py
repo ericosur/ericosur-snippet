@@ -19,9 +19,10 @@ from typing import Annotated
 
 sys.path.insert(0, "../")
 sys.path.insert(0, "python3/")
-from myutil import is_linux, do_nothing  # type: ignore[import]
-
 import typer
+
+from myutil import do_nothing, is_linux  # type: ignore[import]
+
 # if 57, one line 76 characters
 # use 3n to avoid padding issues (4 char from 3 bytes)
 CHUNK_SIZE = 57
