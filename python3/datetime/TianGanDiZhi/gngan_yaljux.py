@@ -17,12 +17,12 @@ This module provides utility functions and class GanChi
 
 import sys
 from collections.abc import Callable
-from datetime import datetime
 from typing import Any
 
 sys.path.insert(0, "..")
 sys.path.insert(0, "../datetime/")
 sys.path.insert(0, "../../python3/datetime/")
+from be_prepared import get_thisyear  # type: ignore[import]
 from nothing import do_nothing  # type: ignore[import]
 
 try:
@@ -39,10 +39,6 @@ except ImportError:
     prt = print
     clog = print
 
-
-def get_thisyear() -> int:
-    ''' get this year '''
-    return datetime.today().year
 
 class GanChi:
     ''' 提供 天干地支紀年有關的功能 '''

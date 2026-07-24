@@ -41,7 +41,6 @@ and it is much easier to use and avoid negative numbers. **Use addition instead.
 '''
 
 import sys
-from datetime import date
 from typing import ClassVar
 
 try:
@@ -57,6 +56,7 @@ except ImportError:
     print("[WARN] no rich.console to use")
     USE_RICH = False
 try:
+    from doom_today import get_today
     from dooms_day import DoomsDay
 except ImportError:
     logd('cannot import dooms_day, exit')
@@ -69,7 +69,7 @@ class EasyDoomsDay:
 
     def __init__(self):
         ''' init '''
-        self.today = date.today()
+        self.today = get_today()
         self.this_year = self.today.year
         self.modifer_year = 0
         self.month_modifiers = []
