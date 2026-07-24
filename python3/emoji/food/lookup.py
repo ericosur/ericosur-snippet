@@ -8,6 +8,7 @@ picked up some emoji
 '''
 
 import sys
+from typing import ClassVar
 
 sys.path.insert(0, "..")
 sys.path.insert(0, "../..")
@@ -28,7 +29,7 @@ class LookupEmoji:
     look up in en_emoji.py
     '''
     foods_file = "foods.txt"
-    files = ["foods.txt", "sorted.txt"]
+    files: ClassVar[list[str]] = ["foods.txt", "sorted.txt"]
 
     def __init__(self):
         self.text_emojis = []

@@ -6,6 +6,7 @@ show an emoji that matches the current time
 
 import sys
 import argparse
+from typing import ClassVar
 from datetime import datetime
 sys.path.insert(0, "..")
 sys.path.insert(0, "python3")
@@ -13,7 +14,7 @@ from myutil import prt  # type: ignore[import]
 
 class ShowClock:
     ''' class to show clock '''
-    clocks = {
+    clocks: ClassVar[dict[str, str]] = {
         "0100": "🕐",
         "0200": "🕑",
         "0300": "🕒",

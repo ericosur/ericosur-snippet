@@ -10,6 +10,7 @@ read en.xml and output to csv
 import csv
 import sys
 from datetime import date
+from typing import ClassVar
 
 try:
     from bs4 import BeautifulSoup
@@ -25,8 +26,8 @@ from myutil import read_textfile
 class Solution:
     ''' solution to read en.xml and output as csv-like data '''
 
-    FILES = ['en-basic.xml', 'en-derived.xml',
-            'zh-basic.xml', 'zh-derived.xml']
+    FILES: ClassVar[list[str]] = ['en-basic.xml', 'en-derived.xml',
+                                  'zh-basic.xml', 'zh-derived.xml']
 
     def __init__(self):
         self.content = None
