@@ -1,4 +1,3 @@
-# coding: utf-8
 
 '''
 Manually copy some content from cp_emoji.py

@@ -1,4 +1,3 @@
-# coding: utf-8
 
 '''
 question mark is added for some reason

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 '''
 reference from: http://www.thegeekstuff.com/2017/07/python-for-loop-examples/

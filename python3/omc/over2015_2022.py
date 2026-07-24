@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 p = 1 + 20 + 39 + 58 + ... + 2015

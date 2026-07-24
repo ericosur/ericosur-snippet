@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-# coding: utf-8
 
 '''
 provides magic numbers for doomsday algorithm

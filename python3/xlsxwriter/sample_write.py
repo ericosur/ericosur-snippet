@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 # A simple example of some of the features of the XlsxWriter Python module.

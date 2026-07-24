@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# coding:utf-8
 
 '''
 - rename xxx第2話xxx -> xxx第02話xxx

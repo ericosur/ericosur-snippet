@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 ''' draw boxplot from by_years.csv
     no need to calculate statistics (Q1,Q2,Q3...), just give raw data

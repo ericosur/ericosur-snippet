@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 ''' some useful tool functions
 	get_python_version, get_python_versions, require_python_version

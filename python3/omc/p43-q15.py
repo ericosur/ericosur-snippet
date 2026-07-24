@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 P43 Q15 用160個花片排成空心正十邊形或排成空心正八邊形，

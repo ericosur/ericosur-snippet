@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 p20, q22 若A是一個三位數，且A被12、20、25除之皆餘9，

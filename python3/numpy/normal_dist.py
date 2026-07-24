@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 #
 # py//lint: disable=unused-variable
 # py//lint: disable=unnecessary-pass

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 ''' 10-digit number, find the max one '''
 

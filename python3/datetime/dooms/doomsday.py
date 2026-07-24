@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 This script uses class DoomsDay and TestDoomsDay, and provides CLI.

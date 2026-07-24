@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 throw __max_dice__ dices (of which point from **min_dice** to **max_dice**)

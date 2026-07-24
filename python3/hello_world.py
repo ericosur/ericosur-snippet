@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-#-*- coding: utf-8 -*-
 
 '''
     this file needs to be stored as UTF-8 text file

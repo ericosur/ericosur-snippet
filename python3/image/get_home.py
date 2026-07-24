@@ -1,4 +1,3 @@
-# coding: utf-8
 
 '''
 return home directory or '.' if no HOME env

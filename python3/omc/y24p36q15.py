@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 P36 Q15. 把1059, 1417 和2312分別除以正整數d，

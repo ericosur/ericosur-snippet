@@ -1,4 +1,3 @@
-# coding: utf-8
 
 '''
 data classes like C struct

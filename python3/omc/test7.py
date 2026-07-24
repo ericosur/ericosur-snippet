@@ -1,5 +1,4 @@
 #!/bin/usr/env python3
-# coding:utf-8
 
 '''
 correct +1, wront -1, no answer 0

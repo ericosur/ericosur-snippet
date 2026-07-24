@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 ''' simple csv sample
     output 10 random numbers to eggs.csv with csv module

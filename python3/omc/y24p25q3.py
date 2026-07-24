@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 P25 Q3. 以下四個正整數中哪個是完全平方數？

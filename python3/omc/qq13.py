@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 define an operation that A # B = lcm(A,B) - gcd(A,B)

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 ''' some useful tool functions
 	md5sum, sha256sum, sha1sum

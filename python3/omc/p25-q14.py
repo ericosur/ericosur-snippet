@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 P25 Q14 有一些四位數ABCD，各位數上的數字互不相同，

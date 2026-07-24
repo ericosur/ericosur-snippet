@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 有一個七位數的魔法數字前三位數與後四位數的和為9314，

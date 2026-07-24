@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-#coding: utf-8
 
 '''
 otpauth://totp/GitHub:LarryLuTW?secret=X5CTBOMEYE3TXIIS

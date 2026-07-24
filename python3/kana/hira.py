@@ -1,4 +1,3 @@
-# coding: utf-8
 
 '''
 import python list from ab.py and print out

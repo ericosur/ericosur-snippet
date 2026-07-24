@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 求這樣的四位數，它等於它的各位數字之和的四次方
