@@ -4,7 +4,7 @@
 3 same digit from 1001 to 2008
 '''
 
-class Solution():
+class Solution:
     ''' solution '''
     lower = 1
     upper = 999

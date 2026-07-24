@@ -10,7 +10,7 @@ every 200m take rest 1 min
 #import math
 
 # pylint: disable=invalid-name
-class Run500():
+class Run500:
     ''' class to simulate this question '''
     ROUND_LIMIT = 500.0
     REST_LIMIT = 200.0

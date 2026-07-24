@@ -14,7 +14,7 @@ except ImportError:
     logd = print
 
 
-class Solution():
+class Solution:
     ''' read accumulated commune driving time data and plot boxplot and heatmap
         input: by_dates.csv
         output: boxplot and heatmap

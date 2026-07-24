@@ -30,7 +30,7 @@ def show_err(msg: str) -> None:
     else:
         print(msg)
 
-class Main():
+class Main:
     ''' main '''
     def __init__(self):
         self.args = None

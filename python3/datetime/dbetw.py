@@ -8,7 +8,7 @@ sys.path.insert(0, "../")
 sys.path.insert(0, "python3/")
 from myutil import prt  # type: ignore[import]
 
-class Solution():
+class Solution:
     ''' class to solve this problem '''
 
     @staticmethod

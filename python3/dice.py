@@ -33,7 +33,7 @@ else:
     logd = do_nothing
 
 
-class TestDice():
+class TestDice:
     ''' test sum of dices '''
     num_dice = 6
     min_dice = 1

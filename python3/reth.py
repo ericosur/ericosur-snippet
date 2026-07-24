@@ -19,7 +19,7 @@ def die(*args, **kwargs) -> None:
     print(*args, file=sys.stderr, **kwargs)
     sys.exit()
 
-class Solution():
+class Solution:
     ''' solution '''
     DO_RENAME: bool = True
     TAG: str = "RETH"

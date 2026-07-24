@@ -59,7 +59,7 @@ except ImportError:
     logd('cannot import dooms_day, exit')
     sys.exit(1)
 
-class EasyDoomsDay():
+class EasyDoomsDay:
     ''' utility functions to provide doomsday number '''
     months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
               'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']

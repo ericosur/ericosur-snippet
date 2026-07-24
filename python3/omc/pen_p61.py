@@ -4,7 +4,7 @@
 how many pens ?
 '''
 
-class Solution():
+class Solution:
     ''' find solution '''
     TOTAL = 100
     def __init__(self):

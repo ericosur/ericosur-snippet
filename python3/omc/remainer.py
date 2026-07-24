@@ -10,7 +10,7 @@ divides by 13 remain 11
 '''
 
 # pylint: disable=invalid-name
-class Solution():
+class Solution:
     ''' class solution '''
     def __init__(self):
         self.r = [[5,3], [8,5], [13,11]]

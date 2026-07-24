@@ -10,7 +10,7 @@ import operator
 
 # __pylint: disable=unused-variable
 # __pylint: disable=unnecessary-pass
-class Tip():
+class Tip:
     ''' class tip '''
     def __init__(self):
         self._m = [1, 3, 5, 7, 9]

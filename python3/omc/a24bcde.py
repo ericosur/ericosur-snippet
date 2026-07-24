@@ -6,7 +6,7 @@ ABCDE and EDCBA are both 24-multiple
 find the smallest ABCDE
 '''
 
-class Solution():
+class Solution:
     ''' search solution '''
 
     def __init__(self):

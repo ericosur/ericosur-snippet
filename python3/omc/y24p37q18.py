@@ -8,7 +8,7 @@ P37 Q18 {19,20,21,...,78,79} 這組數中選取兩個不同的數，
 
 from itertools import combinations
 
-class Solution():
+class Solution:
     ''' to solve '''
 
     def __init__(self):

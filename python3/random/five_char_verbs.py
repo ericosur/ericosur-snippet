@@ -10,7 +10,7 @@ import os
 import sys
 import re
 
-class Solution():
+class Solution:
     ''' my grep solution '''
     VERB_LIST = 'verbs.csv'
 

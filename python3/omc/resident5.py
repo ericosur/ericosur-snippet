@@ -17,7 +17,7 @@
 除以13餘11或12
 '''
 
-class Solution():
+class Solution:
     ''' try to find the number that match residual '''
     def __init__(self):
         self.minimum = 10000

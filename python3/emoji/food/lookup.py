@@ -22,7 +22,7 @@ def logd(*args, **wargs):
         print(*args, **wargs)
 
 
-class LookupEmoji():
+class LookupEmoji:
     ''' pick up emojis
     from foods.txt
     look up in en_emoji.py

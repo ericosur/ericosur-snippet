@@ -21,7 +21,7 @@ except ImportError:
     print('pip install PyExifTool')
     sys.exit(1)
 
-class Solution():
+class Solution:
     ''' solution for extract GPS '''
     queries = ["EXIF:GPSLatitude", "EXIF:GPSLatitudeRef",
                "EXIF:GPSLongitude", "EXIF:GPSLongitudeRef"]

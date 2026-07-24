@@ -13,7 +13,7 @@ from kjutil import logd
 
 FN = "raw.txt"
 
-class Solution():
+class Solution:
     ''' handle raw.txt '''
     def __init__(self):
         self.a_dict = {}

@@ -10,7 +10,7 @@ import itertools as it
 import operator
 
 
-class Solution():
+class Solution:
     ''' solution '''
     coins = [3, 3, 3]
     values = [50, 10, 5]

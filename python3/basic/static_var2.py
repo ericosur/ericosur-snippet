@@ -7,7 +7,7 @@ http://stackoverflow.com/questions/68645/python-static-variable
 add getter & setter
 '''
 
-class Foo():
+class Foo:
     '''demo static data member of a python class'''
     _i = 97
 

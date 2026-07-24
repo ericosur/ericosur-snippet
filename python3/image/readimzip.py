@@ -12,7 +12,7 @@ import imageio.v3 as iio  # type: ignore[import]
 from get_home import get_home
 
 
-class Solution():
+class Solution:
     ''' class solution '''
     def __init__(self):
         home = get_home()

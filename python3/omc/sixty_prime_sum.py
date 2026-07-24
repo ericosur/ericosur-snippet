@@ -4,7 +4,7 @@
 find sum of sequencial primes that meet limit
 '''
 
-class Solution():
+class Solution:
     ''' class solution '''
     # primes <= 100 (size=25)
     primes = [

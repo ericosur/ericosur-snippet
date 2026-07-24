@@ -18,7 +18,7 @@ except ImportError:
     prt = print
     logd = print
 
-class GetVerbs():
+class GetVerbs:
     ''' get verbs from data file '''
     repeat = 5
     # data from: https://github.com/monolithpl/verb.forms.dictionary

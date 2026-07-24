@@ -78,7 +78,7 @@ def output_pillow(ofn, blob):
     img = PILImage(blob)
     img.show(ofn)
 
-class Solution():
+class Solution:
     ''' class solution '''
     def __init__(self):
         self.fn = None

@@ -48,7 +48,7 @@ TMP_CSV = '/tmp/__driving_datasheet__.csv'
 
 ext_percents = [.25, .5, .75, .9, .95, .99]
 
-class MySimpleout():
+class MySimpleout:
     ''' my verbose '''
     def __init__(self, simpleout):
         self._simpleout = simpleout

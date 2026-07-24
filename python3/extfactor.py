@@ -38,7 +38,7 @@ def is_positive_integer(the_input):
 
     return False
 
-class Solution():
+class Solution:
     ''' call external factor to do factorize '''
     THE_CMD = '/usr/bin/factor'
 

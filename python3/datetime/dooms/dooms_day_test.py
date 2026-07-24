@@ -17,7 +17,7 @@ from datetime import date
 from dooms_day import DoomsDay
 
 
-class TestDoomsDay():
+class TestDoomsDay:
     ''' class to test DoomsDay '''
     @staticmethod
     def test_offset():

@@ -7,7 +7,7 @@ inner product
 import numpy as np
 
 
-class Solution():
+class Solution:
     ''' solution '''
 
     names = [

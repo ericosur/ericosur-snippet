@@ -6,7 +6,7 @@ part of 37k
 part of 71k
 '''
 
-class Solution():
+class Solution:
     ''' to solve '''
     PART = [(0,1,2), (0,1,3), (0,1,4), (1,2,3), (1,2,4), (2,3,4)]
 

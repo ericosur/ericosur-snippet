@@ -6,7 +6,7 @@ div 8 ... 5
 div 13 ... 11
 '''
 
-class Solution():
+class Solution:
     ''' solution '''
     UPPER = 1000
 

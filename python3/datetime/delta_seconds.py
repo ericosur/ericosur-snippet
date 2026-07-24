@@ -14,7 +14,7 @@ try:
 except ImportError:
     RICH_ENABLED = False
 
-class Solution():
+class Solution:
     ''' a class to calculate delta seconds '''
     base = 2
     birthday = datetime.datetime(1989, 6, 4, hour=12, minute=34)

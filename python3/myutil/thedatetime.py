@@ -37,7 +37,7 @@ def __what_now() -> None:
     print(f'{now.hour=}')   # date +%H
     print(f'{now.minute=}') # date +%M
 
-class WhatNow():
+class WhatNow:
     ''' get part of datetime.now() '''
     def __init__(self):
         self.year = 0

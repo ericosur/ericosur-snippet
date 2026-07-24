@@ -43,7 +43,7 @@ if __name__ == "__main__":
     print("Only provides a dict: EMOJI")
     print("DO NOT run this script...")'''
 
-class Solution():
+class Solution:
     ''' solution to read en.xml and output as csv-like data '''
     def __init__(self):
         self.content = None

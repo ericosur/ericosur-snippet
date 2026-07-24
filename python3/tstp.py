@@ -5,7 +5,7 @@
 test class
 '''
 
-class TestBase():
+class TestBase:
     ''' test base '''
     tag = 'TestBase'
 

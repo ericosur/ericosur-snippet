@@ -22,7 +22,7 @@ example
 
 '''
 
-class DoomsDay():
+class DoomsDay:
     ''' utility functions to provide doomsday number '''
 
     @staticmethod

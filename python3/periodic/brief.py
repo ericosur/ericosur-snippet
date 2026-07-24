@@ -20,7 +20,7 @@ except ImportError:
     print("Error: myutil module not found")
     sys.exit(1)
 
-class ShowElement():
+class ShowElement:
     ''' ShowElement class '''
     DATAFILE = 'periodic-table-lookup.json'
     zsymbolfile = "zsymbol.json"

@@ -6,7 +6,7 @@ abcd x 4 = dcba
 a = 2
 '''
 
-class Solution():
+class Solution:
     ''' search solution '''
 
     MAX_VAL = 9999

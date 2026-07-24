@@ -11,7 +11,7 @@ import timeit
 import numpy as np
 
 
-class TestSum():
+class TestSum:
     ''' class TestSum '''
     def __init__(self):
         self.data_arr = []

@@ -68,7 +68,7 @@ def print_stderr(*_args: Any, **_kwargs: Any) -> None:
     ''' print to stderr '''
     print(*_args, file=sys.stderr, **_kwargs)
 
-class CollectWeekday():
+class CollectWeekday:
     ''' collect workdays '''
     HOLIDAYS_JSON = 'holidays.json'
 

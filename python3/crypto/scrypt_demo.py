@@ -42,7 +42,7 @@ except ImportError:
     logger.error("The module 'run_vector' could not be found")
     sys.exit(1)
 
-class ScryptDemo():
+class ScryptDemo:
     ''' demo scrypt '''
     # if you change the password, you need to
     #   remove the json file

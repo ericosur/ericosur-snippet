@@ -19,7 +19,7 @@ try:
 except ImportError:
     USE_RICH = False
 
-class CalcPi():
+class CalcPi:
     ''' a class to calculate pi from random numbers '''
     REPEAT_TIME = 20_000_000
 

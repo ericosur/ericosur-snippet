@@ -28,7 +28,7 @@ from the_config import official
 logger.add("debug.log", rotation="10MB", retention="7 days", level="DEBUG")
 logd = logger.debug
 
-class Solution():
+class Solution:
     ''' class to grep the import '''
     def __init__(self, fn):
         self.imports = set()

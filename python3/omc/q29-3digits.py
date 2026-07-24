@@ -8,7 +8,7 @@ which when multiplied by 5 has its digits in descending order?
 124, 126, 128, 146, 148, 168
 '''
 
-class Solution():
+class Solution:
     ''' class to find solution '''
     LOWER=100
     UPPER=999

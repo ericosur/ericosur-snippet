@@ -50,7 +50,7 @@ def send_notification(msg: str):
         print('[FAIL] exit status:', r)
     print()
 
-class Solution():
+class Solution:
     ''' solution '''
     config = "termux-config.json"
     bjson = "bs.json"

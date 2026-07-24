@@ -18,7 +18,7 @@ def test():
 # variable a, b, c, d in purpose
 # pylint: disable=invalid-name
 
-class Solution():
+class Solution:
     ''' class to solution '''
     def __init__(self, v):
         self.input = v

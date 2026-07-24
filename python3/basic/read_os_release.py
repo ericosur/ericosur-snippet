@@ -15,7 +15,7 @@ except ImportError:
     USE_RICH = False
 prt = pprint if USE_RICH else print
 
-class OSRelease():
+class OSRelease:
     ''' info from /etc/os-release (ubuntu) '''
     FN = '/etc/os-release'
     def __init__(self):

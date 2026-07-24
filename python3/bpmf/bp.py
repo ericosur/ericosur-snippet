@@ -10,7 +10,7 @@ import os
 import re
 
 
-class Solution():
+class Solution:
     ''' Solution for bmpf table lookup '''
     def __init__(self):
         self.data = 'bpmf.txt'

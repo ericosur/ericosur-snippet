@@ -14,7 +14,7 @@ from typing import Annotated
 from passutil import PassUtil
 import typer
 
-class Demo():
+class Demo:
     ''' demo '''
     DATA = 'The quick smart fox jumps over the lazy dog'
 

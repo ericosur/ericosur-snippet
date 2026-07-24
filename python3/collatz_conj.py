@@ -13,7 +13,7 @@ import argparse
 from random import randint
 
 
-class Collatz():
+class Collatz:
     ''' collatz conjecture '''
     def __init__(self):
         self.cnt = 0

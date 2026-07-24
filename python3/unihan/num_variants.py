@@ -12,7 +12,7 @@ try:
 except ImportError:
     logd = print
 
-class ParseVariant():
+class ParseVariant:
     """
     parse numeric variant characters from unihan database
 

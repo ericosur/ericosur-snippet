@@ -15,7 +15,7 @@ sys.path.insert(0, '.')
 sys.path.insert(0, '..')
 from myutil import prt  # type: ignore[import]
 
-class ShowDirList():
+class ShowDirList:
     ''' show the folder list by epoch '''
     SEP_LEN = 60
     DEFAULT_DAYS = 30

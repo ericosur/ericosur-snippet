@@ -7,7 +7,7 @@ sum of serial evens = 60
 '''
 
 
-class Solution():
+class Solution:
     ''' find solution of serial odds and evens '''
     LIMIT = 60
 

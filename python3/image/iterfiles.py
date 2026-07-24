@@ -21,7 +21,7 @@ sys.path.insert(0, 'python3/')
 from myutil import prt, get_home  # type: ignore[import]
 
 
-class Solution():
+class Solution:
     ''' class solution '''
     LIMIT = 40
     def __init__(self):

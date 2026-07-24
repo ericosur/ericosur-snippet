@@ -16,7 +16,7 @@ import cv2
 import treepoem
 
 
-class BarCodeTest():
+class BarCodeTest:
     ''' class barcode test '''
     def __init__(self, args):
         self.is_temp = False

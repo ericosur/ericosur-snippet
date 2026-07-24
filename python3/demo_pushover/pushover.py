@@ -33,7 +33,7 @@ def get_host():
         r = "kitty"
     return r
 
-class Foobar():
+class Foobar:
     ''' basic class to send notification '''
 
     default_mobile_device = "erimx"

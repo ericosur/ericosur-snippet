@@ -8,7 +8,7 @@ import random
 
 # pylint: disable=too-many-arguments
 
-class Solution():
+class Solution:
     ''' try to find solution '''
     def __init__(self, lower, upper, rand=True, debug=False):
         self.debug = debug

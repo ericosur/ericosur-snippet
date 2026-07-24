@@ -18,7 +18,7 @@ def logd(*args, **wargs):
     ''' logd '''
     print(*args, **wargs)
 
-class Solution():
+class Solution:
     ''' list a lot of date from 2000/1/1 to 2099/12/31
         and check if a perfect square
     '''

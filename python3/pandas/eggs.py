@@ -17,7 +17,7 @@ try:
 except ImportError:
     logd = print
 
-class Solution():
+class Solution:
     '''solution class'''
 
     COUNT = 10

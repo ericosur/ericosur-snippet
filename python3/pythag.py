@@ -9,7 +9,7 @@ also refer to: triangle.py
 import re
 
 
-class Solution():
+class Solution:
     ''' solution '''
 
     # pythagon number pairs smaller than 100

@@ -26,7 +26,7 @@ sys.path.insert(0, '..')
 from myutil import get_home, read_jsonfile
 
 
-class FactorialRedis():
+class FactorialRedis:
     ''' fib w/ redis '''
     def __init__(self):
         self.redis = None

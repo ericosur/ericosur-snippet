@@ -22,7 +22,7 @@ FILENOTFOUND = 1
 NOTOLDENOUGH = 2
 CANNOTPARSE = 3
 
-class Solution():
+class Solution:
     ''' class to parse and action '''
     TS = 'latest.txt'
     MINDIFF = 5

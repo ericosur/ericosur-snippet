@@ -7,7 +7,7 @@
 simulate traffic lights
 '''
 
-class Traffic():
+class Traffic:
     ''' class to find solution '''
     def __init__(self):
         (self.at, self.bt, self.ct) = (40, 50, 60)

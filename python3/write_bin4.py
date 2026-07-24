@@ -17,7 +17,7 @@ import time
 import numpy as np
 
 
-class Solution():
+class Solution:
     ''' class to write buffer with random bytes into a file '''
 
     COUNT = 100

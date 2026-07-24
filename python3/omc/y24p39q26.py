@@ -34,7 +34,7 @@ def count_score(s):
         total += sc[i]
     return total
 
-class Solution():
+class Solution:
     ''' to solve more_itertools.dotproduct '''
 
     def __init__(self):

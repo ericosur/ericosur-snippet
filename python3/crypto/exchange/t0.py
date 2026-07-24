@@ -94,7 +94,7 @@ def decrypt_file(in_file: str, key: bytes, iv: bytes) -> bytes:
 
     return decrypt_data(data, key, iv)
 
-class Solution():
+class Solution:
     ''' solution '''
     INPUT_FILE = 'a.zip'
     ENC_FILE = 'a.zip.enc'

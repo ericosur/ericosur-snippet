@@ -17,7 +17,7 @@ def dump_nothing(_buffer) -> None:
     ''' dump nothing '''
     return None
 
-class Solution():
+class Solution:
     ''' sqlite and query '''
     def __init__(self):
         self.dbfile = 'players.db'

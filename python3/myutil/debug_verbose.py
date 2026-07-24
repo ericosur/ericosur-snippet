@@ -22,7 +22,7 @@ def die(*args, **kwargs):
     prt(*args, file=sys.stderr, **kwargs)
     sys.exit()
 
-class MyDebug():
+class MyDebug:
     ''' my debug '''
     def __init__(self, debug, tag=None):
         self._debug = debug
@@ -60,7 +60,7 @@ class MyDebug():
         prt(*args, **kwargs)
 
 
-class MyVerbose():
+class MyVerbose:
     ''' my verbose '''
     def __init__(self, verbose, tag=None):
         self._verbose = verbose

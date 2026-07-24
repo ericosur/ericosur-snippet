@@ -11,7 +11,7 @@ import re
 from en_emoji import EMOJI
 
 
-class Solution():
+class Solution:
     ''' solution '''
     def __init__(self, querys):
         ''' init '''

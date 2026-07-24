@@ -11,7 +11,7 @@ from itertools import combinations
 
 SUPER_LAZY = True
 
-class Solution():
+class Solution:
     ''' to solve '''
     def __init__(self):
         self.vals = list(range(1, 50+1))

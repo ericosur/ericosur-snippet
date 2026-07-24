@@ -6,7 +6,7 @@ P25 Q14 有一些四位數ABCD，各位數上的數字互不相同，
 '''
 
 
-class Solution():
+class Solution:
     ''' try to find solution '''
 
     primes = {

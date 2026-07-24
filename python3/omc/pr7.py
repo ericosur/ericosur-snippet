@@ -45,7 +45,7 @@ except ImportError as err:
     print('Import Error while:', err)
     sys.exit(1)
 
-class Solution():
+class Solution:
     ''' try to find solution '''
     def __init__(self):
         self.primes = []

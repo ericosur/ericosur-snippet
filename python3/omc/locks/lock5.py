@@ -6,7 +6,7 @@
 each guy takes 6 keys
 '''
 
-class Solution():
+class Solution:
     ''' to solve '''
     def __init__(self):
         self.locks = [0 for _ in range(10)]

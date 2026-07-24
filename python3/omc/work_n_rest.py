@@ -8,7 +8,7 @@ today A takes a rest and B will rest next day.
 How many days later will A and B both rest?
 '''
 
-class Solution():
+class Solution:
     ''' solution '''
     WORK_A = 9
     WORK_B = 6

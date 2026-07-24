@@ -5,7 +5,7 @@
 how many way to take
 '''
 
-class Solution():
+class Solution:
     ''' try to find the solution '''
     def __init__(self):
         self.m = [60, 7]
