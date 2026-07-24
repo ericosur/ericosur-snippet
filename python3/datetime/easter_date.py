@@ -34,7 +34,6 @@ except ImportError:
     print('cannot import necessary modules: be_prepared, nothing')
     sys.exit(1)
 
-# ruff: noqa: E741
 def calculate_easter(year: int) -> date:
     ''' Calculate the date of Easter Sunday for the given year '''
     a = year % 19

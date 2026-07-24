@@ -20,7 +20,6 @@ from random import randint
 
 import redis
 
-# ruff: noqa: E402
 sys.path.insert(0, '.')
 sys.path.insert(0, '..')
 from myutil import get_home, read_jsonfile

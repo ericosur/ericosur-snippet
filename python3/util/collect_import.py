@@ -7,7 +7,6 @@ import re
 import sys
 from loguru import logger
 
-# ruff: noqa: E402
 sys.path.insert(0, "./")
 sys.path.insert(0, "../")
 sys.path.insert(0, "util/")
