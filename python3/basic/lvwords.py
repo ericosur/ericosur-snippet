@@ -4,6 +4,7 @@
 levenshtein distance
 '''
 import sys
+
 try:
     import Levenshtein as lt  # type: ignore[import]
 except ImportError:

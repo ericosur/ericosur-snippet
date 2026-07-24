@@ -7,6 +7,7 @@ platform and its path
 import os
 import re
 from sysconfig import get_platform
+
 try:
     from rich import print as pprint
     USE_RICH = True

@@ -8,8 +8,9 @@ replace lambda in map()
 
 '''
 try:
-    from rich import print as rprint
     from rich.pretty import pprint
+
+    from rich import print as rprint
     USE_RICH = True
 except ImportError:
     USE_RICH = False

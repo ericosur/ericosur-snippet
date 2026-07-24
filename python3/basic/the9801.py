@@ -3,9 +3,11 @@
 計算 1/9801 的小數部分，並輸出其循環位數長度及內容。
 '''
 
-from math import gcd
 from decimal import Decimal, getcontext
+from math import gcd
+
 from sympy import factorint
+
 try:
     from rich.console import Console
     console = Console()

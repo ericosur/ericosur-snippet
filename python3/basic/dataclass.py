@@ -5,6 +5,7 @@ data classes like C struct
 
 from dataclasses import dataclass
 
+
 @dataclass
 class UserData:
     ''' data class '''

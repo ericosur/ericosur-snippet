@@ -22,10 +22,11 @@ import sys
 import tempfile
 import time
 from sysconfig import get_platform
+
 try:
     #from rich import print as pprint
-    from rich.pretty import pprint
     from rich.console import Console
+    from rich.pretty import pprint
     prt = pprint
     console = Console()
     logd = console.log

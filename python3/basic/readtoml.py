@@ -5,8 +5,10 @@ example to read config.toml
 https://docs.python.org/zh-tw/dev/library/tomllib.html
 '''
 
-import numpy as np
 from load_toml import LoadToml
+
+import numpy as np
+
 try:
     from rich import print as pprint
     USE_RICH = True
