@@ -6,3 +6,6 @@ exclude = [
     "check_ctypes.py",
     "encoding.py"
 ]
+
+[tool.ruff.lint]
+extend-ignore = ["EXE001"]
