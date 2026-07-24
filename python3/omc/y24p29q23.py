@@ -7,9 +7,7 @@ P29 Q23. 有一些四位數至少有一個數字是4但不能被4整除，求滿
 def check_digits(n):
     ''' input n '''
     ss = list(str(n))
-    if '4' in ss and n%4!=0:
-        return True
-    return False
+    return bool('4' in ss and n % 4 != 0)
 
 
 def digit_sum(n):

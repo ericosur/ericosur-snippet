@@ -40,11 +40,9 @@ class Solution:
         m2 = self.a * 10 + self.b * 1
         m3 = self.b
         tmp = m1 + m2 + m3
-        if tmp % 111 == 0:
-            #print(f'{m1} + {m2} + {m3}')
-            #print(f'input: {self.input} tmp: {tmp}')
-            return True
-        return False
+        #print(f'{m1} + {m2} + {m3}')
+        #print(f'input: {self.input} tmp: {tmp}')
+        return tmp % 111 == 0
 
     @staticmethod
     def report(v):

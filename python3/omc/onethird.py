@@ -11,15 +11,11 @@ large = small * 3
 
 def is_four_digit(n):
     ''' true if four digits number '''
-    if 1000 <= n <= 9999:
-        return True
-    return False
+    return 1000 <= n <= 9999
 
 def is_five_digit(n):
     ''' true if five digits number '''
-    if 10000 <= n <= 99999:
-        return True
-    return False
+    return 10000 <= n <= 99999
 
 def check_nine_digit(m, n):
     ''' true if all nine digits are used '''

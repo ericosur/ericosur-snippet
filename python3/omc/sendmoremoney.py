@@ -37,9 +37,7 @@ class Solution:
         more = M*1000+O*100+R*10+E
         money = M*10000+O*1000+N*100+E*10+Y
         #print(send,more,money)
-        if send + more == money:
-            return True
-        return False
+        return send + more == money
 
     def action(self):
         ''' action '''
