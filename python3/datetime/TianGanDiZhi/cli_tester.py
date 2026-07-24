@@ -10,6 +10,7 @@ typer tests gngan_yaljux.py
 import sys
 from random import randint
 from typing import Annotated
+
 try:
     import typer
 except ImportError:
@@ -28,8 +29,8 @@ sys.path.insert(0, "..")
 sys.path.insert(0, "TaiGanDiZhi/")
 sys.path.insert(0, "../datetime/")
 sys.path.insert(0, "../../python3/datetime/")
+from gngan_yaljux import GanChi, do_tests, do_values, do_verbose
 from nothing import do_nothing  # type: ignore[import]
-from gngan_yaljux import do_tests, do_values, do_verbose, GanChi
 
 logd = console.log if USE_CONSOLE else print
 

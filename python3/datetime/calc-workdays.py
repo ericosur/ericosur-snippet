@@ -10,8 +10,9 @@ calculate total working days
 import sys
 
 try:
-    from rich import print as rprint
     from rich.console import Console
+
+    from rich import print as rprint
     console = Console()
     logd = console.log
 except ImportError:
@@ -20,8 +21,14 @@ except ImportError:
 
 try:
     sys.path.insert(0, "..")
-    from myutil import read_jsonfile, DefaultConfig  # type: ignore[import]
-    from myutil import is_leapyear, WhatNow, MyDebug, die  # type: ignore[import]
+    from myutil import (  # type: ignore[import]
+        DefaultConfig,
+        MyDebug,
+        WhatNow,
+        die,
+        is_leapyear,
+        read_jsonfile,
+    )
 except ImportError:
     print("[FAIL] need myutil module from myutil package")
     sys.exit(1)

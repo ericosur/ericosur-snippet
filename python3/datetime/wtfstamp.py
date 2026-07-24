@@ -18,17 +18,18 @@ IEEE 754
 
 '''
 
-from datetime import datetime
-import time
 import logging
+import time
+from datetime import datetime
+
 try:
-    from rich import print as rprint
     from rich.console import Console
+
+    from rich import print as rprint
     USE_RICH = True
 except ImportError:
     USE_RICH = False
-from sickutil import get_sick_from_ns
-from sickutil import sick_to_ns, sick_to_datetime, datetime_to_sick
+from sickutil import datetime_to_sick, get_sick_from_ns, sick_to_datetime, sick_to_ns
 
 prt = rprint if USE_RICH else print
 loge = logging.error

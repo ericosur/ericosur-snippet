@@ -43,10 +43,12 @@ and it is much easier to use and avoid negative numbers. **Use addition instead.
 import sys
 from datetime import date
 from typing import ClassVar
+
 try:
-    from rich import print as pprint
     from rich.console import Console
     from rich.table import Table
+
+    from rich import print as pprint
     USE_RICH = True
     console = Console()
     logd = console.log

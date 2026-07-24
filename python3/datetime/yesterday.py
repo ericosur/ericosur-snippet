@@ -10,6 +10,7 @@ demo datetime, and timedelta to get yesterday's date
 
 import time
 from datetime import datetime, timedelta
+
 try:
     from rich import print as pprint
 except ImportError:

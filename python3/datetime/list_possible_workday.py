@@ -29,8 +29,9 @@ the format of holidays.json is like this:
 import json
 import os
 import sys
+from collections.abc import Callable
 from datetime import date, datetime, timedelta
-from typing import Union, Annotated, Any, Callable, Optional
+from typing import Annotated, Any
 
 typer: Any = None
 try:
@@ -206,7 +207,7 @@ class CollectWeekday:
     if USE_TYPER and typer is not None:
         def main(self,
             # input like: "1970-01"
-            yyyymm: Annotated[Optional[datetime],
+            yyyymm: Annotated[datetime | None,
                 typer.Argument(help="specify a YYYY-mm date, the dd will be ignored",
                         formats=["%Y-%m", "%Y-%m-%d"]),] = None,
             current_month: Annotated[bool,
@@ -218,7 +219,7 @@ class CollectWeekday:
                 typer.Option("--out", "-o", help="output file name")] = None,
             # show holidays for a specific year, default current year
             vacation: Annotated[bool, typer.Option("-v", "--vacation", help="Show vacation info, default is current year")] = False,
-            vacation_year: Annotated[Optional[int], typer.Option("--vacation-year", help="Must specify the year")] = None,
+            vacation_year: Annotated[int | None, typer.Option("--vacation-year", help="Must specify the year")] = None,
             # debug mode
             debug: Annotated[bool,
                 typer.Option("--debug", "-d", help="turn on debug", is_flag=True)] = False,

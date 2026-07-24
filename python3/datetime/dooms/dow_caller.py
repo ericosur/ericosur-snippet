@@ -8,6 +8,7 @@
 
 import sys
 from datetime import date
+
 try:
     from dooms_day import DoomsDay
     sys.path.insert(0, '../../')

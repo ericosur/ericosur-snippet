@@ -4,8 +4,9 @@
 to check if a date is palindrome
 '''
 
-from datetime import date, timedelta
 import sys
+from datetime import date, timedelta
+
 sys.path.insert(0, "..")
 sys.path.insert(0, "python3")
 from myutil import prt  # type: ignore[import]

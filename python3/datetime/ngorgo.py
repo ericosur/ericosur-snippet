@@ -12,8 +12,8 @@ except ValueError:
 '''
 
 import argparse
-import re
 import os
+import re
 import sys
 from datetime import date, timedelta
 from typing import ClassVar

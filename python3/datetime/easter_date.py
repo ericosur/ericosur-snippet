@@ -8,9 +8,10 @@ http://www.oremus.org/liturgy/etc/ktf/app/easter.html
 '''
 
 # datetime.datetime, datetime.date
-from datetime import date
 import sys
-from typing import Optional, Annotated
+from datetime import date
+from typing import Annotated
+
 try:
     import typer
     USE_TYPER = True
@@ -18,9 +19,10 @@ except ImportError:
     USE_TYPER = False
     print('warn: failed to import typer, only demo, no CLI...')
 try:
-    from rich import print as rprint
     from rich.console import Console
     from rich.table import Table
+
+    from rich import print as rprint
     USE_RICH = True
     console = Console()
     logd = console.log
@@ -28,7 +30,7 @@ except ImportError:
     USE_RICH = False
     logd = print
 try:
-    from be_prepared import get_thisyear, prepare_values, get_year_color
+    from be_prepared import get_thisyear, get_year_color, prepare_values
     #from nothing import do_nothing
 except ImportError:
     print('cannot import necessary modules: be_prepared, nothing')
@@ -119,7 +121,7 @@ class Solution:
         obj.show_results()
 
 if USE_TYPER:
-    def main(values: Annotated[Optional[list[int]],
+    def main(values: Annotated[list[int] | None,
                 typer.Argument(help="specify year")] = None,
             after: Annotated[int,
                 typer.Option("--after", "-A", help="after nn year")] = 0,

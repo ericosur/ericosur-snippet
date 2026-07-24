@@ -8,12 +8,13 @@ here sick means:
 
 '''
 
+import logging
 import math
 import struct
 import time
-import logging
 from datetime import datetime
 from sysconfig import get_platform
+
 #from nothing import do_nothing
 
 logi = logging.info

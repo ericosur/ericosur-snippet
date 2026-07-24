@@ -10,8 +10,8 @@ use typer to handle CLI
 '''
 
 import sys
-from typing import Union
-from typing_extensions import Annotated
+from typing import Annotated
+
 try:
     import typer
 except ImportError:
@@ -19,15 +19,18 @@ except ImportError:
     sys.exit(1)
 
 from rich.console import Console
+
 console = Console()
 
 from gngan_yaljux import do_ab, do_tests, do_values, do_verbose
+
 sys.path.insert(0, "..")
 sys.path.insert(0, "TaiGanDiZhi/")
 sys.path.insert(0, "../datetime/")
 sys.path.insert(0, "../../python3/datetime/")
-from nothing import do_nothing  # type: ignore[import]
 from be_prepared import get_thisyear, prepare_values  # type: ignore[import]
+from nothing import do_nothing  # type: ignore[import]
+
 
 class Main:
     ''' main '''

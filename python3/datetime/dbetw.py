@@ -2,11 +2,13 @@
 
 ''' to calculate days between two dates '''
 
-from datetime import date
 import sys
+from datetime import date
+
 sys.path.insert(0, "../")
 sys.path.insert(0, "python3/")
 from myutil import prt  # type: ignore[import]
+
 
 class Solution:
     ''' class to solve this problem '''

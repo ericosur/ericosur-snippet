@@ -7,9 +7,10 @@ it is a similar version of ep.py
 since it is called "[a-z]+_typer.py", the typer is required
 '''
 
-from datetime import datetime
 import sys
-from typing import Union, Annotated
+from datetime import datetime
+from typing import Annotated
+
 try:
     import typer
 except ImportError as e:
@@ -23,8 +24,9 @@ sys.path.insert(0, "..")
 sys.path.insert(0, "datetime")
 sys.path.insert(0, "myutil")
 sys.path.insert(0, "python3/datetime")
-from ep import epoch2timestr, datetime2epoch
+from ep import datetime2epoch, epoch2timestr
 from nothing import do_nothing
+
 
 def run_demo() -> None:
     ''' demo '''
