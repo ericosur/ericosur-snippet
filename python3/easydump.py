@@ -8,7 +8,7 @@ import argparse
 import os
 
 
-class MyConfig():
+class MyConfig:
     ''' a class that stores a shared variable '''
     _v = False
     def get_v(self):

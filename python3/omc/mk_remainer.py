@@ -10,7 +10,7 @@ make one number and make the rule
 import random
 
 
-class Solution():
+class Solution:
     ''' class solution '''
     def __init__(self):
         self.r = [[3,1], [5,1], [7,5]]

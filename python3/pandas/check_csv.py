@@ -14,7 +14,7 @@ def logd(*args, **wargs) -> None:
     if CheckCsv.debug:
         print(*args, **wargs)
 
-class CheckCsv():
+class CheckCsv:
     ''' check csv for time string format '''
     debug = False
 

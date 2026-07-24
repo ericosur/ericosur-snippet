@@ -27,7 +27,7 @@ except ImportError:
     USE_RICH = False
 prt = pprint if USE_RICH else print
 
-class Solution():
+class Solution:
     ''' class solution '''
 
     def __init__(self):

@@ -8,7 +8,7 @@ from time import sleep
 from openpyxl import load_workbook
 
 
-class Solution():
+class Solution:
     ''' solution to combine xlsx '''
     def __init__(self):
         self.sheet_name = 'translation_CIS008_Plus_2020012'

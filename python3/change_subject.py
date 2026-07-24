@@ -22,7 +22,7 @@ except ImportError:
     print('[ERROR] cannot import random_string', file=sys.stderr)
     sys.exit(1)
 
-class ChangeJson():
+class ChangeJson:
     ''' change json '''
     TEST_JSON = 'set-send-attach.json'
     TEMP_JSON = '/tmp/__out__.json'

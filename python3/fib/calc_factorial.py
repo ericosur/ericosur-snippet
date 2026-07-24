@@ -10,7 +10,7 @@ import sys
 from math import ceil, log10
 
 
-class CalcFactorial():
+class CalcFactorial:
     ''' class will help to load pickle file '''
     def __init__(self, fn='factorial.p'):
         # init values

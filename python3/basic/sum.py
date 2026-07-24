@@ -12,7 +12,7 @@ from functools import reduce
 from typing import Any,Union
 import numpy as np
 
-class Solution():
+class Solution:
     ''' basic flow '''
     def __init__(self, max_num: int):
         self.sum = 0

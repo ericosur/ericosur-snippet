@@ -30,7 +30,7 @@ sys.path.insert(0, "../../python3/datetime/")
 from nothing import do_nothing  # type: ignore[import]
 from be_prepared import get_thisyear, prepare_values  # type: ignore[import]
 
-class Main():
+class Main:
     ''' main '''
     def __init__(self):
         self.logd = console.log

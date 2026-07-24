@@ -9,7 +9,7 @@ different numbers
 import itertools as it
 
 
-class Solution():
+class Solution:
     ''' solution '''
     def __init__(self):
         self.target = 21

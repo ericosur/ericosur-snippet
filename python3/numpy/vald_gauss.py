@@ -13,7 +13,7 @@ from random import randint
 import numpy as np
 
 
-class ValidateGuassian():
+class ValidateGuassian:
     ''' class ValidateGuassian '''
     def __init__(self):
         self.data_arr = []

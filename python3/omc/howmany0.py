@@ -4,7 +4,7 @@
 1 to 10000, how many digit 0 are written
 '''
 
-class Solution():
+class Solution:
     ''' solution '''
     lower = 1
     upper = 10000

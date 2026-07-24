@@ -24,7 +24,7 @@ except ImportError:
 logd = logger.debug if USE_LOGURU else print
 
 # pylint: disable=import-outside-toplevel
-class LoadToml():
+class LoadToml:
     '''
     wrapper class to load toml, for builtin tomllib/toml
     '''

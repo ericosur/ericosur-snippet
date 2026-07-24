@@ -19,7 +19,7 @@ def do_nothing(*_args, **_wargs) -> None:
 
 logd = do_nothing
 
-class Solution():
+class Solution:
     ''' Solution class '''
 
     def __init__(self, n: int):

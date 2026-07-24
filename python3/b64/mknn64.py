@@ -32,7 +32,7 @@ def gen_testfile() -> None:
     print(f'output to {DEF_FN}')
     print(f"then, run ```{sys.argv[0]}``` to see the output")
 
-class MakeDirname():
+class MakeDirname:
     ''' make name of dir '''
 
     def __init__(self, log=do_nothing):

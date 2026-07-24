@@ -17,7 +17,7 @@ import requests
 import myutil
 
 
-class MakeReurl():
+class MakeReurl:
     ''' call reurl to shorten url '''
     def __init__(self, url=None, output=sys.stderr, verbose=False):
         self.output = output

@@ -13,7 +13,7 @@ sys.path.insert(0, '../emoji/')
 from cp_emoji import EMOJI
 
 
-class Solution():
+class Solution:
     ''' to solve '''
     FILE = "emojis.txt"
 

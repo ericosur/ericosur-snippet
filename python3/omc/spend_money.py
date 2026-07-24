@@ -20,7 +20,7 @@
 import itertools as it
 
 
-class SpendMoney():
+class SpendMoney:
     ''' try to find answer '''
     def __init__(self):
         self.husband = list("abcd")

@@ -29,7 +29,7 @@ def do_nothing(*_args, **_wargs) -> None:
     ''' do nothing'''
     return None
 
-class PassUtil():
+class PassUtil:
     ''' password utility '''
     def __init__(self, jsonfile="passutil.json", debug=False):
         self.a_dict = {}
@@ -128,7 +128,7 @@ def verify(in_fn: str) -> None:
     decpu.load()
     decpu.decrypt()
 
-class Main():
+class Main:
     ''' main '''
     debug = False
     verbose = False

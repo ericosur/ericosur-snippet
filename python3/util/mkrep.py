@@ -21,7 +21,7 @@ DEBUG = True
 prt = rprint
 logd = logger.debug if DEBUG else do_nothing
 
-class Solution():
+class Solution:
     ''' solution '''
     def __init__(self, fn):
         self.ret = {}

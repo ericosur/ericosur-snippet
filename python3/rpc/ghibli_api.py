@@ -15,7 +15,7 @@ import shutil
 import requests
 
 
-class Ghibli():
+class Ghibli:
     ''' ghibli api '''
     def __init__(self):
         self.base_url = 'https://ghibliapi.herokuapp.com'

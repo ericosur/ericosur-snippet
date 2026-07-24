@@ -6,7 +6,7 @@ and then correctly added up all the individual digits of the numbers.
 What sum did she obtain?
 '''
 
-class Solution():
+class Solution:
     ''' solution '''
 
     LOWER=1

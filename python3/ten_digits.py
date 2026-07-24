@@ -6,7 +6,7 @@ import itertools as it
 import random
 
 
-class Solution():
+class Solution:
     ''' solution '''
     def __init__(self, start: int = 0):
         if start != 0:

@@ -55,7 +55,7 @@ def calculate_easter(year: int) -> date:
     # Return the date of Easter Sunday as a datetime object
     return date(year, month, day)
 
-class Solution():
+class Solution:
     ''' Solution class for Easter date calculation '''
     def __init__(self, years: list[int], table: bool = False) -> None:
         ''' init '''

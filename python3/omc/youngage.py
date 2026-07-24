@@ -5,7 +5,7 @@
 one guy who's age is the sum of birth year digits in 2017
 '''
 
-class Solution():
+class Solution:
     ''' to solve '''
     UPPER = 2017
 

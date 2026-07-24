@@ -34,7 +34,7 @@ prt = rprint if USE_RICH else print
 loge = logging.error
 logd = logging.debug
 
-class Solution():
+class Solution:
     ''' solution '''
     def __init__(self):
         self.min_epoch = 0

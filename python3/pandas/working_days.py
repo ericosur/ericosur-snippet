@@ -25,7 +25,7 @@ except ImportError:
 __VERSION__ = '2025.10.09'
 
 
-class LoadWorkingDays():
+class LoadWorkingDays:
     ''' load working days '''
     FN = 'working-days.json'
 

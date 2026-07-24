@@ -36,7 +36,7 @@ def do_nothing(*_args, **_wargs) -> None:
 
 prt = rprint if USE_RICH else print
 
-class Main():
+class Main:
     ''' main '''
     CIPHER_FILE = "chataes_demo.bin"
     KEY_SIZE = 32  # must be 16, 24 or 32 for AES

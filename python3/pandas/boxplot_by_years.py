@@ -21,7 +21,7 @@ try:
 except ImportError:
     logd = print
 
-class Solution():
+class Solution:
     ''' solution class '''
     alldata_csv = 'by_dates.csv'
 

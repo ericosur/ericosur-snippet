@@ -8,7 +8,7 @@ how many way to take
 import itertools as it
 
 
-class Solution():
+class Solution:
     ''' solution '''
     TOTAL = 106
     def __init__(self):

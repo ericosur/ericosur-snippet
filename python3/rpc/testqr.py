@@ -32,7 +32,7 @@ def get_qrcode(text='The quick brown fox jumps over the lazy dog', showimage=Tru
     if showimage:
         GenerateBarcode.show_image(fn)
 
-class GenerateBarcode():
+class GenerateBarcode:
     ''' barcode: https://github.com/metafloor/bwip-js/wiki/Online-Barcode-API '''
     def __init__(self, showimage=True):
         self.url = 'https://bwipjs-api.metafloor.com/'

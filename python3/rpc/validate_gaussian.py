@@ -14,7 +14,7 @@ import statistics
 import sys
 
 
-class ValidateGuassian():
+class ValidateGuassian:
     ''' class ValidateGuassian '''
     def __init__(self):
         self.orig_arr = []

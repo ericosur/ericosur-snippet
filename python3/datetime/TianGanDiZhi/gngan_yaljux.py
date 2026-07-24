@@ -40,7 +40,7 @@ def get_thisyear() -> int:
     ''' get this year '''
     return datetime.today().year
 
-class GanChi():
+class GanChi:
     ''' 提供 天干地支紀年有關的功能 '''
     MAGIC_START = 2997
     PREV_CYCLES = 3

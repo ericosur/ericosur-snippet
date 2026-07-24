@@ -48,7 +48,7 @@ def show_results(r):
         print('r.content:', r.content)
     return None
 
-class TestHttpbin():
+class TestHttpbin:
     ''' class test httpbin '''
     server = 'https://httpbin.org'
 

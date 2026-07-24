@@ -6,7 +6,7 @@ P52 QAI-6 有一個三位數，各位上數字和為21，
 '''
 
 
-class Solution():
+class Solution:
     ''' try to find solution '''
 
     def __init__(self):

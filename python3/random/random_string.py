@@ -28,7 +28,7 @@ DEBUG = True
 if not DEBUG:
     logd = do_nothing
 
-class Solution():
+class Solution:
     ''' solution '''
     WORDLIST = 'eff_large_wordlist.txt'
 

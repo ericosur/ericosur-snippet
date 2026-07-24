@@ -23,7 +23,7 @@ try:
 except ImportError:
     CANNOT_DRAW = True
 
-class NormalDistSeed():
+class NormalDistSeed:
     ''' to keep mu, sigma, and size '''
     def __init__(self):
         self._mu = 300
@@ -74,7 +74,7 @@ class NormalDistSeed():
         ''' child class to override this function '''
         self.logd('do_something() is called')
 
-class DrawConfig():
+class DrawConfig:
     ''' move some config here '''
 
     logfile = 'normal_dist.log'

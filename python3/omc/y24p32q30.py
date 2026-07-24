@@ -12,7 +12,7 @@ def swap(m, n):
     ''' swap '''
     return n, m
 
-class Solution():
+class Solution:
     ''' to solve '''
 
     def __init__(self):

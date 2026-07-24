@@ -37,7 +37,7 @@ except ImportError:
     sys.exit(1)
 
 
-class FoolMail():
+class FoolMail:
     ''' class to send mail via gmail '''
     def __init__(self, filename=None):
         self.appkey = None

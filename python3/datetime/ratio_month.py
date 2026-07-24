@@ -46,7 +46,7 @@ def test_dates():
     r = NextMonth.get_next15(date(2023,12,21))
     assert r == date(2024,1,15)
 
-class NextMonth():
+class NextMonth:
     ''' class solution '''
     def __init__(self, td=None):
         if td:

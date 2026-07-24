@@ -62,7 +62,7 @@ def get_date_str(dd: date) -> str:
     '''
     return dd.strftime("%d %b %Y")
 
-class Solution():
+class Solution:
     ''' handle neighbor years from CLI '''
     def __init__(self, table: bool, log: Callable[[Any], None] = do_nothing) -> None:
         self.logd = log

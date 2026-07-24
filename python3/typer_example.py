@@ -23,7 +23,7 @@ def do_nothing(*_args, **_wargs) -> None:
     ''' do nothing '''
     return None
 
-class Main():
+class Main:
     ''' main '''
     def __init__(self):
         self.logd = do_nothing

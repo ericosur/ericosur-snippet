@@ -5,7 +5,7 @@
 import math
 
 
-class MyRect():
+class MyRect:
     ''' solution '''
     def __init__(self, w, h):
         self.width = w

@@ -27,7 +27,7 @@ sys.path.insert(0, '..')
 from myutil import get_home, read_jsonfile
 
 
-class FibRedis():
+class FibRedis:
     ''' fib w/ redis '''
     def __init__(self):
         self.redis = None

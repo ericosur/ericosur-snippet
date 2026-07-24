@@ -17,7 +17,7 @@ import sys
 # pylint: disable=import-self
 
 # Put in const.py...:
-class _const():
+class _const:
     def __setattr__(self, name, value):
         if name in self.__dict__:
             raise TypeError(f"Can't rebind a const: {name}")

@@ -35,7 +35,7 @@ if DEBUG:
 else:
     logd = do_nothing
 
-class CalcFib():
+class CalcFib:
     ''' class will help to handle read pickle file '''
     def __init__(self, fn='fib.p'):
         logd("__init__")

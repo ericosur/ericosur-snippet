@@ -24,7 +24,7 @@ from wand.image import Image      # type: ignore[import]
 from get_home import get_home
 
 
-class Solution():
+class Solution:
     ''' solution '''
     DEMO = False
 

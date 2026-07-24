@@ -15,7 +15,7 @@ from myutil import get_home, read_jsonfile, isfile
 
 
 # pylint: disable=invalid-name
-class Miranda():
+class Miranda:
     ''' miranda tts '''
     DEBUG = False
     CONF = 'miranda.json'

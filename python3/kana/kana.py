@@ -26,7 +26,7 @@ def logv(*args, **wargs):
     ''' logv '''
     print(*args, **wargs)
 
-class Solution():
+class Solution:
     ''' here I put three question mark in ya/wa line '''
     afn = 'Lowercase.txt'
     Afn = 'Capital.txt'

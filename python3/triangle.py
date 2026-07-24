@@ -33,7 +33,7 @@ import time
 import numpy as np
 
 
-class Pythag():
+class Pythag:
     ''' class to find pythagorean triples '''
 
     # all three numbers in tuple should smaller than max_num

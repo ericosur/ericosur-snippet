@@ -16,7 +16,7 @@ import itertools as it
 import numpy as np
 
 
-class Solution():
+class Solution:
     ''' class to solve the problem '''
     def __init__(self):
         self.arr = np.array((6, 7, 8))

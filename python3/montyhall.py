@@ -48,7 +48,7 @@ if USE_RICH:
     console.print(md)
     console.print()
 
-class MontyHall():
+class MontyHall:
     ''' solution for monty hall problem '''
     REPEAT = 5_000_000
     DOORS = 4

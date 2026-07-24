@@ -54,7 +54,7 @@ if DEBUG:
 else:
     logd = do_nothing
 
-class GenerateStdNormal():
+class GenerateStdNormal:
     ''' a class to generate normal distribution data '''
 
     default_size = 100_000

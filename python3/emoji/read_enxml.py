@@ -22,7 +22,7 @@ sys.path.insert(0, "..")
 from myutil import read_textfile
 
 
-class Solution():
+class Solution:
     ''' solution to read en.xml and output as csv-like data '''
 
     FILES = ['en-basic.xml', 'en-derived.xml',

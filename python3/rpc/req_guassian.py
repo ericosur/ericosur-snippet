@@ -22,7 +22,7 @@ except ImportError as err:
     sys.exit(1)
 
 
-class RequestGuassian():
+class RequestGuassian:
     ''' request guassian random numbers from random.org '''
     DATAFILE = 'data.txt'
     def __init__(self):

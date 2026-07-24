@@ -30,7 +30,7 @@ class Dist(BaseModel):
     sigma: float
     size: int
 
-class NormalDistData():
+class NormalDistData:
     ''' to keep mu, sigma, and size '''
     def __init__(self, dist: Dist):
         self.dist = dist

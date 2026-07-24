@@ -65,7 +65,7 @@ def do_nothing(*_args, **_wargs) -> None:
     ''' do nothing '''
     return None
 
-class PathLister():
+class PathLister:
     ''' list path '''
     STR_DUP = '-'*20 + ' duplicated ' + '-'*20
     STR_NG = '-'*20 + ' not found ' + '-'*20

@@ -6,7 +6,7 @@ P43 Q15 用160個花片排成空心正十邊形或排成空心正八邊形，
 '''
 
 
-class Solution():
+class Solution:
     ''' try to find solution '''
 
     def action(self):

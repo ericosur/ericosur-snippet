@@ -24,7 +24,7 @@ except ImportError as err:
     print('Import Error while:', err)
 
 
-class Sieve():
+class Sieve:
     ''' class Sieve demos "Prime Sieve of Eratosthenes" '''
 
     def __init__(self, max_number):

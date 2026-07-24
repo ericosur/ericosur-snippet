@@ -31,7 +31,7 @@ def identify_blob(blob):
         print(f'S:{len(blob)}, (W:{img.width}, H:{img.height}) format: {img.format}')
     # here img.__exit__
 
-class Solution():
+class Solution:
     ''' class solution '''
     files = ['bmp3870.bmp', 'map3850.tif', 'shoelace-knot.png', 'img2668.jpg']
 

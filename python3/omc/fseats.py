@@ -8,7 +8,7 @@ import itertools as it
 
 
 # pylint: disable=too-many-instance-attributes
-class Solution():
+class Solution:
     ''' find seats '''
     def __init__(self):
         self.seats = []
