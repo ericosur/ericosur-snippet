@@ -57,7 +57,7 @@ class Main:
             ll = list(range(lower, upper+1))
             self.show_list(ll, i)
 
-    def show_list(self, the_list: List, v: int) -> None:
+    def show_list(self, the_list: list, v: int) -> None:
         ''' show the list '''
         print('[', end='')
         for i in the_list:
@@ -78,7 +78,7 @@ class Main:
     # NEWER typer, use this way to set the default:
     # typer.Argument()] = None,
     #
-    def main(self, values: Annotated[Optional[List[int]],
+    def main(self, values: Annotated[Optional[list[int]],
                                      typer.Argument(help="specify values")] = None,
             after: Annotated[int,
                              typer.Option("--after", "-A", help="after nn year")] = 0,

@@ -35,7 +35,7 @@ class Solution:
         if self.Debug:
             print(*args, **wargs, file=sys.stderr)
 
-    def is_digits(self) -> List:
+    def is_digits(self) -> list:
         ''' is digits '''
         self.logd('is_digits: try normal digit...')
         pairs = []
@@ -60,7 +60,7 @@ class Solution:
             self.logd(f'no match: {f}')
         return pairs
 
-    def is_han_digits(self) -> List:
+    def is_han_digits(self) -> list:
         ''' han digits '''
         print('try han digits...')
         s = '○一二三四五六七八九十'

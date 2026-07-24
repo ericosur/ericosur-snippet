@@ -44,7 +44,7 @@ class Miranda:
             print(f'[INFO] path of miranda: {self.path}')
 
     @staticmethod
-    def get_immediate_subdirectories(a_dir: str) -> List:
+    def get_immediate_subdirectories(a_dir: str) -> list:
         '''
         refer from:
         https://stackoverflow.com/questions/800197/how-to-get-all-of-the-immediate-subdirectories-in-python
