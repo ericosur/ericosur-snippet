@@ -23,7 +23,7 @@ def load_pickle(fn):
                 if cnt > nitem:
                     break
                 print(k, v)
-    except IOError as e:
+    except OSError as e:
         print('IOError:', e)
 
 def main():

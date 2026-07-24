@@ -34,7 +34,7 @@ def load_pickle(fn):
                     print('\tis PRIME')
                 else:
                     print()
-    except IOError as e:
+    except OSError as e:
         print('IOError:', e)
 
 def main():
