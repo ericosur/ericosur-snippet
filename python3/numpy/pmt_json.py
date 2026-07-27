@@ -7,10 +7,12 @@ https://numpy.org/numpy-financial/latest/index.html#functions
 '''
 
 import sys
-from decimal import Decimal, ROUND_HALF_UP
+from decimal import ROUND_HALF_UP, Decimal
 from typing import Annotated
+
 import numpy_financial as npf  # type: ignore[import]
 from pydantic import BaseModel
+
 try:
     import typer
     USE_TYPER = True
@@ -20,8 +22,11 @@ except ImportError:
 
 sys.path.insert(0, "../")
 sys.path.insert(0, "python3/")
-from myutil import prt  # type: ignore[import]
-from myutil import read_jsonfile  # type: ignore[import]
+from myutil import (
+    prt,  # type: ignore[import]
+    read_jsonfile,  # type: ignore[import]
+)
+
 
 class Loan(BaseModel):
     ''' Loan '''
@@ -36,7 +41,7 @@ def calc_and_show(val: Loan) -> None:
     prt(f'{"PV":<28}: {val.pv:,.2f}')
     # numpy_financial.pmt returns negative cash outflow for repayment.
     payment = abs(npf.pmt(val.rate/12, val.nper, val.pv))
-    payment_rounded = int(Decimal(str(payment)).quantize(Decimal('1'), rounding=ROUND_HALF_UP))
+    payment_rounded = int(Decimal(str(payment)).quantize(Decimal(1), rounding=ROUND_HALF_UP))
     prt(f'{"monthly payment (rounded)":<28}: {payment_rounded:,d}')
 
 def main(

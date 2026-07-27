@@ -4,11 +4,13 @@
 with asyncio to compare sum vs np.sum
 '''
 
-from timeit import default_timer
 import asyncio
 import concurrent
-import numpy as np
+from timeit import default_timer
+
 from rich.console import Console
+
+import numpy as np
 
 MAXCNT = 500_000_000
 MAX_TIMEOUT = 20  # seconds

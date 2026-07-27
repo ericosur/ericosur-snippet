@@ -14,6 +14,7 @@ https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.normal.html#nu
 
 import argparse
 import sys
+
 import numpy as np
 
 CANNOT_DRAW = False

@@ -15,14 +15,17 @@ https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.normal.html#nu
 import sys
 import time
 from typing import Annotated
-import numpy as np
-from pydantic import BaseModel
+
 import typer
+from pydantic import BaseModel
+
+import numpy as np
 
 sys.path.insert(0, "./")
 sys.path.insert(0, "../")
 sys.path.insert(0, "python/")
 from myutil import prt, read_jsonfile  # type: ignore[import]
+
 
 class Dist(BaseModel):
     ''' Dist '''
