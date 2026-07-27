@@ -12,8 +12,8 @@ import os
 import sys
 from typing import ClassVar
 
-from wand.image import Image as WandImage  # type: ignore[import]
 from get_home import get_home
+from wand.image import Image as WandImage  # type: ignore[import]
 
 
 def get_blob_from_file(fn):

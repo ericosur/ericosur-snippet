@@ -20,9 +20,9 @@ pip install Wand
 import os
 import sys
 
+from get_home import get_home
 from wand.display import display  # type: ignore[import]
 from wand.image import Image  # type: ignore[import]
-from get_home import get_home
 
 
 class Solution:

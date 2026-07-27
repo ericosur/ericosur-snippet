@@ -19,9 +19,10 @@ reference: https://imagemagick.org/Usage/
 
 import os
 import sys
-from wand.display import display  # type: ignore[import]
-from wand.image import Image      # type: ignore[import]
+
 from get_home import get_home
+from wand.display import display  # type: ignore[import]
+from wand.image import Image  # type: ignore[import]
 
 
 class Solution:
