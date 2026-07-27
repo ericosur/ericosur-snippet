@@ -4,12 +4,13 @@
 test key and iv
 '''
 
-import os
-import re
-import sys
 # use bytes.hex() instead of binascii.hexlify
 #from binascii import hexlify
 import base64
+import os
+import re
+import sys
+
 try:
     from Crypto.Cipher import AES
     from Crypto.Util.Padding import pad, unpad
@@ -22,7 +23,7 @@ try:
 except ImportError:
     USE_LOGGER = False
 
-from keyiv import from_file, from_env, save_bin
+from keyiv import from_env, from_file, save_bin
 
 sys.path.insert(0, '../../')
 from myutil import md5sum, prt  # type: ignore[import]
@@ -144,8 +145,7 @@ class Solution:
         LINE_LENGTH = 64
         encoded_data = base64.b64encode(data)
         with open(ofile, 'wb') as f:
-            for i in range(0, len(encoded_data), LINE_LENGTH):
-                f.write(encoded_data[i:i+LINE_LENGTH] + b'\n')
+            f.writelines(encoded_data[i:i+LINE_LENGTH] + b'\n' for i in range(0, len(encoded_data), LINE_LENGTH))
 
     def encrypt_file(self):
         ''' encrypt file '''

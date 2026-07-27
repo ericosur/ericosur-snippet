@@ -12,10 +12,12 @@ pip install pycryptodome
 import argparse
 import base64
 import hashlib
-import sys
 import json
-from typing import Any, Dict, Tuple
+import sys
+from typing import Any
+
 from loguru import logger
+
 try:
     from Crypto.Cipher import AES
     from Crypto.Random import get_random_bytes

@@ -12,11 +12,12 @@ It is not used for encryption or decryption.
 '''
 
 import argparse
-from typing import Any
 import base64
 import json
 import os
 import sys
+from typing import Any
+
 try:
     from rich import print as rprint
     USE_RICH = True
@@ -37,7 +38,7 @@ def do_nothing(*_args, **_wargs) -> None:
 
 
 try:
-    from run_vector import do_scrypt, ScryptVector, run_test_vector
+    from run_vector import ScryptVector, do_scrypt, run_test_vector
 except ImportError:
     logger.error("The module 'run_vector' could not be found")
     sys.exit(1)

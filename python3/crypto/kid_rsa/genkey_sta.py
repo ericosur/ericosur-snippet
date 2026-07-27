@@ -5,9 +5,8 @@ kid RSA
 https://www.cs.uri.edu/cryptography/publickeykidkrypto.htm
 '''
 
-from sta_prompt import has_console, prompt_alert, prompt_input
-
 from kid_rsa import make_pair
+from sta_prompt import has_console, prompt_alert, prompt_input
 
 
 def run_this():

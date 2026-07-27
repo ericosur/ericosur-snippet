@@ -11,8 +11,10 @@ https://typer.tiangolo.com/tutorial/options/
 import os
 import sys
 from typing import Annotated
-from passutil import PassUtil
+
 import typer
+from passutil import PassUtil
+
 
 class Demo:
     ''' demo '''
