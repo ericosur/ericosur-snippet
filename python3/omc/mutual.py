@@ -6,6 +6,7 @@ from 1 to 48, gcd == 1
 
 from math import gcd
 
+
 def main():
     ''' main '''
     UPPER = 48

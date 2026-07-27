@@ -6,7 +6,9 @@ https://mathworld.wolfram.com/McNuggetNumber.html
 '''
 
 import itertools as it
+
 from sympy import Rational
+
 
 def checkVals(vals):
     ''' check validity of values '''

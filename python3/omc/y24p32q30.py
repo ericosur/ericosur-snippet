@@ -8,6 +8,7 @@ P32 Q30. 從集合 {19,20,21,..., 97,98,99}
 
 from itertools import combinations
 
+
 def swap(m, n):
     ''' swap '''
     return n, m

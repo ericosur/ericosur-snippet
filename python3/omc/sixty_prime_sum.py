@@ -6,6 +6,7 @@ find sum of sequencial primes that meet limit
 
 from typing import ClassVar
 
+
 class Solution:
     ''' class solution '''
     # primes <= 100 (size=25)
