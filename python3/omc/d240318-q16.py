@@ -9,6 +9,7 @@ Q16. 四位象棋選手參加一次迴圈賽，每兩人對戰一局，每局勝
 
 from itertools import combinations
 
+
 class Solution:
     ''' to solve '''
 

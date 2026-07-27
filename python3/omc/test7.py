@@ -51,7 +51,7 @@ def try_test(ans):
 def main():
     ''' main '''
     correct_ans = None
-    for n in range(0,128):
+    for n in range(128):
         r = num2ans(n)
         correct_ans = try_test(r)
         if correct_ans:

@@ -6,7 +6,9 @@ P25 Q3. 以下四個正整數中哪個是完全平方數？
 '''
 
 from math import sqrt
+
 from utils import digit_root, digit_sum
+
 
 def is_integer(val: float):
     ''' check if an interger '''

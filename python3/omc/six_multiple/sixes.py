@@ -8,6 +8,7 @@ from 19 to 99 take 2 different number, product is 6's multiple
 
 from itertools import combinations
 
+
 class Solution:
     ''' to solve '''
 

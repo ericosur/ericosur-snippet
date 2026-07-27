@@ -10,6 +10,7 @@ z = 1/7
 
 from sympy import Rational
 
+
 def get_product(xn, xd):
     ''' return product '''
     seven = Rational(1,7)

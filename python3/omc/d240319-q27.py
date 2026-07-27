@@ -8,6 +8,7 @@ Q27. 小明用六個自然數1，2，3，4，5，6 組成三個分數，
 '''
 
 from itertools import combinations
+
 from sympy import Rational, gcd
 
 
