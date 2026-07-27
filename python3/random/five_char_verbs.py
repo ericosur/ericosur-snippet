@@ -7,8 +7,9 @@ and search for lines that match a given pattern
 '''
 
 import os
-import sys
 import re
+import sys
+
 
 class Solution:
     ''' my grep solution '''

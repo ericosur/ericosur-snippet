@@ -11,6 +11,7 @@ import os
 import re
 import sys
 from random import randint
+
 try:
     from rich.console import Console
     console = Console()

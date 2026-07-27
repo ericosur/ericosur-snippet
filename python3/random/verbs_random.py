@@ -4,13 +4,15 @@
 get random verbs
 '''
 
-import os
-import re
 import json
+import os
 import random
+import re
+
 try:
-    from rich import print as pprint
     from rich.console import Console
+
+    from rich import print as pprint
     prt = pprint
     console = Console()
     logd = console.log
