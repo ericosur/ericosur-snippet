@@ -1,4 +1,3 @@
-#
 
 '''
 define an ordered dict __cmaps__ for further use

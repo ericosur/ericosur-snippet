@@ -30,16 +30,30 @@ except ImportError:
     logd = print
     logi = print
 
-from strutil import sec2mmss, str2sec, get_between_dates
-from showutil import show_curios, show_extra_header, show_workingdays
-from showutil import show_simplecsv, show_outputs, EXT_KEYS
-from showutil import peek_target, output2csv
+from showutil import (
+    EXT_KEYS,
+    output2csv,
+    peek_target,
+    show_curios,
+    show_extra_header,
+    show_outputs,
+    show_simplecsv,
+    show_workingdays,
+)
+from strutil import get_between_dates, sec2mmss, str2sec
 
 try:
     sys.path.insert(0, "..")
     sys.path.insert(0, "../../")
-    from myutil import query_url_for_data, read_jsonfile, isfile, die # type: ignore[import]
-    from myutil import MyDebug, MyVerbose, DefaultConfig # type: ignore[import]
+    from myutil import (  # type: ignore[import]  # type: ignore[import]
+        DefaultConfig,
+        MyDebug,
+        MyVerbose,
+        die,
+        isfile,
+        query_url_for_data,
+        read_jsonfile,
+    )
 except ImportError:
     print('[ERROR] cannot import myutil...')
     sys.exit(1)

@@ -6,8 +6,9 @@ check the format of csv, esp. the time
 
 import argparse
 import os
-import sys
 import re
+import sys
+
 
 def logd(*args, **wargs) -> None:
     ''' logd '''

@@ -8,6 +8,7 @@ read working days from json
 '''
 
 import sys
+
 try:
     from rich.console import Console
     console = Console()
@@ -17,7 +18,7 @@ except ImportError:
 
 try:
     sys.path.insert(0, "..")
-    from myutil import read_jsonfile, DefaultConfig # type: ignore[import]
+    from myutil import DefaultConfig, read_jsonfile  # type: ignore[import]
 except ImportError:
     logd('failed to import myutil')
     sys.exit(1)
