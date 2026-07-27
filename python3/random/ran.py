@@ -3,6 +3,7 @@
 ''' just pick one name from name list randomly '''
 
 import random
+
 try:
     from rich import print as rprint
     USE_RICH = True
