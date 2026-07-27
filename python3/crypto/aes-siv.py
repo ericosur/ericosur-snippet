@@ -33,6 +33,7 @@ except ImportError:
 
 from run_vector import ScryptVector, genkey_vector
 
+
 def do_nothing(*_args, **_wargs) -> None:
     ''' do nothing '''
     return

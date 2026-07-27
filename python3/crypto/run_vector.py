@@ -28,7 +28,9 @@ from: https://tools.ietf.org/html/rfc7914#section-12
 '''
 
 from hashlib import scrypt
+
 from pydantic import BaseModel
+
 
 def show_hex(dk: bytes) -> None:
     ''' show hex in 16 bytes one line '''
