@@ -2,8 +2,8 @@
 
 ''' some useful string snippets '''
 
-from datetime import date
 import re
+from datetime import date
 
 
 def strify(nn) -> str:

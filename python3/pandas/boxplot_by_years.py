@@ -12,8 +12,11 @@ year,seconds
 
 import os
 import sys
-import pandas as pd
+
 import matplotlib.pyplot as plt
+
+import pandas as pd
+
 try:
     from rich.console import Console
     console = Console()

@@ -3,15 +3,16 @@
 ''' some useful functions to show data '''
 
 try:
-    from rich.table import Table
     from rich.console import Console
+    from rich.table import Table
     USE_TABLE = True
 except ImportError:
     print('[FAIL] rich module not found, install with pip3 install rich')
     USE_TABLE = False
-import numpy as np
-from working_days import LoadWorkingDays
 from strutil import str2sec
+from working_days import LoadWorkingDays
+
+import numpy as np
 
 BASIC_KEYS = ['max', '75%', 'mean', '50%', '25%', 'min', 'std']
 EXT_KEYS = ['max', '99%', '95%', '90%', '75%', 'mean', '50%', '25%', 'min', 'std']
@@ -130,8 +131,7 @@ def output2csv(the_df, csvfn) -> None:
     ''' output to csv '''
     with open(csvfn, 'wt', encoding='utf-8') as f:
         f.write('date,seconds\n')
-        for idx, row in the_df.iterrows():
-            f.write(f'{row["date"]},{row["seconds"]}\n')
+        f.writelines(f'{row["date"]},{row["seconds"]}\n' for idx, row in the_df.iterrows())
     print(f'[INFO] saved to {csvfn}')
 
 def output_as_csv(year, the_list, f) -> None:
