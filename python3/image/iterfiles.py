@@ -8,6 +8,7 @@ check if any spaces in the pathname
 import os
 import sys
 from pathlib import Path
+
 try:
     from loguru import logger  # type: ignore[import]
     logd = logger.debug
@@ -17,7 +18,7 @@ except ImportError:
 sys.path.insert(0, '.')
 sys.path.insert(0, '..')
 sys.path.insert(0, 'python3/')
-from myutil import prt, get_home  # type: ignore[import]
+from myutil import get_home, prt  # type: ignore[import]
 
 
 class Solution:

@@ -5,6 +5,7 @@ return home directory or '.' if no HOME env
 
 import os
 
+
 def get_home() -> str:
     ''' get home '''
     _h = os.getenv('HOME')
