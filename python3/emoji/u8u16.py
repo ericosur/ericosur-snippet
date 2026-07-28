@@ -9,6 +9,7 @@ u8u16 tests, apply string directly from CLI or json file
 
 import json
 import sys
+
 from logd import logd
 from mytofrom import to_from_u8, to_from_u16, to_utf8
 

@@ -12,8 +12,9 @@ from typing import ClassVar
 
 sys.path.insert(0, "..")
 sys.path.insert(0, "../..")
-from myutil import is_file, read_textfile, die
 from en_emoji import EMOJI
+
+from myutil import die, is_file, read_textfile
 
 
 def logd(*args, **wargs):

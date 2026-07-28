@@ -62,7 +62,7 @@ class Solution:
     @staticmethod
     def value_to_string(v: list) -> list:
         ''' value to string '''
-        s = str()
+        s = ''
         for i in v:
             s += '"' + i + '"' + ','
         # remove the extra ,
