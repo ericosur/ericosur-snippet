@@ -20,112 +20,121 @@ from timeit import default_timer as timer
 from store import GetConfig
 
 
-def wrap_config():
+def wrap_config() -> str:
     ''' wrap config and retrieve settings '''
     obj = GetConfig()
     obj.set_configkey("large")    # change this to use larger table
-    txtfn = obj.get_full_path("txt")
+    txtfn: str = obj.get_full_path("txt")
     return txtfn
 
 
-# pylint: disable=consider-using-f-string
-# pylint: disable=consider-using-with
-
-def mapcount(filename):
+def mapcount(filename: str) -> int:
     ''' memory map '''
-    with open(filename, "r+t", encoding='utf8') as f:
-        buf = mmap.mmap(f.fileno(), 0)
-        lines = 0
+    file_size: int = os.path.getsize(filename)
+    if file_size == 0:
+        return 0
+    
+    with open(filename, "rb") as f, mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ) as buf:
+        lines: int = 0
         readline = buf.readline
         while readline():
             lines += 1
     return lines
 
-def simplecount(filename):
+def simplecount(filename: str) -> int:
     ''' simple count '''
-    lines = 0
+    lines: int = 0
 
     with open(filename, 'rt', encoding='utf8') as fobj:
         for _ in fobj:
             lines += 1
     return lines
 
-def bufcount(filename):
+def bufcount(filename: str) -> int:
     ''' buf count '''
-    lines = 0
-    buf_size = 1024 * 1024
+    lines: int = 0
+    buf_size: int = 1024 * 1024
     with open(filename, encoding='utf8') as f:
         read_f = f.read # loop optimization
-        buf = read_f(buf_size)
+        buf: str = read_f(buf_size)
         while buf:
             lines += buf.count('\n')
             buf = read_f(buf_size)
     return lines
 
-def wccount(filename):
+def wccount(filename: str) -> int:
     ''' external __wc -l__ '''
-    out = subprocess.Popen(['/usr/bin/wc', '-l', filename],
+    out: bytes = subprocess.Popen(['/usr/bin/wc', '-l', filename],
                            stdout=subprocess.PIPE,
                            stderr=subprocess.STDOUT
                            ).communicate()[0]
     return int(out.partition(b' ')[0])
 
-def itercount(filename):
+def itercount(filename: str) -> int:
     ''' itercount, what is U in open ???'''
     #return sum(1 for _ in open(filename, 'rbU'))
     return sum(1 for _ in open(filename, 'rb'))
 
-def opcount(fname):
+def opcount(fname: str) -> int:
     ''' use enumerate '''
-    line_number = 0
+    line_number: int = 0
     with open(fname, encoding='utf8') as f:
         for line_number, _ in enumerate(f, 1):
             pass
     return line_number
 
-def kylecount(fname):
+def kylecount(fname: str) -> int:
     ''' kyle count '''
     with open(fname, encoding='utf8') as fobj:
-        res = sum(1 for line in fobj)
+        res: int = sum(1 for line in fobj)
     return res
     #return sum(1 for line in open(fname))
 
 try:
     # http://chris-lamb.co.uk/projects/python-fadvise/
     from fadvise import normal, sequential  # type: ignore[import]
-    def fadvcount(fname):
+    def fadvcount(fname: str) -> int:
         ''' fadv count '''
         sequential(fname)
-        c = bufcount(fname)
+        c: int = bufcount(fname)
         normal(fname)
         return c
 except ImportError:
     import warnings
     warnings.warn("can't import fadvise: fadvcount() will be unavailable", UserWarning)
 
-def clear_cache():
+def clear_cache() -> None:
     """Clear disk cache on Linux."""
-    os.system("/bin/sync ; /usr/bin/sudo /bin/sh -c '/bin/echo 3 > /proc/sys/vm/drop_caches'")
+    try:
+        subprocess.run(["sync"], check=True, capture_output=True)
+        subprocess.run(
+            ["sudo", "sh", "-c", "echo 3 > /proc/sys/vm/drop_caches"],
+            check=True,
+            capture_output=True
+        )
+    except (subprocess.CalledProcessError, FileNotFoundError) as e:
+        import warnings
+        warnings.warn(f"Failed to clear cache: {e}", UserWarning)
 
-def main():
+def main() -> None:
     ''' main '''
-    counts = defaultdict(list)
-    default_fn = wrap_config()
+    counts: dict = defaultdict(list)
+    default_fn: str = wrap_config()
 
     if '--clear-cache' in sys.argv:
         sys.argv.remove('--clear-cache')
-        do_clear_cache = True
+        do_clear_cache: bool = True
     else:
-        do_clear_cache = False
+        do_clear_cache: bool = False
 
-    filename = sys.argv[1] if len(sys.argv) > 1 else default_fn
+    filename: str = sys.argv[1] if len(sys.argv) > 1 else default_fn
     for _ in range(3):
         for func in (f
                      for n, f in globals().items()
-                     if n.endswith('count') and hasattr(f, '__call__')):
+                     if n.endswith('count') and callable(f)):
             if do_clear_cache:
                 clear_cache()
-            start_time = timer()
+            start_time: float = timer()
             # http://norvig.com/big.txt
             if filename == 'big.txt':
                 assert func(filename) == 1000000 # 1000000 1000000 8245905 big.txt
@@ -136,12 +145,8 @@ def main():
     timings = {}
     for key, vals in counts.items():
         timings[key.__name__] = sum(vals) / float(len(vals)), min(vals)
-    width = max(len(n) for n in timings) + 1
-    print("%s %s %s %s" % (
-        "function".ljust(width),
-        "average, s".rjust(11),
-        "min, s".rjust(7),
-        "ratio".rjust(6)))
+    width: int = max(len(n) for n in timings) + 1
+    print(f"{('function').ljust(width)} {'average, s'.rjust(11)} {'min, s'.rjust(7)} {'ratio'.rjust(6)}")
     absmin_ = min(x[1] for x in timings.values())
     for name, (av, min_) in sorted(timings.items(), key=lambda x: x[1][1]):
         print(f'{name.ljust(width)} {av:11.2g} {min_:7.2g} {min_/absmin_:6.2f}')

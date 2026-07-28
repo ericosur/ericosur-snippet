@@ -34,9 +34,11 @@ dbg = dbg if LOCAL_DEBUG else do_nothing
 try:
     from rich import print as rprint
     USE_RICH = True
+    prt = rprint
 except ImportError:
     USE_RICH = False
-prt = rprint if USE_RICH else print
+    prt = print
+
 dbg(f'{USE_RICH=}')
 
 try:
@@ -47,12 +49,13 @@ except ImportError:
 
 # try first: sympy.ntheory.primetest.isprime
 try:
-    from sympy.ntheory.primetest import isprime as sympy_isprime  # type: ignore
+    from sympy.ntheory import isprime as sympy_isprime  # type: ignore
     USE_SYMPY = True
 except ImportError as err:
     prt('Import Error while:', err)
     USE_SYMPY = False
-dbg('f{USE_SYMPY=}')
+    sympy_isprime = None
+dbg(f'{USE_SYMPY=}')
 
 # try 2nd: gmpy2.is_prime
 USE_GMPY2 = False
@@ -64,7 +67,7 @@ if not USE_SYMPY:
     except ImportError as err:
         if not USE_SYMPY:
             prt('Import Error while:', err)
-dbg(f'{USE_GMPY2}')
+dbg(f'{USE_GMPY2=}')
 
 def is_prime(n: int) -> bool | None:
     ''' check if a prime with sympy '''
@@ -72,6 +75,9 @@ def is_prime(n: int) -> bool | None:
     if USE_SYMPY:
         if DEBUG:
             prt('use sympy...')
+        if sympy_isprime is None:
+            prt('[warn] sympy_isprime is None')
+            return None
         return sympy_isprime(n)
     if USE_GMPY2:
         if DEBUG:
@@ -86,9 +92,9 @@ def check_values(vals: list[int]) -> None:
         b = is_prime(v)
         if USE_RICH:
             if b:
-                rprint(f'[cyan]{v}[/] is a [green]PRIME[/]')
+                prt(f'[cyan]{v}[/] is a [green]PRIME[/]')
             else:
-                rprint(f'[cyan]{v}[/] is [red]NOT a PRIME[/]')
+                prt(f'[cyan]{v}[/] is [red]NOT a PRIME[/]')
         else:
             yesno = " " if b else " not "
             print(f"{v} is{yesno}a PRIME")
@@ -158,12 +164,12 @@ def search_around_primes(v: int, around: int) -> None:
 def prt_in_color(v: int, yes_no: bool | None) -> None:
     ''' print a number in color '''
     if yes_no is None:
-        rprint(f'[red]{v}[/] unknown')
+        prt(f'[red]{v}[/] unknown')
         return
     if yes_no:
-        rprint(f'[cyan]{v}[/] is a [green]PRIME[/]')
+        prt(f'[cyan]{v}[/] is a [green]PRIME[/]')
     else:
-        rprint(f'[cyan]{v}[/] is [red]NOT a PRIME[/]')
+        prt(f'[cyan]{v}[/] is [red]NOT a PRIME[/]')
 
 def run_random(nn: int) -> None:
     ''' test nn random numbers '''
@@ -223,10 +229,10 @@ class Solution:
         any_prime = False # if found any prime number
         for v in vals:
             if is_prime(v):
-                rprint(f'[cyan]{v}[/] is a [green]PRIME[/]')
+                prt(f'[cyan]{v}[/] is a [green]PRIME[/]')
                 any_prime = True
         if not any_prime:
-            rprint("no prime number at all")
+            prt("no prime number at all")
         return True
 
     def run_test(self):
@@ -251,43 +257,44 @@ class Solution:
         lower = v - before
         if lower > upper:
             lower,upper = upper,lower
-        vals = []
-        for y in range(lower, upper+1):
-            vals.append(y)
+        vals = list(range(lower, upper+1))
         return vals
 
     def help_tdr(self, test: bool, demo: bool, random: int) -> None:
         ''' handle test, demo, random'''
         if test:
             self.run_test()
-            sys.exit(0)
-        if demo:
+        elif demo:
             run_demo()
-            sys.exit(0)
-        if random:
+        elif random:
             run_random(random)
-            sys.exit(0)
 
     def main(self,
             values: Annotated[list[int] | None, typer.Argument(help="given numbers")] = None,
             demo: Annotated[bool, typer.Option('--demo', '-D', help="give me a demo")] = False,
             test: Annotated[bool, typer.Option('--test', '-t', help="give me a test")] = False,
             after: Annotated[int,
-                                typer.Option("--after", "-A", help="after nn")] = 0,
+                                typer.Option("--after", "-A", help="check N integers after the given value")] = 0,
             before: Annotated[int,
-                                typer.Option("--before", "-B", help="before nn")] = 0,
+                                typer.Option("--before", "-B", help="check N integers before the given value")] = 0,
             context: Annotated[int, typer.Option("--context", "-C",
-                                        help="radius nn, conflicts: after/before")] = 0,
-            around: Annotated[int, typer.Option("--around", "-R", help="find nn prime numbers "
-                                                "around given number, it overrides abc")] = 0,
+                                        help="check N integers in both directions (radius); overrides -A and -B")] = 0,
+            around: Annotated[int, typer.Option("--around", "-R", help="find N prime numbers "
+                                                "around given number (overrides -A, -B, -C)")] = 0,
             random: Annotated[int, typer.Option("--random", help="test nn random odd numbers")] = 0,
         ):
         '''
-        use -A, -B, -C to search a range of specified value, like
+        Check if numbers are prime. Use -A, -B, -C to search a range around a value.
 
-        python is_prime.py 50 -C 3
+        Examples:
+            python is_prime.py 50 -C 3
+                checks 47..53 (range of radius 3), shows only primes
 
-        will check 47 48 49 50 51 52 53, and only show the prime
+            python is_prime.py 50 -A 2 -B 4
+                checks 46..52 (4 before, 2 after), shows only primes
+
+            python is_prime.py 50 -R 5
+                finds 5 prime numbers before and after 50
         '''
         if test or demo or random:
             self.help_tdr(test, demo, random)
@@ -314,4 +321,6 @@ class Solution:
 
 if __name__ == '__main__':
     obj = Solution()
-    typer.run(obj.main)
+    app = typer.Typer(context_settings={"help_option_names": ["-h", "--help"]})
+    app.command()(obj.main)
+    app()

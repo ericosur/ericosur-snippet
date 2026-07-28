@@ -28,7 +28,7 @@ RUN_TEST_ONLY = False
 
 def is_prime_nth(n: int) -> bool:
     ''' check if a prime with sympy '''
-    return ntheory.primetest.isprime(n)
+    return ntheory.isprime(n)
 
 def show_duration(duration: float) -> None:
     ''' show duration '''
@@ -60,9 +60,7 @@ class Solution:
     def is_prime2(self, val):
         ''' is a prime version with StorePrime '''
         (p, q) = self.sp.get_around(val)
-        if p and q is None:
-            return True
-        return False
+        return p and q is None
 
     def is_prime(self, val):
         ''' is a prime version with StorePrime '''
