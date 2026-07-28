@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 #
 # pylint: disable=invalid-name
 # pylint: disable=too-many-arguments
@@ -21,12 +20,14 @@ module dependency:
     - if none, will report error and exit
 '''
 
-from random import randint
 import sys
-from typing import List, Union, Annotated
+from random import randint
+from typing import Annotated
+
 from pydantic import BaseModel
 
 from store import dbg, do_nothing
+
 LOCAL_DEBUG = False
 dbg = dbg if LOCAL_DEBUG else do_nothing
 
@@ -46,7 +47,7 @@ except ImportError:
 
 # try first: sympy.ntheory.primetest.isprime
 try:
-    from sympy.ntheory.primetest import isprime as sympy_isprime # type: ignore
+    from sympy.ntheory.primetest import isprime as sympy_isprime  # type: ignore
     USE_SYMPY = True
 except ImportError as err:
     prt('Import Error while:', err)
@@ -58,14 +59,14 @@ USE_GMPY2 = False
 gmpy2_isprime = None
 if not USE_SYMPY:
     try:
-        from gmpy2 import is_prime as gmpy2_isprime # type: ignore
+        from gmpy2 import is_prime as gmpy2_isprime  # type: ignore
         USE_GMPY2 = True
     except ImportError as err:
         if not USE_SYMPY:
             prt('Import Error while:', err)
 dbg(f'{USE_GMPY2}')
 
-def is_prime(n: int) -> Union[bool, None]:
+def is_prime(n: int) -> bool | None:
     ''' check if a prime with sympy '''
     DEBUG = False
     if USE_SYMPY:
@@ -101,9 +102,9 @@ def is_simple_composite(v: int) -> bool:
     ''' if multiple of 2,3,5,7, return true '''
     return v%2==0 or v%3==0 or v%5==0 or v%7==0
 
-def look_toward(v: int, around: int, is_increase: bool) -> List[int]:
+def look_toward(v: int, around: int, is_increase: bool) -> list[int]:
     ''' look toward, is_increate true/false '''
-    found : List[int] = []
+    found : list[int] = []
     if v % 2 == 0: # even number
         if is_increase:
             i = v + 1
@@ -122,7 +123,7 @@ def look_toward(v: int, around: int, is_increase: bool) -> List[int]:
     #prt(backward)
     return found
 
-def remove_duplicated(the_list: List[int]) -> List[int]:
+def remove_duplicated(the_list: list[int]) -> list[int]:
     ''' input a sorted list, remove duplicated integers'''
     if len(the_list) < 2:
         return the_list
@@ -154,7 +155,7 @@ def search_around_primes(v: int, around: int) -> None:
     #ret = remove_duplicated(ans)
     prt(ans)
 
-def prt_in_color(v: int, yes_no: Union[bool, None]) -> None:
+def prt_in_color(v: int, yes_no: bool | None) -> None:
     ''' print a number in color '''
     if yes_no is None:
         rprint(f'[red]{v}[/] unknown')
@@ -176,13 +177,13 @@ def run_random(nn: int) -> None:
 
 class GivenOptions(BaseModel):
     ''' options '''
-    values: List[int] = []
+    values: list[int] = []
     after: int = 0
     before: int = 0
     context: int = 0
     around: int = 0
 
-class Solution():
+class Solution:
     ''' solution '''
     SHOW_PING = False
     def __init__(self):
@@ -236,7 +237,7 @@ class Solution():
         for v in vals:
             prt_in_color(v, is_prime(v))
 
-    def prepare_values(self, v: int) -> List[int]:
+    def prepare_values(self, v: int) -> list[int]:
         ''' prepare values '''
         after = 0 if self.opts.after is None else self.opts.after
         before = 0 if self.opts.before is None else self.opts.before
@@ -268,7 +269,7 @@ class Solution():
             sys.exit(0)
 
     def main(self,
-            values: Annotated[Union[List[int], None], typer.Argument(help="given numbers")] = None,
+            values: Annotated[list[int] | None, typer.Argument(help="given numbers")] = None,
             demo: Annotated[bool, typer.Option('--demo', '-D', help="give me a demo")] = False,
             test: Annotated[bool, typer.Option('--test', '-t', help="give me a test")] = False,
             after: Annotated[int,

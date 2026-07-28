@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 read parts.txt and save it to csv
@@ -7,6 +6,7 @@ read parts.txt and save it to csv
 
 #import os
 import re
+
 #import sys
 from time import time
 
@@ -17,7 +17,7 @@ def show_duration(duration):
     ''' show duration '''
     print(f'{MODNAME}: duration: {duration:.3e} sec')
 
-class Solution():
+class Solution:
     ''' test date is a prime '''
 
     IFN = "parts.txt"
@@ -32,7 +32,7 @@ class Solution():
         print(f'read from {itxtfn}...')
         with open(itxtfn, "rt", encoding='UTF-8') as fin, open(ocsvfn,
             'wt', encoding='UTF-8') as fout:
-            for ln in fin.readlines():
+            for ln in fin:
                 ln = ln.strip()
                 if len(ln) == 0:
                     continue
@@ -48,7 +48,7 @@ class Solution():
         r = re.compile(r'\b\d+\b')
         print(f'read from {itxtfn}...')
         with open(itxtfn, "rt", encoding='UTF-8') as fobj:
-            for ln in fobj.readlines():
+            for ln in fobj:
                 ln.strip()
                 cnt += 1
                 m = r.findall(ln)

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 Use method Sieve of Eratosthenes to collect primes up to self.upper
@@ -10,9 +9,8 @@ import bisect
 import math
 from time import time
 
-from store import GetConfig
+from store import GetConfig, prt
 from store import StorePrime as sp
-from store import prt
 
 MODNAME = "sieve.py"
 def show_duration(duration):
@@ -27,7 +25,7 @@ def wrap_config():
     pfn = obj.get_full_path("pickle")
     return txtfn, pfn
 
-class SieveOfEratosthenes():
+class SieveOfEratosthenes:
     ''' implement '''
     upper = 1_000_000
     REPEAT = 20

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 # pylint: disable=invalid-name
 
 '''
@@ -14,6 +13,7 @@ pip install compress_pickle
 '''
 
 from time import time
+
 from .load_myutil import dbg, do_nothing
 from .store_prime import StorePrime
 
@@ -24,7 +24,7 @@ except ImportError:
     prt = print # type: ignore
 
 try:
-    import compress_pickle # type: ignore
+    import compress_pickle  # type: ignore
 except ImportError as err:
     dbg('[FAIL] cannot load module **compress_pickle**')
     raise ModuleNotFoundError(err) from err

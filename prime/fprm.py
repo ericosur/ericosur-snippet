@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 use method of 'sieve of eratosthenes' to get four-digit-primes
@@ -11,8 +10,7 @@ there is a speed-upgraded version 'sieve.py'
 def output_to_file(fn, primes):
     ''' output list into text file '''
     with open(fn, "wt", encoding='utf8') as ofh:
-        for pp in primes:
-            ofh.write(f"{pp}\n")
+        ofh.writelines(f"{pp}\n" for pp in primes)
     print(f'output to {fn}, count = {len(primes)}')
 
 def main():

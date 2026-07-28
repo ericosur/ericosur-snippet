@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 #
 
 '''
@@ -30,7 +29,7 @@ def read_textfile(txtfn, debug=False):
     if debug:
         print(f'[{TAG}]: from file: {txtfn}')
     with open(txtfn, "rt", encoding='UTF-8') as fobj:
-        for ln in fobj.readlines():
+        for ln in fobj:
             ln = ln.strip()
             cnt += 1
             if err > ERROR_LIMIT:

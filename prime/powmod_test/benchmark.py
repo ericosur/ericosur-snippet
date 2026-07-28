@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 benchmark of powmod implementation
@@ -7,6 +6,7 @@ benchmark of powmod implementation
 
 #import os
 import sys
+
 #from math import ceil
 import timeit
 from random import randint

@@ -12,9 +12,9 @@ NOTE: also refer to sqare_root.py, which using miller robin method to test prime
 
 '''
 
-from math import sqrt
 import sys
-from typing import List
+from math import sqrt
+
 from store import GetConfig, StorePrime
 
 try:
@@ -34,7 +34,7 @@ def show_duration(duration: float) -> None:
     ''' show duration '''
     print(f'{MODNAME}: duration: {duration:.3f} sec')
 
-class Solution():
+class Solution:
     ''' to find certain P '''
     UPPER_BOUND = 10000
     LOWER_BOUND = 3
@@ -49,7 +49,7 @@ class Solution():
         self.sp = StorePrime(txtfn=txtfn, pfn=pfn)
         self.sp.get_ready()
 
-    def get_results(self) -> List:
+    def get_results(self) -> list:
         ''' get resutls '''
         return self.results
 

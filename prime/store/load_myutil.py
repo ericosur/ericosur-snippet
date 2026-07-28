@@ -21,10 +21,9 @@ except ImportError:
     dbg = print
 
 # use relative path
-# ruff: noqa: E402
 sys.path.insert(0, "../../python3")
 sys.path.insert(0, "../python3")
-import myutil # type: ignore[import]
+import myutil  # type: ignore[import]
 
 die = myutil.die
 is_file = myutil.is_file
@@ -48,9 +47,9 @@ def gethome():
 
 def do_nothing(*_args, **_wargs):
     ''' do nothing '''
-    return None
+    return
 
-class GetConfig():
+class GetConfig:
     ''' a wrapper class to load config for primes '''
     sizes = ["small", "big", "large", "h119", "h422"]
     allkeys = ["txt", "pickle", "compress_pickle", "max", "num"]

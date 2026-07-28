@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 #
 
 '''
@@ -10,8 +9,9 @@ import errno
 import os
 import random
 from itertools import islice
+
 from line_count import bufcount
-from store import read_setting, get_home
+from store import get_home, read_setting
 
 # pylint: disable=global-statement
 

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 test some values in config file
@@ -9,7 +8,6 @@ import sys
 
 # pylint: disable=import-error
 # pylint: disable=wrong-import-position
-# ruff: noqa: E402
 sys.path.insert(0, '../')
 from store import GetConfig, StorePrime
 

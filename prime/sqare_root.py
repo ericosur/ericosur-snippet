@@ -10,9 +10,11 @@ It is a missing link. Maybe related to Fermat's theorem on sums of two squares.
 '''
 
 from math import sqrt
+
 from MillerRabin import miller_rabin
 
-class Solution():
+
+class Solution:
     ''' to find certain P '''
     UPPER_BOUND = 99999
     LOWER_BOUND = 3

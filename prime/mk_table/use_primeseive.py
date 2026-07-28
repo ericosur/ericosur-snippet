@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 # pylint: disable=wrong-import-position
 
 '''
@@ -18,7 +17,7 @@ from random import randint
 from time import time
 
 sys.path.insert(0, '../')
-from store import make_arrow, die, is_file, read_textfile
+from store import die, is_file, make_arrow, read_textfile
 
 MODNAME = "use_primesieve"
 VERSION = "2024.04.02"
@@ -30,7 +29,7 @@ def show_duration(duration):
     print(f'{MODNAME}: duration: {duration:.3e} sec')
 
 
-class Solution():
+class Solution:
     ''' test date is a prime '''
     BINARY = '/usr/bin/primesieve'
     TMPFN = f'/tmp/{MODNAME}.txt'

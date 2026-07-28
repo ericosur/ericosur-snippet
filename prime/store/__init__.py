@@ -7,10 +7,20 @@ prime numbers.
 # __init__.py
 
 
-from .load_myutil import dbg, do_nothing
-from .load_myutil import MyDebug, MyVerbose, die
-from .load_myutil import is_file, is_dir, prt
-from .load_myutil import get_home, GetConfig, read_setting, read_from_stdin
+from .load_myutil import (
+    GetConfig,
+    MyDebug,
+    MyVerbose,
+    dbg,
+    die,
+    do_nothing,
+    get_home,
+    is_dir,
+    is_file,
+    prt,
+    read_from_stdin,
+    read_setting,
+)
 from .make_arrow import make_arrow
 from .store_prime import StorePrime
 from .textutil import read_textfile
@@ -31,21 +41,21 @@ def sep():
     print('-------------------------')
 
 __all__ = [
+    'GetConfig',
+    'LoadCompressPrime',
+    'MyDebug',
+    'MyVerbose',
+    'StorePrime',
     'dbg',
     'die',
     'do_nothing',
     'get_home',
-    'is_file',
     'is_dir',
-    'GetConfig',
-    'LoadCompressPrime',
+    'is_file',
     'make_arrow',
     'prt',
     'read_from_stdin',
     'read_setting',
     'read_textfile',
     "sep",
-    'StorePrime',
-    'MyDebug',
-    'MyVerbose',
 ]

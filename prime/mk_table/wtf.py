@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 WARNING: NOTICE THAT:
@@ -17,6 +16,7 @@ Possible warnings:
 
 #import numpy
 import argparse
+
 
 def wtf():
     # here I break some pylint rules

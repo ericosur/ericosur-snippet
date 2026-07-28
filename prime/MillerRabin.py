@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 # Copyright (c) 2009 the authors listed at the following URL, and/or
@@ -32,6 +31,7 @@
 #
 import random
 import sys
+
 
 def miller_rabin_pass(a, n):
     ''' miller_rabin_pass '''

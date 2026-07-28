@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 provide a basic interface/class for load/save/search primes
@@ -9,10 +8,10 @@ import errno
 import os
 import pickle
 from time import time
+
+from .load_myutil import MyDebug, MyVerbose, dbg, do_nothing
 from .query_prime import QueryPrime
-from .load_myutil import MyDebug, MyVerbose
 from .textutil import read_textfile
-from .load_myutil import dbg, do_nothing
 
 try:
     from rich import print as rprint

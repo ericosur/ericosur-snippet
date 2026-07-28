@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# coding: utf-8
 
 '''
 A benchmark for various function to count lines in a text file. It is not
@@ -15,11 +14,11 @@ import mmap
 import os
 import subprocess
 import sys
-
 from collections import defaultdict
 from timeit import default_timer as timer
 
 from store import GetConfig
+
 
 def wrap_config():
     ''' wrap config and retrieve settings '''
@@ -93,7 +92,7 @@ def kylecount(fname):
 
 try:
     # http://chris-lamb.co.uk/projects/python-fadvise/
-    from fadvise import sequential, normal # type: ignore[import]
+    from fadvise import normal, sequential  # type: ignore[import]
     def fadvcount(fname):
         ''' fadv count '''
         sequential(fname)
