@@ -10,6 +10,7 @@ read en.xml and output to csv
 import re
 import sys
 from datetime import datetime
+
 try:
     from bs4 import BeautifulSoup
 except ImportError:
@@ -114,7 +115,7 @@ class Solution:
     @staticmethod
     def value_to_string(v: list) -> list:
         ''' value to string '''
-        s = str()
+        s = ''
         for i in v:
             s += '"' + i + '"' + ','
         # remove the extra ,

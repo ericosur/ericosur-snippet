@@ -6,6 +6,7 @@ unicode escape sequence to utf-8 and backward
 
 import binascii as bi
 import json
+
 from logd import logd
 
 __version__ = '0.1'

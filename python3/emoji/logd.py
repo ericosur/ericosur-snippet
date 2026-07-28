@@ -4,7 +4,9 @@ provide logd()
 '''
 
 import sys
+
 from rich.console import Console
+
 error_console = Console(stderr=True, style="bold red")
 
 def logd(*args, **wargs):

@@ -6,6 +6,7 @@ clean up from_emojipedia.txt
 
 import re
 
+
 class Cleanup:
     ''' clean up '''
     fn = "from_emojipedia.txt"
