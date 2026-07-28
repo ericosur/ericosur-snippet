@@ -37,9 +37,8 @@ def method_bisect(a, b, c):
     b.sort()
     for i, x in enumerate(a):
         index = bisect.bisect_left(b, x)
-        if index < len(a):
-            if x == b[index]:
-                c[i] = 1
+        if index < len(b) and x == b[index]:
+            c[i] = 1
     return time.time() - start_time
 
 def profile():
@@ -48,7 +47,6 @@ def profile():
     time_method_set_in = []
     time_method_bisect = []
 
-    #Nls = [x for x in range(1000, 20000, 1000)]
     Nls = list(range(1000, 20000, 1000))
     for N in Nls:
         a = list(range(N))

@@ -1,0 +1,11 @@
+[tool.ruff]
+exclude = [
+#    "file_to_skip.py",          # Skip a specific file
+#    "directory_to_skip/*",      # Skip all files in a directory
+    "*.ipynb",                # Skip files matching a patternvi
+    "check_ctypes.py",
+    "encoding.py"
+]
+
+[tool.ruff.lint]
+extend-ignore = ["EXE001"]

@@ -37,13 +37,13 @@ MyVerbose = myutil.MyVerbose
 
 HOME = os.environ.get("HOME")
 
-def get_home():
+def get_home() -> str:
     ''' get home dir '''
+    if HOME is None:
+        die(f"[FAIL] {__file__}: HOME is not set")
+        return ''
     return HOME
 
-def gethome():
-    ''' get home dir '''
-    return HOME
 
 def do_nothing(*_args, **_wargs):
     ''' do nothing '''
@@ -51,11 +51,11 @@ def do_nothing(*_args, **_wargs):
 
 class GetConfig:
     ''' a wrapper class to load config for primes '''
-    sizes = ["small", "big", "large", "h119", "h422"]
-    allkeys = ["txt", "pickle", "compress_pickle", "max", "num"]
+    sizes = ("small", "big", "large", "h119", "h422")
+    allkeys = ("txt", "pickle", "compress_pickle", "max", "num")
 
     def __init__(self, conf="setting.json"):
-        self.home = gethome()
+        self.home = get_home()
         self.conf = conf
         self.d = read_setting(self.conf)
         if self.d is None:
@@ -139,16 +139,16 @@ class GetConfig:
     def get_largedata_path(self):
         ''' get large prime data file path '''
         pth = self.d['prime_path']
-        txtfn = os.path.join(gethome(), pth, self.d['prime_large'])
-        pfn = os.path.join(gethome(), pth, self.d['pickle_large'])
-        pzfn = os.path.join(gethome(), pth, self.d['pickle_large_compress'])
+        txtfn = os.path.join(get_home(), pth, self.d['prime_large'])
+        pfn = os.path.join(get_home(), pth, self.d['pickle_large'])
+        pzfn = os.path.join(get_home(), pth, self.d['pickle_large_compress'])
         return txtfn, pfn, pzfn
 
     def get_bigdata_path(self):
         ''' get large prime data file path '''
-        txtfn = os.path.join(gethome(), self.ppath, self.d['prime_big'])
-        pfn = os.path.join(gethome(), self.ppath, self.d['pickle_big'])
-        pzfn = os.path.join(gethome(), self.ppath, self.d['pickle_big_compress'])
+        txtfn = os.path.join(get_home(), self.ppath, self.d['prime_big'])
+        pfn = os.path.join(get_home(), self.ppath, self.d['pickle_big'])
+        pzfn = os.path.join(get_home(), self.ppath, self.d['pickle_big_compress'])
         return txtfn, pfn, pzfn
 
 if __name__ == "__main__":
