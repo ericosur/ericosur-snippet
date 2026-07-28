@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 test StorePrime
@@ -8,12 +7,13 @@ test StorePrime
 import argparse
 import random
 import sys
+
 from the_prt import prt
 
 MODNAME = 'run_example'
 
 try:
-    from store import StorePrime, GetConfig, make_arrow, dbg
+    from store import GetConfig, StorePrime, dbg, make_arrow
 except ImportError as err:
     prt('[FAIL] cannot load necessary module:', err)
     sys.exit(1)

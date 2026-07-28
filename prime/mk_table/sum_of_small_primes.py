@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 ''' want to know the sum of small primes '''
 

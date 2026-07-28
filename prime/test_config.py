@@ -6,9 +6,11 @@ load some functions from __store__
 '''
 
 import sys
+
 sys.path.insert(0, "..")
 sys.path.insert(0, "prime")
-from store import GetConfig, sep, prt
+from store import GetConfig, prt, sep
+
 
 def run_test():
     ''' try different loads '''

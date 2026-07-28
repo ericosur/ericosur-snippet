@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 #
 # for scripts using redis, skip mypy check
 # mypy: ignore-errors
@@ -40,10 +39,11 @@ except ImportError:
     print("ImportError: import redist")
 
 # local modules
-from findlist_func import index, find_le, find_ge
-from load_myutil import read_jsonfile, get_home
+from findlist_func import find_ge, find_le, index
+from load_myutil import get_home, read_jsonfile
 
-class StorePrimeToRedis():
+
+class StorePrimeToRedis:
     ''' class will help to handle read pickle file '''
     def __init__(self):
         #print('__init__')
@@ -145,7 +145,7 @@ class StorePrimeToRedis():
             count = 0
             # expect one prime number one line
             start = time.time()
-            for ln in txtinf.readlines():
+            for ln in txtinf:
                 count += 1
                 if count % 10000 == 0:
                     print('.', end='')

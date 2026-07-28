@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 https://stackoverflow.com/questions/7571635/fastest-way-to-check-if-a-value-exist-in-a-list
 '''
 
 
-import random
 import bisect
 import math
+import random
 import time
+
 import matplotlib
 import matplotlib.pyplot as plt
+
 
 def method_in(a, b, c):
     ''' list in '''
@@ -50,13 +51,11 @@ def profile():
     #Nls = [x for x in range(1000, 20000, 1000)]
     Nls = list(range(1000, 20000, 1000))
     for N in Nls:
-        #a = [x for x in range(0, N)]
-        a = list(range(0, N))
+        a = list(range(N))
         random.shuffle(a)
-        #b = [x for x in range(0, N)]
-        b = list(range(0, N))
+        b = list(range(N))
         random.shuffle(b)
-        c = [0 for x in range(0, N)]
+        c = [0 for x in range(N)]
 
         time_method_in.append(math.log(method_in(a, b, c)))
         time_method_set_in.append(math.log(method_set_in(a, b, c)))

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 load primes from StorePrime and double check by nthoery
@@ -7,6 +6,7 @@ load primes from StorePrime and double check by nthoery
 
 import sys
 from time import time
+
 from sympy import ntheory
 
 try:
@@ -29,7 +29,7 @@ def wrap_config():
     pfn = obj.get_full_path("pickle")
     return txtfn, pfn
 
-class CheckPrimes():
+class CheckPrimes:
     ''' generate a list of numbers and test if a prime number '''
 
     def __init__(self):

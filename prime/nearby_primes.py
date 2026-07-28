@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 given cli argument to get lower/upper prime
@@ -8,7 +7,8 @@ given cli argument to get lower/upper prime
 
 import argparse
 import random
-from store import GetConfig, sep, MyDebug, MyVerbose
+
+from store import GetConfig, MyDebug, MyVerbose, sep
 
 MODNAME = 'NearbyPrimes'
 VERSION = '2024.03.11'

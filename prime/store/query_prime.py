@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 provide an interface/class for query primes
 '''
 
-from typing import Union, List
+
 #from debug_verbose import MyDebug
-from .findlist_func import index, find_le, find_ge
+from .findlist_func import find_ge, find_le, index
+
 try:
     from rich import print as rprint
     USE_RICH = True
@@ -25,7 +25,7 @@ __VERSION__ = "2024.03.27"
 # pylint: disable=unsubscriptable-object
 # pylint: disable=unsupported-membership-test
 #
-class QueryPrime():
+class QueryPrime:
     ''' provides functions to query primes '''
 
     def __init__(self):
@@ -41,7 +41,7 @@ class QueryPrime():
         ''' return the max prime in this object '''
         return self.primes[-1]
 
-    def at(self, idx: int) -> Union[int, None]:
+    def at(self, idx: int) -> int | None:
         ''' get value at index '''
         try:
             return self.primes[idx]
@@ -57,7 +57,7 @@ class QueryPrime():
                 f'in prime table {self.primes[-1]}')
         return self.primes.index(val)
 
-    def get_primes_less_than(self, val: int) -> Union[List[int], None]:
+    def get_primes_less_than(self, val: int) -> list[int] | None:
         ''' get a list of primes less than given value '''
         _max = self.primes[-1]
         _min = self.primes[0]
@@ -138,7 +138,7 @@ class QueryPrime():
                 break
         return (_min, _max)
 
-    def list_nearby(self, v: int) -> Union[List[int], None]:
+    def list_nearby(self, v: int) -> list[int] | None:
         ''' prt primes nearby v '''
         (p, q) = self.bisect_between_idx(v)
         #prt('p, q:', p, q)

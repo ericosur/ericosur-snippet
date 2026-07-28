@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 #
 
 '''
@@ -21,7 +20,7 @@ except ImportError:
     print('use **store_prime**')
 
 # pylint: disable=invalid-name
-class Solution():
+class Solution:
     ''' it is similar to goldbach conf? '''
 
     UPPER_BOUND = 99999

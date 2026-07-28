@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 #
 # for pythonista scripts, skip mypy check
 # mypy: ignore-errors

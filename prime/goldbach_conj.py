@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 [goldbach's conjecture](https://en.wikipedia.org/wiki/Goldbach%27s_conjecture)
@@ -14,8 +13,9 @@ It will use LoadCompressPrime if possible
 
 import bisect
 import sys
-from random import randint
 import time
+from random import randint
+
 from store import GetConfig
 
 MODNAME = "goldbach"
@@ -106,7 +106,7 @@ def impl3(val, ret):
             ans.append((pp, left))
     return ans, cnt, time.time() - start_time
 
-class Goldbach():
+class Goldbach:
     ''' find goldbach '''
     MAX_REPEAT = 3
     MAX_SHOW = 6

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 #
 # pylint: disable=invalid-name
 #
@@ -22,10 +21,12 @@ Note that your prime number table should cover the test number or you cannot
 find any prime dates.
 '''
 
+import sys
 from datetime import date, timedelta
 from time import time
-import sys
+
 from store import GetConfig
+
 try:
     from store import LoadCompressPrime
     print('[INFO] use **LoadCompressPrime**')
@@ -49,7 +50,7 @@ def wrap_config():
     cpfn = obj.get_full_path("compress_pickle")
     return txtfn, cpfn
 
-class PrimeDate():
+class PrimeDate:
     ''' test date is a prime '''
     def __init__(self):
         txtfn, cpfn = wrap_config()

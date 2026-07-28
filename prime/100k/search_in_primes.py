@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 class LoadPrimeFromText
@@ -34,7 +33,7 @@ def show_duration(duration):
 
 # pylint: disable=invalid-name
 
-class LoadPrimeFromText():
+class LoadPrimeFromText:
     ''' class will help to handle read pickle file '''
     def __init__(self, txtfn, pfn):
         #print('__init__')
@@ -111,7 +110,7 @@ class LoadPrimeFromText():
                 duration = time() - start
                 show_duration(duration)
                 return True
-            except IOError:
+            except OSError:
                 print(f'[INFO] {__file__}: pickle file not found, try to load text file')
 
         self.pvalues = []

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 http://en.wikipedia.org/wiki/Modular_exponentiation

@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 testing LoadCompressPrime/store_prime
 '''
 
 from random import randint
+
 from store import GetConfig
 
 CONFIG_KEY = 'small'
@@ -27,7 +27,7 @@ def wrap_config():
     cpfn = obj.get_full_path("compress_pickle")
     return txtfn, pfn, cpfn
 
-class Goldbach():
+class Goldbach:
     ''' easy version of goldbach '''
     max_len = 7
 

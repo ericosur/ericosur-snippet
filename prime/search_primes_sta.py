@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 #
 # for pythonista scripts, skip mypy check
 # mypy: ignore-errors
@@ -13,6 +12,7 @@ use StorePrime
 '''
 
 import sys
+
 from store_prime import StorePrime
 
 __version__ = '2023.04.10.11.02'

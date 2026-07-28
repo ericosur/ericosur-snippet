@@ -4,6 +4,7 @@ useful functions to search specific value in a very large list
 
 from bisect import bisect_left, bisect_right
 
+
 def index(a: list, x: int):
     ''' return index of the leftmost value exactly equal to x '''
     i = bisect_left(a, x)

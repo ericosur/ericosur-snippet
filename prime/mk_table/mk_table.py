@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 # pylint: disable=invalid-name
 # pylint: disable=import-error
 # pylint: disable=wrong-import-position
@@ -9,6 +8,7 @@ load prime numbers from table and output to a xlsx file
 '''
 
 import sys
+
 import sympy
 
 try:
@@ -18,7 +18,6 @@ except ImportError:
     print('cannot import module xlsxwriter, WILL NOT output to xlsx file')
     XLSWRITER_OK = False
 
-# ruff: noqa: E402
 sys.path.insert(0, '../')
 from store import GetConfig
 
@@ -55,7 +54,7 @@ def get_smallconfig():
     return txtfn, pfn
 
 
-class Solution():
+class Solution:
     ''' test date is a prime '''
     def __init__(self, upper=1000):
         self.islcp = False

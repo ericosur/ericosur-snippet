@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 reference:
@@ -7,6 +6,7 @@ https://comeoncodeon.wordpress.com/2010/09/18/miller-rabin-primality-test/
 '''
 
 import random
+
 
 def modulo(a, b, c):
     ''' modulo '''

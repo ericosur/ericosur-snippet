@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 check if input number is prime or not
@@ -18,8 +17,10 @@ shuf -i 1001-9999 -n 10 | python3 check_prime.py -s
 import argparse
 import sys
 from random import randint
+
 from store import read_from_stdin
 from the_prt import prt
+
 try:
     #from sympy import sympy.ntheory.primetest.isprime
     from sympy import ntheory
