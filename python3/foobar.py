@@ -6,12 +6,20 @@ foobar
 
 import os
 import sys
+
 try:
     sys.path.insert(0, ".")
     sys.path.insert(0, "..")
     sys.path.insert(0, "myutil")
-    from myutil import get_dow, get_doom_num, get_epoch, WhatNow
-    from myutil import is_windows, is_cygwin, get_platform
+    from myutil import (
+        WhatNow,
+        get_doom_num,
+        get_dow,
+        get_epoch,
+        get_platform,
+        is_cygwin,
+        is_windows,
+    )
 except ImportError as e:
     print(f'ImportError: {e}')
     sys.exit(1)

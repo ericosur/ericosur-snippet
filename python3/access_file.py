@@ -18,7 +18,7 @@ def test_file(fn: str) -> bool:
     use open() to test file could be accessed
     '''
     try:
-        fp = open(fn, encoding='utf8')
+        fp = open(fn, encoding='utf8')  # noqa: SIM115
     except OSError as e:
         if e.errno == errno.EACCES:
             print('errno: EACCES')

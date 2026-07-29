@@ -5,10 +5,12 @@ use rich to show arrow characters
 '''
 
 from typing import Annotated
+
 import typer
 from rich.columns import Columns
-from rich.panel import Panel
 from rich.console import Console
+from rich.panel import Panel
+
 
 def no_rich(is_csv: bool, reverse: bool = False):
     ''' with rich '''

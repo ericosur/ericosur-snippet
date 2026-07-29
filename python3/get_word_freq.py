@@ -2,9 +2,10 @@
 
 ''' get_word_freq from files '''
 
-import sys
 import re
+import sys
 from operator import itemgetter
+
 
 def readfile(f):
     ''' read file '''

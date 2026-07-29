@@ -32,9 +32,11 @@ For 4 doors, chances to get the car is 3/8.
 
 from random import randint
 from time import time
+
 try:
-    from rich import print as rprint
     from rich.progress import Progress
+
+    from rich import print as rprint
     USE_RICH = True
 except ImportError:
     USE_RICH = False

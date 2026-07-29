@@ -14,6 +14,7 @@ to see the difference
 
 import sys
 
+
 def main():
     ''' list each item of sys.path '''
     for idx, pp in enumerate(sys.path):

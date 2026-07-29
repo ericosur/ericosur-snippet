@@ -7,8 +7,9 @@ read raw.txt and output format:
     - one char one line
 '''
 
-import re
 import json
+import re
+
 from kjutil import logd
 
 FN = "raw.txt"

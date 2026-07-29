@@ -4,8 +4,9 @@
 inner product
 '''
 
-import numpy as np
 from typing import ClassVar
+
+import numpy as np
 
 
 class Solution:

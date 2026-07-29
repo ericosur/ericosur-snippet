@@ -11,9 +11,10 @@ It took 23.81 sec to calculate fib(40)
 
 '''
 
-from timeit import default_timer
 from datetime import datetime
 from socket import gethostname
+from timeit import default_timer
+
 try:
     from rich.console import Console
     #from rich.markdown import Markdown

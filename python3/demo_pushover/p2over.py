@@ -11,8 +11,10 @@ import json
 import sys
 from random import choice
 from time import time
+
 import requests
 from base_pushover import PushOverBase
+
 sys.path.insert(0, "..")
 from myutil import read_jsonfile
 

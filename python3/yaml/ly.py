@@ -5,7 +5,7 @@
 import json
 import os
 import sys
-from typing import Union
+
 sys.path.insert(0, "..")
 sys.path.insert(0, "python3/")
 from myutil import prt

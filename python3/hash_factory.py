@@ -32,7 +32,7 @@ def get_hash(data: bytes, hash_name: str) -> str:
 
 def test():
     ''' main '''
-    MSG = 'hello world'.encode('UTF-8')
+    MSG = b'hello world'
     # will throw an exception here
     #get_hash(MSG, 'NO_ALGORITHM')
 

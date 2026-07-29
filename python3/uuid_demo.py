@@ -7,6 +7,7 @@ from: https://docs.python.org/2/library/uuid.html
 
 import uuid
 
+
 def sep() -> None:
     ''' separator'''
     print('-' * 45)

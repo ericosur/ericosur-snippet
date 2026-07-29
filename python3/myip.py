@@ -7,14 +7,14 @@ and use ip-api.com to get location of such ip
 
 import argparse
 import json
-from typing import Union
+
 import requests
 
 DEBUG = True
 USE_RICH = False
 try:
-    from rich import print_json
     from rich import print as rprint
+    from rich import print_json
     #from rich.console import Console
     USE_RICH = True
 except ImportError:

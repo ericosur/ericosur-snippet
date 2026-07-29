@@ -14,8 +14,8 @@ for ansi color (optional):
 # alias path='echo $PATH | sed "s/:/\n/g"'
 
 import argparse
-from dataclasses import dataclass
 import os
+from dataclasses import dataclass
 from sysconfig import get_platform
 from typing import Any
 

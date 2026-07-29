@@ -10,6 +10,7 @@ https://zh.wikipedia.org/zh-tw/%E8%8B%8F%E5%B7%9E%E7%A0%81%E5%AD%90
 
 import random
 import sys
+
 try:
     from rich.console import Console
     console = Console()

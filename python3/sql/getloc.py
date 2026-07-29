@@ -5,6 +5,7 @@ query players.db to find location coordinates
 '''
 
 import sqlite3
+
 try:
     import hexdump
     USE_HEXDUMP = True

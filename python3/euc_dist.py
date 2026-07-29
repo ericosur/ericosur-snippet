@@ -3,6 +3,7 @@
 ''' euclidean distance '''
 
 import numpy as np
+
 USE_RICH = False
 try:
     from rich.console import Console

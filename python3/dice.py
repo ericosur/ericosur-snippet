@@ -10,8 +10,11 @@ plot the result
 
 import time
 from random import randint
+
 import matplotlib.pyplot as plt
+
 import numpy as np
+
 #import seaborn as sns
 try:
     from rich import print as rprint

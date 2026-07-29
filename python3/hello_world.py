@@ -6,6 +6,7 @@
 
 import sys
 
+
 def get_python_version():
     ''' will return a float like 2.7, 3.5 of python version '''
     ver = list(sys.version_info)
