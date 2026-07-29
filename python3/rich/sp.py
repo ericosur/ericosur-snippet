@@ -7,8 +7,10 @@ simple demo for rich.console
 
 from random import randint
 from time import sleep
+
 from rich.console import Console
 from rich.spinner import SPINNERS
+
 #from rich.text import Text
 
 console = Console()

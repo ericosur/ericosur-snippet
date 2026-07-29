@@ -11,7 +11,9 @@ import re
 import sys
 import time
 from random import randint
-from myutil import read_from_stdin, isfile
+
+from myutil import isfile, read_from_stdin
+
 
 def is_positive_integer(the_input):
     """ Checks if a number is a positive integer.

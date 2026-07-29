@@ -22,7 +22,8 @@ except ImportError:
     sys.exit(1)
 
 sys.path.insert(0, "..")
-from myutil import isfile, read_textfile, sha256sum, MyDebug, MyVerbose
+from myutil import MyDebug, MyVerbose, isfile, read_textfile, sha256sum
+
 
 class Solution(MyDebug, MyVerbose):
     ''' solution to read en.xml and output as csv-like data '''

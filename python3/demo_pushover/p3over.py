@@ -10,8 +10,8 @@ use module ==urllib== and ==http.client==
 import http.client
 import urllib
 from datetime import datetime
-from base_pushover import PushOverBase
 
+from base_pushover import PushOverBase
 
 MODULE_NAME = "p3over.py"
 

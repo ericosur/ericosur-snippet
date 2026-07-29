@@ -9,9 +9,8 @@ import random
 import re
 import sys
 import time
-from typing import List
 
-from myutil import get_home, read_jsonfile, isfile
+from myutil import get_home, isfile, read_jsonfile
 
 
 # pylint: disable=invalid-name

@@ -14,6 +14,7 @@ sys.path.insert(0, "../")
 sys.path.insert(0, "../../")
 from myutil import read_from_stdin  # type: ignore[import]
 
+
 class AlphaBravoCharlie:
     ''' NATO alpha bravo charlie '''
     nato_str = '''

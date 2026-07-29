@@ -7,6 +7,7 @@ read json and list
 import json
 import os
 import sys
+
 try:
     from rich import Console
     console = Console()
@@ -15,7 +16,7 @@ except ImportError:
     logd = print
 try:
     sys.path.insert(0, "..")
-    from myutil import read_jsonfile, isfile
+    from myutil import isfile, read_jsonfile
 except ImportError:
     print("Error: myutil module not found")
     sys.exit(1)

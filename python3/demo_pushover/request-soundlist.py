@@ -13,12 +13,14 @@ import argparse
 import json
 import os
 import sys
+
 import requests
 
 sys.path.insert(0, "./")
 sys.path.insert(0, "../")
 sys.path.insert(0, "python3/")
 from base_pushover import PushOverBase
+
 from myutil import read_jsonfile
 
 

@@ -24,6 +24,7 @@ Input from text (one character each line).
 
 from typing import ClassVar
 
+
 def logv(*args, **wargs):
     ''' logv '''
     print(*args, **wargs)

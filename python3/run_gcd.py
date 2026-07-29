@@ -16,6 +16,7 @@ import argparse
 from math import gcd as math_gcd
 from random import randint
 from timeit import timeit
+
 try:
     from numpy import gcd as numpy_gcd
     USE_NUMPY = True

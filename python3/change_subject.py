@@ -14,7 +14,7 @@ try this:
 import json
 import sys
 
-from myutil import read_jsonfile, DefaultConfig
+from myutil import DefaultConfig, read_jsonfile
 
 try:
     import random_string

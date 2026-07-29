@@ -5,6 +5,7 @@ demo percentage encoding
 '''
 
 import argparse
+
 from myutil import read_from_stdin
 from percent_encdec import percent_enc, show_unicode_escape
 

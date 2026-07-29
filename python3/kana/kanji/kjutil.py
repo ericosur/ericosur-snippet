@@ -4,10 +4,10 @@
 the utility functions
 '''
 
+import locale
 from datetime import date
 from decimal import Decimal
 from random import randint
-import locale
 
 try:
     from loguru import logger

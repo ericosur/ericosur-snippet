@@ -8,13 +8,14 @@ use typer to handle CLI
 '''
 
 import sys
-from typing import List, Optional, Annotated
+from typing import Annotated
 
 try:
     import typer
     print("version of typer:", typer.__version__)
-    from rich import print as rprint
     from loguru import logger
+
+    from rich import print as rprint
 except ImportError as e:
     print('[FAIL] failed to load module:', e)
     sys.exit(1)
@@ -78,7 +79,7 @@ class Main:
     # NEWER typer, use this way to set the default:
     # typer.Argument()] = None,
     #
-    def main(self, values: Annotated[Optional[list[int]],
+    def main(self, values: Annotated[list[int] | None,
                                      typer.Argument(help="specify values")] = None,
             after: Annotated[int,
                              typer.Option("--after", "-A", help="after nn year")] = 0,

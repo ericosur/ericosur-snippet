@@ -4,7 +4,6 @@
 ''' provide a recursive version of gcd '''
 
 import sys
-from typing import List
 
 from myutil import read_from_stdin
 

@@ -4,6 +4,7 @@
 
 import yaml
 
+
 def main():
     ''' main '''
     fn = "kanji.yaml"

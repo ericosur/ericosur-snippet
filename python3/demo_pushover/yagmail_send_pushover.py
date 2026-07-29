@@ -35,6 +35,7 @@ sys.path.insert(0, "../")
 sys.path.insert(0, "python3/")
 from myutil import isfile, read_jsonfile
 
+
 def main():
     ''' main '''
     data = read_jsonfile(append_path('gmail-app-local.json'))

@@ -14,7 +14,7 @@ from datetime import datetime
 from time import time
 
 sys.path.insert(0, "..")
-from myutil import read_jsonfile, MyDebug, DefaultConfig
+from myutil import DefaultConfig, MyDebug, read_jsonfile
 
 
 class PushOverBase(MyDebug):

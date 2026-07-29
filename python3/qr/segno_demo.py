@@ -6,7 +6,9 @@ module segno
 '''
 
 import os
+
 import segno
+
 
 def main():
     ''' main '''

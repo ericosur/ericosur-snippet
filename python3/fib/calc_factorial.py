@@ -6,6 +6,7 @@ to calculate factorial n!
 
 import pickle
 import sys
+
 #import random
 from math import ceil, log10
 

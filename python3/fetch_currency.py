@@ -7,6 +7,7 @@ use module request to fetch specified web page
 # pip install requests
 import requests
 
+
 def main():
     '''main functon'''
     r = requests.get('https://tw.rter.info/capi.php', timeout=5)

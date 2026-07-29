@@ -5,8 +5,9 @@ pydantic base model class
 '''
 
 from datetime import date
-from pydantic import BaseModel
+
 from loguru import logger
+from pydantic import BaseModel
 
 logd = logger.debug
 

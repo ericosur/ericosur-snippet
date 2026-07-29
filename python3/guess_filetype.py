@@ -5,7 +5,8 @@ demo of module filetype
 '''
 
 import sys
-from myutil import read_from_stdin, isfile
+
+from myutil import isfile, read_from_stdin
 
 try:
     import filetype  # type: ignore[import]

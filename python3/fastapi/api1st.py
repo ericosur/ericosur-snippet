@@ -15,23 +15,25 @@ $ uvicorn api1st:app --host 192.168.100.105 --port 5678
 
 import sys
 from time import time
-from typing import Union, List, Optional
 
-from fastapi import FastAPI
-from pydantic import BaseModel
-import numpy as np
 import numpy_financial as npf
+from pydantic import BaseModel
+
+import numpy as np
+from fastapi import FastAPI
 
 sys.path.insert(0, "../")
 sys.path.insert(0, "python3/")
 from myutil import prt
+
 sys.path.insert(0, "../../prime/")
 from is_prime import is_prime
+
 sys.path.insert(0, "../datetime/")
 sys.path.insert(0, "../datetime/dooms/")
 sys.path.insert(0, "python3/datetime/dooms/")
-from dooms_day import DoomsDay
 from be_prepared import prepare_values
+from dooms_day import DoomsDay
 
 app = FastAPI()
 @app.get("/")
@@ -55,9 +57,9 @@ def doomsday(year: int):
 class GivenValueAbc(BaseModel):
     ''' give year and abc '''
     value: int  # required field
-    after: Optional[int] = 0   # optional field
-    before: Optional[int] = 0
-    context: Optional[int] = 0
+    after: int | None = 0   # optional field
+    before: int | None = 0
+    context: int | None = 0
 
 @app.put("/dooms/{item_id}")
 def doomyears(item_id: int, years: GivenValueAbc):

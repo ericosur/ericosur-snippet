@@ -4,12 +4,14 @@
 filter list.txt and output to csv
 '''
 
-import re
 import operator
 import os
+import re
 import sys
-from rich import print as rprint
+
 from loguru import logger
+
+from rich import print as rprint
 
 sys.path.insert(0, "./")
 sys.path.insert(0, "../")

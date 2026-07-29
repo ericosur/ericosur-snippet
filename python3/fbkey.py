@@ -28,7 +28,7 @@ def exec_and_extract_hex(cmd):
 
     if DEBUG:
         print("program output:", out)
-    reg = re.compile(r'([0-9A-Fa-f]{5,})', flags=re.M)
+    reg = re.compile(r'([0-9A-Fa-f]{5,})', flags=re.MULTILINE)
     m = reg.search(out)
     if m:
         if DEBUG:
