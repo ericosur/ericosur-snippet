@@ -11,19 +11,20 @@ using pickle as cache
 
 import pickle
 import random
+import sys
+from pathlib import Path
 
-try:
-    from rich import print as rprint
-    USE_RICH = True
-except ImportError:
-    USE_RICH = False
-prt = rprint if USE_RICH else print
+# Add paths based on this file location (not current working directory)
+THIS_DIR = Path(__file__).resolve().parent
+PY3_DIR = THIS_DIR.parent
+MYUTIL_DIR = PY3_DIR.joinpath('myutil')
+sys.path.insert(0, str(PY3_DIR))
+sys.path.insert(0, str(MYUTIL_DIR))
+USE_RICH = True
+from basic.dict_test import USE_LOGURU
+from madlog import get_logd, get_prt
 
-try:
-    from loguru import logger
-    USE_LOGURU = True
-except ImportError:
-    USE_LOGURU = False
+prt = get_prt()
 
 def do_nothing(*_args, **_wargs) -> None:
     ''' do nothing '''
@@ -31,7 +32,7 @@ def do_nothing(*_args, **_wargs) -> None:
 
 DEBUG = True
 if DEBUG:
-    logd = logger.debug if USE_LOGURU else print
+    logd = get_logd(warn_msg="[warn] cannot import loguru", warn_printer=prt, use_loguru=USE_LOGURU)
 else:
     logd = do_nothing
 

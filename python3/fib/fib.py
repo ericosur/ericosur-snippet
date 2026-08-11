@@ -11,16 +11,19 @@ It took 23.81 sec to calculate fib(40)
 
 '''
 
+import sys
 from datetime import datetime
+from pathlib import Path
 from socket import gethostname
 from timeit import default_timer
 
-try:
-    from rich.console import Console
-    #from rich.markdown import Markdown
-    USE_RICH = True
-except ImportError:
-    USE_RICH = False
+# Add paths based on this file location (not current working directory)
+THIS_DIR = Path(__file__).resolve().parent
+PY3_DIR = THIS_DIR.parent
+MYUTIL_DIR = PY3_DIR.joinpath('myutil')
+sys.path.insert(0, str(PY3_DIR))
+sys.path.insert(0, str(MYUTIL_DIR))
+USE_RICH = True
 
 
 def fib(n: int) -> int:
@@ -31,7 +34,7 @@ def fib(n: int) -> int:
 
 def prepare_msg(duration: float, ulimit: int) -> None:
     ''' prepare message '''
-    dt = datetime.today().strftime('%Y-%m-%d')
+    dt = datetime.now().astimezone().strftime('%Y-%m-%d')
     hostname = gethostname()
     msg = f'{dt} Host({hostname}) takes {duration:.3f} seconds to get fib({ulimit})'
     print(msg)
@@ -44,7 +47,8 @@ def test() -> None:
 
     time_start = default_timer()
     if USE_RICH:
-        console = Console()
+        from madlog import get_console
+        console = get_console()
         with console.status("[bold green]running...[/]", spinner="dots") as _status:
             r = fib(m)
     else:
