@@ -9,25 +9,15 @@
 - [RFC 3339](https://www.rfc-editor.org/rfc/rfc3339)
 '''
 
-#import datetime
-#import sys
-try:
-    from rich.pretty import pprint
-    USE_RICH = True
-except ImportError:
-    USE_RICH = False
-from load_toml import LoadToml
+from load_toml import LoadToml, prt
 
-from madlog import get_prt
-
-prt = get_prt()
 
 def test0():
     ''' test0 '''
     # Load data from a TOML file
     obj = LoadToml('dates.toml')
     dates = obj.get_data()
-
+    assert dates is not None
     start = dates['start']
     end = dates['end']
     for i in range(start, end+1):

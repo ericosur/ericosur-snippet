@@ -8,15 +8,13 @@ import os
 import re
 from sysconfig import get_platform
 
-try:
-    from rich import print as pprint
-    USE_RICH = True
-except ImportError:
-    USE_RICH = False
+from basic_common import setup_local_paths
+
+setup_local_paths()
 from madlog import get_prt
 
+USE_COLOR = True
 prt = get_prt()
-
 
 PLAT = get_platform()
 
@@ -36,7 +34,7 @@ def is_linux() -> bool:
 
 def yes_no(is_yes: bool, prefix=None, postfix='') -> None:
     ''' yea or no '''
-    if USE_RICH:
+    if USE_COLOR:
         yes_no_color(is_yes, prefix=prefix, postfix=postfix)
         return
     msg = ''
@@ -49,7 +47,7 @@ def yes_no(is_yes: bool, prefix=None, postfix='') -> None:
 
 def yes_no_color(is_yes: bool, prefix=None, postfix='') -> None:
     ''' color version '''
-    if not USE_RICH:
+    if not USE_COLOR:
         return
 
     msg = prefix if prefix is not None else ''
@@ -79,7 +77,7 @@ def main():
         '/data/data/com.termux/files/home/src/ericosur-snippet/python3/basic',
     ]
     for i,d in enumerate(srcs):
-        if USE_RICH:
+        if USE_COLOR:
             prefix=f'test #{i} check_src: [yellow]{d}[/]'
         else:
             prefix=f'test #{i} check_src: {d}'

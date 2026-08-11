@@ -5,25 +5,9 @@ example to read config.toml
 https://docs.python.org/zh-tw/dev/library/tomllib.html
 '''
 
-from load_toml import LoadToml
+from load_toml import LoadToml, logd, prt
 
 import numpy as np
-
-try:
-    from rich import print as pprint
-    USE_RICH = True
-except ImportError:
-    USE_RICH = False
-from madlog import get_prt
-
-prt = get_prt()
-
-try:
-    from loguru import logger
-    USE_LOGURU = True
-except ImportError:
-    USE_LOGURU = False
-logd = logger.debug if USE_LOGURU else print
 
 
 def test_np():

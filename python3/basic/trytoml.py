@@ -20,11 +20,9 @@ except ModuleNotFoundError:
     print('[INFO] no tomllib, exit...')
     sys.exit(1)
 
-try:
-    from rich import print as pprint
-    USE_RICH = True
-except ImportError:
-    USE_RICH = False
+from basic_common import setup_local_paths
+
+setup_local_paths()
 from madlog import get_prt
 
 prt = get_prt()
@@ -40,6 +38,7 @@ class Solution:
     def test():
         ''' test '''
         # parse a long string
+        assert __doc__ is not None
         s = tomllib.loads(__doc__)
         prt(s)
         prt()

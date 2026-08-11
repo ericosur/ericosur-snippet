@@ -5,30 +5,24 @@ bytes to string
 string to bytes
 '''
 
-from madlog import get_prt
-
-prt = get_prt()
-
-try:
-    from loguru import logger  # type: ignore[import]
-    USE_LOGG = True
-except ImportError:
-    USE_LOGG = False
 
 try:
     from hexdump import hexdump  # type: ignore[import  ]
     USE_DUMP = True
 except ImportError:
-    print('need install module hexdump')
-    #sys.exit(1)
+    print('no module hexdump need `pip install hexdump`')
     USE_DUMP = False
 
-def nothing(*_args, **_kwargs) -> None:
-    ''' do donothing'''
-    return
+from basic_common import do_nothing, setup_local_paths
 
-logd = logger.debug if USE_LOGG else nothing
-dump = hexdump if USE_DUMP else nothing
+setup_local_paths()
+from madlog import get_logd, get_prt
+
+hexdump = do_nothing
+USE_LOGURU = True
+prt = get_prt()
+logd = get_logd(warn_msg="[warn] cannot import loguru", warn_printer=prt, use_loguru=USE_LOGURU)
+dump = hexdump if USE_DUMP else print
 
 
 def b2s(byte_array: bytes) -> str:

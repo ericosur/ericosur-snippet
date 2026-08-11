@@ -3,11 +3,10 @@
 '''
 simple python dict usage
 '''
-try:
-    from rich import print as pprint
-    USE_RICH = True
-except ImportError:
-    USE_RICH = False
+
+from basic_common import setup_local_paths
+
+setup_local_paths()
 from madlog import get_prt
 
 prt = get_prt()
@@ -18,9 +17,6 @@ def main():
     for key, value in d.items():
         prt(f"{key} => {value}")
 
-    # pylint not recommend:
-    #for key in d.keys():
-    #    print(key, '=>', d[key])
 
 if __name__ == '__main__':
     main()
