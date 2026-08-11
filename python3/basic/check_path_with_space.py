@@ -6,16 +6,20 @@ platform and its path
 
 import os
 import re
+import sys
+
 from sysconfig import get_platform
 
 from basic_common import setup_local_paths
-
-setup_local_paths()
-from madlog import get_prt
+try:
+    setup_local_paths()
+    from madlog import get_prt
+except ModuleNotFoundError:
+    print('[INFO] no basic_common or madlog, exit...')
+    sys.exit(1)
 
 USE_COLOR = True
 prt = get_prt()
-
 PLAT = get_platform()
 
 def is_win() -> bool:
@@ -58,7 +62,6 @@ def yes_no_color(is_yes: bool, prefix=None, postfix='') -> None:
 
 def check_src(src: str) -> bool:
     ''' check if the src is ok '''
-    #rprint(f'check_src: [yellow]{src}')
     return os.path.isdir(src)
 
 def main():

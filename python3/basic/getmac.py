@@ -8,40 +8,28 @@ import os
 import re
 import sys
 
+from basic_common import setup_local_paths
 try:
-    from rich.console import Console
-    RICH_ENABLED = True
-    console = Console()
-    logd = console.log
-except ImportError:
-    RICH_ENABLED = False
-    logd = print
-
-from madlog import get_prt
-
-prt = get_prt()
-
-try:
-    sys.path.insert(0, './')
-    sys.path.insert(0, '../')
-    sys.path.insert(0, 'python3/')
-    home = os.environ.get('HOME')
-    abs_path = os.path.join(home, 'src/ericosur-snippet/python3')
-    sys.path.insert(0, abs_path)
+    setup_local_paths()
+    from madlog import get_prt
     from myutil import (  # type: ignore[import]
         is_linux,
         run_command,  # type: ignore[import]
         show_platform,
     )
-except ImportError:
-    print("cannot import local modules")
+except ModuleNotFoundError:
+    print('[INFO] no basic_common or madlog, exit...')
+    sys.exit(1)
+
+prt = get_prt()
+
 
 def run_in_termux() -> bool:
     ''' get prefix '''
     p = os.environ.get('PREFIX')
     if p is None:
         return False
-    p = p.decode('utf-8')
+    #p = p.decode('utf-8')
     return "com.termux" in p
 
 def get_macaddr():
