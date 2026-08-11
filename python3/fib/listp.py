@@ -17,7 +17,7 @@ except ImportError as err:
 
 def is_prime(n):
     ''' use sympy.ntheory to test primes '''
-    return ntheory.primetest.isprime(n)
+    return ntheory.isprime(n)
 
 def load_pickle(fn):
     ''' load pickle file '''

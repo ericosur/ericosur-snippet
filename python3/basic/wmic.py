@@ -24,15 +24,15 @@ import time
 from sysconfig import get_platform
 
 try:
-    #from rich import print as pprint
     from rich.console import Console
-    from rich.pretty import pprint
-    prt = pprint
     console = Console()
     logd = console.log
 except ImportError:
-    prt = print
     logd = print
+
+from madlog import get_prt
+
+prt = get_prt()
 
 def is_cygwin() -> bool:
     ''' is cygwin

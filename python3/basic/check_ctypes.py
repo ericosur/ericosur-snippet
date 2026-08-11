@@ -14,15 +14,12 @@ try:
 except ImportError as err:
     print('Import Error:', err)
 
-#import os
-#import re
 import sys
-try:
-    from rich import print as pprint
-    USE_RICH = True
-except ImportError:
-    USE_RICH = False
-prt = pprint if USE_RICH else print
+
+from madlog import get_prt
+    
+prt = get_prt()
+
 
 def test():
     ''' test '''

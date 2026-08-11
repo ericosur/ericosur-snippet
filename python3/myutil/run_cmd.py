@@ -14,7 +14,9 @@ try:
     USE_RICH = True
 except ImportError:
     USE_RICH = False
-prt = rprint if USE_RICH else print
+from madlog import get_prt
+
+prt = get_prt()
 
 
 def is_cygwin() -> bool:

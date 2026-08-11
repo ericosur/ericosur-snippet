@@ -8,12 +8,9 @@ import os
 import re
 import sys
 
-try:
-    #from rich import print as pprint
-    from rich.pretty import pprint
-    prt = pprint
-except ImportError:
-    prt = print
+from madlog import get_prt
+
+prt = get_prt()
 try:
     from read_os_release import is_ubuntu1804
     sys.path.insert(0, './')
