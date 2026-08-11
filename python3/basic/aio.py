@@ -6,16 +6,19 @@ a demo of asyncio, threading id,
 
 import asyncio
 import concurrent.futures
+import sys
 import threading
 from random import randint
 from timeit import default_timer
-
-from basic_common import setup_local_paths
-
 import numpy as np
 
-setup_local_paths()
-from madlog import get_logd, get_prt
+from basic_common import setup_local_paths
+try:
+    setup_local_paths()
+    from madlog import get_logd, get_prt
+except ModuleNotFoundError:
+    print('[INFO] no basic_common or madlog, exit...')
+    sys.exit(1)
 
 prt = get_prt()
 logd = get_logd()

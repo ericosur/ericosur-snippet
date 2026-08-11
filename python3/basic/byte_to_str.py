@@ -5,6 +5,9 @@ bytes to string
 string to bytes
 '''
 
+import sys
+
+from basic_common import setup_local_paths
 
 try:
     from hexdump import hexdump  # type: ignore[import  ]
@@ -12,13 +15,14 @@ try:
 except ImportError:
     print('no module hexdump need `pip install hexdump`')
     USE_DUMP = False
+try:
+    setup_local_paths()
+    from madlog import get_logd, get_prt
+except ModuleNotFoundError:
+    print('[INFO] no basic_common or madlog, exit...')
+    sys.exit(1)
 
-from basic_common import do_nothing, setup_local_paths
-
-setup_local_paths()
-from madlog import get_logd, get_prt
-
-hexdump = do_nothing
+hexdump = None
 USE_LOGURU = True
 prt = get_prt()
 logd = get_logd(warn_msg="[warn] cannot import loguru", warn_printer=prt, use_loguru=USE_LOGURU)

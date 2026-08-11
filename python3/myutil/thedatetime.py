@@ -5,11 +5,16 @@
 '''
 
 import time
-from datetime import datetime
-from zoneinfo import ZoneInfo
+from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 __VERSION__ = "2026.07.24"
-TAIPEI_TZ = ZoneInfo("Asia/Taipei")
+
+try:
+    # On some Windows Python environments, IANA tzdata may be unavailable.
+    TAIPEI_TZ = ZoneInfo("Asia/Taipei")
+except ZoneInfoNotFoundError:
+    TAIPEI_TZ = timezone(timedelta(hours=8))
 
 
 def get_epoch() -> int:
@@ -31,7 +36,7 @@ def __what_now() -> None:
     '''
         what now
     '''
-    now = datetime.now(tz=TAIPEI_TZ)
+    now = datetime.now().astimezone()
     # Extract hour and minute
     print(f'{now.year=}')   # date +%Y
     print(f'{now.month=}')  # date +%m
@@ -51,7 +56,7 @@ class WhatNow:
 
     def _setup(self):
         ''' fill up the data members '''
-        t = datetime.now(tz=TAIPEI_TZ)
+        t = datetime.now().astimezone()
         self.year = t.year
         self.month = t.month
         self.day = t.day
