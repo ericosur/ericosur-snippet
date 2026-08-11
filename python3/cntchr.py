@@ -9,7 +9,7 @@ from random import randint
 
 def get_freq(s: str) -> None:
     ''' get frequency, got a dict with key and frequency '''
-    cc = sorted(list(s))
+    cc = sorted(s)
     d : dict[str,int] = {}
     for c in cc:
         if c == ' ':    # skip space
@@ -21,39 +21,39 @@ def get_freq(s: str) -> None:
     for k in sorted(d.keys()):
         print(f'{k}: {d[k]}, ', end='')
 
-def test_group(a: list):
+def test_group(a: list) -> dict[str, int]:
     ''' test group returns a dict '''
     d = {}
     for key, group in groupby(a):
         d[key] = len(list(group))
     return d
 
-def test_freq(a: list):
+def test_freq(a: list) -> list[int]:
     ''' groupby oneliner a list with frequency '''
     f = [len(list(group)) for key, group in groupby(a)]
     return f
 
-def gen_list(n: int, lower=1, upper=9):
+def gen_list(n: int, lower=1, upper=9) -> list[int]:
     ''' gen a sorted list of int with n elements '''
     a = [randint(lower, upper) for _ in range(n)]
     return sorted(a)
 
-def test1():
+def test1() -> None:
     ''' test #1 '''
     s = 'the quick brown fox jumps over the lazy dog'
     get_freq(s)
 
-def test2():
+def test2() -> None:
     ''' test #2 '''
     a = gen_list(30)
     print(test_freq(a))
     print(test_group(a))
 
 
-def main():
+def main() -> None:
     ''' main '''
     test1()
-
+    test2()
 
 if __name__ == '__main__':
     main()
