@@ -72,10 +72,8 @@ class MakeDirname:
         if self.fn is None:
             return None
         with open(self.fn, "rt", encoding="UTF-8") as fobj:
-            cnt = 0
             for ln in fobj:
                 ln = ln.strip()
-                cnt += 1
                 m = re.match(r'^#(.+)$', ln)
                 if m:
                     s = re.sub(r'[-_= ]', '', m[1])

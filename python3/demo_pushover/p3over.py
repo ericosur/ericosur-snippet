@@ -8,7 +8,7 @@ use module ==urllib== and ==http.client==
 '''
 
 import http.client
-import urllib
+import urllib.parse
 from datetime import datetime
 
 from base_pushover import PushOverBase
@@ -28,11 +28,11 @@ class PushOverUrllib(PushOverBase):
         ''' sound of notification '''
         return self._sound
     @sound.setter
-    def title(self, val: str):
+    def sound(self, val: str):
         ''' setter of sound '''
         self._sound = val
 
-    def shoot(self):
+    def shoot(self) -> None:
         '''
         pushover.net messages api reference:
         https://pushover.net/api#messages
@@ -57,9 +57,9 @@ class PushOverUrllib(PushOverBase):
     @classmethod
     def run(cls):
         ''' run '''
-        ts = datetime.today().strftime('%a %d %b %Y, %H:%M') # Wed 24 May 2023, 14:49
+        td = datetime.now().astimezone().strftime('%a %d %b %Y, %H:%M') # Wed 24 May 2023, 14:49
         # strftime('%Y-%m-%d %H:%M:%S')  '2023-05-24 14:50:25'
-        msg = f'notification on {ts} via urllib'
+        msg = f'notification on {td} via urllib'
 
         obj = cls(msg=msg, title='demo by p3over.py')
         obj.shoot()

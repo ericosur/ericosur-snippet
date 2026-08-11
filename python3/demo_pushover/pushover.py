@@ -17,12 +17,21 @@ import platform
 import sys
 import time
 import urllib
+import urllib.parse
 from datetime import datetime
+from pathlib import Path
 
-sys.path.insert(0, "./")
-sys.path.insert(0, "../")
-sys.path.insert(0, "python3/")
-from myutil import read_jsonfile
+# Add paths based on this file location (not current working directory)
+THIS_DIR = Path(__file__).resolve().parent
+PY3_DIR = THIS_DIR.parent
+MYUTIL_DIR = PY3_DIR.joinpath('myutil')
+sys.path.insert(0, str(PY3_DIR))
+sys.path.insert(0, str(MYUTIL_DIR))
+try:
+    from myutil import read_jsonfile
+except ImportError:
+    print('[FAIL] cannot import read_jsonfile from myutil')
+    sys.exit(1)
 
 
 def get_host():
@@ -40,7 +49,7 @@ class Foobar:
     def __init__(self, msg):
         (self.userkey, self.apitoken) = self.get_apikey()
         self.title = 'pushover.py'
-        self.message = f'{get_host()}: {msg} at {datetime.now()}'
+        self.message = f'{get_host()}: {msg} at {datetime.now().astimezone()}'
 
     def __str__(self):
         return 'userkey: {self.userkey}\napitoken: {self.apitoken}'

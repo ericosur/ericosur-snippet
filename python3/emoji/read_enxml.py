@@ -9,7 +9,7 @@ read en.xml and output to csv
 
 import csv
 import sys
-from datetime import date
+from datetime import datetime
 from typing import ClassVar
 
 try:
@@ -44,8 +44,12 @@ class Solution:
 
     def make_soup(self) -> None:
         ''' parse xml from content, store into self.emoji '''
+        assert self.content is not None
         soup = BeautifulSoup(self.content, features='xml')
         t = soup.find('annotations')
+        if t is None:
+            print('[WARN] <annotations> not found in XML')
+            return
         anns = t.find_all('annotation')
         for i in anns:
             key = i['cp']
@@ -60,12 +64,12 @@ class Solution:
                 self.emoji[key].append(i.text)
 
     @staticmethod
-    def value_to_string(v: list) -> list:
+    def value_to_string(v: list) -> str:
         ''' value to string '''
         s = ''
         for i in v:
             s += '"' + i + '"' + ','
-        # remove the extra ,
+        # remove the last comma at tail, return str
         return s[:-1]
 
 
@@ -92,7 +96,7 @@ class Solution:
 
 def get_datetag() -> str:
     ''' string in UMMDD '''
-    today = date.today()
+    today = datetime.now().astimezone().date()
     s = f'U{today.month:02d}{today.day:02d}'
     return s
 

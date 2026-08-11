@@ -11,10 +11,20 @@ pushover base class
 import abc
 import sys
 from datetime import datetime
+from pathlib import Path
 from time import time
 
-sys.path.insert(0, "..")
-from myutil import DefaultConfig, MyDebug, read_jsonfile
+# Add paths based on this file location (not current working directory)
+THIS_DIR = Path(__file__).resolve().parent
+PY3_DIR = THIS_DIR.parent
+MYUTIL_DIR = PY3_DIR.joinpath('myutil')
+sys.path.insert(0, str(PY3_DIR))
+sys.path.insert(0, str(MYUTIL_DIR))
+try:
+    from myutil import DefaultConfig, MyDebug, read_jsonfile
+except ImportError:
+    print('[FAIL] cannot import read_jsonfile from myutil')
+    sys.exit(1)
 
 
 class PushOverBase(MyDebug):
@@ -31,7 +41,7 @@ class PushOverBase(MyDebug):
 
         # default data fields
         self._title = 'pushover.py'
-        self._message = f'{msg} at {datetime.now()}'
+        self._message = f'{msg} at {datetime.now().astimezone().isoformat(timespec="seconds")}'
         self.resp_str = None
 
     def __str__(self):
@@ -47,9 +57,8 @@ class PushOverBase(MyDebug):
         return self.userkey and self.apitoken
 
     @abc.abstractmethod
-    def shoot(self):
+    def shoot(self) -> None:
         ''' shoot, the inherited class MUST implement this function '''
-        return NotImplemented
 
     @property
     def title(self) -> str:
@@ -72,23 +81,23 @@ class PushOverBase(MyDebug):
     @property
     def device(self) -> str:
         ''' device name of notification '''
-        return self._device
+        return 'unknown' if self._device is None else self._device
     @device.setter
     def device(self, val: str):
         ''' setter for device '''
         self._device = val
 
     @staticmethod
-    def get_timestamp():
+    def get_timestamp() -> int:
         ''' get timestamp '''
         return int(time())
 
-    def show_resp(self):
+    def show_resp(self) -> None:
         ''' print resp '''
         if self.resp_str is not None:
             print(self.resp_str)
 
-    def get_apikey(self):
+    def get_apikey(self) -> bool:
         ''' get apikey '''
         FN = 'pushover-net.json'
         config = DefaultConfig(FN).get_default_config()
@@ -101,7 +110,7 @@ class PushOverBase(MyDebug):
 
         self.userkey = data.get('userkey')
         self.apitoken = data.get('apitoken')
-        self._device = data.get('device')
+        self._device = data.get('device') or 'unknown'
         return True
 
 
