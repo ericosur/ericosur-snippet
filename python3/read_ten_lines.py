@@ -11,9 +11,7 @@ def main():
     ''' main '''
     fn = 'prime.txt'
     with open(fn, 'rt', encoding='utf-8') as fin:
-        cnt = 0
-        for ln in fin:
-            cnt += 1
+        for cnt, ln in enumerate(fin, 1):
             if cnt > 10:
                 break
             print(ln.strip())
