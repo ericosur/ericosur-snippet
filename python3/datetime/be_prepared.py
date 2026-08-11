@@ -6,10 +6,14 @@ for exampe, given year=2024, radius(context)=2
 will retrun a list: [2022,2023,2024,2025,2026]
 '''
 
-from datetime import datetime, timezone
-from zoneinfo import ZoneInfo
+from datetime import date, datetime, timezone, timedelta
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-TAIPEI_TZ = ZoneInfo("Asia/Taipei")
+try:
+    # On some Windows Python environments, IANA tzdata may be unavailable.
+    TAIPEI_TZ = ZoneInfo("Asia/Taipei")
+except ZoneInfoNotFoundError:
+    TAIPEI_TZ = timezone(timedelta(hours=8))
 
 def get_utc_thisyear() -> int:
     ''' get this year UTC '''
@@ -17,28 +21,28 @@ def get_utc_thisyear() -> int:
 
 def get_thisyear() -> int:
     ''' get this year in local timezone '''
-    return datetime.now(tz=TAIPEI_TZ).year
+    return datetime.now().astimezone().year
 
 def get_current_utc_datetime() -> datetime:
     ''' get this year UTC as datetime '''
     return datetime.now(tz=timezone.utc)
 
 def get_current_local_datetime() -> datetime:
-    return get_current_taipei_datetime()
+    return datetime.now().astimezone()
 
 def get_current_taipei_datetime() -> datetime:
     ''' get current datetime in Taipei timezone '''
     return datetime.now(tz=TAIPEI_TZ)
 
-def get_today() -> datetime.date:
+def get_today() -> date:
+    ''' get today date in local timezone '''
+    return get_current_local_datetime().date()
+
+def get_local_today() -> date:
     ''' get today date in Taipei timezone '''
     return get_current_taipei_datetime().date()
 
-def get_local_today() -> datetime.date:
-    ''' get today date in Taipei timezone '''
-    return get_current_taipei_datetime().date()
-
-def get_utc_today() -> datetime.date:
+def get_utc_today() -> date:
     ''' get today date in UTC timezone '''
     return get_current_utc_datetime().date()
 

@@ -19,26 +19,17 @@ import sys
 from collections.abc import Callable
 from typing import Any
 
-sys.path.insert(0, "..")
-sys.path.insert(0, "../datetime/")
-sys.path.insert(0, "../../python3/datetime/")
-from be_prepared import get_thisyear  # type: ignore[import]
-from nothing import do_nothing  # type: ignore[import]
-
+from tgdz_common import setup_local_paths  # type: ignore[import]
 try:
-    from rich.console import Console
-
-    from rich import print as rprint
-    USE_RICH = True
-    prt = rprint
-    console = Console()
-    clog = console.log
+    setup_local_paths()
+    from madlog import get_prt, get_logd  # type: ignore[import]
+    from be_prepared import get_thisyear  # type: ignore[import]
+    from nothing import do_nothing  # type: ignore[import]
 except ImportError:
-    #print("[WARN] no rich.console to use")
-    USE_RICH = False
-    prt = print
-    clog = print
+    pass
 
+prt = get_prt()
+logd = get_logd()
 
 class GanChi:
     ''' 提供 天干地支紀年有關的功能 '''
@@ -163,7 +154,7 @@ class GanChi:
         ''' test #0 '''
         logd = self.log
         logd("test0...")
-        console.print('[INFO] I [red]DO NOT recommend[/red] year in negative value')
+        prt('[INFO] I [red]DO NOT recommend[/red] year in negative value')
         for y in [-2997, -720, 1894, 1912, 1975, 1995, 2012, 2023]:
             res = self.to_gc(y)
             print(f'{y} is {res}')
@@ -179,9 +170,9 @@ class GanChi:
                 logd(f'ans: {ans}')
                 return
             if expect == ans:
-                console.print('pass')
+                logd('pass')
             else:
-                console.print('FAIL')
+                logd('FAIL')
 
         logd("test1...")
         run_test(-3, 0, [])
@@ -201,9 +192,6 @@ class GanChi:
 
 def show(color: str, msg: str) -> None:
     ''' show '''
-    if not USE_RICH:
-        print(msg)
-        return
     prt(f'[{color}]{msg}')
 
 def do_values(values: list[int], target=0, radius: int=0,

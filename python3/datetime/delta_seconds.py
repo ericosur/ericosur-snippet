@@ -6,15 +6,21 @@ get delta seconds from specified time point
 
 import argparse
 import datetime
+import sys
 
-from be_prepared import TAIPEI_TZ
 
 try:
-    from rich.console import Console
     from rich.table import Table
     RICH_ENABLED = True
 except ImportError:
     RICH_ENABLED = False
+
+try:
+    from datetime_common import prt
+    from be_prepared import TAIPEI_TZ
+except ImportError as e:
+    print('[WARN] import error: ', e)
+    sys.exit(1)
 
 class Solution:
     ''' a class to calculate delta seconds '''
@@ -41,7 +47,7 @@ class Solution:
         ''' show delta seconds as a table '''
         if not RICH_ENABLED:
             raise ImportError("rich is not available")
-        console = Console() # type: ignore
+
         table = Table(title=self.title) # type: ignore
         table.add_column(f"Power of {Solution.base}", justify="right", style="cyan")
         table.add_column("DateTime", justify="left", style="magenta")
@@ -50,7 +56,7 @@ class Solution:
             delta_time = Solution.get_delta(i)
             delta_days = (delta_time - Solution.get_now()).days
             table.add_row(str(i), str(delta_time), str(delta_days))
-        console.print(table)
+        prt(table)
 
     def show_by_print(self):
         ''' show delta seconds by print '''

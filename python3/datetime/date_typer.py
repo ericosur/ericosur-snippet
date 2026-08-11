@@ -20,12 +20,13 @@ except ImportError as e:
 app = typer.Typer(context_settings={"help_option_names": ["-h", "--help"]},
                   help="epoch / timestamp utility",
                   no_args_is_help=True)
-sys.path.insert(0, "..")
-sys.path.insert(0, "datetime")
-sys.path.insert(0, "myutil")
-sys.path.insert(0, "python3/datetime")
-from ep import datetime2epoch, epoch2timestr
-from nothing import do_nothing
+
+try:
+    from datetime_common import do_nothing
+    from ep import datetime2epoch, epoch2timestr
+except ImportError as e:
+    print("fail to import:", e)
+    sys.exit(1)
 
 
 def run_demo() -> None:

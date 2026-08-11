@@ -8,15 +8,11 @@
 
 import sys
 
-from doom_today import get_today
 
 try:
-    from dooms_day import DoomsDay
-    sys.path.insert(0, '../../')
-    sys.path.insert(0, 'python3')
-    from myutil import prt
+    from dooms_day import DoomsDay, get_today, prt
 except ImportError:
-    prt('cannot import dooms_day, exit')
+    print('cannot import dooms_day, exit')
     sys.exit(1)
 
 WEEKDAY_NOTE = '0: Sun, 1: Mon, 2: Tue..., 6: Sat'

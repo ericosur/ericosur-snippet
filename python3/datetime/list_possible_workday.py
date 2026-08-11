@@ -42,25 +42,14 @@ except ImportError:
     print('[WARN] no CLI options available')
     USE_TYPER = False
 
-from be_prepared import TAIPEI_TZ, get_thisyear, get_today
 
-# try:
-#     from loguru import logger
-#     _logd = logger.debug
-# except ImportError:
-#     _logd = print
 
 try:
-    from rich.console import Console
-    console = Console()
-    _logd = console.log
-except ImportError:
-    _logd = print
-
-try:
-    from nothing import do_nothing
-except ImportError:
-    print('[WARN] no module nothing, please check the module')
+    from datetime_common import do_nothing
+    from datetime_common import logd as _logd
+    from be_prepared import TAIPEI_TZ, get_thisyear, get_today
+except ImportError as e:
+    print('[WARN] no module nothing, please check the module', e)
     sys.exit(1)
 
 def print_stderr(*_args: Any, **_kwargs: Any) -> None:

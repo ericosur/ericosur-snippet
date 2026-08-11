@@ -3,23 +3,22 @@
 計算 1/9801 的小數部分，並輸出其循環位數長度及內容。
 '''
 
+import sys
+
 from decimal import Decimal, getcontext
 from math import gcd
-
 from sympy import factorint
 
 try:
-    from rich.console import Console
-    console = Console()
-    logd = console.log
-except ImportError:
-    logd = print
+    from basic_common import logd as _logd
+    from basic_common import do_nothing
+except ImportError as e:
+    print('fail to load module: ', e)
+    sys.exit(1)
 
-def do_nothing(*_args, **_wargs) -> None:
-    ''' do nothing'''
-    return
+DEBUG = True
 
-logd = do_nothing
+logd = _logd if DEBUG else do_nothing
 
 class Solution:
     ''' Solution class '''

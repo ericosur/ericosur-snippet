@@ -18,20 +18,17 @@ try:
 except ImportError:
     USE_TYPER = False
     print('warn: failed to import typer, only demo, no CLI...')
-try:
-    from rich.console import Console
-    from rich.table import Table
 
-    from rich import print as rprint
+try:
+    from rich.table import Table
     USE_RICH = True
-    console = Console()
-    logd = console.log
 except ImportError:
     USE_RICH = False
-    logd = print
+
+
 try:
+    from datetime_common import prt, logd
     from be_prepared import get_thisyear, get_year_color, prepare_values
-    #from nothing import do_nothing
 except ImportError:
     print('cannot import necessary modules: be_prepared, nothing')
     sys.exit(1)
@@ -48,7 +45,7 @@ def calculate_easter(year: int) -> date:
     h = (19 * a + b - d - g + 15) % 30
     i = c // 4
     k = c % 4
-    l = (32 + 2 * e + 2 * i - h - k) % 7
+    l = (32 + 2 * e + 2 * i - h - k) % 7  # noqa: E741
     m = (a + 11 * h + 22 * l) // 451
     month = (h + l - 7 * m + 114) // 31
     day = ((h + l - 7 * m + 114) % 31) + 1
@@ -69,7 +66,7 @@ class Solution:
         for r in self.results:
             if USE_RICH:
                 clr = get_year_color(r.year, target_year=target)
-                rprint(f'[{clr}]{r}')
+                prt(f'[{clr}]{r}')
             else:
                 print(r)
 
@@ -87,7 +84,7 @@ class Solution:
             clr = get_year_color(r.year, target_year=get_thisyear())
             mmdd = date_for_table(r)
             table.add_row(f"[{clr}]{r.year}[/]", f"[{clr}]{mmdd}[/]", f"[{clr}]{r}[/]")
-        console.print(table)
+        prt(table)
 
     def show_results(self) -> None:
         ''' _show '''

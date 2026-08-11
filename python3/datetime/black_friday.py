@@ -17,23 +17,22 @@ try:
 except ImportError:
     print('[WARN] no module typer, not support CLI options')
     USE_TYPER = False
-try:
-    from rich.console import Console
-    from rich.table import Table
 
-    from rich import print as rprint
+try:
+    from rich.table import Table
     USE_RICH = True
-    console = Console()
-    consolelog = console.log
 except ImportError as e:
     USE_RICH = False
-    print('import error of module rich', e)
+    print('import error of module rich.table', e)
+
 try:
+    from datetime_common import do_nothing, prt, logd
     from be_prepared import get_thisyear, get_year_color, prepare_values
-    from nothing import do_nothing
-except ImportError:
-    print('import error of be_prepared, please check the module')
+except ImportError as e:
+    print('import error of be_prepared, please check the module', e)
     sys.exit(1)
+
+
 
 
 def get_blackfridays_from_this_year(the_year: int) -> list[date]:
@@ -55,7 +54,7 @@ def show_date(dd: date) -> None:
     ''' show date '''
     if USE_RICH:
         clr = get_year_color(dd.year, target_year=-1)
-        rprint(f'[{clr}]{dd}[/]')
+        prt(f'[{clr}]{dd}[/]')
     else:
         print(dd)
 
@@ -134,7 +133,7 @@ class Solution:
                         table.add_row('', date_for_table(dd))
             else:
                 table.add_row(str(y), 'No black Friday found')
-        console.print(table)
+        prt(table)
 
     def iterate_years(self):
         ''' iterate years '''
@@ -176,10 +175,6 @@ if USE_TYPER:
         '''
         logd = do_nothing
         if verbose:
-            if USE_RICH:
-                logd = consolelog
-            else:
-                logd = print
             logd('[DEBUG] debug mode enabled')
         if demo or values is None:
             logd('[INFO] run the demo')
