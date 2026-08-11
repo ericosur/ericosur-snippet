@@ -7,30 +7,20 @@ demo how to print a long multi lines
 replace lambda in map()
 
 '''
-try:
-    from rich.pretty import pprint
 
-    from rich import print as rprint
-    USE_RICH = True
-except ImportError:
-    USE_RICH = False
-from madlog import get_prt
+
+from basic_common import setup_local_paths
+
+setup_local_paths()
+from madlog import get_logd, get_prt
 
 prt = get_prt()
-
-try:
-    from loguru import logger
-    USE_LOGURU = True
-except ImportError:
-    USE_LOGURU = False
-logd = logger.debug if USE_LOGURU else print
+USE_LOGURU = True
+logd = get_logd(warn_msg="[warn] cannot import loguru", warn_printer=prt, use_loguru=USE_LOGURU)
 
 
 def print_dict(**foo):
     ''' print content of dict '''
-    if USE_RICH:
-        pprint(foo)
-        return
     for k, v in foo.items():
         prt(k, "=>", v)
 

@@ -5,13 +5,16 @@ a demo of asyncio, threading id,
 '''
 
 import asyncio
-import concurrent
+import concurrent.futures
 import threading
 from random import randint
 from timeit import default_timer
 
+from basic_common import setup_local_paths
+
 import numpy as np
 
+setup_local_paths()
 from madlog import get_logd, get_prt
 
 prt = get_prt()
@@ -90,6 +93,7 @@ async def main():
     MAX_TIMEOUT = 20
     loop = asyncio.get_event_loop()
     start = default_timer()
+    results = []
     try:
         async with asyncio.timeout(MAX_TIMEOUT):
             print("This statement will run regardless.")

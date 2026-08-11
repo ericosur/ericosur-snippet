@@ -10,21 +10,16 @@ some recommends tomlkit
 
 import sys
 
-try:
-    from rich import print as pprint
-    USE_RICH = True
-except ImportError:
-    USE_RICH = False
-from madlog import get_prt
+from basic_common import setup_local_paths
+
+setup_local_paths()
+
+from madlog import get_logd, get_prt
 
 prt = get_prt()
+USE_LOGURU = True
+logd = get_logd(warn_msg="[warn] cannot import loguru", warn_printer=prt, use_loguru=USE_LOGURU)
 
-try:
-    from loguru import logger
-    USE_LOGURU = True
-except ImportError:
-    USE_LOGURU = False
-logd = logger.debug if USE_LOGURU else print
 
 # pylint: disable=import-outside-toplevel
 class LoadToml:
