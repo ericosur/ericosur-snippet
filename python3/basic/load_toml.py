@@ -15,7 +15,9 @@ try:
     USE_RICH = True
 except ImportError:
     USE_RICH = False
-prt = pprint if USE_RICH else print
+from madlog import get_prt
+
+prt = get_prt()
 
 try:
     from loguru import logger

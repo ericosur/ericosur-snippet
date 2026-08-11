@@ -18,7 +18,9 @@ except ImportError:
     USE_RICH = False
 from load_toml import LoadToml
 
-prt = pprint if USE_RICH else print
+from madlog import get_prt
+
+prt = get_prt()
 
 def test0():
     ''' test0 '''

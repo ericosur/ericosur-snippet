@@ -12,19 +12,10 @@ from timeit import default_timer
 
 import numpy as np
 
-try:
-    from rich import print as pprint
-    USE_RICH = True
-except ImportError:
-    USE_RICH = False
-prt = pprint if USE_RICH else print
+from madlog import get_logd, get_prt
 
-try:
-    from loguru import logger
-    USE_LOGURU = True
-except ImportError:
-    USE_LOGURU = False
-logd = logger.debug if USE_LOGURU else print
+prt = get_prt()
+logd = get_logd()
 
 ARR_SIZE = 100_000
 

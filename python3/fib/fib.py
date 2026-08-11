@@ -11,18 +11,13 @@ It took 23.81 sec to calculate fib(40)
 
 '''
 
-import sys
 from datetime import datetime
-from pathlib import Path
 from socket import gethostname
 from timeit import default_timer
 
-# Add paths based on this file location (not current working directory)
-THIS_DIR = Path(__file__).resolve().parent
-PY3_DIR = THIS_DIR.parent
-MYUTIL_DIR = PY3_DIR.joinpath('myutil')
-sys.path.insert(0, str(PY3_DIR))
-sys.path.insert(0, str(MYUTIL_DIR))
+from fib_common import setup_local_paths
+
+setup_local_paths()
 USE_RICH = True
 
 

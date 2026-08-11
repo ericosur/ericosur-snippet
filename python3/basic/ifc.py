@@ -9,18 +9,18 @@ import re
 import sys
 
 try:
-    #from rich import print as pprint
     from rich.console import Console
-    from rich.pretty import pprint
     from rich.table import Table
     RICH_ENABLED = True
-    prt = pprint
     console = Console()
     logd = console.log
 except ImportError:
     RICH_ENABLED = False
-    prt = print
     logd = print
+
+from madlog import get_prt
+
+prt = get_prt()
 
 try:
     from read_os_release import is_ubuntu1804
