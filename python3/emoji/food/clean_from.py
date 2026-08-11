@@ -17,13 +17,12 @@ class Cleanup:
 
     def action(self):
         ''' action '''
-        with open(self.fn, 'rt', encoding='UTF-8') as fobj:
-            with open(self.ofn, 'wt', encoding='UTF-8') as fout:
-                for ln in fobj:
-                    ln = ln.strip()
-                    m = re.match('^[A-Za-z ]+$', ln)
-                    if not m:
-                        print(ln, file=fout)
+        with open(self.fn, 'rt', encoding='UTF-8') as fobj, open(self.ofn, 'wt', encoding='UTF-8') as fout:
+            for ln in fobj:
+                ln = ln.strip()
+                m = re.match('^[A-Za-z ]+$', ln)
+                if not m:
+                    print(ln, file=fout)
         print(f'output to {self.ofn}')
 
     @classmethod

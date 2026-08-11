@@ -43,10 +43,10 @@ suzhou_numerals = {
 def lookup_suzhou_char_from_str(s: str) -> str:
     ''' get integer value from suzhou numerals '''
     if not isinstance(s, str):
-        raise ValueError('s is not str')
+        raise TypeError('s is not str')
     if s in suzhou_numerals:
         return chr(int(suzhou_numerals[s], 16))
-    raise ValueError(f'not in suzhou numerals: {s}')
+    raise TypeError(f'not in suzhou numerals: {s}')
 
 def lookup_suzhou_cp_from_str(the_strs: str) -> str:
     ''' get integer value from suzhou numerals '''

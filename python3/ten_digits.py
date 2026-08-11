@@ -71,14 +71,11 @@ class Solution:
     def test(self):
         ''' test '''
         #print('self.start', self.start)
-        cnt = 0
         arr = []
         for ii in it.combinations(self.start, 5):
-            cnt += 1
             s = ''.join(ii)
             arr.append(int(s))
 
-        #print(f'max:{max(arr)}, cnt:{cnt}')
         # find the max number in all combination
         mpart = str(max(arr))
         # get the left part, remove the max number digits

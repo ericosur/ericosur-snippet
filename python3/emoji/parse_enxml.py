@@ -22,7 +22,7 @@ sys.path.insert(0, "..")
 from myutil import read_textfile
 
 # header for generated python file
-timestamp = datetime.today()
+timestamp = datetime.now().astimezone()
 HEADER='''
 # coding: utf-8
 

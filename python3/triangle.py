@@ -73,20 +73,16 @@ class Pythag:
     def show_list(tripes: list) -> None:
         ''' show list of tuples '''
         COLS = 5
-        cnt = 0
-        for t in tripes:
+        for cnt, t in enumerate(tripes):
             if cnt != 0 and cnt % COLS == 0:
                 print()
             print(t, end=' ')
-            cnt += 1
         print()
 
     def method1(self):
         ''' test '''
         a1 = []
-        cnt = 0
         for (m, n) in it.combinations(range(1, self.max_num), 2):
-            cnt += 1
             if self.gcd(m, n) != 1:  # m, n are not coprime
                 continue
 
@@ -97,7 +93,7 @@ class Pythag:
             if math.floor(r) == math.ceil(r):
                 a1.append((m, n, int(r)))
 
-        print('cnt:', cnt)
+        print('cnt:', math.comb(self.max_num - 1, 2))
         return a1
 
     @staticmethod
@@ -119,10 +115,9 @@ class Pythag:
             if m <= n:
                 #print(f'{m} <= {n}')
                 continue
-            if self.gcd(m, n) == 1:
-                #print(f'gcd({m}, {n}) == 1')
-                if (m+n)%2 == 1:
-                    self.mnlist.append((m, n))
+            # m, n are coprime and one odd, one even
+            if self.gcd(m, n) == 1 and (m+n)%2 == 1:  
+                self.mnlist.append((m, n))
 
         print('len of mnlist:', len(self.mnlist))
         print('cnt:', cnt)
