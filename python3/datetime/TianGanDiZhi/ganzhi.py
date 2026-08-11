@@ -18,15 +18,6 @@ import sys
 
 from gngan_yaljux import do_ab, do_tests, do_values, do_verbose
 
-try:
-    from rich.console import Console
-    console = Console()
-    USE_CONSOLE = True
-except ImportError:
-    print("[WARN] no rich.console to use")
-    USE_CONSOLE = False
-
-logd = console.log if USE_CONSOLE else print
 
 def setup_arg_parser():
     ''' setup arg parser '''

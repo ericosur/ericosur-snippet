@@ -9,14 +9,15 @@ import subprocess
 import sys
 from sysconfig import get_platform
 
-try:
-    from rich import print as rprint
-    USE_RICH = True
-except ImportError:
-    USE_RICH = False
-from madlog import get_prt
+#USE_RICH = True
+#USE_RICH = False
 
-prt = get_prt()
+try:
+    from madlog import get_prt
+    prt = get_prt()
+except ImportError as e:
+    print('failed to load module: ', e)
+    sys.exit(1)
 
 
 def is_cygwin() -> bool:

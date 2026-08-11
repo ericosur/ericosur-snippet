@@ -9,18 +9,9 @@ calculate total working days
 
 import sys
 
-try:
-    from rich.console import Console
-
-    from rich import print as rprint
-    console = Console()
-    logd = console.log
-except ImportError:
-    print('import error of module rich')
-    logd = print
 
 try:
-    sys.path.insert(0, "..")
+    from datetime_common import prt, logd
     from myutil import (  # type: ignore[import]
         DefaultConfig,
         MyDebug,
@@ -29,8 +20,8 @@ try:
         is_leapyear,
         read_jsonfile,
     )
-except ImportError:
-    print("[FAIL] need myutil module from myutil package")
+except ImportError as e:
+    print("[FAIL] need myutil module from myutil package", e)
     sys.exit(1)
 
 TAG = "CalcWork"
@@ -96,7 +87,7 @@ class CalcWork(MyDebug):
         else:
             r = cnt / 365 * 100
         if y == WhatNow().year:
-            rprint(f"[yellow]{y}[/], {cnt}, {r:.2f}%,", end='  ')
+            prt(f"[yellow]{y}[/], {cnt}, {r:.2f}%,", end='  ')
         else:
             print(f"{y}, {cnt}, {r:.2f}%,", end='  ')
         print(f'{max_mon}, {max_day},', end='  ')
@@ -107,13 +98,13 @@ class CalcWork(MyDebug):
         sz = len(self.all_days)
         t = sum(self.all_days)
         avg = float(t) / float(sz)
-        rprint(f'\nTotal months: {sz}, avg {avg:.2f} per month')
+        prt(f'\nTotal months: {sz}, avg {avg:.2f} per month')
 
     def print_header(self):
         ''' print header '''
-        print(f'From {self.from_year} to {self.to_year}\n')
-        print("year  sum  ratio    max m/d   min m/d")
-        print("----  ---  -----    -------   -------")
+        prt(f'From {self.from_year} to {self.to_year}\n')
+        prt("year  sum  ratio    max m/d   min m/d")
+        prt("----  ---  -----    -------   -------")
 
     def print_years(self):
         ''' print years '''

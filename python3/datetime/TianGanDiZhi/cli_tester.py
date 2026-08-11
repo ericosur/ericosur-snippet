@@ -18,21 +18,14 @@ except ImportError:
     sys.exit(1)
 
 try:
-    from rich.console import Console
-    console = Console()
-    USE_CONSOLE = True
+    from tgdz_common import setup_local_paths  # type: ignore[import]
+    setup_local_paths()
+    from gngan_yaljux import GanChi, do_tests, do_values, do_verbose, prt, logd
+    from nothing import do_nothing  # type: ignore[import]
 except ImportError:
-    print("[WARN] no rich.console to use")
-    USE_CONSOLE = False
+    print('[FAIL] you need tgdz_common, gngan_yaljux, nothing to run this')
+    sys.exit(1)
 
-sys.path.insert(0, "..")
-sys.path.insert(0, "TaiGanDiZhi/")
-sys.path.insert(0, "../datetime/")
-sys.path.insert(0, "../../python3/datetime/")
-from gngan_yaljux import GanChi, do_tests, do_values, do_verbose
-from nothing import do_nothing  # type: ignore[import]
-
-logd = console.log if USE_CONSOLE else print
 
 def main(verbose: Annotated[bool, typer.Option("--list", "-l",
                                                help="list all 天干/地支/生肖")] = False,
@@ -71,7 +64,7 @@ def main(verbose: Annotated[bool, typer.Option("--list", "-l",
         gc.test1()
         return
 
-    console.print(f"[INFO] use [yellow]{sys.argv[0]} --help[/yellow] to see help messages")
+    prt(f"[INFO] use [yellow]{sys.argv[0]} --help[/yellow] to see help messages")
 
 if __name__ == '__main__':
     typer.run(main)

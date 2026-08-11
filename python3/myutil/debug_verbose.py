@@ -10,12 +10,10 @@ MODNAME = "DEBUG_VERBOSE"
 __VERSION__ = "2024.03.12"
 
 try:
-    from rich import print as rprint
-    USE_RICH = True
-except ImportError:
-    USE_RICH = False
-
-from madlog import get_prt
+    from madlog import get_prt
+except ImportError as e:
+    print('fail to load module: ', e)
+    sys.exit(1)
 
 prt = get_prt()
 
