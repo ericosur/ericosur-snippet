@@ -18,24 +18,25 @@ IEEE 754
 
 '''
 
+import argparse
 import logging
+import sys
 import time
 from datetime import datetime, timezone
 
 try:
-    from rich.console import Console
+    from datetime_common import prt
+    from sickutil import (
+        datetime_to_sick,
+        get_sick_from_ns,
+        sick_to_datetime,
+        sick_to_ns,
+    )
 
-    from rich import print as rprint
-    USE_RICH = True
-    console = Console()
-except ImportError:
-    USE_RICH = False
-    console = None
-
-from madlog import get_prt
-
-prt = get_prt()
-from sickutil import datetime_to_sick, get_sick_from_ns, sick_to_datetime, sick_to_ns
+    from madlog import get_console
+except ImportError as e:
+    print('import error of datetime_common, please check the module', e)
+    sys.exit(1)
 
 loge = logging.error
 logd = logging.debug
@@ -127,6 +128,7 @@ def look_for_head5() -> None:
     '''
     LOOK_FOR_FIVE_HEAD = True
     cnt = 0
+    console = get_console()
     if not console:
         return
 
@@ -152,9 +154,13 @@ def look_for_1e9() -> None:
     for i in range(1, 1_000_000_000):
         obj.check(d1+i)
 
-def main():
+def main() -> None:
     ''' main '''
-    if USE_RICH:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--rich', '-r', action='store_true', default=False,
+                        help='use rich output')
+    args = parser.parse_args()
+    if args.rich:
         look_for_head5()
     else:
         look_for_five_head()

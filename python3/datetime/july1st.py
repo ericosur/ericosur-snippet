@@ -9,22 +9,15 @@ not by datetime.weekday(), thus no need to import datetime
 
 '''
 
-try:
-    from loguru import logger
-    USE_LOGGER = True
-except ImportError:
-    USE_LOGGER = False
-try:
-    from rich import print as rprint
-    USE_RICH = True
-except ImportError:
-    USE_RICH = False
-from be_prepared import get_thisyear
+import sys
 
-logd = logger.debug if USE_LOGGER else print
-from madlog import get_prt
+try:
+    from be_prepared import get_thisyear
+    from datetime_common import prt
+except ImportError as e:
+    print('failed to import module: ', e)
+    sys.exit(1)
 
-prt = get_prt()
 
 def dow(year: int, month: int, day: int) -> int:
     '''

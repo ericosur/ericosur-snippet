@@ -8,7 +8,6 @@ import argparse
 import datetime
 import sys
 
-
 try:
     from rich.table import Table
     RICH_ENABLED = True
@@ -16,8 +15,8 @@ except ImportError:
     RICH_ENABLED = False
 
 try:
-    from datetime_common import prt
     from be_prepared import TAIPEI_TZ
+    from datetime_common import prt
 except ImportError as e:
     print('[WARN] import error: ', e)
     sys.exit(1)
@@ -77,15 +76,19 @@ class Solution:
 def main():
     ''' main '''
     parser = argparse.ArgumentParser(description='Calculate delta seconds from a base date.')
-    parser.add_argument('--print', dest='use_print', action='store_true', default=False,
-                        help='force to use print to display the table'
-                        ' (default: use rich if available)')
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument('--rich', '-r', dest='use_rich', action='store_true',
+                       help='force rich.table output')
+    group.add_argument('--print', '-p', dest='use_print', action='store_true',
+                       help='force plain print output')
     args = parser.parse_args()
     if args.use_print:
         sol = Solution(rich=False)
+    elif args.use_rich:
+        sol = Solution(rich=True)
     else:
-        # use rich if available
-        sol = Solution()
+        # default: rich if available, else print
+        sol = Solution(rich=RICH_ENABLED)
     sol.show()
 
 if __name__ == '__main__':

@@ -11,20 +11,8 @@ use __lunar-find solarterm 2025__ to get all solar terms in 2025
 '''
 
 
-#import datetime
 import itertools as it
 import sys
-
-try:
-    from rich import print as rprint
-    USE_RICH = True
-except ImportError:
-    USE_RICH = False
-try:
-    from loguru import logger
-    USE_LOGGER = True
-except ImportError:
-    USE_LOGGER = False
 
 try:
     from lunarcalendar import (  # type: ignore[import]
@@ -38,12 +26,13 @@ except ImportError:
     print('failed to import module lunarcalendar')
     sys.exit(1)
 
-from be_prepared import get_thisyear  # type: ignore[import]
+try:
+    from be_prepared import get_thisyear  # type: ignore[import]
+    from datetime_common import logd, prt  # type: ignore[import]
+except ImportError as e:
+    print('failed to import module: ', e)
+    sys.exit(1)
 
-logd = logger.debug if USE_LOGGER else print
-from madlog import get_prt
-
-prt = get_prt()
 
 class Solution:
     ''' solution '''

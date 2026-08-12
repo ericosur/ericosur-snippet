@@ -3,19 +3,14 @@
 '''use module calendar to show calendar of this year'''
 
 import calendar
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 
 
 def main():
     '''
     print calendar of 3 months including current month
     '''
-    td = datetime.now(tz=timezone.utc)
-    #this_month = td.month
-    #print('this_month:', this_month)
-    #calendar.prcal(td.year)
-
-    #calendar.monthrange(td.year, td.month)
+    td = datetime.now().astimezone()
 
     TOTAL_MONTH = 3
     between_days = timedelta(days=30)

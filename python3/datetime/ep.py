@@ -53,16 +53,17 @@ def datetime2epoch(date_str: str) -> int:
     '''
     return calendar.timegm(time.strptime(date_str, '%Y-%m-%d %H:%M:%S'))
 
-def epoch2timestr(epoch: int, human: bool=False) -> tuple[int, str]:
-    ''' Replace time.localtime with time.gmtime for GMT time '''
+def epoch2timestr(epoch: int, human: bool=False, utc: bool=False) -> tuple[int, str]:
+    ''' use utc=True for GMT, default is local time '''
     if epoch == -1:
         epoch = int(time.time())
 
+    timefn = time.gmtime if utc else time.localtime
     msg = ""
     if human:
-        msg = time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime(epoch))
+        msg = time.strftime("%a, %d %b %Y %H:%M:%S", timefn(epoch))
     else:
-        msg = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(epoch))
+        msg = time.strftime("%Y-%m-%d %H:%M:%S", timefn(epoch))
     return (epoch, msg)
 
 

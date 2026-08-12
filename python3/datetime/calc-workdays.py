@@ -9,12 +9,11 @@ calculate total working days
 
 import sys
 
-
 try:
-    from datetime_common import prt, logd
+    from datetime_common import do_nothing, logd, prt  # type: ignore[import]
+
     from myutil import (  # type: ignore[import]
         DefaultConfig,
-        MyDebug,
         WhatNow,
         die,
         is_leapyear,
@@ -26,50 +25,44 @@ except ImportError as e:
 
 TAG = "CalcWork"
 
-class CalcWork(MyDebug):
+class CalcWork:
     ''' calc work class '''
     DATA_FILE = 'working-days.json'
 
-    def __init__(self):
-        super().__init__(False)  # MyDebug
+    def __init__(self, _debug: bool=False):
         self.conf = ""
         self.data = None
-        self.max_year = None
-        self.min_year = None
+        self.max_year = 2030
+        self.min_year = 2000
         self.all_days = []
+        self._debug = _debug
+        self._log = logd if _debug else do_nothing
         self._load_conf()
-        self.from_year = self.min_year if self.min_year else 2019
+        self.from_year = self.min_year if self.min_year else 2023
         self.to_year = self.max_year if self.max_year else WhatNow().year
-
-    def _log(self, *_args, **_wargs):
-        ''' my own log '''
-        if 'tag' not in _wargs:
-            _wargs['tag'] = TAG
-        self.logd(*_args, **_wargs)
 
     def _load_conf(self):
         ''' load conf '''
-        self._log("_load_conf()...", tag=TAG)
+        self._log(f'[{TAG}] _load_conf()...')
         datafile = DefaultConfig(self.DATA_FILE, debug=False).get_default_config()
-        self._log(f'read data from: {datafile}', tag=TAG)
+        self._log(f'[{TAG}] read data from: {datafile}')
         if not datafile:
             die('[FAIL] config file not found', self.DATA_FILE)
             return
 
         self.data = read_jsonfile(datafile)
-        if not self.data:
-            die('[FAIL] cannot load data')
-            return
-
+        assert self.data, '[FAIL] cannot load data'
+        self._log(f'[{TAG}] data loaded, keys: {list(self.data.keys())}')
         self.max_year = self.data['maxyear']
         self.min_year = self.data['minyear']
-        logd(f'max_year: {self.max_year}')
-        logd(f'min_year: {self.min_year}')
+        self._log(f'[{TAG}] max_year: {self.max_year}')
+        self._log(f'[{TAG}] min_year: {self.min_year}')
 
     def calc(self, key):
         ''' calc '''
         max_mon, min_mon = "", ""
         max_day, min_day = 0, 99
+        assert self.data is not None and key in self.data, f'[FAIL] key not found: {key}'
         y_twenties = self.data[key]["month"]
         cnt = 0
         for p in y_twenties:
@@ -102,7 +95,7 @@ class CalcWork(MyDebug):
 
     def print_header(self):
         ''' print header '''
-        prt(f'From {self.from_year} to {self.to_year}\n')
+        prt(f'From {self.from_year} to {self.to_year}')
         prt("year  sum  ratio    max m/d   min m/d")
         prt("----  ---  -----    -------   -------")
 
@@ -114,15 +107,15 @@ class CalcWork(MyDebug):
         self.calc_alldays()
 
     @classmethod
-    def run(cls):
+    def run(cls, _debug: bool=False):
         ''' run '''
-        obj = cls()
+        obj = cls(_debug)
         obj.print_header()
         obj.print_years()
 
-def main():
-    ''' main '''
-    CalcWork.run()
-
+    
 if __name__ == '__main__':
-    main()
+    if len(sys.argv) > 1 and (sys.argv[1] == '--debug' or sys.argv[1] == '-d'):
+        CalcWork.run(_debug=True)
+    else:
+        CalcWork.run()

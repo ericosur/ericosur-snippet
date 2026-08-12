@@ -26,8 +26,8 @@ except ImportError as e:
     print('import error of module rich.table', e)
 
 try:
-    from datetime_common import do_nothing, prt, logd
     from be_prepared import get_thisyear, get_year_color, prepare_values
+    from datetime_common import do_nothing, prt
 except ImportError as e:
     print('import error of be_prepared, please check the module', e)
     sys.exit(1)
@@ -65,9 +65,9 @@ def get_date_str(dd: date) -> str:
 
 class Solution:
     ''' handle neighbor years from CLI '''
-    def __init__(self, table: bool, log: Callable[[Any], None] = do_nothing) -> None:
-        self.logd = log
-        self.years = None
+    def __init__(self, table: bool, _log: Callable[[Any], None] = do_nothing) -> None:
+        self.logd = _log
+        self.years = []
         self.results = []
         self.dicts = {}
         self.use_table = table
@@ -76,6 +76,7 @@ class Solution:
                              context: int) -> None:
         ''' prepare the list '''
         self.years = prepare_values(year, after=after, before=before, radius=context)
+        self.logd(f'[DEBUG] years: {self.years}')
         self.iterate_years()
         self.show_results()
 
@@ -115,7 +116,8 @@ class Solution:
         if not USE_RICH:
             logd('[ERROR] rich module is not available, cannot show as table')
             return
-        table = Table(title="Black Fridays")
+
+        table = Table(title="Black Fridays")  # pyright: ignore[reportPossiblyUnboundVariable]
         table.add_column("Year", justify="right", style="cyan")
         table.add_column("Date", justify="left", style="magenta")
         for y in self.years:
@@ -173,13 +175,20 @@ if USE_TYPER:
         If no option is specified, run the default test. If available, color will
         refelct: red for specified year, green is the current year, yellow is both.
         '''
-        logd = do_nothing
+        logd: Callable[[Any], None] = prt if verbose else do_nothing
         if verbose:
             logd('[DEBUG] debug mode enabled')
-        if demo or values is None:
+        if demo:
             logd('[INFO] run the demo')
             Solution.run(table, logd)
             return
+        if values is None:
+            if context or after or before:
+                values = [get_thisyear()]
+            else:
+                logd('[INFO] run the demo')
+                Solution.run(table, logd)
+                return
         for y in values:
             obj = Solution(table, logd)
             obj.prepare_list_and_run(y,after=after,before=before,context=context)
@@ -194,6 +203,8 @@ def run_demo() -> None:
 
 if __name__ == '__main__':
     if USE_TYPER:
-        typer.run(main)
+        app = typer.Typer(context_settings={"help_option_names": ["-h", "--help"]})  # pyright: ignore[reportPossiblyUnboundVariable]
+        app.command()(main) # pyright: ignore[reportPossiblyUnboundVariable]
+        app()
     else:
         run_demo()

@@ -9,6 +9,7 @@ http://www.oremus.org/liturgy/etc/ktf/app/easter.html
 
 # datetime.datetime, datetime.date
 import sys
+from collections.abc import Callable
 from datetime import date
 from typing import Annotated
 
@@ -27,11 +28,14 @@ except ImportError:
 
 
 try:
-    from datetime_common import prt, logd
     from be_prepared import get_thisyear, get_year_color, prepare_values
+    from datetime_common import logd, prt
 except ImportError:
     print('cannot import necessary modules: be_prepared, nothing')
     sys.exit(1)
+
+def _noop(*args: object, **kwargs: object) -> None:
+    ''' no-op function '''
 
 def calculate_easter(year: int) -> date:
     ''' Calculate the date of Easter Sunday for the given year '''
@@ -45,7 +49,7 @@ def calculate_easter(year: int) -> date:
     h = (19 * a + b - d - g + 15) % 30
     i = c // 4
     k = c % 4
-    l = (32 + 2 * e + 2 * i - h - k) % 7  # noqa: E741
+    l = (32 + 2 * e + 2 * i - h - k) % 7
     m = (a + 11 * h + 22 * l) // 451
     month = (h + l - 7 * m + 114) // 31
     day = ((h + l - 7 * m + 114) % 31) + 1
@@ -55,11 +59,12 @@ def calculate_easter(year: int) -> date:
 
 class Solution:
     ''' Solution class for Easter date calculation '''
-    def __init__(self, years: list[int], table: bool = False) -> None:
+    def __init__(self, years: list[int], table: bool = False, debug: bool = False) -> None:
         ''' init '''
         self.results = []
         self.years = years
         self.use_table = table
+        self._log: Callable[[str], None] = logd if debug else _noop
 
     def __show_by_list(self) -> None:
         target = get_thisyear()
@@ -76,7 +81,7 @@ class Solution:
             ''' format date for table '''
             return dd.strftime("%b %d")
 
-        table = Table(title="Easter Dates", show_lines=True)
+        table = Table(title="Easter Dates", show_lines=True)  # pyright: ignore[reportPossiblyUnboundVariable]
         table.add_column("Year", justify="right")
         table.add_column("Easter Date", justify="left")
         table.add_column("YYYY-MM-DD", justify="left")
@@ -88,10 +93,10 @@ class Solution:
 
     def show_results(self) -> None:
         ''' _show '''
+        self._log(f'[DEBUG] found {len(self.results)} Easter dates')
         if self.use_table and USE_RICH:
             self.__show_by_table()
         else:
-            logd(f'[INFO] found {len(self.results)} Easter dates')
             self.__show_by_list()
 
     def collect_results(self) -> None:
@@ -101,11 +106,11 @@ class Solution:
             self.results.append(res)
 
     @classmethod
-    def run_with_options(cls, years: list[int], table: bool) -> None:
+    def run_with_options(cls, years: list[int], table: bool, debug: bool = False) -> None:
         '''
         run with options, if no options, use default demo
         '''
-        obj = cls(years, table)
+        obj = cls(years, table, debug=debug)
         obj.collect_results()
         obj.show_results()
 
@@ -128,32 +133,39 @@ if USE_TYPER:
                 help="radius nn year, conflicts: after/before")] = 0,
             table: Annotated[bool,
                 typer.Option("--table", "-t", help="show results as table")] = False,
+            debug: Annotated[bool,
+                typer.Option("--debug", "-d", help="enable debug output")] = False,
             ) -> None:
         '''
         If no option is specified, it will run demo. If available, color will
         refelct: red for specified year, green is the current year, yellow is both
         '''
+        _log: Callable[[str], None] = logd if debug else _noop
         # if no value is specified, if options available, use them
         if values is None:
             if context == 0:
                 if after != 0 or before != 0:
-                    logd('[INFO] year not specified, apply this year')
+                    _log('[INFO] year not specified, apply this year')
                 else:
-                    logd('[WARN] context is not set, using default context of 2 years')
+                    _log('[WARN] context is not set, using default context of 2 years')
                     context = 2
             years = prepare_values(get_thisyear(), after=after, before=before, radius=context)
+            _log(f'[DEBUG] for year {get_thisyear()}, got {len(years)} years: {years}')
         else:
             years = []
             for v in values:
                 ys = prepare_values(v, after=after, before=before, radius=context)
+                _log(f'[DEBUG] for year {v}, got {len(ys)} years: {ys}')
                 years.extend(ys)
                 years = list(set(years))  # remove duplicates
                 years.sort() # sort years
-        Solution.run_with_options(years, table)
+        Solution.run_with_options(years, table, debug=debug)
 
 if __name__ == '__main__':
     if USE_TYPER:
-        typer.run(main)
+        app = typer.Typer(context_settings={"help_option_names": ["-h", "--help"]})  # pyright: ignore[reportPossiblyUnboundVariable]
+        app.command()(main)  # pyright: ignore[reportPossiblyUnboundVariable]
+        app()
     else:
         if len(sys.argv) > 1:
             print('[WARN] no arguments supported, running demo only')
