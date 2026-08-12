@@ -6,6 +6,7 @@
 '''
 
 import os
+from typing import Any
 
 from .debug_verbose import MyDebug
 
@@ -13,11 +14,11 @@ __MODULE__ = "DefaultConfig"
 __VERSION__ = "2024.04.02"
 
 
-def _isdir(d):
+def _isdir(d: str) -> bool:
     ''' true if a dir '''
     return os.path.isdir(d)
 
-def _isfile(f):
+def _isfile(f: str) -> bool:
     ''' true if a file '''
     return os.path.isfile(f)
 
@@ -25,22 +26,22 @@ def _isfile(f):
 class DefaultConfig(MyDebug):
     ''' a class helps to look up in default order '''
 
-    def __init__(self, filename, debug=False):
+    def __init__(self, filename: str, debug: bool = False) -> None:
         super().__init__(debug) # MyDebug
-        self.fn = filename
-        self.paths = []
+        self.fn: str = filename
+        self.paths: list[str] = []
         self.__prepare_paths()
 
-    def __append_if_isfile(self, f):
+    def __append_if_isfile(self, f: str) -> None:
         ''' append to the list if d exists '''
         if _isfile(f):
             self.paths.append(f)
         else:
             self._log(f'[warn] not found: {f}')
 
-    def __prepare_paths(self):
+    def __prepare_paths(self) -> None:
         ''' prepare paths '''
-        home = os.getenv('HOME')
+        home = os.getenv('HOME') or '/home/user'
 
         # 1. $HOME/Private/
         tmp = os.path.join(home, 'Private', self.fn)
@@ -55,13 +56,13 @@ class DefaultConfig(MyDebug):
         # msg = f'__prepare_paths: {self.paths}'
         # self._log(msg)
 
-    def _log(self, *args, **wargs):
+    def _log(self, *args: Any, **wargs: Any) -> None:
         ''' my own log '''
         if 'tag' not in wargs:
             wargs['tag'] = __MODULE__
         self.logd(*args, **wargs)
 
-    def get_default_config(self):
+    def get_default_config(self) -> str | None:
         ''' search config file in default paths '''
         self._log(f'get_default_config: paths: {self.paths}')
         for p in self.paths:
@@ -70,11 +71,11 @@ class DefaultConfig(MyDebug):
                 return p
         return None
 
-    def search_in_path(self):
+    def search_in_path(self) -> str | None:
         ''' search file in $PATH
             return immediately if found
         '''
-        the_path = os.getenv('PATH')
+        the_path = os.getenv('PATH') or ''
         for d in the_path.split(os.pathsep):
             if os.path.isdir(d):
                 p = os.path.join(d, self.fn)

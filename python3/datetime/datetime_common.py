@@ -22,7 +22,7 @@ def do_nothing(*_args, **_wargs) -> None:
 
 try:
     setup_local_paths()
-    from madlog import get_prt, get_logd
+    from madlog import get_logd, get_prt
 except ImportError:
     print('[INFO] no madlog, exit...')
     sys.exit(1)
