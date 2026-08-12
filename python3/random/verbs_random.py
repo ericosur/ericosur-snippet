@@ -12,13 +12,14 @@ import re
 try:
     from rich.console import Console
 
-    from rich import print as pprint
-    prt = pprint
     console = Console()
     logd = console.log
 except ImportError:
-    prt = print
     logd = print
+
+from madlog import get_prt
+
+prt = get_prt()
 
 class GetVerbs:
     ''' get verbs from data file '''

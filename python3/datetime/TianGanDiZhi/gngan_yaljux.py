@@ -20,13 +20,16 @@ from collections.abc import Callable
 from typing import Any
 
 from tgdz_common import setup_local_paths  # type: ignore[import]
+
 try:
     setup_local_paths()
-    from madlog import get_prt, get_logd  # type: ignore[import]
     from be_prepared import get_thisyear  # type: ignore[import]
     from nothing import do_nothing  # type: ignore[import]
-except ImportError:
-    pass
+
+    from madlog import get_logd, get_prt  # type: ignore[import]
+except ImportError as e:
+    print('fail to import module: ', e)
+    sys.exit(1)
 
 prt = get_prt()
 logd = get_logd()

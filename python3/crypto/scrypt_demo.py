@@ -30,7 +30,9 @@ except ImportError:
     USE_LOGGER = False
 
 MODULE = "scrypt_demo"
-prt = rprint if USE_RICH else print
+from madlog import get_prt
+
+prt = get_prt()
 
 def do_nothing(*_args, **_wargs) -> None:
     ''' do nothing '''

@@ -27,12 +27,14 @@ try:
 
     from rich import print as rprint
     USE_RICH = True
-    prt = rprint
     console = Console()
 except ImportError:
     USE_RICH = False
-    prt = print
     console = None
+
+from madlog import get_prt
+
+prt = get_prt()
 from sickutil import datetime_to_sick, get_sick_from_ns, sick_to_datetime, sick_to_ns
 
 loge = logging.error

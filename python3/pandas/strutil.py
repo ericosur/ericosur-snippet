@@ -15,12 +15,12 @@ def str2sec(timestr: str) -> float:
     ''' translate mm:ss.nn into float64 numeric '''
     if not isinstance(timestr, str):
         print('str2sec: not a string?', timestr)
-        raise ValueError
+        raise TypeError
     # mm:ss.ss (mm part could be 3 digits)
     m = re.match(r'\d+:\d\d(\.\d\d)?', timestr)
     if m is None:
         print('invalid format for', timestr)
-        raise ValueError
+        raise TypeError
 
     minutes = 0.0
     seconds = 0.0

@@ -33,7 +33,9 @@ from dgst import digests  # type: ignore[import]
 
 from myutil import get_python_versions, run_command  # type: ignore[import]
 
-prt = rprint if USE_RICH else print
+from madlog import get_prt
+
+prt = get_prt()
 logd = logger.debug if USE_LOGGER else print
 
 FN = 'a.txt'

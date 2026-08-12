@@ -20,7 +20,9 @@ try:
 except ImportError:
     print('suggest: use __pip install rich__')
 
-prt = rprint if USE_RICH else print
+from madlog import get_prt
+
+prt = get_prt()
 logd = rprint if DEBUG else print
 
 def show_err(msg: str) -> None:
