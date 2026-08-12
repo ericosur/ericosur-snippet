@@ -8,3 +8,6 @@ U2?????.xls
 
 ruff_report.md
 ruff-check.txt
+
+# runtime data file
+fib.p
