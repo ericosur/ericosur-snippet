@@ -20,8 +20,9 @@ except ImportError:
 try:
     from tgdz_common import setup_local_paths  # type: ignore[import]
     setup_local_paths()
-    from gngan_yaljux import GanChi, do_tests, do_values, do_verbose, logd, prt
+    from gngan_yaljux import GanChi, do_tests, do_values, do_verbose, prt
     from nothing import do_nothing  # type: ignore[import]
+    from tgdz_common import logd
 except ImportError:
     print('[FAIL] you need tgdz_common, gngan_yaljux, nothing to run this')
     sys.exit(1)
@@ -43,24 +44,24 @@ def main(verbose: Annotated[bool, typer.Option("--list", "-l",
     '''
     no required arguments, use options to toggle, only the first one will be taken
     '''
-    log = logd if debug else do_nothing
+    _logd = logd if debug else do_nothing
     if verbose: # list all elements
-        do_verbose(log=log)
+        do_verbose(_logd=_logd)
         return
     if values:  # pick 3 values and show
         x = [randint(1900,2050) for _ in range(3)]
         x.sort()
-        do_values(x, log=log)
+        do_values(x, _logd=_logd)
         return
     if alltests:
-        do_tests(log=log)
+        do_tests(_logd=_logd)
         return
     if testbasic:
-        gc = GanChi(log)
+        gc = GanChi(_logd=_logd)
         gc.test0()
         return
     if testab:
-        gc = GanChi(log)
+        gc = GanChi(_logd=_logd)
         gc.test1()
         return
 

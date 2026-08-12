@@ -19,20 +19,17 @@ import sys
 from collections.abc import Callable
 from typing import Any
 
-from tgdz_common import setup_local_paths  # type: ignore[import]
-
 try:
+    from tgdz_common import (  # type: ignore[import]
+        do_nothing,
+        prt,
+        setup_local_paths,
+    )
     setup_local_paths()
     from be_prepared import get_thisyear  # type: ignore[import]
-    from nothing import do_nothing  # type: ignore[import]
-
-    from madlog import get_logd, get_prt  # type: ignore[import]
 except ImportError as e:
     print('fail to import module: ', e)
     sys.exit(1)
-
-prt = get_prt()
-logd = get_logd()
 
 class GanChi:
     ''' 提供 天干地支紀年有關的功能 '''
@@ -47,8 +44,8 @@ class GanChi:
         "鼠牛虎兔龍蛇馬羊猴雞狗豬",
     )
 
-    def __init__(self, log=do_nothing):
-        self.log = log
+    def __init__(self, _logd: Callable[[Any], None]=do_nothing):
+        self.logd = _logd
         self.gnn = list(self.PREDATA[0])
         self.yal = list(self.PREDATA[1])
         self.sesue = list(self.PREDATA[2])
@@ -69,10 +66,10 @@ class GanChi:
         return self.sesue
 
     @classmethod
-    def run(cls, log) -> None:
+    def run(cls, _logd) -> None:
         ''' run test '''
-        #print(cls.__name__)
-        obj = cls(log)
+        _logd(cls.__name__)
+        obj = cls(_logd=_logd)
         #obj.test0()
         obj.test1()
 
@@ -91,42 +88,41 @@ class GanChi:
     def to_gc(self, y: int) -> str:
         ''' to_gc '''
         _y = self.normalize_year(y)
-        g = self.gnn[_y % self.NUM_GNN]
-        y = self.yal[_y % self.NUM_YAL]
-        s = self.sesue[_y % self.NUM_YAL]
-        res = f'{g}{y}({s})'
+        gnn = self.gnn[_y % self.NUM_GNN]
+        yal = self.yal[_y % self.NUM_YAL]
+        se = self.sesue[_y % self.NUM_YAL]
+        res = f'{gnn}{yal}({se})'
         return res
 
     def get_reminder(self, y: int) -> tuple[int, int]:
         ''' reminder '''
         _y = self.normalize_year(y)
-        _y = y + self.MAGIC_START - 1
-        g = _y % self.NUM_GNN
-        y = _y % self.NUM_YAL
-        return (g, y)
+        _y = self.normalize_year(y)
+        gnn = _y % self.NUM_GNN
+        yal = _y % self.NUM_YAL
+        return (gnn, yal)
 
     @staticmethod
-    def check_ab(m:int=0, n:int=0, log: Callable[[Any], None]=do_nothing) -> bool:
+    def check_ab(m:int=0, n:int=0, _log: Callable[[Any], None]=do_nothing) -> bool:
         ''' check a and b '''
-        logd = log
         if m<0 or m>9:
-            logd(f'check_ab: out of range: {m=}')
+            _log(f'check_ab: out of range: {m=}')
             return False
         if n<0 or n>11:
-            logd(f'check_ab: out of range: {n=}')
+            _log(f'check_ab: out of range: {n=}')
             return False
         if (m+n)%2 != 0:
-            logd(f'check_ab: not pass the rule {m}+{n} is even')
+            _log(f'check_ab: not pass the rule {m}+{n} is even')
             return False
         #return (0 <= m < 10) and (0 <= n < 12) and ((m+n)%2==0)
         return True
 
-    def brute_force_try(self, gnn: int, yal: int, log: Callable[[Any], None]=do_nothing) -> list:
+    def brute_force_try(self, gnn: int, yal: int,
+                        _logd: Callable[[Any], None]=do_nothing) -> list:
         ''' given 天干 (from 0) 地支 (from 0)  guess year '''
-        logd = log
-        #logd(f"brute_force_try: {gnn=}, {yal=}")
+        #_logd(f"brute_force_try: {gnn=}, {yal=}")
         # check the parameters, will not proceed if invalid
-        if not self.check_ab(gnn, yal):
+        if not self.check_ab(gnn, yal, _log=_logd):
             return []
         this_year = get_thisyear()
         test_year = 0
@@ -148,15 +144,15 @@ class GanChi:
         answers.append(test_year)
         for i in range(self.PREV_CYCLES):
             _y -= 60
-            logd(f"brute_force_try: found: {_y}")
+            _logd(f"brute_force_try: found: {_y}")
             answers.append(_y)
         answers.sort()
         return answers
 
     def test0(self) -> None:
         ''' test #0 '''
-        logd = self.log
-        logd("test0...")
+        _logd = self.logd
+        _logd("test0...")
         prt('[INFO] I [red]DO NOT recommend[/red] year in negative value')
         for y in [-2997, -720, 1894, 1912, 1975, 1995, 2012, 2023]:
             res = self.to_gc(y)
@@ -164,20 +160,20 @@ class GanChi:
 
     def test1(self) -> None:
         ''' test #1 '''
-        logd = self.log
+        _logd = self.logd
         def run_test(m: int, n: int, expect: list[int]) -> None:
             ''' check the ans '''
-            logd(f'run_test: {m},{n}')
-            ans = self.brute_force_try(m, n, log=do_nothing)
+            _logd(f'run_test: {m},{n}')
+            ans = self.brute_force_try(m, n, _logd=do_nothing)
             if expect is None:
-                logd(f'ans: {ans}')
+                _logd(f'ans: {ans}')
                 return
             if expect == ans:
-                logd('pass')
+                _logd('pass')
             else:
-                logd('FAIL')
+                _logd('FAIL')
 
-        logd("test1...")
+        _logd("test1...")
         run_test(-3, 0, [])
         run_test(0, -3, [])
         run_test(-1, -1, [])
@@ -198,18 +194,17 @@ def show(color: str, msg: str) -> None:
     prt(f'[{color}]{msg}')
 
 def do_values(values: list[int], target=0, radius: int=0,
-              log: Callable[[Any], None]=do_nothing) -> None:
+              _logd: Callable[[Any], None]=do_nothing) -> None:
     '''main function'''
-    logd = log
-    gc = GanChi(logd)
+    gc = GanChi(_logd=_logd)
     center = 0
     try:
         center = int(radius)
     except ValueError:
-        logd(f'[WARN] center must be an integer: {radius}')
+        _logd(f'[WARN] center must be an integer: {radius}')
         center = 0
-    logd(f'do_values: {values=}')
-    logd(f'{center=}')
+    _logd(f'do_values: {values=}')
+    _logd(f'{center=}')
     this_year = get_thisyear()
     for y in values:
         for r in range(y-center, y+center+1):
@@ -226,32 +221,30 @@ def do_values(values: list[int], target=0, radius: int=0,
                 show('white', msg)  # normal
     del gc
 
-def do_verbose(log: Callable[[Any], None]=do_nothing) -> None:
+def do_verbose(_logd: Callable[[Any], None]=do_nothing) -> None:
     ''' verbose '''
-    logd = log
-    logd("do_verbose...")
-    gc = GanChi()
+    _logd("do_verbose...")
+    gc = GanChi(_logd=_logd)
     print(gc)
     del gc
 
-def do_ab(m: int, n: int, log: Callable[[Any], None]=do_nothing) -> None:
+def do_ab(m: int, n: int, _logd: Callable[[Any], None]=do_nothing) -> None:
     ''' do ab, m is {0,9}, n is {0, 11}
         and pass rule of check_ab()
     '''
-    logd = log
-    gc = GanChi(logd)
+    gc = GanChi(_logd=_logd)
     g = gc.get_gnn()
     y = gc.get_yal()
     ret = ""
-    if gc.check_ab(m, n, logd):
+    if gc.check_ab(m, n, _logd):
         ret = f'{g[m]}{y[n]}'
     else:
-        logd(f'ERROR: invalid input: {m}, {n}')
+        _logd(f'ERROR: invalid input: {m}, {n}')
         return
-    ans = gc.brute_force_try(m, n, log=log)
+    ans = gc.brute_force_try(m, n, _logd=_logd)
     if not ans:
-        logd(f'ERROR: no answer for {ret}')
-    logd(f'do_ab: {ans=}')
+        _logd(f'ERROR: no answer for {ret}')
+    _logd(f'do_ab: {ans=}')
     this_year = get_thisyear()
     for i in ans:
         msg = f"{i} {gc.to_gc(i)}"
@@ -260,9 +253,10 @@ def do_ab(m: int, n: int, log: Callable[[Any], None]=do_nothing) -> None:
         else:
             show('white', msg)
 
-def do_tests(log: Callable[[Any], None]=do_nothing) -> None:
+def do_tests(_logd: Callable[[Any], None]=do_nothing) -> None:
     ''' run the original tests'''
-    GanChi.run(log)
+    _logd("do_tests...")
+    GanChi.run(_logd)
 
 if __name__ == "__main__":
     prt(f'Script "{sys.argv[0]}" provides functions.'
