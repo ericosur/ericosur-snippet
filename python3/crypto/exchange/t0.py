@@ -17,18 +17,17 @@ try:
 except ImportError:
     print('need install pycryptodome')
     sys.exit()
-try:
-    from loguru import logger
-    USE_LOGGER = True
-except ImportError:
-    USE_LOGGER = False
+
 
 from keyiv import from_env, from_file, save_bin
 
-sys.path.insert(0, '../../')
-from myutil import md5sum, prt  # type: ignore[import]
+try:
+    from exchange_common import logd, prt
+    from myutil import md5sum  # type: ignore[import]
+except ImportError:
+    print('cannot import exchange_common, exit')
+    sys.exit(1)
 
-logd = logger.debug if USE_LOGGER else print
 
 def show_val(msg: str, val: bytes) -> None:
     ''' show bytes in hex string '''
