@@ -13,11 +13,9 @@ from datetime import datetime, timedelta
 
 from be_prepared import TAIPEI_TZ
 
-try:
-    from rich import print as pprint
-    prt = pprint
-except ImportError:
-    prt = print
+from madlog import get_prt
+
+prt = get_prt()
 
 
 def main():

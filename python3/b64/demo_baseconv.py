@@ -15,7 +15,9 @@ except ImportError:
 
 from butil import fill_bytearray, int_from_bytes, sep
 
-prt = rprint if USE_RICH else print
+from madlog import get_prt
+
+prt = get_prt()
 
 # if size = 3k, you will not get padding (the equal sign) after base64
 DEFAULT_SIZE = 3*8

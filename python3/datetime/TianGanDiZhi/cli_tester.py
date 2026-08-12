@@ -20,7 +20,7 @@ except ImportError:
 try:
     from tgdz_common import setup_local_paths  # type: ignore[import]
     setup_local_paths()
-    from gngan_yaljux import GanChi, do_tests, do_values, do_verbose, prt, logd
+    from gngan_yaljux import GanChi, do_tests, do_values, do_verbose, logd, prt
     from nothing import do_nothing  # type: ignore[import]
 except ImportError:
     print('[FAIL] you need tgdz_common, gngan_yaljux, nothing to run this')

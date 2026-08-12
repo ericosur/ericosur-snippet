@@ -9,9 +9,7 @@ import os
 import re
 import sys
 
-from loguru import logger
-
-from rich import print as rprint
+from madlog import get_logd, get_prt
 
 sys.path.insert(0, "./")
 sys.path.insert(0, "../")
@@ -19,8 +17,9 @@ sys.path.insert(0, "python3/")
 from myutil import do_nothing  # type: ignore[import]
 
 DEBUG = True
-prt = rprint
-logd = logger.debug if DEBUG else do_nothing
+prt = get_prt()
+USE_LOGURU = True
+logd = get_logd() if USE_LOGURU else do_nothing
 
 class Solution:
     ''' solution '''

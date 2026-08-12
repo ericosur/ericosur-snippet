@@ -38,7 +38,9 @@ def do_nothing(*_args, **_wargs) -> None:
     ''' do nothing '''
     return
 
-prt = rprint if USE_RICH else print
+from madlog import get_prt
+
+prt = get_prt()
 
 class Main:
     ''' main '''

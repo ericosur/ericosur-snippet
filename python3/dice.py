@@ -28,7 +28,9 @@ except ImportError:
     USE_LOGGER = False
 from myutil import do_nothing
 
-prt = rprint if USE_RICH else print
+from madlog import get_prt
+
+prt = get_prt()
 DEBUG = True
 if DEBUG:
     logd = logger.debug if USE_LOGGER else print

@@ -22,7 +22,9 @@ except ImportError:
 from be_prepared import get_thisyear
 
 logd = logger.debug if USE_LOGGER else print
-prt = rprint if USE_RICH else print
+from madlog import get_prt
+
+prt = get_prt()
 
 def dow(year: int, month: int, day: int) -> int:
     '''

@@ -12,7 +12,7 @@ read driving data table (at google drive) and calculate stastics
 import argparse
 import os
 import sys
-from datetime import date
+from datetime import datetime
 from math import floor
 
 try:
@@ -312,9 +312,9 @@ class DrivingData(MyDebug, MyVerbose, MySimpleout):
         ''' fill results in outputs (dict) '''
         self._tag = 'fill_outputs'
         self._log('enters...')
-        self.outputs['today'] = date.today()
+        self.outputs['today'] = datetime.now().astimezone().date()
         ans = peek_target(des, "count")
-        count = str(int(floor(ans)))
+        count = str(floor(ans))
         logd(f'count: {count}')
         self.outputs['count'] = count
         the_vars = {}
