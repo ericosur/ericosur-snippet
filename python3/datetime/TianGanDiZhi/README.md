@@ -45,3 +45,90 @@ Here are the all possible combinations (30+30=60). **Not** 10C1 x 12C1 = 120.
 - ```gngan_yaljux.py``` provides _*_class GanChi_*_ and some utility functions. It uses **typer** to do some self-test/demo.
 - ```typer_gng.py``` uses **typer** to list TianGanDiZhi. Use **--help** to check the details.
 - ```ganzhi.py``` uses **argparse** to list TianGanDiZhi. Use **--help** to check the details.
+
+## quick demo (Makefile)
+
+This folder provides a Makefile to run common demos quickly.
+
+```bash
+make help
+```
+
+Default demo (includes both examples):
+
+```bash
+make demo
+```
+
+### 2-1. Query year to 天干/地支
+
+Example: year 2030
+
+```bash
+make year Y=2030
+```
+
+Equivalent direct command:
+
+```bash
+python ganzhi.py 2030
+```
+
+### 2-2. Query 天干/地支 to possible years
+
+Use numeric index pair (A, B):
+
+- A is 天干 index, range 0..9
+- B is 地支 index, range 0..11
+- A+B must be even
+
+Example: A=1 (乙), B=3 (卯)
+
+```bash
+make ab A=1 B=3
+```
+
+Equivalent direct command:
+
+```bash
+python ganzhi.py -a 1 -b 3
+```
+
+Other useful targets:
+
+- ```make list``` to list all 天干/地支/生肖
+- ```make tests``` to run unit tests
+- ```make lint``` to run Ruff checks in this folder
+
+## tests
+
+- ```test_gngan_yaljux.py``` contains unit tests for core behavior in ```gngan_yaljux.py```.
+- It covers:
+  - year normalization and invalid input handling
+  - GanChi reminder/mapping for known values
+  - validation rule of ```check_ab()```
+  - cycle shape and output constraints of ```brute_force_try()```
+
+Run tests from this folder:
+
+```bash
+python -m unittest -v test_gngan_yaljux.py
+```
+
+Or from workspace root:
+
+```bash
+python -m unittest -v datetime/TianGanDiZhi/test_gngan_yaljux.py
+```
+
+## logging callback convention
+
+To avoid name collisions with functions like ```numpy.log``` or ```math.log```,
+logger callback parameters in this folder use the name ```_logd```.
+
+Examples:
+
+- ```GanChi(_logd=...)```
+- ```do_values(..., _logd=...)```
+- ```do_ab(..., _logd=...)```
+- ```do_tests(_logd=...)```

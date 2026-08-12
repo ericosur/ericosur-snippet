@@ -64,7 +64,7 @@ class Main:
 
         if gnn:
             if values is not None and len(values)==2:
-                do_ab(values[0], values[1], log=self.logd)
+                do_ab(values[0], values[1], _logd=self.logd)
                 return
             print('[FAIL] NEED exactly two arguments')
             return
@@ -84,7 +84,7 @@ class Main:
         for v in values:
             self.logd(f'{v=}')
             the_vals = prepare_values(v, after=after, before=before, radius=context)
-            do_values(the_vals, target=v, log=self.logd)
+            do_values(the_vals, target=v, _logd=self.logd)
 
 if __name__ == '__main__':
     m = Main()

@@ -17,3 +17,17 @@ def setup_local_paths() -> None:
     sys.path.insert(0, str(py3_dir))
     sys.path.insert(0, str(myutil_dir))
     sys.path.insert(0, str(madlog_dir))
+
+try:
+    setup_local_paths()
+    from madlog import get_logd, get_prt
+except ImportError as e:
+    print('[INFO] no madlog, exit...', e)
+    sys.exit(1)
+
+prt = get_prt()
+logd = get_logd()
+
+def do_nothing(*_args, **_wargs) -> None:
+    ''' do nothing '''
+    return
