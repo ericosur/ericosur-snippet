@@ -8,7 +8,7 @@ since it is called "[a-z]+_typer.py", the typer is required
 '''
 
 import sys
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Annotated
 
 try:
@@ -58,11 +58,13 @@ def main(
         typer.Option("--datetime", "--date", "-D",
             formats=["%Y-%m-%d", "%Y-%m-%dT%H:%M:%S"]),
     ] = None, #"1970-01-01T00:00:00",
-    numval: Annotated[int | None, typer.Option("--epoch", "--number", "-e", "-n",
+    numval: Annotated[int | None, typer.Option("--epoch", "--number", "-e",
         help="epoch value in number")] = None, # 1234567890
     debug: Annotated[bool, typer.Option("--debug", help="turn on debug")] = False,
     human: Annotated[bool, typer.Option("--human", "-H", help="human read flag")] = False,
-    demo: Annotated[bool, typer.Option("--demo", help="get some demo")] = False
+    demo: Annotated[bool, typer.Option("--demo", help="get some demo")] = False,
+    now: Annotated[bool, typer.Option("--now", "-n", help="use current local time as input")] = False,
+    utc: Annotated[bool, typer.Option("--utc/--local", "-u/-l", help="UTC (default) or local timezone")] = True,
 ) -> None:
     '''
     epoch / timestamp demo
@@ -75,21 +77,27 @@ def main(
         run_demo()
         return
 
+    tz_label = 'UTC' if utc else 'local'
+
+    if now:
+        dateval = datetime.now().astimezone()
+
     if dateval:
         # human date string to epoch
-        # date +%s -d"Jan 1, 1980 00:00:01"
         logd(f'{dateval=}')
         logd(f'may also use: date +%s -d"{dateval}"')
-        ts = int(dateval.timestamp())
-        print(ts)
+        if utc:
+            ts = int(dateval.replace(tzinfo=timezone.utc).timestamp())
+        else:
+            ts = int(dateval.astimezone().timestamp())
+        print(f'{ts} ({tz_label})')
         return
     if numval:
         # epoch to date string
-        # date -d @1520000000
-        ret = epoch2timestr(numval, human=human)
+        ret = epoch2timestr(numval, human=human, utc=utc)
         logd(ret)
         logd(f"may also use: date -R -d '@{numval}'")
-        print(ret[1])
+        print(f'{ret[1]} ({tz_label})')
         return
     print('get some help, use "--help"')
 

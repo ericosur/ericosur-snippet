@@ -8,28 +8,21 @@ import argparse
 import sys
 
 try:
-    # try to add my code snippet into python path
-    sys.path.insert(0, '../')
-    # sys.path.insert(0, '../../')
-    # sys.path.insert(0, 'python3/')
-    from be_prepared import get_year_color, prepare_values
+    import rich  # noqa: F401
+    RICH_ENABLED = True
 except ImportError:
-    print('cannot import be_prepared, exit')
-    sys.exit(1)
+    RICH_ENABLED = False
 
 try:
-    from rich import print as rprint
-    USE_RICH = True
-except ImportError:
-    USE_RICH = False
-
-try:
-    from doom_today import get_today
-    from dooms_day import DoomsDay
+    from be_prepared import get_today, get_year_color, prepare_values
+    from dooms_day import DoomsDay, prt
     from dooms_day_test import TestDoomsDay
-except ImportError:
-    print('cannot import dooms_day, exit')
+except ImportError as e:
+    print(f'cannot import dooms_day, exit: {e}')
     sys.exit(1)
+
+
+
 
 def eprint(*args, **kwargs):
     ''' print to stderr '''
@@ -37,10 +30,6 @@ def eprint(*args, **kwargs):
 
 def show_month_magic_number(year=-1, show_header=True):
     ''' display magic number for this year '''
-    # if year <= 0:
-    #     tdyear = date.today().year
-    # else:
-    #     tdyear = year
     tdyear = get_today().year if year <=0 else year
     ret = DoomsDay.get_month_modifier(tdyear)
 
@@ -88,6 +77,7 @@ def make_year_list(base_year:int=0, opt='c', year_range=5) -> list:
 
 def test_year_list():
     ''' test make_year_list '''
+    ret = None
     try:
         ret = make_year_list(0, 'c', 0)
         assert ret == [2022]
@@ -141,14 +131,14 @@ def test_year_list():
 
     print("test done...")
 
-def show(color: str, msg: str) -> None:
+def show(color: str, msg: str, use_rich: bool = RICH_ENABLED) -> None:
     ''' show '''
-    if USE_RICH:
-        rprint(f'[{color}]{msg}')
+    if use_rich:
+        prt(f'[{color}]{msg}')
     else:
         print(msg)
 
-def show_doom_number(year_list=None, target:int=-1, full_list=False):
+def show_doom_number(year_list=None, target:int=-1, full_list=False, use_rich: bool = RICH_ENABLED):
     ''' print out doom offset number within range '''
     # if year_list is empty, add default value
     if not year_list:
@@ -170,7 +160,7 @@ def show_doom_number(year_list=None, target:int=-1, full_list=False):
         if idx!=len(year_list)-1 or full_list:
             msg += ','
         clr = get_year_color(yy, target)
-        show(clr, msg)
+        show(clr, msg, use_rich)
 
         if full_list:
             show_month_magic_number(yy, show_header=False)
@@ -203,8 +193,13 @@ def init_argparse():
     parser.add_argument("-C", "--context", type=int, help="context years")
     parser.add_argument("-A", "--after", type=int, help="after years")
     parser.add_argument("-B", "--before", type=int, help="before years")
-    parser.add_argument("-x", "--extra", action="store_true", default=False,
+    parser.add_argument('-x', '--extra', action='store_true', default=False,
         help='show extra info')
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument('--rich', '-r', dest='use_rich', action='store_true',
+        help='force rich output')
+    group.add_argument('--print', '-p', dest='use_print', action='store_true',
+        help='force plain print output')
 
     args = parser.parse_args()
     return args
@@ -212,6 +207,13 @@ def init_argparse():
 def main():
     ''' main '''
     args = init_argparse()
+
+    if args.use_print:
+        use_rich = False
+    elif args.use_rich:
+        use_rich = True
+    else:
+        use_rich = RICH_ENABLED
 
     if args.extra:
         print(f'''Extra info:
@@ -241,23 +243,23 @@ def main():
         return
 
     if args.context or args.after or args.before:
-        yy = None
+        yy = 0
         if args.years:
             yy = args.years[0] if args.years[0] else 0
         ret = prepare_values(yy, args.after, args.before, args.context)
-        show_doom_number(ret, target=yy, full_list=args.full)
+        show_doom_number(ret, target=yy, full_list=args.full, use_rich=use_rich)
         return
 
     if args.years:
         if len(args.years) > 1 and args.full:
             eprint("[WARN] only the first one arg will be used")
             args.years = args.years[:1]
-        show_doom_number(args.years, args.full)
+        show_doom_number(args.years, args.full, use_rich=use_rich)
         return
 
     print('no arguments specified, use "-h" to see the help, will run default function...\n')
     #parser.print_help()
-    show_doom_number(None, args.full)
+    show_doom_number(None, args.full, use_rich=use_rich)
 
 
 if __name__ == '__main__':

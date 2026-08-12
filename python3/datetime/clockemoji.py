@@ -5,13 +5,10 @@ show an emoji that matches the current time
 '''
 
 import argparse
-import sys
-from datetime import datetime, timezone
+from datetime import datetime
 from typing import ClassVar
 
-sys.path.insert(0, "..")
-sys.path.insert(0, "python3")
-from myutil import prt  # type: ignore[import]
+from datetime_common import prt
 
 
 class ShowClock:
@@ -43,21 +40,21 @@ class ShowClock:
         "1230": "🕧",
     }
 
-    def __init__(self, verbose=False):
-        self.verbose = verbose
-        self.hh = None
-        self.mm = None
-        self.key = None
+    def __init__(self, verbose: bool = False) -> None:
+        self.verbose: bool = verbose
+        self.hh: int | None = None
+        self.mm: int | None = None
+        self.key: str | None = None
         self._whatnow()
 
-    def setmm(self, m):
+    def setmm(self, m: int) -> None:
         ''' set m '''
         if 0 <= m <= 59:
             self.mm = m
         else:
             raise ValueError
 
-    def sethh(self, h):
+    def sethh(self, h: int) -> None:
         ''' set h '''
         if h == 0:
             h = 12
@@ -69,30 +66,33 @@ class ShowClock:
         else:
             raise ValueError
 
-    def _whatnow(self):
+    def _whatnow(self) -> None:
         ''' get current hour and minute (type: int)
             hh (0 to 23)
             mm (0 to 59)
         '''
-        now = datetime.now(tz=timezone.utc)
+        now = datetime.now().astimezone()
         # Extract hour and minute
         self.sethh(now.hour)
         self.setmm(now.minute)
-        assert 0 <= self.mm <= 59
-        assert 1 <= self.hh <= 12
+        assert self.mm is not None and 0 <= self.mm <= 59
+        assert self.hh is not None and 1 <= self.hh <= 12
 
-    def _step_hour(self):
+    def _step_hour(self) -> int:
         ''' 1 to 2, 2 to 3, 11 to 12, 12 to 1
             will not change the current time
         '''
+        assert self.hh is not None
         hh = self.hh + 1
         if hh > 12:
             hh = 1
         assert 0 < hh <= 12
         return hh
 
-    def choose_icon(self):
+    def choose_icon(self) -> str:
         ''' choose an icon '''
+        assert self.mm is not None
+        assert self.hh is not None
         m = self.mm
         h = self.hh
         if 0 <= m <= 15:
@@ -107,12 +107,12 @@ class ShowClock:
             h = self._step_hour()
         return f'{h:02d}{m:02d}'
 
-    def get_icon(self):
+    def get_icon(self) -> str | None:
         ''' return icon '''
         self.key = self.choose_icon()
         return self.clocks.get(self.key)
 
-    def test(self, hh, mm):
+    def test(self, hh: int, mm: int) -> None:
         ''' test '''
         self.sethh(hh)
         self.setmm(mm)
@@ -122,7 +122,7 @@ class ShowClock:
         i = self.get_icon()
         prt(f'{hh:02d}{mm:02d} ==> {r}\t{i}')
 
-    def do_tests(self):
+    def do_tests(self) -> None:
         ''' run tests '''
         #prt(f"Current hour: {self.hh}, minute: {self.mm}")
         #self.choose_icon()
@@ -141,7 +141,7 @@ class ShowClock:
         self.test(12, 45)
         self.test(12, 46)
 
-    def action(self):
+    def action(self) -> None:
         ''' action '''
         #prt(f'{self.verbose=}')
         icon = self.get_icon()
@@ -150,12 +150,12 @@ class ShowClock:
         prt(icon)
 
     @classmethod
-    def run(cls, show_more):
+    def run(cls, show_more: bool) -> None:
         ''' run me '''
         obj = cls(verbose=show_more)
         obj.action()
 
-def main():
+def main() -> None:
     ''' main '''
     parser = argparse.ArgumentParser(description='accept an option to verbose')
     parser.add_argument("-v", "--verbose", action='store_true', default=False,

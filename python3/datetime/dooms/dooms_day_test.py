@@ -66,11 +66,12 @@ class TestDoomsDay:
                 for mm in range(1, 12):
                     for dd in range(1, 31):
                         try:
-                            assert TestDoomsDay.test_tmm(yy, mm, dd)
-                            assert TestDoomsDay.test_dow(yy, mm, dd)
+                            result, tmm, wd = TestDoomsDay.test_tmm(yy, mm, dd)
+                            assert result, f"test_tmm failed: {yy}/{mm}/{dd} got {tmm}, expected {wd}"
+                            assert TestDoomsDay.test_dow(yy, mm, dd), f"test_dow failed: {yy}/{mm}/{dd}"
                         except ValueError:
                             # here pass all invalid date like 1701/2/29 ...
-                            print(f"[WARN] value error at: {yy}/{mm}/{dd}")
+                            pass
         except AssertionError:
             print(f"failed at {yy}/{mm}/{dd}")
         print("pass")

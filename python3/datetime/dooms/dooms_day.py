@@ -23,9 +23,8 @@ example
 '''
 
 import sys
-
-from pathlib import Path
 from datetime import date, datetime
+from pathlib import Path
 
 
 def setup_local_paths() -> None:
@@ -42,7 +41,7 @@ def setup_local_paths() -> None:
 
 try:
     setup_local_paths()
-    from madlog import get_prt, get_logd  # type: ignore[import
+    from madlog import get_logd, get_prt  # type: ignore[import
 except ImportError:
     print('cannot import madlog, exit')
     sys.exit(1)

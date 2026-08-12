@@ -4,12 +4,10 @@
 to check if a date is palindrome
 '''
 
-import sys
+
 from datetime import date, timedelta
 
-sys.path.insert(0, "..")
-sys.path.insert(0, "python3")
-from myutil import prt  # type: ignore[import]
+from datetime_common import prt
 
 
 def is_palindrome(the_str: str) -> bool:

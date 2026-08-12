@@ -40,6 +40,7 @@ and it is much easier to use and avoid negative numbers. **Use addition instead.
     (5 + 2) mod 7 = 0, which is Sunday.
 '''
 
+import argparse
 import sys
 from typing import ClassVar
 
@@ -50,7 +51,7 @@ except ImportError:
     print("[WARN] no rich.console to use")
     USE_RICH = False
 try:
-    from dooms_day import DoomsDay, prt, logd, get_today
+    from dooms_day import DoomsDay, get_today, logd, prt
 except ImportError:
     print('cannot import dooms_day, exit')
     sys.exit(1)
@@ -61,8 +62,10 @@ class EasyDoomsDay:
     months: ClassVar[list[str]] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-    def __init__(self):
+    def __init__(self, use_rich: bool = USE_RICH, debug: bool = False):
         ''' init '''
+        self.use_rich = use_rich
+        self.debug = debug
         self.today = get_today()
         self.this_year = self.today.year
         self.modifer_year = 0
@@ -71,20 +74,22 @@ class EasyDoomsDay:
 
     def normalize_modifier(self):
         ''' normalize month modifier to a list of integers '''
-        logd(f'No year doom: {self.month_modifiers}')
+        if self.debug:
+            logd(f'No year doom: {self.month_modifiers}')
         normalized = []
         for d in self.month_modifiers:
             n = -1 * d - self.modifer_year
             while n < 0:
                 n += 7
             normalized.append(n)
-        logd(f'  normalized: {normalized}')
+        if self.debug:
+            logd(f'  normalized: {normalized}')
         self.normalized_modifiers = normalized
 
     def display_in_table(self):
         ''' display magic number in table format '''
         prt(f'Doom numbers for {self.this_year}: {self.modifer_year}')
-        table = Table(title=f"Month Magic Numbers for {self.this_year}")
+        table = Table(title=f"Month Magic Numbers for {self.this_year}")  # pyright: ignore[reportPossiblyUnboundVariable]
         table.add_column("Month", justify="left", style="cyan")
         table.add_column("Magic Number", justify="center", style="magenta")
         table.add_column("Doom Number", justify="center", style="green")
@@ -97,24 +102,24 @@ class EasyDoomsDay:
 
     def display_in_text(self):
         ''' display magic number in text format '''
-        # zip mons and self.normalized_modifier
         m = list(zip(self.months, self.normalized_modifiers))
-        logd(m)
+        if self.debug:
+            logd(m)
         print(f'Month magic numbers for {self.this_year}:')
         for i in m:
             print(i)
 
     def display_month_magic_number(self):
         ''' display magic number for this year '''
-        if USE_RICH:
+        if self.use_rich:
             self.display_in_table()
         else:
             self.display_in_text()
 
     @classmethod
-    def run(cls, year=None):
+    def run(cls, year=None, use_rich: bool = USE_RICH, debug: bool = False):
         ''' run, calculate doomsday number for the given year'''
-        obj = cls()
+        obj = cls(use_rich=use_rich, debug=debug)
         if year is None:
             year = obj.this_year
         obj.modifer_year = DoomsDay.get_doom_num(year)
@@ -123,4 +128,23 @@ class EasyDoomsDay:
         obj.display_month_magic_number()
 
 if __name__ == '__main__':
-    EasyDoomsDay.run()
+    parser = argparse.ArgumentParser(description='Display doomsday magic numbers for a given year')
+    parser.add_argument('year', metavar='year', type=int, nargs='?', default=None,
+                        help='specify year (default: current year)')
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument('--rich', '-r', dest='use_rich', action='store_true',
+                       help='force rich table output')
+    group.add_argument('--print', '-p', dest='use_print', action='store_true',
+                       help='force plain text output')
+    parser.add_argument('--debug', '-d', action='store_true',
+                        help='enable debug output')
+    args = parser.parse_args()
+    
+    if args.use_print:
+        use_rich = False
+    elif args.use_rich:
+        use_rich = True
+    else:
+        use_rich = USE_RICH
+    
+    EasyDoomsDay.run(year=args.year, use_rich=use_rich, debug=args.debug)

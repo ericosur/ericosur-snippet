@@ -45,9 +45,9 @@ except ImportError:
 
 
 try:
+    from be_prepared import TAIPEI_TZ, get_thisyear, get_today
     from datetime_common import do_nothing
     from datetime_common import logd as _logd
-    from be_prepared import TAIPEI_TZ, get_thisyear, get_today
 except ImportError as e:
     print('[WARN] no module nothing, please check the module', e)
     sys.exit(1)

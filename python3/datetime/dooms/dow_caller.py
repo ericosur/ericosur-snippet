@@ -8,7 +8,6 @@
 
 import sys
 
-
 try:
     from dooms_day import DoomsDay, get_today, prt
 except ImportError:
