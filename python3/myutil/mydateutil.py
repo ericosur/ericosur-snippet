@@ -4,13 +4,13 @@
     for calculating some date time
 '''
 
-__VERSION__ = "2024.04.01"
+__VERSION__ = "2026.08.13"
 
-def is_leapyear(y):
+def is_leapyear(y: int) -> bool:
     ''' is **y** a leap year? '''
     return (y % 4 == 0 and y % 100 != 0) or (y % 400 == 0)
 
-def get_dow(y, m, d):
+def get_dow(y: int, m: int, d: int) -> int:
     '''
     calculate weekday without any module
     return 0 to 6, means sun, mon, tue, wed, thu, fri, sat
@@ -24,7 +24,7 @@ def get_dow(y, m, d):
     return (23*m//9+d+4+y//4-y//100+y//400)%7
 
 
-def get_offset_from_year(y):
+def get_offset_from_year(y: int) -> int:
     ''' return offset of input year '''
     offset = 0
     r = (y // 100) % 4
@@ -39,7 +39,7 @@ def get_offset_from_year(y):
     return offset
 
 
-def get_doom_num(y):
+def get_doom_num(y: int) -> int:
     ''' calculate doomsday number of specified year '''
     offset = get_offset_from_year(y)
     y = y % 100

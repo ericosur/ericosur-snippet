@@ -25,15 +25,13 @@ import time
 from datetime import datetime, timezone
 
 try:
-    from datetime_common import prt
+    from datetime_common import console, prt
     from sickutil import (
         datetime_to_sick,
         get_sick_from_ns,
         sick_to_datetime,
         sick_to_ns,
     )
-
-    from madlog import get_console
 except ImportError as e:
     print('import error of datetime_common, please check the module', e)
     sys.exit(1)
@@ -128,9 +126,7 @@ def look_for_head5() -> None:
     '''
     LOOK_FOR_FIVE_HEAD = True
     cnt = 0
-    console = get_console()
-    if not console:
-        return
+    assert console is not None
 
     with console.status("[bold green]Searching...[/]", spinner="dots") as _status:
         while LOOK_FOR_FIVE_HEAD:

@@ -2,14 +2,10 @@
 
 ''' to calculate days between two dates '''
 
-import sys
 from datetime import date
 
-sys.path.insert(0, "../")
-sys.path.insert(0, "python3/")
 from be_prepared import get_local_today
-
-from myutil import prt  # type: ignore[import]
+from datetime_common import prt
 
 
 class Solution:
