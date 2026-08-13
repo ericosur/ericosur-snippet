@@ -34,6 +34,10 @@ def get_current_taipei_datetime() -> datetime:
     ''' get current datetime in Taipei timezone '''
     return datetime.now(tz=TAIPEI_TZ)
 
+def get_today_datetime() -> datetime:
+    ''' get today datetime in local timezone '''
+    return get_current_local_datetime()
+
 def get_today() -> date:
     ''' get today date in local timezone '''
     return get_current_local_datetime().date()
