@@ -5,18 +5,16 @@ with asyncio to compare sum vs np.sum
 '''
 
 import asyncio
-import concurrent
+import concurrent.futures
 from timeit import default_timer
 
-from rich.console import Console
+from numpy_common import console, prt  # type: ignore[import]
 
 import numpy as np
 
 MAXCNT = 500_000_000
 MAX_TIMEOUT = 20  # seconds
 
-console = Console()
-prt = console.print
 
 def builtin_sum(arr) -> int:
     ''' builtin sum '''
@@ -57,6 +55,7 @@ async def main():
     np_arr = None
     int_arr = None
     outer_start = default_timer()
+    results = []
     with console.status("[bold green] running...", spinner="bouncingBar") as _status:
         start = default_timer()
         np_arr = np.random.randint(255, size=MAXCNT)

@@ -21,10 +21,13 @@ from pydantic import BaseModel
 
 import numpy as np
 
-sys.path.insert(0, "./")
-sys.path.insert(0, "../")
-sys.path.insert(0, "python/")
-from myutil import prt, read_jsonfile  # type: ignore[import]
+try:
+    from numpy_common import prt  # type: ignore[import]
+
+    from myutil import read_jsonfile  # type: ignore[import]
+except ImportError as e:
+    print(f'failed to load module: {e}')
+    sys.exit(1)
 
 
 class Dist(BaseModel):
