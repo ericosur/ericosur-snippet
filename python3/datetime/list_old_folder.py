@@ -6,16 +6,11 @@
 
 
 import os
-import sys
 import time
 from datetime import datetime
 from glob import glob
 
-sys.path.insert(0, '.')
-sys.path.insert(0, '..')
-from be_prepared import TAIPEI_TZ
-
-from myutil import prt  # type: ignore[import]
+from datetime_common import prt  # type: ignore[import]
 
 
 class ShowDirList:
@@ -64,8 +59,8 @@ class ShowDirList:
 
     @staticmethod
     def get_datetime_from_epoch(epoch: float) -> datetime:
-        ''' get datetime from epoch '''
-        return datetime.fromtimestamp(epoch, tz=TAIPEI_TZ)
+        ''' get datetime from epoch with local timezone '''
+        return datetime.fromtimestamp(epoch).astimezone()
 
     def show_older_dirs(self, days: int=DEFAULT_DAYS) -> None:
         ''' show the older folders '''

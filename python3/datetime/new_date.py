@@ -7,7 +7,7 @@ demo days delta
 from datetime import datetime, timedelta
 from typing import Annotated
 
-from be_prepared import get_today
+from be_prepared import get_today_datetime
 
 try:
     import typer
@@ -37,7 +37,7 @@ def get_date_after_days(start_date: datetime, offset_days: int) -> datetime:
 def demo_only() -> None:
     '''demo function'''
     print("demo...")
-    start = get_today()
+    start = get_today_datetime()
     delta = 60
     get_result(start, delta)
 
@@ -79,6 +79,6 @@ if USE_TYPER:
 
 if __name__ == '__main__':
     if USE_TYPER:
-        typer.run(main)
+        typer.run(main)  # pyright: ignore
     else:
         demo_only()

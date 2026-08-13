@@ -81,4 +81,4 @@ function send_notification() {
 # here call function to send to different devices
 send_notification "i16pm"
 sleep 2
-send_notification "pixel6a"
+send_notification "pixel10a"

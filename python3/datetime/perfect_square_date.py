@@ -9,16 +9,18 @@ for example, 2015/3/9 will be 20150309
 
 '''
 
+import argparse
 import sys
 from math import sqrt
 
-sys.path.insert(0, "..")
-from myutil import is_leapyear  # type: ignore[import]
+try:
+    from datetime_common import logd  # type: ignore[import]
 
+    from myutil import is_leapyear  # type: ignore[import]
+except ImportError as e:
+    print('failed to import module: ', e)
+    sys.exit(1)
 
-def logd(*args, **wargs):
-    ''' logd '''
-    print(*args, **wargs)
 
 class Solution:
     ''' list a lot of date from 2000/1/1 to 2099/12/31
@@ -93,13 +95,11 @@ class Solution:
             if a perfect square
         '''
         logd('test dates...')
-        cnt = 0
         for d in self.dates:
-            cnt += 1
             r = sqrt(d)
-            if r == int(r):
+            if r.is_integer():
                 self.answers1.append((d, int(r)))
-        logd(f'test cnt: {cnt}, len: {len(self.answers1)}')
+        logd(f'test cnt: {len(self.dates)}, len: {len(self.answers1)}')
         self.dump_ans(self.answers1)
 
     def test_roots(self):
@@ -144,6 +144,12 @@ class Solution:
 
 def main():
     ''' main '''
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-d', '--debug', action='store_true', help='turn on debug output')
+    args = parser.parse_args()
+    if not args.debug:
+        global logd
+        logd = lambda *_, **__: None  # suppress debug output
     Solution.run()
 
 if __name__ == '__main__':
