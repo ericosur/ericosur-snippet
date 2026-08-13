@@ -18,12 +18,9 @@ def fill_randit():
     ''' fill rand int with size '''
     return np.random.randint(100, size=DEFAULT_SIZE)
 
-def fill_stupid():
+def fill_stupid() -> list[int]:
     ''' my own stupid way to fill array '''
-    res = []
-    for i in range(DEFAULT_SIZE):
-        res.append(i)
-    return res
+    return list(range(DEFAULT_SIZE))
 
 def sum_stupid(arr):
     ''' sum up '''
