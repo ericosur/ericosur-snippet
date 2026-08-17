@@ -2,6 +2,8 @@
 
 '''
 	sha256sum
+
+    make this script could be run if optional module loguru is not installed
 '''
 
 import argparse

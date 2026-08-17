@@ -70,7 +70,7 @@ class GanChi:
         ''' run test '''
         _logd(cls.__name__)
         obj = cls(_logd=_logd)
-        #obj.test0()
+        obj.test0()
         obj.test1()
 
     def normalize_year(self, y: int) -> int:

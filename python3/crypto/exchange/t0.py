@@ -23,6 +23,7 @@ from keyiv import from_env, from_file, save_bin
 
 try:
     from exchange_common import logd, prt
+
     from myutil import md5sum  # type: ignore[import]
 except ImportError:
     print('cannot import exchange_common, exit')

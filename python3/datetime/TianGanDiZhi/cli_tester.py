@@ -18,13 +18,10 @@ except ImportError:
     sys.exit(1)
 
 try:
-    from tgdz_common import setup_local_paths  # type: ignore[import]
-    setup_local_paths()
-    from gngan_yaljux import GanChi, do_tests, do_values, do_verbose, prt
-    from nothing import do_nothing  # type: ignore[import]
-    from tgdz_common import logd
-except ImportError:
-    print('[FAIL] you need tgdz_common, gngan_yaljux, nothing to run this')
+    from gngan_yaljux import GanChi, do_ab, do_tests, do_values, do_verbose, prt
+    from tgdz_common import do_nothing, logd
+except ImportError as e:
+    print('[FAIL] fail to import module: ', e)
     sys.exit(1)
 
 
@@ -40,6 +37,10 @@ def main(verbose: Annotated[bool, typer.Option("--list", "-l",
                                                help="run basic tests")] = False,
          testab: Annotated[bool, typer.Option("--abtest","--ab",
                                                help="run AB tests")] = False,
+         apple: Annotated[int | None, typer.Option("--apple", "-a",
+                                                    help="TianGan index (0-9)")] = None,
+         ball: Annotated[int | None, typer.Option("--ball", "-b",
+                                                   help="DiZhi index (0-11)")] = None,
         ) -> None:
     '''
     no required arguments, use options to toggle, only the first one will be taken
@@ -61,11 +62,20 @@ def main(verbose: Annotated[bool, typer.Option("--list", "-l",
         gc.test0()
         return
     if testab:
-        gc = GanChi(_logd=_logd)
-        gc.test1()
+        if apple is None or ball is None:
+            prt('[FAIL] --ab requires both --apple/-a and --ball/-b')
+            return
+        if not GanChi.check_ab(apple, ball):
+            prt(f'[FAIL] invalid --ab values: {apple}, {ball}')
+            return
+        do_ab(apple, ball, _logd=_logd)
         return
 
     prt(f"[INFO] use [yellow]{sys.argv[0]} --help[/yellow] to see help messages")
 
+
+app = typer.Typer(context_settings={"help_option_names": ["-h", "--help"]})
+app.command()(main)
+
 if __name__ == '__main__':
-    typer.run(main)
+    app()

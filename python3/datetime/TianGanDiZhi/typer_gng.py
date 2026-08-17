@@ -18,24 +18,21 @@ except ImportError:
     print('[FAIL] you need module typer to run this')
     sys.exit(1)
 
-from rich.console import Console
 
-console = Console()
+try:
+    from tgdz_common import do_nothing, logd
+except ImportError as e:
+    print('fail to import module: ', e)
+    sys.exit(1)
 
-from gngan_yaljux import do_ab, do_tests, do_values, do_verbose
-
-sys.path.insert(0, "..")
-sys.path.insert(0, "TaiGanDiZhi/")
-sys.path.insert(0, "../datetime/")
-sys.path.insert(0, "../../python3/datetime/")
 from be_prepared import get_thisyear, prepare_values  # type: ignore[import]
-from nothing import do_nothing  # type: ignore[import]
+from gngan_yaljux import do_ab, do_tests, do_values, do_verbose  # type: ignore[import]
 
 
 class Main:
     ''' main '''
     def __init__(self):
-        self.logd = console.log
+        self.logd = logd
 
     def main(self, values: Annotated[list[int] | None,
                                      typer.Argument(help="specify year")] = None,

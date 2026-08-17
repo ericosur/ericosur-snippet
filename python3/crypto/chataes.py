@@ -19,25 +19,13 @@ try:
 except ImportError:
     print('need install pycryptodome')
     sys.exit(1)
-try:
-    from loguru import logger
-    USE_LOGGER = True
-except ImportError:
-    USE_LOGGER = False
 
 try:
-    from rich import print as rprint
-    USE_RICH = True
-except ImportError:
-    USE_RICH = False
+    from crypto_common import do_nothing, logd, prt
+except ImportError as e:
+    print('fail to import module: ', e)
+    sys.exit(1)
 
-def do_nothing(*_args, **_wargs) -> None:
-    ''' do nothing '''
-    return
-
-from madlog import get_prt
-
-prt = get_prt()
 
 class Main:
     ''' main '''
@@ -47,13 +35,13 @@ class Main:
     TAG_SIZE = 16
 
     def __init__(self, debug: bool):
-        self.logd = logger.debug if debug and USE_LOGGER else do_nothing
+        self.logd = logd if debug else do_nothing
 
     def aes_encrypt(self, data: bytes, key: bytes, iv: bytes) -> bytes:
         ''' aes encrypt '''
         logd = self.logd
         if isinstance(data, str):
-            logger.warning("data is str, will convert to bytes...")
+            logd("data is str, will convert to bytes...")
             data = data.encode()
         cipher = AES.new(key, AES.MODE_EAX, iv)
         ciphertext, tag = cipher.encrypt_and_digest(data)

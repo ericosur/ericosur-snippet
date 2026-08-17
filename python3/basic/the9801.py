@@ -3,11 +3,16 @@
 計算 1/9801 的小數部分，並輸出其循環位數長度及內容。
 '''
 
+import argparse
 import sys
 from decimal import Decimal, getcontext
 from math import gcd
 
-from sympy import factorint
+try:
+    from sympy import factorint
+except ImportError:
+    print('failed to import sympy, please install it first')
+    sys.exit(1)
 
 try:
     from basic_common import do_nothing
@@ -16,7 +21,7 @@ except ImportError as e:
     print('fail to load module: ', e)
     sys.exit(1)
 
-DEBUG = True
+DEBUG = False
 
 logd = _logd if DEBUG else do_nothing
 
@@ -101,6 +106,13 @@ class Solution:
 
 def main():
     ''' main '''
+    global DEBUG, logd
+    parser = argparse.ArgumentParser(description='Calculate the repeating decimal of 1/9801.')
+    parser.add_argument('-d', '--debug', action='store_true', help='enable debug messages')
+    args = parser.parse_args()
+    DEBUG = args.debug
+    logd = _logd if DEBUG else do_nothing
+
     num = 9801
     Solution.run(num)
 

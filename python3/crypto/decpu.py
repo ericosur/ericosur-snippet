@@ -12,7 +12,13 @@ import os
 import sys
 from typing import Annotated
 
-import typer
+try:
+    import typer
+except ImportError:
+    print('[FAIL] need module **typer** to run')
+    sys.exit(1)
+
+
 from passutil import PassUtil
 
 
@@ -60,7 +66,7 @@ class Demo:
         self.decrypt(demo=True)
 
 def main(fn: Annotated[str, typer.Argument(help="assign file to decrypt")] = "my.json",
-         debug: Annotated[bool, typer.Option("--debug", help="toggle debug info")] = False,
+         debug: Annotated[bool, typer.Option("--debug", "-d", help="toggle debug info")] = False,
          demo: Annotated[bool, typer.Option("--demo", help="demo from scratch")] = False,
          verbose: Annotated[bool, typer.Option("--verbose", "-v",
                                                help="verbose info")] = False) -> None:
