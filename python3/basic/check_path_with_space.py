@@ -7,10 +7,10 @@ platform and its path
 import os
 import re
 import sys
-
 from sysconfig import get_platform
 
 from basic_common import setup_local_paths
+
 try:
     setup_local_paths()
     from madlog import get_prt
