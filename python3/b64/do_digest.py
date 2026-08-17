@@ -31,9 +31,8 @@ sys.path.insert(0, "python3/b64")
 # setup CLI cmd and function name in the dgst.py
 from dgst import digests  # type: ignore[import]
 
-from myutil import get_python_versions, run_command  # type: ignore[import]
-
 from madlog import get_prt
+from myutil import get_python_versions, run_command  # type: ignore[import]
 
 prt = get_prt()
 logd = logger.debug if USE_LOGGER else print

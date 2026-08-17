@@ -13,36 +13,25 @@ It is not used for encryption or decryption.
 
 import argparse
 import base64
+import hmac
 import json
 import os
 import sys
 from typing import Any
 
 try:
-    from rich import print as rprint
-    USE_RICH = True
-except ImportError:
-    USE_RICH = False
-try:
-    from loguru import logger
-    USE_LOGGER = True
-except ImportError:
-    USE_LOGGER = False
+    from crypto_common import do_nothing, logd, prt
+except ImportError as e:
+    print('fail to import module: ', e)
+    sys.exit(1)
+
 
 MODULE = "scrypt_demo"
-from madlog import get_prt
-
-prt = get_prt()
-
-def do_nothing(*_args, **_wargs) -> None:
-    ''' do nothing '''
-    return
-
 
 try:
     from run_vector import ScryptVector, do_scrypt, run_test_vector
 except ImportError:
-    logger.error("The module 'run_vector' could not be found")
+    print("The module 'run_vector' could not be found")
     sys.exit(1)
 
 class ScryptDemo:
@@ -55,7 +44,7 @@ class ScryptDemo:
     def __init__(self, debug=False, pure=False):
         self.the_dict = {}
         self.jsonfile = f'{MODULE}.json'
-        self.logd = logger.debug if debug and USE_LOGGER else do_nothing
+        self.logd = logd if debug else do_nothing
         if pure:
             self.pure_test()
         else:
@@ -87,13 +76,10 @@ class ScryptDemo:
             print(json.dumps(output_dict, indent=4), file=fobj)
         prt(f'save to: {fn}')
 
-    def read_and_verfify(self, pwd: str) -> bool:
+    def read_and_verify(self, pwd: str) -> bool:
         ''' read json and verify the password'''
         fn = self.jsonfile
         logd = self.logd
-        salt = b''
-        check_dk = b''
-        input_dk = b''
         with open(fn, "rt", encoding="UTF-8") as fobj:
             d = json.load(fobj)
             salt = base64.b64decode(d.get("salt"))
@@ -102,7 +88,7 @@ class ScryptDemo:
         to_verify = do_scrypt(pwd.encode(), salt)
         input_dk = to_verify.get("dk", b'\xde\xad\xbe\xef')
         logd(f'input_dk.hex(): {input_dk.hex()}')
-        return input_dk == check_dk
+        return hmac.compare_digest(input_dk, check_dk)
 
     def get_str(self, prefix:str, idx: int) -> str:
         ''' get string '''
@@ -116,8 +102,12 @@ class ScryptDemo:
 
         for i in range(1,6):
             p = self.get_str('HereIsThePassword', i)
-            r = self.read_and_verfify(p)
-            msg = "pass" if r else "fail"
+            expected = p == self.PASSWORD
+            verified = self.read_and_verify(p)
+            if verified:
+                msg = "pass" if expected else "UNEXPECTED PASS"
+            else:
+                msg = "fail as expected" if not expected else "UNEXPECTED FAIL"
             prt(f'input({i}): {p}: {msg}')
 
     @classmethod

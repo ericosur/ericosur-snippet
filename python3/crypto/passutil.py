@@ -16,7 +16,11 @@ import json
 import sys
 from typing import Any
 
-from loguru import logger
+try:
+    from crypto_common import do_nothing, logd
+except ImportError as e:
+    print('fail to import module: ', e)
+    sys.exit(1)
 
 try:
     from Crypto.Cipher import AES
@@ -27,9 +31,6 @@ except ImportError:
 
 MODULE = "passutil"
 
-def do_nothing(*_args, **_wargs) -> None:
-    ''' do nothing'''
-    return
 
 class PassUtil:
     ''' password utility '''
@@ -38,7 +39,7 @@ class PassUtil:
         self.jsf = jsonfile
         self.key: bytes = self.__get_derivedkey__()
         self.a_dict['key'] = self.b64enc(self.key)
-        self.logd = logger.debug if debug else do_nothing
+        self.logd = logd if debug else do_nothing
 
     def __get_derivedkey__(self) -> bytes:
         ''' generate derived key '''
@@ -137,7 +138,7 @@ class Main:
 
     def __init__(self):
         self.args = None
-        self.logd = logger.debug if Main.debug else do_nothing
+        self.logd = logd if Main.debug else do_nothing
 
     def do_parser(self) -> Any:
         ''' make parser '''

@@ -16,13 +16,10 @@ def setup_local_paths() -> None:
     sys.path.insert(0, str(myutil_dir))
     sys.path.insert(0, str(madlog_dir))
 
-def do_nothing(*_args, **_wargs) -> None:
-    ''' do nothing '''
-    return
-
 try:
     setup_local_paths()
     from madlog import get_logd, get_prt
+    from myutil import do_nothing
 except ImportError:
     print('[INFO] no madlog, exit...')
     sys.exit(1)
