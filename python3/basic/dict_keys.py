@@ -7,6 +7,7 @@ simple python dict usage
 import sys
 
 from basic_common import setup_local_paths
+
 try:
     setup_local_paths()
     from madlog import get_prt

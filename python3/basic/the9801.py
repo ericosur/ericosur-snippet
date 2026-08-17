@@ -4,14 +4,14 @@
 '''
 
 import sys
-
 from decimal import Decimal, getcontext
 from math import gcd
+
 from sympy import factorint
 
 try:
-    from basic_common import logd as _logd
     from basic_common import do_nothing
+    from basic_common import logd as _logd
 except ImportError as e:
     print('fail to load module: ', e)
     sys.exit(1)

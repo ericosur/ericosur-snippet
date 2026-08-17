@@ -10,9 +10,11 @@ import sys
 import threading
 from random import randint
 from timeit import default_timer
-import numpy as np
 
 from basic_common import setup_local_paths
+
+import numpy as np
+
 try:
     setup_local_paths()
     from madlog import get_logd, get_prt
