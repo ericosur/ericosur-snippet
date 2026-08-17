@@ -14,14 +14,17 @@ except ImportError:
     RICH_ENABLED = False
 
 try:
-    from be_prepared import get_today, get_year_color, prepare_values
     from dooms_day import DoomsDay, prt
-    from dooms_day_test import TestDoomsDay
 except ImportError as e:
     print(f'cannot import dooms_day, exit: {e}')
     sys.exit(1)
 
-
+try:
+    from be_prepared import get_today, get_year_color, prepare_values
+    from dooms_day_test import TestDoomsDay
+except ImportError as e:
+    print(f'cannot import dooms_day, exit: {e}')
+    sys.exit(1)
 
 
 def eprint(*args, **kwargs):
