@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-#coding: utf-8
 
 '''
 ($10,$20,$50) (4,4,4)
@@ -8,7 +7,7 @@ to pay $230, how many methods?
 
 
 
-class Solution():
+class Solution:
     ''' class solution '''
 
     def __init__(self):

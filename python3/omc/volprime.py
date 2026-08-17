@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-# coding: utf-8
 
 '''
 0, 1, 2, 3
@@ -7,7 +6,6 @@ three-digit number is prime
 '''
 
 from sympy import ntheory
-
 
 
 def is_prime(n):

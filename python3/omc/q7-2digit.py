@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 Q7: 已知二位數 ab 且 ab / (a+b) = q .. r
 r的最大值？
 '''
 
-class Solution():
+class Solution:
     ''' class to find solution '''
     LOWER=10
     UPPER=99

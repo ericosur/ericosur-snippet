@@ -29,7 +29,7 @@ class Solution:
         # here I can promise it is balanced
         # pylint: disable=unbalanced-tuple-unpacking
         assert len(c2) == 8
-        [S,E,N,D,M,O,R,Y] = c2  # noqa: E741
+        [S,E,N,D,M,O,R,Y] = c2
         if S==0 or M==0:
             return False
         #print(S,E,N,D,"+", M,O,R,E,end=' ')
