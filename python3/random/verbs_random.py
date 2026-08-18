@@ -4,22 +4,16 @@
 get random verbs
 '''
 
+import argparse
 import json
 import os
 import random
 import re
 
-try:
-    from rich.console import Console
+from random_common import do_nothing, get_logd, prt
 
-    console = Console()
-    logd = console.log
-except ImportError:
-    logd = print
+logd = do_nothing
 
-from madlog import get_prt
-
-prt = get_prt()
 
 class GetVerbs:
     ''' get verbs from data file '''
@@ -44,7 +38,7 @@ class GetVerbs:
                     text = item[0]
                     if " " not in text:
                         verbs.append(text)
-            except Exception as e:
+            except FileNotFoundError as e:
                 logd(f"Error reading {fn}: {e}")
         return verbs
 
@@ -64,8 +58,8 @@ class GetVerbs:
                     if m:
                         verbs.append(m.group(0))
                         cnt += 1
-            except Exception as e:
-                logd(f"Error reading {self.fn}: {e}")
+            except FileNotFoundError as e:
+                logd(f"Error reading {fn}: {e}")
         return verbs
 
     def action(self):
@@ -96,4 +90,13 @@ class GetVerbs:
         obj.action()
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Get random verbs with 4-5 character length')
+    parser.add_argument('-d', '--debug', action='store_true', help='enable debug logging')
+    args = parser.parse_args()
+    
+    if args.debug:
+        logd = get_logd()
+    else:
+        logd = do_nothing
+    
     GetVerbs.run()
