@@ -5,6 +5,7 @@
 from __future__ import annotations
 
 import importlib
+from collections.abc import Callable
 from contextlib import nullcontext
 from typing import TYPE_CHECKING, Any
 
@@ -22,8 +23,18 @@ class _FallbackConsole:
         return nullcontext()
 
 
-def get_prt():
-    """Return rich.print when available, else built-in print."""
+def get_prt(use_print: bool = False) -> Callable[..., Any]:
+    """Return rich.print when available, else built-in print.
+
+    Args:
+        use_print: If True, always use built-in print. If False (default),
+                   try to use rich.print, fall back to built-in print.
+
+    Returns:
+        A callable print function (rich.print or built-in print).
+    """
+    if use_print:
+        return print
     try:
         return importlib.import_module("rich").print
     except ImportError:

@@ -28,11 +28,8 @@ class Solution:
 
     def line2list(self, ln) -> list:
         ''' split characters into a list '''
-        chars = []
         m = re.findall(r'(.)\s*', ln)
-        for c in m:
-            chars.append(c)
-        return chars
+        return m
 
     def process_raw(self):
         ''' process raw file into yaml '''
@@ -60,11 +57,9 @@ class Solution:
         logd(f'{len(self.a_list)=}')
         logd(f'{len(self.a_dict)=}')
         total_in_k = 0
-        cnt = 0
-        for _,v in self.a_dict.items():
-            #logd(f'{cnt}: {k}')
+        for cnt, k in enumerate(self.a_dict):
+            v = self.a_dict[k]
             total_in_k += len(v)
-            cnt += 1
         logd(f'the total chars: {total_in_k}')
 
     def output_as_yaml(self):

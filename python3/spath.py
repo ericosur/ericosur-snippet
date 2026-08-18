@@ -8,6 +8,10 @@ then list them
 for ansi color (optional):
     - colorama
     - rich
+
+- this script is targeted to run battery-included
+- all the modules are optional, if not installed, will use normal print
+
 '''
 
 # single line alias version:

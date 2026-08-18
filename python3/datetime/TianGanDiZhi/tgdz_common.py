@@ -21,7 +21,7 @@ def setup_local_paths() -> None:
 try:
     setup_local_paths()
     from madlog import get_logd, get_prt  # type: ignore[import]
-    from myutil import do_nothing  # type: ignore[import]
+    from myutil import do_nothing  # noqa: F401
 except ImportError as e:
     print('[INFO] no madlog, exit...', e)
     sys.exit(1)
