@@ -12,12 +12,12 @@ VERSION="2024.03.19"
 
 def is_prime(n):
     ''' true if n is a prime number '''
-    return ntheory.primetest.isprime(n)
+    return ntheory.isprime(n)
 
 def is_palindrome(the_str: str):
     ''' the shortest way to test if palindrome '''
     if not isinstance(the_str, str):
-        raise ValueError
+        raise TypeError
     return the_str==the_str[::-1]
 
 def digit_sum(n):

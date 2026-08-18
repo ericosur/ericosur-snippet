@@ -5,13 +5,12 @@
 Q17. 求最小的正整數n使得4n-1與4n+1都不是質數
 '''
 
-import sympy
+from sympy import ntheory
 
-#sympy.ntheory.primetest.isprime
 
 def isprime(n):
     ''' is a prime '''
-    return sympy.ntheory.primetest.isprime(n)
+    return ntheory.isprime(n)
 
 def main() -> None:
     ''' main '''

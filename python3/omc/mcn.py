@@ -37,9 +37,8 @@ def main():
     tries = []
 
     for n in it.product(pp, qq, rr, ss):
-        if len(set(n)) == 4:
-            if sum(list(n)) == 21:
-                tries.append(list(n))
+        if len(set(n)) == 4 and sum(list(n)) == 21:
+            tries.append(list(n))
 
     print(f'size of tries: {len(tries)}')
     for t in tries:

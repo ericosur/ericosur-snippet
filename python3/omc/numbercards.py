@@ -48,11 +48,10 @@ class Solution:
         cnt = 0
         for n in it.combinations(pp, 3):
             (p, q, r) = n
-            if self.is_different(p, q, r):
-                if self.is_small2big(p, q, r):
-                    cnt += 1
-                    if self.is_sum_match(p, q, r):
-                        print(p, q, r)
+            if self.is_different(p, q, r) and self.is_small2big(p, q, r):
+                cnt += 1
+                if self.is_sum_match(p, q, r):
+                    print(p, q, r)
         print('cnt:', cnt)
 
 def main():

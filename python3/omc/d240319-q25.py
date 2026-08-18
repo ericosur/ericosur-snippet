@@ -24,9 +24,8 @@ def main():
     the_list = A002113_list(1_000_000)
     print(len(the_list))
     for x in the_list:
-        if 100000 < x:
-            if x % 75 == 0:
-                print(x, x//75)
+        if 100000 < x and x % 75 == 0:
+            print(x, x//75)
 
 if __name__ == '__main__':
     main()

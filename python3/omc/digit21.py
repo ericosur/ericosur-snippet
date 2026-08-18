@@ -9,10 +9,9 @@ def is_valid(v):
     ''' search answer '''
     digits = list(str(v))
     vals = [int(x) for x in digits]
-    if sum(vals) == 21:
-        if vals[1]-vals[2]==1:
-            print(v)
-            return True
+    if sum(vals) == 21 and vals[1]-vals[2]==1:
+        print(v)
+        return True
     return False
 
 def main():

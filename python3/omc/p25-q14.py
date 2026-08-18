@@ -78,7 +78,7 @@ class Solution:
             else:
                 lv3 += 1
         print(f'{lv0=} {lv1=} {lv2=} {lv3=} {matched=}')
-        for _,v in ans.items():
+        for v in ans.values():
             print(v)
 
     @classmethod

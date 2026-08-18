@@ -56,10 +56,7 @@ class SpendMoney:
         wife-husband cases.
         '''
         for x in it.permutations(self.wife, 4):
-            z = zip(list(x), self.husband)
-            p = []
-            for y in z:
-                p.append(y)
+            p = list(zip(x, self.husband))
             self.cases.append(p)
 
         self.check_cases()
