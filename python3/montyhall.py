@@ -35,8 +35,6 @@ from time import time
 
 try:
     from rich.progress import Progress
-
-    from rich import print as rprint
     USE_RICH = True
 except ImportError:
     USE_RICH = False
@@ -48,9 +46,10 @@ if USE_RICH:
     from rich.console import Console
     from rich.markdown import Markdown
     console = Console()
-    md = Markdown(__doc__)
-    console.print(md)
-    console.print()
+    if __doc__:
+        md = Markdown(__doc__)
+        console.print(md)
+        console.print()
 
 class MontyHall:
     ''' solution for monty hall problem '''
@@ -77,7 +76,7 @@ class MontyHall:
         prt(f'repeat={self.REPEAT:,}; start...')
         start = time()
         progress_unit = 100  # do not update progress bar too frequently
-        with Progress(refresh_per_second=1) as progress:
+        with Progress(refresh_per_second=1) as progress:  # pyright: ignore
             task = progress.add_task('searching...', total=self.REPEAT)
             for i in range(self.REPEAT):
                 if i % progress_unit == 0:

@@ -11,29 +11,18 @@ plot the result
 import time
 from random import randint
 
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt  # pyright: ignore
 
 import numpy as np
 
 #import seaborn as sns
-try:
-    from rich import print as rprint
-    USE_RICH = True
-except ImportError:
-    USE_RICH = False
-try:
-    from loguru import logger
-    USE_LOGGER = True
-except ImportError:
-    USE_LOGGER = False
+from madlog import get_logd, get_prt
 from myutil import do_nothing
-
-from madlog import get_prt
 
 prt = get_prt()
 DEBUG = True
 if DEBUG:
-    logd = logger.debug if USE_LOGGER else print
+    logd = get_logd()
 else:
     logd = do_nothing
 
@@ -49,7 +38,7 @@ class TestDice:
         self.min_sum = self.num_dice * self.min_dice
         self.max_sum = self.num_dice * self.max_dice
         self.size_of_result = self.num_dice*self.max_dice + 1
-        self.result = None
+        self.result = []
         # np's random number generator
         self.rng = np.random.default_rng(int(time.time()))
         self.ydata = []
@@ -122,9 +111,6 @@ class TestDice:
         obj = cls()
         obj.action()
 
-def main():
-    ''' main '''
-    TestDice.run()
 
 if __name__ == '__main__':
-    main()
+    TestDice.run()

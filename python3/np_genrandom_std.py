@@ -21,39 +21,23 @@ The 2nd line count is the number of elements which in the (-3, 3) sigma.
 
 '''
 
+import argparse
 import time
 from typing import Any
 
 import numpy as np
+from madlog import get_logd, get_prt
 from myutil import do_nothing
 
-try:
-    from rich import print as rprint
-    USE_RICH = True
-except ImportError:
-    USE_RICH = False
-from madlog import get_prt
-
+logd = get_logd()
 prt = get_prt()
 
-try:
-    from loguru import logger  # type: ignore[import]
-    USE_LOGURU = True
-except ImportError:
-    # import logging
-    # logging.basicConfig(level=logging.DEBUG)
-    USE_LOGURU = False
 
 SEP_REPEAT = 70
 DEBUG = False
 logd :Any = None
 if DEBUG:
-    if USE_LOGURU:
-        logd = logger.debug
-    else:
-        import logging
-        logging.basicConfig(level=logging.DEBUG)
-        logd = logging.debug
+    logd = get_logd()
 else:
     logd = do_nothing
 
@@ -115,10 +99,7 @@ class GenerateStdNormal:
     def header():
         ''' prt header '''
         prt('   max,   min,  mean, median, stddev,  count,  lhs,  rhs, no_in_scope')
-        if USE_RICH:
-            prt('[bold magenta]'+ '=' * SEP_REPEAT + '[/]')
-        else:
-            print('=' * SEP_REPEAT)
+        prt('=' * SEP_REPEAT)
 
     def get_limts(self, r: np.ndarray) -> str:
         ''' show left--right limits
@@ -143,10 +124,7 @@ class GenerateStdNormal:
     def sep(self):
         ''' separator'''
         #logd('sep...')
-        if USE_RICH:
-            prt('[bold blue]' + '-' * SEP_REPEAT + '[/]')
-        else:
-            print('-' * SEP_REPEAT)
+        prt('-' * SEP_REPEAT)
 
     @classmethod
     def run(cls) -> None:
@@ -163,6 +141,16 @@ class GenerateStdNormal:
 
 def main():
     """ main function to do test """
+    parser = argparse.ArgumentParser(description='Generate random numbers with standard normal distribution')
+    parser.add_argument('-d', '--debug', action='store_true', help='enable debug logging')
+    args = parser.parse_args()
+    
+    global logd  # pylint: disable=global-statement
+    if args.debug:
+        logd = get_logd()
+    else:
+        logd = do_nothing
+    
     GenerateStdNormal.run()
 
 if __name__ == '__main__':
