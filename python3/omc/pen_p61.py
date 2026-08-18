@@ -25,11 +25,10 @@ class Solution:
         for n in range(100,1,-1):
             for p in range(100-n, 1,-1):
                 for e in range(100-n-p, 1,-1):
-                    if n > p > e:
-                        if n+p+e == 100:
-                            cnt += 1
-                            if self.check(n,p,e):
-                                print(f'{n=}, {p=}, {e=}')
+                    if (n > p > e) and (n+p+e == 100):
+                        cnt += 1
+                        if self.check(n,p,e):
+                            print(f'{n=}, {p=}, {e=}')
         #print(f'{cnt=}')
 
     @classmethod
@@ -39,9 +38,5 @@ class Solution:
         obj.action()
 
 
-def main():
-    ''' main '''
-    Solution.run()
-
 if __name__ == '__main__':
-    main()
+    Solution.run()

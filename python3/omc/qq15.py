@@ -28,9 +28,8 @@ def main():
         list_sums = set()
         for v in it.combinations(the_list, 3):
             t = sum(list(v))
-            if 15<=t<=29:
-                if t not in check_set:
-                    list_sums.add(t)
+            if (15<=t<=29) and (t not in check_set):
+                list_sums.add(t)
         if len(list_sums) == 10:
             print(n, list_sums)
 

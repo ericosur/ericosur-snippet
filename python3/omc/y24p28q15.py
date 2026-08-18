@@ -8,10 +8,7 @@ def verify_n(n):
     '''
     能被15和18整除，但不能被28整除
     '''
-    if n % 15 == 0 and n % 18 == 0:
-        if n % 28 != 0:
-            return True
-    return False
+    return (n % 15 == 0 and n % 18 == 0) and (n % 28 != 0)
 
 
 def main():

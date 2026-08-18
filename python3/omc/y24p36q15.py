@@ -7,7 +7,7 @@ P36 Q15. 把1059, 1417 和2312分別除以正整數d，
 
 vals = [1059, 1417, 2312]
 
-def valmods(d):
+def valmods(d) -> list:
     '''
     list of reminders
     '''
@@ -17,13 +17,11 @@ def valmods(d):
         rems.append(r)
     return rems
 
-def validate(the_list):
+def validate(the_list) -> bool:
     ''' need r > 1 '''
     [a, b, c] = the_list
-    if a>1 and b>1 and c>1:
-        if a==b==c:
-            return True
-    return False
+    return (a>1 and b>1 and c>1) and a==b==c
+
 
 def main():
     ''' main '''
