@@ -8,9 +8,8 @@ import os
 import re
 import sys
 
-from madlog import get_prt
+from basic_common import prt
 
-prt = get_prt()
 
 class OSRelease:
     ''' info from /etc/os-release (ubuntu) '''
@@ -93,4 +92,6 @@ if __name__ == "__main__":
         test()
     else:
         prt(f'{sys.argv[0]} is a module, not a standalone script')
+        prt("try `ifc.py` or `ipaddr.py`")
         sys.exit(1)
+
