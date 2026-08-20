@@ -8,9 +8,9 @@ import os
 import re
 import sys
 
-from madlog import get_prt
+from basic_common import prt
 
-prt = get_prt()
+
 try:
     from read_os_release import is_ubuntu1804
     sys.path.insert(0, './')

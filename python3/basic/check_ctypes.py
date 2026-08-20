@@ -9,20 +9,20 @@
 try to import _ctypes
 '''
 
+import sys
+
 try:
     import _ctypes
 except ImportError as err:
     print('Import Error:', err)
 
-import sys
+from basic_common import prt, get_logd
 
-from madlog import get_prt
-    
-prt = get_prt()
-
+logd = get_logd(warn_msg="[warn] cannot import loguru", warn_printer=prt, use_loguru=True)
 
 def test():
     ''' test '''
+    logd('test')
     pass
 
 if __name__ == "__main__":
