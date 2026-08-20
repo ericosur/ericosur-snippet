@@ -133,4 +133,4 @@ def datetime_to_sick(dt: datetime) -> int:
 
 if __name__ == "__main__":
     print("provides functions only")
-    print("DO NOT run this script...")
+    print("run this: `py wtfstamp.py`")
