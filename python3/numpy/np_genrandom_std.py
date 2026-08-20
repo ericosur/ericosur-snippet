@@ -25,21 +25,15 @@ import argparse
 import time
 from typing import Any
 
+from numpy_common import do_nothing, get_logd, get_prt
+
 import numpy as np
-from madlog import get_logd, get_prt
-from myutil import do_nothing
 
-logd = get_logd()
 prt = get_prt()
-
+logd = do_nothing
 
 SEP_REPEAT = 70
-DEBUG = False
-logd :Any = None
-if DEBUG:
-    logd = get_logd()
-else:
-    logd = do_nothing
+
 
 class GenerateStdNormal:
     ''' a class to generate normal distribution data '''
@@ -143,9 +137,13 @@ def main():
     """ main function to do test """
     parser = argparse.ArgumentParser(description='Generate random numbers with standard normal distribution')
     parser.add_argument('-d', '--debug', action='store_true', help='enable debug logging')
+    parser.add_argument('-p', '--print', action='store_true', dest='use_print',
+        help='use stdlib print explicitly')
     args = parser.parse_args()
     
-    global logd  # pylint: disable=global-statement
+    global logd, prt  # pylint: disable=global-statement
+    prt = get_prt(use_print=args.use_print)
+
     if args.debug:
         logd = get_logd()
     else:
