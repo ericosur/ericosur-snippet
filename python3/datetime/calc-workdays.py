@@ -47,7 +47,7 @@ class CalcWork:
         datafile = DefaultConfig(self.DATA_FILE, debug=False).get_default_config()
         self._log(f'[{TAG}] read data from: {datafile}')
         if not datafile:
-            die('[FAIL] config file not found', self.DATA_FILE)
+            die('[FAIL] config file not found:', self.DATA_FILE)
             return
 
         self.data = read_jsonfile(datafile)
