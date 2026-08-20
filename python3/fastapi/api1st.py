@@ -5,6 +5,7 @@
 fastapi first try
 
 run locally:
+install dependencies: python -m pip install -r requirements.txt
 launch: fastapi dev api1st.py
 and open link: http://localhost:8000/docs")
 
@@ -16,24 +17,25 @@ $ uvicorn api1st:app --host 192.168.100.105 --port 5678
 import sys
 from time import time
 
-import numpy_financial as npf
+try:
+    import numpy as np
+    import numpy_financial as npf
+    import sympy
+    from fastapi import FastAPI
+except ImportError as e:
+    print(f'failed to import: {e}')
+    sys.exit(1)
+
+
 from pydantic import BaseModel
 
-import numpy as np
-from fastapi import FastAPI
+from fast_common import DoomsDay, prepare_ints, prepare_values, prt
 
-sys.path.insert(0, "../")
-sys.path.insert(0, "python3/")
-from myutil import prt
 
-sys.path.insert(0, "../../prime/")
-from is_prime import is_prime
+def is_prime(n: int) -> bool:
+    ''' check if n is prime '''
+    return sympy.ntheory.primetest.isprime(n)  # pyright: ignore
 
-sys.path.insert(0, "../datetime/")
-sys.path.insert(0, "../datetime/dooms/")
-sys.path.insert(0, "python3/datetime/dooms/")
-from be_prepared import prepare_values
-from dooms_day import DoomsDay
 
 app = FastAPI()
 @app.get("/")
@@ -76,6 +78,9 @@ def doomyears(item_id: int, years: GivenValueAbc):
 def get_primes(item_id: int, given: GivenValueAbc):
     ''' give value and abc '''
     ret = {"item_id": item_id, "func": "get_primes", "input": given, "output": None}
+    assert given.after is not None
+    assert given.before is not None
+    assert given.context is not None
     vals = prepare_ints(given.value, after=given.after, before=given.before, radius=given.context)
     primes = []
     for i in vals:
@@ -95,6 +100,7 @@ def get_no_primes_after(item_id: int, given: GivenValueAbc):
     '''
     ret = {"item_id": item_id, "func": "getafterprimes", "input": given, "output": None}
     primes = []
+    assert given.after is not None
     ulimit = given.after if given.after > 0 else 1
     i = given.value if given.value > 0 else 1
     # due to some limitation of async/concurrent, cannot move the while
@@ -117,6 +123,7 @@ def get_no_of_primes_around(item_id: int, given: GivenValueAbc):
     '''
     ret = {"item_id": item_id, "func": "getaroundprimes", "input": given, "output": None}
     # do wanna infinite loop
+    assert given.context is not None
     ulimit = given.context if given.context > 0 else 1
     aftp = []
     i = given.value if given.value > 0 else 1
@@ -170,21 +177,6 @@ def gen_normdist(item_id: int, given: NormDist):
     ret["output"] = arr.tolist()
     return ret
 
-def prepare_ints(v: int, after: int=None, before: int=None, radius: int=None) -> list[int]:
-    ''' prepare ints '''
-    after = 0 if after is None else after
-    before = 0 if before is None else before
-    radius = 0 if radius is None else radius
-    if radius!=0:
-        after, before = radius, radius
-    upper = v + after
-    lower = v - before
-    if lower>upper:
-        lower,upper = upper,lower
-    vals = []
-    for y in range(lower,upper+1):
-        vals.append(y)
-    return vals
 
 class PmtItem(BaseModel):
     ''' data class '''
@@ -207,6 +199,7 @@ def the_isprime(item_id: int, q: str | None = None):
     if item_id is 33865, check the prime number from parameter
     '''
     ans = None
+    assert q is not None, "q is a required str"
     if item_id == 33865:
         try:
             v = int(q)
@@ -220,5 +213,5 @@ def the_isprime(item_id: int, q: str | None = None):
 
 
 if __name__ == "__main__":
-    prt(f"try this: fastapi dev {sys.argv[0]}")
-    prt("and the browser: http://localhost:8000/docs")
+    prt(f"try this: fastapi dev --port 8088 {sys.argv[0]}")
+    prt("and the browser: http://localhost:8088/docs")
