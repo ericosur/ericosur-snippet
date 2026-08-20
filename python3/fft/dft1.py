@@ -38,7 +38,7 @@ def main():
     #     # explicitly assign TkAgg, default maybe Qt
     #     matplotlib.use('TkAgg')
 
-    fig, ax = plt.subplots()
+    _, ax = plt.subplots()
     ax.plot(t, x)
     ax.set_xlabel('Time [s]')
     ax.set_ylabel('Signal amplitude')

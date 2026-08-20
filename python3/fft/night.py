@@ -37,7 +37,7 @@ def main(fn):
     # need python 3.6+ to use such format string
     #print(f'np.max(audio): {np.max(audio)}')
 
-    f, ax = plt.subplots(figsize=(8, 4))
+    _, ax = plt.subplots(figsize=(8, 4))
     ax.plot(np.arange(N) / rate, audio)
     ax.set_xlabel('Time [s]')
     ax.set_ylabel('Amplitude [unknown]')
@@ -60,7 +60,7 @@ def main(fn):
     spectrum = np.fft.fft(slices, axis=0)[:M // 2 + 1:-1]
     spectrum = np.abs(spectrum)
 
-    f, ax = plt.subplots(figsize=(8, 4))
+    _, ax = plt.subplots(figsize=(8, 4))
     S = np.abs(spectrum)
     print(f'np.max: {np.max(S)}')
     with np.errstate(divide='ignore', invalid='ignore'):
