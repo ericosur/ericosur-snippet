@@ -90,7 +90,7 @@ jupyter notebook
 ## Notebook Files
 
 - [first.ipynb](first.ipynb)
-- [Untitled.ipynb](Untitled.ipynb)
+- [handcalcs_forallpeople_demo.ipynb](handcalcs_forallpeople_demo.ipynb)
 
 These notebooks are scratch/demo notebooks for quick experiments.
 
