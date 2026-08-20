@@ -25,9 +25,9 @@ def clamp(value, minimum, maximum):
     """
     return max(minimum, min(value, maximum))
 
-def get_home():
+def get_home() -> str:
     ''' return $HOME '''
-    return os.getenv('HOME')
+    return os.getenv('HOME', '')
 
 def is_path_exist(p):
     ''' true if specified path exists '''
