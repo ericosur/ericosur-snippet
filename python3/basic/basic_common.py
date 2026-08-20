@@ -1,5 +1,5 @@
 '''
-provides utility functions for fib
+provides utility functions for basic
 '''
 
 import sys
@@ -20,8 +20,8 @@ try:
     setup_local_paths()
     from madlog import import_rich, get_logd, get_prt  # noqa: F401
     from myutil import do_nothing  # noqa: F401
-except ImportError:
-    print('[INFO] no madlog, exit...')
+except ImportError as e:
+    print('failed to load module: ', e)
     sys.exit(1)
 
 prt = get_prt()
