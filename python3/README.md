@@ -27,7 +27,7 @@ There are also many one-file scripts at the top level for quick tests or small t
 From this directory:
 
 ```bash
-python3 hello_world.py
+python3 basic/hello_world.py
 python3 basic/count-by-letter.py
 python3 datetime/list_possible_workday.py
 ```
@@ -172,7 +172,7 @@ working collection of scripts.
 - [basic/count-by-letter.py](./basic/count-by-letter.py): count labels from `A` upward
 - [datetime/list_possible_workday.py](./datetime/list_possible_workday.py): list candidate workdays
 - [random/five_char_verbs.py](./random/five_char_verbs.py): generate or inspect five-character verbs
-- [fisher_yates_shuffle.py](./fisher_yates_shuffle.py) and [shuf.py](./shuf.py): shuffle examples
+- [random/fisher_yates_shuffle.py](./random/fisher_yates_shuffle.py) and [random/shuf.py](./random/shuf.py): shuffle examples
 - [periodic/brief.py](./periodic/brief.py): periodic table lookup helper
 
 ## Reference

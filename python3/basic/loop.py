@@ -16,8 +16,7 @@ about 14 year we could double the base
 
 import argparse
 
-from madlog import get_prt
-from myutil import do_nothing
+from basic_common import do_nothing, get_prt
 
 prt = do_nothing
 
