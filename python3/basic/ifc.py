@@ -7,45 +7,30 @@ call ifconfig and parse the output
 import os
 import re
 import sys
+import argparse
 
 try:
-    from rich.console import Console
-    from rich.table import Table
-    RICH_ENABLED = True
-    console = Console()
-    logd = console.log
-except ImportError:
-    RICH_ENABLED = False
-    logd = print
-
-from madlog import get_prt
-
-prt = get_prt()
-
-try:
+    from basic_common import get_prt, import_rich, logd, prt
     from read_os_release import is_ubuntu1804
-    sys.path.insert(0, './')
-    sys.path.insert(0, '../')
-    sys.path.insert(0, 'python3/')
-    home = os.environ.get('HOME')
-    abs_path = os.path.join(home, 'src/ericosur-snippet/python3')
-    sys.path.insert(0, abs_path)
-    from myutil import (  # type: ignore[import]  # type: ignore[import]
+
+    from myutil import (  # type: ignore[import]
         is_linux,
         is_windows,
         run_command,
         run_command2,
         show_platform,
     )
-except ImportError:
-    print("cannot import local modules")
+except ImportError as e:
+    print('fail to import module: ', e)
+    sys.exit(1)
+
+
 
 def run_in_termux() -> bool:
     ''' get prefix '''
     p = os.environ.get('PREFIX')
     if p is None:
         return False
-    p = p.decode('utf-8')
     return "com.termux" in p
 
 def run_ipconfig() -> None:
@@ -105,6 +90,7 @@ def get_ipaddr() -> list[dict[str,str]] | None:
 
 def show_as_table(ret: list[dict[str,str]]) -> None:
     ''' show as table '''
+    from rich.table import Table
     table = Table(title="IP Address")
     table.add_column("interface", justify="left", style="cyan")
     table.add_column("inet", justify="left", style="magenta")
@@ -114,14 +100,29 @@ def show_as_table(ret: list[dict[str,str]]) -> None:
         inet = d.get('inet', '')
         mac = d.get('MAC', '')
         table.add_row(ifn, inet, mac)
-    console.print(table)
+    prt(table)
 
 def main():
     ''' main '''
+    parser = argparse.ArgumentParser(description='Show network interface addresses')
+    output_group = parser.add_mutually_exclusive_group()
+    output_group.add_argument('-r', '--rich', action='store_true',
+        help='explicitly use rich module; fail if rich is unavailable')
+    output_group.add_argument('-p', '--print', action='store_true', dest='use_print',
+        help='explicitly use stdlib print only')
+    args = parser.parse_args()
+
+    global prt  # pylint: disable=global-statement
+    prt = get_prt(use_print=args.use_print)
+
+    rich_available = import_rich()
+    if args.rich and not rich_available:
+        parser.error('rich module is required when using --rich/-r')
+
     if is_linux():
         # note: if returns has no inet, it will be removed
         ret = get_ipaddr()
-        if RICH_ENABLED:
+        if rich_available and not args.use_print and ret is not None:
             show_as_table(ret)
         else:
             prt(ret)
