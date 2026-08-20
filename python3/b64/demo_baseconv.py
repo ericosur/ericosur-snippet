@@ -1,23 +1,13 @@
 #!/usr/bin/env python3
 
 '''
-demo of xxx
+demo of baseconv
 '''
 
 import base64
 from typing import Any
 
-try:
-    from rich import print as rprint
-    USE_RICH = True
-except ImportError:
-    USE_RICH = False
-
-from butil import fill_bytearray, int_from_bytes, sep
-
-from madlog import get_prt
-
-prt = get_prt()
+from butil import fill_bytearray, int_from_bytes, prt, sep
 
 # if size = 3k, you will not get padding (the equal sign) after base64
 DEFAULT_SIZE = 3*8
