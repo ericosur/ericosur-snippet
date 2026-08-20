@@ -1,0 +1,3 @@
+
+[tool.ruff.lint]
+extend-ignore = ["EXE001", "F401"]
