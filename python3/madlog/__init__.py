@@ -23,6 +23,15 @@ class _FallbackConsole:
         return nullcontext()
 
 
+def import_rich() -> bool:
+    """Return True if rich can be imported, else False."""
+    try:
+        importlib.import_module("rich")
+    except ImportError:
+        return False
+    return True
+
+
 def get_prt(use_print: bool = False) -> Callable[..., Any]:
     """Return rich.print when available, else built-in print.
 
@@ -128,6 +137,7 @@ __all__ = [
     "get_logi",
     "get_logw",
     "get_prt",
+    "import_rich",
     "logd",
     "loge",
     "logi",
