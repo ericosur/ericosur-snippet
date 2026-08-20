@@ -47,7 +47,7 @@ def from_utf8char(cc: bytes) -> str:
     if isinstance(cc, bytes):
         ret = cc.decode('utf-8')
     else:
-        raise ValueError("need input bytes")
+        raise TypeError("reqire bytes type")
     return ret
 
 def demo(src, dst):

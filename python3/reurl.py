@@ -8,7 +8,6 @@
 '''
 
 import argparse
-import json
 import os
 import sys
 
@@ -43,15 +42,12 @@ class MakeReurl:
 
     #pylint: disable=consider-using-with
     def handle_results(self, r):
-        ''' show data member of **response** '''
+        '''Log response metadata in verbose mode and return parsed JSON on success.'''
+
+        content_type = r.headers.get('Content-Type', '')
 
         if self.verbose:
             out = sys.stderr
-        else:
-            out = open(os.devnull, 'wb')
-
-        content_type = r.headers['Content-Type']
-        if self.verbose:
             print('r.url:', r.url, file=out)
             print('r.elapsed:', r.elapsed, file=out)
             print('r.ok:', r.ok, file=out)
@@ -61,15 +57,23 @@ class MakeReurl:
             #print('r.links:', r.links, file=out)
             #print('r.encoding:', r.encoding, file=out)
             print('Content-Type:', content_type, file=out)
-        if 'application/json' in content_type:
-            if self.verbose:
-                print('r.json():', r.json(), file=out)
-                #print('r.content():', r.content)
-                #print('r.text():', r.text)
-            if r.ok:
-                return r.json()
 
-        return None
+        if not r.ok or 'application/json' not in content_type:
+            return None
+
+        try:
+            payload = r.json()
+        except ValueError:
+            if self.verbose:
+                print('r.json(): <invalid json>', file=sys.stderr)
+            return None
+
+        if self.verbose:
+            print('r.json():', payload, file=sys.stderr)
+            #print('r.content():', r.content)
+            #print('r.text():', r.text)
+
+        return payload
 
     def do_request(self):
         ''' issue request '''
@@ -78,36 +82,38 @@ class MakeReurl:
             'content-type': 'application/json',
             'reurl-api-key': self.apikey
         }
-        j = {'url': self.long_url}
+        payload = {'url': self.long_url}
 
 
         # if self.verbose:
         #     print('will requst with:')
         #     print(headers)
-        #     print(json.dumps(j))
+        #     print(json.dumps(payload))
         try:
-            r = requests.post(server, data=json.dumps(j), headers=headers, timeout=5.0)
-            # r is a Response class, useless to print it, use handle_results()
-            j = self.handle_results(r)
+            response = requests.post(server, json=payload, headers=headers, timeout=5.0)
+            # response is a Response class, use handle_results() for details.
+            result = self.handle_results(response)
         except ConnectionError as e:
             print(e)
             return
 
-        if j is None:
+        if result is None:
             print('ERROR')
             return
 
-        out = None
         if self.output == "stdout":
-            out = sys.stdout
+            print('short_url:', result['short_url'], file=sys.stdout)
+            return
         elif self.output == "stderr":
-            out = sys.stderr
-        if out is not None:
-            print('short_url:', j['short_url'], file=out)
+            print('short_url:', result['short_url'], file=sys.stderr)
+            return
+
+        if not isinstance(self.output, str):
+            print('ERROR')
             return
 
         with open(self.output, 'wt', encoding='utf8') as txt:
-            print('short_url:', j['short_url'], file=txt)
+            print('short_url:', result['short_url'], file=txt)
 
 
     def shorten(self, url=None):
