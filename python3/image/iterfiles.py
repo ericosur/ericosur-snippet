@@ -6,28 +6,21 @@ check if any spaces in the pathname
 '''
 
 import os
-import sys
 from pathlib import Path
 
-try:
-    from loguru import logger  # type: ignore[import]
-    logd = logger.debug
-except ImportError:
-    logd = print
+from image_common import logd, prt  # type: ignore[import]
 
-sys.path.insert(0, '.')
-sys.path.insert(0, '..')
-sys.path.insert(0, 'python3/')
-from myutil import get_home, prt  # type: ignore[import]
+from myutil import get_home  # type: ignore[import]
 
 
 class Solution:
     ''' class solution '''
     LIMIT = 40
     def __init__(self):
-        home = get_home()
         # compose full path
-        self.src_dir = os.path.join(home, 'dropbox/Music')
+        self.src_dir = os.path.join(get_home(), 'dropbox/Music')
+        if not os.path.exists(self.src_dir):
+            raise ValueError(f"src_dir not exist: {self.src_dir}")
         logd(f'{self.src_dir=}')
 
     def action(self):
@@ -39,10 +32,9 @@ class Solution:
             if cnt > self.LIMIT:
                 prt(f"too many > {self.LIMIT} directories has space, exit...")
                 break
-            if not p.is_file():
-                if ' ' in str(p):
-                    cnt += 1
-                    print('[WARN] space in path:', p)
+            if not p.is_file() and ' ' in str(p):
+                cnt += 1
+                print('[WARN] space in path:', p)
 
     @classmethod
     def run(cls):
