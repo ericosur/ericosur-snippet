@@ -20,14 +20,11 @@ except ModuleNotFoundError:
     print('[INFO] no tomllib, exit...')
     sys.exit(1)
 try:
-    from basic_common import setup_local_paths
-    setup_local_paths()
-    from madlog import get_prt
-except ModuleNotFoundError:
-    print('[INFO] no basic_common or madlog, exit...')
+    from basic_common import prt
+except ImportError as e:
+    print('failed to load module: ', e)
     sys.exit(1)
 
-prt = get_prt()
 
 class Solution:
     ''' class solution '''
