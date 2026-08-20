@@ -20,7 +20,7 @@ def main():
     t = np.linspace(0, 2, 2 * f_s, endpoint=False)
     x = np.sin(f * 2 * np.pi * t)
 
-    fig, ax = plt.subplots()
+    _, ax = plt.subplots()
     ax.plot(t, x)
     ax.set_xlabel('Time [s]')
     ax.set_ylabel('Signal amplitude')
@@ -34,7 +34,7 @@ def main():
     #     # explicitly assign TkAgg, default maybe Qt
     #     matplotlib.use('TkAgg')
 
-    fig, ax = plt.subplots()
+    _, ax = plt.subplots()
     ax.stem(freqs, np.abs(X), use_line_collection=True)
     ax.set_xlabel('Frequency in Hertz [Hz]')
     ax.set_ylabel('Frequency Domain (Spectrum) Magnitude')
