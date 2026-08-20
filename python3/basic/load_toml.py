@@ -10,16 +10,9 @@ some recommends tomlkit
 
 import sys
 
-from basic_common import setup_local_paths
+from basic_common import prt, get_logd
 
-try:
-    setup_local_paths()
-    from madlog import get_logd, get_prt
-except ModuleNotFoundError:
-    print('[INFO] no basic_common or madlog, exit...')
-    sys.exit(1)
 
-prt = get_prt()
 USE_LOGURU = True
 logd = get_logd(warn_msg="[warn] cannot import loguru", warn_printer=prt, use_loguru=USE_LOGURU)
 
