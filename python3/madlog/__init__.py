@@ -69,6 +69,7 @@ def _build_console_logger(console: Any, level: str, style: str):
         if is_fallback:
             console.log(f"[{level}]", *args, **kwargs)
         else:
+            kwargs.setdefault("_stack_offset", 2)
             console.log(f"[{style}]{level}[/]", *args, **kwargs)
 
     return _log

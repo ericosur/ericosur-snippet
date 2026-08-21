@@ -17,6 +17,7 @@ import argparse
 import sys
 
 from gngan_yaljux import do_ab, do_tests, do_values, do_verbose
+from tgdz_common import do_nothing, logd
 
 
 def setup_arg_parser():
@@ -26,9 +27,12 @@ def setup_arg_parser():
     # nargs like regexp, '*' means 0+, '+' means 1+
     parser.add_argument("values", metavar='val', type=int, nargs='*',
         help="show these strings")
-    parser.add_argument('-a', '--apple', help='GnGan, 0 < a < 9, a+b mod 2 = 0')
-    parser.add_argument('-b', '--ball', help='YalJux, 0 < b < 11, a+b mod 2 = 0')
-    parser.add_argument('-c', '--cat', help='center year')
+    parser.add_argument('-a', '--apple', type=int, help='GnGan 天干, 0 <= a <= 9, a+b mod 2 = 0')
+    parser.add_argument('-b', '--ball', type=int, help='YalJux 地支, 0 <= b <= 11, a+b mod 2 = 0')
+    parser.add_argument('-c', '--context', '--cat', type=int, default=0,
+        help='show years within this radius around each specified year')
+    parser.add_argument('-d', '--debug', action='store_true', default=False,
+        help='turn on debug log')
     parser.add_argument("-t", "--test", action='store_true', default=False,
         help='test and demo')
     parser.add_argument("-l", "--list", action='store_true', help='list 天干地支')
@@ -38,32 +42,31 @@ def main():
     ''' main '''
     parser = setup_arg_parser()
     args = parser.parse_args()
+    _logd = logd if args.debug else do_nothing
 
     if args.list:
         if args.values:
             print('[WARN]: will not process specified values:', args.values)
             return
-        do_verbose()
+        do_verbose(_logd=_logd)
         return
 
     if args.test:
         if args.values:
             print('[WARN]: will not process specified values:', args.values)
             return
-        do_tests()
+        do_tests(_logd=_logd)
         return
 
     try:
-        if args.apple or args.ball:
+        if args.apple is not None or args.ball is not None:
             _a = 0
             _b = 0
-            if args.apple:
-                print('apple:', args.apple)
-                _a = int(args.apple)
-            if args.ball:
-                print('ball:', args.ball)
-                _b = int(args.ball)
-            do_ab(_a, _b)
+            if args.apple is not None:
+                _a = args.apple
+            if args.ball is not None:
+                _b = args.ball
+            do_ab(_a, _b, radius=args.context, _logd=_logd)
             return
     except ValueError:
         print("[ERROR] a or b should be integers, and a+b should be even")
@@ -71,10 +74,7 @@ def main():
 
     if args.values:
         #print(args.values)
-        if args.cat:
-            do_values(args.values, args.cat)
-        else:
-            do_values(args.values)
+        do_values(args.values, radius=args.context, _logd=_logd)
         return
 
     # to show help message directly

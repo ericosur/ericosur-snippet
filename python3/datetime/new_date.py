@@ -5,10 +5,11 @@ demo days delta
 '''
 
 from datetime import datetime, timedelta
-from typing import Annotated
+from typing import Annotated, Any
 
 from be_prepared import get_today_datetime
 
+typer: Any = None
 try:
     import typer
     USE_TYPER = True
@@ -60,7 +61,7 @@ if USE_TYPER:
                 formats=["%Y-%m-%d", "%Y-%m-%dT%H:%M:%S"]),
         ] = None, #"1970-01-01T00:00:00",
         numval: Annotated[int, typer.Option("--delta", "--between", "--offset",
-            help="epoch value in number")] = 30, # 1234567890
+            help="add nn days from specified datetime")] = 30, # 1234567890
         demo: Annotated[bool, typer.Option("--demo", help="get some demo")] = False
     ):
         '''
@@ -79,6 +80,8 @@ if USE_TYPER:
 
 if __name__ == '__main__':
     if USE_TYPER:
-        typer.run(main)  # pyright: ignore
+        app = typer.Typer(context_settings={"help_option_names": ["-h", "--help"]})
+        app.command()(main)  # pyright: ignore
+        app()
     else:
         demo_only()

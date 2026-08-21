@@ -228,7 +228,8 @@ def do_verbose(_logd: Callable[[Any], None]=do_nothing) -> None:
     print(gc)
     del gc
 
-def do_ab(m: int, n: int, _logd: Callable[[Any], None]=do_nothing) -> None:
+def do_ab(m: int, n: int, radius: int=0,
+          _logd: Callable[[Any], None]=do_nothing) -> None:
     ''' do ab, m is {0,9}, n is {0, 11}
         and pass rule of check_ab()
     '''
@@ -247,11 +248,16 @@ def do_ab(m: int, n: int, _logd: Callable[[Any], None]=do_nothing) -> None:
     _logd(f'do_ab: {ans=}')
     this_year = get_thisyear()
     for i in ans:
-        msg = f"{i} {gc.to_gc(i)}"
-        if i==this_year:
-            show('yellow', msg)
-        else:
-            show('white', msg)
+        for r in range(i-radius, i+radius+1):
+            msg = f"{r} {gc.to_gc(r)}"
+            if r==i:
+                msg = f"<{msg}>"
+            if r==this_year:
+                show('yellow', msg)
+            else:
+                show('white', msg)
+        if radius != 0:
+            show('cyan', '------')
 
 def do_tests(_logd: Callable[[Any], None]=do_nothing) -> None:
     ''' run the original tests'''
