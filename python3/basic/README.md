@@ -27,3 +27,17 @@
 > [!CAUTION]
 > Advises about risks or negative outcomes of certain actions.
 
+## Update Summary
+
+update on 2026/08/21
+
+- `ifc.py` supports `--rich` / `-r` for explicit Rich output and `--print` / `-p`
+  for stdlib `print` output.
+- `ipaddr.py` supports the same mutually exclusive `--rich` / `-r` and
+  `--print` / `-p` options.
+- `typer_example.py` supports `-h` / `--help` and uses `17` when `-A`, `-B`,
+  or `-C` is provided without positional values.
+- `getmac.py` was checked successfully with no editor diagnostics. It is a
+  Linux/ADB helper that reads the WLAN MAC address from `adb shell ip link
+  show wlan0`. Its current output still includes temporary diagnostic labels.
+
