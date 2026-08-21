@@ -10,8 +10,7 @@ some recommends tomlkit
 
 import sys
 
-from basic_common import prt, get_logd
-
+from basic_common import get_logd, prt
 
 USE_LOGURU = True
 logd = get_logd(warn_msg="[warn] cannot import loguru", warn_printer=prt, use_loguru=USE_LOGURU)

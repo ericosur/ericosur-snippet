@@ -8,21 +8,18 @@ import os
 import re
 import sys
 
-from basic_common import setup_local_paths
+from basic_common import prt
 
 try:
-    setup_local_paths()
-    from madlog import get_prt
     from myutil import (  # type: ignore[import]
         is_linux,
         run_command,  # type: ignore[import]
         show_platform,
     )
-except ModuleNotFoundError:
-    print('[INFO] no basic_common or madlog, exit...')
+except ImportError as e:
+    print('fail to import module: ', e)
     sys.exit(1)
 
-prt = get_prt()
 
 
 def run_in_termux() -> bool:
@@ -58,9 +55,9 @@ def main():
 
     # note: if returns has no inet, it will be removed
     ret = get_macaddr()
-    print('wtf')
-    print(type(ret))
-    print(ret)
+    prt('wtf')
+    prt(type(ret))
+    prt(ret)
 
 if __name__ == "__main__":
     main()

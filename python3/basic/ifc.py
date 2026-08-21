@@ -4,10 +4,10 @@
 call ifconfig and parse the output
 '''
 
+import argparse
 import os
 import re
 import sys
-import argparse
 
 try:
     from basic_common import get_prt, import_rich, logd, prt
