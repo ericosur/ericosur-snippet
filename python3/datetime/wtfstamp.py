@@ -25,7 +25,7 @@ import time
 from datetime import datetime, timezone
 
 try:
-    from datetime_common import console, prt
+    from datetime_common import console, get_prt, prt
     from sickutil import (
         datetime_to_sick,
         get_sick_from_ns,
@@ -126,7 +126,6 @@ def look_for_head5() -> None:
     '''
     LOOK_FOR_FIVE_HEAD = True
     cnt = 0
-    assert console is not None
 
     with console.status("[bold green]Searching...[/]", spinner="dots") as _status:
         while LOOK_FOR_FIVE_HEAD:
@@ -153,10 +152,17 @@ def look_for_1e9() -> None:
 def main() -> None:
     ''' main '''
     parser = argparse.ArgumentParser()
-    parser.add_argument('--rich', '-r', action='store_true', default=False,
-                        help='use rich output')
+    output_group = parser.add_mutually_exclusive_group()
+    output_group.add_argument('--rich', '-r', action='store_true', default=True,
+                              help='use rich output, fallback to print if unavailable')
+    output_group.add_argument('--print', '-p', action='store_true', dest='use_print',
+                              help='use stdlib print explicitly')
     args = parser.parse_args()
-    if args.rich:
+
+    global prt  # pylint: disable=global-statement
+    prt = get_prt(use_print=args.use_print)
+
+    if args.rich and not args.use_print:
         look_for_head5()
     else:
         look_for_five_head()

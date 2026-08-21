@@ -14,10 +14,9 @@ from typing import Annotated
 
 try:
     import typer
-except ImportError:
-    print('[FAIL] you need module typer to run this')
+except ImportError as e:
+    print('fail to import module: ', e)
     sys.exit(1)
-
 
 try:
     from tgdz_common import do_nothing, logd
@@ -85,4 +84,6 @@ class Main:
 
 if __name__ == '__main__':
     m = Main()
-    typer.run(m.main)
+    app = typer.Typer(context_settings={"help_option_names": ["-h", "--help"]})
+    app.command()(m.main)
+    app()

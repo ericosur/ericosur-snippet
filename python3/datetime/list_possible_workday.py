@@ -45,7 +45,7 @@ except ImportError:
 
 
 try:
-    from be_prepared import TAIPEI_TZ, get_thisyear, get_today
+    from be_prepared import get_thisyear, get_today_datetime
     from datetime_common import do_nothing
     from datetime_common import logd as _logd
 except ImportError as e:
@@ -140,7 +140,7 @@ class CollectWeekday:
 
     def warn_if_olddate(self, the_d: datetime) -> None:
         ''' warn if the input datetime is more than 3 months ago '''
-        now = datetime.now(tz=TAIPEI_TZ)
+        now = datetime.now().astimezone()
         three_months_ago = now - timedelta(days=90)
         if the_d.date() < three_months_ago.date():
             print(f'[WARN] input date {the_d} is more than 3 months ago')
@@ -182,7 +182,7 @@ class CollectWeekday:
 
     def run_default(self) -> None:
         ''' run default, without CLI options '''
-        td = get_today()
+        td = get_today_datetime()
         default_yymm = td.strftime("%Y-%m")
         print(f'[INFO] use default value: {default_yymm}')
         self.collect_workday(td)
@@ -240,13 +240,13 @@ class CollectWeekday:
 
             target_date = yyyymm
             if target_date is None:
-                today = get_today()
+                today = get_today_datetime()
                 if current_month:
-                    target_date = datetime(today.year, today.month, 1, tzinfo=TAIPEI_TZ)
+                    target_date = datetime(today.year, today.month, 1).astimezone()
                 elif next_month:
                     year = today.year + (1 if today.month == 12 else 0)
                     month = 1 if today.month == 12 else today.month + 1
-                    target_date = datetime(year, month, 1, tzinfo=TAIPEI_TZ)
+                    target_date = datetime(year, month, 1).astimezone()
 
             if target_date is None:
                 print("""[INFO] You need specify some date (yyyy-mm)
@@ -266,6 +266,8 @@ class CollectWeekday:
 if __name__ == "__main__":
     obj = CollectWeekday()
     if USE_TYPER and typer is not None:
-        typer.run(obj.main)
+        app = typer.Typer(context_settings={"help_option_names": ["-h", "--help"]})
+        app.command()(obj.main)
+        app()
     else:
         obj.run_default()
