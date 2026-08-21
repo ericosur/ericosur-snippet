@@ -18,7 +18,7 @@ def setup_local_paths() -> None:
 
 try:
     setup_local_paths()
-    from madlog import import_rich, get_logd, get_prt  # noqa: F401
+    from madlog import get_logd, get_prt, import_rich  # noqa: F401
     from myutil import do_nothing  # noqa: F401
 except ImportError as e:
     print('failed to load module: ', e)
