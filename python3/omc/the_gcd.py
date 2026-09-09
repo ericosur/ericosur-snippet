@@ -5,7 +5,7 @@
 
 import sys
 
-from myutil import read_from_stdin
+from omc_common import read_from_stdin
 
 __version__ = '1.0.0'
 

@@ -12,7 +12,7 @@ import sys
 import time
 from random import randint
 
-from myutil import isfile, read_from_stdin
+from omc_common import isfile, read_from_stdin
 
 
 def is_positive_integer(the_input):
