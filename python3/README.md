@@ -175,6 +175,14 @@ working collection of scripts.
 - [random/fisher_yates_shuffle.py](./random/fisher_yates_shuffle.py) and [random/shuf.py](./random/shuf.py): shuffle examples
 - [periodic/brief.py](./periodic/brief.py): periodic table lookup helper
 
+## requirements
+
+ > Tip
+ > Whenever you add, remove, or change a package in requirements.in, re-run
+ > pip-compile to update requirements.txt. To update all packages to their
+ > latest compatible versions, you can add the --upgrade flag.
+ 
+
 ## Reference
 
 - Python cheat sheet: <https://github.com/gto76/python-cheatsheet>
