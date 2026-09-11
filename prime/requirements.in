@@ -1,0 +1,7 @@
+loguru
+matplotlib
+pydantic
+rich
+ruff
+sympy
+typer
