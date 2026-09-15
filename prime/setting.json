@@ -45,6 +45,7 @@
         "txt": "h422.txt",
         "pickle": "h422.p",
         "compress_pickle": "h422.p.lzma",
+        "u32": "h422.u32",
         "max": 4222234741,
         "num": 200000000
     }

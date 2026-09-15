@@ -111,11 +111,11 @@ class StorePrimeToRedis:
     @staticmethod
     def get_local_data_path() -> str:
         ''' get data file from local '''
-        home = os.getenv('HOME')
-        p = os.path.join(home, '.prime')
+        data_dir = '.prime'
+        p = os.path.join(get_home(), data_dir)
         if os.path.exists(p):
             return p
-        return None
+        return data_dir
 
     def confirm_datafile(self) -> bool:
         ''' will confirm self.txtfile existence or
