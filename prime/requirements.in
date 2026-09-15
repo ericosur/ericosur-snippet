@@ -1,6 +1,8 @@
+compress_pickle
 loguru
 matplotlib
 pydantic
+pytest
 rich
 ruff
 sympy

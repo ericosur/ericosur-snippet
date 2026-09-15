@@ -8,12 +8,16 @@ annotated-doc==0.0.5
     # via typer
 annotated-types==0.8.0
     # via pydantic
+compress-pickle==2.1.0
+    # via -r requirements.in
 contourpy==1.4.0
     # via matplotlib
 cycler==0.12.1
     # via matplotlib
 fonttools==4.65.0
     # via matplotlib
+iniconfig==2.3.0
+    # via pytest
 kiwisolver==1.5.1
     # via matplotlib
 loguru==0.7.3
@@ -31,17 +35,25 @@ numpy==2.5.3
     #   contourpy
     #   matplotlib
 packaging==26.3
-    # via matplotlib
+    # via
+    #   matplotlib
+    #   pytest
 pillow==12.3.0
     # via matplotlib
+pluggy==1.6.0
+    # via pytest
 pydantic==2.13.5
     # via -r requirements.in
 pydantic-core==2.46.5
     # via pydantic
 pygments==2.21.0
-    # via rich
+    # via
+    #   pytest
+    #   rich
 pyparsing==3.3.2
     # via matplotlib
+pytest==9.1.1
+    # via -r requirements.in
 python-dateutil==2.9.0.post0
     # via matplotlib
 rich==15.0.0
