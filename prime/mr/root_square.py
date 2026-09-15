@@ -14,14 +14,28 @@ NOTE: also refer to sqare_root.py, which using miller robin method to test prime
 
 import sys
 from math import sqrt
-
-from store import GetConfig, StorePrime
+from pathlib import Path
 
 try:
     from sympy import ntheory
 except ImportError:
     print('FAIL: cannot import sympy')
     sys.exit(-1)
+
+
+def setup_local_paths() -> None:
+    '''Add local project paths based on this file location.'''
+    this_dir = Path(__file__).resolve().parent  # mr
+    prime_dir = this_dir.parent  # prime
+    sys.path.insert(0, str(prime_dir))
+
+try:
+    setup_local_paths()
+    from store import GetConfig, StorePrime
+except ImportError:
+    print('FAIL: cannot import local modules')
+    sys.exit(-1)
+
 
 MODNAME = "RootSquares"
 RUN_TEST_ONLY = False

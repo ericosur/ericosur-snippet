@@ -18,7 +18,7 @@ __VERSION__ = "2026.09.15"
 class GetConfig:
     ''' a wrapper class to load config for primes '''
     sizes = ("small", "big", "large", "h119", "h422")
-    allkeys = ("txt", "pickle", "compress_pickle", "max", "num")
+    allkeys = ("txt", "pickle", "compress_pickle", "u32", "max", "num")
 
     def __init__(self, conf: str = "setting.json") -> None:
         self.home = get_home()
@@ -77,9 +77,9 @@ class GetConfig:
     def get_full_path(self, item: str) -> str:
         ''' give item like txt, pickle, compress_pick, num, max '''
         if item not in self.allkeys:
-            raise ValueError("[FAIL] GetConfig has no such key")
+            raise ValueError(f"[FAIL] GetConfig has no such key: {item}")
         if self.key is None:
-            raise ValueError('[FAIL] no configuration key selected')
+            raise ValueError(f'[FAIL] no configuration key selected: {self.key}')
         p = os.path.join(get_home(), self.ppath, self.d[self.key][item])
         return p
 

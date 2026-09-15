@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 '''
 class LoadPrimeFromText
 
@@ -38,7 +36,7 @@ class LoadPrimeFromText:
     def __init__(self, txtfn, pfn):
         #print('__init__')
         # init values
-        self.pvalues = None
+        self.pvalues: list[int] = []
         self.cache_hit = 0
         self.pfn = pfn
         self.txtfn = txtfn
@@ -231,6 +229,7 @@ def main(argv):
         if argv == []:
             _max = sp.at(sp.get_count() - 1)
             _min = sp.at(0)
+            assert _min is not None and _max is not None
             #print(f"max:{_max}, min:{_min}")
             REPEAT = 10
             for _ in range(REPEAT):
