@@ -1,6 +1,7 @@
 compress_pickle
 loguru
 matplotlib
+numpy
 pydantic
 pytest
 rich

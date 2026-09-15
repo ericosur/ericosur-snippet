@@ -7,6 +7,7 @@ test StorePrime
 import argparse
 import random
 import sys
+from time import perf_counter
 
 from the_prt import prt
 
@@ -18,6 +19,7 @@ except ImportError as err:
     prt('[FAIL] cannot load necessary module:', err)
     sys.exit(1)
 
+LoadCompressPrime = None
 try:
     from store import LoadCompressPrime
     LCP_READY = True
@@ -56,6 +58,9 @@ def show_result(sp, v, p, q):
     if p is None and q is None:
         prt(f'{NAME} no results')
         return
+    if p is None:
+        prt(f'{NAME} no lower result')
+        return
     if q is None:
         prt(f'{v} is a {p+1}th prime')
         return
@@ -77,7 +82,7 @@ def wrap_config(args):
     elif args.h422:
         obj.set_configkey("h422")
     else:
-        obj.set_configkey("small")
+        obj.set_configkey("h119")
 
     txtfn = obj.get_full_path("txt")
     pfn = obj.get_full_path("pickle")
@@ -117,17 +122,21 @@ def main():
         prt(f'run_example: {txtfn=}, {pfn=}, {cpfn=}')
 
     if args.lcp:
-        if not LCP_READY:
+        if not LCP_READY or LoadCompressPrime is None:
             prt('[ERROR] Cannot use _*_LoadCompressPrime_*_')
             sys.exit(1)
         logd('Using LoadCompressPrime...')
+        started = perf_counter()
         with LoadCompressPrime(txtfn=txtfn, pfn=cpfn, debug=args.debug,
             verbose=args.verbose) as lcp:
+            prt(f'loaded {cpfn} in {perf_counter() - started:.3f} sec')
             test(args.ints, lcp)
     else:
         logd('Using StorePrime...')
+        started = perf_counter()
         with StorePrime(txtfn=txtfn, pfn=pfn, debug=args.debug,
             verbose=args.verbose) as sp:
+            prt(f'loaded {pfn} in {perf_counter() - started:.3f} sec')
             test(args.ints, sp)
 
 if __name__ == '__main__':
