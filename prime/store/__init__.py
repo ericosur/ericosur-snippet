@@ -7,19 +7,19 @@ prime numbers.
 # __init__.py
 
 
-from .load_myutil import (
-    GetConfig,
-    MyDebug,
-    MyVerbose,
+from .get_config import GetConfig
+from .load_myutil import (  # type: ignore[reportAttributeAccessIssue]
+    MyDebug,  # type: ignore[reportAttributeAccessIssue]
+    MyVerbose,  # type: ignore[reportAttributeAccessIssue]
     dbg,
-    die,
-    do_nothing,
-    get_home,
-    is_dir,
-    is_file,
-    prt,
-    read_from_stdin,
-    read_setting,
+    die,  # type: ignore[reportAttributeAccessIssue]
+    do_nothing,  # type: ignore[reportAttributeAccessIssue]
+    get_home,  # type: ignore[reportAttributeAccessIssue]
+    is_dir,  # type: ignore[reportAttributeAccessIssue]
+    is_file,  # type: ignore[reportAttributeAccessIssue]
+    prt,  # type: ignore[reportAttributeAccessIssue]
+    read_from_stdin,  # type: ignore[reportAttributeAccessIssue]
+    read_setting,  # type: ignore[reportAttributeAccessIssue]
 )
 from .make_arrow import make_arrow
 from .store_prime import StorePrime

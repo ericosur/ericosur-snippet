@@ -1,20 +1,17 @@
-#!/usr/bin/env python3
-
 '''
 provide an interface/class for query primes
 '''
 
-
-#from debug_verbose import MyDebug
-from .findlist_func import find_ge, find_le, index
-
 try:
-    from rich import print as rprint
-    USE_RICH = True
-except ImportError:
-    USE_RICH = False
+    from .findlist_func import find_ge, find_le, index
+    from .load_myutil import prt  # type: ignore[reportAttributeAccessIssue]
+except ImportError as e:
+    if __package__:
+        raise RuntimeError(f"Failed to set up local paths: {e}") from e
+    from findlist_func import find_ge, find_le, index
+    from load_myutil import prt  # type: ignore[reportAttributeAccessIssue]
 
-prt = rprint if USE_RICH else print
+
 
 MODNAME = "QueryPrime"
 __VERSION__ = "2024.03.27"
@@ -31,6 +28,11 @@ class QueryPrime:
     def __init__(self):
         self.primes = None  # a list of prime numbers
 
+    def _require_primes(self) -> list[int]:
+        if self.primes is None:
+            raise IndexError('prime data is not loaded')
+        return self.primes
+
     def get_count(self) -> int:
         ''' get length of pickle '''
         if self.primes is None:
@@ -39,12 +41,15 @@ class QueryPrime:
 
     def get_maxprime(self) -> int:
         ''' return the max prime in this object '''
-        return self.primes[-1]
+        return self._require_primes()[-1]
 
     def at(self, idx: int) -> int | None:
         ''' get value at index '''
+        if self.primes is None:
+            return None
+        primes = self.primes
         try:
-            return self.primes[idx]
+            return primes[idx]
         except (IndexError, TypeError):
             return None
 
@@ -52,15 +57,17 @@ class QueryPrime:
         ''' find val in list of primes, return index
             raise ValueError if not in the prime list
         '''
-        if val > self.primes[-1]:
+        primes = self._require_primes()
+        if val > primes[-1]:
             raise IndexError(f'{val} is larger than the most number' \
-                f'in prime table {self.primes[-1]}')
-        return self.primes.index(val)
+            f'in prime table {primes[-1]}')
+        return primes.index(val)
 
     def get_primes_less_than(self, val: int) -> list[int] | None:
         ''' get a list of primes less than given value '''
-        _max = self.primes[-1]
-        _min = self.primes[0]
+        primes = self._require_primes()
+        _max = primes[-1]
+        _min = primes[0]
         if val > _max or val < _min:
             prt(f'[ERROR] out of bound: {_min=} {val=} {_max=}')
             return None
@@ -71,15 +78,16 @@ class QueryPrime:
             prt('[ERROR] cannot operate')
             return None
         # ????
-        plist = self.primes[:p+1]
+        plist = primes[:p+1]
         return plist
 
     def index(self, val: int) -> int:
         ''' use external index() '''
-        if val > self.primes[-1]:
+        primes = self._require_primes()
+        if val > primes[-1]:
             raise IndexError(f'{val} is larger than the most number' \
-                f'in prime table {self.primes[-1]}')
-        return index(self.primes, val)
+                f'in prime table {primes[-1]}')
+        return index(primes, val)
 
     def bisect_between_idx(self, val: int) -> tuple:
         '''
@@ -110,7 +118,7 @@ class QueryPrime:
             prt('[FAIL] predefined data not available')
             return (None, None)
         if val in self.primes:
-            return (val, None)
+            return (self.primes.index(val), None)
         if val < self.primes[0]:
             prt(f'{val} is smaller than lower bound')
             return (None, None)
@@ -153,7 +161,8 @@ class QueryPrime:
             end = p + count + 1
         else:
             end = p + count + 2
-        arr = self.primes[begin:end]
+        primes = self._require_primes()
+        arr = primes[begin:end]
         return arr
 
     def get_around(self, v: int) -> tuple:
@@ -165,3 +174,6 @@ class QueryPrime:
             prt('\tno answer for this')
             return (None, None)
         return (p, q)
+
+if __name__ == "__main__":
+    prt(f'Do not run module {MODNAME} directly')

@@ -9,7 +9,8 @@ import sys
 
 sys.path.insert(0, "..")
 sys.path.insert(0, "prime")
-from store import GetConfig, prt, sep
+from store import GetConfig, sep
+from store.load_myutil import prt  # type: ignore[reportAttributeAccessIssue]
 
 
 def run_test():
@@ -18,7 +19,9 @@ def run_test():
     the_dict = {"small": conf.get_small_config,
                 "big": conf.get_big_config,
                 "large": conf.get_large_config,
-                "h119": conf.get_h119_config}
+                "h119": conf.get_h119_config,
+                "h422": conf.get_h422_config
+                }
     for k,v in the_dict.items():
         prt(f'{k} config')
         prt(f"{v()}")
