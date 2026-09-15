@@ -7,23 +7,29 @@ provide a basic interface/class for load/save/search primes
 import errno
 import os
 import pickle
+from pathlib import Path
 from time import time
 
-from .load_myutil import MyDebug, MyVerbose, dbg, do_nothing
-from .query_prime import QueryPrime
-from .textutil import read_textfile
-
 try:
-    from rich import print as rprint
-    USE_RICH = True
-except ImportError:
-    USE_RICH = False
+    from .load_myutil import (  # type: ignore[reportAttributeAccessIssue]
+        MyDebug,  # type: ignore[reportAttributeAccessIssue]
+        MyVerbose,  # type: ignore[reportAttributeAccessIssue]
+        dbg,
+        do_nothing,  # type: ignore[reportAttributeAccessIssue]
+        prt,  # type: ignore[reportAttributeAccessIssue]
+    )
+    from .query_prime import QueryPrime
+    from .textutil import read_textfile
+except ImportError as e:
+    raise RuntimeError(f"Failed to import required modules: {e}") from e
+
+
 
 MODNAME = "StorePrime"
 __VERSION__ = "2024.03.27"
 LOCAL_DEBUG = False
 
-prt = rprint if USE_RICH else print
+
 dbg = dbg if LOCAL_DEBUG else do_nothing
 
 def show(v, p, q):
@@ -63,9 +69,10 @@ class StorePrime(MyDebug, MyVerbose, QueryPrime):
         self.__load_pickle()
         return self
 
-    def __exit__(self, exc_type, exc_value, traceback):
+    def __exit__(self, *exit_args):
         dbg("__exit__")
-        if self.primes and not os.path.exists(self.config.get('pfn')):
+        del exit_args
+        if self.primes and not os.path.exists(self.config['pfn']):
             self.save_pickle()
 
     def __str__(self):
@@ -92,7 +99,7 @@ class StorePrime(MyDebug, MyVerbose, QueryPrime):
 
     def get_local_data_path(self):
         ''' get data file from local '''
-        p =  os.path.join(os.getenv('HOME'), '.prime')
+        p = os.path.join(Path.home(), '.prime')
         if os.path.exists(p):
             self.logv(f'[INFO] {MODNAME}: get_local_data_path: {p}')
             return p
