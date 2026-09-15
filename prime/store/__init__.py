@@ -17,9 +17,11 @@ from .load_myutil import (  # type: ignore[reportAttributeAccessIssue]
     get_home,  # type: ignore[reportAttributeAccessIssue]
     is_dir,  # type: ignore[reportAttributeAccessIssue]
     is_file,  # type: ignore[reportAttributeAccessIssue]
+    prime_dir,  # type: ignore[reportAttributeAccessIssue]
     prt,  # type: ignore[reportAttributeAccessIssue]
     read_from_stdin,  # type: ignore[reportAttributeAccessIssue]
     read_setting,  # type: ignore[reportAttributeAccessIssue]
+    this_dir,
 )
 from .make_arrow import make_arrow
 from .store_prime import StorePrime
@@ -53,9 +55,11 @@ __all__ = [
     'is_dir',
     'is_file',
     'make_arrow',
+    'prime_dir',
     'prt',
     'read_from_stdin',
     'read_setting',
     'read_textfile',
     "sep",
+    'this_dir',
 ]

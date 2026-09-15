@@ -11,6 +11,9 @@ SETTING_FILE = "setting.json"
 import sys
 from pathlib import Path
 
+this_dir: Path = Path(__file__).resolve().parent
+prime_dir: Path = this_dir.parent
+
 try:
     from loguru import logger
     dbg = logger.debug
@@ -20,8 +23,6 @@ except ImportError:
 
 def setup_local_paths() -> None:
     '''Add local project paths based on this file location.'''
-    this_dir = Path(__file__).resolve().parent  # store
-    prime_dir = this_dir.parent  # prime
     repo_dir = prime_dir.parent  # ericosur-snippets
     py3_dir = repo_dir.joinpath('python3')  # python3
     myutil_dir = py3_dir.joinpath('myutil')
@@ -58,7 +59,9 @@ __all__ = [
     'get_home',
     'is_dir',
     'is_file',
+    'prime_dir',
     'prt',
     'read_from_stdin',
     'read_setting',
+    'this_dir',
 ]
