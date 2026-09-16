@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"python.defaultInterpreterPath": "${workspaceFolder}/python3/.venv",
+		"python.terminal.activateEnvironment": true,
+		"files.exclude": {
+			"**/__pycache__": true,
+			"**/.ruff_cache": true
+		},
+		"search.exclude": {
+			"**/__pycache__": true,
+			"**/.ruff_cache": true
+		}
+	}
+}
