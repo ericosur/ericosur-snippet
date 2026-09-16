@@ -1,0 +1,11 @@
+# gitignore
+
+# executable
+next1e8
+# log, state
+next1e8.log
+next1e8.state
+start_after.seed.used
+# output result, too large, not suitable here
+primes_part2_1e8.txt
+
