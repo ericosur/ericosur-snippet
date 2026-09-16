@@ -26,19 +26,39 @@ The scripts look for prime table files either in this folder or under
 
 The active table configuration is:
 
-| key | text file | pickle | compressed pickle | max prime | count |
-| --- | --- | --- | --- | ---: | ---: |
-| `small` | `small.txt` | `small.p` | `small.p.lzma` | 1,299,709 | 100,000 |
-| `big` | `big.txt` | `big.p` | `big.p.lzma` | 15,485,863 | 1,000,000 |
-| `large` | `large.txt` | `large.p` | `large.p.lzma` | 49,979,687 | 3,000,000 |
-| `h119` | `h119.txt` | `h119.p` | `h119.p.lzma` | 1,190,494,759 | 60,000,000 |
-| `h422` | `h422.txt` | `h422.p` | `h422.p.lzma` | 4,222,234,741 | 200,000,000 |
+| key | text file | pickle | compressed pickle | min | max | count |
+| --- | --- | --- | --- | ---: | ---: |---: |
+| `small` | `small.txt` | `small.p` | `small.p.lzma` | 2 | 1,299,709 | 100,000 |
+| `big` | `big.txt` | `big.p` | `big.p.lzma` | 2 | 15,485,863 | 1,000,000 |
+| `large` | `large.txt` | `large.p` | `large.p.lzma` | 2 | 49,979,687 | 3,000,000 |
+| `h119` | `h119.txt` | `h119.p` | `h119.p.lzma` | 2 | 1,190,494,759 | 60,000,000 |
+| `h422` | `h422.txt` | `h422.p` | `h422.p.lzma` | 2 | 4,222,234,741 | 200,000,000 |
+| `part2` | `part2.txt` | `n/a` | `n/a` | 4,222,234,763 | 8,736,028,057 | 200,000,000 |
 
 Prime tables can be downloaded from:
 
 - <https://primes.utm.edu/lists/small/millions/>
 
 The checked-in `data/prime_100k.txt` contains the first 100,000 primes.
+
+### file format
+
+- txt (`.txt`): one line one number, primitive raw format for input
+- pickle (`.p`): python pickle, it is a python list, overhead is high, loading speed rather fast
+- compressed pickle (`.p.lzma`): lzma(xz) compressed pickle file, use `compress_pickle` to read/write
+- numpy ndarray (`.u32`, `.u64`): `u32` stores little endian uint32 integers, and `u64` is little endian uint64 integers
+
+
+### TODO
+
+- I will remove dataset: `small`, `big`, `large`, `h119`. They are small and not useful.
+
+- Only use `h422.u32` if try to load the whole array into memory (0.2 billion prime numbers, 800MB from 2 to `4_222_234_741`). If using `h422.p`, it takes 6 sec and 4GB memory.
+
+- Introduce another data file `part2.u64`, which stores 0.2 billion prime numbers more (last one is `8_736_028_057`).
+  - use uint64 due to it exceeds max uint32 (`4_294,967,296`), between `4_294,967,291` `203_280_221-th` to `4_294_967_311` `203_280_222-th` prime
+  - will not load whole data into memory, only use *seek* and *read* to search
+  - may extend more prime numbers `part3.u64` and etc
 
 ## Main Scripts
 
