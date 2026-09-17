@@ -26,6 +26,7 @@ from typing import Annotated
 
 from pydantic import BaseModel
 
+sys.path.insert(0, "..")
 from store import (  # type: ignore[reportAttributeAccessIssue]
     dbg,
     do_nothing,
