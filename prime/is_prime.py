@@ -26,7 +26,12 @@ from typing import Annotated
 
 from pydantic import BaseModel
 
-from store import dbg, do_nothing, import_rich, prt  # type: ignore[reportAttributeAccessIssue]
+from store import (  # type: ignore[reportAttributeAccessIssue]
+    dbg,
+    do_nothing,
+    import_rich,
+    prt,
+)
 
 LOCAL_DEBUG = False
 dbg = dbg if LOCAL_DEBUG else do_nothing

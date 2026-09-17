@@ -45,9 +45,7 @@ class QueryPrime:
 
     def at(self, idx: int) -> int | None:
         ''' get value at index '''
-        if self.primes is None:
-            return None
-        primes = self.primes
+        primes = self._require_primes()
         try:
             return primes[idx]
         except (IndexError, TypeError):

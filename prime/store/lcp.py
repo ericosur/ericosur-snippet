@@ -14,8 +14,9 @@ pip install compress_pickle
 
 from time import time
 
+from .get_config import GetConfig
 from .load_myutil import dbg, do_nothing
-from .store_prime import StorePrime
+from .store_prime import DEFAULT_CONFIG_KEY, StorePrime
 
 try:
     from rich import console
@@ -44,8 +45,13 @@ class LoadCompressPrime(StorePrime):
 
     tag = 'LoadCompressPrime'
 
-    def __init__(self, txtfn="small.txt", pfn="small.p.lzma",
+    def __init__(self, txtfn=None, pfn=None,
                 debug=False, verbose=False):
+        if pfn is None:
+            default = GetConfig().get_config(DEFAULT_CONFIG_KEY)
+            if default is None:
+                raise ValueError(f"[FAIL] no config found for key: {DEFAULT_CONFIG_KEY}")
+            pfn = default["compress_pickle"]
         super().__init__(txtfn, pfn, debug, verbose)
         self.logd('__init__()', tag=self.tag)
 

@@ -71,9 +71,7 @@ def show_result(sp, v, p, q):
 def wrap_config(args):
     ''' wrap config and retrieve settings '''
     obj = GetConfig()
-    if args.small:
-        obj.set_configkey("small")
-    elif args.big:
+    if args.big:
         obj.set_configkey("big")
     elif args.large:
         obj.set_configkey("large")
@@ -105,7 +103,6 @@ def main():
         help="specify some integers to test primes")
     #parser.add_argument("-v", "--verbose", action='store_true', help='verbose')
     parser.add_argument("-l", "--lcp", action='store_true', help='run lcp, LoadCompressPrime')
-    parser.add_argument("-1", "--small", action='store_true', help='use small config')
     parser.add_argument("-2", "--big", action='store_true', help='use big config')
     parser.add_argument("-3", "--large", action='store_true', help='use large config')
     parser.add_argument("-4", "--h119", action='store_true', help='use h119 config')

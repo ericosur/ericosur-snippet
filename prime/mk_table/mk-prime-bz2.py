@@ -12,11 +12,13 @@ for some special case to use
 
 import base64
 import bz2
+import sys
 from time import time
 
-from load_myutil import GetConfig
+sys.path.insert(0, '../')
+from store import GetConfig
 
-CONFIG_KEY = "small"
+CONFIG_KEY = "big"
 MODNAME = "mk-prime-bz2.py"
 
 def wrap_config():
@@ -68,7 +70,7 @@ import bz2
 b64str = """''', file=fobj)
         fobj.write(b64str)
         print('''"""
-ofn = 'small.txt'
+ofn = 'big.txt'
 b64bytes = b64str.encode('utf-8')
 u64b = base64.b64decode(b64bytes)
 uncompress = bz2.decompress(u64b).decode('utf-8')

@@ -32,7 +32,7 @@ pass its text and pickle paths to `StorePrime`:
 from store import GetConfig, StorePrime
 
 config = GetConfig()
-config.set_configkey("small")
+config.set_configkey("big")
 
 with StorePrime(
 		txtfn=config.get_full_path("txt"),

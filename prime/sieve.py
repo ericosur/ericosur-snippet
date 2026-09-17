@@ -9,7 +9,7 @@ import bisect
 import math
 from time import time
 
-from store import GetConfig, prt
+from store import GetConfig, prt  # type: ignore[reportAttributeAccessIssue]
 from store import StorePrime as sp
 
 MODNAME = "sieve.py"
@@ -20,7 +20,7 @@ def show_duration(duration):
 def wrap_config():
     ''' wrap config and retrieve settings '''
     obj = GetConfig()
-    obj.set_configkey("small")    # change this to use larger table
+    obj.set_configkey("big")    # change this to use larger table
     txtfn = obj.get_full_path("txt")
     pfn = obj.get_full_path("pickle")
     return txtfn, pfn
@@ -51,7 +51,7 @@ class SieveOfEratosthenes:
         self.sp = sp(txtfn=txtfn, pfn=pfn)
         self.sp.get_ready()
         _max = self.sp.at(self.sp.get_count() - 1)
-        if self.upper > _max:
+        if _max is not None and self.upper > _max:
             prt("[WARN] stored primes are not large enough to validate the results")
             del self.sp
             self.sp = None
@@ -135,7 +135,9 @@ class SieveOfEratosthenes:
             return
 
         prt(f'verify_result: len of results: {len(self.results):,}')
+        assert self.sp is not None
         stored_primes = self.sp.get_primes_less_than(self.results[-1]+1)
+        assert stored_primes is not None
         prt(f'verify_result: fetched stored primes: {len(stored_primes):,}')
         if stored_primes == self.results:
             prt('verify_result: matched')
