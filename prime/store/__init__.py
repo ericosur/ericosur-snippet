@@ -15,6 +15,7 @@ from .load_myutil import (  # type: ignore[reportAttributeAccessIssue]
     die,  # type: ignore[reportAttributeAccessIssue]
     do_nothing,  # type: ignore[reportAttributeAccessIssue]
     get_home,  # type: ignore[reportAttributeAccessIssue]
+    import_rich,  # type: ignore[reportAttributeAccessIssue]
     is_dir,  # type: ignore[reportAttributeAccessIssue]
     is_file,  # type: ignore[reportAttributeAccessIssue]
     prime_dir,  # type: ignore[reportAttributeAccessIssue]
@@ -52,6 +53,7 @@ __all__ = [
     'die',
     'do_nothing',
     'get_home',
+    'import_rich',
     'is_dir',
     'is_file',
     'make_arrow',

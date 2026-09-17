@@ -26,20 +26,13 @@ from typing import Annotated
 
 from pydantic import BaseModel
 
-from store import dbg, do_nothing  # type: ignore[reportAttributeAccessIssue]
+from store import dbg, do_nothing, import_rich, prt  # type: ignore[reportAttributeAccessIssue]
 
 LOCAL_DEBUG = False
 dbg = dbg if LOCAL_DEBUG else do_nothing
 
-try:
-    from rich import print as rprint
-    USE_RICH = True
-    prt = rprint
-except ImportError:
-    USE_RICH = False
-    prt = print
+USE_RICH = import_rich()
 
-dbg(f'{USE_RICH=}')
 
 try:
     import typer

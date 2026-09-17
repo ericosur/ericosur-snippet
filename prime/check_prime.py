@@ -18,8 +18,7 @@ import argparse
 import sys
 from random import randint
 
-from store import read_from_stdin
-from the_prt import prt
+from store import prt, read_from_stdin
 
 try:
     #from sympy import sympy.ntheory.primetest.isprime

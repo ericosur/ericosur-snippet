@@ -9,7 +9,7 @@ import random
 import sys
 from time import perf_counter
 
-from the_prt import prt
+from store import prt
 
 MODNAME = 'run_example'
 
