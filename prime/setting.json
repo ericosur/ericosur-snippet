@@ -1,13 +1,12 @@
 {
-    "prime_path": ".prime",
+    "full_prime_path": "/home/user/.prime",
+    "base_prime_path": ".prime",
     "prime_large": "large.txt",
     "pickle_large": "large.p",
     "pickle_large_compress": "large.p.lzma",
     "prime_big": "big.txt",
     "pickle_big": "big.p",
     "pickle_big_compress": "big.p.lzma",
-    "prime_small": "small.txt",
-    "pickle_small": "small.p",
 
     "big": {
         "txt": "big.txt",
@@ -16,7 +15,6 @@
         "max": 15485863,
         "num": 1000000
     },
-
     "large": {
         "txt": "large.txt",
         "pickle": "large.p",
@@ -24,7 +22,6 @@
         "max": 49979687,
         "num": 3000000
     },
-
     "h119": {
         "txt": "h119.txt",
         "pickle": "h119.p",
@@ -32,7 +29,6 @@
         "max": 1190494759,
         "num": 60000000
     },
-
     "h422": {
         "txt": "h422.txt",
         "pickle": "h422.p",
