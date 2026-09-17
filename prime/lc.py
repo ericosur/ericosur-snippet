@@ -105,7 +105,7 @@ def main(argv):
     ''' main '''
     data = read_setting('setting.json')
     prime_big = data['prime_big']
-    prime_path = data['prime_path']
+    prime_path = data['base_prime_path']
     paths = [get_home()]
     paths.append(os.path.join(get_home(), prime_path))
 

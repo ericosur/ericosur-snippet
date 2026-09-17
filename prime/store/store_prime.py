@@ -109,7 +109,7 @@ class StorePrime(MyDebug, MyVerbose, QueryPrime):
 
     def get_local_data_path(self):
         ''' get data file from local '''
-        p = GetConfig().get_full_ppath()
+        p = GetConfig().get_full_prime_path()
         if os.path.exists(p):
             self.logv(f'[INFO] {MODNAME}: get_local_data_path: {p}')
             return p

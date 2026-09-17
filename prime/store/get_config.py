@@ -41,7 +41,7 @@ class GetConfig:
             print(f'[FAIL] {__file__}: fail to read settings')
             sys.exit(1)
         self.d: dict[str, Any] = settings
-        self.ppath: str = self.d['prime_path']
+        self.base_path: str = self.d['base_prime_path']
         self.key: str | None = None
 
     def __read_json_conf(self) -> dict[str, Any] | None:
@@ -60,16 +60,13 @@ class GetConfig:
 
     def do_tests(self) -> None:
         ''' test all path and file is available '''
-
-        assert os.path.exists(self.get_full_ppath())
-
         for k in self.sizes:
             cs = self.d[k]
             assert cs is not None
             msg = f'numbers of primes: {cs.get("num"):,}, max prime is {cs.get("max"):,}'
             print(msg)
             for i in ["txt", "pickle", "compress_pickle"]:
-                fn = os.path.join(self.get_full_ppath(), cs.get(i))
+                fn = os.path.join(self.get_full_prime_path(), cs.get(i))
                 print(fn)
                 assert os.path.exists(fn)
 
@@ -89,24 +86,41 @@ class GetConfig:
         return self.d.get(key)
 
     def get_full_path(self, item: str) -> str:
-        ''' give item like txt, pickle, compress_pick, num, max '''
+        ''' 
+        item in [txt, pickle, compress_pickle, num, max] 
+        will get like:
+        /full/prime/path/<item>
+        eg:
+        /home/user/.prime/big.txt
+        '''
         if item not in self.allkeys:
-            raise ValueError(f"[FAIL] GetConfig has no such key: {item}")
+            raise KeyError(f"[FAIL] get_full_path: no such key: {item}")
         assert self.key is not None
-        full_ppath = self.get_full_ppath()
+        full_ppath = self.get_full_prime_path()
         p = os.path.join(full_ppath, self.d[self.key][item])
+        if not os.path.exists(p):
+            raise FileNotFoundError(f"[FAIL] get_full_path: file not found: {p}")
         return p
 
-    def get_full_ppath(self) -> str:
-        ''' prime path '''
-        the_path = os.path.join(get_home(), self.ppath)
+    def get_full_prime_path(self) -> str:
+        ''' if "full prime path" exists use it first
+            else use $HOME + "base_prime_path"
+            get: `/home/user/.prime`
+        '''
+        full_prime_path = self.d.get('full_prime_path')
+        if full_prime_path and os.path.exists(full_prime_path):
+            logd(f'early return full_prime_path: {full_prime_path}')
+            return full_prime_path
+        # fallback to $HOME + "base_prime_path"
+        the_path = os.path.join(get_home(), self.base_path)
+        logd(f'fallback to the_path: {the_path}')
         if os.path.exists(the_path):
             return the_path
         raise FileNotFoundError(f"[FAIL] GetConfig: path not found: {the_path}")
 
-    def get_ppath(self) -> str:
+    def get_base_path(self) -> str:
         ''' prime path '''
-        return self.ppath
+        return self.base_path
 
     def get_big_config(self) -> dict[str, Any] | None:
         ''' get prime data file path '''
@@ -127,7 +141,7 @@ class GetConfig:
     def _get_data_path(self, size: str) -> tuple[str, str, str]:
         '''Return text, pickle, and compressed-pickle paths for a data set.'''
         config = self.d[size]
-        ppath = self.get_full_ppath()
+        ppath = self.get_full_prime_path()
         txtfn = os.path.join(ppath, config['txt'])
         pfn = os.path.join(ppath, config['pickle'])
         pzfn = os.path.join(ppath, config['compress_pickle'])
