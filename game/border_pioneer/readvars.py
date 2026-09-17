@@ -73,7 +73,7 @@ class HackSaveFile():
         p = self.data["variables"]
         p[self.hv.gold] += 6999
         ic(p[self.hv.gold])
-        p[self.hv.food] += 5999
+        p[self.hv.food] += 6999
         ic(p[self.hv.food])
         p[self.hv.tool] += 7999
         ic(p[self.hv.tool])
