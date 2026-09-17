@@ -8,3 +8,4 @@ rich
 ruff
 sympy
 typer
+xlsxwriter
