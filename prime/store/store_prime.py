@@ -7,10 +7,11 @@ provide a basic interface/class for load/save/search primes
 import errno
 import os
 import pickle
-from pathlib import Path
+import sys
 from time import time
 
 try:
+    from .get_config import GetConfig
     from .load_myutil import (  # type: ignore[reportAttributeAccessIssue]
         MyDebug,  # type: ignore[reportAttributeAccessIssue]
         MyVerbose,  # type: ignore[reportAttributeAccessIssue]
@@ -20,13 +21,15 @@ try:
     )
     from .query_prime import QueryPrime
     from .textutil import read_textfile
-except ImportError as e:
-    raise RuntimeError(f"Failed to import required modules: {e}") from e
+except ImportError:
+    print(f'[FAIL] MUST NOT run {__file__} directly')
+    sys.exit(1)
 
 
 
 MODNAME = "StorePrime"
-__VERSION__ = "2024.03.27"
+__VERSION__ = "2026.09.17"
+DEFAULT_CONFIG_KEY = "big"
 LOCAL_DEBUG = False
 
 
@@ -52,12 +55,19 @@ class StorePrime(MyDebug, MyVerbose, QueryPrime):
 
     tag = 'StorePrime'
 
-    def __init__(self, txtfn="small.txt", pfn="small.p",
+    def __init__(self, txtfn=None, pfn=None,
                 debug=False, verbose=False):
         # super init
         MyDebug.__init__(self, debug)
         MyVerbose.__init__(self, verbose)
         QueryPrime.__init__(self)
+
+        if txtfn is None or pfn is None:
+            default = GetConfig().get_config(DEFAULT_CONFIG_KEY)
+            if default is None:
+                raise ValueError(f"[FAIL] no config found for key: {DEFAULT_CONFIG_KEY}")
+            txtfn = txtfn or default["txt"]
+            pfn = pfn or default["pickle"]
 
         self.need_save = False
         self.config = {'pfn': pfn, 'txtfn': txtfn}
@@ -99,7 +109,7 @@ class StorePrime(MyDebug, MyVerbose, QueryPrime):
 
     def get_local_data_path(self):
         ''' get data file from local '''
-        p = os.path.join(Path.home(), '.prime')
+        p = GetConfig().get_full_ppath()
         if os.path.exists(p):
             self.logv(f'[INFO] {MODNAME}: get_local_data_path: {p}')
             return p

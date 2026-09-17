@@ -6,18 +6,32 @@ import os
 import sys
 from typing import Any
 
-from .load_myutil import (  # type: ignore[reportAttributeAccessIssue]
-    get_home,  # type: ignore[reportAttributeAccessIssue]
-    is_file,  # type: ignore[reportAttributeAccessIssue]
-    prime_dir,  # type: ignore[reportAttributeAccessIssue]
-    read_setting,  # type: ignore[reportAttributeAccessIssue]
-)
+try:
+    from .load_myutil import (  # type: ignore[reportAttributeAccessIssue]
+        do_nothing,  # type: ignore[reportAttributeAccessIssue]
+        get_home,  # type: ignore[reportAttributeAccessIssue]
+        is_file,  # type: ignore[reportAttributeAccessIssue]
+        prime_dir,  # type: ignore[reportAttributeAccessIssue]
+        read_setting,  # type: ignore[reportAttributeAccessIssue]
+    )
+except ImportError:
+    print(f'[FAIL] MUST not run {__file__} directly')
+    sys.exit(1)
 
 __VERSION__ = "2026.09.15"
+LOCAL_DEBUG = True
+if LOCAL_DEBUG:
+    try:
+        from madlog import logd  # type: ignore[reportAttributeAccessIssue]
+    except ImportError:
+        logd = print
+else:
+    logd = do_nothing
+
 
 class GetConfig:
     ''' a wrapper class to load config for primes '''
-    sizes = ("small", "big", "large", "h119", "h422")
+    sizes = ("big", "large", "h119", "h422")
     allkeys = ("txt", "pickle", "compress_pickle", "u32", "max", "num")
 
     def __init__(self, conf: str = "setting.json") -> None:
@@ -34,6 +48,7 @@ class GetConfig:
     def __read_json_conf(self) -> dict[str, Any] | None:
         ''' read json config '''
         self.conf = os.path.join(prime_dir, self.conf)
+        logd(f'reading settings from {self.conf}')
         if not is_file(self.conf):
             print(f'[FAIL] {__file__}: settings file not found: {self.conf}')
             return None
@@ -90,10 +105,6 @@ class GetConfig:
     def get_ppath(self) -> str:
         ''' prime path '''
         return self.ppath
-
-    def get_small_config(self) -> dict[str, Any] | None:
-        ''' get prime data file path '''
-        return self.get_config("small")
 
     def get_big_config(self) -> dict[str, Any] | None:
         ''' get prime data file path '''

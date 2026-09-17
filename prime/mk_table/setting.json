@@ -4,20 +4,10 @@
     "pickle_large": "large.p",
     "prime_big": "big.txt",
     "pickle_big": "big.p",
-    "prime_small": "small.txt",
-    "pickle_small": "small.p",
 
     "2t_txt": "2T_p1to6.txt",
     "2t_pickle": "2T.p",
     "2t_compress_pickle": "2T.p.lzma",
-
-    "small": {
-        "txt": "small.txt",
-        "pickle": "small.p",
-        "compress_pickle": "small.p.lzma",
-        "max": 1299709,
-        "num": 100000
-    },
 
     "big": {
         "txt": "big.txt",

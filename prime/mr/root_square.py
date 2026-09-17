@@ -57,7 +57,7 @@ class Solution:
         self.results = []
 
         obj = GetConfig()
-        obj.set_configkey("small")
+        obj.set_configkey("big")
         txtfn = obj.get_full_path("txt")
         pfn = obj.get_full_path("pickle")
         self.sp = StorePrime(txtfn=txtfn, pfn=pfn)

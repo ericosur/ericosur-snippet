@@ -24,7 +24,7 @@ def show_duration(duration):
 def wrap_config():
     ''' wrap config and retrieve settings '''
     obj = GetConfig()
-    obj.set_configkey("small")    # change this to use larger table
+    obj.set_configkey("big")    # change this to use larger table
     txtfn = obj.get_full_path("txt")
     pfn = obj.get_full_path("pickle")
     return txtfn, pfn

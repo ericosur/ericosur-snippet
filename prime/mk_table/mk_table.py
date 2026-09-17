@@ -42,10 +42,10 @@ except ImportError:
     USE_LCP = False
     print(f'[INFO] {__file__}: use **store_prime**')
 
-def get_smallconfig():
-    ''' return small txt path '''
+def get_config():
+    ''' return related path/config '''
     obj = GetConfig()
-    obj.set_configkey("small")
+    obj.set_configkey("big")
     txtfn = obj.get_full_path("txt")
     if USE_LCP:
         pfn = obj.get_full_path("compress_pickle")
@@ -66,7 +66,7 @@ class Solution:
     def _getobj(self):
         ''' get prime storage class '''
         # try to import StorePrime class
-        txtfn, pfn = get_smallconfig()
+        txtfn, pfn = get_config()
         self.sp = StorePrime(txtfn=txtfn, pfn=pfn)
         self.sp.get_ready()
 
