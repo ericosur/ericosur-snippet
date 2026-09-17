@@ -35,7 +35,6 @@ class GetConfig:
     allkeys = ("txt", "pickle", "compress_pickle", "u32", "max", "num")
 
     def __init__(self, conf: str = "setting.json") -> None:
-        self.home = get_home()
         self.conf = conf
         settings = self.__read_json_conf()
         if settings is None:
@@ -93,14 +92,17 @@ class GetConfig:
         ''' give item like txt, pickle, compress_pick, num, max '''
         if item not in self.allkeys:
             raise ValueError(f"[FAIL] GetConfig has no such key: {item}")
-        if self.key is None:
-            raise ValueError(f'[FAIL] no configuration key selected: {self.key}')
-        p = os.path.join(get_home(), self.ppath, self.d[self.key][item])
+        assert self.key is not None
+        full_ppath = self.get_full_ppath()
+        p = os.path.join(full_ppath, self.d[self.key][item])
         return p
 
     def get_full_ppath(self) -> str:
         ''' prime path '''
-        return os.path.join(get_home(), self.ppath)
+        the_path = os.path.join(get_home(), self.ppath)
+        if os.path.exists(the_path):
+            return the_path
+        raise FileNotFoundError(f"[FAIL] GetConfig: path not found: {the_path}")
 
     def get_ppath(self) -> str:
         ''' prime path '''
