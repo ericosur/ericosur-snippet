@@ -2,14 +2,14 @@
 '''Convert a pickle prime table to a little-endian uint32 binary file.'''
 
 import argparse
+from array import array
 import pickle
 from pathlib import Path
 from tempfile import NamedTemporaryFile
 from time import perf_counter
+import sys
 
-import numpy as np  # type: ignore[import]
-
-UINT32_MAX = np.iinfo(np.uint32).max
+UINT32_MAX = 0xFFFFFFFF
 
 
 def convert(input_path: Path, output_path: Path) -> None:
@@ -27,7 +27,9 @@ def convert(input_path: Path, output_path: Path) -> None:
             f'values must fit uint32; found range {minimum}..{maximum}'
         )
 
-    values = np.asarray(primes, dtype='<u4')
+    values = array('I', primes)
+    if sys.byteorder != 'little':
+        values.byteswap()
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with NamedTemporaryFile(
         mode='wb', dir=output_path.parent, prefix=f'{output_path.name}.',
