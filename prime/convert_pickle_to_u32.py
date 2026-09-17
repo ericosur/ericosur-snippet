@@ -7,7 +7,7 @@ from pathlib import Path
 from tempfile import NamedTemporaryFile
 from time import perf_counter
 
-import numpy as np
+import numpy as np  # type: ignore[import]
 
 UINT32_MAX = np.iinfo(np.uint32).max
 
