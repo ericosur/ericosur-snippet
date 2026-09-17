@@ -11,8 +11,8 @@ SETTING_FILE = "setting.json"
 import sys
 from pathlib import Path
 
-this_dir: Path = Path(__file__).resolve().parent
-prime_dir: Path = this_dir.parent
+this_dir: Path = Path(__file__).resolve().parent  # store
+prime_dir: Path = this_dir.parent  # prime (workspace)
 
 try:
     from loguru import logger
@@ -34,6 +34,10 @@ def setup_local_paths() -> None:
 
 try:
     setup_local_paths()
+    from madlog import (  # type: ignore[reportAttributeAccessIssue]
+        import_rich,  # type: ignore[reportAttributeAccessIssue]
+        logd,  # type: ignore[reportAttributeAccessIssue]
+    )
     from myutil import (  # type: ignore[reportAttributeAccessIssue]
         MyDebug,  # type: ignore[reportAttributeAccessIssue]
         MyVerbose,  # type: ignore[reportAttributeAccessIssue]
@@ -57,8 +61,10 @@ __all__ = [
     'die',
     'do_nothing',
     'get_home',
+    'import_rich',
     'is_dir',
     'is_file',
+    'logd',
     'prime_dir',
     'prt',
     'read_from_stdin',

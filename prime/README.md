@@ -85,7 +85,6 @@ The checked-in `data/prime_100k.txt` contains the first 100,000 primes.
 | `prime-redis.py` | Loads prime tables into Redis and compares Redis/list lookup behavior. |
 | `test_config.py` | Prints and tests the configured prime table paths. |
 | `test_exist.py` | Benchmarks `in`, `set`, and `bisect` membership checks and plots timing results. |
-| `the_prt.py` | Tiny helper that exposes `rich.print` when available, otherwise built-in `print`. |
 
 Scripts with `_sta` in the name are intended for iOS
 [Pythonista](http://omz-software.com/pythonista/).
