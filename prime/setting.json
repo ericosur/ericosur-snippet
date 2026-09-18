@@ -1,8 +1,53 @@
 {
-    "_comment_full_prime_path": "full_prime path will override base_prime_path",
-    "full_prime_path": "/hdd/prime",
+    "_comment": "Priority: master_profile > hostname_map > default_profile > $HOME/base_prime_path",
+    "default_profile": "linux-work",
+    "master_profile": "",
+    "profiles": {
+        "linux-work": {
+            "_comment": "Main Ubuntu",
+            "full_prime_path": "/ssd/prime",
+            "sizes": {
+                "p1e6":  ["txt", "pickle"],
+                "p3e6":  ["txt", "pickle"],
+                "p6e7":  ["txt", "pickle"],
+                "p2e8":  ["txt", "pickle", "u32"],
+                "part2": ["u64"]
+            }
+        },
+        "linux-aux": {
+            "_comment": "Ubuntu",
+            "full_prime_path": "",
+            "sizes": {
+                "p1e6": ["txt", "pickle"],
+                "p6e7": ["pickle"],
+                "p2e8": ["u32"]
+            }
+        },
+        "cygwin": {
+            "_comment": "Windows Cygwin",
+            "full_prime_path": "/cygdrive/d/src/prime",
+            "sizes": {
+                "p1e6": ["txt", "pickle"],
+                "p3e6": ["txt", "pickle"],
+                "p6e7": ["pickle"]
+            }
+        },
+        "powershell": {
+            "_comment": "Windows PowerShell",
+            "full_prime_path": "D:/src/prime",
+            "sizes": {
+                "p1e6": ["txt", "pickle"],
+                "p3e6": ["txt", "pickle"],
+                "p6e7": ["pickle"]
+            }
+        }
+    },
+    "hostname_map": {
+        "hpdesk": "linux-work",
+        "exp":     "linux-aux",
+        "P18000001-NB":  "cygwin"
+    },
     "base_prime_path": ".prime",
-    "sizes": ["p1e6", "p3e6", "p6e7", "p2e8", "part2"],
     "p1e6": {
         "txt": "p1e6.txt",
         "pickle": "p1e6.p",
