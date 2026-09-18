@@ -1,5 +1,6 @@
 {
-    "full_prime_path": "/home/user/.prime",
+    "_comment_full_prime_path": "full_prime path will override base_prime_path",
+    "full_prime_path": "/hdd/prime",
     "base_prime_path": ".prime",
     "prime_large": "large.txt",
     "pickle_large": "large.p",
