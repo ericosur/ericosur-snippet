@@ -2,13 +2,7 @@
     "_comment_full_prime_path": "full_prime path will override base_prime_path",
     "full_prime_path": "/hdd/prime",
     "base_prime_path": ".prime",
-    "prime_large": "large.txt",
-    "pickle_large": "large.p",
-    "pickle_large_compress": "large.p.lzma",
-    "prime_big": "big.txt",
-    "pickle_big": "big.p",
-    "pickle_big_compress": "big.p.lzma",
-
+    "sizes": ["big", "large", "h119", "h422"],
     "big": {
         "txt": "big.txt",
         "pickle": "big.p",

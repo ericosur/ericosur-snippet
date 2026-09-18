@@ -31,7 +31,6 @@ else:
 
 class GetConfig:
     ''' a wrapper class to load config for primes '''
-    sizes = ("big", "large", "h119", "h422")
     allkeys = ("txt", "pickle", "compress_pickle", "u32", "max", "num")
 
     def __init__(self, conf: str = "setting.json") -> None:
@@ -41,6 +40,7 @@ class GetConfig:
             print(f'[FAIL] {__file__}: fail to read settings')
             sys.exit(1)
         self.d: dict[str, Any] = settings
+        self.sizes: tuple[str, ...] = tuple(self.d['sizes'])
         self.base_path: str = self.d['base_prime_path']
         self.key: str | None = None
 
