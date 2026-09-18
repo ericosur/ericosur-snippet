@@ -25,11 +25,9 @@
         },
         "cygwin": {
             "_comment": "Windows Cygwin",
-            "full_prime_path": "/cygdrive/d/src/prime",
+            "full_prime_path": "d:/src/prime",
             "sizes": {
-                "p1e6": ["txt", "pickle"],
-                "p3e6": ["txt", "pickle"],
-                "p6e7": ["pickle"]
+                "p1e8": ["txt"]
             }
         },
         "powershell": {
@@ -45,7 +43,7 @@
     "hostname_map": {
         "hpdesk": "linux-work",
         "exp":     "linux-aux",
-        "P18000001-NB":  "cygwin"
+        "P181000001-NB":  "cygwin"
     },
     "base_prime_path": ".prime",
     "p1e6": {
@@ -54,6 +52,12 @@
         "min": 2,
         "max": 15485863,
         "count": 1000000
+    },
+    "p1e8": {
+        "txt": "p1e8.txt",
+        "min": 2,
+        "max": 99999989,
+        "count": 100000000
     },
     "p3e6": {
         "txt": "p3e6.txt",
