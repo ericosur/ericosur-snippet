@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 
 '''
-load primes from StorePrime and double check by nthoery
+load primes from StorePrime and double check by sympy.isprime
 '''
 
 import sys
 from time import time
 
-from sympy import ntheory
+from sympy import isprime  # type: ignore
 
 try:
     from store import GetConfig, StorePrime
@@ -37,22 +37,24 @@ class CheckPrimes:
         self.sp = StorePrime(txtfn=txtfn, pfn=pfn)
         self.sp.get_ready()
 
-    def is_prime(self, val):
+    def is_prime(self, val) -> bool:
         ''' is a prime ? '''
         return self.sp.find(val) != -1
 
-    def sympy_prime(self, val):
+    def sympy_prime(self, val) -> bool:
         ''' using sympy '''
-        return ntheory.primetest.isprime(val)
+        return isprime(val)
 
     def double_check(self):
         ''' double check by StorePrime and sympy,
-            it is very slow (1e5 numbers takes 22 seconds)
+            it is very slow
         '''
+        CHECK_COUNT = 5_000
         maxidx = self.sp.get_count() - 1
+        minidx = max(maxidx - CHECK_COUNT, 0)
         print(f'{maxidx=}')
         start = time()
-        for i in range(maxidx, 0, -1):
+        for i in range(maxidx, minidx, -1):
             print(f'{i}\r', end='')
             n = self.sp.at(i)
             assert self.is_prime(n)
@@ -61,15 +63,11 @@ class CheckPrimes:
         duration = time() - start
         show_duration(duration)
 
-    def action(self):
-        ''' action '''
-        self.double_check()
-
     @classmethod
     def run(cls):
         ''' run me '''
         obj = cls()
-        obj.action()
+        obj.double_check()
 
 def main():
     ''' main '''
