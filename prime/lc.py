@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-#
-
 '''
 handle one million lines of text file with reading all lines into memory
 '''
@@ -11,7 +8,7 @@ import random
 from itertools import islice
 
 from line_count import bufcount
-from store import get_home, read_setting
+from store import get_home, read_setting  # type: ignore
 
 # pylint: disable=global-statement
 
@@ -30,7 +27,7 @@ def get_nth_line_from_file(fn, line_num):
             line = next(islice(f, line_num - 1, line_num))
         except StopIteration as e:
             print(e)
-    return line.strip()
+    return line.strip() if line is not None else None
 
 def search_from_file(val, fn, total_lines=0):
     ''' search value at index or between '''
@@ -50,6 +47,8 @@ def search_from_file(val, fn, total_lines=0):
         TOTAL_CALLS += 1
         s = get_nth_line_from_file(fn, ln)
         v = None
+        if s is None:
+            return v
         try:
             v = int(s)
         except ValueError as e:
