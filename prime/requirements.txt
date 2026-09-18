@@ -4,8 +4,6 @@ annotated-doc==0.0.5
     # via typer
 annotated-types==0.8.0
     # via pydantic
-compress-pickle==2.1.0
-    # via -r requirements.in
 contourpy==1.4.0
     # via matplotlib
 cycler==0.12.1

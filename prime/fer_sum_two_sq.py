@@ -10,14 +10,8 @@ ref: https://en.wikipedia.org/wiki/Fermat%27s_theorem_on_sums_of_two_squares
 
 import sys
 
-try:
-    # larger and slower
-    from store import LoadCompressPrime as StorePrime
-    print('use **LoadCompressPrime**')
-except ImportError:
-    # smaller and quicker
-    from store import StorePrime
-    print('use **store_prime**')
+from store import StorePrime
+
 
 # pylint: disable=invalid-name
 class Solution:

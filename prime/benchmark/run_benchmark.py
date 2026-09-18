@@ -3,7 +3,6 @@ Run benchmark for config h422
 to compare:
   - text
   - pickle
-  - lzma
 '''
 
 import pickle
@@ -11,7 +10,6 @@ import sys
 from pathlib import Path
 from time import perf_counter
 
-import compress_pickle
 import numpy as np
 from bench_common import setup_local_paths
 
@@ -49,13 +47,6 @@ def load_from_pickle(filename: str) -> list[int]:
     return _report_load('pickle', filename, started, primes)
 
 
-def load_from_lzma(filename: str) -> list[int]:
-    '''Load primes from a compressed pickle file.'''
-    started = perf_counter()
-    primes: list[int] = compress_pickle.load(filename)
-    return _report_load('lzma', filename, started, primes)
-
-
 def load_from_u32(filename: str) -> np.memmap:
     '''Memory-map a little-endian uint32 prime table.'''
     started = perf_counter()
@@ -75,14 +66,13 @@ class Solution:
         self.sett = self.config.get_config()
 
     def run(self) -> None:
-        ''' run test on text, pickle, and lzma '''
+        ''' run test on text, pickle, and u32 '''
         d = self.sett
         if d is None:
             raise RuntimeError('Configuration is not available')
         with get_console().status("[bold green]Loading primes..."):
             load_from_u32(self.config.get_full_path('u32'))
             load_from_pickle(self.config.get_full_path('pickle'))
-            load_from_lzma(self.config.get_full_path('compress_pickle'))
             load_from_text(self.config.get_full_path('txt'))
 
 def main():

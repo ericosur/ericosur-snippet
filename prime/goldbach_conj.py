@@ -6,9 +6,6 @@
 given an even number and list some sum of two primes
 
 * import from store_prime using prime number table
-* import from lcp, it uses compress pickle
-
-It will use LoadCompressPrime if possible
 '''
 
 import bisect
@@ -16,22 +13,11 @@ import sys
 import time
 from random import randint
 
-from store import GetConfig
+from store import GetConfig, StorePrime
 
 MODNAME = "goldbach"
-LCP_LOADED = False
 # small, big, large, h211...
 CONFIG_KEY = 'small'
-
-try:
-    # larger and slower
-    from store import LoadCompressPrime as StorePrime
-    print(f'[INFO] {MODNAME}: use **LoadCompressPrime**')
-    LCP_LOADED = True
-except ImportError:
-    # smaller and quicker
-    from store import StorePrime
-    print(f'[INFO] {MODNAME}: use **store_prime**')
 
 # pylint: disable=invalid-name
 # too-many-statements
@@ -42,8 +28,7 @@ def wrap_config():
     obj.set_configkey(CONFIG_KEY)    # change this to use larger table
     txtfn = obj.get_full_path("txt")
     pfn = obj.get_full_path("pickle")
-    cpfn = obj.get_full_path("compress_pickle")
-    return txtfn, pfn, cpfn
+    return txtfn, pfn
 
 def index(a, x):
     '''
@@ -122,11 +107,8 @@ class Goldbach:
         else:
             self.values = values
 
-        txtfn, pfn, pzfn = wrap_config()
-        if LCP_LOADED:
-            self.sp = StorePrime(txtfn, pzfn)
-        else:
-            self.sp = StorePrime(txtfn, pfn)
+        txtfn, pfn = wrap_config()
+        self.sp = StorePrime(txtfn, pfn)
         self.sp.get_ready()
         print(self.sp)
 

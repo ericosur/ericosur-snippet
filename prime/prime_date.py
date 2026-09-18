@@ -21,18 +21,10 @@ Note that your prime number table should cover the test number or you cannot
 find any prime dates.
 '''
 
-import sys
 from datetime import date, timedelta
 from time import time
 
-from store import GetConfig
-
-try:
-    from store import LoadCompressPrime
-    print('[INFO] use **LoadCompressPrime**')
-except ImportError:
-    print("[FAIL] cannot import LoadCompressPrime")
-    sys.exit(1)
+from store import GetConfig, StorePrime
 
 MODNAME = "PrimeDate"
 
@@ -47,14 +39,14 @@ def wrap_config():
     obj = GetConfig()
     obj.set_configkey("large")    # change this to use larger table
     txtfn = obj.get_full_path("txt")
-    cpfn = obj.get_full_path("compress_pickle")
-    return txtfn, cpfn
+    pfn = obj.get_full_path("pickle")
+    return txtfn, pfn
 
 class PrimeDate:
     ''' test date is a prime '''
     def __init__(self):
-        txtfn, cpfn = wrap_config()
-        self.sp = LoadCompressPrime(txtfn=txtfn, pfn=cpfn)
+        txtfn, pfn = wrap_config()
+        self.sp = StorePrime(txtfn=txtfn, pfn=pfn)
         self.sp.get_ready()
 
     def test(self, argv: str):

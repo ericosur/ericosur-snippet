@@ -5,7 +5,7 @@ testing, nearby-prime lookup, Goldbach pairs, sieve generation, prime-date
 searches, and prime-table storage.
 
 Most scripts are Python 3. Several use the local `store` package to load prime
-tables from text, pickle, or compressed pickle files.
+tables from text or pickle files.
 
 ## Requirements
 
@@ -15,7 +15,6 @@ Common dependencies:
 - `sympy` for `check_prime.py`, `is_prime.py`, `check_need.py`, and
   `root_square.py`
 - `rich`, `typer`, and `pydantic` for `is_prime.py`
-- `compress_pickle` for compressed prime tables via `LoadCompressPrime`
 - `redis` plus a running Redis server for `prime-redis.py`
 - `matplotlib` for `test_exist.py`
 
@@ -26,14 +25,14 @@ The scripts look for prime table files either in this folder or under
 
 The active table configuration is:
 
-| key | text file | pickle | compressed pickle | min | max | count |
-| --- | --- | --- | --- | ---: | ---: |---: |
-| `small` | `small.txt` | `small.p` | `small.p.lzma` | 2 | 1,299,709 | 100,000 |
-| `big` | `big.txt` | `big.p` | `big.p.lzma` | 2 | 15,485,863 | 1,000,000 |
-| `large` | `large.txt` | `large.p` | `large.p.lzma` | 2 | 49,979,687 | 3,000,000 |
-| `h119` | `h119.txt` | `h119.p` | `h119.p.lzma` | 2 | 1,190,494,759 | 60,000,000 |
-| `h422` | `h422.txt` | `h422.p` | `h422.p.lzma` | 2 | 4,222,234,741 | 200,000,000 |
-| `part2` | `part2.txt` | `n/a` | `n/a` | 4,222,234,763 | 8,736,028,057 | 200,000,000 |
+| key | text file | pickle | min | max | count |
+| --- | --- | --- | ---: | ---: |---: |
+| `small` | `small.txt` | `small.p` | 2 | 1,299,709 | 100,000 |
+| `big` | `big.txt` | `big.p` | 2 | 15,485,863 | 1,000,000 |
+| `large` | `large.txt` | `large.p` | 2 | 49,979,687 | 3,000,000 |
+| `h119` | `h119.txt` | `h119.p` | 2 | 1,190,494,759 | 60,000,000 |
+| `h422` | `h422.txt` | `h422.p` | 2 | 4,222,234,741 | 200,000,000 |
+| `part2` | `part2.txt` | `n/a` | 4,222,234,763 | 8,736,028,057 | 200,000,000 |
 
 Prime tables can be downloaded from:
 
@@ -45,7 +44,6 @@ The checked-in `data/prime_100k.txt` contains the first 100,000 primes.
 
 - txt (`.txt`): one line one number, primitive raw format for input
 - pickle (`.p`): python pickle, it is a python list, overhead is high, loading speed rather fast
-- compressed pickle (`.p.lzma`): lzma(xz) compressed pickle file, use `compress_pickle` to read/write
 - numpy ndarray (`.u32`, `.u64`): `u32` stores little endian uint32 integers, and `u64` is little endian uint64 integers
 
 
@@ -69,7 +67,7 @@ The checked-in `data/prime_100k.txt` contains the first 100,000 primes.
 | `MillerRabin.py` | Miller-Rabin implementation from LiteratePrograms; can test values or generate a random 32-bit probable prime. |
 | `miller_rabin.py` | Alternative Miller-Rabin implementation with a modular exponentiation test mode. |
 | `nearby_primes.py` | Uses `StorePrime` to list primes near one or more input values. Defaults to the `big` table. |
-| `run_example.py` | Demo and smoke-test runner for `StorePrime` and `LoadCompressPrime`; reports whether inputs are prime or between adjacent primes. |
+| `run_example.py` | Demo and smoke-test runner for `StorePrime`; reports whether inputs are prime or between adjacent primes. |
 | `goldbach_conj.py` | Finds Goldbach prime pairs for given even numbers using the configured prime table. |
 | `goldbach_sta.py` | Pythonista-oriented Goldbach implementation. |
 | `fun500.py` | Small Goldbach-style demo that samples prime partners for the value `500`. |
@@ -93,7 +91,7 @@ Scripts with `_sta` in the name are intended for iOS
 
 | path | contents |
 | --- | --- |
-| `store/` | Local support package for loading prime tables, querying nearby primes, reading config, creating arrows, and optional compressed-pickle support. |
+| `store/` | Local support package for loading prime tables, querying nearby primes, reading config, and creating arrows. |
 | `100k/` | Utilities focused on `prime_100k.txt` lookup. |
 | `mk_table/` | Scripts for building or transforming prime tables, including CSV conversion and `primesieve` helpers. |
 | `powmod_test/` | Python and Perl experiments for modular exponentiation and last-digit power behavior. |

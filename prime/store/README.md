@@ -11,8 +11,6 @@ The package exports these primary classes and functions:
 	paths.
 - `StorePrime`: loads, queries, and optionally saves an uncompressed prime
 	table.
-- `LoadCompressPrime`: loads and saves a compressed prime table when the
-	optional compressed-loader module is available.
 - `QueryPrime`: the base query implementation used by `StorePrime`; import it
 	from `store.query_prime` when needed.
 - `read_textfile`: loads one integer per line from a text file.
@@ -56,7 +54,6 @@ Each data set provides these keys:
 
 - `txt`: text-file name
 - `pickle`: pickle-file name
-- `compress_pickle`: compressed pickle-file name
 - `max`: largest prime in the data set
 - `num`: number of primes in the data set
 
