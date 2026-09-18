@@ -31,26 +31,15 @@ if len(vers) >= 2 and vers[1] >= '13':
 else:
     FUNC_PRIMEPI = False
 
-try:
-    # larger and slower for loading pickle
-    from store import LoadCompressPrime as StorePrime
-    USE_LCP = True
-    print(f'[INFO] {__file__}: use **LoadCompressPrime**')
-except ImportError:
-    # smaller and quicker for loading pickle
-    from store import StorePrime
-    USE_LCP = False
-    print(f'[INFO] {__file__}: use **store_prime**')
+from store import StorePrime
+
 
 def get_config():
     ''' return related path/config '''
     obj = GetConfig()
     obj.set_configkey("big")
     txtfn = obj.get_full_path("txt")
-    if USE_LCP:
-        pfn = obj.get_full_path("compress_pickle")
-    else:
-        pfn = obj.get_full_path("pickle")
+    pfn = obj.get_full_path("pickle")
     return txtfn, pfn
 
 

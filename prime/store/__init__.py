@@ -32,20 +32,12 @@ __VERSION__ = '2024.12.27'
 LOCAL_DEBUG = False
 dbg = dbg if LOCAL_DEBUG else do_nothing
 
-__all__ = []
-try:
-    from .lcp import LoadCompressPrime
-    __all__.append('LoadCompressPrime')
-except ModuleNotFoundError:
-    dbg('__init__: cannot load module: LoadCompressPrime')
-
 def sep():
     ''' sep '''
     print('-------------------------')
 
 __all__ = [
     'GetConfig',
-    'LoadCompressPrime',
     'MyDebug',
     'MyVerbose',
     'StorePrime',

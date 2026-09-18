@@ -8,17 +8,10 @@ given cli argument to get lower/upper prime
 import argparse
 import random
 
-from store import GetConfig, MyDebug, MyVerbose, sep
+from store import GetConfig, MyDebug, MyVerbose, StorePrime, sep
 
 MODNAME = 'NearbyPrimes'
 VERSION = '2024.03.11'
-USE_LCP = False
-
-
-if USE_LCP:
-    from store import LoadCompressPrime
-else:
-    from store import StorePrime
 
 
 class NearbyPrimes(MyDebug, MyVerbose):
@@ -100,8 +93,7 @@ class NearbyPrimes(MyDebug, MyVerbose):
         conf.set_configkey(NearbyPrimes.CONFIG_KEY)    # change this to use larger table
         txtfn = conf.get_full_path("txt")
         pfn = conf.get_full_path("pickle")
-        cpfn = conf.get_full_path("compress_pickle")
-        return txtfn, pfn, cpfn
+        return txtfn, pfn
 
 
     def show_prime_obj(self):
@@ -112,19 +104,14 @@ class NearbyPrimes(MyDebug, MyVerbose):
 
     def action(self):
         ''' main function '''
-        txtfn, pfn, cpfn = NearbyPrimes.wrap_config()
+        txtfn, pfn = NearbyPrimes.wrap_config()
 
         self.logd(f'{self.values=}')
-        self.logd(f'{txtfn=}, {pfn=}, {cpfn=}')
+        self.logd(f'{txtfn=}, {pfn=}')
 
-        if USE_LCP:
-            self.logd('Use LoadCompressPrime...')
-            self.prime = LoadCompressPrime(txtfn, cpfn,
-                verbose=self.verbose, debug=self.debug)
-        else:
-            self.logd('Use StorePrime...')
-            self.prime = StorePrime(txtfn, pfn,
-                verbose=self.verbose, debug=self.debug)
+        self.logd('Use StorePrime...')
+        self.prime = StorePrime(txtfn, pfn,
+            verbose=self.verbose, debug=self.debug)
 
         self.prime.get_ready()
         self.show_prime_obj()

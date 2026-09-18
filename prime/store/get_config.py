@@ -31,7 +31,7 @@ else:
 
 class GetConfig:
     ''' a wrapper class to load config for primes '''
-    allkeys = ("txt", "pickle", "compress_pickle", "u32", "max", "num")
+    allkeys = ("txt", "pickle", "u32", "max", "count")
 
     def __init__(self, conf: str = "setting.json") -> None:
         self.conf = conf
@@ -63,9 +63,9 @@ class GetConfig:
         for k in self.sizes:
             cs = self.d[k]
             assert cs is not None
-            msg = f'numbers of primes: {cs.get("num"):,}, max prime is {cs.get("max"):,}'
+            msg = f'numbers of primes: {cs.get("count"):,}, max prime is {cs.get("max"):,}'
             print(msg)
-            for i in ["txt", "pickle", "compress_pickle"]:
+            for i in ["txt", "pickle"]:
                 fn = os.path.join(self.get_full_prime_path(), cs.get(i))
                 print(fn)
                 assert os.path.exists(fn)
@@ -87,7 +87,7 @@ class GetConfig:
 
     def get_full_path(self, item: str) -> str:
         ''' 
-        item in [txt, pickle, compress_pickle, num, max] 
+        item in [txt, pickle, num, max] 
         will get like:
         /full/prime/path/<item>
         eg:
@@ -138,20 +138,19 @@ class GetConfig:
         ''' get prime data file path '''
         return self.get_config("h422")
 
-    def _get_data_path(self, size: str) -> tuple[str, str, str]:
-        '''Return text, pickle, and compressed-pickle paths for a data set.'''
+    def _get_data_path(self, size: str) -> tuple[str, str]:
+        '''Return text and pickle paths for a data set.'''
         config = self.d[size]
         ppath = self.get_full_prime_path()
         txtfn = os.path.join(ppath, config['txt'])
         pfn = os.path.join(ppath, config['pickle'])
-        pzfn = os.path.join(ppath, config['compress_pickle'])
-        return txtfn, pfn, pzfn
+        return txtfn, pfn
 
-    def get_largedata_path(self) -> tuple[str, str, str]:
+    def get_largedata_path(self) -> tuple[str, str]:
         ''' get large prime data file path '''
         return self._get_data_path('large')
 
-    def get_bigdata_path(self) -> tuple[str, str, str]:
+    def get_bigdata_path(self) -> tuple[str, str]:
         ''' get big prime data file path '''
         return self._get_data_path('big')
 

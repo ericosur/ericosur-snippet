@@ -2,34 +2,40 @@
     "_comment_full_prime_path": "full_prime path will override base_prime_path",
     "full_prime_path": "/hdd/prime",
     "base_prime_path": ".prime",
-    "sizes": ["big", "large", "h119", "h422"],
-    "big": {
-        "txt": "big.txt",
-        "pickle": "big.p",
-        "compress_pickle": "big.p.lzma",
+    "sizes": ["p1e6", "p3e6", "p6e7", "p2e8", "part2"],
+    "p1e6": {
+        "txt": "p1e6.txt",
+        "pickle": "p1e6.p",
+        "min": 2,
         "max": 15485863,
-        "num": 1000000
+        "count": 1000000
     },
-    "large": {
-        "txt": "large.txt",
-        "pickle": "large.p",
-        "compress_pickle": "large.p.lzma",
+    "p3e6": {
+        "txt": "p3e6.txt",
+        "pickle": "p3e6.p",
+        "min": 2,
         "max": 49979687,
-        "num": 3000000
+        "count": 3000000
     },
-    "h119": {
-        "txt": "h119.txt",
-        "pickle": "h119.p",
-        "compress_pickle": "h119.p.lzma",
+    "p6e7": {
+        "txt": "p6e7.txt",
+        "pickle": "p6e7.p",
+        "min": 2,
         "max": 1190494759,
-        "num": 60000000
+        "count": 60000000
     },
-    "h422": {
-        "txt": "h422.txt",
-        "pickle": "h422.p",
-        "compress_pickle": "h422.p.lzma",
-        "u32": "h422.u32",
+    "p2e8": {
+        "txt": "p2e8.txt",
+        "pickle": "p2e8.p",
+        "u32": "p2e8.u32",
+        "min": 2,
         "max": 4222234741,
-        "num": 200000000
+        "count": 200000000
+    },
+    "part2": {
+        "u64": "part2.u64",
+        "min": 4222234763,
+        "max": 8736028057,
+        "count": 200000000
     }
 }

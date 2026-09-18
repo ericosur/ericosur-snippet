@@ -1,22 +1,14 @@
 #!/usr/bin/env python3
 
 '''
-testing LoadCompressPrime/store_prime
+testing store_prime
 '''
 
 from random import randint
 
-from store import GetConfig
+from store import GetConfig, StorePrime
 
 CONFIG_KEY = 'small'
-
-USE_LCP_MODULE = None
-try:
-    from store import LoadCompressPrime as StorePrime
-    USE_LCP_MODULE = True
-except ImportError:
-    from store import StorePrime
-    USE_LCP_MODULE = False
 
 def wrap_config():
     ''' wrap config and retrieve settings '''
@@ -24,19 +16,15 @@ def wrap_config():
     obj.set_configkey(CONFIG_KEY)    # change this to use larger table
     txtfn = obj.get_full_path("txt")
     pfn = obj.get_full_path("pickle")
-    cpfn = obj.get_full_path("compress_pickle")
-    return txtfn, pfn, cpfn
+    return txtfn, pfn
 
 class Goldbach:
     ''' easy version of goldbach '''
     max_len = 7
 
     def __init__(self):
-        txtfn, pfn, cpfn = wrap_config()
-        if USE_LCP_MODULE:
-            self.sp = StorePrime(txtfn=txtfn, pfn=cpfn)
-        else:
-            self.sp = StorePrime(txtfn=txtfn, pfn=pfn)
+        txtfn, pfn = wrap_config()
+        self.sp = StorePrime(txtfn=txtfn, pfn=pfn)
         self.sp.get_ready()
         self.val = -1
         self.picks = None

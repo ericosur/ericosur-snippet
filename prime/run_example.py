@@ -14,18 +14,10 @@ from store import prt
 MODNAME = 'run_example'
 
 try:
-    from store import GetConfig, StorePrime, dbg, make_arrow
+    from store import GetConfig, StorePrime, make_arrow
 except ImportError as err:
     prt('[FAIL] cannot load necessary module:', err)
     sys.exit(1)
-
-LoadCompressPrime = None
-try:
-    from store import LoadCompressPrime
-    LCP_READY = True
-except ImportError:
-    LCP_READY = False
-    dbg('[WARN] cannot load module: LoadCompressPrime')
 
 def test(argv, sp):
     ''' test '''
@@ -84,8 +76,7 @@ def wrap_config(args):
 
     txtfn = obj.get_full_path("txt")
     pfn = obj.get_full_path("pickle")
-    cpfn = obj.get_full_path("compress_pickle")
-    return txtfn, pfn, cpfn
+    return txtfn, pfn
 
 def logd(*args, **wargs):
     ''' local logd '''
@@ -102,7 +93,6 @@ def main():
     parser.add_argument("ints", metavar='int', type=int, nargs='*',
         help="specify some integers to test primes")
     #parser.add_argument("-v", "--verbose", action='store_true', help='verbose')
-    parser.add_argument("-l", "--lcp", action='store_true', help='run lcp, LoadCompressPrime')
     parser.add_argument("-2", "--big", action='store_true', help='use big config')
     parser.add_argument("-3", "--large", action='store_true', help='use large config')
     parser.add_argument("-4", "--h119", action='store_true', help='use h119 config')
@@ -114,27 +104,16 @@ def main():
 
     args = parser.parse_args()
 
-    txtfn, pfn, cpfn = wrap_config(args)
+    txtfn, pfn = wrap_config(args)
     if args.debug:
-        prt(f'run_example: {txtfn=}, {pfn=}, {cpfn=}')
+        prt(f'run_example: {txtfn=}, {pfn=}')
 
-    if args.lcp:
-        if not LCP_READY or LoadCompressPrime is None:
-            prt('[ERROR] Cannot use _*_LoadCompressPrime_*_')
-            sys.exit(1)
-        logd('Using LoadCompressPrime...')
-        started = perf_counter()
-        with LoadCompressPrime(txtfn=txtfn, pfn=cpfn, debug=args.debug,
-            verbose=args.verbose) as lcp:
-            prt(f'loaded {cpfn} in {perf_counter() - started:.3f} sec')
-            test(args.ints, lcp)
-    else:
-        logd('Using StorePrime...')
-        started = perf_counter()
-        with StorePrime(txtfn=txtfn, pfn=pfn, debug=args.debug,
-            verbose=args.verbose) as sp:
-            prt(f'loaded {pfn} in {perf_counter() - started:.3f} sec')
-            test(args.ints, sp)
+    logd('Using StorePrime...')
+    started = perf_counter()
+    with StorePrime(txtfn=txtfn, pfn=pfn, debug=args.debug,
+        verbose=args.verbose) as sp:
+        prt(f'loaded {pfn} in {perf_counter() - started:.3f} sec')
+        test(args.ints, sp)
 
 if __name__ == '__main__':
     main()

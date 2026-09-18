@@ -27,7 +27,6 @@ def wrap_config():
     obj.set_configkey(CONFIG_KEY)    # change this to use larger table
     txtfn = obj.get_full_path("txt")
     #pfn = obj.get_full_path("pickle")
-    #cpfn = obj.get_full_path("compress_pickle")
     return txtfn
 
 def show_duration(duration):
