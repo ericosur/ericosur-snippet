@@ -64,7 +64,7 @@ def wrap_config(args):
     ''' wrap config and retrieve settings '''
     obj = GetConfig()
     if args.big:
-        obj.set_configkey("big")
+        obj.set_configkey("p1e6")
     elif args.large:
         obj.set_configkey("large")
     elif args.h119:
@@ -72,7 +72,7 @@ def wrap_config(args):
     elif args.h422:
         obj.set_configkey("h422")
     else:
-        obj.set_configkey("h119")
+        obj.set_configkey("p2e8")
 
     txtfn = obj.get_full_path("txt")
     pfn = obj.get_full_path("pickle")
