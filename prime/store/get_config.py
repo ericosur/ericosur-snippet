@@ -12,7 +12,8 @@ try:
         do_nothing,  # type: ignore[reportAttributeAccessIssue]
         get_home,  # type: ignore[reportAttributeAccessIssue]
         is_file,  # type: ignore[reportAttributeAccessIssue]
-        prime_dir,  # type: ignore[reportAttributeAccessIssue]
+        prime_dir,     # type: ignore[reportAttributeAccessIssue]
+        prt,           # type: ignore[reportAttributeAccessIssue]
         read_setting,  # type: ignore[reportAttributeAccessIssue]
     )
 except ImportError:
@@ -112,7 +113,7 @@ class GetConfig:
         self.set_configkey(key)
         return self.d.get(key)
 
-    def get_full_path(self, item: str) -> str:
+    def get_full_path(self, item: str, default: str = '') -> str:
         '''
         item in [txt, pickle, u32, u64, ...]
         Returns the full absolute path to the file.
@@ -125,10 +126,8 @@ class GetConfig:
         assert self.key is not None
         available = self._active_sizes.get(self.key, [])
         if item not in available:
-            raise ValueError(
-                f"[FAIL] get_full_path: format {item!r} not available "
-                f"for size {self.key!r} in active profile"
-            )
+            prt(f'[WARN] format {item!r} not available for size {self.key!r} in active profile')
+            return default
         full_ppath = self.get_full_prime_path()
         p = os.path.join(full_ppath, self.d[self.key][item])
         if not os.path.exists(p):
@@ -197,21 +196,6 @@ class GetConfig:
         ''' Return base_prime_path value from config. '''
         return self.base_path
 
-    def _get_data_path(self, size: str) -> tuple[str, str]:
-        '''Return (txt, pickle) paths for a data set.
-        Raises ValueError if either format is not declared available in the active profile.
-        '''
-        available = self._active_sizes.get(size, [])
-        for fmt in ('txt', 'pickle'):
-            if fmt not in available:
-                raise ValueError(
-                    f"[FAIL] _get_data_path: format {fmt!r} not available "
-                    f"for size {size!r} in active profile"
-                )
-        config = self.d[size]
-        txtfn = os.path.join(self._prime_path, config['txt'])
-        pfn = os.path.join(self._prime_path, config['pickle'])
-        return txtfn, pfn
 
 if __name__ == "__main__":
     print(f'{__file__}\nversion: {__VERSION__} is a module only')

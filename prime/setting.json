@@ -30,6 +30,13 @@
                 "p1e8": ["txt"]
             }
         },
+        "cygwin-home": {
+            "_comment": "Windows Cygwin",
+            "full_prime_path": "c:/Users/USER/.prime",
+            "sizes": {
+                "p2e8": ["pickle"]
+            }
+        },
         "powershell": {
             "_comment": "Windows PowerShell",
             "full_prime_path": "D:/src/prime",
@@ -43,7 +50,8 @@
     "hostname_map": {
         "hpdesk": "linux-work",
         "exp":     "linux-aux",
-        "P181000001-NB":  "cygwin"
+        "P181000001-NB":  "cygwin",
+        "tower": "cygwin-home"
     },
     "base_prime_path": ".prime",
     "p1e6": {
