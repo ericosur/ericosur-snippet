@@ -6,10 +6,17 @@ load some functions from __store__
 '''
 
 import sys
+from pathlib import Path
 
-sys.path.insert(0, "..")
-sys.path.insert(0, "prime")
-from store import GetConfig
+try:
+    this_dir = Path(__file__).resolve().parent  # top
+    print(f'{this_dir=}')
+    # prime_dir = this_dir.parent  # top/../
+    # sys.path.insert(0, str(prime_dir))
+    from store import GetConfig
+except ImportError as e:
+    print(f'failed to import: {e}')
+    sys.exit(1)
 
 
 def run_test():

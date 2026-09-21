@@ -12,8 +12,8 @@ try:
         do_nothing,  # type: ignore[reportAttributeAccessIssue]
         get_home,  # type: ignore[reportAttributeAccessIssue]
         is_file,  # type: ignore[reportAttributeAccessIssue]
-        prime_dir,     # type: ignore[reportAttributeAccessIssue]
-        prt,           # type: ignore[reportAttributeAccessIssue]
+        prime_dir,  # type: ignore[reportAttributeAccessIssue]
+        prt,  # type: ignore[reportAttributeAccessIssue]
         read_setting,  # type: ignore[reportAttributeAccessIssue]
     )
 except ImportError:
