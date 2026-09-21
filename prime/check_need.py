@@ -16,6 +16,7 @@ except ImportError as e:
     sys.exit(-1)
 
 MODNAME = "CheckPrimes"
+DEFAULT_DATASET = "p1e6"
 
 def show_duration(duration):
     ''' show duration '''
@@ -24,7 +25,7 @@ def show_duration(duration):
 def wrap_config():
     ''' wrap config and retrieve settings '''
     obj = GetConfig()
-    obj.set_configkey("big")    # change this to use larger table
+    obj.set_configkey(DEFAULT_DATASET)    # change this to use larger table
     txtfn = obj.get_full_path("txt")
     pfn = obj.get_full_path("pickle")
     return txtfn, pfn
