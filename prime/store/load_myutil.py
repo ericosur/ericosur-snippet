@@ -15,7 +15,7 @@ this_dir: Path = Path(__file__).resolve().parent  # store
 prime_dir: Path = this_dir.parent  # prime (workspace)
 
 try:
-    from loguru import logger
+    from loguru import logger  # type: ignore[reportAttributeAccessIssue]
     dbg = logger.debug
 except ImportError:
     dbg = print
@@ -35,6 +35,7 @@ def setup_local_paths() -> None:
 try:
     setup_local_paths()
     from madlog import (  # type: ignore[reportAttributeAccessIssue]
+        get_console,  # type: ignore[reportAttributeAccessIssue]
         import_rich,  # type: ignore[reportAttributeAccessIssue]
         logd,  # type: ignore[reportAttributeAccessIssue]
     )
@@ -60,6 +61,7 @@ __all__ = [
     'dbg',
     'die',
     'do_nothing',
+    'get_console',
     'get_home',
     'import_rich',
     'is_dir',

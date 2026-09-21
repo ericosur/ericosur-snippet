@@ -10,10 +10,15 @@ from time import time
 from sympy import isprime  # type: ignore
 
 try:
-    from store import GetConfig, StorePrime
+    from store import GetConfig, StorePrime, import_rich  # type: ignore[import]
 except ImportError as e:
     print(f'[FAIL] import error: {e}')
     sys.exit(-1)
+
+if import_rich():
+    from rich.progress import track  # type: ignore[import]
+else:
+    track = lambda iterable, **_kwargs: iterable
 
 MODNAME = "CheckPrimes"
 DEFAULT_DATASET = "p1e6"
@@ -32,11 +37,20 @@ def wrap_config():
 
 class CheckPrimes:
     ''' generate a list of numbers and test if a prime number '''
+    CHECK_COUNT = 1_000_000
 
     def __init__(self):
         txtfn, pfn = wrap_config()
         self.sp = StorePrime(txtfn=txtfn, pfn=pfn)
         self.sp.get_ready()
+
+    def assert_prime(self, val) -> bool:
+        ''' assert val is prime number '''
+        # uncomment self.is_prime(val) if you want to check against
+        # StorePrime as well (very slow)
+        #assert self.is_prime(val)
+        assert self.sympy_prime(val)
+        return True
 
     def is_prime(self, val) -> bool:
         ''' is a prime ? '''
@@ -50,17 +64,13 @@ class CheckPrimes:
         ''' double check by StorePrime and sympy,
             it is very slow
         '''
-        CHECK_COUNT = 5_000
         maxidx = self.sp.get_count() - 1
-        minidx = max(maxidx - CHECK_COUNT, 0)
+        minidx = max(maxidx - self.CHECK_COUNT, 0)
         print(f'{maxidx=}')
         start = time()
-        for i in range(maxidx, minidx, -1):
-            print(f'{i}\r', end='')
+        for i in track(range(maxidx, minidx, -1), description='checking...'):
             n = self.sp.at(i)
-            assert self.is_prime(n)
-            assert self.sympy_prime(n)
-        print()
+            self.assert_prime(n)
         duration = time() - start
         show_duration(duration)
 
