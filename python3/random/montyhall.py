@@ -33,19 +33,18 @@ For 4 doors, chances to get the car is 3/8.
 from random import randint
 from time import time
 
-try:
-    from rich.progress import Progress
-    USE_RICH = True
-except ImportError:
-    USE_RICH = False
+from random_common import get_console, import_rich, prt
 
-from madlog import get_prt
+USE_RICH = import_rich()
 
-prt = get_prt()
 if USE_RICH:
-    from rich.console import Console
-    from rich.markdown import Markdown
-    console = Console()
+    try:
+        from rich.markdown import Markdown
+        from rich.progress import Progress
+    except ImportError as e:
+        print(f'failed to import: {e}')
+
+    console = get_console()
     if __doc__:
         md = Markdown(__doc__)
         console.print(md)
