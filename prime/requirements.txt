@@ -45,7 +45,7 @@ pygments==2.21.0
     # via
     #   pytest
     #   rich
-pyparsing==3.3.2
+pyparsing==3.3.3
     # via matplotlib
 pytest==9.1.1
     # via -r requirements.in
