@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 android dp to px and verse
@@ -8,7 +7,8 @@ android dp to px and verse
 import argparse
 import sys
 
-class Converter():
+
+class Converter:
 
     DENSITY_DEFAULT = 160  # android default reference density
 

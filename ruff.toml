@@ -1,0 +1,9 @@
+extend-exclude = [
+    "deprecated-python",
+    "euler",
+    "opencv",
+    "regexp",
+    "C",
+    "Topics",
+    "Workfile",
+]
