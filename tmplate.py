@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-#coding: utf-8
 
 '''
 template script
 '''
 
-class Solution():
+class Solution:
     ''' class solution '''
     def __init__(self):
         self.value = 0

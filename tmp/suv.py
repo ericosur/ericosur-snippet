@@ -5,7 +5,8 @@ a demo to use sympy
 reference from: http://blog.ez2learn.com/2009/08/25/sympy/
 '''
 
-from sympy import Symbol, solve, pprint
+from sympy import Symbol, pprint, solve
+
 
 def main():
     ''' main '''
