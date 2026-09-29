@@ -9,3 +9,9 @@ pylint.log
 .vscode/
 
 .vscode-ctags
+
+# use:
+# uv pip compile requirements.in > requirements.txt
+# uv pip sync requirements.txt
+requirements.txt
+
