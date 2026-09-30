@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 ''' split image into multiple channels '''
 
 import os

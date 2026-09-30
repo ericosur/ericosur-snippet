@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 '''
 further reading:
 https://stackoverflow.com/questions/865115/how-do-i-correctly-clean-up-a-python-object

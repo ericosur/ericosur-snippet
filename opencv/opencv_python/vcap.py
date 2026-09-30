@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 #
 # pylint: disable=line-too-long
 #
@@ -85,7 +83,7 @@ class MyCap:
     def split_blue(img):
         ''' split blue from image '''
         #img = cv2.resize(img, (self.width, self.height))
-        b, g, r = cv2.split(img)    # pylint: disable=unused-variable
+        _, g, r = cv2.split(img)    # pylint: disable=unused-variable
         zeros = np.zeros(img.shape[:2], dtype=img.dtype)
         #cv2.imshow('red', cv2.merge([zeros, zeros, r]))
 
@@ -105,12 +103,8 @@ class MyCap:
         skin = cv2.inRange(imgYCrCb, min_YCrCb, max_YCrCb)
 
         # Do contour detection on skin region
-        # pylint: disable=line-too-long
-        # pylint: disable=unused-variable
-        cimage, contours, hierarchy = cv2.findContours(skin, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        _, contours, _ = cv2.findContours(skin, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         #foo, contours, hierarchy = cv2.findContours(skin, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
-        # pylint: enable=line-too-long
-        # pylint: enable=unused-variable
 
         #cv2.drawContours(im2, contours,-1,(127,255,0),1)
 

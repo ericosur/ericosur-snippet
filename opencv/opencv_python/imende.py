@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-
-
 '''
 refer to: https://blog.csdn.net/dcrmg/article/details/79155233
 '''

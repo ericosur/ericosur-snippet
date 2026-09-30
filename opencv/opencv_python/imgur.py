@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 '''demo fetch image from imgur'''
 
 import os

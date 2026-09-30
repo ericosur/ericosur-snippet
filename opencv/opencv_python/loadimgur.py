@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 '''
 using skimage (scikit-image)
 (it will use matplotlib implicitly)

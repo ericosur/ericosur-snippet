@@ -1,8 +1,8 @@
-#!/usr/bin/env python3
-
 '''
 it is a example of learnopencv from: https://github.com/spmallick/learnopencv.git
 '''
+
+import sys
 
 import cv2
 import numpy as np
@@ -13,7 +13,7 @@ import numpy as np
 im = cv2.imread("headPose.jpg");
 if im is None:
     print('fail to load image')
-    exit()
+    sys.exit()
 
 size = im.shape
 
