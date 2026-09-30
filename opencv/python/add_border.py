@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 ''' add border from a image '''
 
 import cv2
+
 #import numpy as np
 from loadimgur import load_image
+
 
 def add_border(src):
     ''' add border '''

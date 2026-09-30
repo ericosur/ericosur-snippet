@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 '''
 using skimage (scikit-image)
@@ -16,6 +15,7 @@ except ModuleNotFoundError:
     sys.exit(1)
 
 from imgconfig import read_image_config
+
 
 def fetch_image(url, ofn):
     ''' use skimage.io.imread to read an image from URL, may wait a moment '''

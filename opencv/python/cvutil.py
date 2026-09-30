@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 '''
 some cv util functions
 '''
 
-from __future__ import print_function
 import os
 import sys
+
 import cv2
 import numpy
 

@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 '''demo fetch image from imgur'''
 
-from __future__ import print_function
 import os
-from PIL import Image
+
 from imgconfig import read_image_config
 from loadimgur import fetch_image
+from PIL import Image
+
 
 def try_to_download(json_data, title):
     '''load setting variables from jsonfile and download'''

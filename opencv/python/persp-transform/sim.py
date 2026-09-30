@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 cv2 imshow
 '''
 
 import sys
+
 #import numpy as np
 import cv2
+
 
 def show_img(fn):
     ''' show img '''
