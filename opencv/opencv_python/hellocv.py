@@ -1,6 +1,6 @@
-#!/usr/bin/env python3
 #
 # pylint: disable=wrong-import-position
+#
 
 '''
 sample script to import cv2 and list where to load
@@ -11,9 +11,6 @@ import sys
 
 import cv2
 
-HOME = os.getenv('HOME')
-#UTILPATH = os.path.join(HOME, 'src/ericosur-snippet/python3')
-#if os.path.exists(UTILPATH):
 sys.path.insert(0, '../../python3')
 
 from myutil import get_python_versions, isdir, isfile

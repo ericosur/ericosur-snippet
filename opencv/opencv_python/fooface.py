@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # pylint: skip-file
 
 # The contents of this file are in the public domain. See LICENSE_FOR_EXAMPLE_PROGRAMS.txt

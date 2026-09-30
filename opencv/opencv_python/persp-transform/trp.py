@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 '''
 https://www.pyimagesearch.com/2014/08/25/4-point-opencv-getperspective-transform-example/
 '''
