@@ -1,6 +1,7 @@
 numpy
 opencv-python
 scikit-image
+requests
 
 rich
 ruff
