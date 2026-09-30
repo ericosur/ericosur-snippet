@@ -1,6 +1,12 @@
 {
     "name": "foo",
     "comment": "setting for multiple python script, splitted by script name",
+    "global": {
+        "image_base_dir": "/home/user/Pictures/data",
+        "images": [
+            "flower_and_bee.jpg"
+        ]
+    },
     "gblur.py": {
         "video_index": 0,
         "width": 640,
