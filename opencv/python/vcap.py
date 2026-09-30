@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 #
 # pylint: disable=line-too-long
@@ -14,15 +13,15 @@ refer: https://www.researchgate.net/publication/262371199_Explicit_image_detecti
 '''
 
 
-from __future__ import print_function
 import math
 from time import sleep
+
 import cv2
 import numpy as np
 from imgconfig import read_image_config
 
 
-class MyCap():
+class MyCap:
     ''' class to do video capturing '''
 
     # pylint: disable=too-many-instance-attributes

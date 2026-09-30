@@ -8,8 +8,10 @@ python auto_canny.py --images images
 # import the necessary packages
 import argparse
 import glob
+
 import cv2
 import numpy as np
+
 
 def auto_canny(image, sigma=0.33):
     ''' auto canny with default sigma '''

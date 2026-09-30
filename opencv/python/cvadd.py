@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 '''
 stack two different dimension images into one
@@ -15,6 +14,7 @@ horizontally:
 
 import cv2
 import numpy as np
+
 
 def append_image_vertically(top_img, bottom_img):
     ''' input top_img, bottom_img, write out.png '''

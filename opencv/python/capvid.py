@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 #
 # pylint: disable=line-too-long
 # pylint: disable=too-many-locals
@@ -9,12 +8,12 @@ from: https://docs.opencv.org/3.0-beta/doc/py_tutorials/py_gui/py_video_display/
 python script that uses opencv to capture and record video
 '''
 
-from __future__ import print_function
+
 #import numpy as np
 import os
 import sys
-import cv2
 
+import cv2
 
 OUTPUT_FN = 'capvid.avi'
 

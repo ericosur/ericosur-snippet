@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 # pylint: skip-file
 
 # The contents of this file are in the public domain. See LICENSE_FOR_EXAMPLE_PROGRAMS.txt
@@ -44,13 +43,13 @@
 ''' this script is modified from example from dlib '''
 ''' it could run but cannot detect any face '''
 
-from __future__ import print_function
 import cv2
-import numpy as np
 import dlib
+import numpy as np
 from myutil import isfile
 
-class Foo(object):
+
+class Foo:
     ''' simple class to run dlib face landmarks function '''
 
     def __init__(self):
@@ -70,7 +69,7 @@ class Foo(object):
             self.inited = True
         else:
             print('need predictor data file, use the following command to fetch data file')
-            print('wget {}\n'.format(predictor_data))
+            print(f'wget {predictor_data}\n')
             return
 
     '''

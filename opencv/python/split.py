@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 ''' split image into multiple channels '''
 
-from __future__ import print_function
 import os
 import sys
+
 import cv2
 import numpy as np
 from imgconfig import read_image_config
-
 
 THUMBNAIL_HEIGHT = 300
 THUMBNAIL_WIDTH = 300

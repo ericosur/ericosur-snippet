@@ -1,18 +1,17 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 '''
 further reading:
 https://stackoverflow.com/questions/865115/how-do-i-correctly-clean-up-a-python-object
 '''
 
-from __future__ import print_function
+
 #import numpy as np
 import cv2
-
 from imgconfig import read_image_config
 
-class MyCap():
+
+class MyCap:
     ''' class MyCap to capture video from webcam and perform blur '''
 
     def __init__(self, readConfig=True, name='gblur.py'):
