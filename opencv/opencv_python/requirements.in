@@ -2,8 +2,9 @@ numpy
 opencv-python
 scikit-image
 requests
-
 rich
-ruff
-pytest
 
+mypy
+ruff
+pylint
+pytest
