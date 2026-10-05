@@ -101,6 +101,9 @@ ZIP_SOURCE=""
 
 if [ -n "$INPUT_ZIP" ]; then
     # Mode 1: Manual local zip file
+    if command -v cygpath &> /dev/null; then
+        INPUT_ZIP="$(cygpath -u "$INPUT_ZIP")"
+    fi
     if [ ! -f "$INPUT_ZIP" ]; then
         echo "[ERROR] Specified input file does not exist: $INPUT_ZIP"
         exit 1
@@ -127,11 +130,14 @@ else
     echo "==> Target Asset : $ASSET_NAME"
     echo "==> Downloading test assets from private repo..."
 
-    gh release download "$TAG" \
-      --repo "$REPO" \
-      --pattern "$ASSET_NAME" \
-      --dir "$DATA_DIR" \
-      --clobber
+    (
+        cd "$DATA_DIR"
+        gh release download "$TAG" \
+          --repo "$REPO" \
+          --pattern "$ASSET_NAME" \
+          --dir . \
+          --clobber
+    )
 
     ZIP_SOURCE="${DATA_DIR}/${ASSET_NAME}"
     if [ ! -f "$ZIP_SOURCE" ]; then
