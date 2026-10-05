@@ -2,6 +2,25 @@
 
 practice for python / opencv
 
+## TL;DR
+
+```bash
+# 1. Setup virtual environment & dependencies
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+
+# 2. Fetch test image assets into ./data/
+./fetch_assets.sh
+# Or without confirmation prompt:
+# ./fetch_assets.sh -f
+# Or using a local archive:
+# ./fetch_assets.sh -i /path/to/image-assets.zip
+
+# 3. Run a sample script
+python hellocv.py
+```
+
 recommended modules:
 
 * opencv-contrib-python

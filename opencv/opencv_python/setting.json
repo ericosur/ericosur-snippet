@@ -2,7 +2,7 @@
     "name": "foo",
     "comment": "setting for multiple python script, splitted by script name",
     "global": {
-        "image_base_dir": "/home/user/Pictures/data",
+        "image_base_dir": "./data",
         "images": [
             "flower_and_bee.jpg"
         ]
