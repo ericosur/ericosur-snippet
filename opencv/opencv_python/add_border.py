@@ -1,15 +1,22 @@
 ''' add border from a image '''
 
 import os
+import sys
+from random import choice
 from typing import Any
 
 import cv2
 from cv2.typing import MatLike
-from imgconfig import prt, read_image_config
 
 # to omit the warning
 if os.path.isdir('/usr/share/fonts/truetype/dejavu'):
     os.environ['QT_QPA_FONTDIR'] = '/usr/share/fonts/truetype/dejavu'
+
+try:
+    from imgconfig import prt, read_image_config
+except ImportError:
+    print('[INFO] imgconfig not found, exit...')
+    sys.exit(1)
 
 
 class Solution:
@@ -40,7 +47,7 @@ class Solution:
             msg = f"No valid image list found under key '{self.config_key}'"
             raise ValueError(msg)
 
-        fullpath = os.path.join(base_path, imgs[0])
+        fullpath = os.path.join(base_path, choice(imgs))
         if not os.path.exists(fullpath):
             raise FileNotFoundError(f'Image file not found: {fullpath}')
         return fullpath

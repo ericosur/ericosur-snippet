@@ -4,7 +4,12 @@
     "global": {
         "image_base_dir": "./data",
         "images": [
-            "flower_and_bee.jpg"
+            "dallehorse.jpg",
+            "deer.png",
+            "flower_and_bee.jpg",
+            "img7863.jpg",
+            "lena.jpg",
+            "test.jpg"
         ]
     },
     "gblur.py": {

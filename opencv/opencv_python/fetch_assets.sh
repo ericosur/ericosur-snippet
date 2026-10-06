@@ -4,7 +4,7 @@ set -e
 # ==================== Configuration (Modify here for new releases) ====================
 REPO="ericosur/private"
 DEFAULT_TAG="v0.0.1-alpha"
-DEFAULT_ASSET="image-assets-v0.0.1.zip"
+DEFAULT_ASSET="image-assets-v0.0.2.zip"
 # ======================================================================================
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
