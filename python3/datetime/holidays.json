@@ -62,5 +62,107 @@
             "date": "2026-12-25",
             "name": "Christmas Day"
         }
+    ],
+    "holidays_2027": [
+        {
+            "date": "2027-01-01",
+            "name": "New Year's Day"
+        },
+        {
+            "date": "2027-02-04",
+            "name": "Lunar New Year Holiday"
+        },
+        {
+            "date": "2027-02-05",
+            "name": "Lunar New Year Holiday"
+        },
+        {
+            "date": "2027-02-06",
+            "name": "Lunar New Year Holiday"
+        },
+        {
+            "date": "2027-02-07",
+            "name": "Lunar New Year Holiday"
+        },
+        {
+            "date": "2027-02-08",
+            "name": "Lunar New Year Holiday"
+        },
+        {
+            "date": "2027-02-09",
+            "name": "Lunar New Year Holiday"
+        },
+        {
+            "date": "2027-02-10",
+            "name": "Lunar New Year Holiday"
+        },
+        {
+            "date": "2027-03-01",
+            "name": "Peace Memorial Day (observed)"
+        },
+        {
+            "date": "2027-04-03",
+            "name": "Children's Day / Tomb Sweeping Day Holiday"
+        },
+        {
+            "date": "2027-04-04",
+            "name": "Children's Day / Tomb Sweeping Day Holiday"
+        },
+        {
+            "date": "2027-04-05",
+            "name": "Children's Day / Tomb Sweeping Day Holiday"
+        },
+        {
+            "date": "2027-04-06",
+            "name": "Children's Day / Tomb Sweeping Day Holiday"
+        },
+        {
+            "date": "2027-04-30",
+            "name": "Labor Day (observed)"
+        },
+        {
+            "date": "2027-06-09",
+            "name": "Dragon Boat Festival"
+        },
+        {
+            "date": "2027-07-16",
+            "name": "Company Holiday"
+        },
+        {
+            "date": "2027-08-09",
+            "name": "HQ Holiday"
+        },
+        {
+            "date": "2027-09-15",
+            "name": "Mid-Autumn Festival"
+        },
+        {
+            "date": "2027-09-27",
+            "name": "Company Holiday"
+        },
+        {
+            "date": "2027-09-28",
+            "name": "Teacher's Day"
+        },
+        {
+            "date": "2027-10-11",
+            "name": "National Day (observed)"
+        },
+        {
+            "date": "2027-10-25",
+            "name": "Taiwan Retrocession Day"
+        },
+        {
+            "date": "2027-11-26",
+            "name": "HQ Holiday"
+        },
+        {
+            "date": "2027-12-24",
+            "name": "Constitution Day (observed)"
+        },
+        {
+            "date": "2027-12-31",
+            "name": "New Year's Day (observed)"
+        }
     ]
 }
