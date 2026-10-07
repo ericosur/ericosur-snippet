@@ -67,17 +67,11 @@ class CollectWeekday:
         self.logd = do_nothing  # default log function
         self.datafile = self.__set_datafile()
 
-    def __set_datafile(self) -> str:
+    def __set_datafile(self, use_private_data: bool = False) -> str:
         ''' set data file '''
-        # default value
-        logd = self.logd
-        ret = self.HOLIDAYS_JSON
-        home = os.path.expanduser('~')
-        private_path = os.path.join(home, 'Private', self.HOLIDAYS_JSON)
-        if os.path.isfile(private_path):
-            ret = private_path
-            logd(f'[INFO] using private data file: {ret}')
-        return ret
+        if use_private_data:
+            return os.path.join(os.path.expanduser('~'), 'Private', self.HOLIDAYS_JSON)
+        return os.path.join(os.path.dirname(os.path.abspath(__file__)), self.HOLIDAYS_JSON)
 
     def load_holidays(self, the_year: int, jsonfile: str = HOLIDAYS_JSON) -> None:
         ''' load holidays from json file with specified year '''
@@ -207,6 +201,8 @@ class CollectWeekday:
             # show holidays for a specific year, default current year
             vacation: Annotated[bool, typer.Option("-v", "--vacation", help="Show vacation info, default is current year")] = False,
             vacation_year: Annotated[int | None, typer.Option("--vacation-year", help="Must specify the year")] = None,
+            private_data: Annotated[bool,
+                typer.Option("--private-data", "-p", help="Load holidays from ~/Private/holidays.json", is_flag=True)] = False,
             # debug mode
             debug: Annotated[bool,
                 typer.Option("--debug", "-d", help="turn on debug", is_flag=True)] = False,
@@ -223,6 +219,7 @@ class CollectWeekday:
             '''
             logd = _logd if debug else do_nothing
             self.set_logd(logd)
+            self.datafile = self.__set_datafile(private_data)
             # show vacation days and exit
             if vacation:
                 this_year = get_thisyear()
@@ -249,6 +246,7 @@ class CollectWeekday:
                     target_date = datetime(year, month, 1).astimezone()
 
             if target_date is None:
+                logd(f'[INFO] holidays data file: {self.datafile}')
                 print("""[INFO] You need specify some date (yyyy-mm)
     Get some help, use "--help"
     Or you can use:
