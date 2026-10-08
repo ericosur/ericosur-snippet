@@ -54,9 +54,23 @@
             "date": "2026-07-04",
             "name": "Independence Day"
         },
+
+
         {
-            "date": "2026-10-31",
-            "name": "Halloween"
+            "date": "2026-09-25",
+            "name": "Middle Autumn Festival"
+        },
+        {
+            "date": "2026-09-28",
+            "name": "Teacher's Day"
+        },
+        {
+            "date": "2026-10-09",
+            "name": "Taiwan National Day's Eve"
+        },
+        {
+            "date": "2026-10-26",
+            "name": "Kinmen Guningtou Battle Victory Memorial Day"
         },
         {
             "date": "2026-12-25",
