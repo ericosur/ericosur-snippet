@@ -1,13 +1,10 @@
-#!/usr/bin/env python3
-#
-# pylint: disable=wrong-import-position
-#
-
 '''
 calculate total working days
 '''
 
 import sys
+from collections.abc import Callable
+from typing import Any
 
 try:
     from datetime_common import do_nothing, logd, prt  # type: ignore[import]
@@ -29,19 +26,19 @@ class CalcWork:
     ''' calc work class '''
     DATA_FILE = 'working-days.json'
 
-    def __init__(self, _debug: bool=False):
-        self.conf = ""
-        self.data = None
-        self.max_year = 2030
-        self.min_year = 2000
-        self.all_days = []
-        self._debug = _debug
-        self._log = logd if _debug else do_nothing
+    def __init__(self, _debug: bool=False) -> None:
+        self.conf: str = ""
+        self.data: dict[str, Any] | None = None
+        self.max_year: int = 2999
+        self.min_year: int = 1999
+        self.all_days: list[int] = []
+        self._debug: bool = _debug
+        self._log: Callable[..., None] = logd if _debug else do_nothing
         self._load_conf()
-        self.from_year = self.min_year if self.min_year else 2023
-        self.to_year = self.max_year if self.max_year else WhatNow().year
+        self.from_year: int = self.min_year if self.min_year else 2023
+        self.to_year: int = self.max_year if self.max_year else WhatNow().year
 
-    def _load_conf(self):
+    def _load_conf(self) -> None:
         ''' load conf '''
         self._log(f'[{TAG}] _load_conf()...')
         datafile = DefaultConfig(self.DATA_FILE, debug=False).get_default_config()
@@ -53,12 +50,13 @@ class CalcWork:
         self.data = read_jsonfile(datafile)
         assert self.data, '[FAIL] cannot load data'
         self._log(f'[{TAG}] data loaded, keys: {list(self.data.keys())}')
-        self.max_year = self.data['maxyear']
-        self.min_year = self.data['minyear']
+        years = [int(key[4:]) for key in self.data if key.startswith('year') and key[4:].isdigit()]
+        self.min_year = min(years)
+        self.max_year = max(years)
         self._log(f'[{TAG}] max_year: {self.max_year}')
         self._log(f'[{TAG}] min_year: {self.min_year}')
 
-    def calc(self, key):
+    def calc(self, key: str) -> None:
         ''' calc '''
         max_mon, min_mon = "", ""
         max_day, min_day = 0, 99
@@ -86,20 +84,20 @@ class CalcWork:
         print(f'{max_mon}, {max_day},', end='  ')
         print(f'{min_mon}, {min_day}')
 
-    def calc_alldays(self):
+    def calc_alldays(self) -> None:
         ''' about all days '''
         sz = len(self.all_days)
         t = sum(self.all_days)
         avg = float(t) / float(sz)
         prt(f'\nTotal months: {sz}, avg {avg:.2f} per month')
 
-    def print_header(self):
+    def print_header(self) -> None:
         ''' print header '''
         prt(f'From {self.from_year} to {self.to_year}')
         prt("year  sum  ratio    max m/d   min m/d")
         prt("----  ---  -----    -------   -------")
 
-    def print_years(self):
+    def print_years(self) -> None:
         ''' print years '''
         for y in range(self.from_year, self.to_year+1):
             k = f'year{y}'
@@ -107,7 +105,7 @@ class CalcWork:
         self.calc_alldays()
 
     @classmethod
-    def run(cls, _debug: bool=False):
+    def run(cls, _debug: bool=False) -> None:
         ''' run '''
         obj = cls(_debug)
         obj.print_header()
