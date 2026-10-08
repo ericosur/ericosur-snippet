@@ -29,7 +29,7 @@ This document tracks the remaining test image asset needs, replacement plans, an
 - [ ] **`img1.jpg`**, **`img2.jpg`**: Used by [`cvutil.py`](cvutil.py) (horizontal image combination and resizing)
 - [ ] **`c50.jpg`**: Used by [`persp-transform/go.sh`](persp-transform/go.sh) (4-point perspective transformation example, e.g. card/document/business card)
 - [ ] **`headPose.jpg`**: Used by [`headPose.py`](headPose.py) (3D head pose estimation, requires facial features at specific 2D coordinates)
-- [ ] **`./data/*.jpg`**: Used by [`faceland.py`](faceland.py) (Dlib 68-point facial landmark detection, requires face images and `shape_predictor_68_face_landmarks.dat`)
+- [ ] **`./data/*.jpg`**: Used by [`dlib/faceland.py`](dlib/faceland.py) (Dlib 68-point facial landmark detection, requires face images and `shape_predictor_68_face_landmarks.dat`)
 
 ---
 
@@ -38,7 +38,7 @@ This document tracks the remaining test image asset needs, replacement plans, an
 - [ ] **Select, photograph, or crop custom photos (~5 to 8 images)**:
   - **General still life / landscape photos**: Can cover most algorithm tests (replacing `flower_and_bee`, `wallpaper`, `img*`, `top/bot`, `img1/2`, etc.).
   - **Perspective transformation photo**: A flat rectangular object placed on a surface (book, card, or business card to replace `c50.jpg`).
-  - **Face photo (optional)**: Required only if running `headPose.py` or `faceland.py` with clear frontal face features.
+  - **Face photo (optional)**: Required only if running `headPose.py` or `dlib/faceland.py` with clear frontal face features.
 - [ ] **Dimensions & file size optimization**:
   - Resize dimensions appropriately (1080p or 2K recommended), keeping individual file sizes within 1MB ~ 3MB.
 
