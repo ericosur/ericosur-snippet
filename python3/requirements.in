@@ -16,6 +16,7 @@ numpy-financial
 openpyxl
 pandas
 pillow
+pip
 platformdirs
 pycryptodome
 pydantic
