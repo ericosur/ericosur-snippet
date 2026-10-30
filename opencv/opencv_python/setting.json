@@ -24,7 +24,7 @@
         "height": 480
     },
     "readim.py" : {
-        "path": "/home/user/Pictures/data",
+        "path": "data",
         "images" : [
             "img2668.jpg",
             "img2980.jpg",
@@ -32,8 +32,8 @@
         ]
     },
     "split.py" : {
-        "__image_file": "Pictures/lena.png",
-        "image_file": "Pictures/data/47916-wallpaper.jpg"
+        "__image_file": "data/lena.jpg",
+        "image_file": "data/flower_and_bee.jpg"
     },
     "vcap.py" : {
         "video_index": 0,

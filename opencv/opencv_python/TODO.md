@@ -5,13 +5,8 @@ Outstanding image and path work for the OpenCV examples. Test assets belong in t
 ## Missing image assets
 
 - [ ] Resolve missing `dallehorse.jpg` and `lena.jpg` entries in `setting.json` (`global.images`), used by [`add_border.py`](add_border.py): add the files to `data/` or remove the entries.
-- [ ] Add `47916-wallpaper.jpg` for [`split.py`](split.py).
 - [ ] Add `img2668.jpg`, `img2980.jpg`, and `eefb19f7599a5.jpg` for [`readim.py`](readim.py).
 - [ ] Add `top.jpg` and `bot.jpg` for [`cvadd.py`](cvadd.py).
 - [ ] Add `img1.jpg` and `img2.jpg` for [`cvutil.py`](cvutil.py).
 - [ ] Add `c50.jpg` for [`persp-transform/go.sh`](persp-transform/go.sh), with a flat rectangular subject for perspective correction.
 - [ ] Add a `headPose.jpg` image for [`headPose.py`](headPose.py) that matches its hard-coded facial landmark coordinates.
-
-## Image paths
-
-- [ ] Make [`readim.py`](readim.py) and [`split.py`](split.py) resolve image paths from the project `data/` directory. Both currently prepend `$HOME` to the configured path, and `readim.py.path` is absolute.

@@ -23,8 +23,8 @@ class OpencvSample:
     def _read_config(self):
         ''' read config '''
         self.data = read_image_config()
-        home = os.environ.get('HOME')
-        picpath = os.path.join(home, self.data[self.app_name]['path'])
+        base = os.path.dirname(os.path.abspath(__file__))
+        picpath = os.path.join(base, self.data[self.app_name]['path'])
         print(f'{picpath=}')
         for imgf in self.data[self.app_name]['images']:
             fn = os.path.join(picpath, imgf)
