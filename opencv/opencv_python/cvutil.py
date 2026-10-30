@@ -21,7 +21,7 @@ def translate_img_to_str(fn):
     if result:
         #print('img_str: {}'.format(img_str))
         data = numpy.array(img_str)
-        stringData = data.tostring()
+        stringData = data.tobytes()
         return stringData
 
     print('failed to imencode')

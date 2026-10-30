@@ -103,7 +103,7 @@ class MyCap:
         skin = cv2.inRange(imgYCrCb, min_YCrCb, max_YCrCb)
 
         # Do contour detection on skin region
-        _, contours, _ = cv2.findContours(skin, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        contours, _ = cv2.findContours(skin, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         #foo, contours, hierarchy = cv2.findContours(skin, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 
         #cv2.drawContours(im2, contours,-1,(127,255,0),1)

@@ -23,35 +23,6 @@
         "width": 640,
         "height": 480
     },
-    "imgur.py": {
-        "picture": [
-            {
-                "title": "lena",
-                "fn": "lena.jpg",
-                "url": "https://i.imgur.com/H0WsDJg.jpg"
-            },
-            {
-                "title": "vwcar",
-                "fn": "vwcar.jpg",
-                "url": "https://i.imgur.com/H0WsDJg.jpg"
-            },
-            {
-                "title": "deer",
-                "fn": "deer.png",
-                "url": "https://i.imgur.com/yU4Cbzw.png"
-            },
-            {
-                "title": "smallhorse",
-                "fn": "smallhorse.jpg",
-                "url": "https://i.imgur.com/yl5Ed7p.jpg"
-            }
-        ]
-    },
-    "loadimgur.py": {
-        "lena": "https://i.imgur.com/H0WsDJg.jpg",
-        "deer": "https://i.imgur.com/yU4Cbzw.png",
-        "lego": "https://i.imgur.com/Y7VTPOi.jpg"
-    },
     "readim.py" : {
         "path": "/home/user/Pictures/data",
         "images" : [

@@ -9,7 +9,7 @@
 1. **避免 Git 倉庫膨脹**：測試用圖檔不直接 commit 進目前的 `opencv_python` 程式碼倉庫，保持 Git Clone 與更新時的輕巧快速。
 2. **私密性與自有圖片**：使用自己拍攝的風景/靜物照片（無版權風險、可自由裁切調整解析度），**不希望被公開索引或被大眾隨意瀏覽**。
 3. **跨平台多環境自動拉取**：在不同作業系統與開發環境中，不需要每次手動傳輸圖檔；腳本執行時自動從遠端同步下載至本地。
-4. **替代不穩定的 Imgur**：Imgur 如今會主動阻擋 Python User-Agent（回傳 429/403）、防盜連重定向以及清除舊圖，已不適合作為測試素材圖床。
+4. **圖片來源可控**：測試素材透過私有 GitHub Release 發佈，再下載到本機使用；程式執行時不從外部圖片 URL 讀取素材。
 
 ---
 
@@ -18,7 +18,7 @@
 | 方案 | 隱私性與安全性 | 免費額度 / 成本 | 跨平台設定複雜度 | 適合場景 |
 | :--- | :--- | :--- | :--- | :--- |
 | **方案 A：獨立私有 GitHub 倉庫 (推薦)** | **高** (Private 權限控管) | 免費 (一般個人帳號均支援) | **低** (開發環境通常已具備 GitHub Token / SSH) | 既有 GitHub 開發者、希望完全私密且零額外服務成本 |
-| **方案 B：Cloudflare R2 物件儲存** | **中 ~ 高** (可選 S3 金鑰或未列出長路徑) | 10 GB 儲存免費，**完全免流量費** | **中** (需 Cloudflare 帳號，可免金鑰或使用 `boto3`) | 追求最接近以前 Imgur 的直連體驗，但 100% 自主控管 |
+| **方案 B：Cloudflare R2 物件儲存** | **中 ~ 高** (可選 S3 金鑰或未列出長路徑) | 10 GB 儲存免費，**完全免流量費** | **中** (需 Cloudflare 帳號，可免金鑰或使用 `boto3`) | 適合需要直接存取且希望自主控管的情境 |
 | **方案 C：Cloudinary** | **中** (可設定不公開 listing) | 每月 25 點數 (~25GB 流量與空間) | **低** (直接使用 URL 或官方 SDK) | 原圖很大、希望由雲端自動縮放裁切 (URL 帶參數) |
 
 ---
@@ -49,7 +49,7 @@
 
 Cloudflare R2 最大的優勢在於**完全不收取外網出流量費用（$0 Egress Fee）**。
 
-* **模式 1：Unlisted (未列出/隱密路徑，最貼近 Imgur 舊模式)**
+* **模式 1：Unlisted (未列出/隱密路徑)**
   * 綁定一個不對外公開的自訂子網域或隨機長路徑（例如：`assets-vault.yourdomain.com/secret-hash-9182/deer.png`）。
   * 關閉目錄列表瀏覽（Directory Listing），搜尋引擎無從爬取。
   * 腳本只需發送一般 HTTP GET 即可下載，無須配置 API 金鑰。
@@ -68,48 +68,6 @@ Cloudflare R2 最大的優勢在於**完全不收取外網出流量費用（$0 E
 
 ---
 
-## 4. 針對本專案的架構改造建議：Local Cache-First 模式
+## 4. 本專案的圖片素材流程
 
-檢視專案中的 [`setting.json`](setting.json) 與 [`imgur.py`](imgur.py)，建議將圖片獲取機制標準化為「**本機快取優先（Cache-First）**」流程：
-
-1. **在專案中建立快取目錄**（例如 `test_data/` 或 `.cache/`），並加入 [`.gitignore`](.gitignore)：
-   ```gitignore
-   test_data/
-   .cache/
-   ```
-2. **重構下載輔助函式**：
-   在執行任何 OpenCV 演算法前，由模組統一負責檢查檔案是否已存在本地：
-   * **本地已存在**：直接回傳本地路徑（快速、離線可用）。
-   * **本地不存在**：根據設定檔中指向的遠端 URL / 私有資源下載並寫入快取目錄。
-
-### 推薦的 Helper 實作程式碼
-
-```python
-import os
-import requests
-
-CACHE_DIR = os.path.join(os.path.dirname(__file__), "test_data")
-os.makedirs(CACHE_DIR, exist_ok=True)
-
-def get_image(filename: str, remote_url: str, auth_token: str = None) -> str:
-    """檢查本地快取，若無則自遠端下載"""
-    local_path = os.path.join(CACHE_DIR, filename)
-    if os.path.exists(local_path):
-        return local_path
-
-    print(f"[Cache-Miss] Downloading {filename} from {remote_url}...")
-    headers = {"User-Agent": "Mozilla/5.0"}
-    if auth_token:
-        headers["Authorization"] = f"token {auth_token}"
-
-    resp = requests.get(remote_url, headers=headers)
-    resp.raise_for_status()
-
-    with open(local_path, "wb") as f:
-        f.write(resp.content)
-
-    print(f"[Downloaded] Saved to {local_path}")
-    return local_path
-```
-
-此架構能徹底解決換環境需要手動搬運圖片的問題，同時兼顧 Git 倉庫整潔與照片隱私。
+測試圖片由私有 GitHub Release 提供，使用 [`fetch_assets.sh`](fetch_assets.sh) 下載並解壓縮至 `./data/`。也可以透過 `./fetch_assets.sh -i <archive.zip>` 使用本機提供的壓縮檔。OpenCV 範例從本機設定路徑讀取圖片，不在程式執行期間連線下載圖片。

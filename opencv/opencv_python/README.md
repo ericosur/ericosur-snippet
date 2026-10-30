@@ -26,8 +26,6 @@ recommended modules:
 * opencv-contrib-python
 * opencv-python
 * numpy
-* scikit-image
-* dlib
 
 --
 
@@ -49,17 +47,6 @@ output to file
 script uses video capture, and two actions:
   * one performs BGR2GRAY,
   * the other performs minus 128 (all channels?)
-
-## dlib
-
-Subfolder [`dlib/`](dlib/) contains dlib-related scripts and notes:
-* [`dlib/about-dlib.md`](dlib/about-dlib.md): Installation guide, Modern Python compatibility, and alternatives (OpenCV DNN / MediaPipe).
-* [`dlib/faceland.py`](dlib/faceland.py): Face landmark detection example.
-* [`dlib/fooface.py`](dlib/fooface.py): Webcam face detection and 68-point landmark tracking.
-
-Note: Need predictor data file (`shape_predictor_68_face_landmarks.dat`) to make predictor work. It could be downloaded from:
-http://dlib.net/face_landmark_detection.py.html
-
 
 ## notes
 

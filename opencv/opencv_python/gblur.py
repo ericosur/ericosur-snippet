@@ -71,7 +71,7 @@ class MyCap:
                     cv2.imshow('frame', frame)
                 else:
                     # Our operations on the frame come here
-                    blur = cv2.GaussianBlur(frame, (self.sigma_x, self.sigma_y), 0)
+                    blur = cv2.GaussianBlur(frame, (0, 0), sigmaX=self.sigma_x, sigmaY=self.sigma_y)
                     cv2.imshow('rgb', frame)
                     cv2.imshow('blur', blur)
 

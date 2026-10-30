@@ -25,12 +25,12 @@ def preprocess(src):
 
 def apply_mean(src):
     ''' apply some mean values '''
-    img = cv2.resize(src, (THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT))
+    img = cv2.resize(src, (THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT)).astype(np.float32)
     b, g, r = cv2.split(img)
     #104,117,123
-    b = np.subtract(b, 104)
-    g = np.subtract(g, 117)
-    r = np.subtract(r, 123)
+    b = b - 104
+    g = g - 117
+    r = r - 123
     #zeros = np.zeros((img.shape[0],img.shape[1]), dtype=img.dtype)
     img = cv2.merge([b, g, r])
     return img

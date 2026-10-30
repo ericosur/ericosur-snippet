@@ -19,7 +19,7 @@ def main():
     # imgg = cv2.imencode('.png', img)
 
     data_encode = np.array(img_encode)
-    str_encode = data_encode.tostring()
+    str_encode = data_encode.tobytes()
 
     # actually, str_encode is exactly the JPEG bytearray
     # so name it as "foo.jpg" works fine
@@ -34,7 +34,7 @@ def main():
     with open(ofn, 'rb') as f:
         str_encode = f.read()
 
-    nparr = np.fromstring(str_encode, np.uint8)
+    nparr = np.frombuffer(str_encode, np.uint8)
     img_decode = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
     cv2.imshow("img_decode", img_decode)
     cv2.waitKey(0)
