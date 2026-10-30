@@ -12,7 +12,7 @@ import logging
 import math
 import struct
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from sysconfig import get_platform
 
 logi = logging.info
@@ -95,7 +95,7 @@ def sick_to_datetime(val: int) -> None | datetime:
     keep_len = len(str_val) - 9
     str_val = str_val[:keep_len]
     logd(f'  {str_val=}')
-    dt = datetime.fromtimestamp(int(str_val), tz=timezone.utc)
+    dt = datetime.fromtimestamp(int(str_val), tz=UTC)
     return dt
 
 def get_sick_from_ns(ns_val: int) -> int:

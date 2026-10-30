@@ -22,7 +22,7 @@ import argparse
 import logging
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 try:
     from datetime_common import console, get_prt, prt
@@ -47,9 +47,9 @@ class Solution:
 
     def get_range(self):
         ''' get range '''
-        dt1 = datetime(2024, 8, 21, 0, 0, 0, tzinfo=timezone.utc)
+        dt1 = datetime(2024, 8, 21, 0, 0, 0, tzinfo=UTC)
         self.min_epoch = dt1.timestamp()
-        dt2 = datetime(2024, 8, 29, 23, 59, 59, tzinfo=timezone.utc)
+        dt2 = datetime(2024, 8, 29, 23, 59, 59, tzinfo=UTC)
         self.max_epoch = dt2.timestamp()
 
     def process_values(self, vals: list[int]):
@@ -144,7 +144,7 @@ def look_for_head5() -> None:
 def look_for_1e9() -> None:
     ''' 1e9 loop '''
     obj = Solution()
-    d1 = datetime_to_sick(datetime(2024, 8, 21, 20, 36, tzinfo=timezone.utc))
+    d1 = datetime_to_sick(datetime(2024, 8, 21, 20, 36, tzinfo=UTC))
     #d2 = datetime_to_sick(datetime(2024, 8, 27, 13, 22))
     for i in range(1, 1_000_000_000):
         obj.check(d1+i)

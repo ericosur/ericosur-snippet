@@ -6,7 +6,7 @@ using google AI studio
 '''
 
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 try:
     import google.generativeai as genai
@@ -57,7 +57,7 @@ class Solution:
         logd = self.console.log
         logd("incoming msg...")
         with open(self.log, "at", encoding='utf-8') as flog:
-            print(datetime.now(tz=timezone.utc), file=flog)
+            print(datetime.now(tz=UTC), file=flog)
             print(msg, file=flog)
 
     def action(self):

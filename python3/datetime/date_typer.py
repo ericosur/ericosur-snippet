@@ -8,7 +8,7 @@ since it is called "[a-z]+_typer.py", the typer is required
 '''
 
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Annotated
 
 try:
@@ -87,7 +87,7 @@ def main(
         logd(f'{dateval=}')
         logd(f'may also use: date +%s -d"{dateval}"')
         if utc:
-            ts = int(dateval.replace(tzinfo=timezone.utc).timestamp())
+            ts = int(dateval.replace(tzinfo=UTC).timestamp())
         else:
             ts = int(dateval.astimezone().timestamp())
         print(f'{ts} ({tz_label})')

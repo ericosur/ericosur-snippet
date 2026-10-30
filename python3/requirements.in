@@ -15,7 +15,7 @@ numpy
 numpy-financial
 openpyxl
 pandas
-pillow
+pillow>=13.0.0
 pip
 platformdirs
 pycryptodome

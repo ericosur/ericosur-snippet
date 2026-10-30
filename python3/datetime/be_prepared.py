@@ -6,7 +6,7 @@ for exampe, given year=2024, radius(context)=2
 will retrun a list: [2022,2023,2024,2025,2026]
 '''
 
-from datetime import date, datetime, timedelta, timezone
+from datetime import UTC, date, datetime, timedelta, timezone
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 try:
@@ -17,7 +17,7 @@ except ZoneInfoNotFoundError:
 
 def get_utc_thisyear() -> int:
     ''' get this year UTC '''
-    return datetime.now(tz=timezone.utc).year
+    return datetime.now(tz=UTC).year
 
 def get_thisyear() -> int:
     ''' get this year in local timezone '''
@@ -25,7 +25,7 @@ def get_thisyear() -> int:
 
 def get_current_utc_datetime() -> datetime:
     ''' get this year UTC as datetime '''
-    return datetime.now(tz=timezone.utc)
+    return datetime.now(tz=UTC)
 
 def get_current_local_datetime() -> datetime:
     return datetime.now().astimezone()
