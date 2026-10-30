@@ -33,7 +33,7 @@ For 4 doors, chances to get the car is 3/8.
 from random import randint
 from time import time
 
-from random_common import get_console, import_rich, prt
+from random_common import import_rich, prt
 
 USE_RICH = import_rich()
 
@@ -44,11 +44,10 @@ if USE_RICH:
     except ImportError as e:
         print(f'failed to import: {e}')
 
-    console = get_console()
     if __doc__:
         md = Markdown(__doc__)
-        console.print(md)
-        console.print()
+        prt(md)
+        prt()
 
 class MontyHall:
     ''' solution for monty hall problem '''
@@ -89,7 +88,6 @@ class MontyHall:
                     self.cnt_car += 1
                 else:
                     self.cnt_goat += 1
-            progress.update(task, advance=self.REPEAT/progress_unit)
         duration = time() - start
         self.show_result(duration)
 
