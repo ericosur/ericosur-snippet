@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
 # Almost the same as ``MyBack'' program at
-# C:\Projects\§pµ{¶°\myBack\myBack.exe
+# C:\Projects\Â∞èÁ®ãÂºè\myBack\myBack.exe
 # -- Jul 22 1998 by Eric
 # init version
 # -- Aug 6 1998 by Eric

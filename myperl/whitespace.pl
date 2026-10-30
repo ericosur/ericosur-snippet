@@ -52,7 +52,7 @@ my %data = ();
 
 my $file;
 foreach $file (grep { ! -d } @ARGV) {
-    $data{$file} = {'handle' => new Whitespace($file)};
+    $data{$file} = {'handle' => Whitespace->new($file)};
     my $h = $data{$file}->{'handle'};
     $data{$file}->{'stat'} = $h->detect();
 }

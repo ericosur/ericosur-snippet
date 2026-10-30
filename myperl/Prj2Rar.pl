@@ -41,7 +41,8 @@ my $arc_path = 'c:\\temp\\';                # trailing '#' is needed
 
 die "cannot find $rarpath$rarbin\n" unless -e $rarpath . $rarbin;
 # compress plain files...
-my $arc_file = $arc_path . 'test.rar';
+my @t = localtime(time);
+my $arc_file = sprintf('%sPrj%04d%02d%02d_%02d%02d.rar', $arc_path, $t[5]+1900, $t[4]+1, $t[3], $t[2], $t[1]);
 my $cmd = "$rarpath$rarbin $action $arc_file \@$tmp_dir$to_comp_list";
 print "$cmd\n";
 system $cmd;

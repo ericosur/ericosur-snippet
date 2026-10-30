@@ -2,6 +2,9 @@
 
 # Build All projects in/below \\Projects
 
+use strict;
+use warnings;
+
 my $bpr_list = "bprlist";
 my $prj_dir = "c:\\projects";
 
@@ -28,7 +31,7 @@ my $list_name = $bpr_list;
         }
         print "Enter [$prj_path]\n";
         if (-e $prj_name) {
-            system "make -f$prj_name";
+            system 'make', "-f$prj_name";
         }
         else {
             print "$prj_name not exist\n"
@@ -40,7 +43,7 @@ my $list_name = $bpr_list;
   } # while ...
   close(FILE);
 
-chdir $prj_dir;
+chdir $prj_dir or warn "cannot chdir to $prj_dir\n";
 unlink $bpr_list;
 
 print "total processed: $cnt files\n";

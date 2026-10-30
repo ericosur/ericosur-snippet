@@ -8,7 +8,7 @@ while ( <> ) {
 #    my $line = $_;
 #    chop($line);
 #    print STDOUT "[$line]\n";
-    s/\s+\n$//;
+    s/[ \t\r]+$//;
 
     print STDOUT "$_";
 };

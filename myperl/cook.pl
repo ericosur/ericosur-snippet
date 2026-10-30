@@ -7,7 +7,7 @@
 # improve efficiency
 
 use strict;
-use Benchmark;
+use warnings;
 use vars qw( $name $power $pa $love $bear $study $quality $tech
     $tenacity $tj $fj );
 
@@ -47,7 +47,7 @@ my $output = "out.csv";
 if (-e $output) {
     unlink $output or die "cannot unlink $output\n";
 }
-open(OUTCSV, ">$output");
+open(OUTCSV, '>', $output) or die "cannot open $output\n";
 
 my $dir = "d:\\bistro\\info\\person\\cook";
 chdir $dir or die "cannot chdir to $dir\n";
@@ -55,7 +55,8 @@ chdir $dir or die "cannot chdir to $dir\n";
 my $i;
 foreach $i (1..20) {
     my $file = "cook" . sprintf("%02d", $i) . ".psn";
-    open(COOK, $file) or die "cannot open!\n";
+    open(COOK, '<', $file) or die "cannot open $file\n";
+    ($name, $power, $pa, $love, $bear, $study, $quality, $tech, $tenacity, $tj, $fj) = ('') x 11;
 
   READLINE: while (<COOK>) {
         my $line;

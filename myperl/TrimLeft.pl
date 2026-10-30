@@ -6,6 +6,6 @@
 
 while ( <> ) {
 #    print ":$_";
-    s/^\s+//;
+    s/^[ \t]+//;
     print STDOUT $_;
 };

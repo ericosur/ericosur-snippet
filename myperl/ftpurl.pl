@@ -10,10 +10,9 @@ print "please enter a FTP URL: ";
 $input = <STDIN>;
 #$input = "ftp://ftp.notexist.com.tw/pub/newfiles/readme.txt";
 
-# it would fail if no path specified
-if ( $input =~ m[^ftp://(.*?)/(.*)/(.*)] ) {
+if ( $input =~ m[^ftp://([^/\s]+)/(?:(.*)/)?([^/\s]+)\s*$] ) {
     $host = $1;
-    $path = $2;
+    $path = defined $2 ? $2 : '.';
     $file = $3;
 }
 else {
