@@ -1,6 +1,7 @@
 loguru
 matplotlib
 numpy
+pillow>=13.0.0
 pydantic
 pytest
 rich

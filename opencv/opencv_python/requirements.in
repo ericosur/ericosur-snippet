@@ -1,6 +1,7 @@
 numpy
 opencv-python
 rich
+pillow>=13.0.0
 
 mypy
 ruff

@@ -1,4 +1,5 @@
 beautifulsoup4
+certifi>=2026.10.18
 clipboard
 colorama
 cryptography
